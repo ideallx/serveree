@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{31F2B0DD-0854-46A4-B82F-BBCC0AB2C71F}</ProjectGuid>
+    <RootNamespace>DataUnitTest</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;PTW32_STATIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Fulaan\Documents\Visual Studio 2010\Projects\EBoardServer\EBoardServer\Zip;C:\Users\Fulaan\Documents\Visual Studio 2010\Projects\EBoardServer\EBoardServer\Connections;C:\Users\Fulaan\Documents\Visual Studio 2010\Projects\EBoardServer\EBoardServer\DataStructure;C:\Users\Fulaan\Documents\Visual Studio 2010\Projects\EBoardServer\EBoardServer\DataUnit;C:\Users\Fulaan\Documents\Visual Studio 2010\Projects\EBoardServer\EBoardServer\OSInedependent\pthread;C:\Users\Fulaan\Documents\Visual Studio 2010\Projects\EBoardServer\EBoardServer\OSInedependent\libiop;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\Fulaan\Documents\Visual Studio 2010\Projects\EBoardServer\EBoardServer\Zip;C:\Users\Fulaan\Documents\Visual Studio 2010\Projects\EBoardServer\EBoardServer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>zlib.lib;zdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Connections\CAbsConnection.cpp" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Connections\CAbsSocket.cpp" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Connections\CConnection.cpp" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Connections\CHubConnection.cpp" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Connections\CPeerConnection.cpp" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Connections\CReliableConnection.cpp" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Connections\CSynSocket.cpp" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\DataUnit\CBlock.cpp" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\DataUnit\CBlockManager.cpp" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\DataUnit\CMessage.cpp" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\DataUnit\CPackage.cpp" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\libiop\iop_thread.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\libiop\iop_util.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\others.cpp" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\cleanup.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\global.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_cancel.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_create.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_detach.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_equal.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_getspecific.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_key_create.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_key_delete.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_kill.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_mutexattr_destroy.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_mutex_consistent.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_mutex_destroy.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_mutex_init.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_mutex_lock.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_mutex_trylock.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_mutex_unlock.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_self.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_setschedparam.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_setspecific.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_testcancel.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_win32_attach_detach_np.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_callUserDestroyRoutines.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_MCS_lock.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_mutex_check_need_init.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_new.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_processInitialize.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_processTerminate.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_reuse.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_threadDestroy.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_threadStart.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_throw.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_tkAssocCreate.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_tkAssocDestroy.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\sched_get_priority_max.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\sched_get_priority_min.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\sched_yield.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\sem_destroy.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\sem_init.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\sem_post.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\sem_wait.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\w32_CancelableWait.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Zip\ioapi.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Zip\iowin32.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Zip\myzip.cpp" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Zip\unzip.c" />
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Zip\zip.c" />
+    <ClCompile Include="Assert.cpp" />
+    <ClCompile Include="common.cpp" />
+    <ClCompile Include="TestCBlock.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestCBlockManager.cpp" />
+    <ClCompile Include="TestConnection.cpp" />
+    <ClCompile Include="TestCPackage.cpp" />
+    <ClCompile Include="TestQueue.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Connections\CAbsConnection.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Connections\CAbsSocket.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Connections\CConnection.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Connections\CHubConnection.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Connections\CPeerConnection.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Connections\CReliableConnection.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Connections\CSynSocket.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataStructure\Pool.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataStructure\TSQueue.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\CBlock.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\CBlockManager.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\CMessage.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\CPackage.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\unzip.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\zip.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\libiop\iop_config.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\libiop\iop_thread.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\libiop\iop_util.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\others.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\config.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\context.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\implement.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\sched.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\semaphore.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\crypt.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\ioapi.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\iowin32.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\myzip.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\unzip.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\zconf.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\zip.h" />
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\zlib.h" />
+    <ClInclude Include="Assert.h" />
+    <ClInclude Include="common.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\EBoardServer\EBoardServer\Zip\zdll.lib" />
+    <Library Include="..\..\EBoardServer\EBoardServer\Zip\zlib.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\EBoardServer\EBoardServer\Zip\zlib1.dll" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
