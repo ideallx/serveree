@@ -115,7 +115,7 @@ int iop_thread_cancel(iop_thread_t t)
 {
     int r = 0;
 #ifdef WIN32
-    TerminateThread(t,0);  
+    TerminateThread(t, 0);  
 #else
     r = pthread_cancel(t);
 #endif
@@ -126,7 +126,7 @@ int iop_thread_cancel(iop_thread_t t)
 void iop_thread_exit(thread_ret_type exit_code)
 {
 #ifdef WIN32
-    ExitThread(exit_code ); 
+    ExitThread(exit_code); 
 #else
     pthread_exit(exit_code);
 #endif

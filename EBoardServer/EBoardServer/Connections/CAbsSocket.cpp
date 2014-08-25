@@ -12,7 +12,6 @@ CAbsSocket::~CAbsSocket(void) {
 
 }
 
-
 bool CAbsSocket::copy(CAbsSocket* s) {
 	if (!s)
 		return FALSE;
@@ -70,7 +69,7 @@ TS_UINT64 CAbsSocket::getAddressKey(const struct sockaddr_in addr) {
 
 	key = addr.sin_addr.s_addr;
 	key = key << 16;
-	key = key + addr.sin_port;		
+	key = key + addr.sin_port;
 
 	return key;
 }

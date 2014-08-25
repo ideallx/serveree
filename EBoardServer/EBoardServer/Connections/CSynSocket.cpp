@@ -2,7 +2,7 @@
 #include "CSynSocket.h"
 #include "../DataUnit/CMessage.h"
 
-CSynSocket::CSynSocket(void) {
+CSynSocket::CSynSocket() {
 
 }
 
@@ -23,21 +23,7 @@ bool CSynSocket::bindPort(unsigned short iPort) {
 	struct hostent *localhost;
     char *ip;
     localhost = gethostbyname("");
-	//if (NULL == localhost)
-	//	return false;
-	/*
-	ip = "192.168.1.202";
-	m_LocalAddr.sin_family = AF_INET;
-    m_LocalAddr.sin_addr.s_addr = inet_addr(ip);
-    m_LocalAddr.sin_port = htons(iPort);
 
-	rc = bind(m_Socket, (struct sockaddr *) &m_LocalAddr, m_LocalAddrSize);
-    if (rc == SOCKET_ERROR) {
-        err = WSAGetLastError();
-        return false;
-    }
-	return true;
-	*/
 	int i = 0;
 	bool find = false;
 	while (localhost->h_addr_list[i] != 0) {	// —∞’“±æª˙æ÷”ÚÕ¯IP
@@ -54,19 +40,15 @@ bool CSynSocket::bindPort(unsigned short iPort) {
     m_LocalAddr.sin_addr.s_addr = inet_addr(ip);
     m_LocalAddr.sin_port = htons(iPort);
 
-	rc = bind(m_Socket, (struct sockaddr *) &m_LocalAddr, m_LocalAddrSize);
-    if (rc == SOCKET_ERROR) {
-        err = WSAGetLastError();
-        return false;
-    }
+	if (iPort != 0) {
+		rc = bind(m_Socket, (struct sockaddr *) &m_LocalAddr, m_LocalAddrSize);
+		if (rc == SOCKET_ERROR) {
+			err = WSAGetLastError();
+			return false;
+		}
+	}
 	return true;
 #else
-	//int sock;
-	//if((sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
-	//{
-	//	cout << "sock error" << endl;
-	//    return false;
-	//}
 	struct ifreq ifr;
 	strcpy(ifr.ifr_name, "eth0");
 	if(ioctl(sock, SIOCGIFADDR, &ifr) < 0){
@@ -93,7 +75,7 @@ bool CSynSocket::createSocket(unsigned short iPort) {
 		perror("error");
 		return false;
 	} else {
-		printf("socket created .\n");
+		printf("socket created\n");
 		return bindPort(iPort);
 	}
 }
@@ -107,8 +89,6 @@ bool CSynSocket::closeSocket(void) {
 
 int CSynSocket::sendData(const char* buf, ULONG len, const struct sockaddr_in* ToAddr) {
 	int nSend = sendto(m_Socket, buf, len, 0, (sockaddr*) ToAddr, sizeof(*ToAddr));
-	//cout << m_Socket << endl;
-	//cout << inet_ntoa(ToAddr->sin_addr) << " " << htons(ToAddr->sin_port) << endl;
 	return nSend;
 }
 
@@ -116,11 +96,5 @@ int CSynSocket::recvData(char* buf, ULONG& len, struct sockaddr_in* fromAddr )
 {
 	socklen_t Fromlen = sizeof(*fromAddr);
 	int recv_len = recvfrom(m_Socket, buf, len, 0, (sockaddr*) fromAddr, &Fromlen);
-	//if (-1 == recv_len) {
-	//	return -1;
-	//}
-
-	// assert(recv_len == sizeof(ts_msg));
-	// cout << inet_ntoa(FromAddr->sin_addr) << " " << htons(FromAddr->sin_port) << endl;
 	return recv_len;
 }

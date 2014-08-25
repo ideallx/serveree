@@ -115,7 +115,8 @@ int CReliableConnection::resendForSelfLost(TS_UINT64 uid, set<TS_UINT64> pids) {
 	RCONNECT* r = (RCONNECT*) ((char *) p + sizeof(TS_MESSAGE_HEAD));
 
 	head->type = RESEND;
-	head->UID = uid;
+	head->UID = 100;
+	head->sequence = ~0;
 	int size = pids.size();				// 总共需要发的条数
 
 	while (size > 0) {
@@ -124,7 +125,7 @@ int CReliableConnection::resendForSelfLost(TS_UINT64 uid, set<TS_UINT64> pids) {
 		else
 			r->size = MaxSeqsInOnePacket;
 		size -= r->size;
-
+		head->size = r->size * sizeof(TS_UINT64) + sizeof(TS_MESSAGE_HEAD);
 		int count = 0;
 		while (count < r->size) {
 			r->seq[count++] = *iter;
@@ -133,6 +134,7 @@ int CReliableConnection::resendForSelfLost(TS_UINT64 uid, set<TS_UINT64> pids) {
 		result += (send2Peer(*p) > 0);
 	}
 
+	cout << "resend: " << result << endl;
 	delete p;
 	return result;
 }
@@ -162,6 +164,7 @@ void CReliableConnection::saveUserBlock(TS_UINT64 uid) {
 // 现在就检查一下seq，后续反正加入这个函数中
 static set<TS_UINT64> msgs;
 bool CReliableConnection::validityCheck(ts_msg& msg) {
+	// cout << getSeq(msg) << endl;
 	if (getSeq(msg) == 0)
 		return false;
 

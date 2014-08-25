@@ -26,6 +26,7 @@ CBlock::CBlock() :
 	curPackage(NULL),
 	curPackageNum(-1),
 	isFirstMsg(true) {
+	iop_lock_init(&mapLock);
 }
 
 CBlock::~CBlock() {
@@ -46,6 +47,7 @@ int CBlock::addMsg(const ts_msg& msg) {
 	DWORD packageNum, pos;
 	getArrayNumberAndPos(getSeq(msg), packageNum, pos);	// 获取array号，array地址
 
+	iop_lock(&mapLock);
 	if (packageNum != curPackageNum) {					// 若是使用最近一个包，省去find步骤
 		auto iter = blockContents.find(packageNum);
 		if (iter != blockContents.end()) {
@@ -66,10 +68,12 @@ int CBlock::addMsg(const ts_msg& msg) {
 
 			curPackageNum = packageNum;
 			curPackage = cpa;
+			blockHp.insert(make_pair(curPackageNum, initialHP));
 		}
 	}
 	pLen = curPackage->insert(msg, pos);			// 若是已有该array，则直接写入
-	cachePrivacy(curPackageNum, *curPackage);
+	iop_unlock(&mapLock);
+	// cachePrivacy(curPackageNum, *curPackage);
 
 #ifdef _DEBUG_INFO_
 	if (pLen <= 0)
@@ -82,38 +86,52 @@ int CBlock::addMsg(const ts_msg& msg) {
 
 // 缓存机制
 void CBlock::cachePrivacy(int packageNum, CPackage& p) {
-	if (!p.isFull())									// array一满，直接写文件
-		return;
-	
-	p.save(zipName, packageNum, isFirstWrite);
-	isFirstWrite = false;
-	
-	for (auto iter = blockContents.begin(); iter != blockContents.end(); iter++) {
-		int pNum = iter->first;
-		CPackage *package = iter->second;
+	//if (!p.isFull())									// array一满，直接写文件
+	//	return;
+	//
+	//p.save(zipName, packageNum, isFirstWrite);
+	//isFirstWrite = false;
+	//
+	//for (auto iter = blockContents.begin(); iter != blockContents.end(); iter++) {
+	//	int pNum = iter->first;
+	//	CPackage *package = iter->second;
 
-		if (packageNum - pNum < 2)						// 最近几个包留在内存中
-			break;
-							
-		if (iter->second->isFull()) {					// 若是这个array前面还有至少一个array已满
-			delete iter->second;
-			blockContents.erase(iter);
-			break;
-		}
-	}
+	//	if (packageNum - pNum < 2)						// 最近几个包留在内存中
+	//		break;
+	//						
+	//	if (iter->second->isFull()) {					// 若是这个array前面还有至少一个array已满
+	//		delete iter->second;
+	//		blockContents.erase(iter);
+	//		break;
+	//	}
+	//}
 }
 
 set<TS_UINT64> CBlock::scanMissingPackets() {
 	set<TS_UINT64> answers;			// 将数组号转换成的序列号
-
-	for (auto iter = blockContents.begin(); iter != blockContents.end(); iter++) {	// 搜包
-		set<int> results;															// 获取保存的位置号
-		int answer = (*iter).second->scanMissingPackets(results);					// 获取包内丢失packet的位置
-		for (auto i = results.begin(); i != results.end(); i++) {	
-			answers.insert(getSequence((*iter).first, (*i)));						// 根据包号，位置号，得到序号
+	
+	iop_lock(&mapLock);
+	for (auto iter = blockContents.begin(); iter != blockContents.end(); ) {	// 搜包
+		set<int> results;														// 获取保存的位置号
+		int answer = (*iter).second->scanMissingPackets(results);				// 获取包内丢失packet的位置
+		if (iter->second->isFull()) {
+			int hp = blockHp[iter->first]--;
+			if (0 == hp) {
+				iter->second->save(zipName, iter->first, isFirstWrite);			// 过会儿弄临时变量
+				isFirstWrite = false;											// 存文件有问题
+				delete iter->second;
+				blockHp.erase(iter->first);
+				blockContents.erase(iter++);
+			} else
+				iter++;
+		} else {
+			for (auto i = results.begin(); i != results.end(); i++) {	
+				answers.insert(getSequence((*iter).first, (*i)));				// 根据包号，位置号，得到序号
+			}
+			iter++;
 		}
 	}
-
+	iop_unlock(&mapLock);
 	return answers;
 }
 
@@ -136,6 +154,7 @@ int CBlock::readMsg(TS_UINT64 seq, ts_msg& pout) {
 			}
 		}
 	}
+
 	return curPackage->query(pout, pos);
 }
 
@@ -150,8 +169,10 @@ TS_UINT64 CBlock::getSequence(int packageNum, int pos) {
 }
 
 void CBlock::saveAll() {
+	iop_lock(&mapLock);
 	for (auto iter = blockContents.begin(); iter != blockContents.end(); iter++) {
 		iter->second->save(zipName, iter->first, isFirstWrite);
 		isFirstWrite = false;
 	}
+	iop_unlock(&mapLock);
 }

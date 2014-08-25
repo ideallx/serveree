@@ -95,46 +95,7 @@ void CPackage::scanAll() {
 	scanHead = MaxPackets;
 }
 
-//void* saveProc(LPVOID lpParam) {		// 保存文件
-//	pthread_detach(pthread_self());
-//	CPackage* p = (CPackage*) lpParam;
-//	if (!p) {
-//		return 0;
-//	}
-//	
-//	char *content = (char *) malloc(MESSAGE_SIZE * MaxPackets);
-//	for (int i = 0; i < p->scanHead; i++) {
-//		ts_msg* msg = p->packets[i];
-//		if (NULL == msg)
-//			continue;
-//		int size = packetSize(*msg);
-//		assert(size <= MESSAGE_SIZE);
-//		memcpy(content + i * MESSAGE_SIZE, msg, size);
-//	}
-//
-//	if (!CZip::saveToZip(p->fname.c_str(), int2string(p->pname).c_str(), 
-//		content, (p->scanHead) * MESSAGE_SIZE, p->createFile)) {
-//			cout << "Save File Error" << endl;
-//	}
-//	
-//	ReleaseSemaphore(p->semPackage, 1, NULL);
-//
-//	free(content);
-//	return 0;
-//}
-
 bool CPackage::save(string fileName, int packetNum, bool isCreate) {
-	// 全部读出来一起写
-	//fname = fileName;
-	//pname = packetNum;
-	//createFile = isCreate;
-
-	//pthread_t saveThread;
-
-	// sem_wait((sem_t*) &semPackage);
-	// WaitForSingleObject(semPackage, INFINITE);
-	// int rc = pthread_create(&saveThread, NULL, saveProc, (void*) this);
-
 	char *content = (char *) malloc(MESSAGE_SIZE * MaxPackets);
 	for (int i = 0; i < scanHead; i++) {
 		ts_msg* msg = packets[i];

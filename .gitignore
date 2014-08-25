@@ -36,3 +36,24 @@ Icon
 .Trashes
 
 *.opensdf
+*.sdf
+*.zip
+*.rar
+*.obj
+*.tlog
+*.log
+*.pdb
+*.idb
+*.manifest
+*.lastbuildstate
+*.unsuccessfulbuild
+*.exp
+*.exe
+*.ilk
+*.lib
+*.ipch
+*.cache
+*.res
+*.rc
+*.suo
+*.suo

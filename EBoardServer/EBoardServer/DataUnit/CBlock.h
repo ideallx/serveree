@@ -1,10 +1,3 @@
-/*
- * CBlock.h
- *
- *  Created on: 2014-6-18
- *      Author: root
- */
-
 #ifndef _DATAUNIT_BLOCK_H_
 #define _DATAUNIT_BLOCK_H_
 
@@ -21,6 +14,8 @@
 
 using namespace std;
 
+const int initialHP = 10;
+
 class CBlock {
 private:
 	map<int, CPackage*> blockContents;
@@ -32,6 +27,10 @@ private:
 	int curPackageNum;			// 上一次包的包号
 
 	bool isFirstMsg;			// 第一个包的序列号当做起始号
+
+	map<int, int> blockHp;		// packetNum -> HP
+
+	iop_lock_t mapLock;
 
 public:
 	CBlock();

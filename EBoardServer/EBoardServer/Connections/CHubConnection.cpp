@@ -195,11 +195,17 @@ int CHubConnection::send(const char* buf, ULONG len) {
 	return brc;
 }
 
+bool first = true;
 int CHubConnection::recv(char* buf, ULONG& len) {
 	if (!pSocket)
 		return -1;
-
-	return pSocket->recvData(buf, len, &m_FromAddr);
+//???
+	int result = pSocket->recvData(buf, len, &m_FromAddr);
+	if (first) {
+		addPeer(100, m_FromAddr);
+		first = false;
+	}
+	return result;
 }
 
 void CHubConnection::setPeerConnection(const struct sockaddr_in& peeraddr) {

@@ -5,7 +5,7 @@
 #include <iop_config.h>
 typedef uint64_t		TS_UINT64;
 
-// #define _DEBUG_INFO_
+//#define _DEBUG_INFO_
 
 #ifdef WIN32
 #pragma comment(lib, "ws2_32.lib")

@@ -5,7 +5,7 @@
 
 class  CSynSocket : public CAbsSocket {
 public:
-	CSynSocket(void);
+	CSynSocket();
 	virtual ~CSynSocket(void);
 
 protected:
@@ -19,7 +19,7 @@ public:
 	int recvData(char* buf, ULONG& len, struct sockaddr_in* FromAddr);
 
 private:
-	bool bindPort(unsigned short iPort);
+	bool bindPort(unsigned short iPort = 0);
 };
 
 
