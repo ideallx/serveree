@@ -92,8 +92,7 @@ int CSynSocket::sendData(const char* buf, ULONG len, const struct sockaddr_in* T
 	return nSend;
 }
 
-int CSynSocket::recvData(char* buf, ULONG& len, struct sockaddr_in* fromAddr )
-{
+int CSynSocket::recvData(char* buf, ULONG& len, struct sockaddr_in* fromAddr) {
 	socklen_t Fromlen = sizeof(*fromAddr);
 	int recv_len = recvfrom(m_Socket, buf, len, 0, (sockaddr*) fromAddr, &Fromlen);
 	return recv_len;

@@ -24,7 +24,7 @@ private:
 	TS_UINT64 _reserved;
 
 public:
-	CWSServer(TS_UINT64 uid, TS_UINT64 reserved);
+	CWSServer(TS_UINT64 classid, TS_UINT64 reserved);
 	virtual ~CWSServer();
 
 public:

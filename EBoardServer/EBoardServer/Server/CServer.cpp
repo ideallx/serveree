@@ -4,8 +4,8 @@
 CServer::CServer() :
 	MsgLen(MESSAGE_SIZE),
 
-	recvthread_num(5),
-	sendthread_num(2),
+	recvthread_num(3),
+	sendthread_num(1),
 	msgthread_num(1),
 
 	pthread_recv(new pthread_t[recvthread_num]),
@@ -158,7 +158,53 @@ bool CServer::Stop(void) {
 	return TRUE;
 }
 
-DWORD CServer::MsgHandler(TS_PEER_MESSAGE& pmsg) {	
-	WriteOut(pmsg);
+DWORD CServer::MsgHandler(TS_PEER_MESSAGE& pmsg) {
 	return 0;
+}
+
+void CServer::sendProc() {
+	TS_PEER_MESSAGE pmsg;
+	memset(&pmsg, 0, sizeof(TS_PEER_MESSAGE));
+
+	CAbsConnection* pPeerConn = new CPeerConnection();
+	if (!pPeerConn->copy(getConnection())) {
+		return;
+	}
+	while (isRunning()) {
+		ReadOut(pmsg);
+		pPeerConn->setPeer(pmsg.peeraddr);
+		pPeerConn->send(pmsg.msg.Body, sizeof(ts_msg));
+	}
+}
+
+void CServer::msgProc() {
+	TS_PEER_MESSAGE pmsg;
+	memset(&pmsg, 0, sizeof(TS_PEER_MESSAGE));
+
+	while (isRunning()) {
+		memset(&pmsg, 0, sizeof(TS_PEER_MESSAGE));
+		ReadIn(pmsg);
+		MsgHandler(pmsg);
+	}
+	cout << "msg thread exit" << endl;
+}
+
+void CServer::recvProc() {
+	ULONG msglen = sizeof(ts_msg);
+	TS_PEER_MESSAGE pmsg;
+	memset(&pmsg, 0, sizeof(TS_PEER_MESSAGE));
+
+	CAbsConnection* pConn = new CPeerConnection();
+	if (!pConn->copy(getConnection())) {
+		return;
+	}
+
+	while (isRunning()) {
+		memset(&pmsg, 0, sizeof(TS_PEER_MESSAGE));
+		if (pConn->recv(pmsg.msg.Body, msglen) > 0) {
+			memcpy(&pmsg.peeraddr, pConn->getRecvAddr(), sizeof(struct sockaddr_in));
+			WriteIn(pmsg);
+		}
+	}
+	cout << "recv thread exit" << endl;
 }

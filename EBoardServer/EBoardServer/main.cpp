@@ -1,6 +1,6 @@
 #include <iostream>
 #include <iop_util.h>
-#include "Server\CWSServer.h"
+#include "Server\CAgentServer.h"
 
 using namespace std;
 
@@ -8,7 +8,7 @@ using namespace std;
 int main(int argc, char* argv[]) {
 	SOCK_STARTUP();
 	
-	CWSServer* temp = new CWSServer(1, 2);
+	CAgentServer* temp = new CAgentServer();
 	temp->Start(2222);
 
 	while (true) {};

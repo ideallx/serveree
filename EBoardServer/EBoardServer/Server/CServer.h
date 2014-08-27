@@ -41,9 +41,9 @@ public:
 	void ReadOut(TS_PEER_MESSAGE& pmsg);
 	void WriteOut(const TS_PEER_MESSAGE& pmsg);
 
-	void sendProc() {};
-	void recvProc() {};
-	void msgProc() {};
+	void sendProc();
+	void recvProc();
+	void msgProc();
 
 public:
 	bool Initialize(void);

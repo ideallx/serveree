@@ -53,10 +53,10 @@ private:
 	int send2Peer(ts_msg& msg);
 
 	// 自己接收缺失，问对端要，返回发出去了几个包  回头改函数名
-	int resendForSelfLost(TS_UINT64 uid, set<TS_UINT64> pids);
+	int requestForResend(TS_UINT64 uid, set<TS_UINT64> pids);
 
 	// 自己发送缺失，处理对端请求，返回发出去了几个包
-	int resendForOthersLost(ts_msg& msg);
+	int resend(ts_msg& requestMsg);
 
 	// 数据报文有效性检查
 	bool validityCheck(ts_msg& msg);

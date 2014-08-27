@@ -25,29 +25,59 @@ typedef struct {
 } TS_MESSAGE_HEAD;
 
 // 报文体（重发类型）。跟在报文头之后
-const int MaxSeqsInOnePacket = 20;		// 每个重发包中最多含有的序号数量
+const int MaxSeqsInOnePacket = 50;		// 每个重发包中最多含有的序号数量，20个是不是少了点
+
 typedef struct {
-	int size;
+	TS_MESSAGE_HEAD head;
+	int count;
 	TS_UINT64 seq[MaxSeqsInOnePacket];
 } RCONNECT;
+
+// 上行报文
+typedef struct {				
+	TS_MESSAGE_HEAD head;
+	unsigned char username[20];		// 用户名
+	unsigned char password[20];		// 密码
+	TS_UINT64 classid;				// 进入或者离开的课堂ID
+	enum RoleOfClass role;			// 用户角色
+} UP_AGENTSERVICE;
+
+// 下行报文
+typedef struct {
+	TS_MESSAGE_HEAD head;		
+	enum MsgResult result;		// 运行结果
+	sockaddr_in addr;			// 服务器端地址
+} DOWN_AGENTSERVICE;
+
+
+// 运行结果
+enum MsgResult {
+	Success,
+
+	WarnUnknown,
+	WarnAlreadyIn,
+
+	ErrorUnknown,
+	ErrorUserName,
+	ErrorUserPassword
+};
+
+enum RoleOfClass {
+	RoleTeacher,
+	RoleStudent
+};
+
 
 // 报文整体 包括TS_MESSAGE_HEAD 和 TS_MESSAGE_BODY
 typedef struct {
 	char Body[MESSAGE_SIZE];
 } ts_msg, *LPTS_MESSAGE;
 
-
 // 发送给特定某个客户端address
 typedef struct {
 	struct sockaddr_in  peeraddr;
 	ts_msg			msg;
 } TS_PEER_MESSAGE, *LPTS_PEER_MESSAGE;
-
-typedef struct {
-	TS_MESSAGE_HEAD head;
-	int data;
-} DATA, *LPDATA;
-
 
 // 报文类型，对应 TS_MESSAGE_HEAD.type
 enum PackageType {
@@ -57,7 +87,10 @@ enum PackageType {
 	VIDEO,
 	PICTURE,
 	COMMAND,
-	RESEND
+	RESEND,
+
+	ENTERCLASS,
+	LEAVECLASS
 };
 
 // 功能函数，获取一些信息
@@ -66,6 +99,5 @@ TS_UINT64 getSeq(const ts_msg& p);
 TS_UINT64 getUid(const ts_msg& p);
 enum PackageType getType(const ts_msg& p);
 int buildResentMessage(ts_msg& tempMsg, const char *msg, int bodyLen);
-
 
 #endif

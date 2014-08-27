@@ -17,17 +17,17 @@ using namespace std;
 
 class UserBase {
 public:
-	int _uid;
-	int _reserved;
+	TS_UINT64 _uid;
+	TS_UINT64 _reserved;
 	string _username;
 	string _password;
-	int _classid;
-	int _role;
+	TS_UINT64 _classid;
+	unsigned char _role;
 
 public:
-	UserBase(int uid, int reserved, 
+	UserBase(TS_UINT64 uid, TS_UINT64 reserved, 
 		string username, string password, 
-		int classid, int role) :
+		TS_UINT64 classid, enum RoleOfClass role) :
 		_uid(uid),
 		_reserved(reserved),
 		_username(username),
@@ -35,9 +35,8 @@ public:
 		_classid(classid),
 		_role(role) {
 	}
-
-	UserBase(){};
-	virtual ~UserBase(){};
+	UserBase() {};
+	virtual ~UserBase() {};
 };
 
 static ostream& operator<< (ostream& out, const UserBase& T) {

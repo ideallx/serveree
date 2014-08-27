@@ -18,7 +18,7 @@ private:
 	iop_lock_t lockWorkServer;
 	iop_lock_t lockPortqueue;
 
-	map<TS_UINT64, CWSServer*> map_workserver;	// classid -> CWSServer
+	map<int, CWSServer*> map_workserver;		// classid -> CWSServer
 	map<TS_UINT64, UserBase> map_userinfo;		// UID  -> UserBase
 
 	queue<int> port_queue;
@@ -28,16 +28,31 @@ public:
 	virtual ~CAgentServer();
 
 	void loadUser();
-
-	void createClass(TS_UINT64 classid);
-	void destroyClass(TS_UINT64 classid);
-	bool enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user);
-	void leaveClass(TS_UINT64 classid, TS_UINT64 uid);
-
+	void createClass(int classid);
+	void destroyClass(int classid);
+	bool enterClass(sockaddr_in addr, UserBase user);
+	void leaveClass(int classid, int uid);
 	DWORD MsgHandler(TS_PEER_MESSAGE& pmsg);
 
 private:
-	bool isClassExist(TS_UINT64 classid);
+	bool isClassExist(int classid);
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #endif

@@ -1,177 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Connections">
-      <UniqueIdentifier>{a771cdcc-56fc-4c24-9c77-ef0b985b7ba2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="OSIndependent">
-      <UniqueIdentifier>{4f57b786-dbb1-4dc9-8f81-ea5dec22ea82}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="OSIndependent\libiop">
-      <UniqueIdentifier>{072d9fe7-fb56-4383-a042-77fa681e5294}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DataUnit">
-      <UniqueIdentifier>{23075c3a-df5f-40f3-9cbf-d2237fb4251e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Server">
-      <UniqueIdentifier>{e9c3d6ec-5349-4b40-a775-360701515e56}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="OSIndependent\pthread">
-      <UniqueIdentifier>{0ad25766-a4e8-4786-9fe5-34711a7449a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DataStructure">
-      <UniqueIdentifier>{42fece45-7243-4c8f-a125-e6b65c6b8b70}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Zip">
-      <UniqueIdentifier>{b76ba09c-914d-49ee-b12e-6e1a3750b8e9}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="OSInedependent\libiop\iop_util.c">
-      <Filter>OSIndependent\libiop</Filter>
+    <ClCompile Include="Connections\CAbsConnection.cpp">
+      <Filter>Connections</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="OSInedependent\libiop\iop_thread.c">
-      <Filter>OSIndependent\libiop</Filter>
+    <ClCompile Include="Server\CAbsServer.cpp">
+      <Filter>Server</Filter>
     </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\cleanup.c">
-      <Filter>OSIndependent\pthread</Filter>
+    <ClCompile Include="Connections\CAbsSocket.cpp">
+      <Filter>Socket</Filter>
     </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\global.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_cancel.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_create.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_detach.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_equal.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_getspecific.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_key_create.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_key_delete.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_kill.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_mutex_consistent.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_mutex_destroy.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_mutex_init.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_mutex_lock.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_mutex_trylock.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_mutex_unlock.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_mutexattr_destroy.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_self.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_setschedparam.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_setspecific.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_testcancel.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\pthread_win32_attach_detach_np.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\ptw32_callUserDestroyRoutines.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\ptw32_new.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\ptw32_processInitialize.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\ptw32_processTerminate.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\ptw32_reuse.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\ptw32_threadDestroy.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\ptw32_threadStart.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\ptw32_throw.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\ptw32_tkAssocCreate.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\ptw32_tkAssocDestroy.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\sched_get_priority_max.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\sched_get_priority_min.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\sched_yield.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\sem_init.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\sem_post.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\sem_wait.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\w32_CancelableWait.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\others.cpp">
-      <Filter>OSIndependent</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\ptw32_MCS_lock.c">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClCompile>
-    <ClCompile Include="OSInedependent\pthread\ptw32_mutex_check_need_init.c">
-      <Filter>OSIndependent\pthread</Filter>
+    <ClCompile Include="Server\CAgentServer.cpp">
+      <Filter>Server</Filter>
     </ClCompile>
     <ClCompile Include="DataUnit\CBlock.cpp">
       <Filter>DataUnit</Filter>
     </ClCompile>
-    <ClCompile Include="Connections\CAbsConnection.cpp">
-      <Filter>Connections</Filter>
-    </ClCompile>
-    <ClCompile Include="Connections\CAbsSocket.cpp">
-      <Filter>Connections</Filter>
+    <ClCompile Include="DataUnit\CBlockManager.cpp">
+      <Filter>DataUnit</Filter>
     </ClCompile>
     <ClCompile Include="Connections\CConnection.cpp">
       <Filter>Connections</Filter>
@@ -179,40 +25,37 @@
     <ClCompile Include="Connections\CHubConnection.cpp">
       <Filter>Connections</Filter>
     </ClCompile>
-    <ClCompile Include="Connections\CPeerConnection.cpp">
-      <Filter>Connections</Filter>
-    </ClCompile>
-    <ClCompile Include="Connections\CSynSocket.cpp">
-      <Filter>Connections</Filter>
-    </ClCompile>
-    <ClCompile Include="DataUnit\CBlockManager.cpp">
-      <Filter>DataUnit</Filter>
-    </ClCompile>
-    <ClCompile Include="Server\CWSServer.cpp">
-      <Filter>Server</Filter>
-    </ClCompile>
-    <ClCompile Include="DataUnit\CPackage.cpp">
-      <Filter>DataUnit</Filter>
+    <ClCompile Include="OSInedependent\pthread\cleanup.c">
+      <Filter>OSIndependant</Filter>
     </ClCompile>
     <ClCompile Include="DataUnit\CMessage.cpp">
       <Filter>DataUnit</Filter>
     </ClCompile>
-    <ClCompile Include="Server\CAbsServer.cpp">
-      <Filter>Server</Filter>
+    <ClCompile Include="DataUnit\CPackage.cpp">
+      <Filter>DataUnit</Filter>
+    </ClCompile>
+    <ClCompile Include="Connections\CPeerConnection.cpp">
+      <Filter>Connections</Filter>
+    </ClCompile>
+    <ClCompile Include="Connections\CReliableConnection.cpp">
+      <Filter>Connections</Filter>
     </ClCompile>
     <ClCompile Include="Server\CServer.cpp">
       <Filter>Server</Filter>
     </ClCompile>
-    <ClCompile Include="Server\CAgentServer.cpp">
+    <ClCompile Include="Server\CWSServer.cpp">
       <Filter>Server</Filter>
     </ClCompile>
-    <ClCompile Include="Connections\CReliableConnection.cpp">
-      <Filter>Connections</Filter>
+    <ClCompile Include="Connections\CSynSocket.cpp">
+      <Filter>Socket</Filter>
     </ClCompile>
     <ClCompile Include="Zip\ioapi.c">
       <Filter>Zip</Filter>
     </ClCompile>
     <ClCompile Include="Zip\iowin32.c">
+      <Filter>Zip</Filter>
+    </ClCompile>
+    <ClCompile Include="Zip\myzip.cpp">
       <Filter>Zip</Filter>
     </ClCompile>
     <ClCompile Include="Zip\unzip.c">
@@ -221,98 +64,185 @@
     <ClCompile Include="Zip\zip.c">
       <Filter>Zip</Filter>
     </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\global.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\libiop\iop_thread.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\libiop\iop_util.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\others.cpp">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_cancel.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_create.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_detach.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_equal.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_getspecific.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_key_create.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_key_delete.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_kill.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_mutex_consistent.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_mutex_destroy.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_mutex_init.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_mutex_lock.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_mutex_trylock.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_mutex_unlock.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_mutexattr_destroy.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_self.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_setschedparam.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_setspecific.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_testcancel.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\pthread_win32_attach_detach_np.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\ptw32_callUserDestroyRoutines.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\ptw32_MCS_lock.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\ptw32_mutex_check_need_init.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\ptw32_new.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\ptw32_processInitialize.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\ptw32_processTerminate.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\ptw32_reuse.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\ptw32_threadDestroy.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\ptw32_threadStart.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\ptw32_throw.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\ptw32_tkAssocCreate.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\ptw32_tkAssocDestroy.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\sched_get_priority_max.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\sched_get_priority_min.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\sched_yield.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
     <ClCompile Include="OSInedependent\pthread\sem_destroy.c">
-      <Filter>OSIndependent\pthread</Filter>
+      <Filter>OSIndependant</Filter>
     </ClCompile>
-    <ClCompile Include="Zip\myzip.cpp">
-      <Filter>Zip</Filter>
+    <ClCompile Include="OSInedependent\pthread\sem_init.c">
+      <Filter>OSIndependant</Filter>
     </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\sem_post.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\sem_wait.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="OSInedependent\pthread\w32_CancelableWait.c">
+      <Filter>OSIndependant</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="OSInedependent\libiop\iop_config.h">
-      <Filter>OSIndependent\libiop</Filter>
+    <ClInclude Include="Connections\CAbsConnection.h">
+      <Filter>Connections</Filter>
     </ClInclude>
-    <ClInclude Include="OSInedependent\libiop\iop_util.h">
-      <Filter>OSIndependent\libiop</Filter>
+    <ClInclude Include="Server\CAbsServer.h">
+      <Filter>Server</Filter>
     </ClInclude>
-    <ClInclude Include="Stdafx.h" />
-    <ClInclude Include="OSInedependent\libiop\iop_thread.h">
-      <Filter>OSIndependent\libiop</Filter>
+    <ClInclude Include="Connections\CAbsSocket.h">
+      <Filter>Socket</Filter>
     </ClInclude>
-    <ClInclude Include="OSInedependent\pthread\config.h">
-      <Filter>OSIndependent\pthread</Filter>
+    <ClInclude Include="Server\CAgentServer.h">
+      <Filter>Server</Filter>
     </ClInclude>
-    <ClInclude Include="OSInedependent\pthread\pthread.h">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClInclude>
-    <ClInclude Include="OSInedependent\pthread\semaphore.h">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClInclude>
-    <ClInclude Include="DataStructure\TSQueue.h">
-      <Filter>DataStructure</Filter>
-    </ClInclude>
-    <ClInclude Include="OSInedependent\pthread\sched.h">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClInclude>
-    <ClInclude Include="OSInedependent\others.h">
-      <Filter>OSIndependent</Filter>
-    </ClInclude>
-    <ClInclude Include="OSInedependent\pthread\implement.h">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClInclude>
-    <ClInclude Include="OSInedependent\pthread\context.h">
-      <Filter>OSIndependent\pthread</Filter>
-    </ClInclude>
-    <ClInclude Include="DataStructure\Pool.h">
-      <Filter>DataStructure</Filter>
+    <ClInclude Include="DataUnit\CBlockManager.h">
+      <Filter>DataUnit</Filter>
     </ClInclude>
     <ClInclude Include="DataUnit\CBlock.h">
       <Filter>DataUnit</Filter>
     </ClInclude>
-    <ClInclude Include="Connections\CAbsConnection.h">
-      <Filter>Connections</Filter>
-    </ClInclude>
-    <ClInclude Include="Connections\CAbsSocket.h">
+    <ClInclude Include="Connections\CHubConnection.h">
       <Filter>Connections</Filter>
     </ClInclude>
     <ClInclude Include="Connections\CConnection.h">
       <Filter>Connections</Filter>
     </ClInclude>
-    <ClInclude Include="Connections\CHubConnection.h">
+    <ClInclude Include="DataUnit\CMessage.h">
+      <Filter>DataUnit</Filter>
+    </ClInclude>
+    <ClInclude Include="DataUnit\CPackage.h">
+      <Filter>DataUnit</Filter>
+    </ClInclude>
+    <ClInclude Include="Connections\CReliableConnection.h">
       <Filter>Connections</Filter>
     </ClInclude>
     <ClInclude Include="Connections\CPeerConnection.h">
       <Filter>Connections</Filter>
     </ClInclude>
-    <ClInclude Include="Connections\CSynSocket.h">
-      <Filter>Connections</Filter>
-    </ClInclude>
-    <ClInclude Include="DataUnit\CBlockManager.h">
-      <Filter>DataUnit</Filter>
-    </ClInclude>
-    <ClInclude Include="DataUnit\CMessage.h">
-      <Filter>DataUnit</Filter>
+    <ClInclude Include="Server\CServer.h">
+      <Filter>Server</Filter>
     </ClInclude>
     <ClInclude Include="Server\CWSServer.h">
       <Filter>Server</Filter>
     </ClInclude>
-    <ClInclude Include="DataUnit\CPackage.h">
-      <Filter>DataUnit</Filter>
-    </ClInclude>
-    <ClInclude Include="Server\CAbsServer.h">
-      <Filter>Server</Filter>
-    </ClInclude>
-    <ClInclude Include="Server\CServer.h">
-      <Filter>Server</Filter>
-    </ClInclude>
-    <ClInclude Include="Server\CAgentServer.h">
-      <Filter>Server</Filter>
-    </ClInclude>
-    <ClInclude Include="DataUnit\UserBase.h">
-      <Filter>DataUnit</Filter>
-    </ClInclude>
-    <ClInclude Include="Connections\CReliableConnection.h">
-      <Filter>Connections</Filter>
+    <ClInclude Include="Connections\CSynSocket.h">
+      <Filter>Socket</Filter>
     </ClInclude>
     <ClInclude Include="Zip\crypt.h">
       <Filter>Zip</Filter>
@@ -338,5 +268,68 @@
     <ClInclude Include="Zip\zlib.h">
       <Filter>Zip</Filter>
     </ClInclude>
+    <ClInclude Include="OSInedependent\pthread\config.h">
+      <Filter>OSIndependant</Filter>
+    </ClInclude>
+    <ClInclude Include="OSInedependent\others.h">
+      <Filter>OSIndependant</Filter>
+    </ClInclude>
+    <ClInclude Include="OSInedependent\pthread\context.h">
+      <Filter>OSIndependant</Filter>
+    </ClInclude>
+    <ClInclude Include="OSInedependent\pthread\implement.h">
+      <Filter>OSIndependant</Filter>
+    </ClInclude>
+    <ClInclude Include="OSInedependent\libiop\iop_config.h">
+      <Filter>OSIndependant</Filter>
+    </ClInclude>
+    <ClInclude Include="OSInedependent\libiop\iop_thread.h">
+      <Filter>OSIndependant</Filter>
+    </ClInclude>
+    <ClInclude Include="OSInedependent\libiop\iop_util.h">
+      <Filter>OSIndependant</Filter>
+    </ClInclude>
+    <ClInclude Include="Stdafx.h" />
+    <ClInclude Include="OSInedependent\pthread\semaphore.h">
+      <Filter>OSIndependant</Filter>
+    </ClInclude>
+    <ClInclude Include="OSInedependent\pthread\pthread.h">
+      <Filter>OSIndependant</Filter>
+    </ClInclude>
+    <ClInclude Include="OSInedependent\pthread\sched.h">
+      <Filter>OSIndependant</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructure\TSQueue.h">
+      <Filter>DataStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructure\Pool.h">
+      <Filter>DataStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="DataUnit\UserBase.h">
+      <Filter>DataUnit</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Connections">
+      <UniqueIdentifier>{1af18bb5-200c-43d4-8b9b-1f8f224f57ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Socket">
+      <UniqueIdentifier>{7369d7e4-c22d-4b76-8988-0b7138889b18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Server">
+      <UniqueIdentifier>{b104f5ab-ffef-4282-8749-9a8ce1cbaace}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataUnit">
+      <UniqueIdentifier>{7cd2a3af-8727-4eae-a9c3-6490840e8672}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OSIndependant">
+      <UniqueIdentifier>{7fd2f1f7-2b7a-49aa-a492-a342ff91d34e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Zip">
+      <UniqueIdentifier>{3dadf2bd-f603-4ef3-92db-91b80212b0b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataStructure">
+      <UniqueIdentifier>{da6b94f8-7d68-4812-b0b1-fde50594c0bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

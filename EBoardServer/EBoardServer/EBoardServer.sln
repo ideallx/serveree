@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EBoardServer", "EBoardServer\EBoardServer.vcxproj", "{1A495AA3-A592-4FEA-AB2B-D4F222EFFAF9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EBoardServer", "EBoardServer.vcxproj", "{1A495AA3-A592-4FEA-AB2B-D4F222EFFAF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

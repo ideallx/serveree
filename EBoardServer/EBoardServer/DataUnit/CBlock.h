@@ -6,7 +6,6 @@
 #include <map>
 #include <assert.h>
 #include <direct.h>
-
 #include <semaphore.h>
 
 #include "CMessage.h"
@@ -14,7 +13,7 @@
 
 using namespace std;
 
-const int initialHP = 10;
+const int initialHP = 20;
 
 class CBlock {
 private:
@@ -28,8 +27,7 @@ private:
 
 	bool isFirstMsg;			// 第一个包的序列号当做起始号
 
-	map<int, int> blockHp;		// packetNum -> HP
-
+	map<int, int> blockHp;		// packageNum -> HP
 	iop_lock_t mapLock;
 
 public:
@@ -53,6 +51,9 @@ public:
 	// 创建zip文件
 	// 文件路径的格式： runtime path/_classid_time_uid.zip/arrayNumber，同一数组中的packet写在一个文件中
 	void setZipName(string zip) { zipName = zip; }
+
+	// 获取从某个序号开始，到某个序号结束的所有的msg
+	bool getMsgs(set<ts_msg*>& out, TS_UINT64 beg, TS_UINT64 end);
 	
 private:
 	// 获取seq对应的msg所在的数组以及位置

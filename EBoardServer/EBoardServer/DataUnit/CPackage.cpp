@@ -52,7 +52,6 @@ int CPackage::insert(const ts_msg& p, int pos) {
 	memcpy(msg, &p, size);					// 保存住传进来的msg
 	packets[pos] = msg;
 
-
 	if (pos == scanHead) {
 		scanHead = pos + 1;
 	} else if (pos > scanHead) {
@@ -95,19 +94,22 @@ void CPackage::scanAll() {
 	scanHead = MaxPackets;
 }
 
-bool CPackage::save(string fileName, int packetNum, bool isCreate) {
+bool CPackage::save(string fileName, int packageNum, bool isCreate) {
+	if (isZipFileExist(fileName, packageNum))			// 若文件已经存在，不用重复保存
+		return true;
+
 	char *content = (char *) malloc(MESSAGE_SIZE * MaxPackets);
 	for (int i = 0; i < scanHead; i++) {
 		ts_msg* msg = packets[i];
 		if (NULL == msg)
 			continue;
 		int size = packetSize(*msg);
-		if ((size > MESSAGE_SIZE) || size < sizeof(ts_msg))
+		if ((size > MESSAGE_SIZE) || size < sizeof(TS_MESSAGE_HEAD))
 			continue;
 
 		memcpy(content + i * MESSAGE_SIZE, msg, size);
 	}
-	if (!CZip::saveToZip(fileName.c_str(), int2string(packetNum).c_str(), 
+	if (!CZip::saveToZip(fileName.c_str(), int2string(packageNum).c_str(), 
 		content, (scanHead) * MESSAGE_SIZE, isCreate)) {
 			cout << "Save File Error" << endl;
 	}
@@ -116,26 +118,25 @@ bool CPackage::save(string fileName, int packetNum, bool isCreate) {
 	return true;
 }
 
-bool CPackage::testZipFileExist(string fileName, int packetNum) {
+bool CPackage::isZipFileExist(string fileName, int packageNum) {
 	int length = CZip::getOriginalSize(fileName.c_str(), 
-		int2string(packetNum).c_str());					// 文件大小
+		int2string(packageNum).c_str());					// 文件大小
 	if (length == 0)
 		return false;
-
 	return true;
 }
 
-bool CPackage::load(string fileName, int packetNum) {
+bool CPackage::load(string fileName, int packageNum) {
 	clearPackets();
 
 	int length = CZip::getOriginalSize(fileName.c_str(), 
-		int2string(packetNum).c_str());						// 文件大小
+		int2string(packageNum).c_str());					// 文件大小
 	if (length == 0)
 		return false;
 
 	char *content = (char *) malloc(length);
 	bool result = CZip::loadFromZip(fileName.c_str(), 
-		int2string(packetNum).c_str(), content, length);	// 文件是否可以打开
+		int2string(packageNum).c_str(), content, length);	// 文件是否可以打开
 
 	if (result == false)									// 文件打不开，回复false
 		return false;

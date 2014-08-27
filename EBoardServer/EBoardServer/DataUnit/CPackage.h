@@ -39,12 +39,12 @@ public:
 	int query(ts_msg& pout, int pos);
 	
 	// 将这个类中所有的msg写进文件
-	bool save(string fileName, int packetNum, bool isCreate);
+	bool save(string fileName, int packageNum, bool isCreate);
 	// 将文件中的内容全部复制到类中
-	bool load(string fileName, int packetNum);
+	bool load(string fileName, int packageNum);
 
 	// 检测某zip文件是否存在，以免多new
-	static bool testZipFileExist(string fileName, int packetNum);
+	static bool isZipFileExist(string fileName, int packageNum);
 
 	bool isExist(int pos);
 	inline bool isAvailable(int pos) { return (pos < MaxPackets) && (pos >= 0); }

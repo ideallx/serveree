@@ -27,7 +27,6 @@ int CBlockManager::readRecord(TS_UINT64 uid, TS_UINT64 seq, ts_msg& p) {
 
 int CBlockManager::record(ts_msg& in, int size) {
 	TS_UINT64 uid = getUid(in);
-
 	CBlock* b = getBlockByUid(uid);
 	if (b == NULL) {
 		b = new CBlock();

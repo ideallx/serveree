@@ -183,7 +183,6 @@ int CHubConnection::send(const char* buf, ULONG len) {
 	int brc = 0;
 
 	//cout << "debug: total peers# is: " << size() << endl;
-
 	map<TS_UINT64, CPeerConnection*>::iterator iter;
 
 	iop_lock(&mutex_lock);
@@ -195,15 +194,14 @@ int CHubConnection::send(const char* buf, ULONG len) {
 	return brc;
 }
 
-bool first = true;
 int CHubConnection::recv(char* buf, ULONG& len) {
 	if (!pSocket)
 		return -1;
-//???
+// test code
 	int result = pSocket->recvData(buf, len, &m_FromAddr);
-	if (first) {
-		addPeer(100, m_FromAddr);
-		first = false;
+	TS_UINT64 uid = getUid(*(ts_msg*) buf);
+	if (peerHub->count(uid) == 0) {
+		addPeer(uid, m_FromAddr);
 	}
 	return result;
 }

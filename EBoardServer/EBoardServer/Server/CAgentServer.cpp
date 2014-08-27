@@ -1,8 +1,9 @@
-#include "CAgentServer.h"
+#include <iostream>
+#include <string>
 
+#include "CAgentServer.h"
 #include "CWSServer.h"
 
-#include <iostream>
 using namespace std;
 
 CAgentServer::CAgentServer() {
@@ -21,7 +22,7 @@ CAgentServer::~CAgentServer() {
 	iop_lock_destroy(&lockPortqueue);
 }
 
-bool CAgentServer::isClassExist(int classid) {
+bool CAgentServer::isClassExist(TS_UINT64 classid) {
 	return (map_workserver.count(classid) > 0) && 
 		(map_workserver[classid] != NULL);
 }
@@ -41,73 +42,98 @@ void CAgentServer::loadUser() {
 	fclose(stdin);
 }
 
-void CAgentServer::createClass(int classid) {
-	bool flag = false;
+void CAgentServer::createClass(TS_UINT64 classid) {
 	iop_lock(&lockWorkServer);
-	if (isClassExist(classid)) {
-		flag = true;
-	}
 
-	if (!flag) {
-		iop_lock(&lockPortqueue);
-		int port = port_queue.front();
-		port_queue.pop();
-		iop_unlock(&lockPortqueue);
+	iop_lock(&lockPortqueue);
+	int port = port_queue.front();
+	port_queue.pop();
+	iop_unlock(&lockPortqueue);
 
-		CWSServer* pWorker = new CWSServer(port, 1);
-		map_workserver[classid] = pWorker;
-		pWorker->Start(port);
+	CWSServer* pWorker = new CWSServer(port, 1);
+	map_workserver[classid] = pWorker;
+	pWorker->Start(port);
 
-		cout << "Worker Server Start successfully on Port "<< port << "." << endl;
-	}
+	cout << "Worker Server Start successfully on Port " << port << "." << endl;
 	iop_unlock(&lockWorkServer);
 }
 
-void CAgentServer::destroyClass(int classid) {
+void CAgentServer::destroyClass(TS_UINT64 classid) {
 	iop_lock(&lockWorkServer);
-	if (isClassExist(classid)) {
-		CWSServer* pServer = map_workserver[classid];
-		int port = pServer->getPort();
-		pServer->Stop();
-		cout << "Worker Server Stop successfully on Port "<< port << "." << endl;
-		delete pServer;
-		map_workserver[classid] = NULL;
-		map_workserver.erase(classid);
+
+	CWSServer* pServer = map_workserver[classid];
+	int port = pServer->getPort();
+	pServer->Stop();
+	cout << "Worker Server Stop successfully on Port " << port << "." << endl;
+	delete pServer;
+	map_workserver[classid] = NULL;
+	map_workserver.erase(classid);
 		
-		iop_lock(&lockPortqueue);
-		port_queue.push(port);
-		iop_unlock(&lockPortqueue);
-	}
+	iop_lock(&lockPortqueue);
+	port_queue.push(port);
+	iop_unlock(&lockPortqueue);
+
 	iop_unlock(&lockWorkServer);
 }
 
-bool CAgentServer::enterClass(sockaddr_in addr, UserBase user) {
-	createClass(user._classid);
+bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
+	if (!isClassExist(user._classid)) {
+		createClass(user._classid);
+	}
 	
 	iop_lock(&lockWorkServer);
 	CWSServer* pServer = map_workserver[user._classid];
-	bool ret = pServer->addPeer(addr, user._uid);
+	bool ret = pServer->addPeer(inputMsg.peeraddr, user._uid);
 	iop_unlock(&lockWorkServer);
+
+	if (ret) {
+		DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;
+		down->result = Success;
+		down->addr = inputMsg.peeraddr;
+		down->addr.sin_port = htons(user._classid);
+		WriteOut(inputMsg);
+	}
 	return ret;
 }
 
-void CAgentServer::leaveClass(int classid, int uid) {
-	bool ret = false;
-	
+void CAgentServer::leaveClass(TS_UINT64 classid, TS_UINT64 uid) {
 	iop_lock(&lockWorkServer);
 	CWSServer* pServer = map_workserver[classid];
 	if (pServer != NULL) {
 		pServer->removeUser(uid);
-		ret = pServer->isEmpty();
 	}
 	iop_unlock(&lockWorkServer);
 
-	if (ret) {
+	if (pServer->isEmpty()) {
 		cout << "destroy class" << endl;
-		destroyClass(classid);
+		if (isClassExist(classid)) {
+			destroyClass(classid);
+		}
 	}
 }
 
-DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& pmsg) {
+DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {
+	enum PackageType type = getType(inputMsg.msg);
+	UP_AGENTSERVICE* in = (UP_AGENTSERVICE*) &inputMsg;
+
+	switch (type) {
+	case ENTERCLASS:
+		{
+			UserBase user(in->head.UID, in->head.reserved, (char*) in->username, 
+				(char*) in->password, in->classid, in->role);
+			enterClass(inputMsg, user);
+			break;
+		}
+	case LEAVECLASS:
+		{
+			UserBase user(in->head.UID, in->head.reserved, (char*) in->username, 
+				(char*) in->password, in->classid, in->role);
+			leaveClass(in->classid, in->head.UID);
+			break;
+		}
+	default:
+		break;
+	}
+
 	return 0;
 }
