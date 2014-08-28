@@ -8,7 +8,8 @@ using namespace std;
 CReliableConnection::CReliableConnection() :
 	bm(new CBlockManager()),
 	needCacheSend(false),
-	msgQueue(new TSQueue<ts_msg>) {
+	msgQueue(new TSQueue<ts_msg>),
+	selfUid(ServerUID) {
 	semMsg = CreateSemaphore(NULL, 0, 1024, NULL);
 }
 
@@ -17,6 +18,7 @@ CReliableConnection::~CReliableConnection() {
 	pthread_cancel(msgIn);
 
 	CloseHandle(semMsg);
+
 	delete msgQueue;
 	delete bm;
 }
@@ -61,16 +63,12 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
 }
 
 int CReliableConnection::send(const char* buf, ULONG len) {
-	int result = CHubConnection::send(buf, len);
-	if (result <= 0)
-		return result;
-	
+	ts_msg *msg = (ts_msg*) buf;
 	if (needCacheSend) {
-		ts_msg *msg = (ts_msg*) buf;
 		bm->record(*msg, packetSize(*msg));
 	}
 
-	return result;
+	return CHubConnection::send(buf, len);
 }
 
 static int lastMissing = 0;
@@ -79,7 +77,7 @@ void CReliableConnection::scanProcess() {
 		return;
 	
 	map<TS_UINT64, set<TS_UINT64> > results = bm->getLostSeqIDs();
-	for (auto uidIter = results.begin(); uidIter != results.end(); uidIter++) {		// 扫描所有UID
+	for (auto uidIter = results.begin(); uidIter != results.end(); uidIter++) { 	// 扫描所有UID
 		TS_UINT64 uid = uidIter->first;
 		set<TS_UINT64> pids = uidIter->second;
 		requestForResend(uid, pids);
@@ -99,6 +97,13 @@ int CReliableConnection::send2Peer(ts_msg& msg) {
 	return peer->send(msg.Body, packetSize(msg));
 }
 
+int CReliableConnection::send2Peer(ts_msg& msg, TS_UINT64 uid) {
+	CPeerConnection *peer = findPeer(uid);
+	if (NULL == peer)
+		return -1;
+	return peer->send(msg.Body, packetSize(msg));
+}
+
 int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 	if (pids.size() == 0)
 		return 0;
@@ -109,7 +114,7 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 	RCONNECT* r = (RCONNECT*) buffer;
 
 	r->head.type = RESEND;
-	r->head.UID = uid;					// 对方的UID
+	r->head.UID = selfUid;				// 自己的UID
 	r->head.sequence = 12;				// 序号非0即可
 	int total = pids.size();			// 总共需要发的条数
 
@@ -125,7 +130,7 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 		while (count < r->count) {
 			r->seq[count++] = *iter++;
 		}
-		result += (send2Peer(*buffer) > 0);
+		result += (send2Peer(*buffer, uid) > 0);
 	}
 
 	cout << "resend: " << result << endl;
@@ -136,14 +141,17 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 int CReliableConnection::resend(ts_msg& requestMsg) {
 	int count = 0;
 	RCONNECT* r = (RCONNECT*) &requestMsg;
-	TS_UINT64 uid = r->head.UID;
-	
+	TS_UINT64 uid = r->head.UID;		// 请求方的UID
+
 	CPeerConnection *peer = findPeer(uid);
 	if (NULL == peer)
 		return -1;
 
 	ts_msg *p = new ts_msg();
-	for (int i = 0; i < r->count; i++) {
+	for (int i = 0; i < r->count; i++) {	
+		if (ServerUID == uid) {
+			uid = selfUid;				// 若是Server请求，则读自己的，若是client请求，则Server读各个uid的
+		}
 		if (bm->readRecord(uid, r->seq[i], *p) < 0)	// 读到几条请求，发多少条
 			continue;
 		if (peer->send(p->Body, packetSize(*p)) > 0)

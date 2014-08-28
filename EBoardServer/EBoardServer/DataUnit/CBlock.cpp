@@ -109,6 +109,7 @@ int CBlock::readMsg(TS_UINT64 seq, ts_msg& pout) {
 	DWORD packageNum, pos;
 	getArrayNumberAndPos(seq, packageNum, pos);
 	
+	iop_lock(&mapLock);
 	if (packageNum != curPackageNum) {	
 		auto iter = blockContents.find(packageNum);
 		if (iter != blockContents.end()) {							// 若seq在内存范围内，则去内存中找
@@ -125,7 +126,9 @@ int CBlock::readMsg(TS_UINT64 seq, ts_msg& pout) {
 			}
 		}
 	}
-	return curPackage->query(pout, pos);
+	int result = curPackage->query(pout, pos);
+	iop_unlock(&mapLock);
+	return result;
 }
 
 // 我只能当seq肯定不为0了。

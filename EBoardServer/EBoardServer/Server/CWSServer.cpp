@@ -47,7 +47,6 @@ void CWSServer::recvProc() {
 	
 	while (isRunning()) {
 		if (pConnect->recv(pmsg->msg.Body, msglen) > 0) {
-			// memcpy(&pmsg->peeraddr, pConnect->getRecvAddr(), sizeof(struct sockaddr_in));
 			WriteIn(*pmsg);
 		}
 	}

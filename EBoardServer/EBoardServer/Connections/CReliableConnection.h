@@ -15,12 +15,13 @@ protected:
 	pthread_t msgIn;
 	
 	// 接收队列
-	// sem_t semMsg;
 	HANDLE semMsg;
 
 	CBlockManager* bm;
 	bool needCacheSend;		// 是否需要将send的内容缓存下来
 	TSQueue<ts_msg>* msgQueue;
+
+	TS_UINT64 selfUid;
 
 public:
 
@@ -48,9 +49,15 @@ public:
 	// 打开或者关闭send时缓存机制
 	inline void switchSendCache(bool on = true) { needCacheSend = on; }
 
+	// 用UID来区分Server还是Client端，另外重传请求时需要提供自己的UID
+	void setUID(TS_UINT64 in) { selfUid = in; }
+
 private:
 	// 将需要发送的消息添加至消息队列
 	int send2Peer(ts_msg& msg);
+
+	// 将需要发送的消息添加至消息队列，发送给另一个uid对应的地址
+	int send2Peer(ts_msg& msg, TS_UINT64 uid);
 
 	// 自己接收缺失，问对端要，返回发出去了几个包  回头改函数名
 	int requestForResend(TS_UINT64 uid, set<TS_UINT64> pids);

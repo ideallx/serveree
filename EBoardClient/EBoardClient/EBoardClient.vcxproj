@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Connections\CAbsConnection.cpp" />
+    <ClCompile Include="Connections\CAbsSocket.cpp" />
+    <ClCompile Include="Connections\CConnection.cpp" />
+    <ClCompile Include="Connections\CHubConnection.cpp" />
+    <ClCompile Include="Connections\CPeerConnection.cpp" />
+    <ClCompile Include="Connections\CReliableConnection.cpp" />
+    <ClCompile Include="Connections\CSynSocket.cpp" />
+    <ClCompile Include="DataUnit\CBlock.cpp" />
+    <ClCompile Include="DataUnit\CBlockManager.cpp" />
+    <ClCompile Include="DataUnit\CMessage.cpp" />
+    <ClCompile Include="DataUnit\CPackage.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="OSInedependent\libiop\iop_thread.c" />
+    <ClCompile Include="OSInedependent\libiop\iop_util.c" />
+    <ClCompile Include="OSInedependent\others.cpp" />
+    <ClCompile Include="OSInedependent\pthread\cleanup.c" />
+    <ClCompile Include="OSInedependent\pthread\global.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_cancel.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_create.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_detach.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_equal.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_getspecific.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_key_create.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_key_delete.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_kill.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_mutexattr_destroy.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_mutex_consistent.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_mutex_destroy.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_mutex_init.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_mutex_lock.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_mutex_trylock.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_mutex_unlock.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_self.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_setschedparam.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_setspecific.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_testcancel.c" />
+    <ClCompile Include="OSInedependent\pthread\pthread_win32_attach_detach_np.c" />
+    <ClCompile Include="OSInedependent\pthread\ptw32_callUserDestroyRoutines.c" />
+    <ClCompile Include="OSInedependent\pthread\ptw32_MCS_lock.c" />
+    <ClCompile Include="OSInedependent\pthread\ptw32_mutex_check_need_init.c" />
+    <ClCompile Include="OSInedependent\pthread\ptw32_new.c" />
+    <ClCompile Include="OSInedependent\pthread\ptw32_processInitialize.c" />
+    <ClCompile Include="OSInedependent\pthread\ptw32_processTerminate.c" />
+    <ClCompile Include="OSInedependent\pthread\ptw32_reuse.c" />
+    <ClCompile Include="OSInedependent\pthread\ptw32_threadDestroy.c" />
+    <ClCompile Include="OSInedependent\pthread\ptw32_threadStart.c" />
+    <ClCompile Include="OSInedependent\pthread\ptw32_throw.c" />
+    <ClCompile Include="OSInedependent\pthread\ptw32_tkAssocCreate.c" />
+    <ClCompile Include="OSInedependent\pthread\ptw32_tkAssocDestroy.c" />
+    <ClCompile Include="OSInedependent\pthread\sched_get_priority_max.c" />
+    <ClCompile Include="OSInedependent\pthread\sched_get_priority_min.c" />
+    <ClCompile Include="OSInedependent\pthread\sched_yield.c" />
+    <ClCompile Include="OSInedependent\pthread\sem_destroy.c" />
+    <ClCompile Include="OSInedependent\pthread\sem_init.c" />
+    <ClCompile Include="OSInedependent\pthread\sem_post.c" />
+    <ClCompile Include="OSInedependent\pthread\sem_wait.c" />
+    <ClCompile Include="OSInedependent\pthread\w32_CancelableWait.c" />
+    <ClCompile Include="Server\CAbsServer.cpp" />
+    <ClCompile Include="Server\CAgentServer.cpp" />
+    <ClCompile Include="Server\CServer.cpp" />
+    <ClCompile Include="Server\CWSServer.cpp" />
+    <ClCompile Include="Server\DAgentClient.cpp" />
+    <ClCompile Include="Server\DWSClient.cpp" />
+    <ClCompile Include="Zip\ioapi.c" />
+    <ClCompile Include="Zip\iowin32.c" />
+    <ClCompile Include="Zip\myzip.cpp" />
+    <ClCompile Include="Zip\unzip.c" />
+    <ClCompile Include="Zip\zip.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Connections\CAbsConnection.h" />
+    <ClInclude Include="Connections\CAbsSocket.h" />
+    <ClInclude Include="Connections\CConnection.h" />
+    <ClInclude Include="Connections\CHubConnection.h" />
+    <ClInclude Include="Connections\CPeerConnection.h" />
+    <ClInclude Include="Connections\CReliableConnection.h" />
+    <ClInclude Include="Connections\CSynSocket.h" />
+    <ClInclude Include="DataStructure\Pool.h" />
+    <ClInclude Include="DataStructure\TSQueue.h" />
+    <ClInclude Include="DataUnit\CBlock.h" />
+    <ClInclude Include="DataUnit\CBlockManager.h" />
+    <ClInclude Include="DataUnit\CMessage.h" />
+    <ClInclude Include="DataUnit\CPackage.h" />
+    <ClInclude Include="DataUnit\CPeerPacket.h" />
+    <ClInclude Include="DataUnit\UserBase.h" />
+    <ClInclude Include="OSInedependent\libiop\iop_config.h" />
+    <ClInclude Include="OSInedependent\libiop\iop_thread.h" />
+    <ClInclude Include="OSInedependent\libiop\iop_util.h" />
+    <ClInclude Include="OSInedependent\others.h" />
+    <ClInclude Include="OSInedependent\pthread\config.h" />
+    <ClInclude Include="OSInedependent\pthread\context.h" />
+    <ClInclude Include="OSInedependent\pthread\implement.h" />
+    <ClInclude Include="OSInedependent\pthread\pthread.h" />
+    <ClInclude Include="OSInedependent\pthread\sched.h" />
+    <ClInclude Include="OSInedependent\pthread\semaphore.h" />
+    <ClInclude Include="Server\CAbsServer.h" />
+    <ClInclude Include="Server\CAgentServer.h" />
+    <ClInclude Include="Server\CServer.h" />
+    <ClInclude Include="Server\CWSServer.h" />
+    <ClInclude Include="Server\DAgentClient.h" />
+    <ClInclude Include="Server\DWSClient.h" />
+    <ClInclude Include="Stdafx.h" />
+    <ClInclude Include="Zip\crypt.h" />
+    <ClInclude Include="Zip\ioapi.h" />
+    <ClInclude Include="Zip\iowin32.h" />
+    <ClInclude Include="Zip\myzip.h" />
+    <ClInclude Include="Zip\unzip.h" />
+    <ClInclude Include="Zip\zconf.h" />
+    <ClInclude Include="Zip\zip.h" />
+    <ClInclude Include="Zip\zlib.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Zip\zdll.lib" />
+    <Library Include="Zip\zlib.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Zip\zlib1.dll" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C15C5F6A-D76B-43EE-B24C-90B3BBD952F2}</ProjectGuid>
+    <RootNamespace>EBoardClient</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\Users\Fulaan\Documents\GitHub\server\EBoardServer\EBoardServer\OSInedependent\pthread;C:\Users\Fulaan\Documents\GitHub\server\EBoardServer\EBoardServer\OSInedependent\libiop;C:\Users\Fulaan\Documents\GitHub\server\EBoardServer\EBoardServer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;PTW32_STATIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>zdll.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

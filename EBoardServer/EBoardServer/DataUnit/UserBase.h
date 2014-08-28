@@ -15,29 +15,15 @@
 
 using namespace std;
 
-class UserBase {
-public:
+struct UserBase {
 	TS_UINT64 _uid;
 	TS_UINT64 _reserved;
-	string _username;
-	string _password;
 	TS_UINT64 _classid;
 	unsigned char _role;
-
-public:
-	UserBase(TS_UINT64 uid, TS_UINT64 reserved, 
-		string username, string password, 
-		TS_UINT64 classid, enum RoleOfClass role) :
-		_uid(uid),
-		_reserved(reserved),
-		_username(username),
-		_password(password),
-		_classid(classid),
-		_role(role) {
-	}
-	UserBase() {};
-	virtual ~UserBase() {};
+	unsigned char _username[20];
+	unsigned char _password[20];
 };
+
 
 static ostream& operator<< (ostream& out, const UserBase& T) {
 	out << T._username << " " 

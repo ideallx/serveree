@@ -83,17 +83,16 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	
 	iop_lock(&lockWorkServer);
 	CWSServer* pServer = map_workserver[user._classid];
-	bool ret = pServer->addPeer(inputMsg.peeraddr, user._uid);
+	// bool ret = pServer->addPeer(inputMsg.peeraddr, user._uid);
 	iop_unlock(&lockWorkServer);
 
-	if (ret) {
-		DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;
-		down->result = Success;
-		down->addr = inputMsg.peeraddr;
-		down->addr.sin_port = htons(user._classid);
-		WriteOut(inputMsg);
-	}
-	return ret;
+	DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;	// 进入班级成功，吧服务器信息告诉客户端
+	down->result = Success;
+	down->addr = inputMsg.peeraddr;
+	down->addr.sin_port = htons(user._classid);
+	WriteOut(inputMsg);
+
+	return true;
 }
 
 void CAgentServer::leaveClass(TS_UINT64 classid, TS_UINT64 uid) {
@@ -104,7 +103,7 @@ void CAgentServer::leaveClass(TS_UINT64 classid, TS_UINT64 uid) {
 	}
 	iop_unlock(&lockWorkServer);
 
-	if (pServer->isEmpty()) {
+	if (pServer->isEmpty()) {			// 没人在教室了就销毁
 		cout << "destroy class" << endl;
 		if (isClassExist(classid)) {
 			destroyClass(classid);
@@ -112,22 +111,36 @@ void CAgentServer::leaveClass(TS_UINT64 classid, TS_UINT64 uid) {
 	}
 }
 
-DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {
+DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，加入退出班级等等
 	enum PackageType type = getType(inputMsg.msg);
-	UP_AGENTSERVICE* in = (UP_AGENTSERVICE*) &inputMsg;
+	UP_AGENTSERVICE* in = (UP_AGENTSERVICE*) &inputMsg.msg;
 
 	switch (type) {
 	case ENTERCLASS:
 		{
-			UserBase user(in->head.UID, in->head.reserved, (char*) in->username, 
-				(char*) in->password, in->classid, in->role);
+			UserBase user;
+			user._classid = in->classid;
+			user._reserved = in->head.reserved;
+			user._role = in->role;
+			user._uid = in->head.UID;
+
+			memcpy(user._username, in->username, 20);
+			memcpy(user._password, in->password, 20);
+			
 			enterClass(inputMsg, user);
 			break;
 		}
 	case LEAVECLASS:
 		{
-			UserBase user(in->head.UID, in->head.reserved, (char*) in->username, 
-				(char*) in->password, in->classid, in->role);
+			UserBase user;
+			user._classid = in->classid;
+			user._reserved = in->head.reserved;
+			user._role = in->role;
+			user._uid = in->head.UID;
+
+			memcpy(user._username, in->username, 20);
+			memcpy(user._password, in->password, 20);
+
 			leaveClass(in->classid, in->head.UID);
 			break;
 		}
