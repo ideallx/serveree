@@ -11,7 +11,9 @@
 extern string int2string(TS_UINT64);
 
 CPackage::CPackage(int beginPos) :
-	scanHead(beginPos) {
+	scanHead(beginPos),
+	packageID(0),
+	_isSaved(false) {
 	init();
 }
 
@@ -50,16 +52,16 @@ int CPackage::insert(const ts_msg& p, int pos) {
 
 	ts_msg* msg = (ts_msg*) malloc(size);	// 自己创建内存
 	memcpy(msg, &p, size);					// 保存住传进来的msg
-	packets[pos] = msg;
+	packets[pos] = msg;						// 加入数组
 
 	if (pos == scanHead) {
 		scanHead = pos + 1;
 	} else if (pos > scanHead) {
 		for (int i = scanHead; i < pos; i++)
-			missing.insert(i);			// 缺失的包加到set中
+			missing.insert(i);				// 缺失的包加到set中
 		scanHead = pos + 1;
 	} else if (pos < scanHead) {
-		missing.erase(pos);				// 获得的包从set中取出
+		missing.erase(pos);					// 获得的包从set中取出
 	}
 #ifdef _DEBUG_INFO_
 	cout << "P: add OKOK ";
@@ -75,7 +77,6 @@ int CPackage::query(ts_msg& pout, int pos) {
 	int size = packetSize(*packet);
 
 	memcpy((void*) &pout, packet, size);
-
 	return size;
 }
 
@@ -87,6 +88,8 @@ int CPackage::scanMissingPackets(set<int>& out) {
 	return missing.size();
 }
 
+// scanHead之前的miss的package，都已经保存进了missing set中
+// 现在需要scanAll，只要把scanHead到MaxPackets中所有包都加到missing中
 void CPackage::scanAll() {
 	for (int i = scanHead; i < MaxPackets; i++) {
 		missing.insert(i);
@@ -94,8 +97,8 @@ void CPackage::scanAll() {
 	scanHead = MaxPackets;
 }
 
-bool CPackage::save(string fileName, int packageNum, bool isCreate) {
-	if (isZipFileExist(fileName, packageNum))			// 若文件已经存在，不用重复保存
+bool CPackage::save(string fileName, bool isCreate) {
+	if (isZipFileExist(fileName, packageID))			// 若文件已经存在，不用重复保存
 		return true;
 
 	char *content = (char *) malloc(MESSAGE_SIZE * MaxPackets);
@@ -109,12 +112,12 @@ bool CPackage::save(string fileName, int packageNum, bool isCreate) {
 
 		memcpy(content + i * MESSAGE_SIZE, msg, size);
 	}
-	if (!CZip::saveToZip(fileName.c_str(), int2string(packageNum).c_str(), 
+	if (!CZip::saveToZip(fileName.c_str(), int2string(packageID).c_str(), 
 		content, (scanHead) * MESSAGE_SIZE, isCreate)) {
 			cout << "Save File Error" << endl;
 	}
 	free(content);
-
+	_isSaved = true;
 	return true;
 }
 
@@ -161,6 +164,7 @@ bool CPackage::load(string fileName, int packageNum) {
 	}
 
 	free(content);
+	_isSaved = true;
 	return true;
 }
 

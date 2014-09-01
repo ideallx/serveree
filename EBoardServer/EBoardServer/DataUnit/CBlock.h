@@ -18,17 +18,16 @@ const int initialHP = 20;
 class CBlock {
 private:
 	map<int, CPackage*> blockContents;
-	bool isFirstWrite;			// 是否是第一次写文件
-
-	string zipName;				// 保存的zip文件名
 	
 	CPackage* curPackage;		// 上一次读取或者插入的包
 	int curPackageNum;			// 上一次包的包号
 
 	bool isFirstMsg;			// 第一个包的序列号当做起始号
 
-	map<int, int> blockHp;		// packageNum -> HP
+	map<int, int> blockHp;		// packageNum -> HP，每次scan减血，减到0了销毁。
 	iop_lock_t mapLock;
+
+	set<CPackage*> saveList;	// 需要保存的CPackage
 
 public:
 	CBlock();
@@ -48,12 +47,11 @@ public:
 	// 全部保存进文件
 	void saveAll();
 
-	// 创建zip文件
-	// 文件路径的格式： runtime path/_classid_time_uid.zip/arrayNumber，同一数组中的packet写在一个文件中
-	void setZipName(string zip) { zipName = zip; }
-
 	// 获取从某个序号开始，到某个序号结束的所有的msg
 	bool getMsgs(set<ts_msg*>& out, TS_UINT64 beg, TS_UINT64 end);
+
+	// 获取需要保存的CPackages
+	int savePackage(set<CPackage*>& out);
 	
 private:
 	// 获取seq对应的msg所在的数组以及位置

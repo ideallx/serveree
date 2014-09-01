@@ -27,6 +27,9 @@ public:
 	// 保存Block
 	void saveBlock(TS_UINT64 uid);
 
+	// 获取需要保存的CPackage
+	int getSavePackage(set<pair<TS_UINT64, CPackage*> >& out);
+
 private:
 	CBlock* getBlockByUid(TS_UINT64 uid);
 

@@ -98,6 +98,6 @@ TS_UINT64 getUid(const ts_msg& p);
 enum PackageType getType(const ts_msg& p);
 int buildResentMessage(ts_msg& tempMsg, const char *msg, int bodyLen);
 
-const TS_UINT64 ServerUID = 0x12121212;
+const TS_UINT64 ServerUID = 0;
 
 #endif

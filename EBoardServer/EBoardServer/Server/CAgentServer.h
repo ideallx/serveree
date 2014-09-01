@@ -27,12 +27,13 @@ public:
 	CAgentServer();
 	virtual ~CAgentServer();
 
+	// 从文件加载用户，现在一般不用这个方式
 	void loadUser();
 
 	void createClass(TS_UINT64 classid);
 	void destroyClass(TS_UINT64 classid);
 	bool enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user);
-	void leaveClass(TS_UINT64 classid, TS_UINT64 uid);
+	void leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user);
 
 	DWORD MsgHandler(TS_PEER_MESSAGE& pmsg);
 

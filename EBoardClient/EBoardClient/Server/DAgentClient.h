@@ -15,7 +15,7 @@ using namespace std;
 
 class DAgentClient : public CServer {
 private:
-	map<TS_UINT64, DWSClient*> workClients;		// classid -> CWSServer
+	DWSClient* workClient;
 	UserBase* ub;
 
 public:
@@ -35,7 +35,7 @@ private:
 	
 	bool enterClass(ts_msg& msg);
 
-	bool leaveClass(TS_UINT64 classid);
+	bool leaveClass(ts_msg& msg);
 };
 
 #endif

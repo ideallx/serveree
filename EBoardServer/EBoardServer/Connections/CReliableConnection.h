@@ -13,15 +13,21 @@ class CReliableConnection : public CHubConnection {
 protected:
 	pthread_t msgScan;	
 	pthread_t msgIn;
+	pthread_t msgSave;
 	
 	// 接收队列
-	HANDLE semMsg;
+	HANDLE semMsg;					// 消息处理信号量
+	HANDLE semSave;					// 存文件信号量
 
 	CBlockManager* bm;
-	bool needCacheSend;		// 是否需要将send的内容缓存下来
-	TSQueue<ts_msg>* msgQueue;
 
-	TS_UINT64 selfUid;
+	TSQueue<ts_msg>* msgQueue;
+	TSQueue<pair<TS_UINT64, CPackage*> > saveQueue;	// bao这里传指针应该没问题吧。
+
+	TS_UINT64 selfUid;				// 自身的UID
+	set<TS_UINT64> missed;			// 测试用client丢包数据
+
+	set<TS_UINT64> createdBlock;	// 记录所有create过的block
 
 public:
 
@@ -40,14 +46,14 @@ public:
 	// 扫描一遍整个block发现有丢失的就发送重发请求
 	void scanProcess();
 
+	// 存文件线程，维护一个存文件队列
+	void saveProcess();
+
 	// 获取BlockManager的文件地址
 	string getFilePath();
 
 	// 将某个用户的包全部保存进文件中，并删除之
 	void saveUserBlock(TS_UINT64 uid);
-
-	// 打开或者关闭send时缓存机制
-	inline void switchSendCache(bool on = true) { needCacheSend = on; }
 
 	// 用UID来区分Server还是Client端，另外重传请求时需要提供自己的UID
 	void setUID(TS_UINT64 in) { selfUid = in; }
@@ -74,6 +80,9 @@ private:
 
 	// 消息到达的处理过程
 	friend void* MsgInProc(LPVOID lpParam);
+
+	// 消息到达的处理过程
+	friend void* SaveProc(LPVOID lpParam);
 
 	friend int testRecv();
 };

@@ -21,11 +21,10 @@ class CPackage {
 private:
 	ts_msg* packets[MaxPackets];
 	
-	int scanHead;
-
-	HANDLE semPackage;
-
+	int scanHead;		// 下次扫描的开头点
+	int packageID;		// 包id
 	set<int> missing;	// 已丢失的包
+	bool _isSaved;		// 是否已经保存过
 
 public:
 	explicit CPackage(int beginPos = 0);
@@ -39,9 +38,13 @@ public:
 	int query(ts_msg& pout, int pos);
 	
 	// 将这个类中所有的msg写进文件
-	bool save(string fileName, int packageNum, bool isCreate);
+	bool save(string fileName, bool isCreate);
 	// 将文件中的内容全部复制到类中
 	bool load(string fileName, int packageNum);
+	// 返回该package是否已经存过文件
+	inline bool isSaved() { return _isSaved; }
+	// 设置该package是否已经存过文件
+	inline void setSaved(bool set) { _isSaved = set; }
 
 	// 检测某zip文件是否存在，以免多new
 	static bool isZipFileExist(string fileName, int packageNum);
@@ -54,6 +57,9 @@ public:
 		else
 			return false;
 	}
+
+	inline void setID(int id) { packageID = id; }
+	inline int getID(void) { return packageID; }
 
 	// 将这个包设置为应该收到所有message
 	void scanAll();

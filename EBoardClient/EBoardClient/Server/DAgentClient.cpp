@@ -8,26 +8,34 @@
 using namespace std;
 
 DAgentClient::DAgentClient() :
+	workClient(NULL),
 	ub (NULL) {
 }
 
 DAgentClient::~DAgentClient() {
 	DESTROY(ub);
+	DESTROY(workClient);
 }
 
 bool DAgentClient::isClassExist(TS_UINT64 classid) {
-	return (workClients.count(classid) > 0) && 
-		(workClients[classid] != NULL);
+	return (workClient != NULL);
 }
 
 DWORD DAgentClient::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSClient
 	enum PackageType type = getType(inputMsg.msg);
 	DOWN_AGENTSERVICE* in = (DOWN_AGENTSERVICE*) &inputMsg.msg;
 	if (ENTERCLASS == in->head.type) {
-		if (in->result == Success) {
-			DWSClient *dws = new DWSClient(ntohs(in->addr.sin_port), 2);
-			dws->Start(ntohs(in->addr.sin_port));
+		if (in->result == Success) {								// 进入班级成功，创建work client
+			if (NULL != workClient)
+				return -1;
+			int port = ntohs(in->addr.sin_port);
+			workClient = new DWSClient(port, 2);
+			workClient->Start(port);
 		}
+	} else if (LEAVECLASS == in->head.type) {
+		if (NULL == workClient)
+			return -1;
+		workClient->Stop();
 	}
 	return 0;
 }
@@ -39,6 +47,22 @@ bool DAgentClient::enterClass(ts_msg& msg) {			// 拼接进入班级的报文
 	TS_UINT64 uid = ub->_uid;
 	UP_AGENTSERVICE* upcmd = (UP_AGENTSERVICE*) &msg;
 	upcmd->head.type = ENTERCLASS;
+	upcmd->head.UID = uid;
+	upcmd->head.reserved = ub->_reserved;
+	upcmd->classid = ub->_classid;
+	upcmd->role = static_cast<enum RoleOfClass> (ub->_role);
+	memcpy(upcmd->username, ub->_username, 20);
+	memcpy(upcmd->password, ub->_password, 20);
+	return true;
+}
+
+bool DAgentClient::leaveClass(ts_msg& msg) {
+	if (NULL == ub)
+		return false;
+
+	TS_UINT64 uid = ub->_uid;
+	UP_AGENTSERVICE* upcmd = (UP_AGENTSERVICE*) &msg;
+	upcmd->head.type = LEAVECLASS;
 	upcmd->head.UID = uid;
 	upcmd->head.reserved = ub->_reserved;
 	upcmd->classid = ub->_classid;
@@ -60,6 +84,11 @@ void DAgentClient::sendProc() {
 	enterClass(pmsg.msg);								// Agent开启，直接就进班级
 	if (pPeerConn->send(pmsg.msg.Body, sizeof(ts_msg)) < 0)
 		cout << "send error in sendproc" << endl;
+	//Sleep(10000);	// 1分钟
+
+	//leaveClass(pmsg.msg);
+	//if (pPeerConn->send(pmsg.msg.Body, sizeof(ts_msg)) < 0)
+	//	cout << "send error in sendproc" << endl;
 }
 
 void DAgentClient::setUser(UserBase& ubin) {			// 设置本机信息

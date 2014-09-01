@@ -38,6 +38,8 @@ public:
 
 	void addUser(TS_UINT64 UID);
 	void removeUser(TS_UINT64 uid);
+
+	// workserverµÄclientsÊÇ·ñÎª¿Õ
 	bool isEmpty();
 
 	inline TS_UINT64 getClassid() const { return _classid; }

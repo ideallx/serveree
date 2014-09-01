@@ -1,16 +1,17 @@
 #include <iostream>
-
+#include <string>
 #include "CReliableConnection.h"
 #include "../DataUnit/CMessage.h"
 
+extern string int2string(TS_UINT64);
 using namespace std;
 
 CReliableConnection::CReliableConnection() :
-	bm(new CBlockManager()),
-	needCacheSend(false),
-	msgQueue(new TSQueue<ts_msg>),
-	selfUid(ServerUID) {
+	bm(new CBlockManager()),			
+	msgQueue(new TSQueue<ts_msg>),		// 消息队列，处理收发
+	selfUid(ServerUID) {				// 默认为服务器UID，client端时需要setUID()
 	semMsg = CreateSemaphore(NULL, 0, 1024, NULL);
+	semSave = CreateSemaphore(NULL, 0, 1024, NULL);
 }
 
 CReliableConnection::~CReliableConnection() {
@@ -18,11 +19,13 @@ CReliableConnection::~CReliableConnection() {
 	pthread_cancel(msgIn);
 
 	CloseHandle(semMsg);
+	CloseHandle(semSave);
 
 	delete msgQueue;
 	delete bm;
 }
 
+// 除了基本的开端口之外，还要增加一个扫描线程，一个消息处理线程
 bool CReliableConnection::create(unsigned short localport) {
 	if (!CHubConnection::create(localport))
 		return false;
@@ -40,9 +43,18 @@ bool CReliableConnection::create(unsigned short localport) {
 	if (0 == rc) {
 		iop_usleep(10);
 		cout << "MsgIn Thread start successfully" << endl;
-		return true;
 	} else {
 		cout << "MsgIn Thread start failed " << endl;
+		return false;
+	}
+
+	rc = pthread_create(&msgSave, NULL, SaveProc, (void*) this);
+	if (0 == rc) {
+		iop_usleep(10);
+		cout << "MsgSave Thread start successfully" << endl;
+		return true;
+	} else {
+		cout << "MsgSave Thread start failed " << endl;
 		return false;
 	}
 }
@@ -53,7 +65,7 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
 		return result;
 
 	ts_msg* msg = (ts_msg*) buf;
-	if (RESEND == getType(*msg)) {		// 若是收到重传请求，返回-1
+	if (RESEND == getType(*msg)) {		// 若是收到重传请求，交到消息队列，返回-1
 		result = -1;
 	}
 
@@ -63,35 +75,60 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
 }
 
 int CReliableConnection::send(const char* buf, ULONG len) {
-	ts_msg *msg = (ts_msg*) buf;
-	if (needCacheSend) {
-		bm->record(*msg, packetSize(*msg));
-	}
+	if (selfUid != ServerUID) {								// client端特殊处理
+		ts_msg *msg = (ts_msg*) buf;
+		bm->record(*msg, packetSize(*msg));					// client端需要记录发出的包
 
+		TS_UINT64 seq = getSeq(*msg);
+		if ((seq % 5 == 0) && missed.count(seq) == 0) 	{	// 故意抛弃，然后请求重传，第二次来正常接收
+			missed.insert(seq);
+			// cout << uid << " missed " << seq << endl;
+			return -1;
+		}
+
+	}
 	return CHubConnection::send(buf, len);
 }
 
 static int lastMissing = 0;
 void CReliableConnection::scanProcess() {
-	if (NULL == bm)
-		return;
-	
-	map<TS_UINT64, set<TS_UINT64> > results = bm->getLostSeqIDs();
-	for (auto uidIter = results.begin(); uidIter != results.end(); uidIter++) { 	// 扫描所有UID
-		TS_UINT64 uid = uidIter->first;
-		set<TS_UINT64> pids = uidIter->second;
+	map<TS_UINT64, set<TS_UINT64> > results = bm->getLostSeqIDs();				// blockManager层找
+	for (auto uidIter = results.begin(); uidIter != results.end(); uidIter++) { // 扫描所有UID
+		TS_UINT64 uid = uidIter->first;											// block层
+		set<TS_UINT64> pids = uidIter->second;									// package层
 		requestForResend(uid, pids);
 
-		cout << uid << " missing:";
-		for (auto i = pids.begin(); i != pids.end(); i++) 
-			cout << " " << *i;
-		cout << endl;
+		// cout << uid << " missing:";
 		lastMissing = pids.size();
+	}
+
+	set<pair<TS_UINT64, CPackage*> > sets;
+	bm->getSavePackage(sets);
+	for (auto iter = sets.begin(); iter != sets.end(); iter++) {
+		saveQueue.enQueue(*iter);
+		ReleaseSemaphore(semSave, 1, NULL);
+		cout << iter->first << " added to queue" << endl;
 	}
 }
 
+void CReliableConnection::saveProcess() {
+	WaitForSingleObject(semSave, INFINITE);
+
+	pair<TS_UINT64, CPackage*> file;
+	if (!saveQueue.deQueue(file))
+		return;
+
+	bool isFirst = false;
+	if (createdBlock.count(file.first) == 0) {
+		createdBlock.insert(file.first);
+		isFirst = true;
+	}
+
+	file.second->save(int2string(file.first) + ".zip", isFirst);
+}
+
 int CReliableConnection::send2Peer(ts_msg& msg) {
-	CPeerConnection *peer = findPeer(getUid(msg));
+	CPeerConnection *peer = findPeer(getUid(msg));	
 	if (NULL == peer)
 		return -1;
 	return peer->send(msg.Body, packetSize(msg));
@@ -101,6 +138,7 @@ int CReliableConnection::send2Peer(ts_msg& msg, TS_UINT64 uid) {
 	CPeerConnection *peer = findPeer(uid);
 	if (NULL == peer)
 		return -1;
+	// cout << "port:" << peer->getPeer()->sin_port << endl;
 	return peer->send(msg.Body, packetSize(msg));
 }
 
@@ -119,7 +157,7 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 	int total = pids.size();			// 总共需要发的条数
 
 	while (total > 0) {
-		if (total < MaxSeqsInOnePacket)	// 每条报文最多20个请求
+		if (total < MaxSeqsInOnePacket)	// 每条报文最多50个请求
 			r->count = total;
 		else
 			r->count = MaxSeqsInOnePacket;
@@ -133,7 +171,7 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 		result += (send2Peer(*buffer, uid) > 0);
 	}
 
-	cout << "resend: " << result << endl;
+	// cout << "resend: " << result << endl;
 	delete buffer;
 	return result;
 }
@@ -141,16 +179,16 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 int CReliableConnection::resend(ts_msg& requestMsg) {
 	int count = 0;
 	RCONNECT* r = (RCONNECT*) &requestMsg;
-	TS_UINT64 uid = r->head.UID;		// 请求方的UID
+	TS_UINT64 uid = r->head.UID;					// 请求方的UID
 
-	CPeerConnection *peer = findPeer(uid);
+	CPeerConnection *peer = findPeer(uid);			// 请求方的地址
 	if (NULL == peer)
 		return -1;
 
 	ts_msg *p = new ts_msg();
 	for (int i = 0; i < r->count; i++) {	
 		if (ServerUID == uid) {
-			uid = selfUid;				// 若是Server请求，则读自己的，若是client请求，则Server读各个uid的
+			uid = selfUid;							// 若是Server请求，则读自己的，若是client请求，则Server读各个uid的
 		}
 		if (bm->readRecord(uid, r->seq[i], *p) < 0)	// 读到几条请求，发多少条
 			continue;
@@ -200,16 +238,26 @@ void* MsgInProc(LPVOID lpParam) {
 		if (!conn->msgQueue->deQueue(*msg))
 			continue;
 
-		if (!conn->validityCheck(*msg))
+		if (!conn->validityCheck(*msg))					// 有效性检测
 			continue;
 		
 		if (RESEND == getType(*msg)) {					// 若是收到重传请求，自己处理
 			conn->resend(*msg);
 		} else {										// 若是收到正常请求，则保存，之后由上层处理
-			if (NULL == conn->bm)
-				continue;
 			conn->bm->record(*msg, packetSize(*msg));	// 缓存记录
 		}
 	}
 	delete msg;
+}
+
+void* SaveProc(LPVOID lpParam) {
+	pthread_detach(pthread_self());
+	CReliableConnection* conn = (CReliableConnection*) lpParam;
+	if (!conn) {
+		return 0;
+	}
+	while (true) {
+		conn->saveProcess();
+	}
+	return 0;
 }

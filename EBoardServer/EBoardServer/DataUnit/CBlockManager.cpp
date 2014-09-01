@@ -30,15 +30,9 @@ int CBlockManager::record(ts_msg& in, int size) {
 	CBlock* b = getBlockByUid(uid);
 	if (b == NULL) {
 		b = new CBlock();
-
 		struct timeval tv;
 		gettimeofday(&tv, NULL);
 		TS_UINT64 time = static_cast<TS_UINT64> (tv.tv_sec);
-
-		b->setZipName(int2string(classid) + "_"
-			+ int2string(time) + "_"
-			+ int2string(uid) + ".zip");
-
 		map_userBlock.insert(make_pair(uid, b));
 	}
 
@@ -71,6 +65,21 @@ map<TS_UINT64, set<TS_UINT64> > CBlockManager::getLostSeqIDs() {
 		}
 	}
 	return results;
+}
+
+int CBlockManager::getSavePackage(set<pair<TS_UINT64, CPackage*> >& out) {
+	int count = 0;
+	for (auto iter = map_userBlock.begin(); iter != map_userBlock.end(); ) {
+		set<CPackage*> packages;
+		iter->second->savePackage(packages);
+
+		for (auto it2 = packages.begin(); it2 != packages.end(); it2++) {
+			out.insert(make_pair(iter->first, *it2));
+			count++;
+		}
+		iter++;
+	}
+	return count;
 }
 
 void CBlockManager::removeBlock(TS_UINT64 uid) {

@@ -8,7 +8,6 @@ DWSClient::DWSClient(TS_UINT64 classid, TS_UINT64 reserved) :
 	_reserved(reserved),
 	seq(0),
 	_uid(clientUid) {
-	dynamic_cast<CReliableConnection*> (pConnect)->switchSendCache(true);		// client端在send的时候保存
 	dynamic_cast<CReliableConnection*> (pConnect)->setUID(_uid);
 	clientUid++;
 }
@@ -58,7 +57,7 @@ void DWSClient::sendProc() {
 void DWSClient::generateData() {
 	TS_PEER_MESSAGE *msg = new TS_PEER_MESSAGE();
 
-	if (seq > 20000)
+	if (seq > 200000)
 		return;
 
 	int length = rand() % 500 + 525;
@@ -70,7 +69,7 @@ void DWSClient::generateData() {
 	head->version = 100;
 	
 	WriteOut(*msg);
-	iop_usleep(10);			// 时间间隔
+	iop_usleep(1);			// 时间间隔
 	delete msg;
 }
 
