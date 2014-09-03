@@ -95,16 +95,7 @@ int CReliableConnection::send(const char* buf, ULONG len) {
 
 		}
 	}
-	if (selfUid != ServerUID) {
-		enum PacketType type = getType(*msg);
-		if (type > PACKETCONTROL) {
-			return findPeer(AgentUID)->send(buf, len);
-		} else {
-			return findPeer(ServerUID)->send(buf, len);
-		}
-	} else {
-		return CHubConnection::send(buf, len);
-	}
+	return CHubConnection::send(buf, len);
 }
 
 void CReliableConnection::scanProcess() {
@@ -119,7 +110,7 @@ void CReliableConnection::scanProcess() {
 		//	cout << *iter;
 		//}
 		//cout << endl;
-		// cout << "Missing Rate: " << getMissingRate() << endl;
+		cout << "Missing Rate: " << getMissingRate() << endl;
 	}
 	set<pair<TS_UINT64, CPackage*> > sets;
 	bm->getSavePackage(sets);
@@ -227,11 +218,10 @@ void CReliableConnection::saveUserBlock(TS_UINT64 uid) {
 void CReliableConnection::receive(ts_msg& msg) {
 	if (!msgQueue->deQueue(msg))
 		return;
-
-	if (!validityCheck(msg))					// 有效性检测
+	if (!validityCheck(msg))				// 有效性检测
 		return;
 	
-	cout << selfUid << ":received " << getSeq(msg) << endl;
+	// cout << selfUid << ":received " << getSeq(msg) << endl;
 	if (RESEND == getType(msg)) {			// 若是收到重传请求，自己处理
 		resend(msg);
 	} else {								// 若是收到正常请求，则保存，之后由上层处理
@@ -271,7 +261,6 @@ void* MsgInProc(LPVOID lpParam) {
 	ts_msg* msg = new ts_msg();
 	while (true) {
 		WaitForSingleObject(conn->semMsg, INFINITE);
-		//sem_wait((sem_t*) &conn->semMsg);
 		conn->receive(*msg);
 	}
 	delete msg;

@@ -85,6 +85,7 @@ private:
 	// 数据报文有效性检查
 	bool validityCheck(ts_msg& msg);
 
+	// 收到数据后的处理以及转发等过程
 	void receive(ts_msg& msg);
 	
 private:
@@ -96,9 +97,6 @@ private:
 
 	// 消息到达的处理过程
 	friend void* SaveProc(LPVOID lpParam);
-
-
-	friend int testRecv();
 };
 
 

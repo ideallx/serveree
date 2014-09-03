@@ -18,15 +18,21 @@ private:
 	TS_UINT64 _seq;
 	UserBase* ub;
 	CReliableConnection *conn;
+	CPeerConnection* agent;
 
 public:
 	DWSClient();
 	virtual ~DWSClient();
+
 	bool Start(unsigned short port); 
-	bool generateData();
+
+	// 模拟客户端 生成随机数据
+	bool generateData();				
 	
 	DWORD MsgHandler(TS_PEER_MESSAGE& pmsg);
-	void setUser(UserBase& ubin);
+
+	// 设置用户
+	void setUser(UserBase& ubin);		
 
 	// 心跳过程
 	void sendHeartBeat();

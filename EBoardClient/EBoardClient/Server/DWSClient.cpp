@@ -3,7 +3,8 @@
 
 DWSClient::DWSClient() :
 	_seq(0),
-	ub(NULL) {
+	ub(NULL),
+	agent(NULL) {
 	conn = dynamic_cast<CReliableConnection*> (pConnect);
 }
 
@@ -20,7 +21,6 @@ void DWSClient::recvProc() {
 		if (conn->recv(pmsg->msg.Body, msglen) > 0)
 			WriteIn(*pmsg);
 	}
-
 	delete pmsg;
 	cout << "recv thread exit" << endl;
 }
@@ -45,18 +45,17 @@ void DWSClient::setUser(UserBase& ubin) {			// 设置本机信息
 	conn->setUID(ub->_uid);
 }
 
-
 void DWSClient::sendProc() {
 	TS_PEER_MESSAGE *pmsg = new TS_PEER_MESSAGE();
 	memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
 
 	enterClass(pmsg->msg);
-	if (conn->send(pmsg->msg.Body, sizeof(ts_msg)) < 0)
+	if (agent->send(pmsg->msg.Body, sizeof(ts_msg)) < 0)	// 控制类由Agent发送
 		cout << "send error in sendproc" << endl;
 	
 	while (isRunning()) {
-		ReadOut(*pmsg);
-		cout << ub->_uid << ":" << "send " << getSeq(pmsg->msg) << endl;
+		ReadOut(*pmsg);										// 普通类由pConnect发送
+		// cout << ub->_uid << ":" << "send " << getSeq(pmsg->msg) << endl;
 		int result = conn->send(pmsg->msg.Body, packetSize(pmsg->msg));
 	}
 	delete pmsg;
@@ -83,14 +82,13 @@ bool DWSClient::generateData() {
 	head->version = 100;
 	
 	WriteOut(*msg);
-	iop_usleep(2000);			// 时间间隔
+	iop_usleep(10);			// 时间间隔
 	delete msg;
 	return true;
 }
 
 void DWSClient::sendHeartBeat() {
 	TS_PEER_MESSAGE *msg = new TS_PEER_MESSAGE();
-
 	UP_HEARTBEAT* upcmd = (UP_HEARTBEAT*) &msg->msg;
 	
 	struct timeval tv;
@@ -101,8 +99,8 @@ void DWSClient::sendHeartBeat() {
 	upcmd->head.sequence = 0;
 	upcmd->head.UID = ub->_uid;
 	upcmd->head.version = 100;
-
-	WriteOut(*msg);
+	
+	agent->send(msg->msg.Body, packetSize(msg->msg));
 	cout << ub->_uid << "send heart beat at " << upcmd->head.time << endl;
 	delete msg;
 }
@@ -125,11 +123,14 @@ bool DWSClient::Start(unsigned short port) {
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = inet_addr("192.168.1.202");
 	addr.sin_port = htons(port);
-	conn->addPeer(AgentUID, addr);
+	agent = new CPeerConnection(conn->getSocket());
+	agent->copy(conn);
+	assert(agent->getSocket()->getSocket() > 0);
+	agent->setPeer(addr);
 
 	turnOn();
 	if (!Initialize ())
-		return FALSE;
+		return false;
 
 	for (unsigned int i = 0; i < recvthread_num; i++) {
 		int rc = pthread_create(&pthread_recv[i], NULL, RecvProc, (void*) this);

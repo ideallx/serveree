@@ -72,7 +72,8 @@ bool CHubConnection::addPeer(const TS_UINT64 uid,
 	if ((*peerHub).count(uid) == 0) {
 		(*peerHub)[uid] = pPeerConnect;
 	} else {
-		delete pPeerConnect;
+		delete (*peerHub)[uid];
+		(*peerHub)[uid] = pPeerConnect;
 	}
 	iop_unlock(&mutex_lock);
 	return true;
