@@ -13,11 +13,12 @@
 
 using namespace std;
 
-const int initialHP = 20;
+const int initialHP = 200;
 
 class CBlock {
 private:
 	map<int, CPackage*> blockContents;
+	set<CPackage*> saveList;	// 需要保存的CPackage
 	
 	CPackage* curPackage;		// 上一次读取或者插入的包
 	int curPackageNum;			// 上一次包的包号
@@ -27,10 +28,11 @@ private:
 	map<int, int> blockHp;		// packageNum -> HP，每次scan减血，减到0了销毁。
 	iop_lock_t mapLock;
 
-	set<CPackage*> saveList;	// 需要保存的CPackage
+	TS_UINT64 _uid;				// block对应的uid
+
 
 public:
-	CBlock();
+	CBlock(TS_UINT64 uid);
 	virtual ~CBlock();
 
 	void clear();

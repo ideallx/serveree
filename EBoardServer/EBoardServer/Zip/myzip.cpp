@@ -1,4 +1,7 @@
+#include <iostream>
 #include "myzip.h"
+
+using namespace std;
 /*
 *   flag:APPEND_STATUS_CREATE   ————初次打开并创建
 *        APPEND_STATUS_ADDINZIP ————向已存在的zip包中添加数据
@@ -48,12 +51,16 @@ unsigned int CZip::getOriginalSize(const char* SrcPathName,const char* FileName)
 	if (NULL == uf)
 		return 0; 
 
-	if(UNZ_END_OF_LIST_OF_FILE == unzLocateFile(uf,FileName,0))
+	if(UNZ_END_OF_LIST_OF_FILE == unzLocateFile(uf,FileName,0)) {
+		unzClose(uf);
 		return 0;  
+	}
 
 	nRet = unzGetCurrentFileInfo64(uf,&uFileInfo,szName,sizeof(szName),NULL,0,NULL,0);
-	if (UNZ_OK != nRet)
-		return 0;
+	if (UNZ_OK != nRet) {
+		unzClose(uf);
+		return 0;  
+	}
 
 	nSize = uFileInfo.uncompressed_size;    
 	unzClose(uf);

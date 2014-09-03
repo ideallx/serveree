@@ -4,9 +4,6 @@
 extern string int2string(TS_UINT64);
 
 CBlockManager::CBlockManager() {
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	classid = static_cast<TS_UINT64> (tv.tv_sec);
 }
 
 CBlockManager::~CBlockManager() {
@@ -29,7 +26,7 @@ int CBlockManager::record(ts_msg& in, int size) {
 	TS_UINT64 uid = getUid(in);
 	CBlock* b = getBlockByUid(uid);
 	if (b == NULL) {
-		b = new CBlock();
+		b = new CBlock(uid);
 		struct timeval tv;
 		gettimeofday(&tv, NULL);
 		TS_UINT64 time = static_cast<TS_UINT64> (tv.tv_sec);

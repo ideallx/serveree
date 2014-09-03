@@ -42,6 +42,10 @@ typedef struct {
 	unsigned char password[20];		// 密码
 } UP_AGENTSERVICE;
 
+typedef struct {
+	TS_MESSAGE_HEAD head;
+} UP_HEARTBEAT;
+
 // 下行报文
 typedef struct {
 	TS_MESSAGE_HEAD head;		
@@ -78,26 +82,36 @@ typedef struct {
 } TS_PEER_MESSAGE, *LPTS_PEER_MESSAGE;
 
 // 报文类型，对应 TS_MESSAGE_HEAD.type
-enum PackageType {
+enum PacketType {
+	PACKETTRANSPORT,		// 正常传输包
 	GRAPHICS,
 	TEXT,
 	AUDIO,
 	VIDEO,
 	PICTURE,
 	COMMAND,
+
+	PACKETFIX = 40,			// 修正包
 	RESEND,
 
+	PACKETCONTROL = 50,		// 控制包
 	ENTERCLASS,
-	LEAVECLASS
+	LEAVECLASS,
+	HEARTBEAT
 };
 
 // 功能函数，获取一些信息
 short packetSize(const ts_msg& p);
 TS_UINT64 getSeq(const ts_msg& p);
 TS_UINT64 getUid(const ts_msg& p);
-enum PackageType getType(const ts_msg& p);
+enum PacketType getType(const ts_msg& p);
 int buildResentMessage(ts_msg& tempMsg, const char *msg, int bodyLen);
 
-const TS_UINT64 ServerUID = 0;
+enum ReservedUID_t {
+	ServerUID,
+	AgentUID,
+
+	ReservedUID = 50	// 50之前的UID全部保留
+};
 
 #endif

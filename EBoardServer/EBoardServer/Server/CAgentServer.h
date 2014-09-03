@@ -22,6 +22,7 @@ private:
 	map<TS_UINT64, UserBase> map_userinfo;		// UID  -> UserBase
 
 	queue<int> port_queue;
+	map<TS_UINT64, TS_UINT64> heartBeatTime;
 
 public:
 	CAgentServer();

@@ -8,6 +8,9 @@
 #include "../Stdafx.h"
 
 class CBlockManager {
+private:
+	map<TS_UINT64, CBlock*> map_userBlock;		// 所有用户对应的Block
+
 public:
 	CBlockManager();
 	virtual ~CBlockManager();
@@ -33,10 +36,6 @@ public:
 private:
 	CBlock* getBlockByUid(TS_UINT64 uid);
 
-private:
-	map<TS_UINT64, CBlock*> map_userBlock;
-
-	TS_UINT64 classid;
 };
 
 #endif

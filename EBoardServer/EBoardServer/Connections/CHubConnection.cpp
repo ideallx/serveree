@@ -197,14 +197,14 @@ int CHubConnection::send(const char* buf, ULONG len) {
 int CHubConnection::recv(char* buf, ULONG& len) {
 	if (!pSocket)
 		return -1;
-// test code
+
 	int result = pSocket->recvData(buf, len, &m_FromAddr);
-	if (result == -1)
-		return -1;
-	TS_UINT64 uid = getUid(*(ts_msg*) buf);
-	if (peerHub->count(uid) == 0) {
-		addPeer(uid, m_FromAddr);
-	}
+	//if (result == -1)
+	//	return -1;
+	//TS_UINT64 uid = getUid(*(ts_msg*) buf);
+	//if (peerHub->count(uid) == 0) {
+	//	addPeer(uid, m_FromAddr);
+	//}
 	return result;
 }
 

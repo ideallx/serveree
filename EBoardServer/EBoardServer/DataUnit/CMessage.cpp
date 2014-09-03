@@ -13,8 +13,8 @@ TS_UINT64 getUid(const ts_msg& p) {
 	return ((TS_MESSAGE_HEAD*) &p)->UID;
 }
 
-enum PackageType getType(const ts_msg& p) {
-	return static_cast<enum PackageType> (((TS_MESSAGE_HEAD *) &p)->type);
+enum PacketType getType(const ts_msg& p) {
+	return static_cast<enum PacketType> (((TS_MESSAGE_HEAD *) &p)->type);
 }
 
 int buildResentMessage(ts_msg& tempMsg, const char *msg, int bodyLen) {

@@ -75,7 +75,6 @@
     <ClCompile Include="..\..\EBoardServer\EBoardServer\Zip\unzip.c" />
     <ClCompile Include="..\..\EBoardServer\EBoardServer\Zip\zip.c" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Server\DAgentClient.cpp" />
     <ClCompile Include="Server\DWSClient.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -114,7 +113,6 @@
     <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\zconf.h" />
     <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\zip.h" />
     <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\zlib.h" />
-    <ClInclude Include="Server\DAgentClient.h" />
     <ClInclude Include="Server\DWSClient.h" />
     <ClInclude Include="Stdafx.h" />
   </ItemGroup>

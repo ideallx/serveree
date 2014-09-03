@@ -1,15 +1,10 @@
 #include "DWSClient.h"
-#include "../Connections/CReliableConnection.h"
 
-int DWSClient::clientUid = 100;
 
-DWSClient::DWSClient(TS_UINT64 classid, TS_UINT64 reserved) :
-	_classid(classid),
-	_reserved(reserved),
-	seq(0),
-	_uid(clientUid) {
-	dynamic_cast<CReliableConnection*> (pConnect)->setUID(_uid);
-	clientUid++;
+DWSClient::DWSClient() :
+	_seq(0),
+	ub(NULL) {
+	conn = dynamic_cast<CReliableConnection*> (pConnect);
 }
 
 DWSClient::~DWSClient() {
@@ -22,7 +17,8 @@ void DWSClient::recvProc() {
 	memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
 	
 	while (isRunning()) {
-		pConnect->recv(pmsg->msg.Body, msglen);
+		if (conn->recv(pmsg->msg.Body, msglen) > 0)
+			WriteIn(*pmsg);
 	}
 
 	delete pmsg;
@@ -41,35 +37,73 @@ void DWSClient::msgProc() {
 	delete pmsg;
 }
 
+void DWSClient::setUser(UserBase& ubin) {			// 设置本机信息
+	if (NULL == ub) {
+		ub = new UserBase();
+	}
+	memcpy(ub, &ubin, sizeof(UserBase));
+	conn->setUID(ub->_uid);
+}
+
+
 void DWSClient::sendProc() {
 	TS_PEER_MESSAGE *pmsg = new TS_PEER_MESSAGE();
 	memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
 
+	enterClass(pmsg->msg);
+	if (conn->send(pmsg->msg.Body, sizeof(ts_msg)) < 0)
+		cout << "send error in sendproc" << endl;
+	
 	while (isRunning()) {
 		ReadOut(*pmsg);
-		pConnect->send(pmsg->msg.Body, packetSize(pmsg->msg));
+		cout << ub->_uid << ":" << "send " << getSeq(pmsg->msg) << endl;
+		int result = conn->send(pmsg->msg.Body, packetSize(pmsg->msg));
 	}
 	delete pmsg;
 	cout << "send thread exit" << endl;
 }
 
 // 生成测试数据
-void DWSClient::generateData() {
+bool DWSClient::generateData() {
 	TS_PEER_MESSAGE *msg = new TS_PEER_MESSAGE();
 
-	if (seq > 200000)
-		return;
+	if (_seq > 2000000)
+		return false;
 
 	int length = rand() % 500 + 525;
 	TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg->msg;
+
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	head->time = static_cast<TS_UINT64> (tv.tv_sec);
 	head->size = length;
-	head->sequence = ++seq;
+	head->sequence = ++_seq;
 	head->isEnd = 0;
-	head->UID = _uid;
+	head->UID = ub->_uid;
 	head->version = 100;
 	
 	WriteOut(*msg);
-	iop_usleep(1);			// 时间间隔
+	iop_usleep(2000);			// 时间间隔
+	delete msg;
+	return true;
+}
+
+void DWSClient::sendHeartBeat() {
+	TS_PEER_MESSAGE *msg = new TS_PEER_MESSAGE();
+
+	UP_HEARTBEAT* upcmd = (UP_HEARTBEAT*) &msg->msg;
+	
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	upcmd->head.type = HEARTBEAT;
+	upcmd->head.time = static_cast<TS_UINT64> (tv.tv_sec);
+	upcmd->head.size = sizeof(UP_HEARTBEAT);
+	upcmd->head.sequence = 0;
+	upcmd->head.UID = ub->_uid;
+	upcmd->head.version = 100;
+
+	WriteOut(*msg);
+	cout << ub->_uid << "send heart beat at " << upcmd->head.time << endl;
 	delete msg;
 }
 
@@ -91,7 +125,7 @@ bool DWSClient::Start(unsigned short port) {
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = inet_addr("192.168.1.202");
 	addr.sin_port = htons(port);
-	pConnect->setPeer(addr);
+	conn->addPeer(AgentUID, addr);
 
 	turnOn();
 	if (!Initialize ())
@@ -128,15 +162,6 @@ bool DWSClient::Start(unsigned short port) {
 		}
 	}
 
-	pthread_t pthread_gen;
-	int rc = pthread_create(&pthread_gen, NULL, GenProc, (void*) this);
-	if (0 == rc) {
-		iop_usleep(10);
-		cout << "Data Generate Thread start successfully " << endl;
-	} else {
-		turnOff();
-	}
-
 	return isRunning();
 }
 
@@ -146,8 +171,89 @@ void* GenProc(LPVOID lpParam) {
 	if (!c) {
 		return 0;
 	}
-	while (true) {
-		c->generateData();		// 生成包
+	while (c->generateData());		// 生成包
+	return 0;
+}
+
+void* HBProc(LPVOID lpParam) {
+	pthread_detach(pthread_self());
+	DWSClient* c = (DWSClient*) lpParam;
+	if (!c) {
+		return 0;
+	}
+	while (c->isRunning()) {
+		c->sendHeartBeat();
+		Sleep(60000);				// 1分钟一个
 	}
 	return 0;
+}
+
+DWORD DWSClient::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSClient
+	enum PacketType type = getType(inputMsg.msg);
+	DOWN_AGENTSERVICE* in = (DOWN_AGENTSERVICE*) &inputMsg.msg;
+	if (ENTERCLASS == in->head.type) {
+		if (in->result == Success) {								// 进入班级成功，创建work client
+			conn->addPeer(ServerUID, in->addr);
+			
+			pthread_t pthread_gen;
+			int rc = pthread_create(&pthread_gen, NULL, GenProc, (void*) this);
+			if (0 == rc) {
+				iop_usleep(10);
+				cout << "Data Generate Thread start successfully " << endl;
+			} else {
+				turnOff();
+			}
+
+			pthread_t pthread_hb;	// heartbeat
+			rc = pthread_create(&pthread_hb, NULL, HBProc, (void*) this);
+			if (0 == rc) {
+				iop_usleep(10);
+				cout << "Data Generate Thread start successfully " << endl;
+			} else {
+				turnOff();
+			}
+		}
+	} else if (LEAVECLASS == in->head.type) {
+		Stop();
+	}
+	return 0;
+}
+
+bool DWSClient::enterClass(ts_msg& msg) {			// 拼接进入班级的报文
+	if (NULL == ub)
+		return false;
+
+	TS_UINT64 uid = ub->_uid;
+	UP_AGENTSERVICE* upcmd = (UP_AGENTSERVICE*) &msg;
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	upcmd->head.time = static_cast<TS_UINT64> (tv.tv_sec);
+	upcmd->head.type = ENTERCLASS;
+	upcmd->head.UID = uid;
+	upcmd->head.reserved = ub->_reserved;
+	upcmd->classid = ub->_classid;
+	upcmd->role = static_cast<enum RoleOfClass> (ub->_role);
+	memcpy(upcmd->username, ub->_username, 20);
+	memcpy(upcmd->password, ub->_password, 20);
+	return true;
+}
+
+bool DWSClient::leaveClass(ts_msg& msg) {
+	if (NULL == ub)
+		return false;
+
+	TS_UINT64 uid = ub->_uid;
+	UP_AGENTSERVICE* upcmd = (UP_AGENTSERVICE*) &msg;
+
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	upcmd->head.time = static_cast<TS_UINT64> (tv.tv_sec);
+	upcmd->head.type = LEAVECLASS;
+	upcmd->head.UID = uid;
+	upcmd->head.reserved = ub->_reserved;
+	upcmd->classid = ub->_classid;
+	upcmd->role = static_cast<enum RoleOfClass> (ub->_role);
+	memcpy(upcmd->username, ub->_username, 20);
+	memcpy(upcmd->password, ub->_password, 20);
+	return true;
 }

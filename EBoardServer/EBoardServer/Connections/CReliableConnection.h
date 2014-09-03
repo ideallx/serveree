@@ -29,8 +29,12 @@ protected:
 
 	set<TS_UINT64> createdBlock;	// 记录所有create过的block
 
-public:
+	int totalMsgs;					// 总共收到的包数
+	int totalMiss;					// 总共丢掉的包数
 
+	string fileNamePrefix;			// 保存的文件名的前缀
+
+public:
 	CReliableConnection();
 	virtual ~CReliableConnection();
 
@@ -58,6 +62,13 @@ public:
 	// 用UID来区分Server还是Client端，另外重传请求时需要提供自己的UID
 	void setUID(TS_UINT64 in) { selfUid = in; }
 
+	// 设置文件名前缀 fprefix_uid.zip/packageNum
+	inline void setFilePrefix(string fprefix) { fileNamePrefix = fprefix; }
+
+	// 获取丢包率（百分比 超过100则可能是反复丢包）
+	inline int getMissingRate() { return 100 * totalMiss / totalMsgs; }
+
+
 private:
 	// 将需要发送的消息添加至消息队列
 	int send2Peer(ts_msg& msg);
@@ -73,6 +84,8 @@ private:
 
 	// 数据报文有效性检查
 	bool validityCheck(ts_msg& msg);
+
+	void receive(ts_msg& msg);
 	
 private:
 	// 定时扫描失踪包裹。
@@ -83,6 +96,7 @@ private:
 
 	// 消息到达的处理过程
 	friend void* SaveProc(LPVOID lpParam);
+
 
 	friend int testRecv();
 };

@@ -13,10 +13,11 @@ string int2string(TS_UINT64 number) {
 	return s;
 }
 
-CBlock::CBlock() :
+CBlock::CBlock(TS_UINT64 uid) :
 	curPackage(NULL),			// 缓存上一次被调用的包
 	curPackageNum(-1),			// 上一次被调用的包号
-	isFirstMsg(true) {			// 是不是第一次收到msg，第一个包号非0会做特殊处理
+	isFirstMsg(true),			// 是不是第一次收到msg，第一个包号非0会做特殊处理
+	_uid(uid) {					
 	iop_lock_init(&mapLock);
 }
 
@@ -84,7 +85,7 @@ set<TS_UINT64> CBlock::scanMissingPackets() {
 	for (auto iter = blockContents.begin(); iter != blockContents.end();) {		// 搜包
 		set<int> results;														// 获取保存的位置号
 		CPackage* pack = iter->second;
-		int answer = pack->scanMissingPackets(results);					// 获取包内丢失packet的位置
+		int answer = pack->scanMissingPackets(results);							// 获取包内丢失packet的位置
 		if (pack->isFull()) {
 			if (!pack->isSaved()) {
 				saveList.insert(pack);
@@ -96,6 +97,7 @@ set<TS_UINT64> CBlock::scanMissingPackets() {
 				iter->second = NULL;
 				blockHp.erase(iter->first);
 				blockContents.erase(iter++);
+				curPackageNum = -1;												// 撤销的包号，因为可能curPackage被销毁了。
 			} else
 				iter++;
 		} else {
@@ -127,15 +129,16 @@ int CBlock::readMsg(TS_UINT64 seq, ts_msg& pout) {
 		if (iter != blockContents.end()) {							// 若seq在内存范围内，则去内存中找
 			curPackage = iter->second;
 		} else {													// 不行只能找文件去了
-			//if (CPackage::isZipFileExist(zipName, packageNum)) {	// 先尝试找文件是否存在
-			//	CPackage *p = new CPackage;
-			//	p->load(zipName, packageNum);
-			//	blockContents.insert(make_pair(packageNum, p));		// 从文件里挖出来的CPackage
-			//	blockHp.insert(make_pair(packageNum, initialHP));	// 重新加满血
-			//	curPackage = p;
-			//} else {
-			//	return -1;
-			//}
+			string zipName = int2string(_uid) + ".zip";
+			if (CPackage::isZipFileExist(zipName, packageNum)) {	// 先尝试找文件是否存在
+				CPackage *p = new CPackage;
+				p->load(zipName, packageNum);
+				blockContents.insert(make_pair(packageNum, p));		// 从文件里挖出来的CPackage
+				blockHp.insert(make_pair(packageNum, initialHP));	// 重新加满血
+				curPackage = p;
+			} else {
+				return -1;
+			}
 		}
 	}
 	int result = curPackage->query(pout, pos);

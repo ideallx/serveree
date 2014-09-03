@@ -85,13 +85,15 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	
 	iop_lock(&lockWorkServer);
 	CWSServer* pServer = map_workserver[user._classid];
-	// pServer->addPeer(inputMsg.peeraddr, user._uid);				// 这里的地址是client agent的端口地址
+	pServer->addPeer(inputMsg.peeraddr, user._uid);					// 这里的地址是client agent的端口地址
 	iop_unlock(&lockWorkServer);
 
 	DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;	// 进入班级成功，把服务器信息告诉客户端
 	down->result = Success;
 	down->addr = *pServer->getServerAddr();							// server的地址加入到报文中
 	WriteOut(inputMsg);
+
+	heartBeatTime.insert(make_pair(user._uid, down->head.time));
 	return true;
 }
 
@@ -122,12 +124,12 @@ void CAgentServer::leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 }
 
 DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，加入退出班级等等
-	enum PackageType type = getType(inputMsg.msg);
-	UP_AGENTSERVICE* in = (UP_AGENTSERVICE*) &inputMsg.msg;		// 收到进入/退出班级的请求
+	enum PacketType type = getType(inputMsg.msg);
 
 	switch (type) {
 	case ENTERCLASS:
 		{
+			UP_AGENTSERVICE* in = (UP_AGENTSERVICE*) &inputMsg.msg;		// 收到进入/退出班级的请求
 			UserBase user;
 			user._classid = in->classid;
 			user._reserved = in->head.reserved;
@@ -142,6 +144,7 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
 		}
 	case LEAVECLASS:
 		{
+			UP_AGENTSERVICE* in = (UP_AGENTSERVICE*) &inputMsg.msg;		// 收到进入/退出班级的请求
 			UserBase user;
 			user._classid = in->classid;
 			user._reserved = in->head.reserved;
@@ -152,6 +155,16 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
 			memcpy(user._password, in->password, 20);
 
 			leaveClass(inputMsg, user);							// 处理退出班级请求，并回复
+			break;
+		}
+	case HEARTBEAT:
+		{
+			UP_HEARTBEAT* in = (UP_HEARTBEAT*) &inputMsg.msg;
+			TS_UINT64 uid = in->head.UID;
+			if (heartBeatTime.count(uid) == 0)
+				return 0;
+			heartBeatTime[uid] = in->head.time;
+			cout << "received heart beat" << endl;
 			break;
 		}
 	default:

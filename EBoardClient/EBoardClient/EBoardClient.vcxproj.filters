@@ -25,9 +25,6 @@
       <Filter>Server</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Server\DAgentClient.cpp">
-      <Filter>Server</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\EBoardServer\EBoardServer\Connections\CAbsConnection.cpp">
       <Filter>Connections</Filter>
     </ClCompile>
@@ -223,9 +220,6 @@
       <Filter>Server</Filter>
     </ClInclude>
     <ClInclude Include="Stdafx.h" />
-    <ClInclude Include="Server\DAgentClient.h">
-      <Filter>Server</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\EBoardServer\EBoardServer\Connections\CAbsConnection.h">
       <Filter>Connections</Filter>
     </ClInclude>

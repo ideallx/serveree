@@ -9,9 +9,13 @@ using namespace std;
 CReliableConnection::CReliableConnection() :
 	bm(new CBlockManager()),			
 	msgQueue(new TSQueue<ts_msg>),		// 消息队列，处理收发
-	selfUid(ServerUID) {				// 默认为服务器UID，client端时需要setUID()
+	selfUid(ServerUID),					// 默认为服务器UID，client端时需要setUID()
+	totalMiss(0),						// 
+	totalMsgs(1),						// 防止除0错误
+	fileNamePrefix("L") {						
 	semMsg = CreateSemaphore(NULL, 0, 1024, NULL);
 	semSave = CreateSemaphore(NULL, 0, 1024, NULL);
+	createdBlock.clear();
 }
 
 CReliableConnection::~CReliableConnection() {
@@ -67,6 +71,8 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
 	ts_msg* msg = (ts_msg*) buf;
 	if (RESEND == getType(*msg)) {		// 若是收到重传请求，交到消息队列，返回-1
 		result = -1;
+	} else {
+		totalMsgs++;
 	}
 
 	msgQueue->enQueue(*msg);			// queue会自己作副本，所以不用担心msg的生命周期
@@ -75,39 +81,52 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
 }
 
 int CReliableConnection::send(const char* buf, ULONG len) {
-	if (selfUid != ServerUID) {								// client端特殊处理
-		ts_msg *msg = (ts_msg*) buf;
-		bm->record(*msg, packetSize(*msg));					// client端需要记录发出的包
+	ts_msg *msg = (ts_msg*) buf;
+	TS_UINT64 seq = getSeq(*msg);
+	if (seq != 0) {												// seq为0，控制类指令，暂不保存
+		if (selfUid != ServerUID) {								// client端特殊处理
+			bm->record(*msg, packetSize(*msg));					// client端需要记录发出的包
 
-		TS_UINT64 seq = getSeq(*msg);
-		if ((seq % 5 == 0) && missed.count(seq) == 0) 	{	// 故意抛弃，然后请求重传，第二次来正常接收
-			missed.insert(seq);
-			// cout << uid << " missed " << seq << endl;
-			return -1;
+			if ((seq % 5 == 0) && missed.count(seq) == 0) 	{	// 故意抛弃，然后请求重传，第二次来正常接收
+				missed.insert(seq);
+				// cout << uid << " missed " << seq << endl;
+				return -1;
+			}
+
 		}
-
 	}
-	return CHubConnection::send(buf, len);
+	if (selfUid != ServerUID) {
+		enum PacketType type = getType(*msg);
+		if (type > PACKETCONTROL) {
+			return findPeer(AgentUID)->send(buf, len);
+		} else {
+			return findPeer(ServerUID)->send(buf, len);
+		}
+	} else {
+		return CHubConnection::send(buf, len);
+	}
 }
 
-static int lastMissing = 0;
 void CReliableConnection::scanProcess() {
 	map<TS_UINT64, set<TS_UINT64> > results = bm->getLostSeqIDs();				// blockManager层找
 	for (auto uidIter = results.begin(); uidIter != results.end(); uidIter++) { // 扫描所有UID
 		TS_UINT64 uid = uidIter->first;											// block层
 		set<TS_UINT64> pids = uidIter->second;									// package层
 		requestForResend(uid, pids);
-
-		// cout << uid << " missing:";
-		lastMissing = pids.size();
+		totalMiss += pids.size();
+		//cout << uid << " missing:";
+		//for (auto iter = pids.begin(); iter != pids.end(); iter++) {
+		//	cout << *iter;
+		//}
+		//cout << endl;
+		// cout << "Missing Rate: " << getMissingRate() << endl;
 	}
-
 	set<pair<TS_UINT64, CPackage*> > sets;
 	bm->getSavePackage(sets);
 	for (auto iter = sets.begin(); iter != sets.end(); iter++) {
 		saveQueue.enQueue(*iter);
 		ReleaseSemaphore(semSave, 1, NULL);
-		cout << iter->first << " added to queue" << endl;
+		// cout << iter->first << " added to queue" << endl;
 	}
 }
 
@@ -123,8 +142,8 @@ void CReliableConnection::saveProcess() {
 		createdBlock.insert(file.first);
 		isFirst = true;
 	}
-
 	file.second->save(int2string(file.first) + ".zip", isFirst);
+	//cout << "Missing Rate: " << getMissingRate() << endl;
 }
 
 int CReliableConnection::send2Peer(ts_msg& msg) {
@@ -205,6 +224,24 @@ void CReliableConnection::saveUserBlock(TS_UINT64 uid) {
 	bm->removeBlock(uid);
 }
 
+void CReliableConnection::receive(ts_msg& msg) {
+	if (!msgQueue->deQueue(msg))
+		return;
+
+	if (!validityCheck(msg))					// 有效性检测
+		return;
+	
+	cout << selfUid << ":received " << getSeq(msg) << endl;
+	if (RESEND == getType(msg)) {			// 若是收到重传请求，自己处理
+		resend(msg);
+	} else {								// 若是收到正常请求，则保存，之后由上层处理
+		bm->record(msg, packetSize(msg));	// 缓存记录
+		if (selfUid == ServerUID) {			// Server转发
+			send(msg.Body, packetSize(msg));
+		}
+	}
+}
+
 // 现在就检查一下seq，后续检查全加入这个函数中
 bool CReliableConnection::validityCheck(ts_msg& msg) {
 	if (getSeq(msg) == 0)
@@ -235,17 +272,7 @@ void* MsgInProc(LPVOID lpParam) {
 	while (true) {
 		WaitForSingleObject(conn->semMsg, INFINITE);
 		//sem_wait((sem_t*) &conn->semMsg);
-		if (!conn->msgQueue->deQueue(*msg))
-			continue;
-
-		if (!conn->validityCheck(*msg))					// 有效性检测
-			continue;
-		
-		if (RESEND == getType(*msg)) {					// 若是收到重传请求，自己处理
-			conn->resend(*msg);
-		} else {										// 若是收到正常请求，则保存，之后由上层处理
-			conn->bm->record(*msg, packetSize(*msg));	// 缓存记录
-		}
+		conn->receive(*msg);
 	}
 	delete msg;
 }
