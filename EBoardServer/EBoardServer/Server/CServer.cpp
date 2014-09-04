@@ -22,12 +22,6 @@ CServer::CServer() :
 	//sem_init((sem_t*) &data_out, 0, 0);
 	data_in = CreateSemaphore(NULL, 0, 1024, NULL);
 	data_out = CreateSemaphore(NULL, 0, 1024, NULL);
-
-	time_t t;
-	srand((unsigned) time(&t));
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	starttime = tv.tv_sec;
 }
 
 CServer::~CServer(void) {
@@ -42,9 +36,7 @@ CServer::~CServer(void) {
 }
 
 TS_UINT64 CServer::AllocateSessionID(void) {
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	return tv.tv_sec;
+	return getServerTime();
 }
 
 bool CServer::Initialize(void) {

@@ -6,7 +6,9 @@
 
 #pragma pack(4)
 
-const int MESSAGE_SIZE = 1024;
+const int MESSAGE_SIZE = 1024;				// 单个Package最大msgs数
+const int HeartBeatInterval = 60000;		// 心跳包间隔
+const TS_UINT64 SeqBegin = 1;				// seq开始位置，seq从1开始
 
 // 报文头
 typedef struct {
@@ -84,20 +86,22 @@ typedef struct {
 // 报文类型，对应 TS_MESSAGE_HEAD.type
 enum PacketType {
 	PACKETTRANSPORT,		// 正常传输包
-	GRAPHICS,
-	TEXT,
-	AUDIO,
-	VIDEO,
-	PICTURE,
-	COMMAND,
+	GRAPHICS,				// 图案
+	TEXT,					// 文字
+	AUDIO,					// 音频
+	VIDEO,					// 视频
+	PICTURE,				// 图像
+	// COMMAND,
 
 	PACKETFIX = 40,			// 修正包
-	RESEND,
+	RESEND,					// 重发单个包
+	RESENDALL,				// 重发所有包
+	RESENDSERIES,			// 重发连续的N个包
 
 	PACKETCONTROL = 50,		// 控制包
-	ENTERCLASS,
-	LEAVECLASS,
-	HEARTBEAT
+	ENTERCLASS,				// 进入班级
+	LEAVECLASS,				// 离开班级
+	HEARTBEAT				// 心跳包
 };
 
 // 功能函数，获取一些信息
@@ -105,7 +109,6 @@ short packetSize(const ts_msg& p);
 TS_UINT64 getSeq(const ts_msg& p);
 TS_UINT64 getUid(const ts_msg& p);
 enum PacketType getType(const ts_msg& p);
-int buildResentMessage(ts_msg& tempMsg, const char *msg, int bodyLen);
 
 enum ReservedUID_t {
 	ServerUID,

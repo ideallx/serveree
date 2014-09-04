@@ -41,3 +41,13 @@ int getIp(char* ip) {
 	strcpy(ip, inet_ntoa(*(in_addr*) *hosts->h_addr_list));
 	return 0;
 }
+
+TS_UINT64 getServerTime() {
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return static_cast<TS_UINT64> (tv.tv_sec);
+}
+
+TS_UINT64 getClientTime(TS_UINT64 bouns) {
+	return GetTickCount() / 1000 + bouns;
+}

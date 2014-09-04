@@ -19,6 +19,7 @@ private:
 	UserBase* ub;
 	CReliableConnection *conn;
 	CPeerConnection* agent;
+	TS_UINT64 timeDiff;   // 服务器端和客户端的时间差
 
 public:
 	DWSClient();

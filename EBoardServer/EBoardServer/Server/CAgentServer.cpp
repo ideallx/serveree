@@ -3,12 +3,14 @@
 
 #include "CAgentServer.h"
 #include "CWSServer.h"
+#include "../DataUnit/UserBase.h"
 
 using namespace std;
 
 CAgentServer::CAgentServer() {
 	iop_lock_init(&lockWorkServer);
 	iop_lock_init(&lockPortqueue);
+	iop_lock_init(&lockOfflineMaps);
 	
 	iop_lock(&lockPortqueue);
 	for(int i = 10000; i < 20000; i++){
@@ -18,6 +20,7 @@ CAgentServer::CAgentServer() {
 }
 
 CAgentServer::~CAgentServer() {
+	iop_lock_destroy(&lockOfflineMaps);
 	iop_lock_destroy(&lockWorkServer);
 	iop_lock_destroy(&lockPortqueue);
 }
@@ -78,6 +81,20 @@ void CAgentServer::destroyClass(TS_UINT64 classid) {
 	iop_unlock(&lockWorkServer);
 }
 
+void CAgentServer::scanOffline() {
+	TS_UINT64 currentTime = getServerTime();
+	
+	iop_lock(&lockOfflineMaps);
+	int maxAllowedInterval = HeartBeatInterval / 1000 * 3;
+	for (auto iter = heartBeatTime.begin(); iter != heartBeatTime.end(); ) {
+		if (currentTime - iter->second > maxAllowedInterval) {
+			offlineUsers.insert(iter->first);
+		}
+		iter++;
+	}
+	iop_unlock(&lockOfflineMaps);
+}
+
 bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	if (!isClassExist(user._classid)) {								// 第一个用户加入，则创建班级
 		createClass(user._classid);
@@ -91,6 +108,7 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;	// 进入班级成功，把服务器信息告诉客户端
 	down->result = Success;
 	down->addr = *pServer->getServerAddr();							// server的地址加入到报文中
+	down->head.time = getServerTime();
 	WriteOut(inputMsg);
 
 	heartBeatTime.insert(make_pair(user._uid, down->head.time));
@@ -161,9 +179,15 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
 		{
 			UP_HEARTBEAT* in = (UP_HEARTBEAT*) &inputMsg.msg;
 			TS_UINT64 uid = in->head.UID;
-			if (heartBeatTime.count(uid) == 0)
+
+			iop_lock(&lockOfflineMaps);
+			if (heartBeatTime.count(uid) == 0)					// 将最新时间加入set中
 				return 0;
 			heartBeatTime[uid] = in->head.time;
+
+			if (offlineUsers.count(uid) > 0)					// 如果这个是已经掉线用户
+				offlineUsers.erase(uid);						// 现在取消掉线状态
+			iop_unlock(&lockOfflineMaps);
 			cout << "received heart beat" << endl;
 			break;
 		}
@@ -171,5 +195,24 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
 		break;
 	}
 
+	return 0;
+}
+
+int CAgentServer::getOfflineUsers(set<TS_UINT64>& out) {
+	out.insert(offlineUsers.begin(), offlineUsers.end());
+	return offlineUsers.size();
+}
+
+
+void* scanOfflineProc(LPVOID lpParam) {
+	pthread_detach(pthread_self());
+	CAgentServer* object = (CAgentServer*) lpParam;
+	if (!object) {
+		return 0;
+	}
+	while (true) {
+		object->scanOffline();
+		iop_usleep(HeartBeatInterval);
+	}
 	return 0;
 }

@@ -3,7 +3,8 @@
 #include <iostream>
 extern string int2string(TS_UINT64);
 
-CBlockManager::CBlockManager() {
+CBlockManager::CBlockManager() :
+	fileNamePrefix("L") {
 }
 
 CBlockManager::~CBlockManager() {
@@ -22,14 +23,11 @@ int CBlockManager::readRecord(TS_UINT64 uid, TS_UINT64 seq, ts_msg& p) {
 	return b->readMsg(seq, p);
 }
 
-int CBlockManager::record(ts_msg& in, int size) {
+int CBlockManager::record(ts_msg& in) {
 	TS_UINT64 uid = getUid(in);
 	CBlock* b = getBlockByUid(uid);
 	if (b == NULL) {
 		b = new CBlock(uid);
-		struct timeval tv;
-		gettimeofday(&tv, NULL);
-		TS_UINT64 time = static_cast<TS_UINT64> (tv.tv_sec);
 		map_userBlock.insert(make_pair(uid, b));
 	}
 
@@ -95,4 +93,12 @@ void CBlockManager::saveBlock(TS_UINT64 uid) {
 	
 	CBlock* cb = map_userBlock[uid];
 	cb->saveAll();
+}
+
+int CBlockManager::getAllMsgs(set<ts_msg*>& out) {
+	int count = 0;
+	for (auto iter = map_userBlock.begin(); iter != map_userBlock.end(); ) {
+		count += iter->second->getMsgs(out, SeqBegin, -1);		// seq´Ó1¿ªÊ¼
+	}
+	return count;
 }

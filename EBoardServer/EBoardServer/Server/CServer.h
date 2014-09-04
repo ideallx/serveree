@@ -33,7 +33,6 @@ protected:
 public:
 	CServer();
 	virtual ~CServer(void);
-	int starttime;
 
 public:
 	void ReadIn(TS_PEER_MESSAGE& pmsg);

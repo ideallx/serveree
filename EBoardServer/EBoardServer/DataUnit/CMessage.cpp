@@ -16,17 +16,3 @@ TS_UINT64 getUid(const ts_msg& p) {
 enum PacketType getType(const ts_msg& p) {
 	return static_cast<enum PacketType> (((TS_MESSAGE_HEAD *) &p)->type);
 }
-
-int buildResentMessage(ts_msg& tempMsg, const char *msg, int bodyLen) {
-	TS_MESSAGE_HEAD *head = (TS_MESSAGE_HEAD *) &tempMsg;
-
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-
-	head->type = RESEND;
-	head->time = static_cast<TS_UINT64> (tv.tv_sec);
-	head->size = sizeof(TS_MESSAGE_HEAD) + bodyLen;
-
-	memcpy((char*) &tempMsg + sizeof(TS_MESSAGE_HEAD), msg, bodyLen);
-	return head->size;
-}

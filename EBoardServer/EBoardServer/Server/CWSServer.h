@@ -14,6 +14,7 @@
 #include <semaphore.h>
 
 #include "CServer.h"
+#include "../Connections/CReliableConnection.h"
 #include "../Connections/CHubConnection.h"
 #include "../DataUnit/CBlockManager.h"
 
@@ -22,6 +23,7 @@ class CWSServer : public CServer {
 private:
 	TS_UINT64 _classid;
 	TS_UINT64 _reserved;
+	CReliableConnection* conn;					// ·½±ãµ÷ÓÃ
 
 public:
 	CWSServer(TS_UINT64 classid, TS_UINT64 reserved);

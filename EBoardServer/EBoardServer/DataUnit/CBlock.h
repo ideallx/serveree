@@ -29,7 +29,9 @@ private:
 	iop_lock_t mapLock;
 
 	TS_UINT64 _uid;				// block对应的uid
+	string fileNamePrefix;		// 存文件时的前缀
 
+	TS_UINT64 maxSeq;			// 至今为止收到的最大的seq
 
 public:
 	CBlock(TS_UINT64 uid);
@@ -50,19 +52,20 @@ public:
 	void saveAll();
 
 	// 获取从某个序号开始，到某个序号结束的所有的msg
-	bool getMsgs(set<ts_msg*>& out, TS_UINT64 beg, TS_UINT64 end);
+	int getMsgs(set<ts_msg*>& out, TS_UINT64 beg, TS_UINT64 end);
 
 	// 获取需要保存的CPackages
 	int savePackage(set<CPackage*>& out);
-	
+
+	// 设置文件名前缀 fprefix_uid.zip/packageNum
+	void setFilePrefix(string fprefix) { fileNamePrefix = fprefix; }
+
 private:
 	// 获取seq对应的msg所在的数组以及位置
 	void getArrayNumberAndPos(TS_UINT64 seq, DWORD& packageNum, DWORD& pos);
+
 	// 获取特定数组特定位置的包的序号
 	TS_UINT64 getSequence(int packageNum, int pos);
-
-	// 缓存，写文件策略
-	void cachePrivacy(int packageNum, CPackage& p);
 
 };
 

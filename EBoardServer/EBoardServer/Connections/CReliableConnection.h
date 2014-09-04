@@ -63,11 +63,17 @@ public:
 	void setUID(TS_UINT64 in) { selfUid = in; }
 
 	// 设置文件名前缀 fprefix_uid.zip/packageNum
-	inline void setFilePrefix(string fprefix) { fileNamePrefix = fprefix; }
+	void setFilePrefix(string fprefix);
 
 	// 获取丢包率（百分比 超过100则可能是反复丢包）
 	inline int getMissingRate() { return 100 * totalMiss / totalMsgs; }
 
+	// 所有包全部重发一遍
+	int resendAll(TS_UINT64 toUID);
+
+	// 重发部分包
+	int resendPart(TS_UINT64 toUID, TS_UINT64 needUID, 
+					TS_UINT64 fromSeq, TS_UINT64 toSeq);
 
 private:
 	// 将需要发送的消息添加至消息队列

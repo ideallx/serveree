@@ -199,14 +199,7 @@ int CHubConnection::recv(char* buf, ULONG& len) {
 	if (!pSocket)
 		return -1;
 
-	int result = pSocket->recvData(buf, len, &m_FromAddr);
-	//if (result == -1)
-	//	return -1;
-	//TS_UINT64 uid = getUid(*(ts_msg*) buf);
-	//if (peerHub->count(uid) == 0) {
-	//	addPeer(uid, m_FromAddr);
-	//}
-	return result;
+	return pSocket->recvData(buf, len, &m_FromAddr);
 }
 
 void CHubConnection::setPeerConnection(const struct sockaddr_in& peeraddr) {

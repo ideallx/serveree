@@ -17,7 +17,9 @@ CBlock::CBlock(TS_UINT64 uid) :
 	curPackage(NULL),			// 缓存上一次被调用的包
 	curPackageNum(-1),			// 上一次被调用的包号
 	isFirstMsg(true),			// 是不是第一次收到msg，第一个包号非0会做特殊处理
-	_uid(uid) {					
+	_uid(uid),
+	fileNamePrefix("L"),
+	maxSeq(0) {					
 	iop_lock_init(&mapLock);
 }
 
@@ -38,7 +40,10 @@ int CBlock::addMsg(const ts_msg& msg) {
 	int pLen = -1;
 
 	DWORD packageNum, pos;
-	getArrayNumberAndPos(getSeq(msg), packageNum, pos);	// 获取array号，array地址
+	TS_UINT64 seq = getSeq(msg);
+	if (seq > maxSeq)
+		maxSeq = seq;
+	getArrayNumberAndPos(seq, packageNum, pos);	// 获取array号，array地址
 
 	iop_lock(&mapLock);
 	if (packageNum != curPackageNum) {					// 若是使用最近一个包，省去find步骤
@@ -129,7 +134,7 @@ int CBlock::readMsg(TS_UINT64 seq, ts_msg& pout) {
 		if (iter != blockContents.end()) {							// 若seq在内存范围内，则去内存中找
 			curPackage = iter->second;
 		} else {													// 不行只能找文件去了
-			string zipName = int2string(_uid) + ".zip";
+			string zipName = fileNamePrefix + "_" + int2string(_uid) + ".zip";
 			if (CPackage::isZipFileExist(zipName, packageNum)) {	// 先尝试找文件是否存在
 				CPackage *p = new CPackage;
 				p->load(zipName, packageNum);
@@ -149,8 +154,8 @@ int CBlock::readMsg(TS_UINT64 seq, ts_msg& pout) {
 // 我只能当seq肯定不为0了。
 void CBlock::getArrayNumberAndPos(TS_UINT64 seq, DWORD& packageNum, DWORD& pos) {
 	assert(seq != 0);
-	packageNum = static_cast<DWORD> ((seq - 1) / MaxPackets);
-	pos = static_cast<DWORD> ((seq - 1) % MaxPackets);
+	packageNum = static_cast<DWORD> ((seq - SeqBegin) / MaxPackets);
+	pos = static_cast<DWORD> ((seq - SeqBegin) % MaxPackets);
 }
 
 TS_UINT64 CBlock::getSequence(int packageNum, int pos) {
@@ -166,16 +171,21 @@ void CBlock::saveAll() {
 	iop_unlock(&mapLock);
 }
 
-// 返回true， 完全正常
-// 返回false，中途有文件没正常读到
-bool CBlock::getMsgs(set<ts_msg*>& out, TS_UINT64 beg, TS_UINT64 end) {
+// 返回加入set的msg数量
+// end = -1 至今所有的包
+int CBlock::getMsgs(set<ts_msg*>& out, TS_UINT64 beg, TS_UINT64 end) {
 	ts_msg* msg = new ts_msg();
+	if (-1 == end)
+		end = maxSeq;
+
+	int count = 0;
 	for (TS_UINT64 i = beg; i < end; i++) {
 		int result = readMsg(i, *msg);
-		if (result < 0)
-			return false;
-		out.insert(msg);
+		if (result > 0) {
+			out.insert(msg);
+			count++;
+		}
 	}
 	delete msg;
-	return true;
+	return count;
 }

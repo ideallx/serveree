@@ -69,10 +69,16 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
 		return result;
 
 	ts_msg* msg = (ts_msg*) buf;
-	if (RESEND == getType(*msg)) {		// 若是收到重传请求，交到消息队列，返回-1
+	switch (getType(*msg)) {
+	case RESEND:
+	case RESENDALL:
+	case RESENDSERIES:
 		result = -1;
-	} else {
+		break;
+	default:
 		totalMsgs++;
+		break;
+
 	}
 
 	msgQueue->enQueue(*msg);			// queue会自己作副本，所以不用担心msg的生命周期
@@ -85,7 +91,7 @@ int CReliableConnection::send(const char* buf, ULONG len) {
 	TS_UINT64 seq = getSeq(*msg);
 	if (seq != 0) {												// seq为0，控制类指令，暂不保存
 		if (selfUid != ServerUID) {								// client端特殊处理
-			bm->record(*msg, packetSize(*msg));					// client端需要记录发出的包
+			bm->record(*msg);									// client端需要记录发出的包
 
 			if ((seq % 5 == 0) && missed.count(seq) == 0) 	{	// 故意抛弃，然后请求重传，第二次来正常接收
 				missed.insert(seq);
@@ -133,7 +139,7 @@ void CReliableConnection::saveProcess() {
 		createdBlock.insert(file.first);
 		isFirst = true;
 	}
-	file.second->save(int2string(file.first) + ".zip", isFirst);
+	file.second->save(fileNamePrefix + "_" + int2string(file.first) + ".zip", isFirst);
 	//cout << "Missing Rate: " << getMissingRate() << endl;
 }
 
@@ -158,8 +164,7 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 	int result = 0;				
 	auto iter = pids.begin();			// 总共发出去的条数
 
-	ts_msg *buffer = new ts_msg();
-	RCONNECT* r = (RCONNECT*) buffer;
+	RCONNECT* r = new RCONNECT();
 
 	r->head.type = RESEND;
 	r->head.UID = selfUid;				// 自己的UID
@@ -178,11 +183,11 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 		while (count < r->count) {
 			r->seq[count++] = *iter++;
 		}
-		result += (send2Peer(*buffer, uid) > 0);
+		result += (send2Peer(*(ts_msg*) r, uid) > 0);
 	}
 
 	// cout << "resend: " << result << endl;
-	delete buffer;
+	delete r;
 	return result;
 }
 
@@ -222,13 +227,22 @@ void CReliableConnection::receive(ts_msg& msg) {
 		return;
 	
 	// cout << selfUid << ":received " << getSeq(msg) << endl;
-	if (RESEND == getType(msg)) {			// 若是收到重传请求，自己处理
+	switch (getType(msg)) {
+	case RESEND:							// 若是收到重传请求，自己处理
 		resend(msg);
-	} else {								// 若是收到正常请求，则保存，之后由上层处理
-		bm->record(msg, packetSize(msg));	// 缓存记录
+		break;
+	case RESENDALL:							// 新加入课堂的，请求全部重传
+		resendAll(getUid(msg));
+		break;
+	case RESENDSERIES:						// 请求某个UID的部分数据重传
+
+		break;
+	default:								// 若是收到重传请求，自己处理
+		bm->record(msg);					// 缓存记录
 		if (selfUid == ServerUID) {			// Server转发
 			send(msg.Body, packetSize(msg));
 		}
+		break;
 	}
 }
 
@@ -237,6 +251,36 @@ bool CReliableConnection::validityCheck(ts_msg& msg) {
 	if (getSeq(msg) == 0)
 		return false;
 	return true;
+}
+
+void CReliableConnection::setFilePrefix(string fprefix) { 
+	fileNamePrefix = fprefix; 
+	bm->setFilePrefix(fprefix);
+}
+
+int CReliableConnection::resendAll(TS_UINT64 toUID) {
+	CPeerConnection *peer = findPeer(toUID);
+	if (NULL == peer)
+		return -1;
+
+	set<ts_msg*> msgs;
+	bm->getAllMsgs(msgs);
+	int count = 0;
+	for (auto iter = msgs.begin(); iter != msgs.end(); iter++) {
+		if (peer->send((**iter).Body, packetSize(**iter)) > 0) {
+			count++;
+		}
+	}
+	return count;
+}
+
+int CReliableConnection::resendPart(TS_UINT64 toUID, TS_UINT64 needUID, 
+	TS_UINT64 fromSeq, TS_UINT64 toSeq) {
+
+	CPeerConnection *peer = findPeer(toUID);
+	if (NULL == peer)
+		return -1;
+	// 
 }
 
 void* ScanProc(LPVOID lpParam) {

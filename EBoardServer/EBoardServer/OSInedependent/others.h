@@ -28,6 +28,7 @@
 #define _OSINDEPENDENT_OTHERS_H_
 
 #include <time.h>
+#include "../Stdafx.h"
 #ifdef WIN32
 #   include <windows.h>
 #else
@@ -37,7 +38,8 @@
 
 int gettimeofday(struct timeval *tp, void *tzp);
 int getIp(char* ip);
-
+TS_UINT64 getServerTime();
+TS_UINT64 getClientTime(TS_UINT64 bouns);
 
 
 #endif

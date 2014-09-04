@@ -1,16 +1,16 @@
-/*
- * CWSServer.cpp
- *
- *  Created on: Jun 21, 2014
- *      Author: root
- */
+#include <string>
 
 #include "CWSServer.h"
 #include "../Connections/CReliableConnection.h"
 
+extern string int2string(TS_UINT64);
+
 CWSServer::CWSServer(TS_UINT64 classid, TS_UINT64 reserved) :
 	_classid(classid),
 	_reserved(reserved) {
+	TS_UINT64 clientTime = getServerTime();
+	conn = dynamic_cast<CReliableConnection*>(pConnect);
+	conn->setFilePrefix(int2string(classid) + "_" + int2string(clientTime));
 }
 
 CWSServer::~CWSServer() {
@@ -24,11 +24,11 @@ void CWSServer::displayPeer(){
 }
 
 bool CWSServer::addPeer(sockaddr_in addr, TS_UINT64 uid) {
-	return dynamic_cast<CReliableConnection*>(pConnect)->addPeer(uid, addr);
+	return conn->addPeer(uid, addr);
 }
 
 bool CWSServer::removePeer(TS_UINT64 uid) {
-	return dynamic_cast<CReliableConnection*>(pConnect)->removePeer(uid);
+	return conn->removePeer(uid);
 }
 
 void CWSServer::removeUser(TS_UINT64 uid) {
@@ -37,7 +37,7 @@ void CWSServer::removeUser(TS_UINT64 uid) {
 }
 
 bool CWSServer::isEmpty() {
-	return dynamic_cast<CReliableConnection*>(pConnect)->getPeerHub()->size() == 0;
+	return conn->getPeerHub()->size() == 0;
 }
 
 void CWSServer::recvProc() {

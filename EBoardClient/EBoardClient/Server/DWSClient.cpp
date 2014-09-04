@@ -1,15 +1,18 @@
 #include "DWSClient.h"
 
+extern string int2string(TS_UINT64);
 
 DWSClient::DWSClient() :
 	_seq(0),
 	ub(NULL),
-	agent(NULL) {
+	agent(NULL),
+	timeDiff(0) {
 	conn = dynamic_cast<CReliableConnection*> (pConnect);
 }
 
 DWSClient::~DWSClient() {
-
+	delete ub;
+	delete agent;
 }
 
 void DWSClient::recvProc() {
@@ -72,9 +75,7 @@ bool DWSClient::generateData() {
 	int length = rand() % 500 + 525;
 	TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg->msg;
 
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	head->time = static_cast<TS_UINT64> (tv.tv_sec);
+	head->time = getClientTime(timeDiff);
 	head->size = length;
 	head->sequence = ++_seq;
 	head->isEnd = 0;
@@ -91,10 +92,8 @@ void DWSClient::sendHeartBeat() {
 	TS_PEER_MESSAGE *msg = new TS_PEER_MESSAGE();
 	UP_HEARTBEAT* upcmd = (UP_HEARTBEAT*) &msg->msg;
 	
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
 	upcmd->head.type = HEARTBEAT;
-	upcmd->head.time = static_cast<TS_UINT64> (tv.tv_sec);
+	upcmd->head.time = getClientTime(timeDiff);
 	upcmd->head.size = sizeof(UP_HEARTBEAT);
 	upcmd->head.sequence = 0;
 	upcmd->head.UID = ub->_uid;
@@ -184,7 +183,7 @@ void* HBProc(LPVOID lpParam) {
 	}
 	while (c->isRunning()) {
 		c->sendHeartBeat();
-		Sleep(60000);				// 1分钟一个
+		Sleep(HeartBeatInterval);				// 1分钟一个
 	}
 	return 0;
 }
@@ -195,7 +194,9 @@ DWORD DWSClient::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSCl
 	if (ENTERCLASS == in->head.type) {
 		if (in->result == Success) {								// 进入班级成功，创建work client
 			conn->addPeer(ServerUID, in->addr);
-			
+
+			timeDiff = in->head.time - GetTickCount() / 1000;
+
 			pthread_t pthread_gen;
 			int rc = pthread_create(&pthread_gen, NULL, GenProc, (void*) this);
 			if (0 == rc) {
@@ -213,6 +214,7 @@ DWORD DWSClient::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSCl
 			} else {
 				turnOff();
 			}
+			conn->setFilePrefix(int2string(ub->_classid) + "_" + int2string(in->head.time));
 		}
 	} else if (LEAVECLASS == in->head.type) {
 		Stop();
@@ -226,9 +228,7 @@ bool DWSClient::enterClass(ts_msg& msg) {			// 拼接进入班级的报文
 
 	TS_UINT64 uid = ub->_uid;
 	UP_AGENTSERVICE* upcmd = (UP_AGENTSERVICE*) &msg;
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	upcmd->head.time = static_cast<TS_UINT64> (tv.tv_sec);
+	upcmd->head.time = getClientTime(timeDiff);
 	upcmd->head.type = ENTERCLASS;
 	upcmd->head.UID = uid;
 	upcmd->head.reserved = ub->_reserved;
@@ -246,9 +246,7 @@ bool DWSClient::leaveClass(ts_msg& msg) {
 	TS_UINT64 uid = ub->_uid;
 	UP_AGENTSERVICE* upcmd = (UP_AGENTSERVICE*) &msg;
 
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	upcmd->head.time = static_cast<TS_UINT64> (tv.tv_sec);
+	upcmd->head.time = getClientTime(timeDiff);
 	upcmd->head.type = LEAVECLASS;
 	upcmd->head.UID = uid;
 	upcmd->head.reserved = ub->_reserved;
