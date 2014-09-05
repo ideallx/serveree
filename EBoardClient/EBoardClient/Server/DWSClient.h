@@ -15,11 +15,11 @@
 
 class DWSClient : public CServer {
 private:
-	TS_UINT64 _seq;
-	UserBase* ub;
-	CReliableConnection *conn;
-	CPeerConnection* agent;
-	TS_UINT64 timeDiff;   // 服务器端和客户端的时间差
+	TS_UINT64 _seq;				// 流水号咯
+	UserBase* ub;				// 本地用户的信息
+	CReliableConnection *conn;	// pConnect的dynamic cast后产物
+	CPeerConnection* agent;		// 复用pConnect的socket，用他来和agent server通信
+	DWORD timeDiff;				// 服务器端和客户端的时间差
 
 public:
 	DWSClient();
@@ -44,9 +44,10 @@ public:
 	void msgProc();
 	
 	// 心跳包过程
-friend void* HBProc(LPVOID lpParam);
+	friend void* HBProc(LPVOID lpParam);
 
-friend void* GenProc(LPVOID lpParam);
+	// 生成客户端数据过程
+	friend void* GenProc(LPVOID lpParam);
 	
 private:
 	bool enterClass(ts_msg& msg);

@@ -1,24 +1,15 @@
 #include <string>
-#include <sstream>
 #include <iostream>
 
 #include "CBlock.h"
 #include "../OSInedependent/others.h"
 
-string int2string(TS_UINT64 number) {
-	stringstream ss;
-	string s;
-	ss << number;
-	ss >> s;
-	return s;
-}
-
 CBlock::CBlock(TS_UINT64 uid) :
 	curPackage(NULL),			// 缓存上一次被调用的包
 	curPackageNum(-1),			// 上一次被调用的包号
 	isFirstMsg(true),			// 是不是第一次收到msg，第一个包号非0会做特殊处理
-	_uid(uid),
-	fileNamePrefix("L"),
+	_uid(uid),					// 用户id
+	fileNamePrefix("L"),		// 随便给个初始值
 	maxSeq(0) {					
 	iop_lock_init(&mapLock);
 }
@@ -43,7 +34,7 @@ int CBlock::addMsg(const ts_msg& msg) {
 	TS_UINT64 seq = getSeq(msg);
 	if (seq > maxSeq)
 		maxSeq = seq;
-	getArrayNumberAndPos(seq, packageNum, pos);	// 获取array号，array地址
+	getArrayNumberAndPos(seq, packageNum, pos);			// 获取package号，msg在package的位置
 
 	iop_lock(&mapLock);
 	if (packageNum != curPackageNum) {					// 若是使用最近一个包，省去find步骤

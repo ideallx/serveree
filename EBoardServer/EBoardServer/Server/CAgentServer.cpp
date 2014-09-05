@@ -85,7 +85,7 @@ void CAgentServer::scanOffline() {
 	TS_UINT64 currentTime = getServerTime();
 	
 	iop_lock(&lockOfflineMaps);
-	int maxAllowedInterval = HeartBeatInterval / 1000 * 3;
+	int maxAllowedInterval = HeartBeatInterval * 3;
 	for (auto iter = heartBeatTime.begin(); iter != heartBeatTime.end(); ) {
 		if (currentTime - iter->second > maxAllowedInterval) {
 			offlineUsers.insert(iter->first);
@@ -111,6 +111,7 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	down->head.time = getServerTime();
 	WriteOut(inputMsg);
 
+	map_userinfo.insert(user._uid, user);
 	heartBeatTime.insert(make_pair(user._uid, down->head.time));
 	return true;
 }
@@ -131,6 +132,7 @@ void CAgentServer::leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	WriteOut(inputMsg);
 	pServer->removePeer(user._uid);
 	cout << "user: " << user._uid << " removed" << endl;
+	map_userinfo.erase(user._uid);
 
 	if (pServer->isEmpty()) {										// 教室里没人了就销毁
 		cout << "destroy class" << endl;

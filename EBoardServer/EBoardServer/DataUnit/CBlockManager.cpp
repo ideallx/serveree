@@ -1,7 +1,6 @@
 #include <string>
 #include "CBlockManager.h"
 #include <iostream>
-extern string int2string(TS_UINT64);
 
 CBlockManager::CBlockManager() :
 	fileNamePrefix("L") {
@@ -101,4 +100,15 @@ int CBlockManager::getAllMsgs(set<ts_msg*>& out) {
 		count += iter->second->getMsgs(out, SeqBegin, -1);		// seq´Ó1¿ªÊ¼
 	}
 	return count;
+}
+
+int CBlockManager::getMsgsFromUID(set<ts_msg*>& out, TS_UINT64 uid, 
+	TS_UINT64 begSeq, TS_UINT64 endSeq) {
+	if ((map_userBlock.count(uid) == 0) || (map_userBlock[uid] == NULL))
+		return 0;
+	CBlock* cb = map_userBlock[uid];
+	if (NULL == cb)
+		return 0;
+
+	return cb->getMsgs(out, begSeq, endSeq);
 }

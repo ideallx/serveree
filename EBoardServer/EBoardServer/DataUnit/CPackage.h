@@ -17,6 +17,23 @@ using namespace std;
 
 const int MaxPackets = 1024;
 
+/*
+ *	每1024个msgs作为一个数组
+ *
+ *	scanHead: 收到的最大的pos + 1
+ *	missing: 丢失的包
+ *
+ *	insert过程:
+ *		1:	有效性判断
+ *		2:	若是新来的pos比scanHead大，则pos作为新的scanHead
+ *		3:	pos和scanHead之间的全部加入到missing表中
+ *		4:	若是新来的pos比scanHead小，则判断是否存在missing中，若是，则删除
+ *
+ *	scanAll:
+ *		认为这个包所有的msg都应该被收到过
+ */
+
+
 class CPackage {
 private:
 	ts_msg* packets[MaxPackets];
@@ -41,6 +58,7 @@ public:
 	bool save(string fileName, bool isCreate);
 	// 将文件中的内容全部复制到类中
 	bool load(string fileName, int packageNum);
+
 	// 返回该package是否已经存过文件
 	inline bool isSaved() { return _isSaved; }
 	// 设置该package是否已经存过文件

@@ -48,11 +48,18 @@ typedef struct {
 	TS_MESSAGE_HEAD head;
 } UP_HEARTBEAT;
 
+typedef struct {	
+	TS_MESSAGE_HEAD head;
+	TS_UINT64 uid;					// 丢失包的UID
+	TS_UINT64 beginSeq;				// 丢失包的起始seq
+	TS_UINT64 endSeq;				// 丢失包的终止seq(-1为最新的seq)
+} UP_RESEND_SERIES;
+
 // 下行报文
 typedef struct {
 	TS_MESSAGE_HEAD head;		
-	enum MsgResult result;		// 运行结果
-	sockaddr_in addr;			// 服务器端地址
+	enum MsgResult result;			// 运行结果
+	sockaddr_in addr;				// 服务器端地址
 } DOWN_AGENTSERVICE;
 
 

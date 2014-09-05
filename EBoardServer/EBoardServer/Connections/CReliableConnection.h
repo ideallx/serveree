@@ -9,6 +9,48 @@
 #include "../DataStructure/TSQueue.h"
 
 
+/**
+ *  可靠UDP，内含：
+ *		1:	BlockManager 管理所有发出接收的文件
+ *		2:	三个线程
+ *			2.1:scan线程，扫描丢包，扫描需要保存的包
+ *			2.2:save线程，scan时扫到需要保存的包，则交给save线程的队列，由save线程进行存文件操作
+ *			2.3:msgin线程，有收到消息后就交给msgIn线程，并由msgIn来根据msg的类型选择进行保存或者重发操作
+ *		3:	两个队列，都使用信号量进行保护
+ *			3.1:msgQueue，收到的msg
+ *			3.2:saveQueue，需要保存的package队列
+ *
+ *	收msg过程：
+ *		收到msg，加入msgQueue，若是正常msg则返回上层msg长度，
+ *							  若是异常则返回-1
+ *		msgin线程读取到msg，若是正常msg则保存到blockmanager
+ *						   若是异常则进行重发处理
+ *
+ *  发送过程：
+ *		发送给多人的，使用send()，会遍历群发
+ *		发送给单人使用send2peer()，会根据报文的UID，选择peer发送
+ *		要向单人发送多个包，使用findpeer()->send
+ *		客户端发送时，会保存副本。
+ *
+ *	扫描过程：
+ *		打开端口后，开启scan线程
+ *		每过特定时间（现在是100ms)进行一次判断，判断2项
+ *			若是缺了某几个包，则请求重发
+ *			若是获取到了某几个需要保存的包，则加入saveQueue，等待保存线程进行保存
+ *
+ *	保存过程：
+ *		打开端口后，开启save线程
+ *		使用信号量保护，saveQueue中如果有package加入，则进行保存
+ *
+ *
+ *	其他:
+ *		1.丢包率: 每miss一次 totalMiss++， 每收到一条 totalMsgs++
+ *				 丢包率 = totalMiss / totalMsgs * 100。由于可能重复miss，所以丢包率可能过100
+ *		2.createdBlock: 由于每个block的第一次创建文件需要用create模式，所以这里记录是否是第一次存文件
+ *		3.selfUid: 自身UID，同时又能判断是否是server
+ *		4.fileNamePrefix:本次保存的文件名前缀，一般为classid_time
+ */
+
 class CReliableConnection : public CHubConnection {
 protected:
 	pthread_t msgScan;	
@@ -22,7 +64,7 @@ protected:
 	CBlockManager* bm;
 
 	TSQueue<ts_msg>* msgQueue;
-	TSQueue<pair<TS_UINT64, CPackage*> > saveQueue;	// bao这里传指针应该没问题吧。
+	TSQueue<pair<TS_UINT64, CPackage*> > saveQueue;	// 这里传指针应该没问题吧。
 
 	TS_UINT64 selfUid;				// 自身的UID
 	set<TS_UINT64> missed;			// 测试用client丢包数据
@@ -71,7 +113,7 @@ public:
 	// 所有包全部重发一遍
 	int resendAll(TS_UINT64 toUID);
 
-	// 重发部分包
+	// 重发某个用户的部分包
 	int resendPart(TS_UINT64 toUID, TS_UINT64 needUID, 
 					TS_UINT64 fromSeq, TS_UINT64 toSeq);
 

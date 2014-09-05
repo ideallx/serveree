@@ -195,6 +195,27 @@ int CHubConnection::send(const char* buf, ULONG len) {
 	return brc;
 }
 
+int CHubConnection::sendExcept(const char* buf, ULONG len, TS_UINT64 uid) {
+	if (!pSocket)
+		return -1;
+
+	CPeerConnection* pc;
+	int brc = 0;
+
+	//cout << "debug: total peers# is: " << size() << endl;
+	map<TS_UINT64, CPeerConnection*>::iterator iter;
+
+	iop_lock(&mutex_lock);
+	for (iter = peerHub->begin(); iter != peerHub->end(); iter++) {
+		if (iter->first == uid)			// 除了这个UID的，别人都要发
+			continue;
+		pc = iter->second;
+		brc = pc->send(buf, len);
+	}
+	iop_unlock(&mutex_lock);
+	return brc;
+}
+
 int CHubConnection::recv(char* buf, ULONG& len) {
 	if (!pSocket)
 		return -1;

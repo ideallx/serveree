@@ -1,7 +1,6 @@
 #include "others.h"
 
-int
-gettimeofday(struct timeval *tp, void *tzp)
+int gettimeofday(struct timeval *tp, void *tzp)
 {
     time_t clock;
     struct tm tm;
@@ -43,11 +42,17 @@ int getIp(char* ip) {
 }
 
 TS_UINT64 getServerTime() {
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	return static_cast<TS_UINT64> (tv.tv_sec);
+	return GetTickCount();
 }
 
-TS_UINT64 getClientTime(TS_UINT64 bouns) {
-	return GetTickCount() / 1000 + bouns;
+TS_UINT64 getClientTime(DWORD bouns) {
+	return GetTickCount() + bouns;
+}
+
+string int2string(TS_UINT64 number) {
+	stringstream ss;
+	string s;
+	ss << number;
+	ss >> s;
+	return s;
 }

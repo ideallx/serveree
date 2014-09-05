@@ -8,8 +8,6 @@
 #include "CPackage.h"
 #include "../Zip/myzip.h"
 
-extern string int2string(TS_UINT64);
-
 CPackage::CPackage(int beginPos) :
 	scanHead(beginPos),
 	packageID(0),
@@ -117,7 +115,7 @@ bool CPackage::save(string fileName, bool isCreate) {
 			cout << "Save File Error" << endl;
 			return false;
 	}
-	//s cout << isCreate?"1":"0";
+	// cout << isCreate?"1":"0";
 	free(content);
 	_isSaved = true;
 	return true;

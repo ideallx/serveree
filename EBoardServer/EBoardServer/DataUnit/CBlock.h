@@ -15,12 +15,37 @@ using namespace std;
 
 const int initialHP = 200;
 
+/**
+ *	最重要的数据单元，保存单个用户的所有数据
+ *
+ *  包含:
+ *		1:	所有留在内存中的CPackage表，blockContents
+ *		2:	每个CPackage对应的HP，每次scan扣一次，扣完存文件（加入到saveList中，由上层来存）
+ *	
+ *
+ *	加入msg过程：
+ *		1:	若是最大序号，则保存序号
+ *		2:	获取对应的packageNum和pos
+ *		3:	若是对应的package不存在，则创建一个，并添加该CPackage的HP
+ *		4:	将数据插入对应位置
+ *
+ *	读取msg过程：
+ *		1:	获取对应的packageNum和pos
+ *		2:	若是对应的package不存在，则读文件读出来，并将整个package读出来加进内存，添加CPackage的HP
+ *		3:  读出对应数据
+ *
+ *	扫描丢包过程：
+ *		1:	获取每个内存中的Package的丢失的Msgs
+ *		2:	扫描已满的Cpackage并加入saveList中
+ *		3:	每个package扣血，扣完的销毁
+ */
+
 class CBlock {
 private:
 	map<int, CPackage*> blockContents;
 	set<CPackage*> saveList;	// 需要保存的CPackage
 	
-	CPackage* curPackage;		// 上一次读取或者插入的包
+	CPackage* curPackage;		// 上一次读取或者插入的包，缓存用
 	int curPackageNum;			// 上一次包的包号
 
 	bool isFirstMsg;			// 第一个包的序列号当做起始号

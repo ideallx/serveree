@@ -195,7 +195,7 @@ DWORD DWSClient::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSCl
 		if (in->result == Success) {								// 进入班级成功，创建work client
 			conn->addPeer(ServerUID, in->addr);
 
-			timeDiff = in->head.time - GetTickCount() / 1000;
+			timeDiff = in->head.time - GetTickCount();
 
 			pthread_t pthread_gen;
 			int rc = pthread_create(&pthread_gen, NULL, GenProc, (void*) this);
