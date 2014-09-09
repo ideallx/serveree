@@ -2,6 +2,7 @@
 #include <string>
 #include "CReliableConnection.h"
 #include "../DataUnit/CMessage.h"
+#include "../Stdafx.h"
 
 using namespace std;
 
@@ -14,6 +15,7 @@ CReliableConnection::CReliableConnection() :
 	fileNamePrefix("L") {						
 	semMsg = CreateSemaphore(NULL, 0, 1024, NULL);
 	semSave = CreateSemaphore(NULL, 0, 1024, NULL);
+	needScan = CreateSemaphore(NULL, 0, 1024, NULL);
 	createdBlock.clear();
 }
 
@@ -23,6 +25,7 @@ CReliableConnection::~CReliableConnection() {
 
 	CloseHandle(semMsg);
 	CloseHandle(semSave);
+	CloseHandle(needScan);
 
 	delete msgQueue;
 	delete bm;
@@ -70,8 +73,8 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
 	ts_msg* msg = (ts_msg*) buf;
 	switch (getType(*msg)) {
 	case RESEND:
-	case RESENDALL:
-	case RESENDSERIES:
+	//case RESENDALL:
+	//case RESENDSERIES:
 		result = -1;
 		break;
 	default:
@@ -90,22 +93,28 @@ int CReliableConnection::send(const char* buf, ULONG len) {
 	TS_UINT64 seq = getSeq(*msg);
 
 	if (seq != 0) {												// seq为0，控制类指令，暂不保存
-		if (selfUid != ServerUID) {								// client端特殊处理
+		if (selfUid != ServerUID) {								// client端特殊处理.
 			bm->record(*msg);									// client端需要记录发出的包
-
-			if ((seq % 5 == 0) && missed.count(seq) == 0) 	{	// 故意抛弃，然后请求重传，第二次来正常接收
+			if ((seq % 20 == 0) && missed.count(seq) == 0) 	{	// 故意抛弃，然后请求重传，第二次来正常接收
 				missed.insert(seq);
-				// cout << uid << " missed " << seq << endl;
 				return -1;
 			}
 			return CHubConnection::send(buf, len);
 		} else {
+			if ((seq % 20 == 0) && missed.count(seq) == 0) 	{	// 故意抛弃，然后请求重传，第二次来正常接收
+				missed.insert(seq);
+				return -1;
+			}
 			return CHubConnection::sendExcept(buf, len, getUid(*msg));
 		}
+		
+
 	}
+	return CHubConnection::send(buf, len);
 }
 
 void CReliableConnection::scanProcess() {
+	cout << "2";
 	map<TS_UINT64, set<TS_UINT64> > results = bm->getLostSeqIDs();				// blockManager层找
 	for (auto uidIter = results.begin(); uidIter != results.end(); uidIter++) { // 扫描所有UID
 		TS_UINT64 uid = uidIter->first;											// block层
@@ -140,8 +149,9 @@ void CReliableConnection::saveProcess() {
 		createdBlock.insert(file.first);
 		isFirst = true;
 	}
+	cout << "3";
 	file.second->save(fileNamePrefix + "_" + int2string(file.first) + ".zip", isFirst);
-	//cout << "Missing Rate: " << getMissingRate() << endl;
+	// cout << "Missing Rate: " << getMissingRate() << endl;
 }
 
 int CReliableConnection::send2Peer(ts_msg& msg) {
@@ -170,6 +180,8 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 	r->head.type = RESEND;
 	r->head.UID = selfUid;				// 自己的UID
 	r->head.sequence = 12;				// 序号非0即可
+	r->missingUID = uid;				// 没收到的包所属的UID
+	r->missingType = MISS_SINGLE;		// 掉单一的包
 	int total = pids.size();			// 总共需要发的条数
 
 	while (total > 0) {
@@ -181,10 +193,17 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 		r->head.size = r->count * sizeof(TS_UINT64) + sizeof(TS_MESSAGE_HEAD);
 
 		int count = 0;
+		// cout << "request ";
 		while (count < r->count) {
 			r->seq[count++] = *iter++;
+			// cout << r->seq[count-1] << " ";
 		}
-		result += (send2Peer(*(ts_msg*) r, uid) > 0);
+		// cout << endl;
+		if (ServerUID == selfUid) {		// Server端问各个用户要
+			result += (send2Peer(*(ts_msg*) r, uid) > 0);
+		} else {						// client端问客户端要
+			result += (send2Peer(*(ts_msg*) r, ServerUID) > 0);
+		}
 	}
 
 	// cout << "resend: " << result << endl;
@@ -196,20 +215,52 @@ int CReliableConnection::resend(ts_msg& requestMsg) {
 	int count = 0;
 	RCONNECT* r = (RCONNECT*) &requestMsg;
 	TS_UINT64 uid = r->head.UID;					// 请求方的UID
+	TS_UINT64 missingUID = r->missingUID;			// 丢包所属的UID
 
 	CPeerConnection *peer = findPeer(uid);			// 请求方的地址
 	if (NULL == peer)
 		return -1;
-
+	
 	ts_msg *p = new ts_msg();
-	for (int i = 0; i < r->count; i++) {	
-		if (ServerUID == uid) {
-			uid = selfUid;							// 若是Server请求，则读自己的，若是client请求，则Server读各个uid的
+	if (ServerUID == uid) {
+		uid = selfUid;								// 若是Server请求，则读自己的，若是client请求，则Server读各个uid的
+	}
+
+	if (r->missingType == MISS_SINGLE) {			// 单个MISS重传
+		for (int i = 0; i < r->count; i++) {
+			if (bm->readRecord(missingUID, r->seq[i], *p) < 0)	// 读到几条请求，发多少条
+				continue;
+			// cout << "resend " << r->seq[i] << endl;
+			cout << "4";
+			if (peer->send(p->Body, packetSize(*p)) > 0)
+				count++;
 		}
-		if (bm->readRecord(uid, r->seq[i], *p) < 0)	// 读到几条请求，发多少条
-			continue;
-		if (peer->send(p->Body, packetSize(*p)) > 0)
-			count++;
+	} else if (r->missingType == MISS_SERIES) {		// 批量MISS重传
+		for (int i = 0; i < r->count; i++) {
+			TS_UINT64 begin = r->seq[i*2];			// seq起始
+			TS_UINT64 end = r->seq[i*2 + 1];
+			if (-1 == end)							// seq终止，若给-1，则为全部接受
+				end = bm->getMaxSeqOfUID(uid);
+
+			for (int j = begin; j < end; j++) {
+				if (bm->readRecord(uid, j, *p) < 0)
+					continue;
+				if (peer->send(p->Body, packetSize(*p)) > 0)
+					count++;
+			}
+		}
+	} else if (r->missingType == MISS_ALL) {		// 全部重传
+		for (auto iter = peerHub->begin(); iter != peerHub->end(); iter++) {
+			TS_UINT64 uid = iter->first;
+			TS_UINT64 end = bm->getMaxSeqOfUID(uid);
+
+			for (int j = 1; j < end; j++) {
+				if (bm->readRecord(uid, j, *p) < 0)
+					continue;
+				if (peer->send(p->Body, packetSize(*p)) > 0)
+					count++;
+			}
+		}
 	}
 
 	delete p;
@@ -226,31 +277,19 @@ void CReliableConnection::receive(ts_msg& msg) {
 	if (!msgQueue->deQueue(msg))
 		return;
 
-
 	if (!validityCheck(msg))				// 有效性检测
 		return;
 	
-	// cout << selfUid << ":received " << getSeq(msg) << endl;
-	switch (getType(msg)) {
-	case RESEND:							// 若是收到重传请求，自己处理
+	unsigned char type = getType(msg);
+	if (RESEND == type) {					// 若是收到重传请求，自己处理
 		resend(msg);
-		break;
-	case RESENDALL:							// 新加入课堂的，请求全部重传
-		resendAll(getUid(msg));
-		break;
-	case RESENDSERIES: 						// 请求某个UID的部分数据重传
-		{
-			UP_RESEND_SERIES* upcmd = (UP_RESEND_SERIES*) &msg;
-			resendPart(getUid(msg), upcmd->uid, upcmd->beginSeq, upcmd->endSeq);
-		}
-		break;
-	default:								// 若是收到重传请求，自己处理
+	} else {								// 若是收到重传请求，自己处理
 		bm->record(msg);					// 缓存记录
 		if (selfUid == ServerUID) {			// Server转发
 			send(msg.Body, packetSize(msg));
 		}
-		break;
 	}
+	ReleaseSemaphore(needScan, 1, NULL);	// 收到任意msg，都要重新scan
 }
 
 // 现在就检查一下seq，后续检查全加入这个函数中
@@ -265,39 +304,39 @@ void CReliableConnection::setFilePrefix(string fprefix) {
 	bm->setFilePrefix(fprefix);
 }
 
-int CReliableConnection::resendAll(TS_UINT64 toUID) {
-	CPeerConnection *peer = findPeer(toUID);
-	if (NULL == peer)
-		return -1;
-
-	set<ts_msg*> msgs;
-	bm->getAllMsgs(msgs);
-	int count = 0;
-	for (auto iter = msgs.begin(); iter != msgs.end(); iter++) {
-		if (peer->send((**iter).Body, packetSize(**iter)) > 0) {
-			count++;
-		}
-	}
-	return count;
-}
-
-int CReliableConnection::resendPart(TS_UINT64 toUID, TS_UINT64 needUID, 
-	TS_UINT64 fromSeq, TS_UINT64 toSeq) {
-
-	CPeerConnection *peer = findPeer(toUID);
-	if (NULL == peer)
-		return -1;
-	
-	set<ts_msg*> msgs;
-	bm->getMsgsFromUID(msgs, needUID, fromSeq, toSeq);				// 获取需求的部分msg然后发送
-	int count = 0;
-	for (auto iter = msgs.begin(); iter != msgs.end(); iter++) {
-		if (peer->send((**iter).Body, packetSize(**iter)) > 0) {
-			count++;
-		}
-	}
-	return count;
-}
+//int CReliableConnection::resendAll(TS_UINT64 toUID) {
+//	CPeerConnection *peer = findPeer(toUID);
+//	if (NULL == peer)
+//		return -1;
+//
+//	set<ts_msg*> msgs;
+//	bm->getAllMsgs(msgs);
+//	int count = 0;
+//	for (auto iter = msgs.begin(); iter != msgs.end(); iter++) {
+//		if (peer->send((**iter).Body, packetSize(**iter)) > 0) {
+//			count++;
+//		}
+//	}
+//	return count;
+//}
+//
+//int CReliableConnection::resendPart(TS_UINT64 toUID, TS_UINT64 needUID, 
+//	TS_UINT64 fromSeq, TS_UINT64 toSeq) {
+//
+//	CPeerConnection *peer = findPeer(toUID);
+//	if (NULL == peer)
+//		return -1;
+//	
+//	set<ts_msg*> msgs;
+//	bm->getMsgsFromUID(msgs, needUID, fromSeq, toSeq);				// 获取需求的部分msg然后发送
+//	int count = 0;
+//	for (auto iter = msgs.begin(); iter != msgs.end(); iter++) {
+//		if (peer->send((**iter).Body, packetSize(**iter)) > 0) {
+//			count++;
+//		}
+//	}
+//	return count;
+//}
 
 void* ScanProc(LPVOID lpParam) {
 	pthread_detach(pthread_self());
@@ -306,8 +345,9 @@ void* ScanProc(LPVOID lpParam) {
 		return 0;
 	}
 	while (true) {
-		conn->scanProcess();	// 扫描包并重发
-		iop_usleep(100);		// 时间间隔
+		WaitForSingleObject(conn->needScan, 1000);	// 最多等1秒
+		conn->scanProcess();		// 扫描包并重发
+		iop_usleep(100);			// 时间间隔
 	}
 	return 0;
 }

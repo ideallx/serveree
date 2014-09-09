@@ -18,7 +18,11 @@ typedef int				SOCKET;
 #define INVALID_SOCKET	0;
 #endif
 
-
+//const int PrintRecv = 0;
+//const int PrintSend = 1;
+//const int PrintScan = 2;
+//const int PrintSave = 3;
+//const int PrintResend = 4;
 
 
 #define DESTROY(p) if (NULL != (p)) { delete (p); (p) = NULL; }

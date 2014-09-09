@@ -76,6 +76,8 @@ protected:
 
 	string fileNamePrefix;			// 保存的文件名的前缀
 
+	HANDLE needScan;				// 来了新的msg，需要重新scan
+
 public:
 	CReliableConnection();
 	virtual ~CReliableConnection();

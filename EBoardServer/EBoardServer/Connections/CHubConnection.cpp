@@ -182,7 +182,7 @@ int CHubConnection::send(const char* buf, ULONG len) {
 
 	CPeerConnection* pc;
 	int brc = 0;
-
+	cout << "0";
 	//cout << "debug: total peers# is: " << size() << endl;
 	map<TS_UINT64, CPeerConnection*>::iterator iter;
 
@@ -201,7 +201,8 @@ int CHubConnection::sendExcept(const char* buf, ULONG len, TS_UINT64 uid) {
 
 	CPeerConnection* pc;
 	int brc = 0;
-
+	
+	cout << "0";
 	//cout << "debug: total peers# is: " << size() << endl;
 	map<TS_UINT64, CPeerConnection*>::iterator iter;
 

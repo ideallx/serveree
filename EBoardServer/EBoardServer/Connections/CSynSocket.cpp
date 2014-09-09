@@ -2,7 +2,8 @@
 #include "CSynSocket.h"
 #include "../DataUnit/CMessage.h"
 
-CSynSocket::CSynSocket() {
+CSynSocket::CSynSocket() :
+	ipAddress("127.0.0.1") {
 
 }
 
@@ -19,6 +20,19 @@ void CSynSocket::unInit(void) {
 }
 
 bool CSynSocket::bindPort(unsigned short iPort) {
+/*
+	m_LocalAddr.sin_family = AF_INET;
+	m_LocalAddr.sin_addr.s_addr = inet_addr(ipAddress.c_str());
+    m_LocalAddr.sin_port = htons(iPort);
+	if (iPort != 0) {
+		rc = bind(m_Socket, (struct sockaddr *) &m_LocalAddr, m_LocalAddrSize);
+		if (rc == SOCKET_ERROR) {
+			return false;
+		}
+	}
+	return true;
+*/
+
 #ifdef WIN32
 	struct hostent *localhost;
     char *ip;

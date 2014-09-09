@@ -83,7 +83,7 @@ bool DWSClient::generateData() {
 	head->version = 100;
 	
 	WriteOut(*msg);
-	iop_usleep(10);			// 时间间隔
+	iop_usleep(50);			// 时间间隔
 	delete msg;
 	return true;
 }

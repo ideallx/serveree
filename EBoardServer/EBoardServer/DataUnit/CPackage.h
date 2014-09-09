@@ -29,7 +29,7 @@ const int MaxPackets = 1024;
  *		3:	pos和scanHead之间的全部加入到missing表中
  *		4:	若是新来的pos比scanHead小，则判断是否存在missing中，若是，则删除
  *
- *	scanAll:
+ *	needAll:
  *		认为这个包所有的msg都应该被收到过
  */
 
@@ -80,11 +80,9 @@ public:
 	inline int getID(void) { return packageID; }
 
 	// 将这个包设置为应该收到所有message
-	void scanAll();
+	void needAll();
 
 	int scanMissingPackets(set<int>& out);
-
-	friend void* saveProc(LPVOID lpParam);
 };
 
 #endif

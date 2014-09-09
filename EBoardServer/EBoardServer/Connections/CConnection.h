@@ -15,6 +15,7 @@ public:
 
 public:
 	bool copy(CAbsConnection* conn);
+	//void setIpaddress
 
 protected:
 	void setPeerConnection(const struct sockaddr_in& peeraddr);

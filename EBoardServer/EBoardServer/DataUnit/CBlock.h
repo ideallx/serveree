@@ -85,6 +85,8 @@ public:
 	// 设置文件名前缀 fprefix_uid.zip/packageNum
 	void setFilePrefix(string fprefix) { fileNamePrefix = fprefix; }
 
+	inline TS_UINT64 getMaxSeq() { return maxSeq; }
+
 private:
 	// 获取seq对应的msg所在的数组以及位置
 	void getArrayNumberAndPos(TS_UINT64 seq, DWORD& packageNum, DWORD& pos);

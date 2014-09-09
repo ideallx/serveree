@@ -1,6 +1,7 @@
 #include <string>
-#include "CBlockManager.h"
 #include <iostream>
+
+#include "CBlockManager.h"
 
 CBlockManager::CBlockManager() :
 	fileNamePrefix("L") {
@@ -15,6 +16,8 @@ CBlockManager::~CBlockManager() {
 }
 
 int CBlockManager::readRecord(TS_UINT64 uid, TS_UINT64 seq, ts_msg& p) {
+	if (seq == 0)
+		return -1;
 	CBlock* b = getBlockByUid(uid);
 	if (NULL == b)
 		return -1;
@@ -93,7 +96,7 @@ void CBlockManager::saveBlock(TS_UINT64 uid) {
 	CBlock* cb = map_userBlock[uid];
 	cb->saveAll();
 }
-
+/*
 int CBlockManager::getAllMsgs(set<ts_msg*>& out) {
 	int count = 0;
 	for (auto iter = map_userBlock.begin(); iter != map_userBlock.end(); ) {
@@ -111,4 +114,11 @@ int CBlockManager::getMsgsFromUID(set<ts_msg*>& out, TS_UINT64 uid,
 		return 0;
 
 	return cb->getMsgs(out, begSeq, endSeq);
+}
+*/
+
+TS_UINT64 CBlockManager::getMaxSeqOfUID(TS_UINT64 uid) {
+	if ((map_userBlock.count(uid) == 0) || (map_userBlock[uid] == NULL))
+		return -1;
+	return map_userBlock[uid]->getMaxSeq();
 }

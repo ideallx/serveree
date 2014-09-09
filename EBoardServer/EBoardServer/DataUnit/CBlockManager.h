@@ -51,11 +51,14 @@ public:
 	// 设置文件名前缀 fprefix_uid.zip/packageNum
 	void setFilePrefix(string fprefix) { fileNamePrefix = fprefix; }
 
-	// 获取每个用户所有的包
-	int getAllMsgs(set<ts_msg*>& out);
+	//// 获取每个用户所有的包
+	//int getAllMsgs(set<ts_msg*>& out);
 
-	// 获取特定用户特定序号的包
-	int getMsgsFromUID(set<ts_msg*>& out, TS_UINT64 uid, TS_UINT64 begSeq, TS_UINT64 endSeq);
+	//// 获取特定用户特定序号的包
+	//int getMsgsFromUID(set<ts_msg*>& out, TS_UINT64 uid, TS_UINT64 begSeq, TS_UINT64 endSeq);
+
+	// 获取某个UID当前收到的最大的SEQ
+	TS_UINT64 getMaxSeqOfUID(TS_UINT64 uid);
 
 private:
 	CBlock* getBlockByUid(TS_UINT64 uid);

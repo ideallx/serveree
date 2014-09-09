@@ -87,8 +87,8 @@ int CPackage::scanMissingPackets(set<int>& out) {
 }
 
 // scanHead之前的miss的package，都已经保存进了missing set中
-// 现在需要scanAll，只要把scanHead到MaxPackets中所有包都加到missing中
-void CPackage::scanAll() {
+// 现在需要needAll，只要把scanHead到MaxPackets中所有包都加到missing中
+void CPackage::needAll() {
 	for (int i = scanHead; i < MaxPackets; i++) {
 		missing.insert(i);
 	}

@@ -29,9 +29,17 @@ typedef struct {
 // 报文体（重发类型）。跟在报文头之后
 const int MaxSeqsInOnePacket = 50;		// 每个重发包中最多含有的序号数量，20个是不是少了点
 
+enum MissingType {
+	MISS_SINGLE,
+	MISS_SERIES,
+	MISS_ALL
+};
+
 typedef struct {
 	TS_MESSAGE_HEAD head;
-	int count;
+	TS_UINT64 missingUID;		// 丢包所属的用户的UID
+	MissingType missingType;
+	unsigned short count;		// MISS_SERIES中，count指的是begin和end有几对
 	TS_UINT64 seq[MaxSeqsInOnePacket];
 } RCONNECT;
 
@@ -102,8 +110,8 @@ enum PacketType {
 
 	PACKETFIX = 40,			// 修正包
 	RESEND,					// 重发单个包
-	RESENDALL,				// 重发所有包
-	RESENDSERIES,			// 重发连续的N个包
+	//RESENDALL,				// 重发所有包
+	//RESENDSERIES,			// 重发连续的N个包
 
 	PACKETCONTROL = 50,		// 控制包
 	ENTERCLASS,				// 进入班级

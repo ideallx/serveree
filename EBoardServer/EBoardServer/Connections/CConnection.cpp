@@ -47,13 +47,15 @@ int CConnection::send(const char* buf, ULONG len) {
 	if (!pSocket)
 		return -1;
 	
+	cout << "0";
 	return pSocket->sendData(buf, len, &m_ToAddr);
 }
 
 int CConnection::recv(char* buf, ULONG& len) {
 	if (!pSocket)
 		return -1;
-
+	
+	cout << "1";
 	return pSocket->recvData(buf, len, &m_FromAddr);
 }
 
@@ -63,16 +65,16 @@ void CConnection::setPeerConnection(const struct sockaddr_in& peeraddr) {
 
 bool CConnection::copy(CAbsConnection* conn) {
 	if (NULL == conn)
-		return FALSE;
+		return false;
 
 	CAbsSocket *ps = conn->getSocket();
 	if (NULL == ps)
-		return FALSE;
+		return false;
 
 	if (pSocket->copy(ps)) {
 		memcpy(&m_ToAddr, conn->getPeer(), sizeof(struct sockaddr_in));
-		isCloned = TRUE;
-		return TRUE;
+		isCloned = true;
+		return true;
 	}
-	return FALSE;
+	return false;
 }

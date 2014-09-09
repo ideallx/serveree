@@ -45,7 +45,7 @@ int CBlock::addMsg(const ts_msg& msg) {
 			curPackage = iter->second;
 		} else {
 			for (auto it2 = blockContents.begin(); it2 != blockContents.end(); it2++) {
-				it2->second->scanAll();					// 收到一个需要新开Package的情况下，那之前的包应该全部收满
+				it2->second->needAll();					// 收到一个需要新开Package的情况下，那之前的包应该全部收满
 			}
 
 			CPackage* cpa;
@@ -144,7 +144,8 @@ int CBlock::readMsg(TS_UINT64 seq, ts_msg& pout) {
 
 // 我只能当seq肯定不为0了。
 void CBlock::getArrayNumberAndPos(TS_UINT64 seq, DWORD& packageNum, DWORD& pos) {
-	assert(seq != 0);
+	if (0 == seq || -1 == seq)
+		seq = maxSeq;
 	packageNum = static_cast<DWORD> ((seq - SeqBegin) / MaxPackets);
 	pos = static_cast<DWORD> ((seq - SeqBegin) % MaxPackets);
 }
@@ -170,7 +171,7 @@ int CBlock::getMsgs(set<ts_msg*>& out, TS_UINT64 beg, TS_UINT64 end) {
 		end = maxSeq;
 
 	int count = 0;
-	for (TS_UINT64 i = beg; i < end; i++) {
+	for (TS_UINT64 i = beg; i <= end; i++) {
 		int result = readMsg(i, *msg);
 		if (result > 0) {
 			out.insert(msg);

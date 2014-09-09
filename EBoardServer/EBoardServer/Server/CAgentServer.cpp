@@ -111,7 +111,7 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	down->head.time = getServerTime();
 	WriteOut(inputMsg);
 
-	map_userinfo.insert(user._uid, user);
+	map_userinfo.insert(make_pair(user._uid, user));
 	heartBeatTime.insert(make_pair(user._uid, down->head.time));
 	return true;
 }
