@@ -197,6 +197,15 @@
       <Filter>OSIndependant</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Strategy\CWriteFileStrategy.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\CAbsStrategy.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Strategy\CDestroyStrategy.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Connections\CAbsConnection.h">
@@ -308,6 +317,15 @@
     <ClInclude Include="DataUnit\UserBase.h">
       <Filter>DataUnit</Filter>
     </ClInclude>
+    <ClInclude Include="Strategy\CWriteFileStrategy.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\CAbsStrategy.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Strategy\CDestroyStrategy.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Connections">
@@ -330,6 +348,9 @@
     </Filter>
     <Filter Include="DataStructure">
       <UniqueIdentifier>{da6b94f8-7d68-4812-b0b1-fde50594c0bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strategy">
+      <UniqueIdentifier>{002c3781-bda0-4fce-8723-b9b5f85c409e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

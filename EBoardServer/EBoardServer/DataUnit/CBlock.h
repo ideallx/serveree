@@ -11,9 +11,11 @@
 #include "CMessage.h"
 #include "CPackage.h"
 
+#include "../Strategy/CDestroyStrategy.h"
+#include "../Strategy/CWriteFileStrategy.h"
+
 using namespace std;
 
-const int initialHP = 200;
 
 /**
  *	最重要的数据单元，保存单个用户的所有数据
@@ -43,20 +45,20 @@ const int initialHP = 200;
 class CBlock {
 private:
 	map<int, CPackage*> blockContents;
-	set<CPackage*> saveList;	// 需要保存的CPackage
 	
 	CPackage* curPackage;		// 上一次读取或者插入的包，缓存用
-	int curPackageNum;			// 上一次包的包号
 
 	bool isFirstMsg;			// 第一个包的序列号当做起始号
 
-	map<int, int> blockHp;		// packageNum -> HP，每次scan减血，减到0了销毁。
 	iop_lock_t mapLock;
 
 	TS_UINT64 _uid;				// block对应的uid
 	string fileNamePrefix;		// 存文件时的前缀
 
 	TS_UINT64 maxSeq;			// 至今为止收到的最大的seq
+
+	CDestroyStrategy* straDestroy;	// 销毁CPackage策略
+	CWriteFileStrategy* straWrite;	// CPackage存文件策略
 
 public:
 	CBlock(TS_UINT64 uid);
@@ -80,7 +82,7 @@ public:
 	int getMsgs(set<ts_msg*>& out, TS_UINT64 beg, TS_UINT64 end);
 
 	// 获取需要保存的CPackages
-	int savePackage(set<CPackage*>& out);
+	inline int savePackage(set<CPackage*>& out) { return straWrite->getStrategyResult(out); }
 
 	// 设置文件名前缀 fprefix_uid.zip/packageNum
 	void setFilePrefix(string fprefix) { fileNamePrefix = fprefix; }
@@ -94,6 +96,13 @@ private:
 	// 获取特定数组特定位置的包的序号
 	TS_UINT64 getSequence(int packageNum, int pos);
 
+	// 存文件策略
+	bool saveStrategy(CPackage* pack);
+
+	// 生存周期策略
+	bool lifeStrategy(CPackage* pack);
+
+	void addToLifeStrategy(CPackage* pack);
 };
 
 #endif /* BLOCK_H_ */

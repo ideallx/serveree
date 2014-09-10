@@ -221,6 +221,7 @@ int CHubConnection::recv(char* buf, ULONG& len) {
 	if (!pSocket)
 		return -1;
 
+	cout << "1";
 	return pSocket->recvData(buf, len, &m_FromAddr);
 }
 
@@ -256,7 +257,6 @@ bool CHubConnection::copy(CAbsConnection* pConn) {
 
 		isCloned = true;
 		return true;
-	}
-	else
+	} else
 		return false;
 }

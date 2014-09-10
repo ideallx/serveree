@@ -72,6 +72,9 @@
     <ClCompile Include="Server\CAbsServer.cpp" />
     <ClCompile Include="Server\CServer.cpp" />
     <ClCompile Include="Server\CWSServer.cpp" />
+    <ClCompile Include="Strategy\CAbsStrategy.cpp" />
+    <ClCompile Include="Strategy\CDestroyStrategy.cpp" />
+    <ClCompile Include="Strategy\CWriteFileStrategy.cpp" />
     <ClCompile Include="Zip\ioapi.c" />
     <ClCompile Include="Zip\iowin32.c" />
     <ClCompile Include="Zip\myzip.cpp" />
@@ -108,6 +111,9 @@
     <ClInclude Include="Server\CServer.h" />
     <ClInclude Include="Server\CWSServer.h" />
     <ClInclude Include="Stdafx.h" />
+    <ClInclude Include="Strategy\CAbsStrategy.h" />
+    <ClInclude Include="Strategy\CDestroyStrategy.h" />
+    <ClInclude Include="Strategy\CWriteFileStrategy.h" />
     <ClInclude Include="Zip\crypt.h" />
     <ClInclude Include="Zip\ioapi.h" />
     <ClInclude Include="Zip\iowin32.h" />

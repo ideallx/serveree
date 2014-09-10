@@ -230,7 +230,6 @@ int CReliableConnection::resend(ts_msg& requestMsg) {
 		for (int i = 0; i < r->count; i++) {
 			if (bm->readRecord(missingUID, r->seq[i], *p) < 0)	// 读到几条请求，发多少条
 				continue;
-			// cout << "resend " << r->seq[i] << endl;
 			cout << "4";
 			if (peer->send(p->Body, packetSize(*p)) > 0)
 				count++;

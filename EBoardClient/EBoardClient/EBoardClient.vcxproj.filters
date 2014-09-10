@@ -19,6 +19,9 @@
     <Filter Include="Zip">
       <UniqueIdentifier>{346f9242-f6d0-4b55-83f5-632872f1e453}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Strategy">
+      <UniqueIdentifier>{b4961c39-6e92-4aad-a696-b5ff339b5cd8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Server\DWSClient.cpp">
@@ -214,6 +217,15 @@
     <ClCompile Include="..\..\EBoardServer\EBoardServer\Zip\zip.c">
       <Filter>Zip</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Strategy\CAbsStrategy.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Strategy\CDestroyStrategy.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Strategy\CWriteFileStrategy.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Server\DWSClient.h">
@@ -324,6 +336,15 @@
     </ClInclude>
     <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\zlib.h">
       <Filter>Zip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Strategy\CAbsStrategy.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Strategy\CDestroyStrategy.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Strategy\CWriteFileStrategy.h">
+      <Filter>Strategy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -58,7 +58,7 @@ void DWSClient::sendProc() {
 	
 	while (isRunning()) {
 		ReadOut(*pmsg);										// 普通类由pConnect发送
-		// cout << ub->_uid << ":" << "send " << getSeq(pmsg->msg) << endl;
+		cout << "0";
 		int result = conn->send(pmsg->msg.Body, packetSize(pmsg->msg));
 	}
 	delete pmsg;

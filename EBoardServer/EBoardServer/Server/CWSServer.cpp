@@ -3,8 +3,6 @@
 #include "CWSServer.h"
 #include "../Connections/CReliableConnection.h"
 
-extern string int2string(TS_UINT64);
-
 CWSServer::CWSServer(TS_UINT64 classid, TS_UINT64 reserved) :
 	_classid(classid),
 	_reserved(reserved) {
