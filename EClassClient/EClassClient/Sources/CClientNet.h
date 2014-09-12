@@ -1,20 +1,16 @@
 #pragma once
 
 #include "../stdafx.h"
+#include "CMessageObject.h"
+#include "../../../EBoardServer/EBoardServer/Connections/CReliableConnection.h"
 
 // Network Communication Controller
-class CClientNet : public CMsgObject
+class CClientNet : public CMessageObject
 {
 private:
-	CTSPeerConnection/*CReliableConnection*/	m_Connect;					// 本地连接,
+	CReliableConnection	m_Connect;					// 本地连接,
 	struct sockaddr_in	m_Addr;
 	BOOL				m_bIsStart;					// 接收线程的控制
-
-private:
-	CTSPeerConnection	m_CSConnect;				// 连接配置服务器
-	CTSPeerConnection	m_HSConnect;				// 连接心跳服务器
-	CTSPeerConnection	m_WAConnect;				// 连接工作者代理服务器
-	CTSPeerConnection	m_WSConnect;				// 连接工作者服务器
 
 public:
 	CClientNet(void){
