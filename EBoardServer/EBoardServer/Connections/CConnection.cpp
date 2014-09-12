@@ -47,7 +47,7 @@ int CConnection::send(const char* buf, ULONG len) {
 	if (!pSocket)
 		return -1;
 	
-	cout << "0";
+	// cout << "0";
 	return pSocket->sendData(buf, len, &m_ToAddr);
 }
 
@@ -55,7 +55,7 @@ int CConnection::recv(char* buf, ULONG& len) {
 	if (!pSocket)
 		return -1;
 	
-	cout << "1";
+	// cout << "1";
 	return pSocket->recvData(buf, len, &m_FromAddr);
 }
 

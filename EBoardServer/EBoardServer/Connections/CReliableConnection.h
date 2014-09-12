@@ -78,6 +78,11 @@ protected:
 
 	HANDLE needScan;				// 来了新的msg，需要重新scan
 
+	bool resendWhenAsk;				// 是否一收到重发请求就重发（重发率过高时，设为false抑制重发）
+
+public:
+	bool isRunning;					// 是否运行，从create开始运行
+
 public:
 	CReliableConnection();
 	virtual ~CReliableConnection();
@@ -109,8 +114,8 @@ public:
 	// 设置文件名前缀 fprefix_uid.zip/packageNum
 	void setFilePrefix(string fprefix);
 
-	// 获取丢包率（百分比 超过100则可能是反复丢包）
-	inline int getMissingRate() { return 100 * totalMiss / totalMsgs; }
+	// 获取丢包率（千分比 超过1000则可能是反复丢包）
+	inline int getMissingRate() { return 1000 * totalMiss / totalMsgs; }
 
 	// 所有包全部重发一遍
 	int resendAll(TS_UINT64 toUID);
@@ -118,6 +123,12 @@ public:
 	// 重发某个用户的部分包
 	int resendPart(TS_UINT64 toUID, TS_UINT64 needUID, 
 					TS_UINT64 fromSeq, TS_UINT64 toSeq);
+
+	// 设置正常或者抑制重发
+	inline void setResendWhenAsk(bool set) { resendWhenAsk = set; }
+
+	// 关闭reliable
+	inline void stop() { isRunning = false; }
 
 private:
 	// 将需要发送的消息添加至消息队列

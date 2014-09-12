@@ -58,7 +58,7 @@ void DWSClient::sendProc() {
 	
 	while (isRunning()) {
 		ReadOut(*pmsg);										// 普通类由pConnect发送
-		cout << "0";
+		// cout << "0";
 		int result = conn->send(pmsg->msg.Body, packetSize(pmsg->msg));
 	}
 	delete pmsg;
@@ -69,8 +69,8 @@ void DWSClient::sendProc() {
 bool DWSClient::generateData() {
 	TS_PEER_MESSAGE *msg = new TS_PEER_MESSAGE();
 
-	if (_seq > 2000000)
-		return false;
+	//if (_seq > 200000)
+	//	return false;
 
 	int length = rand() % 500 + 525;
 	TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg->msg;
@@ -83,7 +83,7 @@ bool DWSClient::generateData() {
 	head->version = 100;
 	
 	WriteOut(*msg);
-	iop_usleep(50);			// 时间间隔
+	iop_usleep(10);			// 时间间隔
 	delete msg;
 	return true;
 }

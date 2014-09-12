@@ -27,8 +27,8 @@ typedef struct {
 } TS_MESSAGE_HEAD;
 
 // 报文体（重发类型）。跟在报文头之后
-const int MaxSeqsInOnePacket = 50;		// 每个重发包中最多含有的序号数量，20个是不是少了点
 
+const int MaxSeqsInOnePacket = 50;		// 每个重发包中最多含有的序号数量，20个是不是少了点
 enum MissingType {
 	MISS_SINGLE,
 	MISS_SERIES,
@@ -39,7 +39,7 @@ typedef struct {
 	TS_MESSAGE_HEAD head;
 	TS_UINT64 missingUID;		// 丢包所属的用户的UID
 	MissingType missingType;
-	unsigned short count;		// MISS_SERIES中，count指的是begin和end有几对
+	unsigned short count;		// 后续seq个数
 	TS_UINT64 seq[MaxSeqsInOnePacket];
 } RCONNECT;
 
@@ -62,6 +62,24 @@ typedef struct {
 	TS_UINT64 beginSeq;				// 丢失包的起始seq
 	TS_UINT64 endSeq;				// 丢失包的终止seq(-1为最新的seq)
 } UP_RESEND_SERIES;
+
+enum CommandType_t {
+	COMMANDPEN
+};
+
+typedef struct {
+	TS_MESSAGE_HEAD head;
+	CommandType_t cmdType;
+
+	unsigned int penID;
+	unsigned int penColor;
+	unsigned int penWidth;
+
+	unsigned int brushID;
+	unsigned int brushColor;
+	unsigned int brushWidth;
+} UP_COMMAND;
+
 
 // 下行报文
 typedef struct {
@@ -98,6 +116,8 @@ typedef struct {
 	ts_msg msg;
 } TS_PEER_MESSAGE, *LPTS_PEER_MESSAGE;
 
+
+
 // 报文类型，对应 TS_MESSAGE_HEAD.type
 enum PacketType {
 	PACKETTRANSPORT,		// 正常传输包
@@ -106,12 +126,10 @@ enum PacketType {
 	AUDIO,					// 音频
 	VIDEO,					// 视频
 	PICTURE,				// 图像
-	// COMMAND,
+	COMMAND,				// 画笔，画刷变更之类
 
 	PACKETFIX = 40,			// 修正包
 	RESEND,					// 重发单个包
-	//RESENDALL,				// 重发所有包
-	//RESENDSERIES,			// 重发连续的N个包
 
 	PACKETCONTROL = 50,		// 控制包
 	ENTERCLASS,				// 进入班级
@@ -131,5 +149,15 @@ enum ReservedUID_t {
 
 	ReservedUID = 50	// 50之前的UID全部保留
 };
+
+
+
+
+
+
+
+
+
+
 
 #endif

@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="DisplayDialog">
+      <UniqueIdentifier>{d83d4018-e8a2-4de9-8aea-ce176ccb7b1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ReliableConnection">
+      <UniqueIdentifier>{e2f0e5a4-0891-4a17-8fab-f4fd1de4d7f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Message">
+      <UniqueIdentifier>{7ffc02b7-411c-4f4b-800c-ed8f2fb68296}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Business">
+      <UniqueIdentifier>{027d9ed9-bfca-43c5-a1b4-ab1324f7ce93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataUnit">
+      <UniqueIdentifier>{d5f396d8-56ad-40ee-bb38-c1cb3f68487c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\EClassClient.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\EClassClient.ico">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="..\..\EBoardServer\EBoardServer\Zip\zlib1.dll">
+      <Filter>ReliableConnection</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EClassClient.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="EClassClientDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\CCommandDialog.h">
+      <Filter>DisplayDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\CMainDialog.h">
+      <Filter>DisplayDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\CMessageReceiver.h">
+      <Filter>Message</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\CMessageSender.h">
+      <Filter>Message</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\CMessageObject.h">
+      <Filter>Message</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\CBusinessLogic.h">
+      <Filter>Business</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\CCanvas.h">
+      <Filter>Business</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\CClientNet.h">
+      <Filter>Business</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\CDisplayDialog.h">
+      <Filter>DisplayDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Connections\CAbsConnection.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Connections\CAbsSocket.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Connections\CConnection.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Connections\CHubConnection.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Connections\CPeerConnection.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Connections\CReliableConnection.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Connections\CSynSocket.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataStructure\Pool.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataStructure\TSQueue.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\CBlock.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\CBlockManager.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\CMessage.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\CPackage.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\CPeerPacket.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\UserBase.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\others.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\libiop\iop_config.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\libiop\iop_thread.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\libiop\iop_util.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\config.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\context.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\implement.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\sched.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\semaphore.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Server\CAbsServer.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Server\CServer.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Strategy\CAbsStrategy.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Strategy\CDestroyStrategy.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Strategy\CWriteFileStrategy.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\crypt.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\ioapi.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\iowin32.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\myzip.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\unzip.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\zconf.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\zip.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\EBoardServer\EBoardServer\Zip\zlib.h">
+      <Filter>ReliableConnection</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EClassClient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="EClassClientDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\CMainDialog.cpp">
+      <Filter>DisplayDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\CCommandDialog.cpp">
+      <Filter>DisplayDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\CMessageReceiver.cpp">
+      <Filter>Message</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\CMessageSender.cpp">
+      <Filter>Message</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\CMessageObject.cpp">
+      <Filter>Message</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\CCanvas.cpp">
+      <Filter>Business</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\CClientNet.cpp">
+      <Filter>Business</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\CBusinessLogic.cpp">
+      <Filter>Business</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\CDisplayDialog.cpp">
+      <Filter>DisplayDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Connections\CAbsConnection.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Connections\CAbsSocket.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Connections\CConnection.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Connections\CHubConnection.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Connections\CPeerConnection.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Connections\CReliableConnection.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Connections\CSynSocket.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\DataUnit\CBlockManager.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\DataUnit\CMessage.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\DataUnit\CPackage.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\DataUnit\CBlock.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\others.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\libiop\iop_thread.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\libiop\iop_util.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\cleanup.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\global.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_cancel.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_create.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_detach.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_equal.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_getspecific.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_key_create.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_key_delete.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_kill.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_mutex_consistent.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_mutex_destroy.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_mutex_init.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_mutex_lock.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_mutex_trylock.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_mutex_unlock.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_mutexattr_destroy.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_self.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_setschedparam.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_setspecific.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_testcancel.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\pthread_win32_attach_detach_np.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_callUserDestroyRoutines.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_MCS_lock.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_mutex_check_need_init.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_new.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_processInitialize.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_processTerminate.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_reuse.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_threadDestroy.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_threadStart.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_throw.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_tkAssocCreate.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\ptw32_tkAssocDestroy.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\sched_get_priority_max.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\sched_get_priority_min.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\sched_yield.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\sem_destroy.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\sem_init.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\sem_post.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\sem_wait.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\OSInedependent\pthread\w32_CancelableWait.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Server\CAbsServer.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Server\CServer.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Strategy\CAbsStrategy.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Strategy\CDestroyStrategy.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Strategy\CWriteFileStrategy.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Zip\ioapi.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Zip\iowin32.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Zip\myzip.cpp">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Zip\unzip.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\EBoardServer\EBoardServer\Zip\zip.c">
+      <Filter>ReliableConnection</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EClassClient.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\EBoardServer\EBoardServer\Zip\zdll.lib">
+      <Filter>ReliableConnection</Filter>
+    </Library>
+    <Library Include="..\..\EBoardServer\EBoardServer\Zip\zlib.lib">
+      <Filter>ReliableConnection</Filter>
+    </Library>
+  </ItemGroup>
+</Project>
