@@ -21,38 +21,38 @@ int main(int argc, char* argv[]) {
 	memcpy(user->_password, pswd, 20);
 	memcpy(user->_username, name, 20);
 
-	s1->setUser(*user);
-	s1->Start(2222);
+	//s1->setUser(*user);
+	//s1->Start(2222);
 	
 	DWSClient* s2 = new DWSClient();
 	user->_uid = 101;
 	s2->setUser(*user);
 	s2->Start(2222);
 
-	DWSClient* s3 = new DWSClient();
-	user->_uid = 102;
-	s3->setUser(*user);
-	s3->Start(2222);
+	//DWSClient* s3 = new DWSClient();
+	//user->_uid = 102;
+	//s3->setUser(*user);
+	//s3->Start(2222);
 
-	DWSClient* s4 = new DWSClient();
-	user->_uid = 103;
-	s4->setUser(*user);
-	s4->Start(2222);
+	//DWSClient* s4 = new DWSClient();
+	//user->_uid = 103;
+	//s4->setUser(*user);
+	//s4->Start(2222);
 
-	DWSClient* s5 = new DWSClient();
-	user->_uid = 104;
-	s5->setUser(*user);
-	s5->Start(2222);
+	//DWSClient* s5 = new DWSClient();
+	//user->_uid = 104;
+	//s5->setUser(*user);
+	//s5->Start(2222);
 
-	DWSClient* s6 = new DWSClient();
-	user->_uid = 105;
-	s6->setUser(*user);
-	s6->Start(2222);
+	//DWSClient* s6 = new DWSClient();
+	//user->_uid = 105;
+	//s6->setUser(*user);
+	//s6->Start(2222);
 
-	DWSClient* s7 = new DWSClient();
-	user->_uid = 106;
-	s7->setUser(*user);
-	s7->Start(2222);
+	//DWSClient* s7 = new DWSClient();
+	//user->_uid = 106;
+	//s7->setUser(*user);
+	//s7->Start(2222);
 
 	while (true) {};
 

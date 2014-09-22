@@ -8,12 +8,13 @@ CServer::CServer() :
 	sendthread_num(1),
 	msgthread_num(1),
 
-	pthread_recv(new pthread_t[recvthread_num]),
-	pthread_send(new pthread_t[sendthread_num]),
-	pthread_msg(new pthread_t[msgthread_num]),
 
 	p_InMsgQueue(new TSQueue<TS_PEER_MESSAGE>),
 	p_OutMsgQueue(new TSQueue<TS_PEER_MESSAGE>) {
+		
+	pthread_recv = new pthread_t[recvthread_num],
+	pthread_send = new pthread_t[sendthread_num],
+	pthread_msg = new pthread_t[msgthread_num],
 
 	Port = 0;
 	pConnect = new CReliableConnection;
@@ -131,16 +132,18 @@ bool CServer::Start(unsigned short port) {
 
 bool CServer::Stop(void) {
 	Uninitialize();
-	turnOff();
-	iop_usleep(1000);
-	for (unsigned int i = 0; i < sendthread_num; i++) {
-		pthread_cancel(pthread_send[i]);
-	}
-	for (unsigned int i = 0; i < recvthread_num; i++) {
-		pthread_cancel(pthread_recv[i]);
-	}
-	for (unsigned int i = 0; i < msgthread_num; i++) {
-		pthread_cancel(pthread_msg[i]);
+	if (isRunning()) {
+		turnOff();
+		iop_usleep(1000);
+		for (unsigned int i = 0; i < sendthread_num; i++) {
+			pthread_cancel(pthread_send[i]);
+		}
+		for (unsigned int i = 0; i < recvthread_num; i++) {
+			pthread_cancel(pthread_recv[i]);
+		}
+		for (unsigned int i = 0; i < msgthread_num; i++) {
+			pthread_cancel(pthread_msg[i]);
+		}
 	}
 	delete[] pthread_send;
 	delete[] pthread_recv;

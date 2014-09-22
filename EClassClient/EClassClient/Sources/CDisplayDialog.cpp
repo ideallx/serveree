@@ -6,12 +6,13 @@
 
 IMPLEMENT_DYNAMIC(CDisplayDialog, CDialogEx)
 
-CDisplayDialog::CDisplayDialog(CWnd* pParent /*=NULL*/)
-	: CDialogEx(CDisplayDialog::IDD, pParent) {
-
+CDisplayDialog::CDisplayDialog(CMsgObject* msgParent, CWnd* pParent) : 
+	CDialogEx(CDisplayDialog::IDD, pParent),
+	msgParent(msgParent) {
 }
 
 CDisplayDialog::~CDisplayDialog() {
+
 }
 
 void CDisplayDialog::DoDataExchange(CDataExchange* pDX) {

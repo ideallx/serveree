@@ -6,9 +6,12 @@
 
 #pragma pack(4)
 
+
 const int MESSAGE_SIZE = 1024;				// 单个Package最大msgs数
 const int HeartBeatInterval = 60000;		// 心跳包间隔
 const TS_UINT64 SeqBegin = 1;				// seq开始位置，seq从1开始
+
+const int VersionNumber = 1;
 
 // 报文头
 typedef struct {
@@ -24,7 +27,7 @@ typedef struct {
 	TS_UINT64 reserved;			// 8 Bytes 保留
 	unsigned char version;		// 1 Bytes 协议版本号
 	unsigned short size;		// 2 Bytes 整条长度
-} TS_MESSAGE_HEAD;
+} TS_MESSAGE_HEAD, *LPTS_MESSAGE_HEAD;
 
 // 报文体（重发类型）。跟在报文头之后
 
@@ -63,6 +66,34 @@ typedef struct {
 	TS_UINT64 endSeq;				// 丢失包的终止seq(-1为最新的seq)
 } UP_RESEND_SERIES;
 
+// 上传画面，可能是点阵，图形等
+typedef struct {
+	TS_MESSAGE_HEAD head;			
+	UINT drawType;					// 画的类型
+	WPARAM pointX;					// 每两个point为一个坐标
+	WPARAM pointY;					// 每两个point为一个坐标
+} UP_DRAWING;
+
+typedef struct {
+	DWORD ShapeSeq;
+	WORD ShapeID;
+	WORD ShapeType;
+
+	WORD PageID;
+
+	WORD BeginPx;		// 图形开始点
+	WORD BeginPy;
+	WORD PointX;		// 图形当前点
+	WORD PointY;
+	BYTE DoneFlag;
+	BYTE Alpha;
+} TS_GRAPHIC_DATA;
+
+typedef struct {
+	TS_MESSAGE_HEAD head;
+	TS_GRAPHIC_DATA data;
+} TS_GRAPHIC_PACKET, *LPTS_GRAPHIC_PACKET;
+
 enum CommandType_t {
 	COMMANDPEN
 };
@@ -92,6 +123,8 @@ typedef struct {
 // 运行结果
 enum MsgResult {
 	Success,
+	SuccessEnterClass,
+	SuccessLeaveClass,
 
 	WarnAlreadyIn,
 
@@ -146,18 +179,10 @@ enum PacketType getType(const ts_msg& p);
 enum ReservedUID_t {
 	ServerUID,
 	AgentUID,
+	SelfUID,			// 自身
 
 	ReservedUID = 50	// 50之前的UID全部保留
 };
-
-
-
-
-
-
-
-
-
 
 
 #endif

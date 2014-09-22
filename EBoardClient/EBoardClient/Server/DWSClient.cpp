@@ -83,7 +83,7 @@ bool DWSClient::generateData() {
 	head->version = 100;
 	
 	WriteOut(*msg);
-	iop_usleep(10);			// 时间间隔
+	iop_usleep(100);			// 时间间隔
 	delete msg;
 	return true;
 }
@@ -171,7 +171,7 @@ void* GenProc(LPVOID lpParam) {
 	if (!c) {
 		return 0;
 	}
-	while (c->generateData());		// 生成包
+	//while (c->generateData());		// 生成包
 	return 0;
 }
 
@@ -210,7 +210,7 @@ DWORD DWSClient::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSCl
 			rc = pthread_create(&pthread_hb, NULL, HBProc, (void*) this);
 			if (0 == rc) {
 				iop_usleep(10);
-				cout << "Data Generate Thread start successfully " << endl;
+				cout << "Heart Beat Thread start successfully " << endl;
 			} else {
 				turnOff();
 			}
@@ -218,6 +218,13 @@ DWORD DWSClient::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSCl
 		}
 	} else if (LEAVECLASS == in->head.type) {
 		Stop();
+	} else {
+		TS_GRAPHIC_PACKET* in = (TS_GRAPHIC_PACKET*) &inputMsg.msg;
+		string output = int2string(in->data.ShapeSeq) + " " + int2string(in->data.PageID) + " " + 
+			int2string(in->data.ShapeID) + " " + int2string(in->data.ShapeType) + " " + 
+			int2string(in->data.PointX) + " " + int2string(in->data.PointY) + " " + 
+			int2string(in->data.DoneFlag) + " " + int2string(in->data.Alpha);
+		cout << output << endl;
 	}
 	return 0;
 }

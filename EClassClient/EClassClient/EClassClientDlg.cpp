@@ -7,7 +7,12 @@
 #include "EClassClientDlg.h"
 #include "afxdialogex.h"
 
-#include "Sources\CMainDialog.h"
+#include "Sources\CDrawDialog.h"
+#include "Sources\CCommandDialog.h"
+
+#include "Sources\CBusinessLogic.h"
+//#include "Sources\CCanvas.h"
+#include "Sources\CClientNet.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -16,20 +21,17 @@
 
 // CEClassClientDlg 对话框
 
-
-
-
 CEClassClientDlg::CEClassClientDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CEClassClientDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	commandDlg = new CDisplayDialog(this);
-	mainDlg = new CMainDialog(this);
 }
 
 CEClassClientDlg::~CEClassClientDlg() {
-	delete commandDlg;
-	delete mainDlg;
+	delete ui;
+	delete cn;
+	delete bl;
+	WSACleanup();
 }
 
 void CEClassClientDlg::DoDataExchange(CDataExchange* pDX)
@@ -100,27 +102,45 @@ HCURSOR CEClassClientDlg::OnQueryDragIcon()
 }
 
 
-
-
+/**
+	三层：  UI BL CN
+*/
 int CEClassClientDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CDialogEx::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
 	// TODO:  在此添加您专用的创建代码
-	int screenwidth=GetSystemMetrics(SM_CXSCREEN);
-	int screenheight=GetSystemMetrics(SM_CYSCREEN);
 
-	commandDlg->Create(IDD_DIALOG1, this);
-	commandDlg->SetBackgroundColor(RGB(154, 217, 234));
-	// commandDlg.MoveWindow(0, 0, screenwidth, 100);
-	commandDlg->MoveWindow(0, 0, 100, 100);
-	commandDlg->ShowWindow(SW_SHOW);
+	WSADATA wsadata;
+    WSAStartup(MAKEWORD(2, 2), &wsadata);
 
-	mainDlg->Create(IDD_DIALOG1, this);
-	mainDlg->SetBackgroundColor(RGB(255, 201, 13));
-	//mainDlg.MoveWindow(0, 110, screenwidth, screenheight - 110);
-	mainDlg->MoveWindow(0, 110, 100, 300 - 110);
-	mainDlg->ShowWindow(SW_SHOW);
+	ui = new CMainWindow();
+	bl = new CBusinessLogic();
+	cn = new CClientNet();
+
+	ma = CModuleAgent::getUniqueAgent();
+
+	ma->registerModule("UI", ui);
+	ma->registerModule("BIZ", bl);
+	ma->registerModule("NET", cn);
+
+	ui->addDownReceiver(cn);
+	ui->addDownReceiver(bl);
+	cn->addUpReceiver(ui);
+
+	unsigned char name[20] = "abcdefg";
+	unsigned char pswd[20] = "hijklmn";
+	UserBase* user = new UserBase();
+	user->_classid = 10000;
+	user->_reserved = 1;
+	user->_role = RoleTeacher;
+	user->_uid = 555;
+	memcpy(user->_password, pswd, 20);
+	memcpy(user->_username, name, 20);
+// 	cn->setUser(*user);
+	
+	cn->SetServerAddr(0, "192.168.1.202", 2222);
+	cn->Start(0);
 	return 0;
 }

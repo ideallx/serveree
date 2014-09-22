@@ -3,7 +3,10 @@
 //
 
 #pragma once
-#include "Sources\CDisplayDialog.h"
+#include "Sources\CMainWindow.h"
+#include "Sources\CClientNet.h"
+#include "Sources\CBusinessLogic.h"
+#include "Sources\CModuleAgent.h"
 
 // CEClassClientDlg 对话框
 class CEClassClientDlg : public CDialogEx
@@ -24,8 +27,10 @@ public:
 protected:
 	HICON m_hIcon;
 	
-	CDisplayDialog* commandDlg;
-	CDisplayDialog* mainDlg;
+	CMainWindow* ui;
+	CClientNet* cn;
+	CBusinessLogic* bl;
+	CModuleAgent* ma;
 
 	// 生成的消息映射函数
 	virtual BOOL OnInitDialog();

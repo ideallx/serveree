@@ -62,7 +62,6 @@ void* SendProc(LPVOID lpParam) {
 }
 
 void* RecvProc(LPVOID lpParam) {
-	pthread_detach(pthread_self());
 	CAbsServer* pServer = (CAbsServer*) lpParam;
 	if (!pServer) {
 		return 0;

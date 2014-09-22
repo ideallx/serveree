@@ -115,7 +115,6 @@
     <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\CBlockManager.h" />
     <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\CMessage.h" />
     <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\CPackage.h" />
-    <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\CPeerPacket.h" />
     <ClInclude Include="..\..\EBoardServer\EBoardServer\DataUnit\UserBase.h" />
     <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\libiop\iop_config.h" />
     <ClInclude Include="..\..\EBoardServer\EBoardServer\OSInedependent\libiop\iop_thread.h" />
@@ -143,15 +142,22 @@
     <ClInclude Include="EClassClient.h" />
     <ClInclude Include="EClassClientDlg.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Sources\CBaseLogic.h" />
     <ClInclude Include="Sources\CBusinessLogic.h" />
     <ClInclude Include="Sources\CCanvas.h" />
     <ClInclude Include="Sources\CClientNet.h" />
     <ClInclude Include="Sources\CCommandDialog.h" />
     <ClInclude Include="Sources\CDisplayDialog.h" />
-    <ClInclude Include="Sources\CMainDialog.h" />
-    <ClInclude Include="Sources\CMessageObject.h" />
-    <ClInclude Include="Sources\CMessageReceiver.h" />
-    <ClInclude Include="Sources\CMessageSender.h" />
+    <ClInclude Include="Sources\CDrawDialog.h" />
+    <ClInclude Include="Sources\CMainWindow.h" />
+    <ClInclude Include="Sources\CModuleAgent.h" />
+    <ClInclude Include="Sources\CMsgObject.h" />
+    <ClInclude Include="Sources\CMsgReceiver.h" />
+    <ClInclude Include="Sources\CMsgSender.h" />
+    <ClInclude Include="Sources\CShape.h" />
+    <ClInclude Include="Sources\CShapeContainer.h" />
+    <ClInclude Include="Sources\CShapeCreator.h" />
+    <ClInclude Include="Sources\CUserLogic.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -224,15 +230,22 @@
     <ClCompile Include="..\..\EBoardServer\EBoardServer\Zip\zip.c" />
     <ClCompile Include="EClassClient.cpp" />
     <ClCompile Include="EClassClientDlg.cpp" />
+    <ClCompile Include="Sources\CBaseLogic.cpp" />
     <ClCompile Include="Sources\CBusinessLogic.cpp" />
     <ClCompile Include="Sources\CCanvas.cpp" />
     <ClCompile Include="Sources\CClientNet.cpp" />
     <ClCompile Include="Sources\CCommandDialog.cpp" />
     <ClCompile Include="Sources\CDisplayDialog.cpp" />
-    <ClCompile Include="Sources\CMainDialog.cpp" />
-    <ClCompile Include="Sources\CMessageObject.cpp" />
-    <ClCompile Include="Sources\CMessageReceiver.cpp" />
-    <ClCompile Include="Sources\CMessageSender.cpp" />
+    <ClCompile Include="Sources\CDrawDialog.cpp" />
+    <ClCompile Include="Sources\CMainWindow.cpp" />
+    <ClCompile Include="Sources\CModuleAgent.cpp" />
+    <ClCompile Include="Sources\CMsgObject.cpp" />
+    <ClCompile Include="Sources\CMsgReceiver.cpp" />
+    <ClCompile Include="Sources\CMsgSender.cpp" />
+    <ClCompile Include="Sources\CShape.cpp" />
+    <ClCompile Include="Sources\CShapeContainer.cpp" />
+    <ClCompile Include="Sources\CShapeCreator.cpp" />
+    <ClCompile Include="Sources\CUserLogic.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
