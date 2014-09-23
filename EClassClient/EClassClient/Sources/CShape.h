@@ -102,7 +102,7 @@ public:
 	// Draw the shape by a certain offset on X or Y axis
 	// 在实际的图形绘制中，形状有可能按照一定的偏移量来绘制，而不是绘制在既定的
 	// 
-	virtual void Draw(Graphics* g, Pen* p, int offset_X, int offset_Y) {;}
+	virtual void Draw(Graphics* g, Pen* p, int offset_X, int offset_Y) {}
 };
 
 class CLine:

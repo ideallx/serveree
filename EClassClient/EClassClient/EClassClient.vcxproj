@@ -149,6 +149,8 @@
     <ClInclude Include="Sources\CCommandDialog.h" />
     <ClInclude Include="Sources\CDisplayDialog.h" />
     <ClInclude Include="Sources\CDrawDialog.h" />
+    <ClInclude Include="Sources\CGraphicLogic.h" />
+    <ClInclude Include="Sources\CLoginDialog.h" />
     <ClInclude Include="Sources\CMainWindow.h" />
     <ClInclude Include="Sources\CModuleAgent.h" />
     <ClInclude Include="Sources\CMsgObject.h" />
@@ -237,6 +239,8 @@
     <ClCompile Include="Sources\CCommandDialog.cpp" />
     <ClCompile Include="Sources\CDisplayDialog.cpp" />
     <ClCompile Include="Sources\CDrawDialog.cpp" />
+    <ClCompile Include="Sources\CGraphicLogic.cpp" />
+    <ClCompile Include="Sources\CLoginDialog.cpp" />
     <ClCompile Include="Sources\CMainWindow.cpp" />
     <ClCompile Include="Sources\CModuleAgent.cpp" />
     <ClCompile Include="Sources\CMsgObject.cpp" />

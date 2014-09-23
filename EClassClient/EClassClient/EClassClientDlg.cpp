@@ -125,9 +125,10 @@ int CEClassClientDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	ma->registerModule("BIZ", bl);
 	ma->registerModule("NET", cn);
 
-	ui->addDownReceiver(cn);
-	ui->addDownReceiver(bl);
-	cn->addUpReceiver(ui);
+	ui->addDownReceiver(bl);		// UI
+	bl->addDownReceiver(cn);		// BL
+	bl->addUpReceiver(ui);			// CN
+	cn->addUpReceiver(bl);			// 三层，从上往下
 
 	unsigned char name[20] = "abcdefg";
 	unsigned char pswd[20] = "hijklmn";

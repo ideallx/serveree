@@ -43,14 +43,14 @@ bool CMsgSender::removeLowerReceiver(CMsgReceiver* recv) {
 	return true;
 }
 
-void CMsgSender::sendToUpper(const ts_msg& msg, WPARAM wParam, LPARAM lParam, 
+void CMsgSender::sendToUpLayer(const ts_msg& msg, WPARAM wParam, LPARAM lParam, 
 	BOOL isRemote) {
 	for (auto iter = upperReceivers.begin(); iter != upperReceivers.end(); iter++) {
 		(*iter)->ProcessMessage(const_cast<ts_msg&>(msg), wParam, lParam, isRemote);
 	}
 }
 
-void CMsgSender::sendToLower(const ts_msg& msg, WPARAM wParam, LPARAM lParam, 
+void CMsgSender::sendToDownLayer(const ts_msg& msg, WPARAM wParam, LPARAM lParam, 
 	BOOL isRemote) {
 	for (auto iter = lowerReceivers.begin(); iter != lowerReceivers.end(); iter++) {
 		(*iter)->ProcessMessage(const_cast<ts_msg&>(msg), wParam, lParam, isRemote);

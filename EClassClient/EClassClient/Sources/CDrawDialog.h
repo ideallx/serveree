@@ -17,13 +17,7 @@ private:
 	bool isLeftPressed;
 	enum ShapeType st;
 	
-	CShapePage* sp;
 	CShapeCreator* sc;
-	CPaintTools* pt;
-
-public:
-	void actMove(TS_GRAPHIC_PACKET& msg);
-	void actMoveEnd(TS_GRAPHIC_PACKET& msg);
 
 public:
 	CDrawDialog(CMsgObject* msgParent, CWnd* pParent = NULL);	// 标准构造函数

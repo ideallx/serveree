@@ -57,6 +57,13 @@ typedef struct {
 
 typedef struct {
 	TS_MESSAGE_HEAD head;
+	unsigned char username[20];		// 用户名
+	unsigned char password[20];		// 密码
+	sockaddr_in addr;				// 服务器地址
+} UP_ENTERAGENT;
+
+typedef struct {
+	TS_MESSAGE_HEAD head;
 } UP_HEARTBEAT;
 
 typedef struct {	
@@ -167,6 +174,7 @@ enum PacketType {
 	PACKETCONTROL = 50,		// 控制包
 	ENTERCLASS,				// 进入班级
 	LEAVECLASS,				// 离开班级
+	ENTERAGENT,				// 登录Agent服务器
 	HEARTBEAT				// 心跳包
 };
 

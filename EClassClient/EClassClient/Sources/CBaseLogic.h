@@ -14,5 +14,5 @@ public:
 	virtual ~CBaseLogic();
 
 public:
-	virtual void procMsg(const ts_msg& msg) {};
+	virtual void procMsg(const ts_msg& msg, bool isRemote) {};
 };

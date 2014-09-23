@@ -36,7 +36,7 @@ bool CClientNet::Start(unsigned short port) {
 };
 
 DWORD CClientNet::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSClient													// 发给上层
-	sendToUpper(inputMsg.msg, 0, 0, true);
+	sendToUpLayer(inputMsg.msg, 0, 0, true);
 	return 0;
 }
 

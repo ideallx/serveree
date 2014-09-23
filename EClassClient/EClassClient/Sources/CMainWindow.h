@@ -19,14 +19,21 @@ enum MainWindowDataType {
 
 class CMainWindow : public CMsgObject {
 private:
-	CDrawDialog* cmd;
 	CCommandDialog* ccd;
 
 	UINT curShape;
 
 public:
+	CDrawDialog* cmd;
+
 	CMainWindow(CWnd* pParent = NULL, CMsgObject pMsgParent = NULL);
 	virtual ~CMainWindow();
+
+	void loginSuccess();
+
+	void actCreate();
+
+	inline void draw();
 
 	// 接收下层来的信号
 	void ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isremote);

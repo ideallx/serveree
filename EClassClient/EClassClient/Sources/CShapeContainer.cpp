@@ -62,7 +62,7 @@ void CShapeStage::Clear(void)
 	CShape* pShape = NULL;		
 	map<DWORD, CShape*>::iterator iter;
 		
-	for (iter = m_ShapeStage.begin(); iter != m_ShapeStage.end(); iter++){
+	for (iter = m_ShapeStage.begin(); iter != m_ShapeStage.end(); iter++) {
 		pShape = iter->second;
 		if (pShape) {
 			delete pShape;
@@ -88,7 +88,7 @@ void CShapeStage::Draw(Graphics* pgc, CPaintTools* pt, int offset_X, int offset_
 	Pen* pen = NULL;
 	Brush* brush = NULL;
 
-	for (iter = m_ShapeStage.begin(); iter != m_ShapeStage.end(); iter++ ){
+	for (iter = m_ShapeStage.begin(); iter != m_ShapeStage.end(); iter++) {
 		pShape = iter->second;
 		if (pShape) {
 			pen = pt->getPen(pShape->getPenID());
@@ -164,7 +164,7 @@ CShape* CShapePage::FindShape(DWORD uid)
 	
 	iop_lock(&m_Lock);
 	vector<CShape*>::iterator    m_Itr;
-	for (m_Itr = m_ShapePage.begin(); m_Itr != m_ShapePage.end(); m_Itr++){
+	for (m_Itr = m_ShapePage.begin(); m_Itr != m_ShapePage.end(); m_Itr++) {
 		pShape = *m_Itr;
 			
 		if (pShape->getID() == uid)
@@ -182,12 +182,12 @@ void CShapePage::Draw(Graphics* pgc, CPaintTools* pt, int offset_X, int offset_Y
 	iop_lock(&m_Lock);
 	
 	m_ShapeStage.Draw(pgc, pt, 0, 0);							// 绘制登台区
-	if (!m_ShapePage.empty()){
+	if (!m_ShapePage.empty()) {
 		CShape* pShape = NULL;		
 		
-		for (unsigned int i =0 ; i<m_ShapePage.size(); i++){
+		for (unsigned int i = 0; i < m_ShapePage.size(); i++){
 			pShape = m_ShapePage.at(i);
-			if(pShape){
+			if (pShape) {
 				Pen* pen = pt->getPen(pShape->getPenID());
 				pShape->Draw(pgc, pen, 0, 0);
 			}
@@ -219,23 +219,23 @@ CShape* CShapePage::MakeShape(const TS_GRAPHIC_PACKET& gPacket, CPaintTools* pt)
 	p.X = pPacket->data.PointX;
 	p.Y = pPacket->data.PointY;
 	
-	if (ps){															// 图形已存在于登台区中
+	if (ps) {															// 图形已存在于登台区中
 		if (ps->getID() == pPacket->data.ShapeID){						// 数据属于当前图形		
 			ps->addPoint(gPacket.data.ShapeSeq, &m_beginPoint, &p);		// 将点添加到图形中
 			
-			if (pPacket->data.DoneFlag == 1){							// 该包是当前图形的最后一个包
+			if (pPacket->data.DoneFlag == 1) {							// 该包是当前图形的最后一个包
 				AddShape(ps);											// 添加该图形至当前页中
 				rs = ps;												// 返回当前的图形
-				m_ShapeStage.MapShape(pPacket->head.UID, NULL);	// Stage中与用户关联的图形置空，为下次使用
+				m_ShapeStage.MapShape(pPacket->head.UID, NULL);			// Stage中与用户关联的图形置空，为下次使用
 			}
 		} else {														// 数据不属于当前图形，这是一个在该UID下的新图形
 			if (pPacket->data.ShapeID > ps->getID()){					// 新的图形的图形包到来
 				AddShape(ps);											// 添加(推送)已有图形至页中
 
 				ps = CreateShape(pPacket->data.ShapeID, pPacket->data.ShapeType, 
-					pt->m_penid, pt->m_brushid);	// 创建新的图形
+					pt->m_penid, pt->m_brushid);						// 创建新的图形
 				if (ps) {
-					m_ShapeStage.MapShape(pPacket->head.UID, ps);// 在登台区将该图形与用户关联
+					m_ShapeStage.MapShape(pPacket->head.UID, ps);		// 在登台区将该图形与用户关联
 					ps->addPoint(gPacket.data.ShapeSeq, &m_beginPoint, &p);			// 将点添加到图形中
 				}
 				// rs = ps;												// 未完成的图形，不用返回
@@ -244,15 +244,15 @@ CShape* CShapePage::MakeShape(const TS_GRAPHIC_PACKET& gPacket, CPaintTools* pt)
 			}
 		} // 图形是否存在
 	} // 登台区中查找对应用户的图形
-	else{																// 该UID对应的图形还没有
+	else {																// 该UID对应的图形还没有
 		ps = CreateShape(pPacket->data.ShapeID, pPacket->data.ShapeType, 
 			pt->m_penid, pt->m_brushid);								// 创建新的图形
 		m_beginPoint = Point(pPacket->data.BeginPx, pPacket->data.BeginPy);
-		if (ps){			
-			m_ShapeStage.MapShape(pPacket->head.UID, ps);			// 在登台区关联该UID与该图形
-			ps->addPoint(gPacket.data.ShapeSeq, &m_beginPoint, &p);	// 将点添加到图形中
+		if (ps) {			
+			m_ShapeStage.MapShape(pPacket->head.UID, ps);				// 在登台区关联该UID与该图形
+			ps->addPoint(gPacket.data.ShapeSeq, &m_beginPoint, &p);		// 将点添加到图形中
 		}	
-		//rs = ps;
+		// rs = ps;
 	}
 	
 	iop_unlock(&m_Lock);

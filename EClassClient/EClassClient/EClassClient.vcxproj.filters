@@ -244,6 +244,12 @@
     <ClInclude Include="Sources\CModuleAgent.h">
       <Filter>Client\ModuleAgent</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\CLoginDialog.h">
+      <Filter>Client\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\CGraphicLogic.h">
+      <Filter>Client\Business</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\CCommandDialog.cpp">
@@ -500,6 +506,12 @@
     </ClCompile>
     <ClCompile Include="Sources\CModuleAgent.cpp">
       <Filter>Client\ModuleAgent</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\CLoginDialog.cpp">
+      <Filter>Client\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\CGraphicLogic.cpp">
+      <Filter>Client\Business</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

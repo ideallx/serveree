@@ -4,16 +4,21 @@
 
 #include "CBaseLogic.h"
 #include "CMsgObject.h"
+#include "CClientNet.h"
+#include "../../../EBoardServer/EBoardServer/DataUnit/UserBase.h"
 
 
 class CUserLogic : public CBaseLogic {
 private:
-	CMsgObject* msgParent;
+	bool isLoggedIn;
+	UserBase* ub;
+
+	CClientNet* cn;
 
 public:
 	CUserLogic(CMsgObject* msgParent);
 	virtual ~CUserLogic();
 
 public:
-	virtual void procMsg(const ts_msg& msg);
+	virtual void procMsg(const ts_msg& msg, bool isRemote);
 };

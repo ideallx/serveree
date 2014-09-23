@@ -33,7 +33,7 @@ public:
 		WPARAM wParam, LPARAM lParam, BOOL isremote = FALSE);
 	
 	// 发送给所有接收者
-	virtual void sendToUpper(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote = FALSE);
-	virtual void sendToLower(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote = FALSE);
+	virtual void sendToUpLayer(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote = FALSE);
+	virtual void sendToDownLayer(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote = FALSE);
 
 };

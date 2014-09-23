@@ -8,7 +8,6 @@ CMainWindow::CMainWindow(CWnd* pParent, CMsgObject pMsgParent):
 	int screenwidth=GetSystemMetrics(SM_CXSCREEN);
 	int screenheight=GetSystemMetrics(SM_CYSCREEN);
 
-
 	cmd = new CDrawDialog(this, pParent);
 	ccd = new CCommandDialog(this, pParent);
 	
@@ -37,15 +36,18 @@ CMainWindow::~CMainWindow() {
 	delete ccd;
 }
 
-void CMainWindow::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isremote) {
-	if (isremote) {
-		TS_GRAPHIC_PACKET* packet = (TS_GRAPHIC_PACKET*) &msg;
-		if (packet->data.DoneFlag) {
-			cmd->actMoveEnd(*packet);
-		} else {
-			cmd->actMove(*packet);
-		}
-	} else {
-		sendToLower(*(ts_msg*) &msg, 0, 0, false);		// 发给下层
+void CMainWindow::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote) {
+	//if (isremote) {
+	//	TS_GRAPHIC_PACKET* packet = (TS_GRAPHIC_PACKET*) &msg;
+	//	if (packet->data.DoneFlag) {
+	//		cmd->actMoveEnd(*packet);
+	//	} else {
+	//		cmd->actMove(*packet);
+	//	}
+	//} else {
+	//	sendToDownLayer(*(ts_msg*) &msg, 0, 0, false);		// 发给下层
+	//}
+	if (!isRemote) {
+		sendToDownLayer(*(ts_msg*) &msg, 0, 0, false);		// 发给下层
 	}
 }
