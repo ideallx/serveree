@@ -185,7 +185,7 @@ void CShapePage::Draw(Graphics* pgc, CPaintTools* pt, int offset_X, int offset_Y
 	if (!m_ShapePage.empty()) {
 		CShape* pShape = NULL;		
 		
-		for (unsigned int i = 0; i < m_ShapePage.size(); i++){
+		for (unsigned int i = 0; i < m_ShapePage.size(); i++) {
 			pShape = m_ShapePage.at(i);
 			if (pShape) {
 				Pen* pen = pt->getPen(pShape->getPenID());
