@@ -92,7 +92,10 @@ SOURCES  += main.cpp\
     Message/CMsgReceiver.cpp \
     Message/CMsgSender.cpp \
     Message/CModuleAgent.cpp \
-    BizLogic/CBusinessLogic.cpp
+    BizLogic/CBusinessLogic.cpp \
+    LayerUI/cgraphicmsgcreator.cpp \
+    BizLogic/CGraphicLogic.cpp \
+    cshape.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
             LayerUI\myscene.h \
@@ -145,10 +148,14 @@ HEADERS  += LayerUI\mainwindow.h \
     Message/CMsgSender.h \
     stdafx.h \
     Message/CModuleAgent.h \
-    BizLogic/CBusinessLogic.h
+    BizLogic/CBusinessLogic.h \
+    LayerUI/cgraphicmsgcreator.h \
+    BizLogic/CGraphicLogic.h \
+    cshape.h
 
 FORMS    += mainwindow.ui
 
+INCLUDEPATH += .
 INCLUDEPATH += include
 INCLUDEPATH += LayerUI
 INCLUDEPATH += BizLogic

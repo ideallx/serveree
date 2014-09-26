@@ -11,48 +11,25 @@ void CMsgSender::sendMessage(CMsgReceiver* p_recv, const ts_msg& msg, WPARAM wPa
 	p_recv->ProcessMessage(const_cast<ts_msg&>(msg), wParam, lParam, isremote);
 };	
 
-bool CMsgSender::addUpReceiver(CMsgReceiver* recv) {
-	if (upperReceivers.count(recv) == 1)
+bool CMsgSender::addReceiver(CMsgReceiver* recv) {
+    if (receivers.count(recv) == 1)
 		return false;
 
-	upperReceivers.insert(recv);
+    receivers.insert(recv);
 	return true;
 }
 
-bool CMsgSender::addDownReceiver(CMsgReceiver* recv) {
-	if (lowerReceivers.count(recv) == 1)
+bool CMsgSender::removeReceiver(CMsgReceiver* recv) {
+    if (receivers.count(recv) == 0)
 		return false;
 
-	lowerReceivers.insert(recv);
+    receivers.erase(recv);
 	return true;
 }
 
-bool CMsgSender::removeUpperReceiver(CMsgReceiver* recv) {
-	if (upperReceivers.count(recv) == 0)
-		return false;
-
-	upperReceivers.erase(recv);
-	return true;
-}
-
-bool CMsgSender::removeLowerReceiver(CMsgReceiver* recv) {
-	if (lowerReceivers.count(recv) == 0)
-		return false;
-
-	lowerReceivers.erase(recv);
-	return true;
-}
-
-void CMsgSender::sendToUpLayer(const ts_msg& msg, WPARAM wParam, LPARAM lParam, 
+void CMsgSender::sendToAll(const ts_msg& msg, WPARAM wParam, LPARAM lParam,
 	BOOL isRemote) {
-	for (auto iter = upperReceivers.begin(); iter != upperReceivers.end(); iter++) {
-		(*iter)->ProcessMessage(const_cast<ts_msg&>(msg), wParam, lParam, isRemote);
-	}
-}
-
-void CMsgSender::sendToDownLayer(const ts_msg& msg, WPARAM wParam, LPARAM lParam, 
-	BOOL isRemote) {
-	for (auto iter = lowerReceivers.begin(); iter != lowerReceivers.end(); iter++) {
+    for (auto iter = receivers.begin(); iter != receivers.end(); iter++) {
 		(*iter)->ProcessMessage(const_cast<ts_msg&>(msg), wParam, lParam, isRemote);
 	}
 }

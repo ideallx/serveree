@@ -9,14 +9,14 @@
 class CUserLogic : public CBaseLogic {
 private:
 	bool isLoggedIn;
-	UserBase* ub;
-
-	CClientNet* cn;
+    UserBase* ub;
 
 public:
 	CUserLogic(CMsgObject* msgParent);
 	virtual ~CUserLogic();
 
+    inline bool isServerAvailable() { return isLoggedIn; }
+
 public:
-	virtual void procMsg(const ts_msg& msg, bool isRemote);
+    virtual bool procMsg(const ts_msg& msg, bool isRemote);
 };

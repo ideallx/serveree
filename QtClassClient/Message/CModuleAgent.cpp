@@ -16,7 +16,7 @@ void CModuleAgent::registerModule(string modulename, CMsgObject* object) {
 	object->setAgent(this);
 }
 
-void* CModuleAgent::getModule(string modulename) {
+CMsgObject* CModuleAgent::getModule(string modulename) {
 	return m_ModuleManager.find(modulename)->second;
 }
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <QDebug>
+
 #include "../Message/CMsgObject.h"
 
 #include "../Reliable/Connections/CReliableConnection.h"
@@ -43,7 +45,7 @@ public:
 	// ÐÄÌø°ü¿ªÆô
 	void startupHeartBeat();
 
-	inline void addServerAddr(sockaddr_in in) { m_Connect->addPeer(ServerUID, in); }
+	void addServerAddr(sockaddr_in in);
 
 public:			
 	void ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isremote);

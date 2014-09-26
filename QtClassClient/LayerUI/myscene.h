@@ -1,16 +1,22 @@
 #ifndef MYSCENE_H
 #define MYSCENE_H
 
-#include <QtWidgets>
-//#include "../Message/CMsgObject.h"
+#include <QDebug>
+#include <QObject>
+#include <QGraphicsScene>
+#include <QMap>
+#include "cgraphicmsgcreator.h"
+
+#include "../Message/CMsgObject.h"
+
+class CShape;
 
 class MyScene : public QGraphicsScene
 {
     Q_OBJECT
-    //CMsgObject* msgParent;
 
 public:
-    explicit MyScene(QObject *parent = 0);
+    explicit MyScene(QObject *parent = 0, CMsgObject* msgParent = 0);
 
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
@@ -18,13 +24,32 @@ public:
 
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
-    QGraphicsItem* createNewItem(QPointF curPoint);
+    CShape* createNewItem(QPointF curPoint);
+
+    void actMove(TS_GRAPHIC_PACKET& graphicMsg);
+
+    void actMoveEnd(TS_GRAPHIC_PACKET& graphicMsg);
+
+    void actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg);
+
+    void changeType(enum ShapeType s);
+
+    void setPenWidth(int width) { pen.setWidth(width); }
+
+    void setPenColor(QString color) { pen.setColor(QColor(color)); }
+
+    void setBrushColor(QString color) { brush = QBrush(QColor(color)); }
 
 private:
-    QGraphicsItem* lastItem;
+    CMsgObject* msgParent;
+    CGraphicMsgCreator* gmc;
+    QMap<TS_UINT64, CShape*> lastItems;
 
+    QPen pen;
+    QBrush brush;
 
-    int number;
+    int pointCounter;
+    int drawingType;
 
     QPointF beginPoint;
 

@@ -1,7 +1,7 @@
 #include "CMsgObject.h"
 
 CMsgObject::CMsgObject(CMsgObject* parent) :
-	m_agent(NULL),
+	p_agent(NULL),
 	p_Parent(parent) {
 	//if (p_Parent != NULL) {
 	//	p_Parent->addChild(this);
@@ -17,7 +17,7 @@ CMsgObject::~CMsgObject() {
 }
 
 void CMsgObject::setAgent(CModuleAgent* agent) {
-	m_agent = CModuleAgent::getUniqueAgent();
+	p_agent = CModuleAgent::getUniqueAgent();
 	//m_agent = agent;
 	//for (auto iter = p_ChildList.begin(); iter != p_ChildList.end(); iter++) {
 	//	(*iter)->setAgent(agent);
@@ -44,5 +44,5 @@ void CMsgObject::removeChild(CMsgObject* child) {
 void CMsgObject::changeParent(CMsgObject* newParent) {
 	p_Parent->removeChild(this);
 	p_Parent = newParent;
-	setAgent(newParent->m_agent);
+	setAgent(newParent->p_agent);
 }

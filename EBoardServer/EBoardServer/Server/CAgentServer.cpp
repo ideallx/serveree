@@ -106,11 +106,13 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	iop_unlock(&lockWorkServer);
 
 	DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;	// 进入班级成功，把服务器信息告诉客户端
-	down->result = Success;
+	down->result = SuccessEnterClass;
 	down->addr = *pServer->getServerAddr();							// server的地址加入到报文中
 	down->head.time = getServerTime();
+	down->head.UID = ServerUID;
 	WriteOut(inputMsg);
 
+	cout << "Add User: " << user._uid << "into class" << user._classid << endl; 
 	map_userinfo.insert(make_pair(user._uid, user));
 	heartBeatTime.insert(make_pair(user._uid, down->head.time));
 	return true;
@@ -126,9 +128,10 @@ void CAgentServer::leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	iop_unlock(&lockWorkServer);
 
 	DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;	// 退出班级成功，把服务器信息告诉客户端
-	down->result = Success;
+	down->result = SuccessLeaveClass;
 	down->addr = inputMsg.peeraddr;
 	down->addr.sin_port = htons(pServer->getPort());
+	down->head.UID = ServerUID;
 	WriteOut(inputMsg);
 	pServer->removePeer(user._uid);
 	cout << "user: " << user._uid << " removed" << endl;

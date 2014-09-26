@@ -104,18 +104,18 @@ int CReliableConnection::send(const char* buf, ULONG len) {
 	if (seq != 0) {												// seq为0，控制类指令，暂不保存
 		if (selfUid != ServerUID) {								// client端特殊处理.
 			bm->record(*msg);									// client端需要记录发出的包
-			if ((seq % 10 == 0) && missed.count(seq) == 0) 	{	// 故意抛弃，然后请求重传，第二次来正常接收
-				missed.insert(seq);
-				//cout << "`5";
-				return -1;
-			}
+			//if ((seq % 10 == 0) && missed.count(seq) == 0) 	{	// 故意抛弃，然后请求重传，第二次来正常接收
+			//	missed.insert(seq);
+			//	//cout << "`5";
+			//	return -1;
+			//}
 			return CHubConnection::send(buf, len);
 		} else {
-			if ((seq % 10 == 0) && missed.count(seq) == 0) 	{	// 故意抛弃，然后请求重传，第二次来正常接收
-				missed.insert(seq);
-				//cout << "5";
-				return -1;
-			}
+			//if ((seq % 10 == 0) && missed.count(seq) == 0) 	{	// 故意抛弃，然后请求重传，第二次来正常接收
+			//	missed.insert(seq);
+			//	//cout << "5";
+			//	return -1;
+			//}
 			return CHubConnection::sendExcept(buf, len, getUid(*msg));
 		}
 	}

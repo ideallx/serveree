@@ -90,7 +90,7 @@ typedef struct {
 	WORD BeginPy;
 	WORD PointX;		// 图形当前点
 	WORD PointY;
-	BYTE DoneFlag;
+    BYTE BeginFlag;
 	BYTE Alpha;
 } TS_GRAPHIC_DATA;
 
@@ -154,8 +154,6 @@ typedef struct {
 	ts_msg msg;
 } TS_PEER_MESSAGE, *LPTS_PEER_MESSAGE;
 
-
-
 // 报文类型，对应 TS_MESSAGE_HEAD.type
 enum PacketType {
 	PACKETTRANSPORT,		// 正常传输包
@@ -190,5 +188,15 @@ enum ReservedUID_t {
 	ReservedUID = 50	// 50之前的UID全部保留
 };
 
+enum ShapeType {
+    NONE,
+    SCRIPTS,
+    LINE,
+    RECTANGLE,
+    ELLIPSE,
+    ROUNDRECT,
+    TRIANGLE,
+    IMAGE,
+};
 
 #endif

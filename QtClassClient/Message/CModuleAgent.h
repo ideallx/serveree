@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../stdafx.h"
-
 #include <map>
 
 class CMsgObject;
@@ -23,5 +21,5 @@ public:
 
 public:
 	void registerModule(string modulename, CMsgObject* object);
-	void* getModule(string modulename);
+	CMsgObject* getModule(string modulename);
 };

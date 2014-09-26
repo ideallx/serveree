@@ -38,4 +38,3 @@ bool MyView::viewportEvent(QEvent *event) {
     }
     return QGraphicsView::viewportEvent(event);
 }
-

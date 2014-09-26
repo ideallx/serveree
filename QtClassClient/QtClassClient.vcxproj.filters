@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{cd252801-e02d-490d-9a11-ac3b2f57baa0}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{60572e07-4532-48cb-a850-210025b89493}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Reliable\Connections\CAbsConnection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Server\CAbsServer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Connections\CAbsSocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Strategy\CAbsStrategy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Server\CAgentServer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BizLogic\CBaseLogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\DataUnit\CBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\DataUnit\CBlockManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BizLogic\CBusinessLogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Net\CClientNet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Connections\CConnection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Strategy\CDestroyStrategy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BizLogic\CGraphicLogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Connections\CHubConnection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\DataUnit\CMessage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Message\CModuleAgent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Message\CMsgObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Message\CMsgReceiver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Message\CMsgSender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\DataUnit\CPackage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Connections\CPeerConnection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Connections\CReliableConnection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Server\CServer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Connections\CSynSocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BizLogic\CUserLogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Server\CWSServer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Strategy\CWriteFileStrategy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerUI\cgraphicmsgcreator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\cleanup.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cshape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\global.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Zip\ioapi.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\libiop\iop_thread.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\libiop\iop_util.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Zip\iowin32.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerUI\mainwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerUI\myscene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerUI\myview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Zip\myzip.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\others.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_cancel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_create.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_detach.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_equal.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_getspecific.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_key_create.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_key_delete.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_kill.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_mutex_consistent.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_mutex_destroy.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_mutex_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_mutex_lock.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_mutex_trylock.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_mutex_unlock.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_mutexattr_destroy.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_self.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_setschedparam.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_setspecific.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_testcancel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_win32_attach_detach_np.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_MCS_lock.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_callUserDestroyRoutines.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_mutex_check_need_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_new.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_processInitialize.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_processTerminate.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_reuse.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_threadDestroy.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_threadStart.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_throw.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_tkAssocCreate.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_tkAssocDestroy.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\sched_get_priority_max.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\sched_get_priority_min.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\sched_yield.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\sem_destroy.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\sem_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\sem_post.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\sem_wait.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Zip\unzip.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\OSInedependent\pthread\w32_CancelableWait.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reliable\Zip\zip.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_mainwindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_mainwindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_myscene.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_myscene.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_myview.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_myview.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Reliable\Connections\CAbsConnection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Server\CAbsServer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Connections\CAbsSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Strategy\CAbsStrategy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Server\CAgentServer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BizLogic\CBaseLogic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\DataUnit\CBlock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\DataUnit\CBlockManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BizLogic\CBusinessLogic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Net\CClientNet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Connections\CConnection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Strategy\CDestroyStrategy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BizLogic\CGraphicLogic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Connections\CHubConnection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\DataUnit\CMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Message\CModuleAgent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Message\CMsgObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Message\CMsgReceiver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Message\CMsgSender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\DataUnit\CPackage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Connections\CPeerConnection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\DataUnit\CPeerPacket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Connections\CReliableConnection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Server\CServer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Connections\CSynSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BizLogic\CUserLogic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Server\CWSServer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Strategy\CWriteFileStrategy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\DataStructure\Pool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\DataStructure\TSQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\DataUnit\UserBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LayerUI\cgraphicmsgcreator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\OSInedependent\pthread\config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\OSInedependent\pthread\context.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Zip\crypt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cshape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\OSInedependent\pthread\implement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Zip\ioapi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\OSInedependent\libiop\iop_config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\OSInedependent\libiop\iop_thread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\OSInedependent\libiop\iop_util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Zip\iowin32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <CustomBuild Include="LayerUI\mainwindow.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\myscene.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\myview.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <ClInclude Include="Reliable\Zip\myzip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\OSInedependent\others.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\OSInedependent\pthread\pthread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\OSInedependent\pthread\sched.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\OSInedependent\pthread\semaphore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Zip\unzip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Zip\zconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Zip\zip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reliable\Zip\zlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_mainwindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="mainwindow.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

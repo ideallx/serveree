@@ -11,7 +11,7 @@
 
 class CMsgObject : public CMsgSender, public CMsgReceiver {
 protected:
-    CModuleAgent* m_agent;
+    CModuleAgent* p_agent;
 
 	CMsgObject* p_Parent;
 	set<CMsgObject*> p_ChildList;
@@ -25,7 +25,7 @@ public:
 public:
     void setAgent(CModuleAgent* agent);
 
-    inline CModuleAgent* getAgent() { return m_agent; }
+    inline CModuleAgent* getAgent() { return p_agent; }
 
 	CMsgObject* getAncestor();
 

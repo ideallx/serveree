@@ -3,10 +3,12 @@
 #include "../stdafx.h"
 #include "CMsgObject.h"
 #include "CUserLogic.h"
+#include "CGraphicLogic.h"
 
 class CBusinessLogic : public CMsgObject {
 private:
     CUserLogic*			m_UserLogic;
+    CGraphicLogic*      m_GraphicLogic;
 
 public:
 	CBusinessLogic(CMsgObject* parent = NULL);

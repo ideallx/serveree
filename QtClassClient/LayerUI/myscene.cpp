@@ -4,64 +4,76 @@
 #include <QPainter>
 #include <QMessageBox>
 
+#include "cshape.h"
 #include "myscene.h"
 
-MyScene::MyScene(QObject *parent) :
-    QGraphicsScene(parent)
+MyScene::MyScene(QObject *parent, CMsgObject *msgParent) :
+    QGraphicsScene(parent),
+    pointCounter(0),
+    msgParent(msgParent)
 {
-    number = 0;
-    lastItem = NULL;
+    drawingType = SCRIPTS;
+    gmc = new CGraphicMsgCreator();
 
     setSceneRect(0, 0, 5000, 5000);
 }
 
 void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
-    if (NULL != lastItem && (number % 4 != 3)) {
-        removeItem(lastItem);
-        delete lastItem;
-    }
-    lastItem = createNewItem(event->scenePos());
-    lastItem->acceptTouchEvents();
-    addItem(lastItem);
-    if (number % 4 == 3) {
-        beginPoint = event->scenePos();
-    }
+    TS_GRAPHIC_PACKET gmsg;
+    gmc->generateGraphicsData(gmsg, event->scenePos(), false);
+    msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
+    actMove(gmsg);
 }
 
 void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    beginPoint = event->scenePos();
-    lastItem = NULL;
-    number++;
+    pointCounter = 0;
+    gmc->create(drawingType, event->scenePos());
+
+    TS_GRAPHIC_PACKET gmsg;
+    gmc->generateGraphicsData(gmsg, event->scenePos(), true);
+    msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
+    actMoveBegin(gmsg);
 }
 
 void MyScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
-    removeItem(lastItem);
-    lastItem = createNewItem(event->scenePos());
-    lastItem->acceptTouchEvents();
-    addItem(lastItem);
+    TS_GRAPHIC_PACKET gmsg;
+    gmc->generateGraphicsData(gmsg, event->scenePos(), false);
+    msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
+    actMove(gmsg);
 }
 
-QGraphicsItem* MyScene::createNewItem(QPointF curPoint) {
-    switch (number % 4) {
-    case 0:
-        return new QGraphicsLineItem(beginPoint.x(), beginPoint.y(),
-                                     curPoint.x(), curPoint.y());
-    case 1:
-        return new QGraphicsEllipseItem(beginPoint.x(), beginPoint.y(),
-                                        curPoint.x() - beginPoint.x(),
-                                        curPoint.y() - beginPoint.y());
-    case 2:
-    {
-        qreal x = qMin(beginPoint.x(), curPoint.x());
-        qreal y = qMin(beginPoint.y(), curPoint.y());
-        qreal w = abs(beginPoint.x() - curPoint.x());
-        qreal h = abs(beginPoint.y() - curPoint.y());
-        return new QGraphicsRectItem(x, y, w, h);
+CShape *MyScene::createNewItem(QPointF curPoint) {
+    CShape* item = CShapeFactory::createShape(drawingType);
+    item->setBeginPos(curPoint);
+    item->getGraphicsItem()->acceptTouchEvents();
+    item->setPen(pen);
+    item->setBrush(brush);
+    return item;
+}
+
+void MyScene::actMove(TS_GRAPHIC_PACKET &graphicMsg) {
+    QPointF scenePos = QPointF(graphicMsg.data.PointX, graphicMsg.data.PointY);
+    CShape* lastItem = lastItems[graphicMsg.head.UID];
+	if (NULL == lastItem)
+		return;
+    lastItem->setCurPos(scenePos);
+    lastItems.insert(graphicMsg.head.UID, lastItem);
+    update();   // repaint
+}
+
+void MyScene::actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg) {
+    QPointF scenePos = QPointF(graphicMsg.data.PointX, graphicMsg.data.PointY);
+    TS_UINT64 uid = graphicMsg.head.UID;
+    if (!lastItems.contains(uid)) {
+        lastItems.insert(uid, NULL);
     }
-    case 3:
-        return new QGraphicsLineItem(beginPoint.x(), beginPoint.y(),
-                                     curPoint.x(), curPoint.y());
-    default:
-        return NULL;
-    }
+    drawingType = graphicMsg.data.ShapeType;
+    beginPoint = scenePos;
+    lastItems[uid] = createNewItem(scenePos);
+    addItem(lastItems[uid]->getGraphicsItem());
+    update();   // repaint
+}
+
+void MyScene::changeType(ShapeType s) {
+    drawingType = s;
 }

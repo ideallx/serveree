@@ -10,3 +10,7 @@ CBaseLogic::~CBaseLogic() {
 
 
 }
+
+bool CBaseLogic::procMsg(const ts_msg& msg, bool isRemote) {
+    return false;
+}
