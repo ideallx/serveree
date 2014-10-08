@@ -2,6 +2,8 @@
 #define CGRAPHICMSGCREATOR_H
 
 #include <QPointF>
+#include <QPen>
+#include <QBrush>
 #include "../stdafx.h"
 #include "../Reliable/DataUnit/CMessage.h"
 
@@ -16,9 +18,15 @@ public:
     DWORD curSeq;
     QPointF begin;
 
+    DWORD curPenBrushid;
+
     void create(DWORD type, QPointF in);
 
-    void generateGraphicsData(TS_GRAPHIC_PACKET& msg, QPointF p, bool isBegin);
+    void generateGraphicsData(TS_GRAPHIC_PACKET& msg, QPointF p, bool isDone);
+
+    void generatePenBrushData(TS_GRAPHIC_PACKET& msg, QPen& p, QBrush& b);
+
+    void generateClearScreen(TS_GRAPHIC_PACKET& msg);
 };
 
 #endif // CGRAPHICMSGCREATOR_H

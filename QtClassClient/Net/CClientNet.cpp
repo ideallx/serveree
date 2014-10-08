@@ -6,8 +6,7 @@ CClientNet::CClientNet() :
 	m_agent(NULL),
 	m_timeDiff(0) {
 
-    QTime time;
-    time= QTime::currentTime();
+    QTime time = QTime::currentTime();
     qsrand(time.msec()+time.second()*1000);
     m_uid = qrand();
 
@@ -16,11 +15,8 @@ CClientNet::CClientNet() :
 }
 
 CClientNet::~CClientNet() {
-	Stop();										// 如果没有停止则先停止数据服务
-	Sleep(100);									// 等待子线程退出
-	
-	delete m_agent;
-	m_Connect->stop();							// 本源地址，最后删除
+    Stop();										// 如果没有停止则先停止数据服务
+    delete m_agent;
 }
 
 bool CClientNet::Start(unsigned short port) {
@@ -128,7 +124,7 @@ void CClientNet::sendProc() {
 	TS_PEER_MESSAGE *pmsg = new TS_PEER_MESSAGE();
 	memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
 
-	Sleep(1000);
+    Sleep(10);
 	int result;
 	
 	while (isRunning()) {
@@ -183,6 +179,7 @@ void* HBProc(LPVOID lpParam) {
 		c->sendHeartBeat();
 		Sleep(HeartBeatInterval);				// 1分钟一个
 	}
+    cout << "hb thread exit" << endl;
 	return 0;
 }
 

@@ -95,7 +95,11 @@ SOURCES  += main.cpp\
     BizLogic/CBusinessLogic.cpp \
     LayerUI/cgraphicmsgcreator.cpp \
     BizLogic/CGraphicLogic.cpp \
-    cshape.cpp
+    cshape.cpp \
+    LayerUI/colorcombox.cpp \
+    LayerUI/linewidthcombox.cpp \
+    LayerUI/IpAddressWidget.cpp \
+    LayerUI/qeclass.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
             LayerUI\myscene.h \
@@ -151,9 +155,14 @@ HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBusinessLogic.h \
     LayerUI/cgraphicmsgcreator.h \
     BizLogic/CGraphicLogic.h \
-    cshape.h
+    cshape.h \
+    LayerUI/colorcombox.h \
+    LayerUI/linewidthcombox.h \
+    LayerUI/IpAddressWidget.h \
+    LayerUI/qeclass.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    qeclass.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += include
@@ -171,3 +180,6 @@ OTHER_FILES += \
     Reliable/Zip/zdll.lib \
     Reliable/Zip/zlib.lib \
     Reliable/Zip/zlib1.dll
+
+RESOURCES += \
+    application.qrc

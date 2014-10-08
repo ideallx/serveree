@@ -1,25 +1,30 @@
 #include "myview.h"
 
 MyView::MyView(QWidget *parent) :
-    QGraphicsView(parent)
-{
+    QGraphicsView(parent),
+    isDeprecated(false) {
+    setRenderHint(QPainter::Antialiasing);
     viewport()->setAttribute(Qt::WA_AcceptTouchEvents);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
+    qApp->setAttribute(Qt::AA_SynthesizeMouseForUnhandledTouchEvents, false);
     lastTwoFingerPos = QPointF(-1, -1);
 }
 
 bool MyView::viewportEvent(QEvent *event) {
+    qDebug() << event->type();
     switch (event->type()) {
     case QEvent::TouchBegin:
-        lastTwoFingerPos = QPointF(-1, -1);
     case QEvent::TouchEnd:
+        lastTwoFingerPos = QPointF(-1, -1);
     case QEvent::TouchUpdate:
+    case QEvent::TouchCancel:
+    case QEvent::Gesture:
     {
-        QTouchEvent* touchEvent = static_cast<QTouchEvent*>(event);
+        QTouchEvent* touchEvent = dynamic_cast<QTouchEvent*> (event);
         if (touchEvent) {
-            if (2 == touchEvent->touchPoints().size()) {        // change canvas postiont by 2 fingers
+            if (touchEvent->touchPoints().size() > 1) {        // change canvas postiont by 2 fingers
+                isDeprecated = true;
                 QPointF curTwoFingerPos = QPointF(touchEvent->touchPoints()[0].pos() + touchEvent->touchPoints()[1].pos()) / 2;
                 if (lastTwoFingerPos != QPointF(-1, -1)) {
                     int x = lastTwoFingerPos.x() - curTwoFingerPos.x();
@@ -28,13 +33,26 @@ bool MyView::viewportEvent(QEvent *event) {
                     verticalScrollBar()->setValue(verticalScrollBar()->value() + y);
                 }
                 lastTwoFingerPos = curTwoFingerPos;
-                return true;
+            } else {
+                isDeprecated = false;
             }
         }
-        break;
+        return true;
     }
+    case QEvent::MouseButtonPress:
+    case QEvent::MouseButtonRelease:
+    case QEvent::MouseMove:
+        if (isDeprecated) {
+            qDebug() << "depracted";
+            return true;
+        } else {
+            qDebug() << "mouse";
+        }
+        break;
     default:
+        qDebug() << event->type();
         break;
     }
     return QGraphicsView::viewportEvent(event);
+
 }

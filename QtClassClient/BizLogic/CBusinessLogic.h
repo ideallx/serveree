@@ -16,7 +16,8 @@ public:
 
 	// 接收外部模块的信号
 	void ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isremote);
-private:
 
+
+private:
 
 };

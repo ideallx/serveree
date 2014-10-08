@@ -25,6 +25,8 @@ typedef struct {
 	TS_UINT64 reserved;			// 8 Bytes 保留
 	unsigned char version;		// 1 Bytes 协议版本号
 	unsigned short size;		// 2 Bytes 整条长度
+
+    DWORD subSeq;               // 4 Bytes 子序号
 } TS_MESSAGE_HEAD, *LPTS_MESSAGE_HEAD;
 
 // 报文体（重发类型）。跟在报文头之后
@@ -73,49 +75,46 @@ typedef struct {
 
 // 上传画面，可能是点阵，图形等
 typedef struct {
-	TS_MESSAGE_HEAD head;			
-	UINT drawType;					// 画的类型
-	WPARAM pointX;					// 每两个point为一个坐标
-	WPARAM pointY;					// 每两个point为一个坐标
-} UP_DRAWING;
-
-typedef struct {
-	DWORD ShapeSeq;
 	WORD ShapeID;
 	WORD ShapeType;
-
 	WORD PageID;
-
 	WORD BeginPx;		// 图形开始点
 	WORD BeginPy;
 	WORD PointX;		// 图形当前点
 	WORD PointY;
-    BYTE BeginFlag;
+    BYTE DoneFlag;
 	BYTE Alpha;
 } TS_GRAPHIC_DATA;
 
 typedef struct {
-	TS_MESSAGE_HEAD head;
-	TS_GRAPHIC_DATA data;
-} TS_GRAPHIC_PACKET, *LPTS_GRAPHIC_PACKET;
+    WORD penid;
+    WORD penR;
+    WORD penG;
+    WORD penB;
+    WORD penWidth;
+    WORD brushid;
+    WORD brushR;
+    WORD brushG;
+    WORD brushB;
+} TS_PENBRUSH_DATA;
 
-enum CommandType_t {
-	COMMANDPEN
+
+enum GraphicPacketType_t {
+    GraphicPacketEndMove,
+    GraphicPacketNormal,
+    GraphicPacketPenBrush,
+    GraphicPacketCls
 };
 
+
 typedef struct {
-	TS_MESSAGE_HEAD head;
-	CommandType_t cmdType;
-
-	unsigned int penID;
-	unsigned int penColor;
-	unsigned int penWidth;
-
-	unsigned int brushID;
-	unsigned int brushColor;
-	unsigned int brushWidth;
-} UP_COMMAND;
-
+    TS_MESSAGE_HEAD head;
+    WORD graphicsType;
+    union {
+        TS_GRAPHIC_DATA data;
+        TS_PENBRUSH_DATA penbrush;
+    };
+} TS_GRAPHIC_PACKET, *LPTS_GRAPHIC_PACKET;
 
 // 下行报文
 typedef struct {
@@ -157,7 +156,8 @@ typedef struct {
 // 报文类型，对应 TS_MESSAGE_HEAD.type
 enum PacketType {
 	PACKETTRANSPORT,		// 正常传输包
-	GRAPHICS,				// 图案
+
+    GRAPHICS,				// 图案
 	TEXT,					// 文字
 	AUDIO,					// 音频
 	VIDEO,					// 视频

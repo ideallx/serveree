@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QObject>
 #include "LayerUI/mainwindow.h"
 #include "Net/CClientNet.h"
 #include "BizLogic/CBusinessLogic.h"
@@ -6,6 +7,8 @@
 
 int main(int argc, char *argv[])
 {
+    Q_INIT_RESOURCE(application);
+
     QApplication a(argc, argv);
 
     WSADATA wsadata;

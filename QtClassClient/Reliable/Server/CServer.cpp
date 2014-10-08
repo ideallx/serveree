@@ -19,16 +19,12 @@ CServer::CServer() :
 	Port = 0;
 	pConnect = new CReliableConnection;
 
-	//sem_init((sem_t*) &data_in, 0, 0);
-	//sem_init((sem_t*) &data_out, 0, 0);
 	data_in = CreateSemaphore(NULL, 0, 1024, NULL);
 	data_out = CreateSemaphore(NULL, 0, 1024, NULL);
 }
 
 CServer::~CServer(void) {
-	Stop();
-	// sem_destroy((sem_t*) &data_in);
-	// sem_destroy((sem_t*) &data_out);
+    Stop();
 	CloseHandle(data_in);
 	CloseHandle(data_out);
 
@@ -131,25 +127,25 @@ bool CServer::Start(unsigned short port) {
 }
 
 bool CServer::Stop(void) {
-	Uninitialize();
-	if (isRunning()) {
-		turnOff();
-		iop_usleep(1000);
-		for (unsigned int i = 0; i < sendthread_num; i++) {
+    Uninitialize();
+    if (isRunning()) {
+        turnOff();
+        iop_usleep(10);
+        for (unsigned int i = 0; i < sendthread_num; i++) {
 			pthread_cancel(pthread_send[i]);
 		}
-		for (unsigned int i = 0; i < recvthread_num; i++) {
+        for (unsigned int i = 0; i < recvthread_num; i++) {
 			pthread_cancel(pthread_recv[i]);
 		}
-		for (unsigned int i = 0; i < msgthread_num; i++) {
+        for (unsigned int i = 0; i < msgthread_num; i++) {
 			pthread_cancel(pthread_msg[i]);
 		}
-	}
-	delete[] pthread_send;
-	delete[] pthread_recv;
-	delete[] pthread_msg;
+    }
+    delete[] pthread_send;
+    delete[] pthread_recv;
+    delete[] pthread_msg;
 //	freeConn();
-	iop_usleep(1000);
+    iop_usleep(10);
 	return TRUE;
 }
 

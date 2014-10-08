@@ -14,20 +14,19 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
-#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenu>
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "colorcombox.h"
+#include "linewidthcombox.h"
 #include "myview.h"
 
 QT_BEGIN_NAMESPACE
@@ -38,142 +37,202 @@ public:
     QAction *actionEnterClass;
     QAction *actionLeaveClass;
     QAction *actionClearScreen;
+    QAction *actionExit;
     QWidget *centralWidget;
-    QHBoxLayout *horizontalLayout_4;
-    QVBoxLayout *verticalLayout;
-    QFormLayout *formLayout;
-    QPushButton *buttonLine;
-    QPushButton *buttonRect;
-    QPushButton *buttonEllipse;
-    QPushButton *buttonScripts;
-    QHBoxLayout *horizontalLayout;
-    QLabel *label;
-    QSpinBox *spinBox;
     QHBoxLayout *horizontalLayout_2;
-    QLabel *label_2;
-    QComboBox *comboBox;
-    QHBoxLayout *horizontalLayout_3;
-    QLabel *label_3;
-    QComboBox *comboBox_2;
-    QSpacerItem *verticalSpacer;
+    QListWidget *listWidget;
+    QVBoxLayout *verticalLayout;
     MyView *graphicsView;
+    QLabel *label;
+    QScrollArea *scrollArea;
+    QWidget *scrollAreaWidgetContents;
+    QHBoxLayout *horizontalLayout;
+    QComboBox *comboBox;
+    QSpacerItem *horizontalSpacer;
+    LineWidthCombox *comboxPenWidth;
+    QSpacerItem *horizontalSpacer_2;
+    ColorCombox *ComboxPenColor;
+    QSpacerItem *horizontalSpacer_3;
+    ColorCombox *ComboxBrushColor;
     QStatusBar *statusBar;
     QToolBar *mainToolBar;
-    QMenuBar *menuBar;
-    QMenu *menuF;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(968, 548);
+        MainWindow->setWindowModality(Qt::WindowModal);
+        MainWindow->resize(1027, 811);
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/EClassPic/logo.png"), QSize(), QIcon::Normal, QIcon::Off);
+        MainWindow->setWindowIcon(icon);
+        MainWindow->setStyleSheet(QStringLiteral("background-color: rgb(42, 41, 57);"));
         actionEnterClass = new QAction(MainWindow);
         actionEnterClass->setObjectName(QStringLiteral("actionEnterClass"));
+        QIcon icon1;
+        icon1.addFile(QStringLiteral(":/EClassPic/EClassPic/enterclass1.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionEnterClass->setIcon(icon1);
         actionLeaveClass = new QAction(MainWindow);
         actionLeaveClass->setObjectName(QStringLiteral("actionLeaveClass"));
+        QIcon icon2;
+        icon2.addFile(QStringLiteral(":/EClassPic/EClassPic/leaveclass1.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionLeaveClass->setIcon(icon2);
+        actionLeaveClass->setVisible(false);
         actionClearScreen = new QAction(MainWindow);
         actionClearScreen->setObjectName(QStringLiteral("actionClearScreen"));
+        QIcon icon3;
+        icon3.addFile(QStringLiteral(":/EClassPic/EClassPic/clearscreen1.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionClearScreen->setIcon(icon3);
+        actionExit = new QAction(MainWindow);
+        actionExit->setObjectName(QStringLiteral("actionExit"));
+        QIcon icon4;
+        icon4.addFile(QStringLiteral(":/EClassPic/EClassPic/exit.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionExit->setIcon(icon4);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        horizontalLayout_4 = new QHBoxLayout(centralWidget);
-        horizontalLayout_4->setSpacing(6);
-        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        horizontalLayout_2 = new QHBoxLayout(centralWidget);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        listWidget = new QListWidget(centralWidget);
+        QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(listWidget);
+        __qlistwidgetitem->setFlags(Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
+        QIcon icon5;
+        icon5.addFile(QStringLiteral(":/EClassPic/EClassPic/QQ.png"), QSize(), QIcon::Normal, QIcon::Off);
+        QListWidgetItem *__qlistwidgetitem1 = new QListWidgetItem(listWidget);
+        __qlistwidgetitem1->setIcon(icon5);
+        QListWidgetItem *__qlistwidgetitem2 = new QListWidgetItem(listWidget);
+        __qlistwidgetitem2->setIcon(icon5);
+        QListWidgetItem *__qlistwidgetitem3 = new QListWidgetItem(listWidget);
+        __qlistwidgetitem3->setIcon(icon5);
+        QListWidgetItem *__qlistwidgetitem4 = new QListWidgetItem(listWidget);
+        __qlistwidgetitem4->setIcon(icon5);
+        QListWidgetItem *__qlistwidgetitem5 = new QListWidgetItem(listWidget);
+        __qlistwidgetitem5->setIcon(icon5);
+        QListWidgetItem *__qlistwidgetitem6 = new QListWidgetItem(listWidget);
+        __qlistwidgetitem6->setFlags(Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
+        QListWidgetItem *__qlistwidgetitem7 = new QListWidgetItem(listWidget);
+        __qlistwidgetitem7->setIcon(icon5);
+        listWidget->setObjectName(QStringLiteral("listWidget"));
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(listWidget->sizePolicy().hasHeightForWidth());
+        listWidget->setSizePolicy(sizePolicy);
+        listWidget->setMaximumSize(QSize(200, 16777215));
+        listWidget->setStyleSheet(QStringLiteral("background-color: rgb(240, 240, 240);"));
+
+        horizontalLayout_2->addWidget(listWidget);
+
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        formLayout = new QFormLayout();
-        formLayout->setSpacing(6);
-        formLayout->setObjectName(QStringLiteral("formLayout"));
-        formLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
-        buttonLine = new QPushButton(centralWidget);
-        buttonLine->setObjectName(QStringLiteral("buttonLine"));
-        buttonLine->setCheckable(true);
+        graphicsView = new MyView(centralWidget);
+        graphicsView->setObjectName(QStringLiteral("graphicsView"));
+        graphicsView->viewport()->setProperty("cursor", QVariant(QCursor(Qt::CrossCursor)));
+        graphicsView->setStyleSheet(QStringLiteral("border-image: url(:/EClassPic/EClassPic/back3.jpg);"));
 
-        formLayout->setWidget(0, QFormLayout::LabelRole, buttonLine);
+        verticalLayout->addWidget(graphicsView);
 
-        buttonRect = new QPushButton(centralWidget);
-        buttonRect->setObjectName(QStringLiteral("buttonRect"));
-        buttonRect->setCheckable(true);
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        QFont font;
+        font.setFamily(QStringLiteral("Aharoni"));
+        font.setPointSize(12);
+        font.setBold(true);
+        font.setWeight(75);
+        label->setFont(font);
+        label->setStyleSheet(QLatin1String("color: rgb(133, 233, 255);\n"
+"color: rgb(222, 222, 222);"));
 
-        formLayout->setWidget(0, QFormLayout::FieldRole, buttonRect);
+        verticalLayout->addWidget(label);
 
-        buttonEllipse = new QPushButton(centralWidget);
-        buttonEllipse->setObjectName(QStringLiteral("buttonEllipse"));
-        buttonEllipse->setCheckable(true);
+        scrollArea = new QScrollArea(centralWidget);
+        scrollArea->setObjectName(QStringLiteral("scrollArea"));
+        scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        scrollArea->setWidgetResizable(true);
+        scrollAreaWidgetContents = new QWidget();
+        scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 799, 325));
+        scrollArea->setWidget(scrollAreaWidgetContents);
 
-        formLayout->setWidget(1, QFormLayout::LabelRole, buttonEllipse);
-
-        buttonScripts = new QPushButton(centralWidget);
-        buttonScripts->setObjectName(QStringLiteral("buttonScripts"));
-        buttonScripts->setCheckable(true);
-
-        formLayout->setWidget(1, QFormLayout::FieldRole, buttonScripts);
-
-
-        verticalLayout->addLayout(formLayout);
+        verticalLayout->addWidget(scrollArea);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
+        comboBox = new QComboBox(centralWidget);
+        QIcon icon6;
+        icon6.addFile(QStringLiteral(":/EClassPic/EClassPic/poly.png"), QSize(), QIcon::Normal, QIcon::Off);
+        comboBox->addItem(icon6, QString());
+        QIcon icon7;
+        icon7.addFile(QStringLiteral(":/EClassPic/EClassPic/line.png"), QSize(), QIcon::Normal, QIcon::Off);
+        comboBox->addItem(icon7, QString());
+        QIcon icon8;
+        icon8.addFile(QStringLiteral(":/EClassPic/EClassPic/rectangle.png"), QSize(), QIcon::Normal, QIcon::Off);
+        comboBox->addItem(icon8, QString());
+        QIcon icon9;
+        icon9.addFile(QStringLiteral(":/EClassPic/EClassPic/ellipse.png"), QSize(), QIcon::Normal, QIcon::Off);
+        comboBox->addItem(icon9, QString());
+        comboBox->setObjectName(QStringLiteral("comboBox"));
+        comboBox->setStyleSheet(QStringLiteral("color: rgb(222, 222, 222);"));
+        comboBox->setIconSize(QSize(100, 30));
 
-        horizontalLayout->addWidget(label);
+        horizontalLayout->addWidget(comboBox);
 
-        spinBox = new QSpinBox(centralWidget);
-        spinBox->setObjectName(QStringLiteral("spinBox"));
-        spinBox->setMinimum(3);
-        spinBox->setMaximum(10);
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout->addWidget(spinBox);
+        horizontalLayout->addItem(horizontalSpacer);
+
+        comboxPenWidth = new LineWidthCombox(centralWidget);
+        comboxPenWidth->setObjectName(QStringLiteral("comboxPenWidth"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(comboxPenWidth->sizePolicy().hasHeightForWidth());
+        comboxPenWidth->setSizePolicy(sizePolicy1);
+        comboxPenWidth->setMinimumSize(QSize(105, 32));
+        comboxPenWidth->setMaximumSize(QSize(105, 32));
+        comboxPenWidth->setStyleSheet(QStringLiteral("border-image: url(:/EClassPic/EClassPic/penwidth1.png);"));
+
+        horizontalLayout->addWidget(comboxPenWidth);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_2);
+
+        ComboxPenColor = new ColorCombox(centralWidget);
+        ComboxPenColor->setObjectName(QStringLiteral("ComboxPenColor"));
+        QSizePolicy sizePolicy2(QSizePolicy::Maximum, QSizePolicy::Maximum);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(ComboxPenColor->sizePolicy().hasHeightForWidth());
+        ComboxPenColor->setSizePolicy(sizePolicy2);
+        ComboxPenColor->setMinimumSize(QSize(105, 32));
+        ComboxPenColor->setMaximumSize(QSize(105, 32));
+        ComboxPenColor->setStyleSheet(QStringLiteral("border-image: url(:/EClassPic/EClassPic/pencolor1.png);"));
+
+        horizontalLayout->addWidget(ComboxPenColor);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_3);
+
+        ComboxBrushColor = new ColorCombox(centralWidget);
+        ComboxBrushColor->setObjectName(QStringLiteral("ComboxBrushColor"));
+        sizePolicy1.setHeightForWidth(ComboxBrushColor->sizePolicy().hasHeightForWidth());
+        ComboxBrushColor->setSizePolicy(sizePolicy1);
+        ComboxBrushColor->setMinimumSize(QSize(105, 32));
+        ComboxBrushColor->setMaximumSize(QSize(105, 32));
+        ComboxBrushColor->setStyleSheet(QStringLiteral("border-image: url(:/EClassPic/EClassPic/brushcolor1.png);"));
+
+        horizontalLayout->addWidget(ComboxBrushColor);
 
 
         verticalLayout->addLayout(horizontalLayout);
 
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        label_2 = new QLabel(centralWidget);
-        label_2->setObjectName(QStringLiteral("label_2"));
 
-        horizontalLayout_2->addWidget(label_2);
-
-        comboBox = new QComboBox(centralWidget);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
-
-        horizontalLayout_2->addWidget(comboBox);
-
-
-        verticalLayout->addLayout(horizontalLayout_2);
-
-        horizontalLayout_3 = new QHBoxLayout();
-        horizontalLayout_3->setSpacing(6);
-        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        label_3 = new QLabel(centralWidget);
-        label_3->setObjectName(QStringLiteral("label_3"));
-
-        horizontalLayout_3->addWidget(label_3);
-
-        comboBox_2 = new QComboBox(centralWidget);
-        comboBox_2->setObjectName(QStringLiteral("comboBox_2"));
-
-        horizontalLayout_3->addWidget(comboBox_2);
-
-
-        verticalLayout->addLayout(horizontalLayout_3);
-
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout->addItem(verticalSpacer);
-
-
-        horizontalLayout_4->addLayout(verticalLayout);
-
-        graphicsView = new MyView(centralWidget);
-        graphicsView->setObjectName(QStringLiteral("graphicsView"));
-
-        horizontalLayout_4->addWidget(graphicsView);
+        horizontalLayout_2->addLayout(verticalLayout);
 
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);
@@ -181,21 +240,20 @@ public:
         MainWindow->setStatusBar(statusBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
+        mainToolBar->setEnabled(true);
+        mainToolBar->setLayoutDirection(Qt::LeftToRight);
         mainToolBar->setMovable(false);
+        mainToolBar->setAllowedAreas(Qt::NoToolBarArea);
+        mainToolBar->setIconSize(QSize(120, 30));
         mainToolBar->setFloatable(false);
         MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
-        MainWindow->insertToolBarBreak(mainToolBar);
-        menuBar = new QMenuBar(MainWindow);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 968, 23));
-        menuF = new QMenu(menuBar);
-        menuF->setObjectName(QStringLiteral("menuF"));
-        MainWindow->setMenuBar(menuBar);
 
         mainToolBar->addAction(actionEnterClass);
         mainToolBar->addAction(actionLeaveClass);
+        mainToolBar->addSeparator();
         mainToolBar->addAction(actionClearScreen);
-        menuBar->addAction(menuF->menuAction());
+        mainToolBar->addSeparator();
+        mainToolBar->addAction(actionExit);
 
         retranslateUi(MainWindow);
 
@@ -208,29 +266,38 @@ public:
         actionEnterClass->setText(QApplication::translate("MainWindow", "EnterClass", 0));
         actionLeaveClass->setText(QApplication::translate("MainWindow", "LeaveClass", 0));
         actionClearScreen->setText(QApplication::translate("MainWindow", "ClearScreen", 0));
-        buttonLine->setText(QApplication::translate("MainWindow", "Line", 0));
-        buttonRect->setText(QApplication::translate("MainWindow", "Rectangle", 0));
-        buttonEllipse->setText(QApplication::translate("MainWindow", "Ellipse", 0));
-        buttonScripts->setText(QApplication::translate("MainWindow", "Scripts", 0));
-        label->setText(QApplication::translate("MainWindow", "PenWidth", 0));
-        label_2->setText(QApplication::translate("MainWindow", "PenColor", 0));
-        comboBox->clear();
-        comboBox->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "Black", 0)
-         << QApplication::translate("MainWindow", "Red", 0)
-         << QApplication::translate("MainWindow", "Green", 0)
-         << QApplication::translate("MainWindow", "Blue", 0)
-        );
-        label_3->setText(QApplication::translate("MainWindow", "BrushColor", 0));
-        comboBox_2->clear();
-        comboBox_2->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "Red", 0)
-         << QApplication::translate("MainWindow", "Transparent", 0)
-         << QApplication::translate("MainWindow", "Green", 0)
-         << QApplication::translate("MainWindow", "Blue", 0)
-         << QApplication::translate("MainWindow", "Black", 0)
-        );
-        menuF->setTitle(QApplication::translate("MainWindow", "f", 0));
+        actionExit->setText(QString());
+
+        const bool __sortingEnabled = listWidget->isSortingEnabled();
+        listWidget->setSortingEnabled(false);
+        QListWidgetItem *___qlistwidgetitem = listWidget->item(0);
+        ___qlistwidgetitem->setText(QApplication::translate("MainWindow", "------Online-------", 0));
+        QListWidgetItem *___qlistwidgetitem1 = listWidget->item(1);
+        ___qlistwidgetitem1->setText(QApplication::translate("MainWindow", "Student1", 0));
+        QListWidgetItem *___qlistwidgetitem2 = listWidget->item(2);
+        ___qlistwidgetitem2->setText(QApplication::translate("MainWindow", "Student2", 0));
+        QListWidgetItem *___qlistwidgetitem3 = listWidget->item(3);
+        ___qlistwidgetitem3->setText(QApplication::translate("MainWindow", "Student3", 0));
+        QListWidgetItem *___qlistwidgetitem4 = listWidget->item(4);
+        ___qlistwidgetitem4->setText(QApplication::translate("MainWindow", "Student4", 0));
+        QListWidgetItem *___qlistwidgetitem5 = listWidget->item(5);
+        ___qlistwidgetitem5->setText(QApplication::translate("MainWindow", "Student5", 0));
+        QListWidgetItem *___qlistwidgetitem6 = listWidget->item(6);
+        ___qlistwidgetitem6->setText(QApplication::translate("MainWindow", "------Offline-------", 0));
+        QListWidgetItem *___qlistwidgetitem7 = listWidget->item(7);
+        ___qlistwidgetitem7->setText(QApplication::translate("MainWindow", "Student6", 0));
+        listWidget->setSortingEnabled(__sortingEnabled);
+
+        label->setText(QApplication::translate("MainWindow", "\346\210\221\347\232\204\347\224\273\346\235\277", 0));
+        comboBox->setItemText(0, QApplication::translate("MainWindow", "Scripts", 0));
+        comboBox->setItemText(1, QApplication::translate("MainWindow", "Line", 0));
+        comboBox->setItemText(2, QApplication::translate("MainWindow", "Rectangle", 0));
+        comboBox->setItemText(3, QApplication::translate("MainWindow", "Ellipse", 0));
+
+        comboBox->setCurrentText(QApplication::translate("MainWindow", "Scripts", 0));
+        comboxPenWidth->setText(QString());
+        ComboxPenColor->setText(QString());
+        ComboxBrushColor->setText(QString());
     } // retranslateUi
 
 };

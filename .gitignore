@@ -58,3 +58,10 @@ Icon
 *.suo
 *.suo
 *.tmp
+build-QtClassClient-Desktop_Qt_5_3_MSVC2010_OpenGL_32bit-Debug/Makefile
+*.Debug
+*.png
+*.jpg
+*.Release
+*.Debug
+*.Release

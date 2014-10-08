@@ -24,7 +24,7 @@ CReliableConnection::CReliableConnection() :
 
 CReliableConnection::~CReliableConnection() {
 	isRunning = false;
-	iop_usleep(1000);
+    iop_usleep(10);
 
 	pthread_cancel(msgScan);
 	pthread_cancel(msgIn);

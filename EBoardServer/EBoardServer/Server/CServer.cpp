@@ -107,7 +107,6 @@ bool CServer::Start(unsigned short port) {
 		}
 	}
 
-
 	for (unsigned int i = 0; i < sendthread_num; i++) {
 		int rc = pthread_create(&pthread_send[i], NULL, SendProc, (void*) this);
 		if (0 == rc) {

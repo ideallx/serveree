@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QGraphicsScene>
 #include <QMap>
+#include <QMutex>
 #include "cgraphicmsgcreator.h"
 
 #include "../Message/CMsgObject.h"
@@ -24,7 +25,7 @@ public:
 
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
-    CShape* createNewItem(QPointF curPoint);
+    CShape* createNewItem(TS_UINT64 uid, int shapeType, QPointF curPoint);
 
     void actMove(TS_GRAPHIC_PACKET& graphicMsg);
 
@@ -34,21 +35,32 @@ public:
 
     void changeType(enum ShapeType s);
 
-    void setPenWidth(int width) { pen.setWidth(width); }
+public slots:
 
-    void setPenColor(QString color) { pen.setColor(QColor(color)); }
+    void changeShapeByUI(int shape);
 
-    void setBrushColor(QString color) { brush = QBrush(QColor(color)); }
+    void setPenWidth(int width) { pen.setWidth(width); toolChanged = true; }
+
+    void setPenColor(QColor c) { pen.setColor(c); toolChanged = true; }
+
+    void setBrushColor(QColor c) { brush = QBrush(c); toolChanged = true; }
+
+    void setOthersPenBrush(TS_GRAPHIC_PACKET& graphicMsg);
+
+    void cls();
 
 private:
     CMsgObject* msgParent;
     CGraphicMsgCreator* gmc;
     QMap<TS_UINT64, CShape*> lastItems;
+    QMap<TS_UINT64, QPair<QPen, QBrush> > toolsMap;
+    QMutex mutex;
+
+    bool toolChanged;   // is pen or brush changed
 
     QPen pen;
     QBrush brush;
 
-    int pointCounter;
     int drawingType;
 
     QPointF beginPoint;

@@ -3,6 +3,35 @@
 #include "mainwindow.h"
 #include "../Net/CClientNet.h"
 
+CGraphicUserInfo::CGraphicUserInfo() :
+    lastShapeSeq(0) {
+
+}
+
+map<TS_UINT64, ts_msg> CGraphicUserInfo::receiveMsg(const ts_msg& msg) {
+    map<TS_UINT64, ts_msg> result;
+    TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
+
+    if (gmsg->head.subSeq == lastShapeSeq + 1) {
+        result.insert(make_pair(gmsg->head.sequence, msg));
+        lastShapeSeq++;
+        if (waitingList.size() != 0) {
+            for (auto i = waitingList.begin(); i != waitingList.end(); ) {
+                TS_UINT64 waitSeq = getSeq(i->second);
+                if (waitSeq == lastShapeSeq + 1) {
+                    result.insert(make_pair(waitSeq, i->second));
+                    waitingList.erase(i++);
+                } else {
+                    break;
+                }
+            }
+        }
+    } else {
+        waitingList.insert(make_pair(gmsg->head.sequence, msg));
+    }
+    return result;
+}
+
 CGraphicLogic::CGraphicLogic(CMsgObject *parent) :
     CBaseLogic(parent) {
 }
@@ -15,28 +44,18 @@ bool CGraphicLogic::procMsg(const ts_msg& msg, bool isRemote) {
         cn->ProcessMessage(const_cast<ts_msg&> (msg), 0, 0, isRemote);
         return false;
     }
+
     TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
     TS_UINT64 uid = gmsg->head.UID;
-
-    struct lastState s;
-    if (!last.contains(uid)) {
-        s.graphicSeq = 0;
-        s.shapeID = 0;
-        last.insert(uid, s);
-    } else {
-        s = last[uid];
+    if (userInfo.find(uid) == userInfo.end()) {
+        CGraphicUserInfo user;
+        userInfo.insert(make_pair(uid, user));
     }
 
-	s.point = QPointF(gmsg->data.PointX, gmsg->data.PointY);
-
-    if (gmsg->data.ShapeSeq >= s.graphicSeq && s.shapeID == gmsg->data.ShapeID) { // common condition
-        s.graphicSeq = gmsg->data.ShapeSeq;
-        ui->ProcessMessage(const_cast<ts_msg&> (msg), 0, 0, isRemote);
-    } else if (gmsg->data.ShapeID > s.shapeID) {
-        s.shapeID = gmsg->data.ShapeID;
-		s.graphicSeq = gmsg->data.ShapeSeq;
-        ui->ProcessMessage(const_cast<ts_msg&> (msg), 1, 0, isRemote);
+    auto sendMap = userInfo[uid].receiveMsg(msg);
+    for (auto i = sendMap.begin(); i != sendMap.end(); i++) {
+        ui->ProcessMessage(i->second, gmsg->graphicsType, 0, isRemote);
     }
-    last[uid] = s;
+
     return false;
 }

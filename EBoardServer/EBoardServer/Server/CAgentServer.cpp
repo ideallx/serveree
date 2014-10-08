@@ -68,9 +68,8 @@ void CAgentServer::destroyClass(TS_UINT64 classid) {
 	if (NULL == pServer)
 		return;
 	int port = pServer->getPort();		// 获取服务器端口
-	pServer->Stop();
-	cout << "Worker Server Stop successfully on Port " << port << "." << endl;
 	delete pServer;
+	cout << "Worker Server Stop successfully on Port " << port << "." << endl;
 	map_workserver[classid] = NULL;
 	map_workserver.erase(classid);
 		
@@ -132,7 +131,6 @@ void CAgentServer::leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	down->addr = inputMsg.peeraddr;
 	down->addr.sin_port = htons(pServer->getPort());
 	down->head.UID = ServerUID;
-	WriteOut(inputMsg);
 	pServer->removePeer(user._uid);
 	cout << "user: " << user._uid << " removed" << endl;
 	map_userinfo.erase(user._uid);
@@ -143,7 +141,7 @@ void CAgentServer::leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 			destroyClass(classid);
 		}
 	}
-
+	WriteOut(inputMsg);
 }
 
 DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，加入退出班级等等

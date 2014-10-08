@@ -2,188 +2,371 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>968</width>
-    <height>548</height>
+    <width>1027</width>
+    <height>811</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="application.qrc">
+    <normaloff>:/EClassPic/logo.png</normaloff>:/EClassPic/logo.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(42, 41, 57);</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_4">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QListWidget" name="listWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(240, 240, 240);</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>------Online-------</string>
+       </property>
+       <property name="flags">
+        <set>ItemIsUserCheckable|ItemIsEnabled</set>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Student1</string>
+       </property>
+       <property name="icon">
+        <iconset resource="application.qrc">
+         <normaloff>:/EClassPic/EClassPic/QQ.png</normaloff>:/EClassPic/EClassPic/QQ.png</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Student2</string>
+       </property>
+       <property name="icon">
+        <iconset resource="application.qrc">
+         <normaloff>:/EClassPic/EClassPic/QQ.png</normaloff>:/EClassPic/EClassPic/QQ.png</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Student3</string>
+       </property>
+       <property name="icon">
+        <iconset resource="application.qrc">
+         <normaloff>:/EClassPic/EClassPic/QQ.png</normaloff>:/EClassPic/EClassPic/QQ.png</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Student4</string>
+       </property>
+       <property name="icon">
+        <iconset resource="application.qrc">
+         <normaloff>:/EClassPic/EClassPic/QQ.png</normaloff>:/EClassPic/EClassPic/QQ.png</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Student5</string>
+       </property>
+       <property name="icon">
+        <iconset resource="application.qrc">
+         <normaloff>:/EClassPic/EClassPic/QQ.png</normaloff>:/EClassPic/EClassPic/QQ.png</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>------Offline-------</string>
+       </property>
+       <property name="flags">
+        <set>ItemIsUserCheckable|ItemIsEnabled</set>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Student6</string>
+       </property>
+       <property name="icon">
+        <iconset resource="application.qrc">
+         <normaloff>:/EClassPic/EClassPic/QQ.png</normaloff>:/EClassPic/EClassPic/QQ.png</iconset>
+       </property>
+      </item>
+     </widget>
+    </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <layout class="QFormLayout" name="formLayout">
-        <property name="fieldGrowthPolicy">
-         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+       <widget class="MyView" name="graphicsView">
+        <property name="cursor" stdset="0">
+         <cursorShape>CrossCursor</cursorShape>
         </property>
-        <item row="0" column="0">
-         <widget class="QPushButton" name="buttonLine">
-          <property name="text">
-           <string>Line</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QPushButton" name="buttonRect">
-          <property name="text">
-           <string>Rectangle</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="buttonEllipse">
-          <property name="text">
-           <string>Ellipse</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="buttonScripts">
-          <property name="text">
-           <string>Scripts</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
+        <property name="styleSheet">
+         <string notr="true">border-image: url(:/EClassPic/EClassPic/back3.jpg);</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="font">
+         <font>
+          <family>Aharoni</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(133, 233, 255);
+color: rgb(222, 222, 222);</string>
+        </property>
+        <property name="text">
+         <string>我的画板</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QScrollArea" name="scrollArea">
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>799</width>
+           <height>325</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>PenWidth</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="spinBox">
-          <property name="minimum">
-           <number>3</number>
-          </property>
-          <property name="maximum">
-           <number>10</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>PenColor</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QComboBox" name="comboBox">
+          <property name="styleSheet">
+           <string notr="true">color: rgb(222, 222, 222);</string>
+          </property>
+          <property name="currentText">
+           <string>Scripts</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>100</width>
+            <height>30</height>
+           </size>
+          </property>
           <item>
            <property name="text">
-            <string>Black</string>
+            <string>Scripts</string>
+           </property>
+           <property name="icon">
+            <iconset resource="application.qrc">
+             <normaloff>:/EClassPic/EClassPic/poly.png</normaloff>:/EClassPic/EClassPic/poly.png</iconset>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Red</string>
+            <string>Line</string>
+           </property>
+           <property name="icon">
+            <iconset resource="application.qrc">
+             <normaloff>:/EClassPic/EClassPic/line.png</normaloff>:/EClassPic/EClassPic/line.png</iconset>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Green</string>
+            <string>Rectangle</string>
+           </property>
+           <property name="icon">
+            <iconset resource="application.qrc">
+             <normaloff>:/EClassPic/EClassPic/rectangle.png</normaloff>:/EClassPic/EClassPic/rectangle.png</iconset>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Blue</string>
+            <string>Ellipse</string>
+           </property>
+           <property name="icon">
+            <iconset resource="application.qrc">
+             <normaloff>:/EClassPic/EClassPic/ellipse.png</normaloff>:/EClassPic/EClassPic/ellipse.png</iconset>
            </property>
           </item>
          </widget>
         </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QLabel" name="label_3">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="LineWidthCombox" name="comboxPenWidth">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>105</width>
+            <height>32</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>105</width>
+            <height>32</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-image: url(:/EClassPic/EClassPic/penwidth1.png);</string>
+          </property>
           <property name="text">
-           <string>BrushColor</string>
+           <string/>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox_2">
-          <item>
-           <property name="text">
-            <string>Transparent</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Red</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Green</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Blue</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Black</string>
-           </property>
-          </item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="ColorCombox" name="ComboxPenColor">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>105</width>
+            <height>32</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>105</width>
+            <height>32</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-image: url(:/EClassPic/EClassPic/pencolor1.png);</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="ColorCombox" name="ComboxBrushColor">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>105</width>
+            <height>32</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>105</width>
+            <height>32</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-image: url(:/EClassPic/EClassPic/brushcolor1.png);</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
       </item>
      </layout>
-    </item>
-    <item>
-     <widget class="MyView" name="graphicsView"/>
     </item>
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="mainToolBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
    <property name="movable">
     <bool>false</bool>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::NoToolBarArea</set>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>120</width>
+     <height>30</height>
+    </size>
    </property>
    <property name="floatable">
     <bool>false</bool>
@@ -192,25 +375,52 @@
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
    <addaction name="actionEnterClass"/>
    <addaction name="actionLeaveClass"/>
+   <addaction name="separator"/>
    <addaction name="actionClearScreen"/>
+   <addaction name="separator"/>
+   <addaction name="actionExit"/>
   </widget>
   <action name="actionEnterClass">
+   <property name="icon">
+    <iconset resource="application.qrc">
+     <normaloff>:/EClassPic/EClassPic/enterclass1.png</normaloff>:/EClassPic/EClassPic/enterclass1.png</iconset>
+   </property>
    <property name="text">
     <string>EnterClass</string>
    </property>
   </action>
   <action name="actionLeaveClass">
+   <property name="icon">
+    <iconset resource="application.qrc">
+     <normaloff>:/EClassPic/EClassPic/leaveclass1.png</normaloff>:/EClassPic/EClassPic/leaveclass1.png</iconset>
+   </property>
    <property name="text">
     <string>LeaveClass</string>
    </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="actionClearScreen">
+   <property name="icon">
+    <iconset resource="application.qrc">
+     <normaloff>:/EClassPic/EClassPic/clearscreen1.png</normaloff>:/EClassPic/EClassPic/clearscreen1.png</iconset>
+   </property>
    <property name="text">
     <string>ClearScreen</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="icon">
+    <iconset resource="application.qrc">
+     <normaloff>:/EClassPic/EClassPic/exit.png</normaloff>:/EClassPic/EClassPic/exit.png</iconset>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </action>
  </widget>
@@ -221,7 +431,19 @@
    <extends>QGraphicsView</extends>
    <header>myview.h</header>
   </customwidget>
+  <customwidget>
+   <class>ColorCombox</class>
+   <extends>QToolButton</extends>
+   <header>colorcombox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>LineWidthCombox</class>
+   <extends>QToolButton</extends>
+   <header>linewidthcombox.h</header>
+  </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="application.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -12,5 +12,7 @@ CBaseLogic::~CBaseLogic() {
 }
 
 bool CBaseLogic::procMsg(const ts_msg& msg, bool isRemote) {
+    Q_UNUSED(msg);
+    Q_UNUSED(isRemote);
     return false;
 }

@@ -18,7 +18,7 @@ public slots:
 
 private:
     QPointF lastTwoFingerPos;
-
+    bool isDeprecated;
 };
 
 #endif // MYVIEW_H

@@ -75,30 +75,11 @@ public:
 		isStarted = FALSE;
 		sem_post((sem_t*) &sem_start);
 	}
-
-	//void addConn(CAbsConnection* pconn) {
-	//	sem_wait((sem_t*) &sem_free);
-	//	connection_list.push_back(pconn);
-	//	sem_post((sem_t*) &sem_free);
-	//}
-
-	//void freeConn() {
-	//	sem_wait((sem_t*) &sem_free);
-	//	int size = connection_list.size();
-	//	cout << "free size : " << size << endl;
-	//	for (int i = 0; i < size; i++) {
-	//		connection_list.at(i)->clear();
-	//		delete connection_list.at(i);
-	//	}
-	//	sem_post((sem_t*) &sem_free);
-	//}
 };
 
 
 void* RecvProc(LPVOID lpParam);
 void* SendProc(LPVOID lpParam);
 void* MsgProc(LPVOID lpParam);
-// void* TimeProc(LPVOID lpParam);
-// void* ScanProc(LPVOID lpParam);
 
 #endif /* SERVER_H_ */

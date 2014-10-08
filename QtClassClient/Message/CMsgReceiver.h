@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QObject>
 #include <queue>
 #include "../Reliable/DataUnit/CMessage.h"
 
@@ -15,5 +16,7 @@ public:
 
 public:
 	// 处理模块外收到的数据
-    virtual void ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isremote) {}
+    virtual void ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isremote) {
+        Q_UNUSED(msg); Q_UNUSED(wParam); Q_UNUSED(lParam); Q_UNUSED(isremote);
+    }
 };
