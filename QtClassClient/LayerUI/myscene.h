@@ -17,7 +17,7 @@ class MyScene : public QGraphicsScene
     Q_OBJECT
 
 public:
-    explicit MyScene(QObject *parent = 0, CMsgObject* msgParent = 0);
+    explicit MyScene(DWORD sceneID, QObject *parent = 0, CMsgObject* msgParent = 0);
 
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
@@ -56,6 +56,7 @@ private:
     QMap<TS_UINT64, QPair<QPen, QBrush> > toolsMap;
     QMutex mutex;
 
+    DWORD sceneID;
     bool toolChanged;   // is pen or brush changed
 
     QPen pen;
@@ -64,7 +65,6 @@ private:
     int drawingType;
 
     QPointF beginPoint;
-
 };
 
 #endif // MYSCENE_H

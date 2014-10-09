@@ -16,12 +16,12 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
     CClientNet* cn = static_cast<CClientNet*>(p_Parent->getAgent()->getModule("NET"));
     MainWindow* ui = static_cast<MainWindow*>(p_Parent->getAgent()->getModule("UI"));
 
-	if (isRemote) {						// 外部来的，Net层收到的服务器来的下行
+    if (isRemote) {						// 外部来的，Net层收到的服务器来的下行
 		DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &msg;
 
 		switch (down->result) {
-		case SuccessEnterClass:
-			cn->addServerAddr(down->addr);
+        case SuccessEnterClass:
+            cn->addServerAddr(down->addr);
             ui->enterClassResult(true);
 			isLoggedIn = true;
 			break;
@@ -63,6 +63,6 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
 		default:
 			break;
 		}
-	}
+    }
     return false;
 }

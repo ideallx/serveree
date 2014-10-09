@@ -7,8 +7,6 @@
 
 #include "linewidthcombox.h"
 
-
-
 static const qreal iconWidth = 100;
 static const qreal iconHeight = 20;
 

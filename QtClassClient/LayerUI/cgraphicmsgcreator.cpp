@@ -1,10 +1,11 @@
 #include "cgraphicmsgcreator.h"
 
-CGraphicMsgCreator::CGraphicMsgCreator() :
+CGraphicMsgCreator::CGraphicMsgCreator(DWORD sceneID) :
     curShapeID(0),
     curSeq(1),
     curShapeType(NONE),
-    curPenBrushid(0) {
+    curPenBrushid(0),
+    sceneID(sceneID) {
 }
 
 void CGraphicMsgCreator::create(DWORD type, QPointF p) {
@@ -18,6 +19,7 @@ void CGraphicMsgCreator::generateGraphicsData(TS_GRAPHIC_PACKET& msg, QPointF p,
     } else {
         msg.graphicsType = GraphicPacketNormal;
     }
+    msg.SceneID = sceneID;
 
     msg.head.size = sizeof(TS_GRAPHIC_PACKET);
     msg.head.UID = SelfUID;
@@ -33,11 +35,13 @@ void CGraphicMsgCreator::generateGraphicsData(TS_GRAPHIC_PACKET& msg, QPointF p,
     msg.data.ShapeType = curShapeType;
     msg.data.BeginPx = begin.x();
     msg.data.BeginPy = begin.y();
+
 }
 
 void CGraphicMsgCreator::generatePenBrushData(TS_GRAPHIC_PACKET& msg, QPen& p, QBrush& b) {
     curPenBrushid++;
     msg.graphicsType = GraphicPacketPenBrush;
+    msg.SceneID = sceneID;
 
     msg.head.size = sizeof(TS_GRAPHIC_PACKET);
     msg.head.UID = SelfUID;
@@ -58,6 +62,7 @@ void CGraphicMsgCreator::generatePenBrushData(TS_GRAPHIC_PACKET& msg, QPen& p, Q
 
 void CGraphicMsgCreator::generateClearScreen(TS_GRAPHIC_PACKET& msg) {
     msg.graphicsType = GraphicPacketCls;
+    msg.SceneID = sceneID;
 
     msg.head.size = sizeof(TS_GRAPHIC_PACKET);
     msg.head.UID = SelfUID;

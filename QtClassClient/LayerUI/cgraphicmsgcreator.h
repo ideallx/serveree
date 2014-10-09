@@ -10,13 +10,14 @@
 class CGraphicMsgCreator
 {
 public:
-    CGraphicMsgCreator();
+    CGraphicMsgCreator(DWORD sceneID);
     ~CGraphicMsgCreator();
 
     DWORD curShapeID;
     DWORD curShapeType;
     DWORD curSeq;
     QPointF begin;
+    DWORD sceneID;
 
     DWORD curPenBrushid;
 

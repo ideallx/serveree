@@ -17,7 +17,6 @@ signals:
 public slots:
 
 private:
-    QPointF lastTwoFingerPos;
     bool isDeprecated;
 };
 

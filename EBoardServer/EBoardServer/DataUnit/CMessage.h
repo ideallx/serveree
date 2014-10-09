@@ -75,7 +75,7 @@ typedef struct {
 
 // 上传画面，可能是点阵，图形等
 typedef struct {
-	WORD ShapeID;
+    DWORD ShapeID;
 	WORD ShapeType;
 	WORD PageID;
 	WORD BeginPx;		// 图形开始点
@@ -110,6 +110,7 @@ enum GraphicPacketType_t {
 typedef struct {
     TS_MESSAGE_HEAD head;
     WORD graphicsType;
+    DWORD SceneID;
     union {
         TS_GRAPHIC_DATA data;
         TS_PENBRUSH_DATA penbrush;

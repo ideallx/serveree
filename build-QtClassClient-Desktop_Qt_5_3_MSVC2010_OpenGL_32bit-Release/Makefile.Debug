@@ -838,7 +838,12 @@ debug\moc_mainwindow.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QM
 		..\QtClassClient\Message\CMsgReceiver.h \
 		..\QtClassClient\Message\CMsgSender.h \
 		..\QtClassClient\Message\CModuleAgent.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
+		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
+		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVector \
+		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
 		..\QtClassClient\LayerUI\mainwindow.h
 	F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1600 -D_WIN32 -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/BizLogic -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Message -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Net -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/Zip -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/DataUnit -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/pthread -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtCore -I. ..\QtClassClient\LayerUI\mainwindow.h -o debug\moc_mainwindow.cpp
 
@@ -3128,12 +3133,14 @@ debug\main.obj: ..\QtClassClient\main.cpp F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\incl
 		..\QtClassClient\Message\CMsgReceiver.h \
 		..\QtClassClient\Message\CMsgSender.h \
 		..\QtClassClient\Message\CModuleAgent.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVector \
-		..\QtClassClient\Net\CClientNet.h \
-		..\QtClassClient\Reliable\Connections\CReliableConnection.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVector \
+		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
+		..\QtClassClient\Net\CClientNet.h \
+		..\QtClassClient\Reliable\Connections\CReliableConnection.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Reliable\Connections\CHubConnection.h \
 		..\QtClassClient\Reliable\Connections\CAbsConnection.h \
@@ -3145,7 +3152,6 @@ debug\main.obj: ..\QtClassClient\main.cpp F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\incl
 		..\QtClassClient\Reliable\Connections\CConnection.h \
 		..\QtClassClient\Reliable\DataUnit\CBlockManager.h \
 		..\QtClassClient\Reliable\DataUnit\CBlock.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
 		..\QtClassClient\Reliable\DataUnit\CPackage.h \
 		..\QtClassClient\Reliable\Zip\zip.h \
 		..\QtClassClient\Reliable\Zip\zlib.h \
@@ -3155,7 +3161,6 @@ debug\main.obj: ..\QtClassClient\main.cpp F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\incl
 		..\QtClassClient\Reliable\Strategy\CDestroyStrategy.h \
 		..\QtClassClient\Reliable\Strategy\CAbsStrategy.h \
 		..\QtClassClient\Reliable\Strategy\CWriteFileStrategy.h \
-		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\DataUnit\UserBase.h \
 		..\QtClassClient\Reliable\Server\CServer.h \
 		..\QtClassClient\Reliable\Server\CAbsServer.h \
@@ -3300,7 +3305,12 @@ debug\mainwindow.obj: ..\QtClassClient\LayerUI\mainwindow.cpp F:\Qt\Qt5.3.2\5.3\
 		..\QtClassClient\Message\CMsgReceiver.h \
 		..\QtClassClient\Message\CMsgSender.h \
 		..\QtClassClient\Message\CModuleAgent.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
+		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
+		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVector \
+		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
 		ui_mainwindow.h \
 		..\QtClassClient\LayerUI\qeclass.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QDialog \
@@ -3419,6 +3429,7 @@ debug\myscene.obj: ..\QtClassClient\LayerUI\myscene.cpp F:\Qt\Qt5.3.2\5.3\msvc20
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfiledevice.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qvector2d.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qtouchdevice.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QTouchEvent \
 		..\QtClassClient\cshape.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGraphicsItem \
 		..\QtClassClient\Reliable\DataUnit\CMessage.h \
@@ -5446,12 +5457,14 @@ debug\CGraphicLogic.obj: ..\QtClassClient\BizLogic\CGraphicLogic.cpp F:\Qt\Qt5.3
 		..\QtClassClient\LayerUI\cgraphicmsgcreator.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QPen \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QBrush \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVector \
-		..\QtClassClient\Net\CClientNet.h \
-		..\QtClassClient\Reliable\Connections\CReliableConnection.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVector \
+		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
+		..\QtClassClient\Net\CClientNet.h \
+		..\QtClassClient\Reliable\Connections\CReliableConnection.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Reliable\Connections\CHubConnection.h \
 		..\QtClassClient\Reliable\Connections\CAbsConnection.h \
@@ -5463,7 +5476,6 @@ debug\CGraphicLogic.obj: ..\QtClassClient\BizLogic\CGraphicLogic.cpp F:\Qt\Qt5.3
 		..\QtClassClient\Reliable\Connections\CConnection.h \
 		..\QtClassClient\Reliable\DataUnit\CBlockManager.h \
 		..\QtClassClient\Reliable\DataUnit\CBlock.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
 		..\QtClassClient\Reliable\DataUnit\CPackage.h \
 		..\QtClassClient\Reliable\Zip\zip.h \
 		..\QtClassClient\Reliable\Zip\zlib.h \
@@ -5473,7 +5485,6 @@ debug\CGraphicLogic.obj: ..\QtClassClient\BizLogic\CGraphicLogic.cpp F:\Qt\Qt5.3
 		..\QtClassClient\Reliable\Strategy\CDestroyStrategy.h \
 		..\QtClassClient\Reliable\Strategy\CAbsStrategy.h \
 		..\QtClassClient\Reliable\Strategy\CWriteFileStrategy.h \
-		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\DataUnit\UserBase.h \
 		..\QtClassClient\Reliable\Server\CServer.h \
 		..\QtClassClient\Reliable\Server\CAbsServer.h

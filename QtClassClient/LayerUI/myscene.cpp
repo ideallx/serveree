@@ -3,13 +3,15 @@
 #include <QGraphicsLineItem>
 #include <QPainter>
 #include <QMessageBox>
+#include <QTouchEvent>
 
 #include "cshape.h"
 #include "myscene.h"
 
-MyScene::MyScene(QObject *parent, CMsgObject *msgParent) :
+MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent) :
     QGraphicsScene(parent),
-    gmc(new CGraphicMsgCreator),
+    sceneID(sceneID),
+    gmc(new CGraphicMsgCreator(sceneID)),
     drawingType(SCRIPTS),
     msgParent(msgParent),
     toolChanged(false) {
@@ -18,7 +20,6 @@ MyScene::MyScene(QObject *parent, CMsgObject *msgParent) :
 }
 
 void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
-    qDebug() << "move";
     TS_GRAPHIC_PACKET gmsg;
     gmc->generateGraphicsData(gmsg, event->scenePos(), false);
     actMove(gmsg);
@@ -26,7 +27,6 @@ void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    qDebug() << "press";
     TS_GRAPHIC_PACKET gmsg;
 
     if (toolChanged) {
@@ -43,7 +43,6 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 void MyScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
-    qDebug() << "release";
     TS_GRAPHIC_PACKET gmsg;
     gmc->generateGraphicsData(gmsg, event->scenePos(), true);
     actMove(gmsg);
