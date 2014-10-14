@@ -3,9 +3,8 @@
 #include "mainwindow.h"
 #include "../Net/CClientNet.h"
 
-CGraphicUserInfo::CGraphicUserInfo() :
-    lastShapeSeq(0) {
-
+CGraphicUserInfo::CGraphicUserInfo(DWORD firstSeq) :
+    lastShapeSeq(firstSeq) {
 }
 
 map<TS_UINT64, ts_msg> CGraphicUserInfo::receiveMsg(const ts_msg& msg) {
@@ -28,9 +27,30 @@ map<TS_UINT64, ts_msg> CGraphicUserInfo::receiveMsg(const ts_msg& msg) {
         }
     } else {
         waitingList.insert(make_pair(gmsg->head.sequence, msg));
+        qDebug() << gmsg->head.UID << "recv:" << gmsg->head.subSeq << "wait for:" << lastShapeSeq + 1;
     }
     return result;
 }
+
+
+map<TS_UINT64, ts_msg> CGraphicScenes::receiveMsg(const ts_msg& msg) {
+    TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
+    DWORD sceneID = gmsg->SceneID;
+
+    if (sceneID == globalUID) {
+		gmsg->SceneID = sceneID = SelfUID;
+	} else if (sceneID == SelfUID) {
+        gmsg->SceneID = sceneID = gmsg->head.UID;
+	}
+
+    if (userInfos.find(sceneID) == userInfos.end()) {
+        CGraphicUserInfo user(gmsg->head.subSeq);
+        userInfos.insert(make_pair(sceneID, user));
+    }
+
+    return userInfos[sceneID].receiveMsg(msg);
+}
+
 
 CGraphicLogic::CGraphicLogic(CMsgObject *parent) :
     CBaseLogic(parent) {
@@ -48,8 +68,8 @@ bool CGraphicLogic::procMsg(const ts_msg& msg, bool isRemote) {
     TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
     TS_UINT64 uid = gmsg->head.UID;
     if (userInfo.find(uid) == userInfo.end()) {
-        CGraphicUserInfo user;
-        userInfo.insert(make_pair(uid, user));
+        CGraphicScenes scene;
+        userInfo.insert(make_pair(uid, scene));
     }
 
     auto sendMap = userInfo[uid].receiveMsg(msg);

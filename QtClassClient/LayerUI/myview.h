@@ -3,6 +3,7 @@
 
 #include <QGraphicsView>
 #include <QtWidgets>
+#include <QTimer>
 
 class MyView : public QGraphicsView
 {
@@ -18,6 +19,7 @@ public slots:
 
 private:
     bool isDeprecated;
+    QTimer panTimer;        // gesture -> move
 };
 
 #endif // MYVIEW_H

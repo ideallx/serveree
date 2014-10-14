@@ -23,11 +23,12 @@ CReliableConnection::CReliableConnection() :
 }
 
 CReliableConnection::~CReliableConnection() {
-	isRunning = false;
-    iop_usleep(10);
-
-	pthread_cancel(msgScan);
-	pthread_cancel(msgIn);
+    if (isRunning) {
+        isRunning = false;
+        iop_usleep(10);
+        pthread_cancel(msgScan);
+        pthread_cancel(msgIn);
+    }
 
 	CloseHandle(semMsg);
 	CloseHandle(semSave);
@@ -79,7 +80,7 @@ bool CReliableConnection::create(unsigned short localport) {
 int CReliableConnection::recv(char* buf, ULONG& len) {
 	int result = CHubConnection::recv(buf, len);
 	if (result <= 0)
-		return result;
+        return result;
 
 	ts_msg* msg = (ts_msg*) buf;
 	switch (getType(*msg)) {

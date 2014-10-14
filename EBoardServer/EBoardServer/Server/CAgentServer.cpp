@@ -107,13 +107,17 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;	// 进入班级成功，把服务器信息告诉客户端
 	down->result = SuccessEnterClass;
 	down->addr = *pServer->getServerAddr();							// server的地址加入到报文中
+
 	down->head.time = getServerTime();
 	down->head.UID = ServerUID;
+	down->head.size = sizeof(DOWN_AGENTSERVICE);
 	WriteOut(inputMsg);
 
 	cout << "Add User: " << user._uid << "into class" << user._classid << endl; 
 	map_userinfo.insert(make_pair(user._uid, user));
 	heartBeatTime.insert(make_pair(user._uid, down->head.time));
+
+	userLoginNotify(inputMsg, user._uid);
 	return true;
 }
 
@@ -125,12 +129,16 @@ void CAgentServer::leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 		pServer->removeUser(user._uid);
 	}
 	iop_unlock(&lockWorkServer);
+	
+	userLogoutNotify(inputMsg, user._uid);
 
 	DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;	// 退出班级成功，把服务器信息告诉客户端
 	down->result = SuccessLeaveClass;
 	down->addr = inputMsg.peeraddr;
 	down->addr.sin_port = htons(pServer->getPort());
 	down->head.UID = ServerUID;
+	down->head.size = sizeof(DOWN_AGENTSERVICE);
+
 	pServer->removePeer(user._uid);
 	cout << "user: " << user._uid << " removed" << endl;
 	map_userinfo.erase(user._uid);
@@ -142,6 +150,89 @@ void CAgentServer::leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 		}
 	}
 	WriteOut(inputMsg);
+}
+
+void CAgentServer::userLoginNotify(TS_PEER_MESSAGE& pmsg, TS_UINT64 uid) {
+	if (map_userinfo.count(uid) == 0) {
+		return;
+	}
+
+	CWSServer* pServer = map_workserver[map_userinfo[uid]._classid];
+	if (pServer == NULL) {
+		return;
+	}
+
+	map<TS_UINT64, CPeerConnection*>* allUsers = pServer->getPeers();
+	for (auto iter = allUsers->begin(); iter != allUsers->end(); iter++) {
+		if (iter->first != uid && iter->first != ServerUID) {		// 所有人收到新增用户信息
+			SERVER_CLASS_ADD_USER *down = (SERVER_CLASS_ADD_USER*) &pmsg.msg;
+			UserBase us = map_userinfo[uid];
+			down->enterUser.uid = uid;
+			down->enterUser.reserved = us._reserved;
+			down->enterUser.classid = us._classid;
+			down->enterUser.role = us._role;
+			memcpy(down->enterUser.username, us._username, 20);
+
+			down->head.UID = ServerUID;
+			down->head.sequence = 0;
+			down->head.type = ADDUSER;
+			down->head.size = sizeof(SERVER_CLASS_ADD_USER);
+			iter->second->send(pmsg.msg.Body, sizeof(SERVER_CLASS_ADD_USER));
+		} else {													// 新用户收到现有用户列表
+			SERVER_CLASS_USER_LIST *down = (SERVER_CLASS_USER_LIST*) &pmsg.msg;
+			int calc = 0;
+			for (auto iter2 = allUsers->begin(); iter2 != allUsers->end(); iter2++) {
+				if (iter2->first == uid)
+					continue;
+
+				if (calc == 10)
+					iter->second->send(pmsg.msg.Body, sizeof(SERVER_CLASS_USER_LIST));
+					
+				USER_INFO ui;
+				UserBase us = map_userinfo[iter2->first];
+				ui.uid = us._uid;
+				ui.classid = us._classid;
+				ui.reserved = us._reserved;
+				ui.role = us._role;
+				memcpy(ui.username, us._username, 20);
+
+				down->users[calc] = ui;
+				down->userNumberInMessage = ++calc;
+				down->head.type = USERLIST;
+				down->head.UID = ServerUID;
+				down->head.sequence = 0;
+				down->head.size = sizeof(SERVER_CLASS_USER_LIST);
+			}
+			if (calc != 0) {
+				iter->second->send(pmsg.msg.Body, sizeof(SERVER_CLASS_USER_LIST));
+			}
+		}
+	}
+}
+
+
+void CAgentServer::userLogoutNotify(TS_PEER_MESSAGE& pmsg, TS_UINT64 uid) {
+	if (map_userinfo.count(uid) == 0) {
+		return;
+	}
+
+	CWSServer* pServer = map_workserver[map_userinfo[uid]._classid];
+	if (pServer == NULL) {
+		return;
+	}
+	
+	map<TS_UINT64, CPeerConnection*>* allUsers = pServer->getPeers();
+	for (auto iter = allUsers->begin(); iter != allUsers->end(); iter++) {
+		if (iter->first != uid && iter->first != ServerUID) {
+			SERVER_CLASS_REMOVE_USER *down = (SERVER_CLASS_REMOVE_USER*) &pmsg.msg;
+			down->leaveUser = uid;
+			down->head.type = REMOVEUSER;
+			down->head.UID = ServerUID;
+			down->head.sequence = 0;
+			down->head.size = sizeof(SERVER_CLASS_REMOVE_USER);
+			iter->second->send(pmsg.msg.Body, sizeof(SERVER_CLASS_REMOVE_USER));
+		}
+	}
 }
 
 DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，加入退出班级等等
@@ -160,7 +251,7 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
 			memcpy(user._username, in->username, 20);
 			memcpy(user._password, in->password, 20);
 			
-			enterClass(inputMsg, user);							// 处理进入班级请求，并回复
+			enterClass(inputMsg, user);									// 处理进入班级请求，并回复
 			break;
 		}
 	case LEAVECLASS:

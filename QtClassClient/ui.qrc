@@ -1,0 +1,41 @@
+<RCC>
+    <qresource prefix="/back">
+        <file>ui/back/blue.png</file>
+        <file>ui/back/combox.png</file>
+        <file>ui/back/combox2.png</file>
+        <file>ui/back/grey.png</file>
+        <file>ui/back/line.png</file>
+        <file>ui/back/orange1.png</file>
+        <file>ui/back/orange2.png</file>
+        <file>ui/back/pink.png</file>
+        <file>ui/back/yellow.png</file>
+        <file>ui/back/background.png</file>
+    </qresource>
+    <qresource prefix="/icon">
+        <file>ui/icon/back ground.png</file>
+        <file>ui/icon/brush.png</file>
+        <file>ui/icon/courseware.png</file>
+        <file>ui/icon/eraser.png</file>
+        <file>ui/icon/exit.png</file>
+        <file>ui/icon/logo.png</file>
+        <file>ui/icon/manage.png</file>
+        <file>ui/icon/my board.png</file>
+        <file>ui/icon/my class.png</file>
+        <file>ui/icon/password.png</file>
+        <file>ui/icon/platte.png</file>
+        <file>ui/icon/shape.png</file>
+        <file>ui/icon/teacher board.png</file>
+        <file>ui/icon/user.png</file>
+        <file>ui/icon/username.png</file>
+        <file>ui/icon/shapeEllipse.png</file>
+        <file>ui/icon/shapeHexagon.png</file>
+        <file>ui/icon/shapeLine.png</file>
+        <file>ui/icon/shapeRectangle.png</file>
+        <file>ui/icon/shapeRoundRectangle.png</file>
+        <file>ui/icon/shapeScript.png</file>
+    </qresource>
+    <qresource prefix="/word">
+        <file>ui/word/enterclass.png</file>
+        <file>ui/word/leaveclass.png</file>
+    </qresource>
+</RCC>

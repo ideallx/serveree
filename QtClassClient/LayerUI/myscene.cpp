@@ -15,11 +15,21 @@ MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent) :
     drawingType(SCRIPTS),
     msgParent(msgParent),
     toolChanged(false) {
-
+    panFixer.setSingleShot(true);
+    panFixer2.setSingleShot(true);
     setSceneRect(0, 0, 5000, 5000);
+    connect(&panFixer, &QTimer::timeout,
+            this, &MyScene::sendMoveBegin);
 }
 
 void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
+//    if (panFixer2.isActive()) {
+//        hasNewMove = false;
+//        return;
+//    } else if (panFixer.isActive()) {
+//        hasNewMove = true;
+//        return;
+//    }
     TS_GRAPHIC_PACKET gmsg;
     gmc->generateGraphicsData(gmsg, event->scenePos(), false);
     actMove(gmsg);
@@ -27,19 +37,36 @@ void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    TS_GRAPHIC_PACKET gmsg;
+//    panFixer.start(100);
+//    panFixer2.start(50);
+    cachePressEvent(event);
+    sendMoveBegin();
+}
 
+void MyScene::cachePressEvent(QGraphicsSceneMouseEvent *event) {
     if (toolChanged) {
         qDebug() << "changed";
-        gmc->generatePenBrushData(gmsg, pen, brush);
-        msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
+        gmc->generatePenBrushData(gmsgCache, pen, brush);
+        msgParent->ProcessMessage(*(ts_msg*) &gmsgCache, 0, 0, false);
         toolChanged = false;
     }
+    lastBeginPos = event->scenePos();
+}
 
-    gmc->create(drawingType, event->scenePos());
-    gmc->generateGraphicsData(gmsg, event->scenePos(), false);
-    actMoveBegin(gmsg);
-    msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
+void MyScene::sendMoveBegin() {
+//    if (!hasNewMove)
+//        return;
+
+    gmc->create(drawingType, lastBeginPos);
+    gmc->generateGraphicsData(gmsgCache, lastBeginPos, false);
+    actMoveBegin(gmsgCache);
+    msgParent->ProcessMessage(*(ts_msg*) &gmsgCache, 0, 0, false);
+}
+
+void MyScene::revocation() {
+    if (items().size() != 0) {
+        removeItem(items().first());
+    }
 }
 
 void MyScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
@@ -77,7 +104,6 @@ void MyScene::actMove(TS_GRAPHIC_PACKET &graphicMsg) {
 	if (NULL == lastItem)
 		return;
     lastItem->setCurPos(scenePos);
-    lastItems.insert(graphicMsg.head.UID, lastItem);
 
     updateCounter++;
     if (updateCounter % 10)
@@ -119,7 +145,6 @@ void MyScene::setOthersPenBrush(TS_GRAPHIC_PACKET& graphicMsg) {
             graphicMsg.penbrush.brushB == 0)
         b = Qt::NoBrush;
     toolsMap.insert(uid, QPair<QPen, QBrush> (p, b));
-    qDebug() << "set pen and brush";
 }
 
 void MyScene::cls() {
@@ -129,25 +154,9 @@ void MyScene::cls() {
         clear();
         msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
         update();
-        qDebug() << "clear";
     }
 }
 
 void MyScene::changeShapeByUI(int shape) {
-    switch (shape) {
-    case 0:
-        drawingType = SCRIPTS;
-        break;
-    case 1:
-        drawingType = LINE;
-        break;
-    case 2:
-        drawingType = RECTANGLE;
-        break;
-    case 3:
-        drawingType = ELLIPSE;
-        break;
-    default:
-        break;
-    }
+    drawingType = shape;
 }

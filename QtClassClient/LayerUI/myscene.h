@@ -6,6 +6,7 @@
 #include <QGraphicsScene>
 #include <QMap>
 #include <QMutex>
+#include <QTimer>
 #include "cgraphicmsgcreator.h"
 
 #include "../Message/CMsgObject.h"
@@ -49,12 +50,27 @@ public slots:
 
     void cls();
 
+    void sendMoveBegin();
+
+    void revocation();
+
+signals:
+    void sceneMoved();
+
 private:
+    void cachePressEvent(QGraphicsSceneMouseEvent *event);
+
+    TS_GRAPHIC_PACKET gmsgCache;
+    bool hasNewMove;
+    QPointF lastBeginPos;
+
     CMsgObject* msgParent;
     CGraphicMsgCreator* gmc;
     QMap<TS_UINT64, CShape*> lastItems;
     QMap<TS_UINT64, QPair<QPen, QBrush> > toolsMap;
     QMutex mutex;
+    QTimer panFixer;    // delete the useless pangesture track
+    QTimer panFixer2;
 
     DWORD sceneID;
     bool toolChanged;   // is pen or brush changed

@@ -9,6 +9,7 @@ CClientNet::CClientNet() :
     QTime time = QTime::currentTime();
     qsrand(time.msec()+time.second()*1000);
     m_uid = qrand();
+    globalUID = m_uid;
 
 	m_Connect = dynamic_cast<CReliableConnection*> (pConnect);
     m_Connect->setUID(m_uid);
@@ -36,6 +37,7 @@ bool CClientNet::Start(unsigned short port) {
 
 DWORD CClientNet::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSClient
     TS_UINT64 uid = getUid(inputMsg.msg);
+    TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &inputMsg.msg;
     if ((uid == m_uid) || uid == SelfUID) {
         return 0;
     }

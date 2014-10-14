@@ -46,12 +46,12 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{0c1d3fa1-f40c-4ab3-a1ce-eb0b0f96268d}</UniqueIdentifier>
+      <UniqueIdentifier>{4cb51cc5-a658-45f4-934b-548db6a2ace7}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{6efbc0d2-fa19-4c66-885e-d80659eb1762}</UniqueIdentifier>
+      <UniqueIdentifier>{df772c40-8ae3-4729-a25e-6843069962c2}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -138,19 +138,28 @@
     <ClCompile Include="Reliable\Strategy\CWriteFileStrategy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\IpAddressWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LayerUI\cgraphicmsgcreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Reliable\OSInedependent\pthread\cleanup.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\colorcombox.cpp">
+    <ClCompile Include="UserInterface\cloginbutton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInterface\colorcombox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInterface\csettingsbutton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cshape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInterface\cshapechooser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInterface\cuserlistwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Reliable\OSInedependent\pthread\global.c">
@@ -168,7 +177,7 @@
     <ClCompile Include="Reliable\Zip\iowin32.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\linewidthcombox.cpp">
+    <ClCompile Include="UserInterface\linewidthcombox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -285,9 +294,6 @@
     <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_tkAssocDestroy.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\qeclass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Reliable\OSInedependent\pthread\sched_get_priority_max.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -318,16 +324,34 @@
     <ClCompile Include="Reliable\Zip\zip.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Release\moc_IpAddressWidget.cpp">
+    <ClCompile Include="Release\moc_cloginbutton.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_IpAddressWidget.cpp">
+    <ClCompile Include="Debug\moc_cloginbutton.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_colorcombox.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_colorcombox.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_csettingsbutton.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_csettingsbutton.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_cshapechooser.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_cshapechooser.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_cuserlistwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_cuserlistwidget.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_linewidthcombox.cpp">
@@ -354,13 +378,7 @@
     <ClCompile Include="Debug\moc_myview.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="Release\moc_qeclass.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_qeclass.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\qrc_application.cpp">
+    <ClCompile Include="GeneratedFiles\qrc_ui.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -449,9 +467,6 @@
     <ClInclude Include="Reliable\Strategy\CWriteFileStrategy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="LayerUI\IpAddressWidget.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <ClInclude Include="Reliable\DataStructure\Pool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -464,7 +479,10 @@
     <ClInclude Include="LayerUI\cgraphicmsgcreator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="LayerUI\colorcombox.h">
+    <CustomBuild Include="UserInterface\cloginbutton.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="UserInterface\colorcombox.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <ClInclude Include="Reliable\OSInedependent\pthread\config.h">
@@ -476,9 +494,18 @@
     <ClInclude Include="Reliable\Zip\crypt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="UserInterface\csettingsbutton.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="cshape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="UserInterface\cshapechooser.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="UserInterface\cuserlistwidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="Reliable\OSInedependent\pthread\implement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -497,7 +524,7 @@
     <ClInclude Include="Reliable\Zip\iowin32.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="LayerUI\linewidthcombox.h">
+    <CustomBuild Include="UserInterface\linewidthcombox.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="LayerUI\mainwindow.h">
@@ -518,9 +545,6 @@
     <ClInclude Include="Reliable\OSInedependent\pthread\pthread.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="LayerUI\qeclass.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <ClInclude Include="Reliable\OSInedependent\pthread\sched.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -542,359 +566,143 @@
     <ClInclude Include="Reliable\Zip\zlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_loginwidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_qeclass.h">
+    <ClInclude Include="GeneratedFiles\ui_settingwidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="loginwidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="mainwindow.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="qeclass.ui">
+    <CustomBuild Include="settingwidget.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="EClassPic\1.png">
+    <None Include="ui\icon\back">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\10.png">
+    <None Include="ui\back\blue.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\11.png">
+    <None Include="board.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\12.png">
+    <None Include="ui\icon\brush.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\13.png">
+    <None Include="class.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\14.png">
+    <None Include="ui\back\combox.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\15.png">
+    <None Include="ui\back\combox2.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\16.png">
+    <None Include="ui\icon\courseware.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\17.png">
+    <None Include="ui\word\enterclass.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\18.png">
+    <None Include="ui\icon\eraser.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\19.png">
+    <None Include="ui\icon\exit.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_1.png">
+    <None Include="ui\back\grey.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_10.png">
+    <None Include="ground.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_11.png">
+    <None Include="ui\word\leaveclass.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_12.png">
+    <None Include="ui\back\line.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_13.png">
+    <None Include="ui\icon\logo.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_14.png">
+    <None Include="ui\icon\manage.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_15.png">
+    <None Include="ui\icon\my">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_16.png">
+    <None Include="ui\back\orange1.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_17.png">
+    <None Include="ui\back\orange2.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_18.png">
+    <None Include="ui\icon\password.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_19.png">
+    <None Include="ui\back\pink.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_2.png">
+    <None Include="ui\icon\platte.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_20.png">
+    <None Include="ui\icon\shape.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_3.png">
+    <None Include="ui\icon\shapeEllipse.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_4.png">
+    <None Include="ui\icon\shapeHexagon.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_5.png">
+    <None Include="ui\icon\shapeLine.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_6.png">
+    <None Include="ui\icon\shapeRectangle.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_7.png">
+    <None Include="ui\icon\shapeRoundRectangle.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_8.png">
+    <None Include="ui\icon\shapeScript.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\1_9.png">
+    <None Include="ui\icon\teacher">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\2.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\20.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\3.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\4.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\5.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\6.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\7.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\8.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\9.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\QQ.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <CustomBuild Include="application.qrc">
+    <CustomBuild Include="ui.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <None Include="EClassPic\back1.jpg">
+    <None Include="ui\icon\user.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\back10.jpg">
+    <None Include="ui\icon\username.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\back11.jpg">
+    <None Include="ui\back\yellow.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\back12.jpg">
+    <None Include="ui\icon\back ground.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\back2.jpg">
+    <None Include="ui\icon\my board.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\back3.jpg">
+    <None Include="ui\icon\my class.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="EClassPic\back4.jpg">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\back5.jpg">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\back6.jpg">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\back7.jpg">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\back8.jpg">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\back9.jpg">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\bizhi-1654-4844.jpg">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\brushcolor1.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\brushcolor2.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\clearscreen1.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\clearscreen2.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\close.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\close_disable.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\close_mouseclick.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\close_mousemove.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\ellipse.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\ellipse_mouseclick.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\enterclass1.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\enterclass2.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\exit.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\exit1.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\exit2.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\game_gamewall_297823_18.jpg">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\heilimao.jpg">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\kejihuawenbeijingbizhi_364389_18.jpg">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\leaveclass1.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\leaveclass2.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\line.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\line_mouseclick.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\login.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\login_background.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\login_mouseclick.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\login_mousemove.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\logo.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\main_background.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\max.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\max_mouseclick.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\max_mousemove.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\middle.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\min.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\min_disable.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\min_mouseclick.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\min_mousemove.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\next.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\next_mouse_click.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\pencolor1.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\pencolor2.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\penwidth1.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\penwidth2.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\pixal1.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\pixal3.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\pixal5.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\pixal8.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\poly.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\poly_mouseclick.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\prevs.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\prevs_mouse_click.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\rectangle.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\rectangle_mouseclick.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\save.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\shape.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\stripe.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\stripe_mouse_click.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\thick.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="EClassPic\thin.png">
+    <None Include="ui\icon\teacher board.png">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

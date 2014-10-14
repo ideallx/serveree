@@ -96,10 +96,12 @@ SOURCES  += main.cpp\
     LayerUI/cgraphicmsgcreator.cpp \
     BizLogic/CGraphicLogic.cpp \
     cshape.cpp \
-    LayerUI/colorcombox.cpp \
-    LayerUI/linewidthcombox.cpp \
-    LayerUI/IpAddressWidget.cpp \
-    LayerUI/qeclass.cpp
+    UserInterface/cloginbutton.cpp \
+    UserInterface/csettingsbutton.cpp \
+    UserInterface/cuserlistwidget.cpp \
+    UserInterface/linewidthcombox.cpp \
+    UserInterface/cshapechooser.cpp \
+    UserInterface/colorcombox.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
             LayerUI\myscene.h \
@@ -156,13 +158,17 @@ HEADERS  += LayerUI\mainwindow.h \
     LayerUI/cgraphicmsgcreator.h \
     BizLogic/CGraphicLogic.h \
     cshape.h \
-    LayerUI/colorcombox.h \
-    LayerUI/linewidthcombox.h \
-    LayerUI/IpAddressWidget.h \
-    LayerUI/qeclass.h
+    UserInterface/cloginbutton.h \
+    UserInterface/csettingsbutton.h \
+    UserInterface/cuserlistwidget.h \
+    UserInterface/linewidthcombox.h \
+    UserInterface/cshapechooser.h \
+    UserInterface/colorcombox.h
 
-FORMS    += mainwindow.ui \
-    qeclass.ui
+FORMS    += \
+    loginwidget.ui \
+    mainwindow.ui \
+    settingwidget.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += include
@@ -170,7 +176,7 @@ INCLUDEPATH += LayerUI
 INCLUDEPATH += BizLogic
 INCLUDEPATH += Message
 INCLUDEPATH += Net
-
+INCLUDEPATH += UserInterface
 INCLUDEPATH += Reliable/Zip
 INCLUDEPATH += Reliable/DataUnit
 INCLUDEPATH += Reliable/OSInedependent/pthread
@@ -182,4 +188,4 @@ OTHER_FILES += \
     Reliable/Zip/zlib1.dll
 
 RESOURCES += \
-    application.qrc
+    ui.qrc

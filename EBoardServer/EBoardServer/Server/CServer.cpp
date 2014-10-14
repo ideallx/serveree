@@ -168,7 +168,7 @@ void CServer::sendProc() {
 		ReadOut(pmsg);
 		pPeerConn->setPeer(pmsg.peeraddr);
 		cout << "port:" << pPeerConn->getPeer()->sin_port << endl;
-		pPeerConn->send(pmsg.msg.Body, sizeof(ts_msg));
+		cout << pPeerConn->send(pmsg.msg.Body, packetSize(pmsg.msg)) << endl;
 	}
 }
 

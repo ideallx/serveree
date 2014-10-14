@@ -2,12 +2,13 @@
 
 MyView::MyView(QWidget *parent) :
     QGraphicsView(parent) {
-    setRenderHint(QPainter::Antialiasing);
+    //setRenderHint(QPainter::Antialiasing);
     viewport()->setAttribute(Qt::WA_AcceptTouchEvents);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    qApp->setAttribute(Qt::AA_SynthesizeMouseForUnhandledTouchEvents, false);
     isDeprecated = false;
+    panTimer.setSingleShot(true);
+    viewport()->setBaseSize(QSize(5000, 5000));
 }
 
 bool MyView::viewportEvent(QEvent *event) {
@@ -17,22 +18,19 @@ bool MyView::viewportEvent(QEvent *event) {
         QGestureEvent* ge = static_cast<QGestureEvent*> (event);
         if (QGesture *pan = ge->gesture(Qt::PanGesture)) {
             QPanGesture *pg = static_cast<QPanGesture*> (pan);
-            horizontalScrollBar()->setValue(horizontalScrollBar()->value() - pg->delta().x());
-            verticalScrollBar()->setValue(verticalScrollBar()->value() - pg->delta().y());
-            if (scene()->items().size() != 0 && isDeprecated) {     // delete recently added shape
-                scene()->removeItem(scene()->items().first());      // the shape(track of swipe) is redundant
-                isDeprecated = false;                               // still little problem
-            }
+//            viewport()->move(pg->delta().toPoint() + viewport()->pos());
+//            panTimer.start(100);
         }
         return true;
     }
-    case QEvent::MouseButtonPress:
-        isDeprecated = true;
-        break;
-    case QEvent::MouseButtonRelease:
-    case QEvent::TouchEnd:
-        isDeprecated = false;
-        break;
+//    case QEvent::MouseButtonPress:
+//    case QEvent::TouchBegin:
+//    case QEvent::MouseMove:
+//    case QEvent::TouchUpdate:
+//    case QEvent::MouseButtonRelease:
+//    case QEvent::TouchEnd:
+//        if (panTimer.isActive())
+//            return true;
     default:
         break;
     }

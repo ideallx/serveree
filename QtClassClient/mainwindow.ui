@@ -2,448 +2,736 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="windowModality">
-   <enum>Qt::WindowModal</enum>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1027</width>
-    <height>811</height>
+    <width>1042</width>
+    <height>700</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1042</width>
+    <height>700</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1042</width>
+    <height>510</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <property name="windowIcon">
-   <iconset resource="application.qrc">
-    <normaloff>:/EClassPic/logo.png</normaloff>:/EClassPic/logo.png</iconset>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">background-color: rgb(42, 41, 57);</string>
-  </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
-     <widget class="QListWidget" name="listWidget">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="maximumSize">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="minimumSize">
        <size>
-        <width>200</width>
-        <height>16777215</height>
+        <width>1024</width>
+        <height>75</height>
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(240, 240, 240);</string>
+       <string notr="true">QGroupBox {
+	border-image: url(:/back/ui/back/orange1.png);
+}
+Line {
+	background-image: url(:/back/ui/back/line.png);
+}
+</string>
       </property>
-      <item>
-       <property name="text">
-        <string>------Online-------</string>
+      <property name="title">
+       <string/>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>1</number>
        </property>
-       <property name="flags">
-        <set>ItemIsUserCheckable|ItemIsEnabled</set>
+       <property name="leftMargin">
+        <number>9</number>
        </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Student1</string>
+       <property name="topMargin">
+        <number>0</number>
        </property>
-       <property name="icon">
-        <iconset resource="application.qrc">
-         <normaloff>:/EClassPic/EClassPic/QQ.png</normaloff>:/EClassPic/EClassPic/QQ.png</iconset>
+       <property name="rightMargin">
+        <number>0</number>
        </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Student2</string>
+       <property name="bottomMargin">
+        <number>0</number>
        </property>
-       <property name="icon">
-        <iconset resource="application.qrc">
-         <normaloff>:/EClassPic/EClassPic/QQ.png</normaloff>:/EClassPic/EClassPic/QQ.png</iconset>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Student3</string>
-       </property>
-       <property name="icon">
-        <iconset resource="application.qrc">
-         <normaloff>:/EClassPic/EClassPic/QQ.png</normaloff>:/EClassPic/EClassPic/QQ.png</iconset>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Student4</string>
-       </property>
-       <property name="icon">
-        <iconset resource="application.qrc">
-         <normaloff>:/EClassPic/EClassPic/QQ.png</normaloff>:/EClassPic/EClassPic/QQ.png</iconset>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Student5</string>
-       </property>
-       <property name="icon">
-        <iconset resource="application.qrc">
-         <normaloff>:/EClassPic/EClassPic/QQ.png</normaloff>:/EClassPic/EClassPic/QQ.png</iconset>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>------Offline-------</string>
-       </property>
-       <property name="flags">
-        <set>ItemIsUserCheckable|ItemIsEnabled</set>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Student6</string>
-       </property>
-       <property name="icon">
-        <iconset resource="application.qrc">
-         <normaloff>:/EClassPic/EClassPic/QQ.png</normaloff>:/EClassPic/EClassPic/QQ.png</iconset>
-       </property>
-      </item>
+       <item>
+        <widget class="QLabel" name="lbLogo">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="ui.qrc">:/icon/ui/icon/logo.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="tbCourseWare">
+         <property name="minimumSize">
+          <size>
+           <width>70</width>
+           <height>70</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>75</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>教师课件</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ui.qrc">
+           <normaloff>:/icon/ui/icon/courseware.png</normaloff>:/icon/ui/icon/courseware.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="tbTeacherBoard">
+         <property name="minimumSize">
+          <size>
+           <width>70</width>
+           <height>70</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>75</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>教师白板</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ui.qrc">
+           <normaloff>:/icon/ui/icon/teacher board.png</normaloff>:/icon/ui/icon/teacher board.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="tbMyBoard">
+         <property name="minimumSize">
+          <size>
+           <width>70</width>
+           <height>70</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>75</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>我的白板</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ui.qrc">
+           <normaloff>:/icon/ui/icon/my board.png</normaloff>:/icon/ui/icon/my board.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_8">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="tbMyClass">
+         <property name="minimumSize">
+          <size>
+           <width>70</width>
+           <height>70</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>75</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>我的班级</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ui.qrc">
+           <normaloff>:/icon/ui/icon/my class.png</normaloff>:/icon/ui/icon/my class.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_7">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="LineWidthCombox" name="tbBrush">
+         <property name="minimumSize">
+          <size>
+           <width>70</width>
+           <height>70</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>75</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>画笔</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ui.qrc">
+           <normaloff>:/icon/ui/icon/brush.png</normaloff>:/icon/ui/icon/brush.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="CShapeChooser" name="tbShape">
+         <property name="minimumSize">
+          <size>
+           <width>70</width>
+           <height>70</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>75</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>图形</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ui.qrc">
+           <normaloff>:/icon/ui/icon/shape.png</normaloff>:/icon/ui/icon/shape.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_6">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="tbEraser">
+         <property name="minimumSize">
+          <size>
+           <width>70</width>
+           <height>70</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>75</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>橡皮擦</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ui.qrc">
+           <normaloff>:/icon/ui/icon/eraser.png</normaloff>:/icon/ui/icon/eraser.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_5">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="ColorCombox" name="tbPalette">
+         <property name="minimumSize">
+          <size>
+           <width>70</width>
+           <height>70</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>75</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>调色板</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ui.qrc">
+           <normaloff>:/icon/ui/icon/platte.png</normaloff>:/icon/ui/icon/platte.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_9">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="tbBackground">
+         <property name="minimumSize">
+          <size>
+           <width>70</width>
+           <height>70</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>75</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>背景类型</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ui.qrc">
+           <normaloff>:/icon/ui/icon/back ground.png</normaloff>:/icon/ui/icon/back ground.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_10">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="CLoginButton" name="tbLogin">
+         <property name="minimumSize">
+          <size>
+           <width>70</width>
+           <height>70</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>75</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>登录</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ui.qrc">
+           <normaloff>:/icon/ui/icon/user.png</normaloff>:/icon/ui/icon/user.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_11">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="CSettingsButton" name="tbSettings">
+         <property name="minimumSize">
+          <size>
+           <width>30</width>
+           <height>70</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>30</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="ui.qrc">
+           <normaloff>:/icon/ui/icon/manage.png</normaloff>:/icon/ui/icon/manage.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonIconOnly</enum>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item>
        <widget class="MyView" name="graphicsView">
         <property name="cursor" stdset="0">
-         <cursorShape>CrossCursor</cursorShape>
+         <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="styleSheet">
-         <string notr="true">border-image: url(:/EClassPic/EClassPic/back3.jpg);</string>
+         <string notr="true">border-image: url(:/back/ui/back/background.png);</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label">
-        <property name="font">
-         <font>
-          <family>Aharoni</family>
-          <pointsize>12</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: rgb(133, 233, 255);
-color: rgb(222, 222, 222);</string>
+         <string notr="true">background-color: rgb(31, 40, 49);</string>
         </property>
-        <property name="text">
-         <string>我的画板</string>
+        <property name="title">
+         <string/>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QScrollArea" name="scrollArea">
-        <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarAlwaysOff</enum>
-        </property>
-        <property name="widgetResizable">
-         <bool>true</bool>
-        </property>
-        <widget class="QWidget" name="scrollAreaWidgetContents">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>799</width>
-           <height>325</height>
-          </rect>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="spacing">
+          <number>6</number>
          </property>
-        </widget>
+         <property name="leftMargin">
+          <number>1</number>
+         </property>
+         <property name="topMargin">
+          <number>9</number>
+         </property>
+         <property name="rightMargin">
+          <number>1</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QToolButton" name="btClassInfo">
+           <property name="font">
+            <font>
+             <family>Aharoni</family>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(82, 90, 93);</string>
+           </property>
+           <property name="text">
+            <string>         CONTACT LIST                  X    </string>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextBesideIcon</enum>
+           </property>
+           <property name="autoRaise">
+            <bool>true</bool>
+           </property>
+           <property name="arrowType">
+            <enum>Qt::NoArrow</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="CUserListWidget" name="listWidget">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(27, 36, 45);</string>
+           </property>
+           <property name="sizeAdjustPolicy">
+            <enum>QAbstractScrollArea::AdjustIgnored</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QComboBox" name="comboBox">
-          <property name="styleSheet">
-           <string notr="true">color: rgb(222, 222, 222);</string>
-          </property>
-          <property name="currentText">
-           <string>Scripts</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>100</width>
-            <height>30</height>
-           </size>
-          </property>
-          <item>
-           <property name="text">
-            <string>Scripts</string>
-           </property>
-           <property name="icon">
-            <iconset resource="application.qrc">
-             <normaloff>:/EClassPic/EClassPic/poly.png</normaloff>:/EClassPic/EClassPic/poly.png</iconset>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Line</string>
-           </property>
-           <property name="icon">
-            <iconset resource="application.qrc">
-             <normaloff>:/EClassPic/EClassPic/line.png</normaloff>:/EClassPic/EClassPic/line.png</iconset>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Rectangle</string>
-           </property>
-           <property name="icon">
-            <iconset resource="application.qrc">
-             <normaloff>:/EClassPic/EClassPic/rectangle.png</normaloff>:/EClassPic/EClassPic/rectangle.png</iconset>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Ellipse</string>
-           </property>
-           <property name="icon">
-            <iconset resource="application.qrc">
-             <normaloff>:/EClassPic/EClassPic/ellipse.png</normaloff>:/EClassPic/EClassPic/ellipse.png</iconset>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="LineWidthCombox" name="comboxPenWidth">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>105</width>
-            <height>32</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>105</width>
-            <height>32</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-image: url(:/EClassPic/EClassPic/penwidth1.png);</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="ColorCombox" name="ComboxPenColor">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>105</width>
-            <height>32</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>105</width>
-            <height>32</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-image: url(:/EClassPic/EClassPic/pencolor1.png);</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_3">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="ColorCombox" name="ComboxBrushColor">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>105</width>
-            <height>32</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>105</width>
-            <height>32</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-image: url(:/EClassPic/EClassPic/brushcolor1.png);</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </item>
      </layout>
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QToolBar" name="mainToolBar">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="movable">
-    <bool>false</bool>
-   </property>
-   <property name="allowedAreas">
-    <set>Qt::NoToolBarArea</set>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>120</width>
-     <height>30</height>
-    </size>
-   </property>
-   <property name="floatable">
-    <bool>false</bool>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-   <addaction name="actionEnterClass"/>
-   <addaction name="actionLeaveClass"/>
-   <addaction name="separator"/>
-   <addaction name="actionClearScreen"/>
-   <addaction name="separator"/>
-   <addaction name="actionExit"/>
-  </widget>
-  <action name="actionEnterClass">
-   <property name="icon">
-    <iconset resource="application.qrc">
-     <normaloff>:/EClassPic/EClassPic/enterclass1.png</normaloff>:/EClassPic/EClassPic/enterclass1.png</iconset>
-   </property>
-   <property name="text">
-    <string>EnterClass</string>
-   </property>
-  </action>
-  <action name="actionLeaveClass">
-   <property name="icon">
-    <iconset resource="application.qrc">
-     <normaloff>:/EClassPic/EClassPic/leaveclass1.png</normaloff>:/EClassPic/EClassPic/leaveclass1.png</iconset>
-   </property>
-   <property name="text">
-    <string>LeaveClass</string>
-   </property>
-   <property name="visible">
-    <bool>false</bool>
-   </property>
-  </action>
-  <action name="actionClearScreen">
-   <property name="icon">
-    <iconset resource="application.qrc">
-     <normaloff>:/EClassPic/EClassPic/clearscreen1.png</normaloff>:/EClassPic/EClassPic/clearscreen1.png</iconset>
-   </property>
-   <property name="text">
-    <string>ClearScreen</string>
-   </property>
-  </action>
-  <action name="actionExit">
-   <property name="icon">
-    <iconset resource="application.qrc">
-     <normaloff>:/EClassPic/EClassPic/exit.png</normaloff>:/EClassPic/EClassPic/exit.png</iconset>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
+  <customwidget>
+   <class>LineWidthCombox</class>
+   <extends>QToolButton</extends>
+   <header>linewidthcombox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CLoginButton</class>
+   <extends>QToolButton</extends>
+   <header>cloginbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CSettingsButton</class>
+   <extends>QToolButton</extends>
+   <header>csettingsbutton.h</header>
+  </customwidget>
   <customwidget>
    <class>MyView</class>
    <extends>QGraphicsView</extends>
    <header>myview.h</header>
   </customwidget>
   <customwidget>
+   <class>CUserListWidget</class>
+   <extends>QListWidget</extends>
+   <header>cuserlistwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CShapeChooser</class>
+   <extends>QToolButton</extends>
+   <header>cshapechooser.h</header>
+  </customwidget>
+  <customwidget>
    <class>ColorCombox</class>
    <extends>QToolButton</extends>
    <header>colorcombox.h</header>
   </customwidget>
-  <customwidget>
-   <class>LineWidthCombox</class>
-   <extends>QToolButton</extends>
-   <header>linewidthcombox.h</header>
-  </customwidget>
  </customwidgets>
  <resources>
-  <include location="application.qrc"/>
+  <include location="ui.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -41,6 +41,8 @@ public:
 	void addUser(TS_UINT64 UID);
 	void removeUser(TS_UINT64 uid);
 
+	map<TS_UINT64, CPeerConnection*>* getPeers() const { return conn->getPeerHub(); }
+
 	// workserverµÄclientsÊÇ·ñÎª¿Õ
 	bool isEmpty();
 

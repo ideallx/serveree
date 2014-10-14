@@ -13,19 +13,20 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QComboBox>
+#include <QtWidgets/QFrame>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QScrollArea>
-#include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QStatusBar>
-#include <QtWidgets/QToolBar>
+#include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "cloginbutton.h"
 #include "colorcombox.h"
+#include "csettingsbutton.h"
+#include "cshapechooser.h"
+#include "cuserlistwidget.h"
 #include "linewidthcombox.h"
 #include "myview.h"
 
@@ -34,226 +35,370 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QAction *actionEnterClass;
-    QAction *actionLeaveClass;
-    QAction *actionClearScreen;
-    QAction *actionExit;
     QWidget *centralWidget;
-    QHBoxLayout *horizontalLayout_2;
-    QListWidget *listWidget;
-    QVBoxLayout *verticalLayout;
-    MyView *graphicsView;
-    QLabel *label;
-    QScrollArea *scrollArea;
-    QWidget *scrollAreaWidgetContents;
+    QVBoxLayout *verticalLayout_2;
+    QGroupBox *groupBox;
     QHBoxLayout *horizontalLayout;
-    QComboBox *comboBox;
-    QSpacerItem *horizontalSpacer;
-    LineWidthCombox *comboxPenWidth;
-    QSpacerItem *horizontalSpacer_2;
-    ColorCombox *ComboxPenColor;
-    QSpacerItem *horizontalSpacer_3;
-    ColorCombox *ComboxBrushColor;
-    QStatusBar *statusBar;
-    QToolBar *mainToolBar;
+    QLabel *lbLogo;
+    QFrame *line;
+    QToolButton *tbCourseWare;
+    QFrame *line_2;
+    QToolButton *tbTeacherBoard;
+    QFrame *line_3;
+    QToolButton *tbMyBoard;
+    QFrame *line_8;
+    QToolButton *tbMyClass;
+    QFrame *line_7;
+    LineWidthCombox *tbBrush;
+    QFrame *line_4;
+    CShapeChooser *tbShape;
+    QFrame *line_6;
+    QToolButton *tbEraser;
+    QFrame *line_5;
+    ColorCombox *tbPalette;
+    QFrame *line_9;
+    QToolButton *tbBackground;
+    QFrame *line_10;
+    CLoginButton *tbLogin;
+    QFrame *line_11;
+    CSettingsButton *tbSettings;
+    QHBoxLayout *horizontalLayout_2;
+    MyView *graphicsView;
+    QGroupBox *groupBox_2;
+    QVBoxLayout *verticalLayout;
+    QToolButton *btClassInfo;
+    CUserListWidget *listWidget;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->setWindowModality(Qt::WindowModal);
-        MainWindow->resize(1027, 811);
-        QIcon icon;
-        icon.addFile(QStringLiteral(":/EClassPic/logo.png"), QSize(), QIcon::Normal, QIcon::Off);
-        MainWindow->setWindowIcon(icon);
-        MainWindow->setStyleSheet(QStringLiteral("background-color: rgb(42, 41, 57);"));
-        actionEnterClass = new QAction(MainWindow);
-        actionEnterClass->setObjectName(QStringLiteral("actionEnterClass"));
-        QIcon icon1;
-        icon1.addFile(QStringLiteral(":/EClassPic/EClassPic/enterclass1.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionEnterClass->setIcon(icon1);
-        actionLeaveClass = new QAction(MainWindow);
-        actionLeaveClass->setObjectName(QStringLiteral("actionLeaveClass"));
-        QIcon icon2;
-        icon2.addFile(QStringLiteral(":/EClassPic/EClassPic/leaveclass1.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionLeaveClass->setIcon(icon2);
-        actionLeaveClass->setVisible(false);
-        actionClearScreen = new QAction(MainWindow);
-        actionClearScreen->setObjectName(QStringLiteral("actionClearScreen"));
-        QIcon icon3;
-        icon3.addFile(QStringLiteral(":/EClassPic/EClassPic/clearscreen1.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionClearScreen->setIcon(icon3);
-        actionExit = new QAction(MainWindow);
-        actionExit->setObjectName(QStringLiteral("actionExit"));
-        QIcon icon4;
-        icon4.addFile(QStringLiteral(":/EClassPic/EClassPic/exit.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionExit->setIcon(icon4);
-        centralWidget = new QWidget(MainWindow);
-        centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        horizontalLayout_2 = new QHBoxLayout(centralWidget);
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        listWidget = new QListWidget(centralWidget);
-        QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(listWidget);
-        __qlistwidgetitem->setFlags(Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
-        QIcon icon5;
-        icon5.addFile(QStringLiteral(":/EClassPic/EClassPic/QQ.png"), QSize(), QIcon::Normal, QIcon::Off);
-        QListWidgetItem *__qlistwidgetitem1 = new QListWidgetItem(listWidget);
-        __qlistwidgetitem1->setIcon(icon5);
-        QListWidgetItem *__qlistwidgetitem2 = new QListWidgetItem(listWidget);
-        __qlistwidgetitem2->setIcon(icon5);
-        QListWidgetItem *__qlistwidgetitem3 = new QListWidgetItem(listWidget);
-        __qlistwidgetitem3->setIcon(icon5);
-        QListWidgetItem *__qlistwidgetitem4 = new QListWidgetItem(listWidget);
-        __qlistwidgetitem4->setIcon(icon5);
-        QListWidgetItem *__qlistwidgetitem5 = new QListWidgetItem(listWidget);
-        __qlistwidgetitem5->setIcon(icon5);
-        QListWidgetItem *__qlistwidgetitem6 = new QListWidgetItem(listWidget);
-        __qlistwidgetitem6->setFlags(Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
-        QListWidgetItem *__qlistwidgetitem7 = new QListWidgetItem(listWidget);
-        __qlistwidgetitem7->setIcon(icon5);
-        listWidget->setObjectName(QStringLiteral("listWidget"));
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+        MainWindow->resize(1042, 700);
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(listWidget->sizePolicy().hasHeightForWidth());
-        listWidget->setSizePolicy(sizePolicy);
-        listWidget->setMaximumSize(QSize(200, 16777215));
-        listWidget->setStyleSheet(QStringLiteral("background-color: rgb(240, 240, 240);"));
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
+        MainWindow->setMinimumSize(QSize(1042, 700));
+        MainWindow->setMaximumSize(QSize(1042, 510));
+        centralWidget = new QWidget(MainWindow);
+        centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        sizePolicy.setHeightForWidth(centralWidget->sizePolicy().hasHeightForWidth());
+        centralWidget->setSizePolicy(sizePolicy);
+        verticalLayout_2 = new QVBoxLayout(centralWidget);
+        verticalLayout_2->setSpacing(0);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
+        groupBox = new QGroupBox(centralWidget);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        groupBox->setMinimumSize(QSize(1024, 75));
+        groupBox->setStyleSheet(QLatin1String("QGroupBox {\n"
+"	border-image: url(:/back/ui/back/orange1.png);\n"
+"}\n"
+"Line {\n"
+"	background-image: url(:/back/ui/back/line.png);\n"
+"}\n"
+""));
+        horizontalLayout = new QHBoxLayout(groupBox);
+        horizontalLayout->setSpacing(1);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout->setContentsMargins(9, 0, 0, 0);
+        lbLogo = new QLabel(groupBox);
+        lbLogo->setObjectName(QStringLiteral("lbLogo"));
+        lbLogo->setPixmap(QPixmap(QString::fromUtf8(":/icon/ui/icon/logo.png")));
 
-        horizontalLayout_2->addWidget(listWidget);
+        horizontalLayout->addWidget(lbLogo);
 
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setSpacing(6);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        line = new QFrame(groupBox);
+        line->setObjectName(QStringLiteral("line"));
+        line->setFrameShape(QFrame::VLine);
+        line->setFrameShadow(QFrame::Sunken);
+
+        horizontalLayout->addWidget(line);
+
+        tbCourseWare = new QToolButton(groupBox);
+        tbCourseWare->setObjectName(QStringLiteral("tbCourseWare"));
+        tbCourseWare->setMinimumSize(QSize(70, 70));
+        tbCourseWare->setMaximumSize(QSize(75, 16777215));
+        tbCourseWare->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/icon/ui/icon/courseware.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbCourseWare->setIcon(icon);
+        tbCourseWare->setIconSize(QSize(32, 32));
+        tbCourseWare->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        tbCourseWare->setAutoRaise(true);
+
+        horizontalLayout->addWidget(tbCourseWare);
+
+        line_2 = new QFrame(groupBox);
+        line_2->setObjectName(QStringLiteral("line_2"));
+        line_2->setFrameShape(QFrame::VLine);
+        line_2->setFrameShadow(QFrame::Sunken);
+
+        horizontalLayout->addWidget(line_2);
+
+        tbTeacherBoard = new QToolButton(groupBox);
+        tbTeacherBoard->setObjectName(QStringLiteral("tbTeacherBoard"));
+        tbTeacherBoard->setMinimumSize(QSize(70, 70));
+        tbTeacherBoard->setMaximumSize(QSize(75, 16777215));
+        tbTeacherBoard->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        QIcon icon1;
+        icon1.addFile(QStringLiteral(":/icon/ui/icon/teacher board.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbTeacherBoard->setIcon(icon1);
+        tbTeacherBoard->setIconSize(QSize(32, 32));
+        tbTeacherBoard->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        tbTeacherBoard->setAutoRaise(true);
+
+        horizontalLayout->addWidget(tbTeacherBoard);
+
+        line_3 = new QFrame(groupBox);
+        line_3->setObjectName(QStringLiteral("line_3"));
+        line_3->setFrameShape(QFrame::VLine);
+        line_3->setFrameShadow(QFrame::Sunken);
+
+        horizontalLayout->addWidget(line_3);
+
+        tbMyBoard = new QToolButton(groupBox);
+        tbMyBoard->setObjectName(QStringLiteral("tbMyBoard"));
+        tbMyBoard->setMinimumSize(QSize(70, 70));
+        tbMyBoard->setMaximumSize(QSize(75, 16777215));
+        tbMyBoard->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        QIcon icon2;
+        icon2.addFile(QStringLiteral(":/icon/ui/icon/my board.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbMyBoard->setIcon(icon2);
+        tbMyBoard->setIconSize(QSize(32, 32));
+        tbMyBoard->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        tbMyBoard->setAutoRaise(true);
+
+        horizontalLayout->addWidget(tbMyBoard);
+
+        line_8 = new QFrame(groupBox);
+        line_8->setObjectName(QStringLiteral("line_8"));
+        line_8->setFrameShape(QFrame::VLine);
+        line_8->setFrameShadow(QFrame::Sunken);
+
+        horizontalLayout->addWidget(line_8);
+
+        tbMyClass = new QToolButton(groupBox);
+        tbMyClass->setObjectName(QStringLiteral("tbMyClass"));
+        tbMyClass->setMinimumSize(QSize(70, 70));
+        tbMyClass->setMaximumSize(QSize(75, 16777215));
+        tbMyClass->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        QIcon icon3;
+        icon3.addFile(QStringLiteral(":/icon/ui/icon/my class.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbMyClass->setIcon(icon3);
+        tbMyClass->setIconSize(QSize(32, 32));
+        tbMyClass->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        tbMyClass->setAutoRaise(true);
+
+        horizontalLayout->addWidget(tbMyClass);
+
+        line_7 = new QFrame(groupBox);
+        line_7->setObjectName(QStringLiteral("line_7"));
+        line_7->setFrameShape(QFrame::VLine);
+        line_7->setFrameShadow(QFrame::Sunken);
+
+        horizontalLayout->addWidget(line_7);
+
+        tbBrush = new LineWidthCombox(groupBox);
+        tbBrush->setObjectName(QStringLiteral("tbBrush"));
+        tbBrush->setMinimumSize(QSize(70, 70));
+        tbBrush->setMaximumSize(QSize(75, 16777215));
+        tbBrush->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        QIcon icon4;
+        icon4.addFile(QStringLiteral(":/icon/ui/icon/brush.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbBrush->setIcon(icon4);
+        tbBrush->setIconSize(QSize(32, 32));
+        tbBrush->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        tbBrush->setAutoRaise(true);
+
+        horizontalLayout->addWidget(tbBrush);
+
+        line_4 = new QFrame(groupBox);
+        line_4->setObjectName(QStringLiteral("line_4"));
+        line_4->setFrameShape(QFrame::VLine);
+        line_4->setFrameShadow(QFrame::Sunken);
+
+        horizontalLayout->addWidget(line_4);
+
+        tbShape = new CShapeChooser(groupBox);
+        tbShape->setObjectName(QStringLiteral("tbShape"));
+        tbShape->setMinimumSize(QSize(70, 70));
+        tbShape->setMaximumSize(QSize(75, 16777215));
+        tbShape->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        QIcon icon5;
+        icon5.addFile(QStringLiteral(":/icon/ui/icon/shape.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbShape->setIcon(icon5);
+        tbShape->setIconSize(QSize(32, 32));
+        tbShape->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        tbShape->setAutoRaise(true);
+
+        horizontalLayout->addWidget(tbShape);
+
+        line_6 = new QFrame(groupBox);
+        line_6->setObjectName(QStringLiteral("line_6"));
+        line_6->setFrameShape(QFrame::VLine);
+        line_6->setFrameShadow(QFrame::Sunken);
+
+        horizontalLayout->addWidget(line_6);
+
+        tbEraser = new QToolButton(groupBox);
+        tbEraser->setObjectName(QStringLiteral("tbEraser"));
+        tbEraser->setMinimumSize(QSize(70, 70));
+        tbEraser->setMaximumSize(QSize(75, 16777215));
+        tbEraser->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        QIcon icon6;
+        icon6.addFile(QStringLiteral(":/icon/ui/icon/eraser.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbEraser->setIcon(icon6);
+        tbEraser->setIconSize(QSize(32, 32));
+        tbEraser->setCheckable(false);
+        tbEraser->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        tbEraser->setAutoRaise(true);
+
+        horizontalLayout->addWidget(tbEraser);
+
+        line_5 = new QFrame(groupBox);
+        line_5->setObjectName(QStringLiteral("line_5"));
+        line_5->setFrameShape(QFrame::VLine);
+        line_5->setFrameShadow(QFrame::Sunken);
+
+        horizontalLayout->addWidget(line_5);
+
+        tbPalette = new ColorCombox(groupBox);
+        tbPalette->setObjectName(QStringLiteral("tbPalette"));
+        tbPalette->setMinimumSize(QSize(70, 70));
+        tbPalette->setMaximumSize(QSize(75, 16777215));
+        tbPalette->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        QIcon icon7;
+        icon7.addFile(QStringLiteral(":/icon/ui/icon/platte.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbPalette->setIcon(icon7);
+        tbPalette->setIconSize(QSize(32, 32));
+        tbPalette->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        tbPalette->setAutoRaise(true);
+
+        horizontalLayout->addWidget(tbPalette);
+
+        line_9 = new QFrame(groupBox);
+        line_9->setObjectName(QStringLiteral("line_9"));
+        line_9->setFrameShape(QFrame::VLine);
+        line_9->setFrameShadow(QFrame::Sunken);
+
+        horizontalLayout->addWidget(line_9);
+
+        tbBackground = new QToolButton(groupBox);
+        tbBackground->setObjectName(QStringLiteral("tbBackground"));
+        tbBackground->setMinimumSize(QSize(70, 70));
+        tbBackground->setMaximumSize(QSize(75, 16777215));
+        tbBackground->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        QIcon icon8;
+        icon8.addFile(QStringLiteral(":/icon/ui/icon/back ground.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbBackground->setIcon(icon8);
+        tbBackground->setIconSize(QSize(32, 32));
+        tbBackground->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        tbBackground->setAutoRaise(true);
+
+        horizontalLayout->addWidget(tbBackground);
+
+        line_10 = new QFrame(groupBox);
+        line_10->setObjectName(QStringLiteral("line_10"));
+        line_10->setFrameShape(QFrame::VLine);
+        line_10->setFrameShadow(QFrame::Sunken);
+
+        horizontalLayout->addWidget(line_10);
+
+        tbLogin = new CLoginButton(groupBox);
+        tbLogin->setObjectName(QStringLiteral("tbLogin"));
+        tbLogin->setMinimumSize(QSize(70, 70));
+        tbLogin->setMaximumSize(QSize(75, 16777215));
+        tbLogin->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        QIcon icon9;
+        icon9.addFile(QStringLiteral(":/icon/ui/icon/user.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbLogin->setIcon(icon9);
+        tbLogin->setIconSize(QSize(32, 32));
+        tbLogin->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        tbLogin->setAutoRaise(true);
+
+        horizontalLayout->addWidget(tbLogin);
+
+        line_11 = new QFrame(groupBox);
+        line_11->setObjectName(QStringLiteral("line_11"));
+        line_11->setFrameShape(QFrame::VLine);
+        line_11->setFrameShadow(QFrame::Sunken);
+
+        horizontalLayout->addWidget(line_11);
+
+        tbSettings = new CSettingsButton(groupBox);
+        tbSettings->setObjectName(QStringLiteral("tbSettings"));
+        tbSettings->setMinimumSize(QSize(30, 70));
+        tbSettings->setMaximumSize(QSize(30, 16777215));
+        tbSettings->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        QIcon icon10;
+        icon10.addFile(QStringLiteral(":/icon/ui/icon/manage.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbSettings->setIcon(icon10);
+        tbSettings->setIconSize(QSize(32, 32));
+        tbSettings->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        tbSettings->setAutoRaise(true);
+
+        horizontalLayout->addWidget(tbSettings);
+
+
+        verticalLayout_2->addWidget(groupBox);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(0);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         graphicsView = new MyView(centralWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        graphicsView->viewport()->setProperty("cursor", QVariant(QCursor(Qt::CrossCursor)));
-        graphicsView->setStyleSheet(QStringLiteral("border-image: url(:/EClassPic/EClassPic/back3.jpg);"));
+        graphicsView->viewport()->setProperty("cursor", QVariant(QCursor(Qt::ArrowCursor)));
+        graphicsView->setStyleSheet(QStringLiteral("border-image: url(:/back/ui/back/background.png);"));
 
-        verticalLayout->addWidget(graphicsView);
+        horizontalLayout_2->addWidget(graphicsView);
 
-        label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
+        groupBox_2 = new QGroupBox(centralWidget);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
+        groupBox_2->setSizePolicy(sizePolicy1);
+        groupBox_2->setStyleSheet(QStringLiteral("background-color: rgb(31, 40, 49);"));
+        verticalLayout = new QVBoxLayout(groupBox_2);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout->setContentsMargins(1, 9, 1, 0);
+        btClassInfo = new QToolButton(groupBox_2);
+        btClassInfo->setObjectName(QStringLiteral("btClassInfo"));
         QFont font;
         font.setFamily(QStringLiteral("Aharoni"));
         font.setPointSize(12);
         font.setBold(true);
         font.setWeight(75);
-        label->setFont(font);
-        label->setStyleSheet(QLatin1String("color: rgb(133, 233, 255);\n"
-"color: rgb(222, 222, 222);"));
+        btClassInfo->setFont(font);
+        btClassInfo->setStyleSheet(QStringLiteral("color: rgb(82, 90, 93);"));
+        btClassInfo->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+        btClassInfo->setAutoRaise(true);
+        btClassInfo->setArrowType(Qt::NoArrow);
 
-        verticalLayout->addWidget(label);
+        verticalLayout->addWidget(btClassInfo);
 
-        scrollArea = new QScrollArea(centralWidget);
-        scrollArea->setObjectName(QStringLiteral("scrollArea"));
-        scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        scrollArea->setWidgetResizable(true);
-        scrollAreaWidgetContents = new QWidget();
-        scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 799, 325));
-        scrollArea->setWidget(scrollAreaWidgetContents);
+        listWidget = new CUserListWidget(groupBox_2);
+        listWidget->setObjectName(QStringLiteral("listWidget"));
+        listWidget->setStyleSheet(QLatin1String("color: rgb(255, 255, 255);\n"
+"background-color: rgb(27, 36, 45);"));
+        listWidget->setSizeAdjustPolicy(QAbstractScrollArea::AdjustIgnored);
 
-        verticalLayout->addWidget(scrollArea);
-
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        comboBox = new QComboBox(centralWidget);
-        QIcon icon6;
-        icon6.addFile(QStringLiteral(":/EClassPic/EClassPic/poly.png"), QSize(), QIcon::Normal, QIcon::Off);
-        comboBox->addItem(icon6, QString());
-        QIcon icon7;
-        icon7.addFile(QStringLiteral(":/EClassPic/EClassPic/line.png"), QSize(), QIcon::Normal, QIcon::Off);
-        comboBox->addItem(icon7, QString());
-        QIcon icon8;
-        icon8.addFile(QStringLiteral(":/EClassPic/EClassPic/rectangle.png"), QSize(), QIcon::Normal, QIcon::Off);
-        comboBox->addItem(icon8, QString());
-        QIcon icon9;
-        icon9.addFile(QStringLiteral(":/EClassPic/EClassPic/ellipse.png"), QSize(), QIcon::Normal, QIcon::Off);
-        comboBox->addItem(icon9, QString());
-        comboBox->setObjectName(QStringLiteral("comboBox"));
-        comboBox->setStyleSheet(QStringLiteral("color: rgb(222, 222, 222);"));
-        comboBox->setIconSize(QSize(100, 30));
-
-        horizontalLayout->addWidget(comboBox);
-
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer);
-
-        comboxPenWidth = new LineWidthCombox(centralWidget);
-        comboxPenWidth->setObjectName(QStringLiteral("comboxPenWidth"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(comboxPenWidth->sizePolicy().hasHeightForWidth());
-        comboxPenWidth->setSizePolicy(sizePolicy1);
-        comboxPenWidth->setMinimumSize(QSize(105, 32));
-        comboxPenWidth->setMaximumSize(QSize(105, 32));
-        comboxPenWidth->setStyleSheet(QStringLiteral("border-image: url(:/EClassPic/EClassPic/penwidth1.png);"));
-
-        horizontalLayout->addWidget(comboxPenWidth);
-
-        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer_2);
-
-        ComboxPenColor = new ColorCombox(centralWidget);
-        ComboxPenColor->setObjectName(QStringLiteral("ComboxPenColor"));
-        QSizePolicy sizePolicy2(QSizePolicy::Maximum, QSizePolicy::Maximum);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(ComboxPenColor->sizePolicy().hasHeightForWidth());
-        ComboxPenColor->setSizePolicy(sizePolicy2);
-        ComboxPenColor->setMinimumSize(QSize(105, 32));
-        ComboxPenColor->setMaximumSize(QSize(105, 32));
-        ComboxPenColor->setStyleSheet(QStringLiteral("border-image: url(:/EClassPic/EClassPic/pencolor1.png);"));
-
-        horizontalLayout->addWidget(ComboxPenColor);
-
-        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer_3);
-
-        ComboxBrushColor = new ColorCombox(centralWidget);
-        ComboxBrushColor->setObjectName(QStringLiteral("ComboxBrushColor"));
-        sizePolicy1.setHeightForWidth(ComboxBrushColor->sizePolicy().hasHeightForWidth());
-        ComboxBrushColor->setSizePolicy(sizePolicy1);
-        ComboxBrushColor->setMinimumSize(QSize(105, 32));
-        ComboxBrushColor->setMaximumSize(QSize(105, 32));
-        ComboxBrushColor->setStyleSheet(QStringLiteral("border-image: url(:/EClassPic/EClassPic/brushcolor1.png);"));
-
-        horizontalLayout->addWidget(ComboxBrushColor);
+        verticalLayout->addWidget(listWidget);
 
 
-        verticalLayout->addLayout(horizontalLayout);
+        horizontalLayout_2->addWidget(groupBox_2);
 
 
-        horizontalLayout_2->addLayout(verticalLayout);
+        verticalLayout_2->addLayout(horizontalLayout_2);
 
         MainWindow->setCentralWidget(centralWidget);
-        statusBar = new QStatusBar(MainWindow);
-        statusBar->setObjectName(QStringLiteral("statusBar"));
-        MainWindow->setStatusBar(statusBar);
-        mainToolBar = new QToolBar(MainWindow);
-        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        mainToolBar->setEnabled(true);
-        mainToolBar->setLayoutDirection(Qt::LeftToRight);
-        mainToolBar->setMovable(false);
-        mainToolBar->setAllowedAreas(Qt::NoToolBarArea);
-        mainToolBar->setIconSize(QSize(120, 30));
-        mainToolBar->setFloatable(false);
-        MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
-
-        mainToolBar->addAction(actionEnterClass);
-        mainToolBar->addAction(actionLeaveClass);
-        mainToolBar->addSeparator();
-        mainToolBar->addAction(actionClearScreen);
-        mainToolBar->addSeparator();
-        mainToolBar->addAction(actionExit);
 
         retranslateUi(MainWindow);
 
@@ -263,41 +408,21 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-        actionEnterClass->setText(QApplication::translate("MainWindow", "EnterClass", 0));
-        actionLeaveClass->setText(QApplication::translate("MainWindow", "LeaveClass", 0));
-        actionClearScreen->setText(QApplication::translate("MainWindow", "ClearScreen", 0));
-        actionExit->setText(QString());
-
-        const bool __sortingEnabled = listWidget->isSortingEnabled();
-        listWidget->setSortingEnabled(false);
-        QListWidgetItem *___qlistwidgetitem = listWidget->item(0);
-        ___qlistwidgetitem->setText(QApplication::translate("MainWindow", "------Online-------", 0));
-        QListWidgetItem *___qlistwidgetitem1 = listWidget->item(1);
-        ___qlistwidgetitem1->setText(QApplication::translate("MainWindow", "Student1", 0));
-        QListWidgetItem *___qlistwidgetitem2 = listWidget->item(2);
-        ___qlistwidgetitem2->setText(QApplication::translate("MainWindow", "Student2", 0));
-        QListWidgetItem *___qlistwidgetitem3 = listWidget->item(3);
-        ___qlistwidgetitem3->setText(QApplication::translate("MainWindow", "Student3", 0));
-        QListWidgetItem *___qlistwidgetitem4 = listWidget->item(4);
-        ___qlistwidgetitem4->setText(QApplication::translate("MainWindow", "Student4", 0));
-        QListWidgetItem *___qlistwidgetitem5 = listWidget->item(5);
-        ___qlistwidgetitem5->setText(QApplication::translate("MainWindow", "Student5", 0));
-        QListWidgetItem *___qlistwidgetitem6 = listWidget->item(6);
-        ___qlistwidgetitem6->setText(QApplication::translate("MainWindow", "------Offline-------", 0));
-        QListWidgetItem *___qlistwidgetitem7 = listWidget->item(7);
-        ___qlistwidgetitem7->setText(QApplication::translate("MainWindow", "Student6", 0));
-        listWidget->setSortingEnabled(__sortingEnabled);
-
-        label->setText(QApplication::translate("MainWindow", "\346\210\221\347\232\204\347\224\273\346\235\277", 0));
-        comboBox->setItemText(0, QApplication::translate("MainWindow", "Scripts", 0));
-        comboBox->setItemText(1, QApplication::translate("MainWindow", "Line", 0));
-        comboBox->setItemText(2, QApplication::translate("MainWindow", "Rectangle", 0));
-        comboBox->setItemText(3, QApplication::translate("MainWindow", "Ellipse", 0));
-
-        comboBox->setCurrentText(QApplication::translate("MainWindow", "Scripts", 0));
-        comboxPenWidth->setText(QString());
-        ComboxPenColor->setText(QString());
-        ComboxBrushColor->setText(QString());
+        groupBox->setTitle(QString());
+        lbLogo->setText(QString());
+        tbCourseWare->setText(QApplication::translate("MainWindow", "\346\225\231\345\270\210\350\257\276\344\273\266", 0));
+        tbTeacherBoard->setText(QApplication::translate("MainWindow", "\346\225\231\345\270\210\347\231\275\346\235\277", 0));
+        tbMyBoard->setText(QApplication::translate("MainWindow", "\346\210\221\347\232\204\347\231\275\346\235\277", 0));
+        tbMyClass->setText(QApplication::translate("MainWindow", "\346\210\221\347\232\204\347\217\255\347\272\247", 0));
+        tbBrush->setText(QApplication::translate("MainWindow", "\347\224\273\347\254\224", 0));
+        tbShape->setText(QApplication::translate("MainWindow", "\345\233\276\345\275\242", 0));
+        tbEraser->setText(QApplication::translate("MainWindow", "\346\251\241\347\232\256\346\223\246", 0));
+        tbPalette->setText(QApplication::translate("MainWindow", "\350\260\203\350\211\262\346\235\277", 0));
+        tbBackground->setText(QApplication::translate("MainWindow", "\350\203\214\346\231\257\347\261\273\345\236\213", 0));
+        tbLogin->setText(QApplication::translate("MainWindow", "\347\231\273\345\275\225", 0));
+        tbSettings->setText(QString());
+        groupBox_2->setTitle(QString());
+        btClassInfo->setText(QApplication::translate("MainWindow", "         CONTACT LIST         X    ", 0));
     } // retranslateUi
 
 };

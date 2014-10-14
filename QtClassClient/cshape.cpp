@@ -34,6 +34,8 @@ void CShape::setBeginPos(QPointF pos) {
 
 
 
+
+
 CShapeLine::CShapeLine(QGraphicsItem *item) :
     CShape(item) {
 
@@ -52,6 +54,7 @@ void CShapeLine::setPen(const QPen &pen) {
 void CShapeLine::setBrush(const QBrush &brush) {
     Q_UNUSED(brush);
 }
+
 
 
 
@@ -79,10 +82,10 @@ void CShapeEllipse::setBrush(const QBrush &brush) {
 
 
 
+
 CShapeRectangle::CShapeRectangle(QGraphicsItem *item) :
     CShape(item) {
 }
-
 
 void CShapeRectangle::setCurPos(QPointF pos) {
     qreal x = qMin(beginPos.x(), pos.x());
@@ -99,6 +102,8 @@ void CShapeRectangle::setPen(const QPen &pen) {
 void CShapeRectangle::setBrush(const QBrush &brush) {
     static_cast<QGraphicsRectItem*> (item)->setBrush(brush);
 }
+
+
 
 
 

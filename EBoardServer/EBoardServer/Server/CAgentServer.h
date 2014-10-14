@@ -79,6 +79,9 @@ public:
 	// …®√ËµÙœﬂ
 	void scanOffline();
 
+	void userLoginNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
+	void userLogoutNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
+
 private:
 	bool isClassExist(TS_UINT64 classid);
 

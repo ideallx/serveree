@@ -73,6 +73,31 @@ typedef struct {
 	TS_UINT64 endSeq;				// 丢失包的终止seq(-1为最新的seq)
 } UP_RESEND_SERIES;
 
+typedef struct {
+	TS_UINT64 uid;
+	TS_UINT64 reserved;
+	TS_UINT64 classid;
+	unsigned char role;
+	unsigned char username[20];
+} USER_INFO;
+
+typedef struct {
+	TS_MESSAGE_HEAD head;
+	USER_INFO enterUser;
+} SERVER_CLASS_ADD_USER;
+
+typedef struct {
+	TS_MESSAGE_HEAD head;
+	TS_UINT64 leaveUser;
+} SERVER_CLASS_REMOVE_USER;
+
+typedef struct {
+	TS_MESSAGE_HEAD head;
+	int userNumberInMessage;
+	USER_INFO users[10];
+} SERVER_CLASS_USER_LIST;
+
+
 // 上传画面，可能是点阵，图形等
 typedef struct {
     DWORD ShapeID;
@@ -172,7 +197,10 @@ enum PacketType {
 	ENTERCLASS,				// 进入班级
 	LEAVECLASS,				// 离开班级
 	ENTERAGENT,				// 登录Agent服务器
-	HEARTBEAT				// 心跳包
+	HEARTBEAT,				// 心跳包
+	USERLIST,				// 当前用户信息列表
+	ADDUSER,				// 增加用户
+	REMOVEUSER				// 减少用户
 };
 
 // 功能函数，获取一些信息
@@ -185,6 +213,7 @@ enum ReservedUID_t {
 	ServerUID,
 	AgentUID,
 	SelfUID,			// 自身
+	TeacherUID,
 
 	ReservedUID = 50	// 50之前的UID全部保留
 };

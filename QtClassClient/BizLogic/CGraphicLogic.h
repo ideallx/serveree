@@ -10,7 +10,7 @@ using namespace std;
 
 class CGraphicUserInfo {
 public:
-    CGraphicUserInfo();
+    CGraphicUserInfo(DWORD firstSeq = 0);
 
     // return which to send
     // make sure the message sent was sorted
@@ -19,6 +19,16 @@ public:
 private:
     DWORD lastShapeSeq;
     map<TS_UINT64, ts_msg> waitingList; // seq -> ts_msg
+};
+
+class CGraphicScenes {
+public:
+    CGraphicScenes() {}
+
+    map<TS_UINT64, ts_msg> receiveMsg(const ts_msg& msg);
+
+private:
+    map<TS_UINT64, CGraphicUserInfo> userInfos;
 };
 
 class CGraphicLogic : public CBaseLogic
@@ -30,7 +40,7 @@ public:
     virtual bool procMsg(const ts_msg& msg, bool isRemote);
 
 private:
-    map<TS_UINT64, CGraphicUserInfo> userInfo;     // uid -> userInfo
+    map<TS_UINT64, CGraphicScenes> userInfo;     // uid -> userInfo
 };
 
 #endif // CGRAPHICLOGIC_H

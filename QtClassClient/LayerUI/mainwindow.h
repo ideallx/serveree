@@ -26,15 +26,17 @@ public:
 
     void ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL isRemote);
 
+    void addUser(TS_UINT64 uid, QString username);
+
+    void removeUser(TS_UINT64 uid);
+
     void msgProc();
 
 private:
-    void setMyPanel();
-
     Ui::MainWindow *ui;
 
     MyScene* scene;
-    QList<MyScene*> sceneList;
+    QMap<TS_UINT64, MyScene*> sceneMap;
 
     bool aNewShape;
 
@@ -44,9 +46,9 @@ private:
     TSQueue<ts_msg> msgQueue;
 
 public slots:
-    void changeScene(int n);
+    void changeScene(TS_UINT64 uid);
 
-    void enterClass();
+    void enterClass(QString username, QString password);
     void enterClassResult(bool result);
 
     void leaveClass();
@@ -54,12 +56,21 @@ public slots:
 
     void classIcon(bool entered);
 
+    void drawScene();
+
 signals:
     void enOrLeaveClass(bool entered);
+    void drawShape();
+    void addScene(int uidh, int uidl);
 
 private slots:
-    void on_actionExit_triggered();
     void on_listWidget_clicked(const QModelIndex &index);
+    void on_tbMyClass_clicked();
+    void on_btClassInfo_clicked();
+    void on_tbTeacherBoard_clicked();
+    void on_tbMyBoard_clicked();
+
+    void addSceneSlot(int uidh, int uidl);
 };
 
 void* UIMsgProc(LPVOID lpParam);
