@@ -99,9 +99,15 @@ public:
 "Line {\n"
 "	background-image: url(:/back/ui/back/line.png);\n"
 "}\n"
-""));
+"QToolButton:!checked {\n"
+"	color: rgb(255, 255, 255);\n"
+"	border:none;\n"
+"}\n"
+"QToolButton:checked, QToolButton:pressed { \n"
+"	background-color: rgb(83, 83, 83);\n"
+"}"));
         horizontalLayout = new QHBoxLayout(groupBox);
-        horizontalLayout->setSpacing(1);
+        horizontalLayout->setSpacing(0);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(9, 0, 0, 0);
@@ -120,9 +126,9 @@ public:
 
         tbCourseWare = new QToolButton(groupBox);
         tbCourseWare->setObjectName(QStringLiteral("tbCourseWare"));
-        tbCourseWare->setMinimumSize(QSize(70, 70));
+        tbCourseWare->setMinimumSize(QSize(75, 75));
         tbCourseWare->setMaximumSize(QSize(75, 16777215));
-        tbCourseWare->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        tbCourseWare->setStyleSheet(QStringLiteral(""));
         QIcon icon;
         icon.addFile(QStringLiteral(":/icon/ui/icon/courseware.png"), QSize(), QIcon::Normal, QIcon::Off);
         tbCourseWare->setIcon(icon);
@@ -141,9 +147,9 @@ public:
 
         tbTeacherBoard = new QToolButton(groupBox);
         tbTeacherBoard->setObjectName(QStringLiteral("tbTeacherBoard"));
-        tbTeacherBoard->setMinimumSize(QSize(70, 70));
+        tbTeacherBoard->setMinimumSize(QSize(75, 75));
         tbTeacherBoard->setMaximumSize(QSize(75, 16777215));
-        tbTeacherBoard->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        tbTeacherBoard->setStyleSheet(QStringLiteral(""));
         QIcon icon1;
         icon1.addFile(QStringLiteral(":/icon/ui/icon/teacher board.png"), QSize(), QIcon::Normal, QIcon::Off);
         tbTeacherBoard->setIcon(icon1);
@@ -162,9 +168,9 @@ public:
 
         tbMyBoard = new QToolButton(groupBox);
         tbMyBoard->setObjectName(QStringLiteral("tbMyBoard"));
-        tbMyBoard->setMinimumSize(QSize(70, 70));
+        tbMyBoard->setMinimumSize(QSize(75, 75));
         tbMyBoard->setMaximumSize(QSize(75, 16777215));
-        tbMyBoard->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        tbMyBoard->setStyleSheet(QStringLiteral(""));
         QIcon icon2;
         icon2.addFile(QStringLiteral(":/icon/ui/icon/my board.png"), QSize(), QIcon::Normal, QIcon::Off);
         tbMyBoard->setIcon(icon2);
@@ -183,9 +189,9 @@ public:
 
         tbMyClass = new QToolButton(groupBox);
         tbMyClass->setObjectName(QStringLiteral("tbMyClass"));
-        tbMyClass->setMinimumSize(QSize(70, 70));
+        tbMyClass->setMinimumSize(QSize(75, 75));
         tbMyClass->setMaximumSize(QSize(75, 16777215));
-        tbMyClass->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        tbMyClass->setStyleSheet(QStringLiteral(""));
         QIcon icon3;
         icon3.addFile(QStringLiteral(":/icon/ui/icon/my class.png"), QSize(), QIcon::Normal, QIcon::Off);
         tbMyClass->setIcon(icon3);
@@ -204,9 +210,9 @@ public:
 
         tbBrush = new LineWidthCombox(groupBox);
         tbBrush->setObjectName(QStringLiteral("tbBrush"));
-        tbBrush->setMinimumSize(QSize(70, 70));
+        tbBrush->setMinimumSize(QSize(75, 75));
         tbBrush->setMaximumSize(QSize(75, 16777215));
-        tbBrush->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        tbBrush->setStyleSheet(QStringLiteral(""));
         QIcon icon4;
         icon4.addFile(QStringLiteral(":/icon/ui/icon/brush.png"), QSize(), QIcon::Normal, QIcon::Off);
         tbBrush->setIcon(icon4);
@@ -225,9 +231,9 @@ public:
 
         tbShape = new CShapeChooser(groupBox);
         tbShape->setObjectName(QStringLiteral("tbShape"));
-        tbShape->setMinimumSize(QSize(70, 70));
+        tbShape->setMinimumSize(QSize(75, 75));
         tbShape->setMaximumSize(QSize(75, 16777215));
-        tbShape->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        tbShape->setStyleSheet(QStringLiteral(""));
         QIcon icon5;
         icon5.addFile(QStringLiteral(":/icon/ui/icon/shape.png"), QSize(), QIcon::Normal, QIcon::Off);
         tbShape->setIcon(icon5);
@@ -246,14 +252,14 @@ public:
 
         tbEraser = new QToolButton(groupBox);
         tbEraser->setObjectName(QStringLiteral("tbEraser"));
-        tbEraser->setMinimumSize(QSize(70, 70));
+        tbEraser->setMinimumSize(QSize(75, 75));
         tbEraser->setMaximumSize(QSize(75, 16777215));
-        tbEraser->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        tbEraser->setStyleSheet(QStringLiteral(""));
         QIcon icon6;
         icon6.addFile(QStringLiteral(":/icon/ui/icon/eraser.png"), QSize(), QIcon::Normal, QIcon::Off);
         tbEraser->setIcon(icon6);
         tbEraser->setIconSize(QSize(32, 32));
-        tbEraser->setCheckable(false);
+        tbEraser->setCheckable(true);
         tbEraser->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         tbEraser->setAutoRaise(true);
 
@@ -268,9 +274,9 @@ public:
 
         tbPalette = new ColorCombox(groupBox);
         tbPalette->setObjectName(QStringLiteral("tbPalette"));
-        tbPalette->setMinimumSize(QSize(70, 70));
+        tbPalette->setMinimumSize(QSize(75, 75));
         tbPalette->setMaximumSize(QSize(75, 16777215));
-        tbPalette->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        tbPalette->setStyleSheet(QStringLiteral(""));
         QIcon icon7;
         icon7.addFile(QStringLiteral(":/icon/ui/icon/platte.png"), QSize(), QIcon::Normal, QIcon::Off);
         tbPalette->setIcon(icon7);
@@ -289,9 +295,9 @@ public:
 
         tbBackground = new QToolButton(groupBox);
         tbBackground->setObjectName(QStringLiteral("tbBackground"));
-        tbBackground->setMinimumSize(QSize(70, 70));
+        tbBackground->setMinimumSize(QSize(75, 75));
         tbBackground->setMaximumSize(QSize(75, 16777215));
-        tbBackground->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        tbBackground->setStyleSheet(QStringLiteral(""));
         QIcon icon8;
         icon8.addFile(QStringLiteral(":/icon/ui/icon/back ground.png"), QSize(), QIcon::Normal, QIcon::Off);
         tbBackground->setIcon(icon8);
@@ -310,9 +316,9 @@ public:
 
         tbLogin = new CLoginButton(groupBox);
         tbLogin->setObjectName(QStringLiteral("tbLogin"));
-        tbLogin->setMinimumSize(QSize(70, 70));
+        tbLogin->setMinimumSize(QSize(75, 75));
         tbLogin->setMaximumSize(QSize(75, 16777215));
-        tbLogin->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        tbLogin->setStyleSheet(QStringLiteral(""));
         QIcon icon9;
         icon9.addFile(QStringLiteral(":/icon/ui/icon/user.png"), QSize(), QIcon::Normal, QIcon::Off);
         tbLogin->setIcon(icon9);
@@ -331,9 +337,9 @@ public:
 
         tbSettings = new CSettingsButton(groupBox);
         tbSettings->setObjectName(QStringLiteral("tbSettings"));
-        tbSettings->setMinimumSize(QSize(30, 70));
+        tbSettings->setMinimumSize(QSize(30, 75));
         tbSettings->setMaximumSize(QSize(30, 16777215));
-        tbSettings->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        tbSettings->setStyleSheet(QStringLiteral(""));
         QIcon icon10;
         icon10.addFile(QStringLiteral(":/icon/ui/icon/manage.png"), QSize(), QIcon::Normal, QIcon::Off);
         tbSettings->setIcon(icon10);
@@ -351,7 +357,7 @@ public:
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         graphicsView = new MyView(centralWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        graphicsView->viewport()->setProperty("cursor", QVariant(QCursor(Qt::ArrowCursor)));
+        graphicsView->viewport()->setProperty("cursor", QVariant(QCursor(Qt::CrossCursor)));
         graphicsView->setStyleSheet(QStringLiteral("border-image: url(:/back/ui/back/background.png);"));
 
         horizontalLayout_2->addWidget(graphicsView);
@@ -387,8 +393,12 @@ public:
         listWidget = new CUserListWidget(groupBox_2);
         listWidget->setObjectName(QStringLiteral("listWidget"));
         listWidget->setStyleSheet(QLatin1String("color: rgb(255, 255, 255);\n"
-"background-color: rgb(27, 36, 45);"));
+"background-color: rgb(27, 36, 45);\n"
+"padding-left: 20px;\n"
+"padding-right: 20px;\n"
+"alternate-background-color: yellow;"));
         listWidget->setSizeAdjustPolicy(QAbstractScrollArea::AdjustIgnored);
+        listWidget->setViewMode(QListView::ListMode);
 
         verticalLayout->addWidget(listWidget);
 

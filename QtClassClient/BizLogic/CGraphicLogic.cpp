@@ -4,7 +4,7 @@
 #include "../Net/CClientNet.h"
 
 CGraphicUserInfo::CGraphicUserInfo(DWORD firstSeq) :
-    lastShapeSeq(firstSeq) {
+    lastShapeSeq(firstSeq - 1) {
 }
 
 map<TS_UINT64, ts_msg> CGraphicUserInfo::receiveMsg(const ts_msg& msg) {

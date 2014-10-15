@@ -69,14 +69,20 @@
 Line {
 	background-image: url(:/back/ui/back/line.png);
 }
-</string>
+QToolButton:!checked {
+	color: rgb(255, 255, 255);
+	border:none;
+}
+QToolButton:checked, QToolButton:pressed { 
+	background-color: rgb(83, 83, 83);
+}</string>
       </property>
       <property name="title">
        <string/>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <property name="spacing">
-        <number>1</number>
+        <number>0</number>
        </property>
        <property name="leftMargin">
         <number>9</number>
@@ -111,8 +117,8 @@ Line {
         <widget class="QToolButton" name="tbCourseWare">
          <property name="minimumSize">
           <size>
-           <width>70</width>
-           <height>70</height>
+           <width>75</width>
+           <height>75</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -122,7 +128,7 @@ Line {
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>教师课件</string>
@@ -156,8 +162,8 @@ Line {
         <widget class="QToolButton" name="tbTeacherBoard">
          <property name="minimumSize">
           <size>
-           <width>70</width>
-           <height>70</height>
+           <width>75</width>
+           <height>75</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -167,7 +173,7 @@ Line {
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>教师白板</string>
@@ -201,8 +207,8 @@ Line {
         <widget class="QToolButton" name="tbMyBoard">
          <property name="minimumSize">
           <size>
-           <width>70</width>
-           <height>70</height>
+           <width>75</width>
+           <height>75</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -212,7 +218,7 @@ Line {
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>我的白板</string>
@@ -246,8 +252,8 @@ Line {
         <widget class="QToolButton" name="tbMyClass">
          <property name="minimumSize">
           <size>
-           <width>70</width>
-           <height>70</height>
+           <width>75</width>
+           <height>75</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -257,7 +263,7 @@ Line {
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>我的班级</string>
@@ -291,8 +297,8 @@ Line {
         <widget class="LineWidthCombox" name="tbBrush">
          <property name="minimumSize">
           <size>
-           <width>70</width>
-           <height>70</height>
+           <width>75</width>
+           <height>75</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -302,7 +308,7 @@ Line {
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>画笔</string>
@@ -336,8 +342,8 @@ Line {
         <widget class="CShapeChooser" name="tbShape">
          <property name="minimumSize">
           <size>
-           <width>70</width>
-           <height>70</height>
+           <width>75</width>
+           <height>75</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -347,7 +353,7 @@ Line {
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>图形</string>
@@ -381,8 +387,8 @@ Line {
         <widget class="QToolButton" name="tbEraser">
          <property name="minimumSize">
           <size>
-           <width>70</width>
-           <height>70</height>
+           <width>75</width>
+           <height>75</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -392,7 +398,7 @@ Line {
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>橡皮擦</string>
@@ -408,7 +414,7 @@ Line {
           </size>
          </property>
          <property name="checkable">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="toolButtonStyle">
           <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -429,8 +435,8 @@ Line {
         <widget class="ColorCombox" name="tbPalette">
          <property name="minimumSize">
           <size>
-           <width>70</width>
-           <height>70</height>
+           <width>75</width>
+           <height>75</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -440,7 +446,7 @@ Line {
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>调色板</string>
@@ -474,8 +480,8 @@ Line {
         <widget class="QToolButton" name="tbBackground">
          <property name="minimumSize">
           <size>
-           <width>70</width>
-           <height>70</height>
+           <width>75</width>
+           <height>75</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -485,7 +491,7 @@ Line {
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>背景类型</string>
@@ -519,8 +525,8 @@ Line {
         <widget class="CLoginButton" name="tbLogin">
          <property name="minimumSize">
           <size>
-           <width>70</width>
-           <height>70</height>
+           <width>75</width>
+           <height>75</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -530,7 +536,7 @@ Line {
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>登录</string>
@@ -565,7 +571,7 @@ Line {
          <property name="minimumSize">
           <size>
            <width>30</width>
-           <height>70</height>
+           <height>75</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -575,7 +581,7 @@ Line {
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string/>
@@ -609,7 +615,7 @@ Line {
       <item>
        <widget class="MyView" name="graphicsView">
         <property name="cursor" stdset="0">
-         <cursorShape>ArrowCursor</cursorShape>
+         <cursorShape>CrossCursor</cursorShape>
         </property>
         <property name="styleSheet">
          <string notr="true">border-image: url(:/back/ui/back/background.png);</string>
@@ -677,10 +683,16 @@ Line {
           <widget class="CUserListWidget" name="listWidget">
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(27, 36, 45);</string>
+background-color: rgb(27, 36, 45);
+padding-left: 20px;
+padding-right: 20px;
+alternate-background-color: yellow;</string>
            </property>
            <property name="sizeAdjustPolicy">
             <enum>QAbstractScrollArea::AdjustIgnored</enum>
+           </property>
+           <property name="viewMode">
+            <enum>QListView::ListMode</enum>
            </property>
           </widget>
          </item>

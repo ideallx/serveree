@@ -69,7 +69,7 @@ public:
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
         lineEdit->setMinimumSize(QSize(0, 30));
         lineEdit->setStyleSheet(QStringLiteral(""));
-        lineEdit->setMaxLength(30);
+        lineEdit->setMaxLength(20);
         lineEdit->setFrame(false);
         lineEdit->setCursorMoveStyle(Qt::LogicalMoveStyle);
 
@@ -143,6 +143,8 @@ public:
 
         verticalLayout->addItem(verticalSpacer_2);
 
+        QWidget::setTabOrder(lineEdit, lineEdit_2);
+        QWidget::setTabOrder(lineEdit_2, toolButton);
 
         retranslateUi(loginWidget);
 

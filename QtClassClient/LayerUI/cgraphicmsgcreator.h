@@ -28,6 +28,8 @@ public:
     void generatePenBrushData(TS_GRAPHIC_PACKET& msg, QPen& p, QBrush& b);
 
     void generateClearScreen(TS_GRAPHIC_PACKET& msg);
+
+    void generateEraserData(TS_GRAPHIC_PACKET& msg, QPointF p);
 };
 
 #endif // CGRAPHICMSGCREATOR_H

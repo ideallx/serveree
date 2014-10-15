@@ -82,6 +82,8 @@ public:
 	void userLoginNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
 	void userLogoutNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
 
+	bool Start(unsigned short port = 0);
+
 private:
 	bool isClassExist(TS_UINT64 classid);
 

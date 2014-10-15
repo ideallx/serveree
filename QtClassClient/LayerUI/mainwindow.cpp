@@ -37,13 +37,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, &MainWindow::addScene,
             this, &MainWindow::addSceneSlot);
 
-    showFullScreen();
     ui->groupBox_2->setHidden(true);
 
     connect(ui->tbLogin, &CLoginButton::loginClicked,
             this, &MainWindow::enterClass);
     connect(ui->tbLogin, &CLoginButton::logoutClicked,
             this, &MainWindow::leaveClass);
+    //showFullScreen();
 }
 
 MainWindow::~MainWindow() {
@@ -84,6 +84,9 @@ void MainWindow::changeScene(TS_UINT64 uid) {
             scene, &MyScene::revocation);
 
     scene = sceneMap[uid];
+
+    scene->setEraser(false);
+    ui->tbEraser->setChecked(false);
     ui->graphicsView->setScene(scene);
 
     connect(ui->tbBrush, &LineWidthCombox::signalWidthChanged,
@@ -203,6 +206,9 @@ void MainWindow::drawScene() {
         break;
     case GraphicPacketPenBrush:
         theScene->setOthersPenBrush(*gmsg);
+        break;
+    case GraphicPacketEraser:
+        theScene->actErase(*gmsg);
         break;
     case GraphicPacketCls:
         theScene->clear();

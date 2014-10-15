@@ -52,6 +52,8 @@ public:
 	void SetServerAddr(DWORD s_code, char* ip, WORD port);
 	void SetServerAddr(DWORD s_code, struct sockaddr_in addr);
 
+    inline void setTimeDiff(DWORD diff) { m_timeDiff = diff; }
+
 private:
 
 	void buildSendMessage(ts_msg& msg);

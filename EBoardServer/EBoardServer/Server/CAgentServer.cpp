@@ -83,13 +83,21 @@ void CAgentServer::destroyClass(TS_UINT64 classid) {
 void CAgentServer::scanOffline() {
 	TS_UINT64 currentTime = getServerTime();
 	
+	if (heartBeatTime.size() == 0)
+		return;
+
 	iop_lock(&lockOfflineMaps);
 	int maxAllowedInterval = HeartBeatInterval * 3;
 	for (auto iter = heartBeatTime.begin(); iter != heartBeatTime.end(); ) {
 		if (currentTime - iter->second > maxAllowedInterval) {
+			TS_PEER_MESSAGE msg;  
+			userLogoutNotify(msg, iter->first);
+			cout << iter->first << "drop connection" << endl;
 			offlineUsers.insert(iter->first);
+			heartBeatTime.erase(iter++);
+		} else {
+			iter++;
 		}
-		iter++;
 	}
 	iop_unlock(&lockOfflineMaps);
 }
@@ -130,7 +138,6 @@ void CAgentServer::leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	}
 	iop_unlock(&lockWorkServer);
 	
-	userLogoutNotify(inputMsg, user._uid);
 
 	DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;	// 退出班级成功，把服务器信息告诉客户端
 	down->result = SuccessLeaveClass;
@@ -138,7 +145,10 @@ void CAgentServer::leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	down->addr.sin_port = htons(pServer->getPort());
 	down->head.UID = ServerUID;
 	down->head.size = sizeof(DOWN_AGENTSERVICE);
+	WriteOut(inputMsg);
 
+	
+	userLogoutNotify(inputMsg, user._uid);
 	pServer->removePeer(user._uid);
 	cout << "user: " << user._uid << " removed" << endl;
 	map_userinfo.erase(user._uid);
@@ -149,7 +159,6 @@ void CAgentServer::leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 			destroyClass(classid);
 		}
 	}
-	WriteOut(inputMsg);
 }
 
 void CAgentServer::userLoginNotify(TS_PEER_MESSAGE& pmsg, TS_UINT64 uid) {
@@ -274,15 +283,14 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
 			UP_HEARTBEAT* in = (UP_HEARTBEAT*) &inputMsg.msg;
 			TS_UINT64 uid = in->head.UID;
 
-			iop_lock(&lockOfflineMaps);
 			if (heartBeatTime.count(uid) == 0)					// 将最新时间加入set中
 				return 0;
+			iop_lock(&lockOfflineMaps);
 			heartBeatTime[uid] = in->head.time;
 
 			if (offlineUsers.count(uid) > 0)					// 如果这个是已经掉线用户
 				offlineUsers.erase(uid);						// 现在取消掉线状态
 			iop_unlock(&lockOfflineMaps);
-			cout << "received heart beat" << endl;
 			break;
 		}
 	default:
@@ -297,6 +305,18 @@ int CAgentServer::getOfflineUsers(set<TS_UINT64>& out) {
 	return offlineUsers.size();
 }
 
+bool CAgentServer::Start(unsigned short port) {
+	if (CServer::Start(port) == false)
+		return false;
+	pthread_t p;
+	int rc = pthread_create(&p, NULL, scanOfflineProc, (void*) this);
+	if (0 == rc) {
+		iop_usleep(10);
+		cout << "Scan OffLine Thread start successfully " << endl;
+	} else {
+		turnOff();
+	}
+}
 
 void* scanOfflineProc(LPVOID lpParam) {
 	pthread_detach(pthread_self());

@@ -2,6 +2,47 @@
 #include "cshape.h"
 #include <QDebug>
 
+CGraphicRoundRectItem::CGraphicRoundRectItem(QGraphicsItem *parent) :
+    QGraphicsRectItem(parent) {
+}
+
+void CGraphicRoundRectItem::paint(QPainter *painter,
+                                  const QStyleOptionGraphicsItem *option,
+                                  QWidget *widget) {
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+
+    painter->setBrush(brush());
+    painter->setPen(pen());
+    painter->drawRoundedRect(rect(), 20.00, 15.00);
+}
+
+
+
+CGraphicHexagonItem::CGraphicHexagonItem(QGraphicsItem *parent) :
+    QGraphicsRectItem(parent) {
+}
+
+void CGraphicHexagonItem::paint(QPainter *painter,
+                                const QStyleOptionGraphicsItem *option,
+                                QWidget *widget) {
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+
+    QPolygon hexagon;
+    hexagon.append(QPoint(rect().x(), rect().y() + rect().height() / 2));
+    hexagon.append(QPoint(rect().x() + rect().width() / 4, rect().y()));
+    hexagon.append(QPoint(rect().x() + rect().width() * 3 / 4, rect().y()));
+    hexagon.append(QPoint(rect().x() + rect().width(), rect().y() + rect().height() / 2));
+    hexagon.append(QPoint(rect().x() + rect().width() * 3 / 4, rect().y() + rect().height()));
+    hexagon.append(QPoint(rect().x() + rect().width() / 4, rect().y() + rect().height()));
+
+    painter->setBrush(brush());
+    painter->setPen(pen());
+    painter->drawPolygon(hexagon);
+}
+
+
 CShape* CShapeFactory::createShape(int shapeType, QGraphicsItem *parent) {
     switch (shapeType) {
     case LINE:
@@ -12,6 +53,10 @@ CShape* CShapeFactory::createShape(int shapeType, QGraphicsItem *parent) {
         return new CShapeRectangle(new QGraphicsRectItem(parent));
     case SCRIPTS:
         return new CShapeScripts(new QGraphicsPathItem(parent));
+    case ROUNDRECT:
+        return new CShapeRectangle(new CGraphicRoundRectItem(parent));
+    case HEXAGON:
+        return new CShapeRectangle(new CGraphicHexagonItem(parent));
     default:
         return NULL;
     }
@@ -102,9 +147,6 @@ void CShapeRectangle::setPen(const QPen &pen) {
 void CShapeRectangle::setBrush(const QBrush &brush) {
     static_cast<QGraphicsRectItem*> (item)->setBrush(brush);
 }
-
-
-
 
 
 CShapeScripts::CShapeScripts(QGraphicsItem *item) :

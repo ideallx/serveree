@@ -34,6 +34,8 @@ public:
 
     void actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg);
 
+    void actErase(TS_GRAPHIC_PACKET& graphicMsg);
+
     void changeType(enum ShapeType s);
 
 public slots:
@@ -54,6 +56,8 @@ public slots:
 
     void revocation();
 
+    void setEraser(bool set) { isEraser = set; }
+
 signals:
     void sceneMoved();
 
@@ -68,6 +72,8 @@ private:
     CGraphicMsgCreator* gmc;
     QMap<TS_UINT64, CShape*> lastItems;
     QMap<TS_UINT64, QPair<QPen, QBrush> > toolsMap;
+
+
     QMutex mutex;
     QTimer panFixer;    // delete the useless pangesture track
     QTimer panFixer2;
@@ -80,7 +86,7 @@ private:
 
     int drawingType;
 
-    QPointF beginPoint;
+    bool isEraser;
 };
 
 #endif // MYSCENE_H

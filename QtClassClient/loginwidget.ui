@@ -48,7 +48,7 @@ QLineEdit {
         <string notr="true"/>
        </property>
        <property name="maxLength">
-        <number>30</number>
+        <number>20</number>
        </property>
        <property name="frame">
         <bool>false</bool>
@@ -191,6 +191,11 @@ QLineEdit {
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit</tabstop>
+  <tabstop>lineEdit_2</tabstop>
+  <tabstop>toolButton</tabstop>
+ </tabstops>
  <resources>
   <include location="ui.qrc"/>
  </resources>

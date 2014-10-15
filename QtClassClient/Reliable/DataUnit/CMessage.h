@@ -6,7 +6,7 @@
 #pragma pack(4)
 
 const int MESSAGE_SIZE = 1024;				// 单个Package最大msgs数
-const int HeartBeatInterval = 60000;		// 心跳包间隔
+const int HeartBeatInterval = 10000;		// 心跳包间隔
 const TS_UINT64 SeqBegin = 1;				// seq开始位置，seq从1开始
 
 const int VersionNumber = 1;
@@ -130,6 +130,7 @@ enum GraphicPacketType_t {
     GraphicPacketEndMove,
     GraphicPacketNormal,
     GraphicPacketPenBrush,
+    GraphicPacketEraser,
     GraphicPacketCls
 };
 
@@ -227,6 +228,7 @@ enum ShapeType {
     RECTANGLE,
     ELLIPSE,
     ROUNDRECT,
+    HEXAGON,
     TRIANGLE,
     IMAGE,
 };

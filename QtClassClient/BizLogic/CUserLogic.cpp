@@ -26,6 +26,7 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
             switch (down->result) {
             case SuccessEnterClass:
                 cn->addServerAddr(down->addr);
+                cn->setTimeDiff(down->head.time - getServerTime());
                 ui->enterClassResult(true);
                 isLoggedIn = true;
                 break;

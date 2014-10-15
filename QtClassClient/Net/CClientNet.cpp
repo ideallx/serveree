@@ -32,15 +32,17 @@ bool CClientNet::Start(unsigned short port) {
 	if (!Initialize ())
 		return FALSE;
 
+    startupHeartBeat();
+
 	return isRunning();
 }
 
 DWORD CClientNet::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSClient
     TS_UINT64 uid = getUid(inputMsg.msg);
-    TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &inputMsg.msg;
     if ((uid == m_uid) || uid == SelfUID) {
         return 0;
     }
+
     sendToAll(inputMsg.msg, 0, 0, true);
 	return 0;
 }

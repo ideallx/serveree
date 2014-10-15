@@ -4,6 +4,23 @@
 #include <QGraphicsItem>
 #include "../Reliable/DataUnit/CMessage.h"
 
+class CGraphicRoundRectItem : public QGraphicsRectItem {
+public:
+    CGraphicRoundRectItem(QGraphicsItem *parent = 0);
+
+    void paint(QPainter *painter,
+               const QStyleOptionGraphicsItem *option,
+               QWidget *widget);
+};
+
+class CGraphicHexagonItem : public QGraphicsRectItem {
+public:
+    CGraphicHexagonItem(QGraphicsItem *parent = 0);
+
+    void paint(QPainter *painter,
+               const QStyleOptionGraphicsItem *option,
+               QWidget *widget);
+};
 
 class CShape {
 public:

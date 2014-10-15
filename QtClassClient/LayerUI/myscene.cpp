@@ -14,7 +14,8 @@ MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent) :
     gmc(new CGraphicMsgCreator(sceneID)),
     drawingType(SCRIPTS),
     msgParent(msgParent),
-    toolChanged(false) {
+    toolChanged(false),
+    isEraser(false) {
     panFixer.setSingleShot(true);
     panFixer2.setSingleShot(true);
     setSceneRect(0, 0, 5000, 5000);
@@ -30,6 +31,9 @@ void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 //        hasNewMove = true;
 //        return;
 //    }
+
+    if (isEraser)
+        return;
     TS_GRAPHIC_PACKET gmsg;
     gmc->generateGraphicsData(gmsg, event->scenePos(), false);
     actMove(gmsg);
@@ -39,6 +43,8 @@ void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 //    panFixer.start(100);
 //    panFixer2.start(50);
+    if (isEraser)
+        return;
     cachePressEvent(event);
     sendMoveBegin();
 }
@@ -56,7 +62,6 @@ void MyScene::cachePressEvent(QGraphicsSceneMouseEvent *event) {
 void MyScene::sendMoveBegin() {
 //    if (!hasNewMove)
 //        return;
-
     gmc->create(drawingType, lastBeginPos);
     gmc->generateGraphicsData(gmsgCache, lastBeginPos, false);
     actMoveBegin(gmsgCache);
@@ -64,16 +69,23 @@ void MyScene::sendMoveBegin() {
 }
 
 void MyScene::revocation() {
-    if (items().size() != 0) {
-        removeItem(items().first());
-    }
+    isEraser = !isEraser;
 }
 
 void MyScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     TS_GRAPHIC_PACKET gmsg;
-    gmc->generateGraphicsData(gmsg, event->scenePos(), true);
-    actMove(gmsg);
-    msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
+    if (isEraser) {
+        QGraphicsItem* item = itemAt(event->scenePos(), QTransform());
+        if (item != NULL) {
+            gmc->generateEraserData(gmsg, event->scenePos());
+            actErase(gmsg);
+            msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
+        }
+    } else {
+        gmc->generateGraphicsData(gmsg, event->scenePos(), true);
+        actMove(gmsg);
+        msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
+    }
 }
 
 CShape *MyScene::createNewItem(TS_UINT64 uid, int shapeType, QPointF curPoint) {
@@ -93,7 +105,7 @@ CShape *MyScene::createNewItem(TS_UINT64 uid, int shapeType, QPointF curPoint) {
 
     item->setPen(p);
     item->setBrush(b);
-    item->getGraphicsItem()->setOpacity(0.6);
+    item->getGraphicsItem()->setOpacity(0.9);
     return item;
 }
 
@@ -117,13 +129,17 @@ void MyScene::actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg) {
         lastItems.insert(uid, NULL);
     }
 
-    beginPoint = scenePos;
     lastItems[uid] = createNewItem(uid, graphicMsg.data.ShapeType, scenePos);
     addItem(lastItems[uid]->getGraphicsItem());
 
     updateCounter++;
     if (updateCounter % 10)
         update();   // repaint
+}
+
+void MyScene::actErase(TS_GRAPHIC_PACKET& graphicMsg) {
+    QPointF scenePos = QPointF(graphicMsg.data.PointX, graphicMsg.data.PointY);
+    removeItem(itemAt(scenePos, QTransform()));
 }
 
 void MyScene::changeType(ShapeType s) {

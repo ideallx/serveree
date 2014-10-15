@@ -26,7 +26,7 @@ QMenu* CShapeChooser::createLineMenu() {
     layout->setAlignment(Qt::AlignCenter);
     layout->setSpacing(0);
 
-    for (int iRow = 1; iRow < 6; iRow++) {
+    for (int iRow = 1; iRow < 7; iRow++) {
         QAction *action = new QAction(this);
         action->setData(iRow);
         connect(action, &QAction::triggered,
@@ -55,6 +55,7 @@ QMenu* CShapeChooser::createLineMenu() {
 
     QMenu* lineMenu = new QMenu(this);
     lineMenu->setLayout(vlayout);
+    lineMenu->setStyleSheet("padding-left:10px;");
 
     return lineMenu;
 }
@@ -77,6 +78,9 @@ QIcon CShapeChooser::createLineIcon(int shapeType) {
     case ROUNDRECT:
         p.load(":/icon/ui/icon/shapeRoundRectangle.png");
         break;
+    case HEXAGON:
+        p.load(":/icon/ui/icon/shapeHexagon.png");
+        break;
     default:
         p.fill(Qt::white);
         break;
@@ -89,22 +93,25 @@ QString CShapeChooser::createLineText(int shapeType) {
     QString s;
     switch (shapeType) {
     case SCRIPTS:
-        s = QStringLiteral("曲线工具");
+        s = QStringLiteral("    曲线工具");
         break;
     case ELLIPSE:
-        s = QStringLiteral("椭圆工具");
+        s = QStringLiteral("    椭圆工具");
         break;
     case LINE:
-        s = QStringLiteral("直线工具");
+        s = QStringLiteral("    直线工具");
         break;
     case RECTANGLE:
-        s = QStringLiteral("矩形工具");
+        s = QStringLiteral("    矩形工具");
         break;
     case ROUNDRECT:
-        s = QStringLiteral("圆角矩形工具");
+        s = QStringLiteral("    圆角矩形工具");
+        break;
+    case HEXAGON:
+        s = QStringLiteral("    六角形工具");
         break;
     default:
-        s = QStringLiteral("未知工具");
+        s = QStringLiteral("    未知工具");
         break;
     }
 

@@ -35,7 +35,21 @@ void CGraphicMsgCreator::generateGraphicsData(TS_GRAPHIC_PACKET& msg, QPointF p,
     msg.data.ShapeType = curShapeType;
     msg.data.BeginPx = begin.x();
     msg.data.BeginPy = begin.y();
+}
 
+void CGraphicMsgCreator::generateEraserData(TS_GRAPHIC_PACKET& msg, QPointF p) {
+    msg.graphicsType = GraphicPacketEraser;
+    msg.SceneID = sceneID;
+
+    msg.head.size = sizeof(TS_GRAPHIC_PACKET);
+    msg.head.UID = SelfUID;
+    msg.head.type = GRAPHICS;
+    msg.head.subSeq = curSeq++;
+
+    msg.data.Alpha = 1;
+    msg.data.DoneFlag = true;
+    msg.data.PointX = p.x();
+    msg.data.PointY = p.y();
 }
 
 void CGraphicMsgCreator::generatePenBrushData(TS_GRAPHIC_PACKET& msg, QPen& p, QBrush& b) {
