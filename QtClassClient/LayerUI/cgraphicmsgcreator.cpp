@@ -13,18 +13,22 @@ void CGraphicMsgCreator::create(DWORD type, QPointF p) {
     curShapeType = type;
 }
 
+void CGraphicMsgCreator::buildCommonInfo(TS_GRAPHIC_PACKET& msg) {
+    msg.SceneID = sceneID;
+    msg.head.size = sizeof(TS_GRAPHIC_PACKET);
+    msg.head.UID = SelfUID;
+    msg.head.type = GRAPHICS;
+    msg.head.subSeq = curSeq++;
+
+}
+
 void CGraphicMsgCreator::generateGraphicsData(TS_GRAPHIC_PACKET& msg, QPointF p, bool isDone) {
     if (isDone) {
         msg.graphicsType = GraphicPacketEndMove;
     } else {
         msg.graphicsType = GraphicPacketNormal;
     }
-    msg.SceneID = sceneID;
-
-    msg.head.size = sizeof(TS_GRAPHIC_PACKET);
-    msg.head.UID = SelfUID;
-    msg.head.type = GRAPHICS;
-    msg.head.subSeq = curSeq++;
+    buildCommonInfo(msg);
 
     msg.data.Alpha = 1;
     msg.data.DoneFlag = isDone;
@@ -39,12 +43,7 @@ void CGraphicMsgCreator::generateGraphicsData(TS_GRAPHIC_PACKET& msg, QPointF p,
 
 void CGraphicMsgCreator::generateEraserData(TS_GRAPHIC_PACKET& msg, QPointF p) {
     msg.graphicsType = GraphicPacketEraser;
-    msg.SceneID = sceneID;
-
-    msg.head.size = sizeof(TS_GRAPHIC_PACKET);
-    msg.head.UID = SelfUID;
-    msg.head.type = GRAPHICS;
-    msg.head.subSeq = curSeq++;
+    buildCommonInfo(msg);
 
     msg.data.Alpha = 1;
     msg.data.DoneFlag = true;
@@ -52,16 +51,20 @@ void CGraphicMsgCreator::generateEraserData(TS_GRAPHIC_PACKET& msg, QPointF p) {
     msg.data.PointY = p.y();
 }
 
+void CGraphicMsgCreator::generateScreenMove(TS_GRAPHIC_PACKET& msg, QPoint p) {
+    msg.graphicsType = GraphicPacketMoveScreen;
+    buildCommonInfo(msg);
+
+    msg.data.DoneFlag = true;
+    msg.data.PointX = p.x();
+    msg.data.PointY = p.y();
+}
+
 void CGraphicMsgCreator::generatePenBrushData(TS_GRAPHIC_PACKET& msg, QPen& p, QBrush& b) {
-    curPenBrushid++;
     msg.graphicsType = GraphicPacketPenBrush;
-    msg.SceneID = sceneID;
+    buildCommonInfo(msg);
 
-    msg.head.size = sizeof(TS_GRAPHIC_PACKET);
-    msg.head.UID = SelfUID;
-    msg.head.type = GRAPHICS;
-    msg.head.subSeq = curSeq++;
-
+    curPenBrushid++;
     msg.penbrush.brushB = b.color().blue();
     msg.penbrush.brushG = b.color().green();
     msg.penbrush.brushR = b.color().red();
@@ -76,10 +79,5 @@ void CGraphicMsgCreator::generatePenBrushData(TS_GRAPHIC_PACKET& msg, QPen& p, Q
 
 void CGraphicMsgCreator::generateClearScreen(TS_GRAPHIC_PACKET& msg) {
     msg.graphicsType = GraphicPacketCls;
-    msg.SceneID = sceneID;
-
-    msg.head.size = sizeof(TS_GRAPHIC_PACKET);
-    msg.head.UID = SelfUID;
-    msg.head.type = GRAPHICS;
-    msg.head.subSeq = curSeq++;
+    buildCommonInfo(msg);
 }

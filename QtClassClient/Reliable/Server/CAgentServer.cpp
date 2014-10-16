@@ -212,6 +212,7 @@ void* scanOfflineProc(LPVOID lpParam) {
 	if (!object) {
 		return 0;
 	}
+
 	while (true) {
 		object->scanOffline();
 		iop_usleep(HeartBeatInterval);

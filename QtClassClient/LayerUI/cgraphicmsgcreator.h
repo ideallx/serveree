@@ -30,6 +30,10 @@ public:
     void generateClearScreen(TS_GRAPHIC_PACKET& msg);
 
     void generateEraserData(TS_GRAPHIC_PACKET& msg, QPointF p);
+
+    void generateScreenMove(TS_GRAPHIC_PACKET& msg, QPoint p);
+
+    void buildCommonInfo(TS_GRAPHIC_PACKET& msg);
 };
 
 #endif // CGRAPHICMSGCREATOR_H

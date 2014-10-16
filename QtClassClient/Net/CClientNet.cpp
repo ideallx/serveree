@@ -32,8 +32,6 @@ bool CClientNet::Start(unsigned short port) {
 	if (!Initialize ())
 		return FALSE;
 
-    startupHeartBeat();
-
 	return isRunning();
 }
 

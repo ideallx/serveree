@@ -618,7 +618,7 @@ QToolButton:checked, QToolButton:pressed {
          <cursorShape>CrossCursor</cursorShape>
         </property>
         <property name="styleSheet">
-         <string notr="true">border-image: url(:/back/ui/back/background.png);</string>
+         <string notr="true">background-color: rgb(255, 254, 240);</string>
         </property>
        </widget>
       </item>

@@ -13,13 +13,12 @@ public:
 
     bool viewportEvent(QEvent *event);
 
-signals:
+    void moveScreen(QPoint p);
 
-public slots:
-
-private:
-    bool isDeprecated;
     QTimer panTimer;        // gesture -> move
+
+signals:
+    void screenMoved(QPoint p);
 };
 
 #endif // MYVIEW_H

@@ -13,6 +13,12 @@
 
 class CShape;
 
+enum MoveType {
+    MovePending,
+    MoveScreen,
+    MoveDraw
+};
+
 class MyScene : public QGraphicsScene
 {
     Q_OBJECT
@@ -58,25 +64,20 @@ public slots:
 
     void setEraser(bool set) { isEraser = set; }
 
-signals:
-    void sceneMoved();
+    void moveScreen(QPoint p);
 
 private:
     void cachePressEvent(QGraphicsSceneMouseEvent *event);
 
-    TS_GRAPHIC_PACKET gmsgCache;
-    bool hasNewMove;
-    QPointF lastBeginPos;
+    void generateTestShape();
 
     CMsgObject* msgParent;
     CGraphicMsgCreator* gmc;
     QMap<TS_UINT64, CShape*> lastItems;
     QMap<TS_UINT64, QPair<QPen, QBrush> > toolsMap;
+    QPointF cachedPos;
 
-
-    QMutex mutex;
     QTimer panFixer;    // delete the useless pangesture track
-    QTimer panFixer2;
 
     DWORD sceneID;
     bool toolChanged;   // is pen or brush changed
@@ -87,6 +88,9 @@ private:
     int drawingType;
 
     bool isEraser;
+
+    MoveType mt;
+    QPointF lastPos;
 };
 
 #endif // MYSCENE_H

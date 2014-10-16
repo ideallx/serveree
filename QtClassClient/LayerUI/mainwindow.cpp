@@ -28,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent) :
             scene, &MyScene::changeShapeByUI);
     connect(ui->tbEraser, &QToolButton::clicked,
             scene, &MyScene::revocation);
+    connect(ui->graphicsView, &MyView::screenMoved,
+            scene, &MyScene::moveScreen);
 
     // move to UI thread
     connect(this, &MainWindow::enOrLeaveClass,
@@ -72,8 +74,6 @@ void MainWindow::changeScene(TS_UINT64 uid) {
     if (scene == sceneMap[uid])
         return;
 
-    qDebug() << "change scene";
-
     disconnect(ui->tbBrush, &LineWidthCombox::signalWidthChanged,
             scene, &MyScene::setPenWidth);
     disconnect(ui->tbPalette, &ColorCombox::sigColorChanged,
@@ -82,6 +82,8 @@ void MainWindow::changeScene(TS_UINT64 uid) {
             scene, &MyScene::changeShapeByUI);
     disconnect(ui->tbEraser, &QToolButton::clicked,
             scene, &MyScene::revocation);
+    disconnect(ui->graphicsView, &MyView::screenMoved,
+            scene, &MyScene::moveScreen);
 
     scene = sceneMap[uid];
 
@@ -97,6 +99,8 @@ void MainWindow::changeScene(TS_UINT64 uid) {
             scene, &MyScene::changeShapeByUI);
     connect(ui->tbEraser, &QToolButton::clicked,
             scene, &MyScene::revocation);
+    connect(ui->graphicsView, &MyView::screenMoved,
+            scene, &MyScene::moveScreen);
 }
 
 void MainWindow::enterClass(QString username, QString password) {
@@ -108,7 +112,6 @@ void MainWindow::enterClass(QString username, QString password) {
     memcpy(up->username, username.toLatin1().data(), 20);
     memcpy(up->password, password.toLatin1().data(), 20);
 
-    qDebug() << (char*) up->username << (char*) up->password;
     ui->tbLogin->menu()->setHidden(true);
 
     sendToAll(*(ts_msg*) &msg, 0, 0, false);
@@ -214,6 +217,13 @@ void MainWindow::drawScene() {
         theScene->clear();
         theScene->update();
         break;
+    case GraphicPacketMoveScreen:
+    {
+        int x = gmsg->data.PointX;
+        int y = gmsg->data.PointY;
+        ui->graphicsView->moveScreen(QPoint(x, y));
+        break;
+    }
     default:
         break;
     }

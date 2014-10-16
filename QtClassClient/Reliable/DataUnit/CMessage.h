@@ -105,10 +105,10 @@ typedef struct {
     DWORD ShapeID;
     WORD ShapeType;
     WORD PageID;
-    WORD BeginPx;		// 图形开始点
-    WORD BeginPy;
-    WORD PointX;		// 图形当前点
-    WORD PointY;
+    DWORD BeginPx;		// 图形开始点
+    DWORD BeginPy;
+    DWORD PointX;		// 图形当前点
+    DWORD PointY;
     BYTE DoneFlag;
     BYTE Alpha;
 } TS_GRAPHIC_DATA;
@@ -131,7 +131,8 @@ enum GraphicPacketType_t {
     GraphicPacketNormal,
     GraphicPacketPenBrush,
     GraphicPacketEraser,
-    GraphicPacketCls
+    GraphicPacketCls,
+    GraphicPacketMoveScreen
 };
 
 

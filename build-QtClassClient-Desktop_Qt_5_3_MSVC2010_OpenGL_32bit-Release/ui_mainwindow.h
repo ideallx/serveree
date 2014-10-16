@@ -358,7 +358,7 @@ public:
         graphicsView = new MyView(centralWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
         graphicsView->viewport()->setProperty("cursor", QVariant(QCursor(Qt::CrossCursor)));
-        graphicsView->setStyleSheet(QStringLiteral("border-image: url(:/back/ui/back/background.png);"));
+        graphicsView->setStyleSheet(QStringLiteral("background-color: rgb(255, 254, 240);"));
 
         horizontalLayout_2->addWidget(graphicsView);
 

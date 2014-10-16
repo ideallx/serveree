@@ -82,6 +82,8 @@ public:
 	void userLoginNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
 	void userLogoutNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
 
+	void sendLeaveSuccess(TS_PEER_MESSAGE& pmsg);
+
 	bool Start(unsigned short port = 0);
 
 private:

@@ -129,26 +129,32 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	return true;
 }
 
+void CAgentServer::sendLeaveSuccess(TS_PEER_MESSAGE& pmsg) {
+	DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &pmsg.msg;	// 退出班级成功，把服务器信息告诉客户端
+	down->result = SuccessLeaveClass;
+	down->addr = pmsg.peeraddr;
+	down->head.UID = ServerUID;
+	down->head.size = sizeof(DOWN_AGENTSERVICE);
+	WriteOut(pmsg);
+}
+
 void CAgentServer::leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	iop_lock(&lockWorkServer);
+	if (map_userinfo.count(user._uid) == 0) {						// if no user
+		sendLeaveSuccess(inputMsg);
+		return;
+	}
+
 	TS_UINT64 classid = user._classid;
 	CWSServer* pServer = map_workserver[classid];
 	if (pServer != NULL) {											// server端删除这个用户
 		pServer->removeUser(user._uid);
 	}
 	iop_unlock(&lockWorkServer);
-	
 
-	DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;	// 退出班级成功，把服务器信息告诉客户端
-	down->result = SuccessLeaveClass;
-	down->addr = inputMsg.peeraddr;
-	down->addr.sin_port = htons(pServer->getPort());
-	down->head.UID = ServerUID;
-	down->head.size = sizeof(DOWN_AGENTSERVICE);
-	WriteOut(inputMsg);
-
-	
+	sendLeaveSuccess(inputMsg);
 	userLogoutNotify(inputMsg, user._uid);
+
 	pServer->removePeer(user._uid);
 	cout << "user: " << user._uid << " removed" << endl;
 	map_userinfo.erase(user._uid);
