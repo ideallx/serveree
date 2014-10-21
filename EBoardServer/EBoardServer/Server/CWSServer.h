@@ -38,8 +38,10 @@ public:
 	bool addPeer(sockaddr_in addr, TS_UINT64 uid);
 	bool removePeer(TS_UINT64 uid);
 
-	void addUser(TS_UINT64 UID);
+	void addUser(TS_UINT64 uid);
 	void removeUser(TS_UINT64 uid);
+
+	inline void sendPrevMessage(TS_UINT64 uid) { conn->resendAll(uid); }
 
 	map<TS_UINT64, CPeerConnection*>* getPeers() const { return conn->getPeerHub(); }
 

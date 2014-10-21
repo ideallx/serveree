@@ -11,7 +11,7 @@
 #include <string>
 #include <iostream>
 
-#include "../Stdafx.h"
+#include "../../Stdafx.h"
 
 using namespace std;
 

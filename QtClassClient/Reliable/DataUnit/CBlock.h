@@ -78,9 +78,6 @@ public:
 	// 全部保存进文件
 	void saveAll();
 
-	// 获取从某个序号开始，到某个序号结束的所有的msg
-	int getMsgs(set<ts_msg*>& out, TS_UINT64 beg, TS_UINT64 end);
-
 	// 获取需要保存的CPackages
 	inline int savePackage(set<CPackage*>& out) { return straWrite->getStrategyResult(out); }
 
@@ -88,6 +85,8 @@ public:
 	void setFilePrefix(string fprefix) { fileNamePrefix = fprefix; }
 
 	inline TS_UINT64 getMaxSeq() { return maxSeq; }
+
+    void setMaxSeq(TS_UINT64 seq);
 
 private:
 	// 获取seq对应的msg所在的数组以及位置

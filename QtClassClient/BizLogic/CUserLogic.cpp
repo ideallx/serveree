@@ -1,5 +1,5 @@
 #include "CUserLogic.h"
-#include "mainwindow.h"
+#include "../LayerUI/mainwindow.h"
 
 CUserLogic::CUserLogic(CMsgObject* msgParent) :
 	CBaseLogic(msgParent),

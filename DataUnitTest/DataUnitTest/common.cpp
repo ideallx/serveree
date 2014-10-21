@@ -33,8 +33,6 @@ bool checkFileExist(string zipName, int fileName) {
 	char temp[20];
 	int length = CZip::getOriginalSize(zipName.c_str(), 
 		int2string(fileName).c_str());				// 文件大小
-	//bool result = CZip::loadFromZip(zipName.c_str(), 
-	//	int2string(fileName).c_str(), temp, 20);	// 文件是否可以打开
 
 	if (length == 0)				// 文件打不开，回复false
 		return false;

@@ -16,7 +16,7 @@ private:
 	CReliableConnection* m_Connect;			// 本地连接,
 	CPeerConnection*	 m_agent;
 	struct sockaddr_in	 m_Addr;
-	TS_UINT64			 m_seq;
+    TS_UINT64			 m_seq;             // next seq
 	TS_UINT64			 m_uid;
 
 	DWORD				 m_timeDiff;		// 服务器端和客户端的时间差

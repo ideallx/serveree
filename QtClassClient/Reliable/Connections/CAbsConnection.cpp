@@ -1,6 +1,6 @@
 #include "CAbsConnection.h"
 #include "CSynSocket.h"
-#include "../Stdafx.h"
+#include "../../Stdafx.h"
 
 CAbsConnection::CAbsConnection(void) {
 	pSocket = new CSynSocket();

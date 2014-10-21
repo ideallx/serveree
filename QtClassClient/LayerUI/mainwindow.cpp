@@ -3,13 +3,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "myscene.h"
-#include "qeclass.h"
-#include "../DataUnit/CMessage.h"
+#include "../Reliable/DataUnit/CMessage.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    aNewShape(true),
     isRunning(false) {
     ui->setupUi(this);
 
@@ -45,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
             this, &MainWindow::enterClass);
     connect(ui->tbLogin, &CLoginButton::logoutClicked,
             this, &MainWindow::leaveClass);
+
     //showFullScreen();
 }
 
@@ -190,22 +189,19 @@ void MainWindow::drawScene() {
     }
 
     TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
-	MyScene* theScene = sceneMap[gmsg->SceneID];
+    MyScene* theScene = sceneMap[gmsg->SceneID];
 	if (theScene == NULL)
 		return;
+//    qDebug() << "draw: " << gmsg->head.subSeq <<
+//                "from " << gmsg->head.UID <<
+//                "on screen " << gmsg->SceneID;
 
     switch (gmsg->graphicsType) {
-    case GraphicPacketEndMove:
-        aNewShape = true;
-        theScene->actMove(*gmsg);
+    case GraphicPacketBeginMove:
+        theScene->actMoveBegin(*gmsg);
         break;
     case GraphicPacketNormal:
-        if (aNewShape) {
-            theScene->actMoveBegin(*gmsg);
-            aNewShape = false;
-        } else {
-            theScene->actMove(*gmsg);
-        }
+        theScene->actMove(*gmsg);
         break;
     case GraphicPacketPenBrush:
         theScene->setOthersPenBrush(*gmsg);
@@ -253,7 +249,6 @@ void MainWindow::on_btClassInfo_clicked()
 {
     ui->groupBox_2->setHidden(true);
 }
-
 
 void MainWindow::on_tbTeacherBoard_clicked()
 {

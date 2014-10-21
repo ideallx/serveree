@@ -17,7 +17,7 @@ public:
     map<TS_UINT64, ts_msg> receiveMsg(const ts_msg& msg);
 
 private:
-    DWORD lastShapeSeq;
+    DWORD wantedSeq;
     map<TS_UINT64, ts_msg> waitingList; // seq -> ts_msg
 };
 
@@ -40,6 +40,7 @@ public:
     virtual bool procMsg(const ts_msg& msg, bool isRemote);
 
 private:
+    DWORD subseq;
     map<TS_UINT64, CGraphicScenes> userInfo;     // uid -> userInfo
 };
 

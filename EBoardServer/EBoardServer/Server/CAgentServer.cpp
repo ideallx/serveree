@@ -89,9 +89,16 @@ void CAgentServer::scanOffline() {
 	iop_lock(&lockOfflineMaps);
 	int maxAllowedInterval = HeartBeatInterval * 3;
 	for (auto iter = heartBeatTime.begin(); iter != heartBeatTime.end(); ) {
+		cout << iter->first << " lost " << currentTime - iter->second << endl;
 		if (currentTime - iter->second > maxAllowedInterval) {
 			TS_PEER_MESSAGE msg;  
 			userLogoutNotify(msg, iter->first);
+			
+			CWSServer* pServer = map_workserver[map_userinfo[iter->first]._classid];
+			if (pServer != NULL) {
+				pServer->removeUser(iter->first);
+			}
+
 			cout << iter->first << "drop connection" << endl;
 			offlineUsers.insert(iter->first);
 			heartBeatTime.erase(iter++);
@@ -126,6 +133,8 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	heartBeatTime.insert(make_pair(user._uid, down->head.time));
 
 	userLoginNotify(inputMsg, user._uid);
+
+	pServer->sendPrevMessage(user._uid);
 	return true;
 }
 

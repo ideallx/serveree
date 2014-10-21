@@ -66,8 +66,7 @@ protected:
 	TSQueue<ts_msg>* msgQueue;
 	TSQueue<pair<TS_UINT64, CPackage*> > saveQueue;	// 这里传指针应该没问题吧。
 
-	TS_UINT64 selfUid;				// 自身的UID
-	set<TS_UINT64> missed;			// 测试用client丢包数据
+    TS_UINT64 selfUid;				// 自身的UID
 
 	set<TS_UINT64> createdBlock;	// 记录所有create过的block
 
@@ -79,13 +78,13 @@ protected:
 	HANDLE needScan;				// 来了新的msg，需要重新scan
 
 	bool resendWhenAsk;				// 是否一收到重发请求就重发（重发率过高时，设为false抑制重发）
-
-public:
-	bool isRunning;					// 是否运行，从create开始运行
+    bool isRunning;					// 是否运行，从create开始运行
 
 public:
 	CReliableConnection();
 	virtual ~CReliableConnection();
+
+    inline bool isWorking() { return isRunning; }
 
 	// 创建socket，并开启scan线程
 	bool create(unsigned short localport = 0);
@@ -129,6 +128,8 @@ public:
 
 	// 关闭reliable
 	inline void stop() { isRunning = false; }
+
+    int sendLastMsg();
 
 private:
 	// 将需要发送的消息添加至消息队列

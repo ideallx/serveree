@@ -14,7 +14,7 @@ void CGraphicRoundRectItem::paint(QPainter *painter,
 
     painter->setBrush(brush());
     painter->setPen(pen());
-    painter->drawRoundedRect(rect(), 20.00, 15.00);
+    painter->drawRoundedRect(rect(), 30.00, 35.00);
 }
 
 
@@ -30,17 +30,18 @@ void CGraphicHexagonItem::paint(QPainter *painter,
     Q_UNUSED(widget);
 
     QPolygon hexagon;
-    hexagon.append(QPoint(rect().x(), rect().y() + rect().height() / 2));
-    hexagon.append(QPoint(rect().x() + rect().width() / 4, rect().y()));
-    hexagon.append(QPoint(rect().x() + rect().width() * 3 / 4, rect().y()));
-    hexagon.append(QPoint(rect().x() + rect().width(), rect().y() + rect().height() / 2));
-    hexagon.append(QPoint(rect().x() + rect().width() * 3 / 4, rect().y() + rect().height()));
-    hexagon.append(QPoint(rect().x() + rect().width() / 4, rect().y() + rect().height()));
+    hexagon.append(QPoint(rect().x(),                           rect().y() + rect().height() / 2));
+    hexagon.append(QPoint(rect().x() + rect().width() / 4,      rect().y()));
+    hexagon.append(QPoint(rect().x() + rect().width() * 3 / 4,  rect().y()));
+    hexagon.append(QPoint(rect().x() + rect().width(),          rect().y() + rect().height() / 2));
+    hexagon.append(QPoint(rect().x() + rect().width() * 3 / 4,  rect().y() + rect().height()));
+    hexagon.append(QPoint(rect().x() + rect().width() / 4,      rect().y() + rect().height()));
 
     painter->setBrush(brush());
     painter->setPen(pen());
     painter->drawPolygon(hexagon);
 }
+
 
 
 CShape* CShapeFactory::createShape(int shapeType, QGraphicsItem *parent) {
@@ -147,6 +148,7 @@ void CShapeRectangle::setPen(const QPen &pen) {
 void CShapeRectangle::setBrush(const QBrush &brush) {
     static_cast<QGraphicsRectItem*> (item)->setBrush(brush);
 }
+
 
 
 CShapeScripts::CShapeScripts(QGraphicsItem *item) :

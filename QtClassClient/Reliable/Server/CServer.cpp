@@ -4,9 +4,9 @@
 CServer::CServer() :
 	MsgLen(MESSAGE_SIZE),
 
-	recvthread_num(1),
-	sendthread_num(1),
-	msgthread_num(1),
+    recvthread_num(1),
+    sendthread_num(1),
+    msgthread_num(1),
 
 
 	p_InMsgQueue(new TSQueue<TS_PEER_MESSAGE>),
@@ -47,26 +47,22 @@ bool CServer::Uninitialize(void) {
 
 
 void CServer::ReadIn(TS_PEER_MESSAGE& pmsg) {
-	// sem_wait((sem_t*) &data_in);
 	WaitForSingleObject(data_in, INFINITE);
 	p_InMsgQueue->deQueue(pmsg);
 }
 
 void CServer::WriteIn(const TS_PEER_MESSAGE& pmsg) {
-	p_InMsgQueue->enQueue(pmsg);
-	// sem_post((sem_t*) &data_in);
+    p_InMsgQueue->enQueue(pmsg);
 	ReleaseSemaphore(data_in, 1, NULL);
 }
 
 void CServer::ReadOut(TS_PEER_MESSAGE& pmsg) {
-	// sem_wait((sem_t*) &data_out);
 	WaitForSingleObject(data_out, INFINITE);
 	p_OutMsgQueue->deQueue(pmsg);
 }
 
 void CServer::WriteOut(const TS_PEER_MESSAGE& pmsg) {
-	p_OutMsgQueue->enQueue(pmsg);
-	// sem_post((sem_t*) &data_out);
+    p_OutMsgQueue->enQueue(pmsg);
 	ReleaseSemaphore(data_out, 1, NULL);
 }
 
@@ -140,11 +136,11 @@ bool CServer::Stop(void) {
         for (unsigned int i = 0; i < msgthread_num; i++) {
 			pthread_cancel(pthread_msg[i]);
 		}
+		delete[] pthread_send;
+		delete[] pthread_recv;
+		delete[] pthread_msg;
     }
-    delete[] pthread_send;
-    delete[] pthread_recv;
-    delete[] pthread_msg;
-//	freeConn();
+
     iop_usleep(10);
 	return TRUE;
 }

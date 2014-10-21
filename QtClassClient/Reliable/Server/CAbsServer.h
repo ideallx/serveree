@@ -18,7 +18,7 @@
 
 #include "../Connections/CConnection.h"
 #include "../DataStructure/TSQueue.h"
-#include "../Stdafx.h"
+#include "../../Stdafx.h"
 #include "../DataUnit/CMessage.h"
 
 

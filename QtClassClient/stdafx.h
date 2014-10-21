@@ -2,7 +2,8 @@
 #define _STDAFX_H_
 
 #include <stdint.h>
-#include "../Reliable/OSInedependent/libiop/iop_config.h"
+#include <iop_config.h>
+
 typedef uint64_t		TS_UINT64;
 
 //#define _DEBUG_INFO_
@@ -19,10 +20,5 @@ typedef int				SOCKET;
 #endif
 
 #define DESTROY(p) if (NULL != (p)) { delete (p); (p) = NULL; }
-
-
-
-
-
 
 #endif

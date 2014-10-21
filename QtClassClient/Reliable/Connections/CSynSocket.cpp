@@ -37,14 +37,14 @@ bool CSynSocket::bindPort(unsigned short iPort) {
 	struct hostent *localhost;
     char *ip;
     localhost = gethostbyname("");
-    if (localhost == NULL) {
+	if (localhost == NULL) {
 		ip = "192.168.1.202";
 	} else {
 		int i = 0;
 		bool find = false;
 		while (localhost->h_addr_list[i] != 0) {	// Ñ°ÕÒ±¾»ú¾ÖÓòÍøIP
 			ip = inet_ntoa(*(struct in_addr *) localhost->h_addr_list[i++]);
-            if (memcmp(ip, "192.168", 7) == 0) {
+			if (memcmp(ip, "192.168", 7) == 0) {
 				find = true;
 				break;
 			}
@@ -106,7 +106,11 @@ bool CSynSocket::closeSocket(void) {
 
 int CSynSocket::sendData(const char* buf, ULONG len, const struct sockaddr_in* ToAddr) {
 	int nSend = sendto(m_Socket, buf, len, 0, (sockaddr*) ToAddr, sizeof(*ToAddr));
-	int result = GetLastError();
+	int r;
+	if (nSend <= 0)	{
+		cout << "send failed" << endl;
+		r =	GetLastError();
+	}
 	return nSend;
 }
 

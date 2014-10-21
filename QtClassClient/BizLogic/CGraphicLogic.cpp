@@ -1,37 +1,43 @@
 #include <QDebug>
 #include "CGraphicLogic.h"
-#include "mainwindow.h"
+#include "../LayerUI/mainwindow.h"
 #include "../Net/CClientNet.h"
 
 CGraphicUserInfo::CGraphicUserInfo(DWORD firstSeq) :
-    lastShapeSeq(firstSeq - 1) {
+    wantedSeq(1) {
 }
 
+static int ccccount = 0;
 map<TS_UINT64, ts_msg> CGraphicUserInfo::receiveMsg(const ts_msg& msg) {
     map<TS_UINT64, ts_msg> result;
     TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
+    qDebug() << "recv:" << gmsg->head.subSeq << "from" << gmsg->head.UID << "total:" << ++ccccount;
 
-    if (gmsg->head.subSeq == lastShapeSeq + 1) {
+    if (gmsg->head.subSeq == wantedSeq) {
         result.insert(make_pair(gmsg->head.sequence, msg));
-        lastShapeSeq++;
-        if (waitingList.size() != 0) {
-            for (auto i = waitingList.begin(); i != waitingList.end(); ) {
-                TS_UINT64 waitSeq = getSeq(i->second);
-                if (waitSeq == lastShapeSeq + 1) {
-                    result.insert(make_pair(waitSeq, i->second));
-                    waitingList.erase(i++);
-                } else {
-                    break;
-                }
-            }
-        }
+        wantedSeq++;
     } else {
+        //qDebug() << "lost: " << wantedSeq << "from " << gmsg->head.UID;
         waitingList.insert(make_pair(gmsg->head.sequence, msg));
-        qDebug() << gmsg->head.UID << "recv:" << gmsg->head.subSeq << "wait for:" << lastShapeSeq + 1;
+    }
+
+    for (auto iter = waitingList.begin(); iter != waitingList.end(); ) {
+        if (waitingList.size() == 0)
+            break;
+
+        if (iter->first == wantedSeq) {
+            //qDebug() << "recv: " << wantedSeq << "from " << gmsg->head.UID;
+            result.insert(make_pair(iter->first, iter->second));
+            waitingList.erase(iter++);
+            wantedSeq++;
+        } else if (iter->first < wantedSeq) {
+            iter++;
+        } else {
+            break;
+        }
     }
     return result;
 }
-
 
 map<TS_UINT64, ts_msg> CGraphicScenes::receiveMsg(const ts_msg& msg) {
     TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
@@ -53,7 +59,8 @@ map<TS_UINT64, ts_msg> CGraphicScenes::receiveMsg(const ts_msg& msg) {
 
 
 CGraphicLogic::CGraphicLogic(CMsgObject *parent) :
-    CBaseLogic(parent) {
+    CBaseLogic(parent),
+    subseq(1) {
 }
 
 bool CGraphicLogic::procMsg(const ts_msg& msg, bool isRemote) {
@@ -61,6 +68,8 @@ bool CGraphicLogic::procMsg(const ts_msg& msg, bool isRemote) {
     CClientNet* cn = static_cast<CClientNet*>(p_Parent->getAgent()->getModule("NET"));
 
     if (!isRemote) {
+        TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
+        gmsg->head.subSeq = subseq++;
         cn->ProcessMessage(const_cast<ts_msg&> (msg), 0, 0, isRemote);
         return false;
     }

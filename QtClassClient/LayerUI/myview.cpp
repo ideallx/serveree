@@ -16,11 +16,12 @@ bool MyView::viewportEvent(QEvent *event) {
     {
         QGestureEvent* ge = static_cast<QGestureEvent*> (event);
         if (QGesture *pan = ge->gesture(Qt::PanGesture)) {
-            QPoint delta;
+            QPoint dest;
             QPanGesture *pg = static_cast<QPanGesture*> (pan);
-            delta = pg->delta().toPoint();
+            dest.setX(horizontalScrollBar()->value() - pg->delta().toPoint().x());
+            dest.setY(verticalScrollBar()->value() - pg->delta().toPoint().y());
             panTimer.start(100);
-            emit screenMoved(delta);
+            emit screenMoved(dest);
         }
         return true;
     }
@@ -40,6 +41,6 @@ bool MyView::viewportEvent(QEvent *event) {
 }
 
 void MyView::moveScreen(QPoint p) {
-    verticalScrollBar()->setValue(verticalScrollBar()->value() - p.y());
-    horizontalScrollBar()->setValue(horizontalScrollBar()->value() - p.x());
+    verticalScrollBar()->setValue(p.y());
+    horizontalScrollBar()->setValue(p.x());
 }

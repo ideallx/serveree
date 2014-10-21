@@ -66,7 +66,7 @@ void CLoginButton::setLoggedIn(bool isLoggedInSuccess) {
 }
 
 void CLoginButton::usernameCheck(QString text) {
-    if (text.size() > 6) {
+    if (text.size() > 1) {
         ui->toolButton->setEnabled(true);
     } else {
         ui->toolButton->setEnabled(false);

@@ -15,7 +15,6 @@ public:
 
     DWORD curShapeID;
     DWORD curShapeType;
-    DWORD curSeq;
     QPointF begin;
     DWORD sceneID;
 
@@ -23,13 +22,13 @@ public:
 
     void create(DWORD type, QPointF in);
 
-    void generateGraphicsData(TS_GRAPHIC_PACKET& msg, QPointF p, bool isDone);
+    void generateGraphicsData(TS_GRAPHIC_PACKET& msg, QPointF p, bool isBegin);
 
     void generatePenBrushData(TS_GRAPHIC_PACKET& msg, QPen& p, QBrush& b);
 
     void generateClearScreen(TS_GRAPHIC_PACKET& msg);
 
-    void generateEraserData(TS_GRAPHIC_PACKET& msg, QPointF p);
+    void generateEraserData(TS_GRAPHIC_PACKET& msg, QPointF p, TS_UINT64 uid, DWORD shapeID);
 
     void generateScreenMove(TS_GRAPHIC_PACKET& msg, QPoint p);
 

@@ -6,7 +6,7 @@
  */
 
 #include "CAbsServer.h"
-#include "../Stdafx.h"
+#include "../../Stdafx.h"
 #include "../Connections/CHubConnection.h"
 #include "../OSInedependent/others.h"
 

@@ -105,18 +105,8 @@ int CReliableConnection::send(const char* buf, ULONG len) {
 	if (seq != 0) {												// seq为0，控制类指令，暂不保存
 		if (selfUid != ServerUID) {								// client端特殊处理.
 			bm->record(*msg);									// client端需要记录发出的包
-			//if ((seq % 10 == 0) && missed.count(seq) == 0) 	{	// 故意抛弃，然后请求重传，第二次来正常接收
-			//	missed.insert(seq);
-			//	//cout << "`5";
-			//	return -1;
-			//}
 			return CHubConnection::send(buf, len);
 		} else {
-			//if ((seq % 10 == 0) && missed.count(seq) == 0) 	{	// 故意抛弃，然后请求重传，第二次来正常接收
-			//	missed.insert(seq);
-			//	//cout << "5";
-			//	return -1;
-			//}
 			return CHubConnection::sendExcept(buf, len, getUid(*msg));
 		}
 	}
@@ -270,7 +260,7 @@ int CReliableConnection::resend(ts_msg& requestMsg) {
 
 void CReliableConnection::saveUserBlock(TS_UINT64 uid) {
 	bm->saveBlock(uid);
-	bm->removeBlock(uid);
+	// bm->removeBlock(uid);
 }
 
 void CReliableConnection::receive(ts_msg& msg) {
@@ -302,6 +292,27 @@ bool CReliableConnection::validityCheck(ts_msg& msg) {
 void CReliableConnection::setFilePrefix(string fprefix) { 
 	fileNamePrefix = fprefix; 
 	bm->setFilePrefix(fprefix);
+}
+
+int CReliableConnection::resendAll(TS_UINT64 uid) {
+	CPeerConnection *peer = findPeer(uid);			// 请求方的地址
+	int count = 0;
+	ts_msg p;
+
+	for (auto iter = allUsers.begin(); iter != allUsers.end(); iter++) {
+		TS_UINT64 uid = *iter;
+		TS_UINT64 end = bm->getMaxSeqOfUID(uid);
+		cout << "user: " << uid << " has " << end << " message" << endl;
+
+		for (int j = 1; j < end; j++) {
+			if (bm->readRecord(uid, j, p) < 0)
+				continue;
+			if (peer->send(p.Body, packetSize(p)) > 0)
+				count++;
+		}
+	}
+	cout << "resend all " << count << "message" << endl;
+	return count;
 }
 
 void* ScanProc(LPVOID lpParam) {

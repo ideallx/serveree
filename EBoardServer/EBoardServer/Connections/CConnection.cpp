@@ -54,7 +54,7 @@ int CConnection::recv(char* buf, ULONG& len) {
 	if (!pSocket)
 		return -1;
 	
-	cout << "1";
+	// cout << "1";
 	return pSocket->recvData(buf, len, &m_FromAddr);
 }
 

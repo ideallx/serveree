@@ -71,13 +71,15 @@ private:
 
     void generateTestShape();
 
+    set<pair<TS_UINT64, DWORD> > eraseList;
+
     CMsgObject* msgParent;
     CGraphicMsgCreator* gmc;
     QMap<TS_UINT64, CShape*> lastItems;
     QMap<TS_UINT64, QPair<QPen, QBrush> > toolsMap;
     QPointF cachedPos;
 
-    QTimer panFixer;    // delete the useless pangesture track
+    QTimer panFixer;    // begin drawing when move type isnot move screen
 
     DWORD sceneID;
     bool toolChanged;   // is pen or brush changed

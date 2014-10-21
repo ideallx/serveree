@@ -6,7 +6,7 @@
 #include "../OSInedependent/libiop/iop_config.h"
 #include "../OSInedependent/libiop/iop_util.h"
 
-#include "../Stdafx.h"
+#include "../../Stdafx.h"
 
 class  CAbsSocket {
 protected:

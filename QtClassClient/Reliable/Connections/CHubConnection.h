@@ -2,11 +2,12 @@
 #define _CONNECTIONS_HUBCONNECTION_H_
 
 #include <map>
+#include <set>
 #include <iop_thread.h>
 
 #include "CAbsConnection.h"
 #include "CPeerConnection.h"
-#include "../Stdafx.h"
+#include "../../Stdafx.h"
 
 using namespace std;
 
@@ -15,6 +16,8 @@ protected:
 	iop_lock_t mutex_lock;
 	map<TS_UINT64, CPeerConnection*>* peerHub;
 	CPeerConnection* pPeerConnect;
+
+	set<TS_UINT64> allUsers;		// all users who has logged in the class
 
 public:
 	CHubConnection(void);

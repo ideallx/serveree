@@ -46,12 +46,12 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{4cb51cc5-a658-45f4-934b-548db6a2ace7}</UniqueIdentifier>
+      <UniqueIdentifier>{f5a1cc33-d967-4067-980f-911775bb4571}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{df772c40-8ae3-4729-a25e-6843069962c2}</UniqueIdentifier>
+      <UniqueIdentifier>{14e0dc2d-ff2c-4fff-a638-dee22d6502db}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -588,6 +588,9 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ui\back\background.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="ui\icon\back">
       <Filter>Resource Files</Filter>
     </None>

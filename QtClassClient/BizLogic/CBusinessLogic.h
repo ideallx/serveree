@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../stdafx.h"
-#include "CMsgObject.h"
+#include "../Message/CMsgObject.h"
 #include "CUserLogic.h"
 #include "CGraphicLogic.h"
 

@@ -1,9 +1,9 @@
 #pragma once
 
 #include "CBaseLogic.h"
-#include "CMsgObject.h"
-#include "CClientNet.h"
-#include "../../../EBoardServer/EBoardServer/DataUnit/UserBase.h"
+#include "../Message/CMsgObject.h"
+#include "../Net/CClientNet.h"
+#include "../Reliable/DataUnit/UserBase.h"
 
 
 class CUserLogic : public CBaseLogic {

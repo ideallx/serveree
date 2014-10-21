@@ -79,10 +79,21 @@ public:
 	// …®√ËµÙœﬂ
 	void scanOffline();
 
+	void userLoginNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
+	void userLogoutNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
+
+    CWSServer* getServerByUID(TS_UINT64 uid);
+
+	bool Start(unsigned short port = 0);
+
 private:
 	bool isClassExist(TS_UINT64 classid);
 
+    void sendLeaveSuccess(TS_PEER_MESSAGE& pmsg);
+
 	friend void* scanOfflineProc(LPVOID lpParam);
+
+    friend class tst_CAgentServer;
 };
 
 #endif

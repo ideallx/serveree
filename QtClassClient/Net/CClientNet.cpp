@@ -109,7 +109,7 @@ void CClientNet::MakeIPv4Addr(struct sockaddr_in& addr, char* ip, WORD port) {
 void CClientNet::recvProc() {
 	ULONG msglen = sizeof(ts_msg);
 	TS_PEER_MESSAGE *pmsg = new TS_PEER_MESSAGE();
-	memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
+    memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
 	
 	while (isRunning()) {
 		if (m_Connect->recv(pmsg->msg.Body, msglen) > 0) {
@@ -161,9 +161,12 @@ void CClientNet::sendHeartBeat() {
 	upcmd->head.sequence = 0;
 	upcmd->head.UID = m_uid;
 	upcmd->head.version = VersionNumber;
+    upcmd->maxSeq = m_seq - 1;
 	
 	m_agent->send(msg->msg.Body, packetSize(msg->msg));
 	cout << m_uid << "send heart beat at " << upcmd->head.time << endl;
+
+    qDebug() << "send last and size is" << m_Connect->sendLastMsg();
 	delete msg;
 }
 

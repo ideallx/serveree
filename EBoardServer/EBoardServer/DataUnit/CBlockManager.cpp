@@ -119,6 +119,6 @@ int CBlockManager::getMsgsFromUID(set<ts_msg*>& out, TS_UINT64 uid,
 
 TS_UINT64 CBlockManager::getMaxSeqOfUID(TS_UINT64 uid) {
 	if ((map_userBlock.count(uid) == 0) || (map_userBlock[uid] == NULL))
-		return -1;
+		return 0;
 	return map_userBlock[uid]->getMaxSeq();
 }

@@ -63,6 +63,8 @@ bool CHubConnection::addPeer(const TS_UINT64 uid,
 	if (isCloned)
 		return false;
 
+	allUsers.insert(uid);
+
 	pPeerConnect = new CPeerConnection(pSocket);
 	pPeerConnect->copy(this);
 	assert(pPeerConnect->getSocket()->getSocket() > 0);

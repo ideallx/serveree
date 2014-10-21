@@ -59,13 +59,7 @@ typedef struct {
 
 typedef struct {
     TS_MESSAGE_HEAD head;
-    unsigned char username[20];		// 用户名
-    unsigned char password[20];		// 密码
-    sockaddr_in addr;				// 服务器地址
-} UP_ENTERAGENT;
-
-typedef struct {
-    TS_MESSAGE_HEAD head;
+    TS_UINT64 maxSeq;
 } UP_HEARTBEAT;
 
 typedef struct {
@@ -123,11 +117,17 @@ typedef struct {
     WORD brushR;
     WORD brushG;
     WORD brushB;
-} TS_PENBRUSH_DATA;
+} TS_GRAPHIC_TOOL_DATA;
 
+typedef struct {
+    TS_UINT64 targetUID;
+    DWORD shapeID;
+    DWORD PointX;
+    DWORD PointY;
+} TS_GRAPHIC_ERASER;
 
 enum GraphicPacketType_t {
-    GraphicPacketEndMove,
+    GraphicPacketBeginMove,
     GraphicPacketNormal,
     GraphicPacketPenBrush,
     GraphicPacketEraser,
@@ -142,7 +142,8 @@ typedef struct {
     DWORD SceneID;
     union {
         TS_GRAPHIC_DATA data;
-        TS_PENBRUSH_DATA penbrush;
+        TS_GRAPHIC_TOOL_DATA tool;
+        TS_GRAPHIC_ERASER eraser;
     };
 } TS_GRAPHIC_PACKET, *LPTS_GRAPHIC_PACKET;
 

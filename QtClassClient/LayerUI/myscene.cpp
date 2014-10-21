@@ -5,9 +5,14 @@
 #include <QMessageBox>
 #include <QTouchEvent>
 
-#include "cshape.h"
+#include "../cshape.h"
 #include "myscene.h"
 #include "myview.h"
+
+enum GRAPHICITEM_KEY_t {
+    GraphicUID,
+    GraphicShapeID
+};
 
 MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent) :
     QGraphicsScene(parent),
@@ -72,7 +77,7 @@ void MyScene::sendMoveBegin() {
         toolChanged = false;
     }
     gmc->create(drawingType, cachedPos);
-    gmc->generateGraphicsData(gmsg, cachedPos, false);
+    gmc->generateGraphicsData(gmsg, cachedPos, true);
     actMoveBegin(gmsg);
     msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
 }
@@ -84,12 +89,14 @@ void MyScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     if (isEraser) {
         QGraphicsItem* item = itemAt(event->scenePos(), QTransform());
         if (item != NULL) {
-            gmc->generateEraserData(gmsg, event->scenePos());
+            gmc->generateEraserData(gmsg, event->scenePos(),
+                                    item->data(GraphicUID).toULongLong(),
+                                    item->data(GraphicShapeID).toInt());
             actErase(gmsg);
             msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
         }
     } else {
-        gmc->generateGraphicsData(gmsg, event->scenePos(), true);
+        gmc->generateGraphicsData(gmsg, event->scenePos(), false);
         actMove(gmsg);
         msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
     }
@@ -102,6 +109,8 @@ void MyScene::revocation() {
 
 CShape *MyScene::createNewItem(TS_UINT64 uid, int shapeType, QPointF curPoint) {
     CShape* item = CShapeFactory::createShape(shapeType);
+    if (NULL == item)
+        return NULL;
     item->setBeginPos(curPoint);
     item->getGraphicsItem()->acceptTouchEvents();
 
@@ -142,7 +151,27 @@ void MyScene::actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg) {
     }
 
     lastItems[uid] = createNewItem(uid, graphicMsg.data.ShapeType, scenePos);
-    addItem(lastItems[uid]->getGraphicsItem());
+    if (NULL == lastItems[uid])
+        return;
+
+    if (SelfUID == graphicMsg.head.UID)
+        graphicMsg.head.UID = globalUID;
+    auto itemPair = make_pair(graphicMsg.head.UID,
+                              graphicMsg.data.ShapeID);
+    // qDebug() << "recv" << graphicMsg.head.UID << graphicMsg.data.ShapeID;
+
+    if (eraseList.count(itemPair)) {
+        qDebug() << "find and remaining" << eraseList.size() << "remove" <<
+                    graphicMsg.head.UID << graphicMsg.data.ShapeID;;
+        eraseList.erase(itemPair);
+        return;
+    }
+
+
+    QGraphicsItem* item = lastItems[uid]->getGraphicsItem();
+    item->setData(GraphicUID, graphicMsg.head.UID);
+    item->setData(GraphicShapeID, static_cast<int> (graphicMsg.data.ShapeID));
+    addItem(item);
 
     updateCounter++;
     if (updateCounter % 10)
@@ -150,8 +179,26 @@ void MyScene::actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg) {
 }
 
 void MyScene::actErase(TS_GRAPHIC_PACKET& graphicMsg) {
-    QPointF scenePos = QPointF(graphicMsg.data.PointX, graphicMsg.data.PointY);
-    removeItem(itemAt(scenePos, QTransform()));
+    qDebug() << "erase" << graphicMsg.eraser.targetUID << graphicMsg.eraser.shapeID;
+    QPointF scenePos = QPointF(graphicMsg.eraser.PointX, graphicMsg.eraser.PointY);
+    QGraphicsItem* chosenItem = itemAt(scenePos, QTransform());
+    // first find by position
+    if ((chosenItem->data(GraphicUID).toLongLong() == graphicMsg.eraser.targetUID) &&
+            (chosenItem->data(GraphicShapeID).toInt() == graphicMsg.eraser.shapeID)) {
+        removeItem(chosenItem);
+        return;
+    }
+
+    // if not found, find by uid and shapeid
+    foreach (QGraphicsItem* i, items()) {
+        if ((i->data(GraphicUID).toLongLong() == graphicMsg.eraser.targetUID) &&
+            (i->data(GraphicShapeID).toInt() == graphicMsg.eraser.shapeID)) {
+            removeItem(i);
+            return;
+        }
+    };
+    eraseList.insert(make_pair(graphicMsg.eraser.targetUID,
+                               graphicMsg.eraser.shapeID));
 }
 
 void MyScene::changeType(ShapeType s) {
@@ -160,17 +207,17 @@ void MyScene::changeType(ShapeType s) {
 
 void MyScene::setOthersPenBrush(TS_GRAPHIC_PACKET& graphicMsg) {
     TS_UINT64 uid = graphicMsg.head.UID;
-    QPen p(QColor(graphicMsg.penbrush.penR,
-                  graphicMsg.penbrush.penG,
-                  graphicMsg.penbrush.penB),
-           graphicMsg.penbrush.penWidth);
+    QPen p(QColor(graphicMsg.tool.penR,
+                  graphicMsg.tool.penG,
+                  graphicMsg.tool.penB),
+           graphicMsg.tool.penWidth);
 
-    QBrush b(QColor(graphicMsg.penbrush.brushR,
-                    graphicMsg.penbrush.brushG,
-                    graphicMsg.penbrush.brushB));
-    if (graphicMsg.penbrush.brushR == 0 &&
-            graphicMsg.penbrush.brushG == 0 &&
-            graphicMsg.penbrush.brushB == 0)
+    QBrush b(QColor(graphicMsg.tool.brushR,
+                    graphicMsg.tool.brushG,
+                    graphicMsg.tool.brushB));
+    if (graphicMsg.tool.brushR == 0 &&
+            graphicMsg.tool.brushG == 0 &&
+            graphicMsg.tool.brushB == 0)
         b = Qt::NoBrush;
     toolsMap.insert(uid, QPair<QPen, QBrush> (p, b));
 }
@@ -192,7 +239,7 @@ void MyScene::changeShapeByUI(int shape) {
 void MyScene::moveScreen(QPoint p) {
     if (mt == MoveDraw) {
         TS_GRAPHIC_PACKET gmsg;
-        gmc->generateGraphicsData(gmsg, lastPos, true);
+        gmc->generateGraphicsData(gmsg, lastPos, false);
         actMove(gmsg);
         msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
 

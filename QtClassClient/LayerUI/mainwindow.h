@@ -5,7 +5,7 @@
 #include <QPushButton>
 #include "myscene.h"
 #include "../Message/CMsgObject.h"
-#include "../DataStructure/TSQueue.h"
+#include "../Reliable/DataStructure/TSQueue.h"
 #include <QVector>
 #include <pthread.h>
 #include <semaphore.h>
@@ -37,8 +37,6 @@ private:
 
     MyScene* scene;
     QMap<TS_UINT64, MyScene*> sceneMap;
-
-    bool aNewShape;
 
     HANDLE sem_msg;
     pthread_t msgThread;

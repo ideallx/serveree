@@ -107,8 +107,7 @@ bool CSynSocket::closeSocket(void) {
 int CSynSocket::sendData(const char* buf, ULONG len, const struct sockaddr_in* ToAddr) {
 	int nSend = sendto(m_Socket, buf, len, 0, (sockaddr*) ToAddr, sizeof(*ToAddr));
 	int r;
-	if (nSend <= 0)
-	{
+	if (nSend <= 0)	{
 		cout << "send failed" << endl;
 		r =	GetLastError();
 	}

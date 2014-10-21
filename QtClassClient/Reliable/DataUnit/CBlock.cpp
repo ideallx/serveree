@@ -152,3 +152,7 @@ void CBlock::saveAll() {
 	}
 	iop_unlock(&mapLock);
 }
+
+void CBlock::setMaxSeq(TS_UINT64 seq) {
+    // TODO
+}

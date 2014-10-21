@@ -1,8 +1,8 @@
+#include <QDebug>
 #include "cgraphicmsgcreator.h"
 
 CGraphicMsgCreator::CGraphicMsgCreator(DWORD sceneID) :
     curShapeID(0),
-    curSeq(1),
     curShapeType(NONE),
     curPenBrushid(0),
     sceneID(sceneID) {
@@ -18,20 +18,20 @@ void CGraphicMsgCreator::buildCommonInfo(TS_GRAPHIC_PACKET& msg) {
     msg.head.size = sizeof(TS_GRAPHIC_PACKET);
     msg.head.UID = SelfUID;
     msg.head.type = GRAPHICS;
-    msg.head.subSeq = curSeq++;
 
 }
 
-void CGraphicMsgCreator::generateGraphicsData(TS_GRAPHIC_PACKET& msg, QPointF p, bool isDone) {
-    if (isDone) {
-        msg.graphicsType = GraphicPacketEndMove;
+void CGraphicMsgCreator::generateGraphicsData(TS_GRAPHIC_PACKET& msg, QPointF p, bool isBegin) {
+    if (isBegin) {
+        curShapeID++;
+        msg.graphicsType = GraphicPacketBeginMove;
     } else {
         msg.graphicsType = GraphicPacketNormal;
     }
     buildCommonInfo(msg);
 
     msg.data.Alpha = 1;
-    msg.data.DoneFlag = isDone;
+    msg.data.DoneFlag = isBegin;
     msg.data.PageID = 0;
     msg.data.PointX = p.x();
     msg.data.PointY = p.y();
@@ -41,14 +41,17 @@ void CGraphicMsgCreator::generateGraphicsData(TS_GRAPHIC_PACKET& msg, QPointF p,
     msg.data.BeginPy = begin.y();
 }
 
-void CGraphicMsgCreator::generateEraserData(TS_GRAPHIC_PACKET& msg, QPointF p) {
+void CGraphicMsgCreator::generateEraserData(TS_GRAPHIC_PACKET& msg, QPointF p,
+                                            TS_UINT64 uid,
+                                            DWORD shapeID) {
     msg.graphicsType = GraphicPacketEraser;
     buildCommonInfo(msg);
 
-    msg.data.Alpha = 1;
-    msg.data.DoneFlag = true;
-    msg.data.PointX = p.x();
-    msg.data.PointY = p.y();
+    msg.eraser.targetUID = uid;
+    msg.eraser.shapeID = shapeID;
+    msg.eraser.PointX = p.x();
+    msg.eraser.PointY = p.y();
+    qDebug() << "eraser: " << uid << shapeID;
 }
 
 void CGraphicMsgCreator::generateScreenMove(TS_GRAPHIC_PACKET& msg, QPoint p) {
@@ -65,16 +68,16 @@ void CGraphicMsgCreator::generatePenBrushData(TS_GRAPHIC_PACKET& msg, QPen& p, Q
     buildCommonInfo(msg);
 
     curPenBrushid++;
-    msg.penbrush.brushB = b.color().blue();
-    msg.penbrush.brushG = b.color().green();
-    msg.penbrush.brushR = b.color().red();
-    msg.penbrush.brushid = curPenBrushid;
+    msg.tool.brushB = b.color().blue();
+    msg.tool.brushG = b.color().green();
+    msg.tool.brushR = b.color().red();
+    msg.tool.brushid = curPenBrushid;
 
-    msg.penbrush.penR = p.color().red();
-    msg.penbrush.penG = p.color().green();
-    msg.penbrush.penB = p.color().blue();
-    msg.penbrush.penWidth = p.width();
-    msg.penbrush.penid = curPenBrushid;
+    msg.tool.penR = p.color().red();
+    msg.tool.penG = p.color().green();
+    msg.tool.penB = p.color().blue();
+    msg.tool.penWidth = p.width();
+    msg.tool.penid = curPenBrushid;
 }
 
 void CGraphicMsgCreator::generateClearScreen(TS_GRAPHIC_PACKET& msg) {

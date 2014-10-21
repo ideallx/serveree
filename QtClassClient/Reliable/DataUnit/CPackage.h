@@ -6,7 +6,7 @@
 #include <iop_thread.h>
 #include <semaphore.h>
 
-#include "../Stdafx.h"
+#include "../../Stdafx.h"
 #include "CMessage.h"
 
 #include "../Zip/zip.h"
