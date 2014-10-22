@@ -220,6 +220,9 @@
     <ClCompile Include="Debug\moc_tst_CPackage.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Debug\moc_tst_cserver.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Debug\moc_tst_reliable.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -311,13 +314,18 @@
     <ClCompile Include="Release\moc_tst_CPackage.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Release\moc_tst_cserver.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Release\moc_tst_reliable.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="TestClass\testserver.cpp" />
     <ClCompile Include="UnitTest\tst_CPackage.cpp" />
     <ClCompile Include="UnitTest\tst_cagentserver.cpp" />
     <ClCompile Include="UnitTest\tst_cblock.cpp" />
     <ClCompile Include="UnitTest\tst_cblockmanager.cpp" />
+    <ClCompile Include="UnitTest\tst_cserver.cpp" />
     <ClCompile Include="UnitTest\tst_reliable.cpp" />
     <ClCompile Include="..\QtClassClient\Reliable\Zip\unzip.c" />
     <ClCompile Include="..\QtClassClient\Reliable\OSInedependent\pthread\w32_CancelableWait.c" />
@@ -493,6 +501,7 @@
     <ClInclude Include="..\QtClassClient\Reliable\OSInedependent\pthread\sched.h" />
     <ClInclude Include="..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h" />
     <ClInclude Include="..\QtClassClient\stdafx.h" />
+    <ClInclude Include="TestClass\testserver.h" />
     <CustomBuild Include="UnitTest\tst_CPackage.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DSRCDIR=\"C:/Users/Fulaan/Documents/GitHub/server/QtClassUnitTest/\" -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"C:/Users/Fulaan/Documents/GitHub/server/QtClassUnitTest\" -DNDEBUG "-I.\..\QtClassClient\Reliable\OSInedependent\pthread" "-I.\..\QtClassClient\Reliable\OSInedependent\libiop" "-I.\..\build-QtClassClient-Desktop_Qt_5_3_MSVC2010_OpenGL_32bit-Release" "-I.\..\QtClassClient\UserInterface" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtTest" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtGui" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtCore" "-I.\release" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\mkspecs\win32-msvc2010"</Command>
@@ -531,6 +540,16 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DSRCDIR=\"C:/Users/Fulaan/Documents/GitHub/server/QtClassUnitTest/\" -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"C:/Users/Fulaan/Documents/GitHub/server/QtClassUnitTest\" "-I.\..\QtClassClient\Reliable\OSInedependent\pthread" "-I.\..\QtClassClient\Reliable\OSInedependent\libiop" "-I.\..\build-QtClassClient-Desktop_Qt_5_3_MSVC2010_OpenGL_32bit-Release" "-I.\..\QtClassClient\UserInterface" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtTest" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtGui" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtCore" "-I.\debug" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\mkspecs\win32-msvc2010"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing tst_cblockmanager.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="UnitTest\tst_cserver.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DSRCDIR=\"C:/Users/Fulaan/Documents/GitHub/server/QtClassUnitTest/\" -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"C:/Users/Fulaan/Documents/GitHub/server/QtClassUnitTest\" -DNDEBUG "-I.\..\QtClassClient\Reliable\OSInedependent\pthread" "-I.\..\QtClassClient\Reliable\OSInedependent\libiop" "-I.\..\build-QtClassClient-Desktop_Qt_5_3_MSVC2010_OpenGL_32bit-Release" "-I.\..\QtClassClient\UserInterface" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtTest" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtGui" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtCore" "-I.\release" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing tst_cserver.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_CONSOLE -DUNICODE -DWIN32 -DSRCDIR=\"C:/Users/Fulaan/Documents/GitHub/server/QtClassUnitTest/\" -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"C:/Users/Fulaan/Documents/GitHub/server/QtClassUnitTest\" "-I.\..\QtClassClient\Reliable\OSInedependent\pthread" "-I.\..\QtClassClient\Reliable\OSInedependent\libiop" "-I.\..\build-QtClassClient-Desktop_Qt_5_3_MSVC2010_OpenGL_32bit-Release" "-I.\..\QtClassClient\UserInterface" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtTest" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtGui" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtCore" "-I.\debug" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing tst_cserver.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="UnitTest\tst_reliable.h">

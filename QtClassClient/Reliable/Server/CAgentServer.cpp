@@ -23,6 +23,12 @@ CAgentServer::~CAgentServer() {
 	iop_lock_destroy(&lockOfflineMaps);
 	iop_lock_destroy(&lockWorkServer);
 	iop_lock_destroy(&lockPortqueue);
+
+	Sleep(10);
+	for (auto iter = map_workserver.begin(); iter != map_workserver.end(); ) {
+		delete iter->second;
+		map_workserver.erase(iter++);
+	}
 }
 
 bool CAgentServer::isClassExist(TS_UINT64 classid) {
@@ -328,7 +334,9 @@ bool CAgentServer::Start(unsigned short port) {
 	int rc = pthread_create(&p, NULL, scanOfflineProc, (void*) this);
 	if (0 == rc) {
 		iop_usleep(10);
+#ifdef _DEBUG_INFO_
 		cout << "Scan OffLine Thread start successfully " << endl;
+#endif
 	} else {
 		turnOff();
 	}
@@ -348,7 +356,7 @@ void* scanOfflineProc(LPVOID lpParam) {
 	if (!object) {
 		return 0;
 	}
-	while (true) {
+	while (object->isRunning()) {
 		object->scanOffline();
 		iop_usleep(HeartBeatInterval);
 	}

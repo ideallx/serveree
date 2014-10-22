@@ -93,7 +93,9 @@ bool CServer::Start(unsigned short port) {
 		int rc = pthread_create(&pthread_recv[i], NULL, RecvProc, (void*) this);
 		if (0 == rc) {
 			iop_usleep(10);
+#ifdef _DEBUG_INFO_
 			cout << "Recv Thread start successfully " << endl;
+#endif
 		} else {
 			turnOff();
 		}
@@ -104,7 +106,9 @@ bool CServer::Start(unsigned short port) {
 		int rc = pthread_create(&pthread_send[i], NULL, SendProc, (void*) this);
 		if (0 == rc) {
 			iop_usleep(10);
+#ifdef _DEBUG_INFO_
 			cout << "Send Thread start successfully " << endl;
+#endif
 		} else {
 			turnOff();
 		}
@@ -114,7 +118,9 @@ bool CServer::Start(unsigned short port) {
 		int rc = pthread_create(&pthread_msg[i], NULL, MsgProc, (void*) this);
 		if( rc == 0 ){
 			iop_usleep(10);
+#ifdef _DEBUG_INFO_
 			cout << "Msg Thread start successfully" << endl;
+#endif
 		} else {
 			turnOff();
 		}
@@ -194,5 +200,7 @@ void CServer::recvProc() {
 			WriteIn(pmsg);
 		}
 	}
+#ifdef _DEBUG_INFO_
 	cout << "recv thread exit" << endl;
+#endif
 }

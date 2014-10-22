@@ -93,7 +93,7 @@ public:
 	int recv(char* buf, ULONG& len);
 
 	// 发送时保存副本
-	int send(const char* buf, ULONG len);
+    int send(const char* buf, ULONG len, TS_UINT64 uid = ServerUID);
 
 	// 扫描一遍整个block发现有丢失的就发送重发请求
 	void scanProcess();
@@ -116,18 +116,22 @@ public:
 	// 获取丢包率（千分比 超过1000则可能是反复丢包）
 	inline int getMissingRate() { return 1000 * totalMiss / totalMsgs; }
 
+    inline int getCurrentMissingNum() { return totalMiss; }
+
+    inline TS_UINT64 maxSeq(TS_UINT64 uid) { return bm->getMaxSeqOfUID(uid); }
+
 	// 所有包全部重发一遍
 	int resendAll(TS_UINT64 toUID);
 
 	// 重发某个用户的部分包
 	int resendPart(TS_UINT64 toUID, TS_UINT64 needUID, 
-					TS_UINT64 fromSeq, TS_UINT64 toSeq);
+                   TS_UINT64 fromSeq, TS_UINT64 toSeq);
 
 	// 设置正常或者抑制重发
 	inline void setResendWhenAsk(bool set) { resendWhenAsk = set; }
 
 	// 关闭reliable
-	inline void stop() { isRunning = false; }
+    inline void stop() { isRunning = false; }
 
     int sendLastMsg();
 
@@ -135,8 +139,8 @@ private:
 	// 将需要发送的消息添加至消息队列
 	int send2Peer(ts_msg& msg);
 
-	// 将需要发送的消息添加至消息队列，发送给另一个uid对应的地址
-	int send2Peer(ts_msg& msg, TS_UINT64 uid);
+    // 将需要发送的消息添加至消息队列，发送给另一个uid对应的地址
+    int send2Peer(ts_msg& msg, TS_UINT64 uid);
 
 	// 自己接收缺失，问对端要，返回发出去了几个包  回头改函数名
 	int requestForResend(TS_UINT64 uid, set<TS_UINT64> pids);
@@ -145,10 +149,10 @@ private:
 	int resend(ts_msg& requestMsg);
 
 	// 数据报文有效性检查
-	bool validityCheck(ts_msg& msg);
+    bool validityCheck(ts_msg& msg);
 
-	// 收到数据后的处理以及转发等过程
-	void receive(ts_msg& msg);
+    // 收到数据后的处理以及转发等过程
+    void receive(ts_msg& msg);
 	
 private:
 	// 定时扫描失踪包裹。

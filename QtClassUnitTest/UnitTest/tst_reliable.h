@@ -14,13 +14,17 @@ private Q_SLOTS:
     void initTestCase();
     void cleanupTestCase();
 
-    void testRecv();
+	void connection();
+    void recv();
+    void missingRate();
+    void resendFragment();
 
     void init();
     void cleanup();
 
 private:
-    CReliableConnection* test;
+    CReliableConnection* client;
+    CReliableConnection* server;
     ts_msg* msg;
 };
 

@@ -15,10 +15,10 @@ int main(int argc, char *argv[])
     WSAStartup(MAKEWORD( 2, 2 ),&wsadata);
 
     MainWindow *ui = new MainWindow();
-    ui->show();
-
     CClientNet* cn = new CClientNet();
     CBusinessLogic* bl = new CBusinessLogic();
+    ui->show();
+
     CModuleAgent *ma = CModuleAgent::getUniqueAgent();
 
     ma->registerModule("UI", ui);

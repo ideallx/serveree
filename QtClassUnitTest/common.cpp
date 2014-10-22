@@ -2,7 +2,7 @@
 
 TS_UINT64 sequence;
 
-int generateNormalMsg(ts_msg& msg) {
+int generateNormalMsg(ts_msg& msg, TS_UINT64 uid) {
 	// 数据长度在100-400之间
 	// int length = rand() % 300 + 100;
 
@@ -13,7 +13,7 @@ int generateNormalMsg(ts_msg& msg) {
 	head->size = length;
 	head->sequence = sequence;
 	head->isEnd = 0;
-	head->UID = 0x01010101;
+	head->UID = uid;
 	head->version = 1;
 
 	char* body = (char *) &msg + sizeof(TS_MESSAGE_HEAD);

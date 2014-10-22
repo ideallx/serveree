@@ -112,7 +112,9 @@ SOURCES += \
     UnitTest/tst_CPackage.cpp \
     UnitTest/tst_reliable.cpp \
     common.cpp \
-    UnitTest/tst_cagentserver.cpp
+    UnitTest/tst_cagentserver.cpp \
+    UnitTest/tst_cserver.cpp \
+    TestClass/testserver.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += \
@@ -191,7 +193,9 @@ HEADERS += \
     UnitTest/tst_CPackage.h \
     UnitTest/tst_reliable.h \
     common.h \
-    UnitTest/tst_cagentserver.h
+    UnitTest/tst_cagentserver.h \
+    UnitTest/tst_cserver.h \
+    TestClass/testserver.h
 
 INCLUDEPATH += ../QtClassClient/Reliable/OSInedependent/pthread
 INCLUDEPATH += ../QtClassClient/Reliable/OSInedependent/libiop

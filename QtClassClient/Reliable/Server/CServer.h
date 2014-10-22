@@ -25,8 +25,6 @@ protected:
 	TSQueue<TS_PEER_MESSAGE>* p_InMsgQueue;				// 接收队列 in Queue
 	TSQueue<TS_PEER_MESSAGE>* p_OutMsgQueue;			// 发送队列 out Queue
 	
-	//sem_t data_in;										// 信号量
-	//sem_t data_out;
 	HANDLE data_in;
 	HANDLE data_out;
 

@@ -92,7 +92,9 @@ bool CSynSocket::createSocket(unsigned short iPort) {
 		perror("error");
 		return false;
 	} else {
+#ifdef _DEBUG_INFO_
 		printf("socket created\n");
+#endif
 		return bindPort(iPort);
 	}
 }
@@ -106,10 +108,8 @@ bool CSynSocket::closeSocket(void) {
 
 int CSynSocket::sendData(const char* buf, ULONG len, const struct sockaddr_in* ToAddr) {
 	int nSend = sendto(m_Socket, buf, len, 0, (sockaddr*) ToAddr, sizeof(*ToAddr));
-	int r;
 	if (nSend <= 0)	{
-		cout << "send failed" << endl;
-		r =	GetLastError();
+		cout << "send failed, error no: " << GetLastError() << endl;
 	}
 	return nSend;
 }
@@ -117,5 +117,8 @@ int CSynSocket::sendData(const char* buf, ULONG len, const struct sockaddr_in* T
 int CSynSocket::recvData(char* buf, ULONG& len, struct sockaddr_in* fromAddr) {
 	socklen_t Fromlen = sizeof(*fromAddr);
 	int recv_len = recvfrom(m_Socket, buf, len, 0, (sockaddr*) fromAddr, &Fromlen);
+	if (recv_len <= 0)	{
+        // cout << "recv failed, error no: " << GetLastError() << endl;
+	}
 	return recv_len;
 }

@@ -26,12 +26,12 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{71552ac9-03e4-4000-a506-443f5712fcec}</UniqueIdentifier>
+      <UniqueIdentifier>{a4a3c380-8123-403c-8c46-0044119faf7d}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{246b1ebf-3ce2-4f68-a6fa-2f42996109f9}</UniqueIdentifier>
+      <UniqueIdentifier>{5b60b428-f07a-4295-820f-50fe0b58e209}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -310,6 +310,9 @@
     <ClCompile Include="..\QtClassClient\Reliable\OSInedependent\pthread\sem_wait.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestClass\testserver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="UnitTest\tst_CPackage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -320,6 +323,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UnitTest\tst_cblockmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitTest\tst_cserver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UnitTest\tst_reliable.cpp">
@@ -416,6 +422,12 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_tst_cblockmanager.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_tst_cserver.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_tst_cserver.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_tst_reliable.cpp">
@@ -609,6 +621,9 @@
     <ClInclude Include="..\QtClassClient\stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TestClass\testserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <CustomBuild Include="UnitTest\tst_CPackage.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -619,6 +634,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="UnitTest\tst_cblockmanager.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="UnitTest\tst_cserver.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="UnitTest\tst_reliable.h">

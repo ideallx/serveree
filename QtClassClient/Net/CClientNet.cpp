@@ -58,18 +58,8 @@ void CClientNet::msgProc() {
 }
 
 void CClientNet::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isremote) {
-	//TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg;
-
-	//  if (isremote) {
-	//	switch (head->type) {
-	//	case AddAddr:
-	//		m_Connect->
-	//		break;
-	//	case RemoveAddr:
-
-	//		break;
-	//	}
-    buildSendMessage(msg);
+    if (!isremote)
+        buildSendMessage(msg);
 }
 
 void CClientNet::buildSendMessage(ts_msg& msg) {
@@ -119,7 +109,9 @@ void CClientNet::recvProc() {
 		}
 	}
 	delete pmsg;
+#ifdef _DEBUG_INFO_
 	cout << "recv thread exit" << endl;
+#endif
 }
 
 void CClientNet::sendProc() {
@@ -137,7 +129,9 @@ void CClientNet::sendProc() {
             result = m_Connect->send(pmsg->msg.Body, packetSize(pmsg->msg));
 	}
 	delete pmsg;
+#ifdef _DEBUG_INFO_
 	cout << "send thread exit" << endl;
+#endif
 }
 
 void CClientNet::startupHeartBeat() {
@@ -145,7 +139,9 @@ void CClientNet::startupHeartBeat() {
 	int rc = pthread_create(&pthread_hb, NULL, HBProc, (void*) this);
 	if (0 == rc) {
 		iop_usleep(10);
+#ifdef _DEBUG_INFO_
 		cout << "Heart Beat Thread start successfully " << endl;
+#endif
 	} else {
 		turnOff();
 	}
@@ -164,7 +160,9 @@ void CClientNet::sendHeartBeat() {
     upcmd->maxSeq = m_seq - 1;
 	
 	m_agent->send(msg->msg.Body, packetSize(msg->msg));
+#ifdef _DEBUG_INFO_
 	cout << m_uid << "send heart beat at " << upcmd->head.time << endl;
+#endif
 
     qDebug() << "send last and size is" << m_Connect->sendLastMsg();
 	delete msg;
@@ -184,7 +182,9 @@ void* HBProc(LPVOID lpParam) {
 		c->sendHeartBeat();
 		Sleep(HeartBeatInterval);				// 1∑÷÷”“ª∏ˆ
 	}
+#ifdef _DEBUG_INFO_
     cout << "hb thread exit" << endl;
+#endif
 	return 0;
 }
 

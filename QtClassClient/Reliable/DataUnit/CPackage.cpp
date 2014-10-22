@@ -112,7 +112,9 @@ bool CPackage::save(string fileName, bool isCreate) {
 	}
 	if (!CZip::saveToZip(fileName.c_str(), int2string(packageID).c_str(), 
 		content, (scanHead) * MESSAGE_SIZE, isCreate)) {
+#ifdef _DEBUG_INFO_
 			cout << "Save File Error" << endl;
+#endif
 			return false;
 	}
 	// cout << isCreate?"1":"0";

@@ -132,7 +132,7 @@ void Queue <ElemType>::doubleSize() {
 	rear = j;
 	curSize = newSize;
 
-	cout << "double" << endl;
+    // cout << "double" << endl;
 
 	delete[] elemArray;
 	elemArray = newArray;

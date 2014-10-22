@@ -3,7 +3,9 @@
 
 #include <QObject>
 #include "../QtClassClient/Reliable/Server/CAgentServer.h"
+#include "../QtClassClient/BizLogic/CBusinessLogic.h"
 #include "../QtClassClient/Net/CClientNet.h"
+#include "../TestClass/testserver.h"
 
 class tst_CAgentServer : public QObject
 {
@@ -24,16 +26,19 @@ private Q_SLOTS:
     void destroyclass();
     void heartbeat();
 
-//    void getOfflineUsers();
-//    void userLoginNotify();
-//    void userLogoutNotify();
-//    void getServerByUID();
-
 private:
-    void buildMessage(TS_UINT64 uid, int type);
+    void generateClient();
+    void generateServer();
+    void buildMessage(TestServer *ts, int type);
 
-    CAgentServer* test;
-    CClientNet* client;
+    CAgentServer* server;
+    QList<TestServer*> clientList;
+
+    sockaddr_in serverAddr;
+    sockaddr_in clientAddr;
+
+    unsigned short clientPort;
+    TS_UINT64 clientUID;
     ts_msg* msg;
 };
 
