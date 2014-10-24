@@ -310,10 +310,10 @@ void CReliableConnection::receive() {
         WaitForSingleObject(semMsg, INFINITE);
 
         if (!msgQueue->deQueue(msg))
-            return;
+            continue;
 
         if (!validityCheck(msg))				// ÓÐÐ§ÐÔ¼ì²â
-            return;
+            continue;
 
         unsigned char type = getType(msg);
         switch (type) {

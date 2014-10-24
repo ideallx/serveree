@@ -103,13 +103,8 @@ void CClientNet::recvProc() {
 	TS_PEER_MESSAGE *pmsg = new TS_PEER_MESSAGE();
     memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
 	
-    CAbsConnection* conn = new CReliableConnection();
-    if (!conn->copy(getConnection())) {
-        return;
-    }
-
 	while (isRunning()) {
-        if (conn->recv(pmsg->msg.Body, msglen) > 0) {
+        if (m_Connect->recv(pmsg->msg.Body, msglen) > 0) {
             WriteIn(*pmsg);
 		} else {
 			Sleep(1);
@@ -127,18 +122,13 @@ void CClientNet::sendProc() {
 
     Sleep(10);
 	int result;
-
-    CAbsConnection* conn = new CReliableConnection();
-    if (!conn->copy(getConnection())) {
-        return;
-    }
 	
 	while (isRunning()) {
         ReadOut(*pmsg);
 		if (getType(pmsg->msg) > PACKETCONTROL)
 			result = m_agent->send(pmsg->msg.Body, packetSize(pmsg->msg));
 		else
-            result = conn->send(pmsg->msg.Body, packetSize(pmsg->msg));
+            result = m_Connect->send(pmsg->msg.Body, packetSize(pmsg->msg));
 	}
 	delete pmsg;
 #ifdef _DEBUG_INFO_
