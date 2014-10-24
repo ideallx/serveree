@@ -46,10 +46,7 @@ class CBlock {
 private:
 	map<int, CPackage*> blockContents;
 	
-	CPackage* curPackage;		// 上一次读取或者插入的包，缓存用
-
-	bool isFirstMsg;			// 第一个包的序列号当做起始号
-
+    CPackage* curPackage;		// 上一次读取或者插入的包，缓存用
 	iop_lock_t mapLock;
 
 	TS_UINT64 _uid;				// block对应的uid

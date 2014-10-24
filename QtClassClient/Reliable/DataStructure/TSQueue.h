@@ -7,15 +7,16 @@
 #include <string.h>
 #include <algorithm>
 #include <functional>
-#include <pthread.h>
+
+#include <iop_thread.h>
 using namespace std;
 #endif //__STDAFX__
 
 template <class ElemType>
 class AbsQueue{
 public:
-	AbsQueue(){};
-	virtual ~AbsQueue(){};
+    AbsQueue(){}
+    virtual ~AbsQueue(){}
 
 	virtual int isEmpty() const					= 0;
 	virtual int isFull() const					= 0;
@@ -26,7 +27,7 @@ public:
 	virtual bool head(ElemType& x) const		= 0;
 	
 private:
-	AbsQueue(const AbsQueue &) { };
+    AbsQueue(const AbsQueue &) { }
 };
 
 //****************************Queue*******************************//
@@ -161,68 +162,68 @@ template <class T>
 // 他会副本缓存enqueue的数据。指针只保存4字节。对象则按照对象的长度来保存。
 class TSQueue{
 protected:
-	pthread_mutex_t   	mutex_lock;
+    iop_lock_t          mutex_lock;
 	Queue<T>*			m_queue;					// the object of queue.
 
 public:
 	TSQueue() {
-		pthread_mutex_init(&mutex_lock, NULL);
-		pthread_mutex_lock(&mutex_lock);
+        iop_lock_init(&mutex_lock);
+        iop_lock(&mutex_lock);
 		m_queue = new Queue<T>;
 		if (m_queue)
 			m_queue->makeEmpty();					// clear
-		pthread_mutex_unlock(&mutex_lock);
+        iop_unlock(&mutex_lock);
 	}
 
 	TSQueue(unsigned int size) {
-		pthread_mutex_init(&mutex_lock, NULL);
-		pthread_mutex_lock(&mutex_lock);
+        iop_lock_init(&mutex_lock);
+        iop_lock(&mutex_lock);
 		m_queue = new Queue<T>(size);
 		if (m_queue)
 			m_queue->makeEmpty();					// clear
-		pthread_mutex_unlock(&mutex_lock);
+        iop_unlock(&mutex_lock);
 	}
 
 	virtual ~TSQueue() {
-		pthread_mutex_lock(&mutex_lock);
+        iop_lock(&mutex_lock);
 		m_queue->makeEmpty();
 		delete m_queue;
-		pthread_mutex_unlock(&mutex_lock);
-		pthread_mutex_destroy(&mutex_lock);
+        iop_unlock(&mutex_lock);
+        iop_lock_destroy(&mutex_lock);
 	}
 
 	bool enQueue(const T& t) {
-		pthread_mutex_lock(&mutex_lock);
+        iop_lock(&mutex_lock);
 		bool rc = m_queue->enQueue(t);					// push
-		pthread_mutex_unlock(&mutex_lock);
+        iop_unlock(&mutex_lock);
 		return rc;
 	}
 
 	bool deQueue(T& t){
-		pthread_mutex_lock(&mutex_lock);
+        iop_lock(&mutex_lock);
 		bool rc = m_queue->deQueue(t);					// cout << "pop" << endl;
-		pthread_mutex_unlock(&mutex_lock);
+        iop_unlock(&mutex_lock);
 		return rc;
 	}
 
 	bool isEmpty(void){
-		pthread_mutex_lock(&mutex_lock);
+        iop_lock(&mutex_lock);
 		bool rc = m_queue->isEmpty();
-		pthread_mutex_unlock(&mutex_lock);
+        iop_unlock(&mutex_lock);
 		return rc;
 	}
 
 	bool head(T& t){
-		pthread_mutex_lock(&mutex_lock);
+        iop_lock(&mutex_lock);
 		bool rc = m_queue->head(t);
-		pthread_mutex_unlock(&mutex_lock);
+        iop_unlock(&mutex_lock);
 		return rc;
 	}
 
 	unsigned int size(void){
-		pthread_mutex_lock(&mutex_lock);
+        iop_lock(&mutex_lock);
 		unsigned int rc = m_queue->size();
-		pthread_mutex_unlock(&mutex_lock);
+        iop_unlock(&mutex_lock);
 		return rc;
 	}
 };

@@ -63,6 +63,7 @@ int iop_unlock(iop_lock_t *lock);
 
 int iop_thread_create(iop_thread_t *thread, thread_start_routine start_routine, void *arg, int stack_size);
 int iop_thread_detach(iop_thread_t thread);
+int iop_thread_detach_self();
 int iop_msleep(int n);
 int iop_thread_cancel(iop_thread_t t);
 void iop_thread_exit(thread_ret_type exit_code);

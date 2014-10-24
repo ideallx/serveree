@@ -20,9 +20,11 @@ CAgentServer::CAgentServer() {
 }
 
 CAgentServer::~CAgentServer() {
+	Stop();
 	iop_lock_destroy(&lockOfflineMaps);
 	iop_lock_destroy(&lockWorkServer);
 	iop_lock_destroy(&lockPortqueue);
+    iop_thread_cancel(pthread_scanoffline);
 
 	for (auto iter = map_workserver.begin(); iter != map_workserver.end(); ) {
 		delete iter->second;
@@ -93,7 +95,6 @@ void CAgentServer::destroyClass(TS_UINT64 classid) {
 
 void CAgentServer::scanOffline() {
     while (isRunning()) {
-        iop_usleep(HeartBeatInterval);
 
         TS_UINT64 currentTime = getServerTime();
 
@@ -124,6 +125,8 @@ void CAgentServer::scanOffline() {
             }
         }
         iop_unlock(&lockOfflineMaps);
+
+        iop_usleep(HeartBeatInterval);
     }
 }
 
@@ -346,7 +349,7 @@ int CAgentServer::getOfflineUsers(set<TS_UINT64>& out) {
 bool CAgentServer::Start(unsigned short port) {
 	if (CServer::Start(port) == false)
         return false;
-    int rc = pthread_create(&pthread_scanoffline, NULL, scanOfflineProc, (void*) this);
+    int rc = iop_thread_create(&pthread_scanoffline, scanOfflineProc, (void *) this, 0);
 	if (0 == rc) {
 		iop_usleep(10);
 #ifdef _DEBUG_INFO_
@@ -355,6 +358,7 @@ bool CAgentServer::Start(unsigned short port) {
 	} else {
 		turnOff();
 	}
+	return isStarted;
 }
 
 CWSServer* CAgentServer::getServerByUID(TS_UINT64 uid) {
@@ -365,13 +369,17 @@ CWSServer* CAgentServer::getServerByUID(TS_UINT64 uid) {
     return map_workserver[map_userinfo[uid]._classid];
 }
 
-void* scanOfflineProc(LPVOID lpParam) {
-	pthread_detach(pthread_self());
-	CAgentServer* object = (CAgentServer*) lpParam;
+thread_ret_type thread_func_call scanOfflineProc(LPVOID lpParam) {
+    iop_thread_detach_self();
+    CAgentServer* object = (CAgentServer*) lpParam;
 	if (!object) {
+        iop_thread_exit(0);
 		return 0;
 	}
     object->scanOffline();
+#ifdef _DEBUG_INFO_
     cout << "scanOfflineProc exit" << endl;
+#endif
+    iop_thread_exit(0);
 	return 0;
 }

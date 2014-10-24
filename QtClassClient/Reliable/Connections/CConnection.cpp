@@ -8,9 +8,11 @@ CConnection::CConnection(void) {
 }
 
 CConnection::~CConnection(void) {
-	if (!isCloned) {
-		clear();
-	}
+    if (isCloned)
+        return;
+
+    clear();
+    DESTROY(pSocket);
 }
 
 bool CConnection::create(unsigned short localport) {
@@ -37,8 +39,7 @@ bool CConnection::clear(void) {
 	memset(&m_ToAddr, 0, sizeof(struct sockaddr_in));
 	memset(&m_FromAddr, 0, sizeof(struct sockaddr_in));
 
-	brc = pSocket->closeSocket();
-	DESTROY(pSocket);
+    brc = pSocket->closeSocket();
 
 	return brc;
 }

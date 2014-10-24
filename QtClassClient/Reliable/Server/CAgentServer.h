@@ -56,9 +56,9 @@ private:
 	queue<int> port_queue;
 	map<TS_UINT64, TS_UINT64> heartBeatTime;	// uid->time 最近一次heartbeat包的时间
 
-	pthread_t scanThread;						// 扫描心跳包线程
-	set<TS_UINT64> offlineUsers;				// 掉线用户表
-    pthread_t pthread_scanoffline;
+    iop_thread_t pthread_scanoffline;
+
+    set<TS_UINT64> offlineUsers;				// 掉线用户表
 
 public:
 	CAgentServer();
@@ -87,15 +87,12 @@ public:
 
 	bool Start(unsigned short port = 0);
 
+    bool isClassExist(TS_UINT64 classid);
+
 private:
-
-	bool isClassExist(TS_UINT64 classid);
-
     void sendLeaveSuccess(TS_PEER_MESSAGE& pmsg);
 
-    friend void* scanOfflineProc(LPVOID lpParam);
-
-    friend class tst_CAgentServer;
+    friend thread_ret_type thread_func_call scanOfflineProc(LPVOID lpParam);
 };
 
 #endif

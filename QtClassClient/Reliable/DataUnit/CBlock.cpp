@@ -5,8 +5,7 @@
 #include "../OSInedependent/others.h"
 
 CBlock::CBlock(TS_UINT64 uid) :
-	curPackage(NULL),			// 缓存上一次被调用的包
-	isFirstMsg(true),			// 是不是第一次收到msg，第一个包号非0会做特殊处理
+    curPackage(NULL),			// 缓存上一次被调用的包
 	_uid(uid),					// 用户id
 	fileNamePrefix("L"),		// 随便给个初始值
 	maxSeq(0) {					
@@ -47,13 +46,7 @@ int CBlock::addMsg(const ts_msg& msg) {
 				it2->second->needAll();					// 收到一个需要新开Package的情况下，那之前的包应该全部收满
 			}
 
-			CPackage* cpa;
-			if (isFirstMsg) {							// 若是没有，创建一个，第一个包可能不是0，这里忽略pos之前的miss包
-				cpa = new CPackage(pos);
-				isFirstMsg = false;
-			} else {
-				cpa = new CPackage(0);
-			}
+            CPackage* cpa = new CPackage;
 			curPackage = cpa;
 			cpa->setID(packageNum);
 			blockContents.insert(make_pair(packageNum, curPackage));	// 新package加入map中

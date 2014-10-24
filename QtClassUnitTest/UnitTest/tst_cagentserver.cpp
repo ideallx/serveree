@@ -10,7 +10,6 @@ tst_CAgentServer::tst_CAgentServer() {
 void tst_CAgentServer::initTestCase() {
     clientUID = 11223344;
     clientPort = 4444;
-
 }
 
 void tst_CAgentServer::cleanupTestCase() {

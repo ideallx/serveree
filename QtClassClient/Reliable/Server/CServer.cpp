@@ -12,9 +12,9 @@ CServer::CServer() :
 	p_InMsgQueue(new TSQueue<TS_PEER_MESSAGE>),
 	p_OutMsgQueue(new TSQueue<TS_PEER_MESSAGE>) {
 		
-	pthread_recv = new pthread_t[recvthread_num],
-	pthread_send = new pthread_t[sendthread_num],
-	pthread_msg = new pthread_t[msgthread_num],
+    pthread_recv = new iop_thread_t[recvthread_num],
+    pthread_send = new iop_thread_t[sendthread_num],
+    pthread_msg = new iop_thread_t[msgthread_num],
 
 	Port = 0;
 	pConnect = new CReliableConnection;
@@ -25,7 +25,7 @@ CServer::CServer() :
 
 CServer::~CServer(void) {
     Stop();
-    //delete pConnect;
+//    delete pConnect;
 
 	CloseHandle(data_in);
 	CloseHandle(data_out);
@@ -49,7 +49,7 @@ bool CServer::Uninitialize(void) {
 
 
 void CServer::ReadIn(TS_PEER_MESSAGE& pmsg) {
-	WaitForSingleObject(data_in, INFINITE);
+    WaitForSingleObject(data_in, INFINITE);
 	p_InMsgQueue->deQueue(pmsg);
 }
 
@@ -59,7 +59,7 @@ void CServer::WriteIn(const TS_PEER_MESSAGE& pmsg) {
 }
 
 void CServer::ReadOut(TS_PEER_MESSAGE& pmsg) {
-	WaitForSingleObject(data_out, INFINITE);
+    WaitForSingleObject(data_out, INFINITE);
 	p_OutMsgQueue->deQueue(pmsg);
 }
 
@@ -92,7 +92,7 @@ bool CServer::Start(unsigned short port) {
 		return FALSE;
 
 	for (unsigned int i = 0; i < recvthread_num; i++) {
-		int rc = pthread_create(&pthread_recv[i], NULL, RecvProc, (void*) this);
+        int rc = iop_thread_create(&pthread_recv[i], RecvProc, (void *) this, 0);
 		if (0 == rc) {
 			iop_usleep(10);
 #ifdef _DEBUG_INFO_
@@ -105,7 +105,7 @@ bool CServer::Start(unsigned short port) {
 
 
 	for (unsigned int i = 0; i < sendthread_num; i++) {
-		int rc = pthread_create(&pthread_send[i], NULL, SendProc, (void*) this);
+        int rc = iop_thread_create(&pthread_send[i], SendProc, (void *) this, 0);
 		if (0 == rc) {
 			iop_usleep(10);
 #ifdef _DEBUG_INFO_
@@ -117,7 +117,7 @@ bool CServer::Start(unsigned short port) {
 	}
 
 	for (unsigned int i = 0; i < msgthread_num; i++) {
-		int rc = pthread_create(&pthread_msg[i], NULL, MsgProc, (void*) this);
+        int rc = iop_thread_create(&pthread_msg[i], MsgProc, (void *) this, 0);
 		if( rc == 0 ){
 			iop_usleep(10);
 #ifdef _DEBUG_INFO_
@@ -136,13 +136,13 @@ bool CServer::Stop(void) {
         turnOff();
         iop_usleep(100);
         for (unsigned int i = 0; i < sendthread_num; i++) {
-			pthread_cancel(pthread_send[i]);
+            iop_thread_cancel(pthread_send[i]);
 		}
         for (unsigned int i = 0; i < recvthread_num; i++) {
-			pthread_cancel(pthread_recv[i]);
+            iop_thread_cancel(pthread_recv[i]);
 		}
         for (unsigned int i = 0; i < msgthread_num; i++) {
-			pthread_cancel(pthread_msg[i]);
+            iop_thread_cancel(pthread_msg[i]);
 		}
 		delete[] pthread_send;
 		delete[] pthread_recv;

@@ -13,11 +13,10 @@ using namespace std;
 
 class  CHubConnection : public CAbsConnection {
 protected:
-	iop_lock_t mutex_lock;
-	map<TS_UINT64, CPeerConnection*>* peerHub;
-	CPeerConnection* pPeerConnect;
-
-	set<TS_UINT64> allUsers;		// all users who has logged in the class
+    iop_lock_t                          mutex_lock;
+    map<TS_UINT64, CPeerConnection*>*   peerHub;
+    CPeerConnection*                    pPeerConnect;
+    set<TS_UINT64>                      allUsers;		// all users who has logged in the class
 
 public:
 	CHubConnection(void);

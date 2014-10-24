@@ -64,48 +64,6 @@ SOURCES       = ..\QtClassClient\main.cpp \
 		..\QtClassClient\Reliable\OSInedependent\others.cpp \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.c \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_util.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\cleanup.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\global.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_cancel.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_create.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_detach.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_equal.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_getspecific.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_key_create.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_key_delete.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_kill.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_mutex_consistent.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_mutex_destroy.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_mutex_init.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_mutex_lock.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_mutex_trylock.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_mutex_unlock.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_mutexattr_destroy.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_self.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_setschedparam.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_setspecific.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_testcancel.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread_win32_attach_detach_np.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_callUserDestroyRoutines.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_MCS_lock.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_mutex_check_need_init.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_new.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_processInitialize.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_processTerminate.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_reuse.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_threadDestroy.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_threadStart.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_throw.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_tkAssocCreate.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_tkAssocDestroy.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched_get_priority_max.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched_get_priority_min.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched_yield.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sem_destroy.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sem_init.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sem_post.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sem_wait.c \
-		..\QtClassClient\Reliable\OSInedependent\pthread\w32_CancelableWait.c \
 		..\QtClassClient\Reliable\Server\CAbsServer.cpp \
 		..\QtClassClient\Reliable\Server\CAgentServer.cpp \
 		..\QtClassClient\Reliable\Server\CServer.cpp \
@@ -162,48 +120,6 @@ OBJECTS       = release\main.obj \
 		release\others.obj \
 		release\iop_thread.obj \
 		release\iop_util.obj \
-		release\cleanup.obj \
-		release\global.obj \
-		release\pthread_cancel.obj \
-		release\pthread_create.obj \
-		release\pthread_detach.obj \
-		release\pthread_equal.obj \
-		release\pthread_getspecific.obj \
-		release\pthread_key_create.obj \
-		release\pthread_key_delete.obj \
-		release\pthread_kill.obj \
-		release\pthread_mutex_consistent.obj \
-		release\pthread_mutex_destroy.obj \
-		release\pthread_mutex_init.obj \
-		release\pthread_mutex_lock.obj \
-		release\pthread_mutex_trylock.obj \
-		release\pthread_mutex_unlock.obj \
-		release\pthread_mutexattr_destroy.obj \
-		release\pthread_self.obj \
-		release\pthread_setschedparam.obj \
-		release\pthread_setspecific.obj \
-		release\pthread_testcancel.obj \
-		release\pthread_win32_attach_detach_np.obj \
-		release\ptw32_callUserDestroyRoutines.obj \
-		release\ptw32_MCS_lock.obj \
-		release\ptw32_mutex_check_need_init.obj \
-		release\ptw32_new.obj \
-		release\ptw32_processInitialize.obj \
-		release\ptw32_processTerminate.obj \
-		release\ptw32_reuse.obj \
-		release\ptw32_threadDestroy.obj \
-		release\ptw32_threadStart.obj \
-		release\ptw32_throw.obj \
-		release\ptw32_tkAssocCreate.obj \
-		release\ptw32_tkAssocDestroy.obj \
-		release\sched_get_priority_max.obj \
-		release\sched_get_priority_min.obj \
-		release\sched_yield.obj \
-		release\sem_destroy.obj \
-		release\sem_init.obj \
-		release\sem_post.obj \
-		release\sem_wait.obj \
-		release\w32_CancelableWait.obj \
 		release\CAbsServer.obj \
 		release\CAgentServer.obj \
 		release\CServer.obj \
@@ -307,26 +223,6 @@ DESTDIR_TARGET = release\TouchPad.exe
 <<
 
 {..\QtClassClient\Reliable\Server}.c{release\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{..\QtClassClient\Reliable\OSInedependent\pthread}.cpp{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{..\QtClassClient\Reliable\OSInedependent\pthread}.cc{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{..\QtClassClient\Reliable\OSInedependent\pthread}.cxx{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{..\QtClassClient\Reliable\OSInedependent\pthread}.c{release\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
@@ -591,8 +487,7 @@ dist:
 	$(ZIP) TouchPad.zip $(SOURCES) $(DIST) ..\QtClassClient\QtClassClient.pro F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\spec_pre.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\common\shell-win32.conf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\qconfig.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_axbase.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_axbase_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_axcontainer.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_axcontainer_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_axserver.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_axserver_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_bluetooth.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_bluetooth_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_bootstrap_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_clucene_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_concurrent.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_concurrent_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_core.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_core_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_declarative.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_declarative_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_designer.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_designer_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_designercomponents_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_enginio.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_enginio_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_gui.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_gui_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_help.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_help_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_multimedia.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_multimedia_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_multimediawidgets.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_multimediawidgets_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_network.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_network_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_nfc.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_nfc_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_opengl.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_opengl_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_openglextensions.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_openglextensions_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_platformsupport_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_positioning.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_positioning_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_printsupport.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_printsupport_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_qml.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_qml_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_qmldevtools_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_qmltest.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_qmltest_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_quick.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_quick_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_quickparticles_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_quickwidgets.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_quickwidgets_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_script.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_script_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_scripttools.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_scripttools_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_sensors.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_sensors_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_serialport.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_serialport_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_sql.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_sql_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_svg.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_svg_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_testlib.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_testlib_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_uitools.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_uitools_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_webkit.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_webkit_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_webkitwidgets.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_webkitwidgets_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_websockets.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_websockets_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_widgets.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_widgets_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_winextras.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_winextras_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_xml.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_xml_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_xmlpatterns.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_xmlpatterns_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\qt_functions.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\qt_config.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\win32\qt_config.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\win32-msvc2010\qmake.conf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\spec_post.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\exclusive_builds.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\default_pre.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\win32\default_pre.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\resolve_config.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\exclusive_builds_post.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\default_post.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\build_pass.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\c++11.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\win32\rtti.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\precompile_header.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\warn_on.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\qt.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\resources.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\moc.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\win32\opengl.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\uic.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\win32\windows.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\testcase_targets.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\exceptions.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\yacc.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\lex.prf ..\QtClassClient\QtClassClient.pro ..\QtClassClient\ui.qrc F:/Qt/Qt5.3.2/5.3/msvc2010_opengl/lib/qtmain.prl F:/Qt/Qt5.3.2/5.3/msvc2010_opengl/lib/Qt5Core.prl F:/Qt/Qt5.3.2/5.3/msvc2010_opengl/lib/Qt5Widgets.prl F:/Qt/Qt5.3.2/5.3/msvc2010_opengl/lib/Qt5Gui.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\main.obj release\mainwindow.obj release\myscene.obj release\myview.obj release\CBaseLogic.obj release\CUserLogic.obj release\CClientNet.obj release\CAbsConnection.obj release\CAbsSocket.obj release\CConnection.obj release\CHubConnection.obj release\CPeerConnection.obj release\CReliableConnection.obj release\CSynSocket.obj release\CBlock.obj release\CBlockManager.obj release\CMessage.obj release\CPackage.obj release\others.obj release\iop_thread.obj release\iop_util.obj release\cleanup.obj release\global.obj release\pthread_cancel.obj release\pthread_create.obj release\pthread_detach.obj release\pthread_equal.obj release\pthread_getspecific.obj release\pthread_key_create.obj release\pthread_key_delete.obj release\pthread_kill.obj release\pthread_mutex_consistent.obj release\pthread_mutex_destroy.obj release\pthread_mutex_init.obj release\pthread_mutex_lock.obj release\pthread_mutex_trylock.obj release\pthread_mutex_unlock.obj release\pthread_mutexattr_destroy.obj release\pthread_self.obj release\pthread_setschedparam.obj release\pthread_setspecific.obj release\pthread_testcancel.obj release\pthread_win32_attach_detach_np.obj release\ptw32_callUserDestroyRoutines.obj release\ptw32_MCS_lock.obj release\ptw32_mutex_check_need_init.obj release\ptw32_new.obj release\ptw32_processInitialize.obj release\ptw32_processTerminate.obj release\ptw32_reuse.obj release\ptw32_threadDestroy.obj release\ptw32_threadStart.obj release\ptw32_throw.obj release\ptw32_tkAssocCreate.obj release\ptw32_tkAssocDestroy.obj release\sched_get_priority_max.obj release\sched_get_priority_min.obj release\sched_yield.obj release\sem_destroy.obj release\sem_init.obj release\sem_post.obj release\sem_wait.obj release\w32_CancelableWait.obj release\CAbsServer.obj release\CAgentServer.obj release\CServer.obj release\CWSServer.obj release\CAbsStrategy.obj release\CDestroyStrategy.obj release\CWriteFileStrategy.obj release\myzip.obj release\ioapi.obj release\iowin32.obj release\unzip.obj release\zip.obj release\CMsgObject.obj
-	-$(DEL_FILE) release\CMsgReceiver.obj release\CMsgSender.obj release\CModuleAgent.obj release\CBusinessLogic.obj release\cgraphicmsgcreator.obj release\CGraphicLogic.obj release\cshape.obj release\cloginbutton.obj release\csettingsbutton.obj release\cuserlistwidget.obj release\linewidthcombox.obj release\cshapechooser.obj release\colorcombox.obj release\qrc_ui.obj release\moc_mainwindow.obj release\moc_myscene.obj release\moc_myview.obj release\moc_cloginbutton.obj release\moc_csettingsbutton.obj release\moc_cuserlistwidget.obj release\moc_linewidthcombox.obj release\moc_cshapechooser.obj release\moc_colorcombox.obj
+	-$(DEL_FILE) release\main.obj release\mainwindow.obj release\myscene.obj release\myview.obj release\CBaseLogic.obj release\CUserLogic.obj release\CClientNet.obj release\CAbsConnection.obj release\CAbsSocket.obj release\CConnection.obj release\CHubConnection.obj release\CPeerConnection.obj release\CReliableConnection.obj release\CSynSocket.obj release\CBlock.obj release\CBlockManager.obj release\CMessage.obj release\CPackage.obj release\others.obj release\iop_thread.obj release\iop_util.obj release\CAbsServer.obj release\CAgentServer.obj release\CServer.obj release\CWSServer.obj release\CAbsStrategy.obj release\CDestroyStrategy.obj release\CWriteFileStrategy.obj release\myzip.obj release\ioapi.obj release\iowin32.obj release\unzip.obj release\zip.obj release\CMsgObject.obj release\CMsgReceiver.obj release\CMsgSender.obj release\CModuleAgent.obj release\CBusinessLogic.obj release\cgraphicmsgcreator.obj release\CGraphicLogic.obj release\cshape.obj release\cloginbutton.obj release\csettingsbutton.obj release\cuserlistwidget.obj release\linewidthcombox.obj release\cshapechooser.obj release\colorcombox.obj release\qrc_ui.obj release\moc_mainwindow.obj release\moc_myscene.obj release\moc_myview.obj release\moc_cloginbutton.obj release\moc_csettingsbutton.obj release\moc_cuserlistwidget.obj release\moc_linewidthcombox.obj release\moc_cshapechooser.obj release\moc_colorcombox.obj
 	-$(DEL_FILE) release\TouchPad.exp release\TouchPad.exe.embed.manifest
 
 distclean: clean 
@@ -775,6 +670,7 @@ release\moc_mainwindow.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\
 		..\QtClassClient\Message\CMsgSender.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
@@ -3248,6 +3144,7 @@ release\main.obj: ..\QtClassClient\main.cpp F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\in
 		..\QtClassClient\Message\CMsgSender.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
@@ -3255,7 +3152,6 @@ release\main.obj: ..\QtClassClient\main.cpp F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\in
 		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
 		..\QtClassClient\Net\CClientNet.h \
 		..\QtClassClient\Reliable\Connections\CReliableConnection.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Reliable\Connections\CHubConnection.h \
 		..\QtClassClient\Reliable\Connections\CAbsConnection.h \
 		..\QtClassClient\Reliable\Connections\CSynSocket.h \
@@ -3422,6 +3318,7 @@ release\mainwindow.obj: ..\QtClassClient\LayerUI\mainwindow.cpp F:\Qt\Qt5.3.2\5.
 		..\QtClassClient\Message\CMsgSender.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
@@ -4455,11 +4352,11 @@ release\CUserLogic.obj: ..\QtClassClient\BizLogic\CUserLogic.cpp ..\QtClassClien
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qpoint.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qset.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qcontiguouscache.h \
-		..\QtClassClient\Reliable\Connections\CReliableConnection.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Reliable\Connections\CReliableConnection.h \
 		..\QtClassClient\Reliable\Connections\CHubConnection.h \
 		..\QtClassClient\Reliable\Connections\CAbsConnection.h \
 		..\QtClassClient\Reliable\Connections\CSynSocket.h \
@@ -4612,20 +4509,20 @@ release\CClientNet.obj: ..\QtClassClient\Net\CClientNet.cpp F:\Qt\Qt5.3.2\5.3\ms
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qpoint.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qset.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qcontiguouscache.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h \
+		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
+		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
+		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
 		..\QtClassClient\Message\CMsgObject.h \
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
 		..\QtClassClient\Reliable\DataUnit\CMessage.h \
 		..\QtClassClient\Reliable\OSInedependent\others.h \
 		..\QtClassClient\stdafx.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h \
 		..\QtClassClient\Message\CMsgSender.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\Reliable\Connections\CReliableConnection.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Reliable\Connections\CHubConnection.h \
 		..\QtClassClient\Reliable\Connections\CAbsConnection.h \
 		..\QtClassClient\Reliable\Connections\CSynSocket.h \
@@ -4707,11 +4604,11 @@ release\CPeerConnection.obj: ..\QtClassClient\Reliable\Connections\CPeerConnecti
 		..\QtClassClient\stdafx.h
 
 release\CReliableConnection.obj: ..\QtClassClient\Reliable\Connections\CReliableConnection.cpp ..\QtClassClient\Reliable\Connections\CReliableConnection.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h \
 		..\QtClassClient\Reliable\Connections\CHubConnection.h \
 		..\QtClassClient\Reliable\Connections\CAbsConnection.h \
 		..\QtClassClient\Reliable\Connections\CSynSocket.h \
@@ -4794,12 +4691,12 @@ release\CMessage.obj: ..\QtClassClient\Reliable\DataUnit\CMessage.cpp ..\QtClass
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h
 
-release\CPackage.obj: ..\QtClassClient\Reliable\DataUnit\CPackage.cpp ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\DataUnit\CPackage.h \
+release\CPackage.obj: ..\QtClassClient\Reliable\DataUnit\CPackage.cpp ..\QtClassClient\Reliable\DataUnit\CPackage.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h \
+		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
+		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
+		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
 		..\QtClassClient\Stdafx.h \
 		..\QtClassClient\Reliable\DataUnit\CMessage.h \
@@ -4825,269 +4722,16 @@ release\iop_thread.obj: ..\QtClassClient\Reliable\OSInedependent\libiop\iop_thre
 release\iop_util.obj: ..\QtClassClient\Reliable\OSInedependent\libiop\iop_util.c ..\QtClassClient\Reliable\OSInedependent\libiop\iop_util.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h
 
-release\cleanup.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\cleanup.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\global.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\global.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_cancel.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_cancel.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\context.h
-
-release\pthread_create.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_create.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_detach.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_detach.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_equal.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_equal.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_getspecific.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_getspecific.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_key_create.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_key_create.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_key_delete.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_key_delete.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_kill.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_kill.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_mutex_consistent.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_mutex_consistent.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_mutex_destroy.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_mutex_destroy.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_mutex_init.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_mutex_init.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_mutex_lock.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_mutex_lock.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_mutex_trylock.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_mutex_trylock.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_mutex_unlock.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_mutex_unlock.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_mutexattr_destroy.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_mutexattr_destroy.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_self.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_self.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_setschedparam.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_setschedparam.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_setspecific.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_setspecific.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_testcancel.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_testcancel.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\pthread_win32_attach_detach_np.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\pthread_win32_attach_detach_np.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\ptw32_callUserDestroyRoutines.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_callUserDestroyRoutines.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\ptw32_MCS_lock.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_MCS_lock.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\ptw32_mutex_check_need_init.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_mutex_check_need_init.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\ptw32_new.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_new.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\ptw32_processInitialize.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_processInitialize.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\ptw32_processTerminate.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_processTerminate.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\ptw32_reuse.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_reuse.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\ptw32_threadDestroy.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_threadDestroy.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\ptw32_threadStart.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_threadStart.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\ptw32_throw.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_throw.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\ptw32_tkAssocCreate.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_tkAssocCreate.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\ptw32_tkAssocDestroy.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\ptw32_tkAssocDestroy.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\sched_get_priority_max.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\sched_get_priority_max.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\sched_get_priority_min.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\sched_get_priority_min.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\sched_yield.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\sched_yield.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
-release\sem_destroy.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\sem_destroy.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h
-
-release\sem_init.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\sem_init.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h
-
-release\sem_post.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\sem_post.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h
-
-release\sem_wait.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\sem_wait.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h
-
-release\w32_CancelableWait.obj: ..\QtClassClient\Reliable\OSInedependent\pthread\w32_CancelableWait.c ..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\implement.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h
-
 release\CAbsServer.obj: ..\QtClassClient\Reliable\Server\CAbsServer.cpp ..\QtClassClient\Reliable\Server\CAbsServer.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
 		..\QtClassClient\Reliable\Connections\CConnection.h \
 		..\QtClassClient\Reliable\Connections\CAbsConnection.h \
 		..\QtClassClient\Reliable\Connections\CSynSocket.h \
 		..\QtClassClient\Reliable\Connections\CAbsSocket.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_util.h \
 		..\QtClassClient\Stdafx.h \
 		..\QtClassClient\Reliable\DataUnit\CMessage.h \
@@ -5095,7 +4739,6 @@ release\CAbsServer.obj: ..\QtClassClient\Reliable\Server\CAbsServer.cpp ..\QtCla
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\Connections\CHubConnection.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Reliable\Connections\CPeerConnection.h
 
 release\CAgentServer.obj: ..\QtClassClient\Reliable\Server\CAgentServer.cpp ..\QtClassClient\Reliable\Server\CAgentServer.h \
@@ -5106,7 +4749,6 @@ release\CAgentServer.obj: ..\QtClassClient\Reliable\Server\CAgentServer.cpp ..\Q
 		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
 		..\QtClassClient\Reliable\Server\CServer.h \
 		..\QtClassClient\Reliable\Server\CAbsServer.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
 		..\QtClassClient\Reliable\Connections\CConnection.h \
 		..\QtClassClient\Reliable\Connections\CAbsConnection.h \
 		..\QtClassClient\Reliable\Connections\CSynSocket.h \
@@ -5118,6 +4760,7 @@ release\CAgentServer.obj: ..\QtClassClient\Reliable\Server\CAgentServer.cpp ..\Q
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\Server\CWSServer.h \
+		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
 		..\QtClassClient\Reliable\Connections\CReliableConnection.h \
 		..\QtClassClient\Reliable\Connections\CHubConnection.h \
 		..\QtClassClient\Reliable\Connections\CPeerConnection.h \
@@ -5136,15 +4779,15 @@ release\CAgentServer.obj: ..\QtClassClient\Reliable\Server\CAgentServer.cpp ..\Q
 
 release\CServer.obj: ..\QtClassClient\Reliable\Server\CServer.cpp ..\QtClassClient\Reliable\Server\CServer.h \
 		..\QtClassClient\Reliable\Server\CAbsServer.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
 		..\QtClassClient\Reliable\Connections\CConnection.h \
 		..\QtClassClient\Reliable\Connections\CAbsConnection.h \
 		..\QtClassClient\Reliable\Connections\CSynSocket.h \
 		..\QtClassClient\Reliable\Connections\CAbsSocket.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_util.h \
 		..\QtClassClient\Stdafx.h \
 		..\QtClassClient\Reliable\DataUnit\CMessage.h \
@@ -5152,11 +4795,11 @@ release\CServer.obj: ..\QtClassClient\Reliable\Server\CServer.cpp ..\QtClassClie
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\Connections\CReliableConnection.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Reliable\Connections\CHubConnection.h \
 		..\QtClassClient\Reliable\Connections\CPeerConnection.h \
 		..\QtClassClient\Reliable\DataUnit\CBlockManager.h \
 		..\QtClassClient\Reliable\DataUnit\CBlock.h \
+		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
 		..\QtClassClient\Reliable\DataUnit\CPackage.h \
 		..\QtClassClient\Reliable\Zip\zip.h \
 		..\QtClassClient\Reliable\Zip\zlib.h \
@@ -5171,6 +4814,8 @@ release\CWSServer.obj: ..\QtClassClient\Reliable\Server\CWSServer.cpp ..\QtClass
 		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
 		..\QtClassClient\Reliable\Server\CServer.h \
 		..\QtClassClient\Reliable\Server\CAbsServer.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
@@ -5178,7 +4823,6 @@ release\CWSServer.obj: ..\QtClassClient\Reliable\Server\CWSServer.cpp ..\QtClass
 		..\QtClassClient\Reliable\Connections\CAbsConnection.h \
 		..\QtClassClient\Reliable\Connections\CSynSocket.h \
 		..\QtClassClient\Reliable\Connections\CAbsSocket.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_util.h \
 		..\QtClassClient\Stdafx.h \
 		..\QtClassClient\Reliable\DataUnit\CMessage.h \
@@ -5186,7 +4830,6 @@ release\CWSServer.obj: ..\QtClassClient\Reliable\Server\CWSServer.cpp ..\QtClass
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\Connections\CReliableConnection.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Reliable\Connections\CHubConnection.h \
 		..\QtClassClient\Reliable\Connections\CPeerConnection.h \
 		..\QtClassClient\Reliable\DataUnit\CBlockManager.h \
@@ -5578,11 +5221,11 @@ release\CBusinessLogic.obj: ..\QtClassClient\BizLogic\CBusinessLogic.cpp ..\QtCl
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qpoint.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qset.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qcontiguouscache.h \
-		..\QtClassClient\Reliable\Connections\CReliableConnection.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Reliable\Connections\CReliableConnection.h \
 		..\QtClassClient\Reliable\Connections\CHubConnection.h \
 		..\QtClassClient\Reliable\Connections\CAbsConnection.h \
 		..\QtClassClient\Reliable\Connections\CSynSocket.h \
@@ -5611,10 +5254,9 @@ release\CBusinessLogic.obj: ..\QtClassClient\BizLogic\CBusinessLogic.cpp ..\QtCl
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QPointF \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QMap
 
-release\cgraphicmsgcreator.obj: ..\QtClassClient\LayerUI\cgraphicmsgcreator.cpp ..\QtClassClient\LayerUI\cgraphicmsgcreator.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QPointF \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qpoint.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qnamespace.h \
+release\cgraphicmsgcreator.obj: ..\QtClassClient\LayerUI\cgraphicmsgcreator.cpp F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qdebug.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qalgorithms.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qglobal.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qconfig.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfeatures.h \
@@ -5643,37 +5285,48 @@ release\cgraphicmsgcreator.obj: ..\QtClassClient\LayerUI\cgraphicmsgcreator.cpp 
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qglobalstatic.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qmutex.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qnumeric.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QPen \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qpen.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qcolor.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qrgb.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qstringlist.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qalgorithms.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qdatastream.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qscopedpointer.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qhash.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qchar.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qiterator.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qlist.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qrefcount.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qpair.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qmap.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qtextstream.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qiodevice.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qobject.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qobjectdefs.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qnamespace.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qobjectdefs_impl.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qstring.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qchar.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qbytearray.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qrefcount.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qarraydata.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qstringbuilder.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qlist.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qiterator.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qcoreevent.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qscopedpointer.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qmetatype.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qvarlengtharray.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qcontainerfwd.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qisenum.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qobject_impl.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qpair.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qlocale.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qvariant.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qstringlist.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qdatastream.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qregexp.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qstringmatcher.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qbrush.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qshareddata.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qvector.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qpoint.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qset.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qcontiguouscache.h \
+		..\QtClassClient\LayerUI\cgraphicmsgcreator.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QPointF \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QPen \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qpen.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qcolor.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qrgb.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qbrush.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qmatrix.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qpolygon.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qrect.h \
@@ -5689,9 +5342,7 @@ release\cgraphicmsgcreator.obj: ..\QtClassClient\LayerUI\cgraphicmsgcreator.cpp 
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qpaintdevice.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qpixmap.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qsharedpointer.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qshareddata.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qsharedpointer_impl.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qhash.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QBrush \
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h \
@@ -5831,6 +5482,7 @@ release\CGraphicLogic.obj: ..\QtClassClient\BizLogic\CGraphicLogic.cpp F:\Qt\Qt5
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QPen \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QBrush \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\pthread.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\config.h \
 		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
@@ -5838,7 +5490,6 @@ release\CGraphicLogic.obj: ..\QtClassClient\BizLogic\CGraphicLogic.cpp F:\Qt\Qt5
 		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
 		..\QtClassClient\Net\CClientNet.h \
 		..\QtClassClient\Reliable\Connections\CReliableConnection.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Reliable\Connections\CHubConnection.h \
 		..\QtClassClient\Reliable\Connections\CAbsConnection.h \
 		..\QtClassClient\Reliable\Connections\CSynSocket.h \

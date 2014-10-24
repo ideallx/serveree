@@ -6,9 +6,6 @@
 
 class  CServer : public CAbsServer
 {
-	friend void* RecvProc(LPVOID lpParam);				// 缓存过程
-	friend void* SendProc(LPVOID lpParam);				// 缓存过程
-	friend void* MsgProc(LPVOID lpParam);				// ip packet -> message, 然后处理
 
 private:
 	ULONG MsgLen;
@@ -18,9 +15,9 @@ protected:
 	unsigned int sendthread_num;
 	unsigned int msgthread_num;
 
-	pthread_t* pthread_recv;
-	pthread_t* pthread_send;
-	pthread_t* pthread_msg;
+    iop_thread_t* pthread_recv;
+    iop_thread_t* pthread_send;
+    iop_thread_t* pthread_msg;
 	
 	TSQueue<TS_PEER_MESSAGE>* p_InMsgQueue;				// 接收队列 in Queue
 	TSQueue<TS_PEER_MESSAGE>* p_OutMsgQueue;			// 发送队列 out Queue
@@ -54,6 +51,10 @@ private:
 
 public:
 	TS_UINT64 AllocateSessionID(void);
+
+    friend thread_ret_type thread_func_call RecvProc(LPVOID lpParam);		// 缓存过程
+    friend thread_ret_type thread_func_call SendProc(LPVOID lpParam);		// 缓存过程
+    friend thread_ret_type thread_func_call MsgProc(LPVOID lpParam);		// ip packet -> message, 然后处理
 };
 
 

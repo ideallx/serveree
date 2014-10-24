@@ -147,9 +147,8 @@ void tst_CServer::workserver() {
     delete ws;
 }
 
-/*
-void tst_CServer::run10ClientNightmare() {
-    int total = 15000;
+void tst_CServer::run10ClientEasy() {
+    int total = 1500;
 
     int userNum = 10;
     for (int i = 0; i < userNum; i++)
@@ -160,5 +159,4 @@ void tst_CServer::run10ClientNightmare() {
     }
     QCOMPARE(clientList[2]->allReceived.size(), total * (userNum - 1));
 }
-*/
 

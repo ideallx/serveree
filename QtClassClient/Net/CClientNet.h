@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QDebug>
+#include <iop_thread.h>
 
 #include "../Message/CMsgObject.h"
 
@@ -18,10 +19,9 @@ private:
 	struct sockaddr_in	 m_Addr;
     TS_UINT64			 m_seq;             // next seq
 	TS_UINT64			 m_uid;
-
 	DWORD				 m_timeDiff;		// 服务器端和客户端的时间差
 
-    pthread_t            pthread_hb;
+    iop_thread_t         pthread_hb;
 
 
 public:
@@ -37,9 +37,6 @@ public:
 	void sendProc();
 	void recvProc();
 	void msgProc();
-	
-	// 心跳包过程
-	friend void* HBProc(LPVOID lpParam);
 
 	// 心跳包发送
 	void sendHeartBeat();
@@ -61,4 +58,7 @@ private:
 	void buildSendMessage(ts_msg& msg);
 
 	void MakeIPv4Addr(struct sockaddr_in& addr, char* ip, WORD port);
+
+    // 心跳包过程
+    friend thread_ret_type thread_func_call HBProc(LPVOID lpParam);
 };

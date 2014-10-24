@@ -3,8 +3,6 @@
 #include <iostream>
 #include <fstream>
 
-#include <pthread.h>
-
 #include "CPackage.h"
 #include "../Zip/myzip.h"
 

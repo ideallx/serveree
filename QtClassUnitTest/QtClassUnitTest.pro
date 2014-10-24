@@ -60,48 +60,6 @@ SOURCES += \
     ../QtClassClient/cshape.cpp \
     ../QtClassClient/Reliable/OSInedependent/libiop/iop_thread.c \
     ../QtClassClient/Reliable/OSInedependent/libiop/iop_util.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/cleanup.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/global.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_cancel.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_create.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_detach.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_equal.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_getspecific.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_key_create.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_key_delete.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_kill.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_mutex_consistent.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_mutex_destroy.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_mutex_init.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_mutex_lock.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_mutex_trylock.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_mutex_unlock.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_mutexattr_destroy.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_self.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_setschedparam.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_setspecific.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_testcancel.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread_win32_attach_detach_np.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/ptw32_callUserDestroyRoutines.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/ptw32_MCS_lock.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/ptw32_mutex_check_need_init.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/ptw32_new.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/ptw32_processInitialize.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/ptw32_processTerminate.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/ptw32_reuse.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/ptw32_threadDestroy.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/ptw32_threadStart.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/ptw32_throw.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/ptw32_tkAssocCreate.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/ptw32_tkAssocDestroy.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/sched_get_priority_max.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/sched_get_priority_min.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/sched_yield.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/sem_destroy.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/sem_init.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/sem_post.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/sem_wait.c \
-    ../QtClassClient/Reliable/OSInedependent/pthread/w32_CancelableWait.c \
     ../QtClassClient/Reliable/Zip/ioapi.c \
     ../QtClassClient/Reliable/Zip/iowin32.c \
     ../QtClassClient/Reliable/Zip/unzip.c \
@@ -161,12 +119,6 @@ HEADERS += \
     ../QtClassClient/Reliable/OSInedependent/libiop/iop_config.h \
     ../QtClassClient/Reliable/OSInedependent/libiop/iop_thread.h \
     ../QtClassClient/Reliable/OSInedependent/libiop/iop_util.h \
-    ../QtClassClient/Reliable/OSInedependent/pthread/config.h \
-    ../QtClassClient/Reliable/OSInedependent/pthread/context.h \
-    ../QtClassClient/Reliable/OSInedependent/pthread/implement.h \
-    ../QtClassClient/Reliable/OSInedependent/pthread/pthread.h \
-    ../QtClassClient/Reliable/OSInedependent/pthread/sched.h \
-    ../QtClassClient/Reliable/OSInedependent/pthread/semaphore.h \
     ../QtClassClient/Reliable/OSInedependent/others.h \
     ../QtClassClient/Reliable/Server/CAbsServer.h \
     ../QtClassClient/Reliable/Server/CAgentServer.h \

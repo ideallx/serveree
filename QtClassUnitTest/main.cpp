@@ -22,12 +22,13 @@ int main(int argc, char *argv[])
     tst_CServer tcs;
 
     int calc = 0;
-//    calc += QTest::qExec(&tc, argc, argv);
-//    calc += QTest::qExec(&tcb, argc, argv);
-//    calc += QTest::qExec(&tcbm, argc, argv);
-//    calc += QTest::qExec(&tcr, argc, argv);
+    calc += QTest::qExec(&tc, argc, argv);
+    calc += QTest::qExec(&tcb, argc, argv);
+    calc += QTest::qExec(&tcbm, argc, argv);
+    calc += QTest::qExec(&tcr, argc, argv);
     calc += QTest::qExec(&tcas, argc, argv);
     calc += QTest::qExec(&tcs, argc, argv);
 
+    cout << "total error: " << calc << endl;
     return calc;
 }

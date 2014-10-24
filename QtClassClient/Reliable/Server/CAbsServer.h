@@ -12,9 +12,6 @@
 #include <iostream>
 
 #include <vector>
-
-#include <pthread.h>
-#include <semaphore.h>
 #include <iop_thread.h>
 
 
@@ -77,8 +74,8 @@ public:
 };
 
 
-void* RecvProc(LPVOID lpParam);
-void* SendProc(LPVOID lpParam);
-void* MsgProc(LPVOID lpParam);
+thread_ret_type thread_func_call RecvProc(LPVOID lpParam);
+thread_ret_type thread_func_call SendProc(LPVOID lpParam);
+thread_ret_type thread_func_call MsgProc(LPVOID lpParam);
 
 #endif /* SERVER_H_ */

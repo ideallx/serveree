@@ -25,9 +25,9 @@ CReliableConnection::~CReliableConnection() {
     if (isRunning) {
         isRunning = false;
         iop_usleep(200);
-        pthread_cancel(msgScan);
-        pthread_cancel(msgIn);
-        pthread_cancel(msgSave);
+        iop_thread_cancel(pthread_input);
+        iop_thread_cancel(pthread_scan);
+        iop_thread_cancel(pthread_save);
     }
 
 	CloseHandle(semMsg);
@@ -45,7 +45,7 @@ bool CReliableConnection::create(unsigned short localport) {
 
 	isRunning = true;
 
-	int rc = pthread_create(&msgScan, NULL, ScanProc, (void*) this);
+    int rc = iop_thread_create(&pthread_scan, ScanProc, (void *) this, 0);
 	if (0 == rc) {
 		iop_usleep(10);
 #ifdef _DEBUG_INFO_
@@ -57,7 +57,7 @@ bool CReliableConnection::create(unsigned short localport) {
 		return false;
 	}
 
-	rc = pthread_create(&msgIn, NULL, MsgInProc, (void*) this);
+    rc = iop_thread_create(&pthread_input, MsgInProc, (void *) this, 0);
 	if (0 == rc) {
 		iop_usleep(10);
 #ifdef _DEBUG_INFO_
@@ -69,7 +69,7 @@ bool CReliableConnection::create(unsigned short localport) {
 		return false;
 	}
 
-	rc = pthread_create(&msgSave, NULL, SaveProc, (void*) this);
+    rc = iop_thread_create(&pthread_save, MsgInProc, (void *) this, 0);
 	if (0 == rc) {
 		iop_usleep(10);
 #ifdef _DEBUG_INFO_
@@ -161,7 +161,7 @@ void CReliableConnection::scanProcess() {
 
 void CReliableConnection::saveProcess() {
     while (isRunning) {
-        WaitForSingleObject(semSave, INFINITE);
+        WaitForSingleObject(semSave, 3000);
 
         pair<TS_UINT64, CPackage*> file;
         if (!saveQueue.deQueue(file))
@@ -287,7 +287,9 @@ int CReliableConnection::resend(ts_msg& requestMsg) {
 				count++;
 		}
     } else if (r->missingType == MISS_SERIES) {		// 批量MISS重传
+#ifdef _DEBUG_INFO_
 		cout << "miss series" << endl;
+#endif
         for (int i = 0; i < r->count; i++) {        // 每两个seq为一对
             resendPart(uid, r->missingUID, r->seq[i*2], r->seq[i*2 + 1]);
         }
@@ -307,7 +309,7 @@ void CReliableConnection::saveUserBlock(TS_UINT64 uid) {
 void CReliableConnection::receive() {
     ts_msg msg;
     while (isRunning) {
-        WaitForSingleObject(semMsg, INFINITE);
+        WaitForSingleObject(semMsg, 3000);
 
         if (!msgQueue->deQueue(msg))
             continue;
@@ -425,38 +427,50 @@ void CReliableConnection::sendMaxSeqList() {
     }
 }
 
-void* ScanProc(LPVOID lpParam) {
-	pthread_detach(pthread_self());
-	CReliableConnection* conn = (CReliableConnection*) lpParam;
+thread_ret_type thread_func_call ScanProc(LPVOID lpParam) {
+    iop_thread_detach_self();
+    CReliableConnection* conn = (CReliableConnection*) lpParam;
 	if (!conn) {
+        iop_thread_exit(0);
 		return 0;
 	}
 
     conn->scanProcess();		// 扫描包并重发
+#ifdef _DEBUG_INFO_
     cout << "ScanProc exit" << endl;
+#endif
+    iop_thread_exit(0);
 	return 0;
 }
 
-void* MsgInProc(LPVOID lpParam) {
-	pthread_detach(pthread_self());
-	CReliableConnection* conn = (CReliableConnection*) lpParam;
+thread_ret_type thread_func_call MsgInProc(LPVOID lpParam) {
+    iop_thread_detach_self();
+    CReliableConnection* conn = (CReliableConnection*) lpParam;
 	if (!conn) {
+        iop_thread_exit(0);
 		return 0;
     }
 
     conn->receive();
+#ifdef _DEBUG_INFO_
     cout << "MsgInProc exit" << endl;
+#endif
+    iop_thread_exit(0);
 	return 0;
 }
 
-void* SaveProc(LPVOID lpParam) {
-	pthread_detach(pthread_self());
-	CReliableConnection* conn = (CReliableConnection*) lpParam;
+thread_ret_type thread_func_call SaveProc(LPVOID lpParam) {
+    iop_thread_detach_self();
+    CReliableConnection* conn = (CReliableConnection*) lpParam;
 	if (!conn) {
+        iop_thread_exit(0);
 		return 0;
     }
 
     conn->saveProcess();
+#ifdef _DEBUG_INFO_
     cout << "SaveProc exit" << endl;
+#endif
+    iop_thread_exit(0);
 	return 0;
 }

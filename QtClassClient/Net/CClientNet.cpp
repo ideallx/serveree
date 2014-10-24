@@ -17,7 +17,7 @@ CClientNet::CClientNet() :
 
 CClientNet::~CClientNet() {
     Stop();										// 如果没有停止则先停止数据服务
-    pthread_cancel(pthread_hb);
+    iop_thread_cancel(pthread_hb);
 
     delete m_agent;
 }
@@ -137,7 +137,7 @@ void CClientNet::sendProc() {
 }
 
 void CClientNet::startupHeartBeat() {
-	int rc = pthread_create(&pthread_hb, NULL, HBProc, (void*) this);
+    int rc = iop_thread_create(&pthread_hb, HBProc, (void *) this, 0);
 	if (0 == rc) {
 		iop_usleep(10);
 #ifdef _DEBUG_INFO_
@@ -175,15 +175,17 @@ void CClientNet::addServerAddr(sockaddr_in in) {
 }
 
 
-void* HBProc(LPVOID lpParam) {
+thread_ret_type thread_func_call HBProc(LPVOID lpParam) {
 	CClientNet* c = (CClientNet*) lpParam;
 	if (!c) {
+        iop_thread_exit(0);
 		return 0;
     }
     c->sendHeartBeat();
 #ifdef _DEBUG_INFO_
     cout << "hb thread exit" << endl;
 #endif
+    iop_thread_exit(0);
 	return 0;
 }
 

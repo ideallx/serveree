@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\QtClassClient\Reliable\Connections\CAbsConnection.cpp" />
+    <ClCompile Include="..\QtClassClient\Reliable\OSInedependent\pthread\pthread_join.c" />
     <ClCompile Include="..\QtClassClient\Reliable\Server\CAbsServer.cpp" />
     <ClCompile Include="..\QtClassClient\Reliable\Connections\CAbsSocket.cpp" />
     <ClCompile Include="..\QtClassClient\Reliable\Strategy\CAbsStrategy.cpp" />

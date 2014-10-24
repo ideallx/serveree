@@ -53,7 +53,7 @@ MainWindow::~MainWindow() {
 //        Sleep(10);
 //    }
     isRunning = false;
-    pthread_cancel(msgThread);
+    iop_thread_cancel(pthread_msg);
     delete ui;
 }
 
@@ -138,7 +138,8 @@ void MainWindow::enterClassResult(bool result) {
         sem_msg = CreateSemaphore(NULL, 0, 1024, NULL);
         isRunning = true;
         Sleep(10);
-        int rc = pthread_create(&msgThread, NULL, UIMsgProc, (void*) this);
+
+        int rc = iop_thread_create(&pthread_msg, UIMsgProc, (void *) this, 0);
         if (0 == rc) {
             qDebug() << "enter class successfully";
         } else {
@@ -172,14 +173,14 @@ void MainWindow::removeUser(TS_UINT64 uid) {
 
 void MainWindow::addSceneSlot(int uidh, int uidl) {
     TS_UINT64 uid = uidl;
-	MyScene *s = new MyScene(uid, this, this);
+    MyScene *s = new MyScene(uid, this, this);
     sceneMap.insert(uid, s);
 }
 
 
 void MainWindow::msgProc() {
     while (isRunning) {
-        WaitForSingleObject(sem_msg, INFINITE);
+        WaitForSingleObject(sem_msg, 3000);
         emit drawShape();
     }
 }
@@ -227,13 +228,15 @@ void MainWindow::drawScene() {
     }
 }
 
-void* UIMsgProc(LPVOID lpParam) {
-    pthread_detach(pthread_self());
+thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {
+    iop_thread_detach_self();
     MainWindow* m = (MainWindow*) lpParam;
     if (NULL == m) {
+        iop_thread_exit(0);
         return 0;
     }
     m->msgProc();
+    iop_thread_exit(0);
     return 0;
 }
 

@@ -27,10 +27,7 @@ private Q_SLOTS:
     void run2ClientHard();
     void run5ClientEasy();
     void run5ClientHard();
-
-    /*
-    void run10ClientNightmare();
-    */
+    void run10ClientEasy();
 
 private:
     void generateClient();

@@ -101,6 +101,14 @@ int iop_thread_detach(iop_thread_t thread)
 #endif
 }
 
+int iop_thread_detach_self() {
+#ifdef WIN32
+    return 0;
+#else
+    return pthread_detach(pthread_self());
+#endif
+}
+
 int iop_msleep(int n)
 {
 #ifdef WIN32

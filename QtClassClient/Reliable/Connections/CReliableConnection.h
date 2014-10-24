@@ -1,7 +1,6 @@
 #ifndef _CONNECTION_CRELIABLECONNECTION_H_
 #define _CONNECTION_CRELIABLECONNECTION_H_
 
-#include <pthread.h>
 #include <iop_thread.h>
 
 #include "CHubConnection.h"
@@ -53,9 +52,9 @@
 
 class CReliableConnection : public CHubConnection {
 protected:
-	pthread_t msgScan;	
-	pthread_t msgIn;
-	pthread_t msgSave;
+    iop_thread_t pthread_scan;
+    iop_thread_t pthread_input;
+    iop_thread_t pthread_save;
 	
 	// 接收队列
 	HANDLE semMsg;					// 消息处理信号量
@@ -162,13 +161,13 @@ private:
 	
 private:
 	// 定时扫描失踪包裹。
-	friend void* ScanProc(LPVOID lpParam);
+    friend thread_ret_type thread_func_call ScanProc(LPVOID lpParam);
 
 	// 消息到达的处理过程
-	friend void* MsgInProc(LPVOID lpParam);
+    friend thread_ret_type thread_func_call MsgInProc(LPVOID lpParam);
 
 	// 消息到达的处理过程
-	friend void* SaveProc(LPVOID lpParam);
+    friend thread_ret_type thread_func_call SaveProc(LPVOID lpParam);
 };
 
 

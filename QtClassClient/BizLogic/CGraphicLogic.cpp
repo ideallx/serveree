@@ -11,9 +11,9 @@ static int ccccount = 0;
 map<TS_UINT64, ts_msg> CGraphicUserInfo::receiveMsg(const ts_msg& msg) {
     map<TS_UINT64, ts_msg> result;
     TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
-    //qDebug() << "recv:" << gmsg->head.subSeq << "from" << gmsg->head.UID << "total:" << ++ccccount;
 
     if (gmsg->head.subSeq == wantedSeq) {
+        //qDebug() << "draw:" << wantedSeq << "from" << gmsg->head.UID << "total:" << ++ccccount;
         result.insert(make_pair(gmsg->head.sequence, msg));
         wantedSeq++;
     } else {
@@ -26,7 +26,7 @@ map<TS_UINT64, ts_msg> CGraphicUserInfo::receiveMsg(const ts_msg& msg) {
             break;
 
         if (iter->first == wantedSeq) {
-            //qDebug() << "recv: " << wantedSeq << "from " << gmsg->head.UID;
+            //qDebug() << "draw:" << wantedSeq << "from" << gmsg->head.UID << "total:" << ++ccccount;
             result.insert(make_pair(iter->first, iter->second));
             waitingList.erase(iter++);
             wantedSeq++;

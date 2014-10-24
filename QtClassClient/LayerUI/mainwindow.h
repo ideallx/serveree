@@ -7,7 +7,7 @@
 #include "../Message/CMsgObject.h"
 #include "../Reliable/DataStructure/TSQueue.h"
 #include <QVector>
-#include <pthread.h>
+#include <iop_thread.h>
 #include <semaphore.h>
 
 namespace Ui {
@@ -17,8 +17,6 @@ class MainWindow;
 class MainWindow : public QMainWindow, public CMsgObject
 {
     Q_OBJECT
-
-friend void* UIMsgProc(LPVOID lpParam);
 
 public:
     explicit MainWindow(QWidget *parent = 0);
@@ -39,7 +37,7 @@ private:
     QMap<TS_UINT64, MyScene*> sceneMap;
 
     HANDLE sem_msg;
-    pthread_t msgThread;
+    iop_thread_t pthread_msg;
     bool isRunning;
     TSQueue<ts_msg> msgQueue;
 
@@ -69,8 +67,8 @@ private slots:
     void on_tbMyBoard_clicked();
 
     void addSceneSlot(int uidh, int uidl);
-};
 
-void* UIMsgProc(LPVOID lpParam);
+    friend thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam);
+};
 
 #endif // MAINWINDOW_H

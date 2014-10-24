@@ -29,7 +29,7 @@ void tst_CBlock::cleanup() {
 
 void tst_CBlock::testAddMsg1() {
     test->setFilePrefix("aaaa");
-    int total = 10000;
+    int total = 5000;
     for (int i = 0; i < total; i++) {
         generateNormalMsg(*msg);
         QVERIFY(test->addMsg(*msg) > 0);
@@ -37,13 +37,13 @@ void tst_CBlock::testAddMsg1() {
 }
 
 void tst_CBlock::testReadMsg() {
-    for (int i = 0; i < 30000; i++) {
+    for (int i = 0; i < 3000; i++) {
         generateNormalMsg(*msg);
         Sleep(1);
         QVERIFY(test->addMsg(*msg) > 0);
     }
 
-    for (int i = 200; i < 20000; i += 400) {
+    for (int i = 200; i < 2000; i += 400) {
         QVERIFY(test->readMsg(i, *msg) > 0);
         QVERIFY(getSeq(*msg) == i);
     }
@@ -51,7 +51,7 @@ void tst_CBlock::testReadMsg() {
 
 void tst_CBlock::testScanMissing() {
     int interval = 36;
-    int total = 20000;
+    int total = 2000;
 
     for (int i = 0; i < total; i++) {		// 模拟丢包
         if (i % interval == 0) {			// 随便一个数的倍数全丢了

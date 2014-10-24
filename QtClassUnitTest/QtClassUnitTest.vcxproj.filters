@@ -436,6 +436,9 @@
     <ClCompile Include="Debug\moc_tst_reliable.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="..\QtClassClient\Reliable\OSInedependent\pthread\pthread_join.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\QtClassClient\Reliable\Connections\CAbsConnection.h">

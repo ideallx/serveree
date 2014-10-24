@@ -15,9 +15,11 @@ CHubConnection::~CHubConnection(void) {
 	if (isCloned) 
 		return;
 
-	clear();
-	DESTROY(peerHub);
-	iop_lock_destroy(&mutex_lock);
+    clear();
+    DESTROY(peerHub);
+    DESTROY(pSocket);
+
+    iop_lock_destroy(&mutex_lock);
 }
 
 void CHubConnection::clearMap(void) {
@@ -158,22 +160,20 @@ void CHubConnection::display() {
 }
 
 bool CHubConnection::clear(void){
-	if (isCloned)
-		return true;
+    if (isCloned)
+        return true;
 
-	if (!pSocket)
-		return true;
+    if (!pSocket)
+        return true;
 
-	bool brc = true;
+    bool brc = true;
 
-	memset(&m_ToAddr, 0, sizeof(struct sockaddr_in));
-	memset(&m_FromAddr, 0, sizeof(struct sockaddr_in));
-
-	clearMap();
+    memset(&m_ToAddr, 0, sizeof(struct sockaddr_in));
+    memset(&m_FromAddr, 0, sizeof(struct sockaddr_in));
 
     brc = pSocket->closeSocket();
-    delete pSocket;
-    pSocket = NULL;
+
+    clearMap();
 
 	return brc;
 }

@@ -47,35 +47,48 @@ unsigned short CAbsServer::getPort(void) {
 	return Port;
 }
 
-void* SendProc(LPVOID lpParam) {
-	pthread_detach(pthread_self());
-	CAbsServer* pServer = (CAbsServer*) lpParam;
+thread_ret_type thread_func_call SendProc(LPVOID lpParam) {
+    iop_thread_detach_self();
+    CAbsServer* pServer = (CAbsServer*) lpParam;
 	if (!pServer) {
+        iop_thread_exit(0);
 		return 0;
 	}
 	pServer->sendProc();
+#ifdef _DEBUG_INFO_
     cout << "SendProc exit" << endl;
+#endif
+    iop_thread_exit(0);
 	return 0;
 }
 
-void* RecvProc(LPVOID lpParam) {
-	CAbsServer* pServer = (CAbsServer*) lpParam;
+thread_ret_type thread_func_call RecvProc(LPVOID lpParam) {
+    iop_thread_detach_self();
+    CAbsServer* pServer = (CAbsServer*) lpParam;
 	if (!pServer) {
+        iop_thread_exit(0);
 		return 0;
 	}
 	pServer->recvProc();
+#ifdef _DEBUG_INFO_
     cout << "RecvProc exit" << endl;
+#endif
+    iop_thread_exit(0);
 	return 0;
 }
 
-void* MsgProc(LPVOID lpParam) {
-	pthread_detach(pthread_self());
+thread_ret_type thread_func_call MsgProc(LPVOID lpParam) {
+    iop_thread_detach_self();
 	CAbsServer* pServer = (CAbsServer*) lpParam;
 	if (NULL == pServer) {
+        iop_thread_exit(0);
 		return 0;
 	}
 	pServer->msgProc();
+#ifdef _DEBUG_INFO_
     cout << "MsgProc exit" << endl;
+#endif
+    iop_thread_exit(0);
 	return 0;
 }
 
