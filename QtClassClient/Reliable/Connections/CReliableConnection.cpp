@@ -24,9 +24,10 @@ CReliableConnection::CReliableConnection() :
 CReliableConnection::~CReliableConnection() {
     if (isRunning) {
         isRunning = false;
-        iop_usleep(150);
+        iop_usleep(200);
         pthread_cancel(msgScan);
         pthread_cancel(msgIn);
+        pthread_cancel(msgSave);
     }
 
 	CloseHandle(semMsg);
@@ -88,12 +89,15 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
 		return result;
 
     ts_msg* msg = (ts_msg*) buf;
-	switch (getType(*msg)) {
-	case RESEND:
-		result = -1;
+    switch (getType(*msg)) {
+    case RESEND:
+        result = -1;
 		if (false == resendWhenAsk)		// 抑制重发请求！，则不重发
-			return result;
-		break;
+            return result;
+        break;
+    case MAXSEQLIST:
+        result = -1;
+        break;
 	default:
 		totalMsgs++;
 		break;
@@ -108,6 +112,7 @@ int CReliableConnection::send(const char* buf, ULONG len, TS_UINT64 uid) {
 	ts_msg *msg = (ts_msg*) buf;
 	TS_UINT64 seq = getSeq(*msg);
 
+    // hub::send is same to send2peer uid in client mode for peerhub of hub is only server inside
 	if (seq != 0) {												// seq为0，控制类指令，暂不保存
         if (selfUid != ServerUID) {								// client端特殊处理.
 			bm->record(*msg);									// client端需要记录发出的包
@@ -121,43 +126,56 @@ int CReliableConnection::send(const char* buf, ULONG len, TS_UINT64 uid) {
 }
 
 void CReliableConnection::scanProcess() {
-	// 扫描丢包，重发
-	totalMiss = 0;
-	map<TS_UINT64, set<TS_UINT64> > results = bm->getLostSeqIDs();				// blockManager层找
-	for (auto uidIter = results.begin(); uidIter != results.end(); uidIter++) { // 扫描所有UID
-		TS_UINT64 uid = uidIter->first;											// block层
-		set<TS_UINT64> pids = uidIter->second;									// package层
-		requestForResend(uid, pids);
-		totalMiss += pids.size();
-	}
+    while (isRunning) {
+        WaitForSingleObject(needScan, 1000);	// 最多等1秒
+        // 扫描丢包，重发
+        totalMiss = 0;
+        map<TS_UINT64, set<TS_UINT64> > results = bm->getLostSeqIDs();				// blockManager层找
+        for (auto uidIter = results.begin(); uidIter != results.end(); uidIter++) { // 扫描所有UID
+            TS_UINT64 uid = uidIter->first;											// block层
+            set<TS_UINT64> pids = uidIter->second;									// package层
+            requestForResend(uid, pids);
+            totalMiss += pids.size();
+        }
 
-	// 扫描保存包，扔保存队列
-	set<pair<TS_UINT64, CPackage*> > sets;
-	bm->getSavePackage(sets);
-	for (auto iter = sets.begin(); iter != sets.end(); iter++) {
-		saveQueue.enQueue(*iter);
-		ReleaseSemaphore(semSave, 1, NULL);
-	}
+        // 扫描保存包，扔保存队列
+        set<pair<TS_UINT64, CPackage*> > sets;
+        bm->getSavePackage(sets);
+        for (auto iter = sets.begin(); iter != sets.end(); iter++) {
+            saveQueue.enQueue(*iter);
+            ReleaseSemaphore(semSave, 1, NULL);
+        }
+
+        // send User maxSeq list to all client every 10 scanprocess in server
+        if (selfUid == ServerUID) {
+            static int scanTimes = 0;
+            scanTimes++;
+            sendMaxSeqList();
+        }
 #ifdef _DEBUG_INFO_
-	cout << "missing: " << totalMiss;
+        cout << "missing: " << totalMiss;
 #endif
+        iop_usleep(100);			// 时间间隔
+    }
 }
 
 void CReliableConnection::saveProcess() {
-	WaitForSingleObject(semSave, INFINITE);
+    while (isRunning) {
+        WaitForSingleObject(semSave, INFINITE);
 
-	pair<TS_UINT64, CPackage*> file;
-	if (!saveQueue.deQueue(file))
-		return;
+        pair<TS_UINT64, CPackage*> file;
+        if (!saveQueue.deQueue(file))
+            return;
 
-	bool isFirst = false;
-	if (createdBlock.count(file.first) == 0) {
-		createdBlock.insert(file.first);
-		isFirst = true;
-	}
-	//cout << "3";
-	file.second->save(fileNamePrefix + "_" + int2string(file.first) + ".zip", isFirst);
-    // cout << "Missing Rate: " << getMissingRate() << endl;
+        bool isFirst = false;
+        if (createdBlock.count(file.first) == 0) {
+            createdBlock.insert(file.first);
+            isFirst = true;
+        }
+        //cout << "3";
+        file.second->save(fileNamePrefix + "_" + int2string(file.first) + ".zip", isFirst);
+        // cout << "Missing Rate: " << getMissingRate() << endl;
+    }
 }
 
 int CReliableConnection::send2Peer(ts_msg& msg) {
@@ -218,6 +236,34 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 	return result;
 }
 
+void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
+    DOWN_MAXSEQ_LIST *down = (DOWN_MAXSEQ_LIST*) &requestMsg;
+
+    ts_msg msg;
+    RCONNECT* up = (RCONNECT*) &msg;
+    for (int i = 0; i < down->count; i++) {
+        TS_UINT64 uid = down->seq[2 * i];
+        TS_UINT64 maxSeqClient = bm->getMaxSeqOfUID(uid);
+        TS_UINT64 maxSeqServer = down->seq[2 * i + 1];
+        if (maxSeqClient < maxSeqServer) {      // if server's seq bigger than client
+            up->missingUID = uid;
+            up->missingType = MISS_SERIES;
+            up->count = 1;
+            up->seq[0] = maxSeqClient;
+            up->seq[1] = maxSeqServer;
+            up->head.type = RESEND;
+            up->head.size = sizeof(RCONNECT);
+            up->head.sequence = 0;
+            up->head.UID = selfUid;
+            send(msg.Body, up->head.size);
+        } else if (uid == selfUid) {            // if server lost client's latest msg
+            if (maxSeqClient > maxSeqServer) {
+                resendPart(ServerUID, selfUid, maxSeqServer, maxSeqClient);
+            }
+        }
+    }
+}
+
 int CReliableConnection::resend(ts_msg& requestMsg) {
 	int count = 0;
 	RCONNECT* r = (RCONNECT*) &requestMsg;
@@ -241,7 +287,8 @@ int CReliableConnection::resend(ts_msg& requestMsg) {
 				count++;
 		}
     } else if (r->missingType == MISS_SERIES) {		// 批量MISS重传
-        for (int i = 0; i < r->count / 2; i++) {	// 每两个seq为一对
+		cout << "miss series" << endl;
+        for (int i = 0; i < r->count; i++) {        // 每两个seq为一对
             resendPart(uid, r->missingUID, r->seq[i*2], r->seq[i*2 + 1]);
         }
 	} else if (r->missingType == MISS_ALL) {		// 全部重传
@@ -257,32 +304,38 @@ void CReliableConnection::saveUserBlock(TS_UINT64 uid) {
 	// bm->removeBlock(uid);
 }
 
-void CReliableConnection::receive(ts_msg& msg) {
-	if (!msgQueue->deQueue(msg))
-		return;
+void CReliableConnection::receive() {
+    ts_msg msg;
+    while (isRunning) {
+        WaitForSingleObject(semMsg, INFINITE);
 
-	if (!validityCheck(msg))				// 有效性检测
-		return;
-	
-	unsigned char type = getType(msg);
-    switch (type) {
-    case RESEND:                            // 若是收到重传请求，自己处理
-        resend(msg);
-        break;
-    default:                                // 若是收到重传请求，自己处理
-        bm->record(msg);					// 缓存记录
-        if (selfUid == ServerUID) {			// Server转发
-            send(msg.Body, packetSize(msg));
+        if (!msgQueue->deQueue(msg))
+            return;
+
+        if (!validityCheck(msg))				// 有效性检测
+            return;
+
+        unsigned char type = getType(msg);
+        switch (type) {
+        case RESEND:                            // 若是收到重传请求，自己处理
+            resend(msg);
+            break;
+        case MAXSEQLIST:
+            requestForSeriesResend(msg);
+            break;
+        default:                                // 若是收到重传请求，自己处理
+            bm->record(msg);					// 缓存记录
+            if (selfUid == ServerUID) {			// Server转发
+                send(msg.Body, packetSize(msg));
+            }
+            break;
         }
-        break;
+        ReleaseSemaphore(needScan, 1, NULL);	// 收到任意msg，都要重新scan
     }
-	ReleaseSemaphore(needScan, 1, NULL);	// 收到任意msg，都要重新scan
 }
 
 // 现在就检查一下seq，后续检查全加入这个函数中
 bool CReliableConnection::validityCheck(ts_msg& msg) {
-	if (getSeq(msg) == 0)
-		return false;
 	return true;
 }
 
@@ -300,7 +353,9 @@ int CReliableConnection::resendAll(TS_UINT64 uid) {
 	for (auto iter = allUsers.begin(); iter != allUsers.end(); iter++) {
 		TS_UINT64 uid = *iter;
 		TS_UINT64 end = bm->getMaxSeqOfUID(uid);
+#ifdef _DEBUG_INFO_
 		cout << "user: " << uid << " has " << end << " message" << endl;
+#endif
 
 		for (int j = 1; j <= end; j++) {
 			if (bm->readRecord(uid, j, p) < 0)
@@ -310,7 +365,9 @@ int CReliableConnection::resendAll(TS_UINT64 uid) {
 		}
 	}
 	iop_unlock(&mutex_lock);
+#ifdef _DEBUG_INFO_
 	cout << "resend all " << count << "message" << endl;
+#endif
 	return count;
 }
 
@@ -328,7 +385,7 @@ int CReliableConnection::resendPart(TS_UINT64 toUID,
 
     ts_msg p;
     int count = 0;
-    for (TS_UINT64 j = fromSeq; j < toSeq; j++) {
+    for (TS_UINT64 j = fromSeq; j <= toSeq; j++) {
         if (bm->readRecord(needUID, j, p) < 0)
             continue;
         if (peer->send(p.Body, packetSize(p)) > 0)
@@ -337,11 +394,35 @@ int CReliableConnection::resendPart(TS_UINT64 toUID,
     return count;
 }
 
-int CReliableConnection::sendLastMsg() {
-    TS_UINT64 max = bm->getMaxSeqOfUID(SelfUID);
-    ts_msg p;
-    bm->readRecord(SelfUID, max, p);
-    return send2Peer(p, ServerUID);
+// only available on server mode
+void CReliableConnection::sendMaxSeqList() {
+    if (selfUid != ServerUID) {
+        return;
+    }
+    DOWN_MAXSEQ_LIST msg;
+    ts_msg *m = (ts_msg*) &msg;
+    msg.head.size = sizeof(DOWN_MAXSEQ_LIST);
+    msg.head.type = MAXSEQLIST;
+    msg.head.UID = ServerUID;
+    msg.head.version = VersionNumber;
+    msg.count = 0;
+
+    for (auto iter = allUsers.begin(); iter != allUsers.end(); iter++) {
+        TS_UINT64 maxSeq = bm->getMaxSeqOfUID(*iter);
+        if (maxSeq != 0) {  // the user whose seq is nonzero can be listed
+            msg.seq[msg.count * 2] = *iter;
+            msg.seq[msg.count * 2 + 1] = maxSeq;
+            msg.count++;
+        }
+
+        if (msg.count == MaxSeqsInOnePacket / 2) {
+            send(m->Body, msg.head.size);
+            msg.head.size = 0;
+        }
+    }
+    if (msg.head.size != 0) {
+        send(m->Body, msg.head.size);
+    }
 }
 
 void* ScanProc(LPVOID lpParam) {
@@ -350,11 +431,9 @@ void* ScanProc(LPVOID lpParam) {
 	if (!conn) {
 		return 0;
 	}
-	while (conn->isRunning) {
-        WaitForSingleObject(conn->needScan, 3000);	// 最多等1秒
-		conn->scanProcess();		// 扫描包并重发
-		iop_usleep(100);			// 时间间隔
-	}
+
+    conn->scanProcess();		// 扫描包并重发
+    cout << "ScanProc exit" << endl;
 	return 0;
 }
 
@@ -363,13 +442,10 @@ void* MsgInProc(LPVOID lpParam) {
 	CReliableConnection* conn = (CReliableConnection*) lpParam;
 	if (!conn) {
 		return 0;
-	}
-	ts_msg* msg = new ts_msg();
-	while (conn->isRunning) {
-		WaitForSingleObject(conn->semMsg, INFINITE);
-		conn->receive(*msg);
-	}
-	delete msg;
+    }
+
+    conn->receive();
+    cout << "MsgInProc exit" << endl;
 	return 0;
 }
 
@@ -378,9 +454,9 @@ void* SaveProc(LPVOID lpParam) {
 	CReliableConnection* conn = (CReliableConnection*) lpParam;
 	if (!conn) {
 		return 0;
-	}
-	while (conn->isRunning) {
-		conn->saveProcess();
-	}
+    }
+
+    conn->saveProcess();
+    cout << "SaveProc exit" << endl;
 	return 0;
 }

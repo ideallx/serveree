@@ -11,7 +11,7 @@ static int ccccount = 0;
 map<TS_UINT64, ts_msg> CGraphicUserInfo::receiveMsg(const ts_msg& msg) {
     map<TS_UINT64, ts_msg> result;
     TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
-    qDebug() << "recv:" << gmsg->head.subSeq << "from" << gmsg->head.UID << "total:" << ++ccccount;
+    //qDebug() << "recv:" << gmsg->head.subSeq << "from" << gmsg->head.UID << "total:" << ++ccccount;
 
     if (gmsg->head.subSeq == wantedSeq) {
         result.insert(make_pair(gmsg->head.sequence, msg));

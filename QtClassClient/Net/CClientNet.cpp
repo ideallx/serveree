@@ -17,6 +17,8 @@ CClientNet::CClientNet() :
 
 CClientNet::~CClientNet() {
     Stop();										// 如果没有停止则先停止数据服务
+    pthread_cancel(pthread_hb);
+
     delete m_agent;
 }
 
@@ -101,8 +103,13 @@ void CClientNet::recvProc() {
 	TS_PEER_MESSAGE *pmsg = new TS_PEER_MESSAGE();
     memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
 	
+    CAbsConnection* conn = new CReliableConnection();
+    if (!conn->copy(getConnection())) {
+        return;
+    }
+
 	while (isRunning()) {
-		if (m_Connect->recv(pmsg->msg.Body, msglen) > 0) {
+        if (conn->recv(pmsg->msg.Body, msglen) > 0) {
             WriteIn(*pmsg);
 		} else {
 			Sleep(1);
@@ -120,13 +127,18 @@ void CClientNet::sendProc() {
 
     Sleep(10);
 	int result;
+
+    CAbsConnection* conn = new CReliableConnection();
+    if (!conn->copy(getConnection())) {
+        return;
+    }
 	
 	while (isRunning()) {
         ReadOut(*pmsg);
 		if (getType(pmsg->msg) > PACKETCONTROL)
 			result = m_agent->send(pmsg->msg.Body, packetSize(pmsg->msg));
 		else
-            result = m_Connect->send(pmsg->msg.Body, packetSize(pmsg->msg));
+            result = conn->send(pmsg->msg.Body, packetSize(pmsg->msg));
 	}
 	delete pmsg;
 #ifdef _DEBUG_INFO_
@@ -135,7 +147,6 @@ void CClientNet::sendProc() {
 }
 
 void CClientNet::startupHeartBeat() {
-	pthread_t pthread_hb;	// heartbeat
 	int rc = pthread_create(&pthread_hb, NULL, HBProc, (void*) this);
 	if (0 == rc) {
 		iop_usleep(10);
@@ -148,24 +159,25 @@ void CClientNet::startupHeartBeat() {
 }
 
 void CClientNet::sendHeartBeat() {
-	TS_PEER_MESSAGE *msg = new TS_PEER_MESSAGE();
-	UP_HEARTBEAT* upcmd = (UP_HEARTBEAT*) &msg->msg;
-	
-	upcmd->head.type = HEARTBEAT;
-	upcmd->head.time = getClientTime(m_timeDiff);
-	upcmd->head.size = sizeof(UP_HEARTBEAT);
-	upcmd->head.sequence = 0;
-	upcmd->head.UID = m_uid;
-	upcmd->head.version = VersionNumber;
-    upcmd->maxSeq = m_seq - 1;
-	
-	m_agent->send(msg->msg.Body, packetSize(msg->msg));
-#ifdef _DEBUG_INFO_
-	cout << m_uid << "send heart beat at " << upcmd->head.time << endl;
-#endif
+    while (isRunning()) {
+        TS_PEER_MESSAGE *msg = new TS_PEER_MESSAGE();
+        UP_HEARTBEAT* upcmd = (UP_HEARTBEAT*) &msg->msg;
 
-    qDebug() << "send last and size is" << m_Connect->sendLastMsg();
-	delete msg;
+        upcmd->head.type = HEARTBEAT;
+        upcmd->head.time = getClientTime(m_timeDiff);
+        upcmd->head.size = sizeof(UP_HEARTBEAT);
+        upcmd->head.sequence = 0;
+        upcmd->head.UID = m_uid;
+        upcmd->head.version = VersionNumber;
+        upcmd->maxSeq = m_seq - 1;
+
+        m_agent->send(msg->msg.Body, packetSize(msg->msg));
+#ifdef _DEBUG_INFO_
+        cout << m_uid << "send heart beat at " << upcmd->head.time << endl;
+#endif
+        delete msg;
+        Sleep(HeartBeatInterval);				// 1分钟一个
+    }
 }
 
 void CClientNet::addServerAddr(sockaddr_in in) { 
@@ -177,11 +189,8 @@ void* HBProc(LPVOID lpParam) {
 	CClientNet* c = (CClientNet*) lpParam;
 	if (!c) {
 		return 0;
-	}
-	while (c->isRunning()) {
-		c->sendHeartBeat();
-		Sleep(HeartBeatInterval);				// 1分钟一个
-	}
+    }
+    c->sendHeartBeat();
 #ifdef _DEBUG_INFO_
     cout << "hb thread exit" << endl;
 #endif

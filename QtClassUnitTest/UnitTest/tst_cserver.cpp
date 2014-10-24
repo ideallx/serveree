@@ -1,6 +1,7 @@
 #include <QTest>
 #include "tst_cserver.h"
 #include "../common.h"
+#include "../QtClassClient/Reliable/Server/CWSServer.h"
 
 tst_CServer::tst_CServer()
 {
@@ -62,7 +63,6 @@ void tst_CServer::sendMessage(TestServer* ts, int times) {
 void tst_CServer::init() {
     generateServer();
     generateClient();
-
 
     msg = new ts_msg();
     ((TS_MESSAGE_HEAD*) &msg->Body)->size = 300;
@@ -138,6 +138,13 @@ void tst_CServer::run5ClientHard() {
         sendMessage(clientList[j], total);
     }
     QCOMPARE(clientList[2]->allReceived.size(), total * (userNum - 1));
+}
+
+void tst_CServer::workserver() {
+    CWSServer* ws = new CWSServer(111, 222);
+    ws->Start(3333);
+
+    delete ws;
 }
 
 /*

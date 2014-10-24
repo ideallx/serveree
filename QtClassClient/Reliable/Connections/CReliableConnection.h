@@ -80,6 +80,8 @@ protected:
 	bool resendWhenAsk;				// 是否一收到重发请求就重发（重发率过高时，设为false抑制重发）
     bool isRunning;					// 是否运行，从create开始运行
 
+    set<pair<TS_UINT64, TS_UINT64> > maxSeqList;
+
 public:
 	CReliableConnection();
 	virtual ~CReliableConnection();
@@ -130,10 +132,11 @@ public:
 	// 设置正常或者抑制重发
 	inline void setResendWhenAsk(bool set) { resendWhenAsk = set; }
 
+    // send to all client the maxseq of all client
+    void sendMaxSeqList();
+
 	// 关闭reliable
     inline void stop() { isRunning = false; }
-
-    int sendLastMsg();
 
 private:
 	// 将需要发送的消息添加至消息队列
@@ -145,6 +148,9 @@ private:
 	// 自己接收缺失，问对端要，返回发出去了几个包  回头改函数名
 	int requestForResend(TS_UINT64 uid, set<TS_UINT64> pids);
 
+    // 收到最大包列表，请求补发空缺的包
+    void requestForSeriesResend(ts_msg& msg);
+
 	// 自己发送缺失，处理对端请求，返回发出去了几个包
 	int resend(ts_msg& requestMsg);
 
@@ -152,7 +158,7 @@ private:
     bool validityCheck(ts_msg& msg);
 
     // 收到数据后的处理以及转发等过程
-    void receive(ts_msg& msg);
+    void receive();
 	
 private:
 	// 定时扫描失踪包裹。

@@ -24,11 +24,11 @@ CAgentServer::~CAgentServer() {
 	iop_lock_destroy(&lockWorkServer);
 	iop_lock_destroy(&lockPortqueue);
 
-	Sleep(10);
 	for (auto iter = map_workserver.begin(); iter != map_workserver.end(); ) {
 		delete iter->second;
 		map_workserver.erase(iter++);
 	}
+    Sleep(100);
 }
 
 bool CAgentServer::isClassExist(TS_UINT64 classid) {
@@ -62,8 +62,9 @@ void CAgentServer::createClass(TS_UINT64 classid) {
 	CWSServer* pWorker = new CWSServer(classid, 1);		// 创建一个新的WorkServer
 	map_workserver[classid] = pWorker;
 	pWorker->Start(port);
-
+#ifdef _DEBUG_INFO_
 	cout << "Worker Server Start successfully on Port " << port << "." << endl;
+#endif
 	iop_unlock(&lockWorkServer);
 }
 
@@ -77,7 +78,9 @@ void CAgentServer::destroyClass(TS_UINT64 classid) {
 	int port = pServer->getPort();		// 获取服务器端口
 	delete pServer;
 
+#ifdef _DEBUG_INFO_
 	cout << "Worker Server Stop successfully on Port " << port << "." << endl;
+#endif
 	map_workserver[classid] = NULL;
 	map_workserver.erase(classid);
 		
@@ -89,32 +92,39 @@ void CAgentServer::destroyClass(TS_UINT64 classid) {
 }
 
 void CAgentServer::scanOffline() {
-	TS_UINT64 currentTime = getServerTime();
-	
-	if (heartBeatTime.size() == 0)
-		return;
+    while (isRunning()) {
+        iop_usleep(HeartBeatInterval);
 
-	iop_lock(&lockOfflineMaps);
-	int maxAllowedInterval = HeartBeatInterval * 3;
-	for (auto iter = heartBeatTime.begin(); iter != heartBeatTime.end(); ) {
-		cout << iter->first << " lost " << currentTime - iter->second << endl;
-		if (currentTime - iter->second > maxAllowedInterval) {
-			TS_PEER_MESSAGE msg;  
-			userLogoutNotify(msg, iter->first);
-			
-			CWSServer* pServer = map_workserver[map_userinfo[iter->first]._classid];
-			if (pServer != NULL) {
-				pServer->removeUser(iter->first);
-			}
+        TS_UINT64 currentTime = getServerTime();
 
-			cout << iter->first << "drop connection" << endl;
-			offlineUsers.insert(iter->first);
-			heartBeatTime.erase(iter++);
-		} else {
-			iter++;
-		}
-	}
-	iop_unlock(&lockOfflineMaps);
+        if (heartBeatTime.size() == 0)
+            continue;
+
+        iop_lock(&lockOfflineMaps);
+        int maxAllowedInterval = HeartBeatInterval * 3;
+        for (auto iter = heartBeatTime.begin(); iter != heartBeatTime.end(); ) {
+#ifdef _DEBUG_INFO_
+            cout << iter->first << " lost " << currentTime - iter->second << endl;
+#endif
+            if (currentTime - iter->second > maxAllowedInterval) {
+                TS_PEER_MESSAGE msg;
+                userLogoutNotify(msg, iter->first);
+
+                CWSServer* pServer = map_workserver[map_userinfo[iter->first]._classid];
+                if (pServer != NULL) {
+                    pServer->removeUser(iter->first);
+                }
+#ifdef _DEBUG_INFO_
+                cout << iter->first << "drop connection" << endl;
+#endif
+                offlineUsers.insert(iter->first);
+                heartBeatTime.erase(iter++);
+            } else {
+                iter++;
+            }
+        }
+        iop_unlock(&lockOfflineMaps);
+    }
 }
 
 bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
@@ -139,7 +149,9 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	down->head.size = sizeof(DOWN_AGENTSERVICE);
 	WriteOut(inputMsg);
 
+#ifdef _DEBUG_INFO_
 	cout << "Add User: " << user._uid << "into class" << user._classid << endl; 
+#endif
 	map_userinfo.insert(make_pair(user._uid, user));
 	heartBeatTime.insert(make_pair(user._uid, down->head.time));
 
@@ -176,11 +188,15 @@ void CAgentServer::leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	sendLeaveSuccess(inputMsg);
 	userLogoutNotify(inputMsg, user._uid);
 	pServer->removePeer(user._uid);
+#ifdef _DEBUG_INFO_
 	cout << "user: " << user._uid << " removed" << endl;
+#endif
 	map_userinfo.erase(user._uid);
 
 	if (pServer->isEmpty()) {										// 教室里没人了就销毁
+#ifdef _DEBUG_INFO_
 		cout << "destroy class" << endl;
+#endif
 		if (isClassExist(classid)) {
 			destroyClass(classid);
 		}
@@ -268,7 +284,7 @@ void CAgentServer::userLogoutNotify(TS_PEER_MESSAGE& pmsg, TS_UINT64 uid) {
 
 DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，加入退出班级等等
 	enum PacketType type = getType(inputMsg.msg);
-
+	
 	switch (type) {
 	case ENTERCLASS:
 		{
@@ -318,7 +334,7 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
 	default:
 		break;
 	}
-
+	
 	return 0;
 }
 
@@ -329,9 +345,8 @@ int CAgentServer::getOfflineUsers(set<TS_UINT64>& out) {
 
 bool CAgentServer::Start(unsigned short port) {
 	if (CServer::Start(port) == false)
-		return false;
-	pthread_t p;
-	int rc = pthread_create(&p, NULL, scanOfflineProc, (void*) this);
+        return false;
+    int rc = pthread_create(&pthread_scanoffline, NULL, scanOfflineProc, (void*) this);
 	if (0 == rc) {
 		iop_usleep(10);
 #ifdef _DEBUG_INFO_
@@ -356,9 +371,7 @@ void* scanOfflineProc(LPVOID lpParam) {
 	if (!object) {
 		return 0;
 	}
-	while (object->isRunning()) {
-		object->scanOffline();
-		iop_usleep(HeartBeatInterval);
-	}
+    object->scanOffline();
+    cout << "scanOfflineProc exit" << endl;
 	return 0;
 }

@@ -25,6 +25,8 @@ CServer::CServer() :
 
 CServer::~CServer(void) {
     Stop();
+    //delete pConnect;
+
 	CloseHandle(data_in);
 	CloseHandle(data_out);
 
@@ -132,7 +134,7 @@ bool CServer::Stop(void) {
     Uninitialize();
     if (isRunning()) {
         turnOff();
-        iop_usleep(10);
+        iop_usleep(100);
         for (unsigned int i = 0; i < sendthread_num; i++) {
 			pthread_cancel(pthread_send[i]);
 		}
@@ -146,8 +148,6 @@ bool CServer::Stop(void) {
 		delete[] pthread_recv;
 		delete[] pthread_msg;
     }
-
-    iop_usleep(10);
 	return TRUE;
 }
 
@@ -166,8 +166,11 @@ void CServer::sendProc() {
 	while (isRunning()) {
 		ReadOut(pmsg);
 		pPeerConn->setPeer(pmsg.peeraddr);
+        pPeerConn->send(pmsg.msg.Body, sizeof(ts_msg));
+
+#ifdef _DEBUG_INFO_
 		cout << "port:" << pPeerConn->getPeer()->sin_port << endl;
-		pPeerConn->send(pmsg.msg.Body, sizeof(ts_msg));
+#endif
 	}
 }
 

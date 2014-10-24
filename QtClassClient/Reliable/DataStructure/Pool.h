@@ -8,6 +8,7 @@
 #ifndef _DATASTRUCTURE_POOL_H_
 #define _DATASTRUCTURE_POOL_H_
 
+#include <iop_thread.h>
 #include <semaphore.h>
 #include <queue>
 #include <iostream>
@@ -16,7 +17,7 @@ using namespace std;
 template <class ElemType>
 class Pool {
 protected:
-	sem_t sem_pool;
+	iop_lock_t lockPool;
 	queue<ElemType>* list_res;
 
 public:
@@ -30,37 +31,37 @@ public:
 template <class ElemType>
 Pool<ElemType>::Pool() {
 	// TODO Auto-generated constructor stub
-	sem_init((sem_t*) &sem_pool, 0, 1);
+	iop_lock_init(&lockPool);
 
-	sem_wait((sem_t*) &sem_pool);
+	iop_lock(&lockPool);
 	list_res = new queue<ElemType>();
-	sem_post((sem_t*) &sem_pool);
+	iop_unlock(&lockPool);
 }
 
 template <class ElemType>
 ElemType Pool<ElemType>::getRes() {
 	ElemType ret;
-	sem_wait((sem_t*) &sem_pool);
+	iop_lock(&lockPool);
 	if (list_res->empty()) {
 		ret = NULL;
 	} else {
 		ret = list_res->front();
 		list_res->pop();
 	}
-	sem_post((sem_t*) &sem_pool);
+	iop_unlock(&lockPool);
 	return ret;
 }
 
 template <class ElemType>
 void Pool<ElemType>::releaseRes(ElemType T) {
-	sem_wait((sem_t*) &sem_pool);
+	iop_lock(&lockPool);
 	list_res->push(T);
-	sem_post((sem_t*) &sem_pool);
+	iop_unlock(&lockPool);
 }
 
 template <class ElemType>
 Pool<ElemType>::~Pool() {
-	sem_wait((sem_t*) &sem_pool);
+	iop_lock(&lockPool);
 	cout << "delete pool" << endl;
 	cout << list_res->size() << endl;
 	if (NULL != list_res) {
@@ -75,7 +76,10 @@ Pool<ElemType>::~Pool() {
 	}
 	delete list_res;
 	list_res = NULL;
-	sem_post((sem_t*) &sem_pool);
+	iop_unlock(&lockPool);
+
+	
+	iop_lock_destroy(&lockPool);
 }
 
 #endif /* POOL_H_ */

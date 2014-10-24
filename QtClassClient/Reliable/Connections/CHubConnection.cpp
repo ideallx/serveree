@@ -171,9 +171,9 @@ bool CHubConnection::clear(void){
 
 	clearMap();
 
-	brc = pSocket->closeSocket();
-	delete pSocket;
-	pSocket = NULL;
+    brc = pSocket->closeSocket();
+    delete pSocket;
+    pSocket = NULL;
 
 	return brc;
 }
@@ -244,7 +244,6 @@ bool CHubConnection::copy(CAbsConnection* pConn) {
 	if (!ps)
 		return false;
 
-	assert(strcmp(typeid(*pConn).name(), typeid(CHubConnection).name()) == 0);
 	assert(ps->getSocket() > 0);
 	if (pSocket->copy(ps)) {
 		memcpy(&m_ToAddr, pConn->getPeer(), sizeof(struct sockaddr_in));

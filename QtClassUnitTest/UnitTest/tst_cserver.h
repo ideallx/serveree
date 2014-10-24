@@ -21,11 +21,13 @@ private Q_SLOTS:
     void init();
     void cleanup();
 
+    void workserver();
     void run1ClientEasy();
     void run1ClientHard();
     void run2ClientHard();
     void run5ClientEasy();
     void run5ClientHard();
+
     /*
     void run10ClientNightmare();
     */

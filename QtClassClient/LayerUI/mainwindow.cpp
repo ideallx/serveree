@@ -52,6 +52,8 @@ MainWindow::~MainWindow() {
 //        leaveClass();
 //        Sleep(10);
 //    }
+    isRunning = false;
+    pthread_cancel(msgThread);
     delete ui;
 }
 

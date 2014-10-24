@@ -48,6 +48,12 @@ typedef struct {
     TS_UINT64 seq[MaxSeqsInOnePacket];
 } RCONNECT;
 
+typedef struct {
+    TS_MESSAGE_HEAD head;
+    unsigned short count;		// 后续uid/seq对 对数，即最多 MaxSeqsInOnePacket / 2
+    TS_UINT64 seq[MaxSeqsInOnePacket];
+} DOWN_MAXSEQ_LIST;
+
 // 上行报文
 typedef struct {
     TS_MESSAGE_HEAD head;
@@ -197,6 +203,7 @@ enum PacketType {
 
     PACKETFIX = 40,			// 修正包
     RESEND,					// 重发单个包
+    MAXSEQLIST,             // 最大包列表
 
     PACKETCONTROL = 50,		// 控制包
     ENTERCLASS,				// 进入班级

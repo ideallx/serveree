@@ -26,9 +26,15 @@ private Q_SLOTS:
     void destroyclass();
     void heartbeat();
 
+    void halfwayUser();
+
 private:
     void generateClient();
     void generateServer();
+
+    void normalEnterClass(int userseq, int messSeq);
+    void normalLeaveClass(int userseq, int messSeq);
+
     void buildMessage(TestServer *ts, int type);
 
     CAgentServer* server;

@@ -24,7 +24,6 @@ void TestServer::recvProc() {
     memset(&pmsg, 0, sizeof(TS_PEER_MESSAGE));
 
     while (isRunning()) {
-        memset(&pmsg, 0, sizeof(TS_PEER_MESSAGE));
         if (conn->recv(pmsg.msg.Body, msglen) > 0) {
             memcpy(&pmsg.peeraddr, conn->getRecvAddr(), sizeof(struct sockaddr_in));
             WriteIn(pmsg);

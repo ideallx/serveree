@@ -14,22 +14,19 @@ CAbsServer::CAbsServer(void) :
 	pConnect(NULL),
 	Port(0),
 	isStarted(FALSE) {
-	sem_init((sem_t*) &sem_free, 0, 1);
-	sem_init((sem_t*) &sem_start, 0, 1);
-	sem_init((sem_t*) &sem_count, 0, 1);
+	iop_lock_init(&lockStart);
 
 	turnOff();
 }
 
 CAbsServer::~CAbsServer(void) {
-	sem_destroy((sem_t*) &sem_count);
-	sem_destroy((sem_t*) &sem_start);
-	sem_destroy((sem_t*) &sem_free);
+    turnOff();
+	iop_lock_destroy(&lockStart);
 }
 
 CAbsConnection* CAbsServer::getConnection(void) {
 	return pConnect;
-};
+}
 
 sockaddr_in* CAbsServer::getServerAddr(void) {
 	if (NULL == pConnect) {
@@ -39,13 +36,12 @@ sockaddr_in* CAbsServer::getServerAddr(void) {
 	}
 }
 
-bool CAbsServer::isRunning(){
-	bool ret;
-	//sem_wait((sem_t*) &sem_start);
-	ret = isStarted;
-	//sem_post((sem_t*) &sem_start);
-	return ret;
-};
+bool CAbsServer::isRunning() {
+	iop_lock(&lockStart);
+    bool ret = isStarted;
+	iop_unlock(&lockStart);
+    return ret;
+}
 
 unsigned short CAbsServer::getPort(void) {
 	return Port;
@@ -58,6 +54,7 @@ void* SendProc(LPVOID lpParam) {
 		return 0;
 	}
 	pServer->sendProc();
+    cout << "SendProc exit" << endl;
 	return 0;
 }
 
@@ -67,6 +64,7 @@ void* RecvProc(LPVOID lpParam) {
 		return 0;
 	}
 	pServer->recvProc();
+    cout << "RecvProc exit" << endl;
 	return 0;
 }
 
@@ -77,6 +75,7 @@ void* MsgProc(LPVOID lpParam) {
 		return 0;
 	}
 	pServer->msgProc();
+    cout << "MsgProc exit" << endl;
 	return 0;
 }
 

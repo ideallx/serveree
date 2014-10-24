@@ -21,6 +21,8 @@ private:
 
 	DWORD				 m_timeDiff;		// 服务器端和客户端的时间差
 
+    pthread_t            pthread_hb;
+
 
 public:
 	CClientNet(void);

@@ -46,15 +46,15 @@ public:
 	bool clear(void);
 
 	// 发给所有的peer
-	int send(const char* buf, ULONG len);
+    virtual int send(const char* buf, ULONG len);
 
 	// 发给所有的peer除了某个UID
-	int sendExcept(const char* buf, ULONG len, TS_UINT64 uid);
+    virtual int sendExcept(const char* buf, ULONG len, TS_UINT64 uid);
 
-	int recv(char* buf, ULONG& len);
+    virtual int recv(char* buf, ULONG& len);
 
 public:
-	bool copy(CAbsConnection* conn);
+    virtual bool copy(CAbsConnection* conn);
 
 protected:
 	void setPeerConnection(const struct sockaddr_in& peeraddr);

@@ -15,6 +15,7 @@ int generateNormalMsg(ts_msg& msg, TS_UINT64 uid) {
 	head->isEnd = 0;
 	head->UID = uid;
 	head->version = 1;
+    head->type = GRAPHICS;
 
 	char* body = (char *) &msg + sizeof(TS_MESSAGE_HEAD);
 	// memset(body,  sequence, length - sizeof(TS_MESSAGE_HEAD));

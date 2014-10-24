@@ -15,12 +15,13 @@
 
 #include <pthread.h>
 #include <semaphore.h>
+#include <iop_thread.h>
+
 
 #include "../Connections/CConnection.h"
 #include "../DataStructure/TSQueue.h"
 #include "../../Stdafx.h"
 #include "../DataUnit/CMessage.h"
-
 
 //#include "OSindependent\others.h"
 
@@ -33,9 +34,7 @@ protected:
 	unsigned short Port;
 	bool isStarted;
 
-	sem_t sem_start;
-	sem_t sem_free;
-	sem_t sem_count;
+	iop_lock_t lockStart;
 
 public:
 	CAbsServer();
@@ -65,15 +64,15 @@ public:
 	unsigned short getPort(void);
 	
 	void turnOn() {
-		sem_wait((sem_t*) &sem_start);
+		iop_lock(&lockStart);
 		isStarted = TRUE;
-		sem_post((sem_t*) &sem_start);
+		iop_unlock(&lockStart);
 	}
 
 	void turnOff() {
-		sem_wait((sem_t*) &sem_start);
+		iop_lock(&lockStart);
 		isStarted = FALSE;
-		sem_post((sem_t*) &sem_start);
+		iop_unlock(&lockStart);
 	}
 };
 

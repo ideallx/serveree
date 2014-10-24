@@ -22,7 +22,6 @@ void tst_CAgentServer::init() {
     generateServer();
     generateClient();
 
-
     msg = new ts_msg();
     ((TS_MESSAGE_HEAD*) &msg->Body)->size = 300;
     sequence = 1;
@@ -66,26 +65,88 @@ void tst_CAgentServer::generateServer() {
 
 
 void tst_CAgentServer::enterclass() {
-    buildMessage(clientList[0], ENTERCLASS);
-    Sleep(10);
-
-    QCOMPARE(clientList[0]->recved.size(), 1);
+    normalEnterClass(0, 0);
 }
 
 void tst_CAgentServer::leaveclass() {
+    normalEnterClass(0, 0);
 
+    // leave class
+    normalLeaveClass(0, 1);
+    Sleep(1000);
+    QCOMPARE(server->isClassExist(10000), false);
+
+    // leave class which you are not in, still reply leave success
+    normalLeaveClass(0, 2);
+    QCOMPARE(server->isClassExist(10000), false);
 }
 
 void tst_CAgentServer::createclass() {
-
+    normalEnterClass(0, 0);
 }
 
 void tst_CAgentServer::destroyclass() {
+    // enter class
+    normalEnterClass(0, 0);
 
+    // leave class
+    normalLeaveClass(0, 1);
+    Sleep(1000);
+    QCOMPARE(server->isClassExist(10000), false);
 }
 
 void tst_CAgentServer::heartbeat() {
 
+}
+
+void tst_CAgentServer::halfwayUser() {
+    ts_msg msg;
+    normalEnterClass(0, 0);
+    sequence = 1;
+    for (int i = 0; i < 1000; i++) {
+        generateNormalMsg(msg, clientList[0]->uid);
+    }
+
+    generateClient();
+    normalEnterClass(1, 0);
+    sequence = 1;
+    for (int i = 0; i < 1000; i++) {
+        generateNormalMsg(msg, clientList[1]->uid);
+    }
+
+
+    generateClient();
+    normalEnterClass(2, 0);
+    sequence = 1;
+    for (int i = 0; i < 1000; i++) {
+        generateNormalMsg(msg, clientList[2]->uid);
+    }
+
+    generateClient();
+    normalEnterClass(3, 0);
+    Sleep(100);
+    QCOMPARE(clientList[3]->recved.size(), 2);
+}
+
+
+void tst_CAgentServer::normalEnterClass(int userseq, int messSeq) {
+    buildMessage(clientList[userseq], ENTERCLASS);
+    Sleep(100);
+
+    QVERIFY(clientList[userseq]->recved.size() >= messSeq + 1);
+    DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &clientList[userseq]->recved[messSeq];
+    QCOMPARE((int) down->result, (int) SuccessEnterClass);
+    QCOMPARE(server->isClassExist(10000), true);
+
+	// userlist
+}
+
+void tst_CAgentServer::normalLeaveClass(int userseq, int messSeq) {
+    buildMessage(clientList[userseq], LEAVECLASS);
+    Sleep(100);
+    QCOMPARE(clientList[userseq]->recved.size(), messSeq + 1);
+    DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &clientList[0]->recved[messSeq];
+    QCOMPARE((int) down->result, (int) SuccessLeaveClass);
 }
 
 void tst_CAgentServer::buildMessage(TestServer* ts, int type) {

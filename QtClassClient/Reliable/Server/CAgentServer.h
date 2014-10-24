@@ -58,6 +58,7 @@ private:
 
 	pthread_t scanThread;						// 扫描心跳包线程
 	set<TS_UINT64> offlineUsers;				// 掉线用户表
+    pthread_t pthread_scanoffline;
 
 public:
 	CAgentServer();
@@ -87,11 +88,12 @@ public:
 	bool Start(unsigned short port = 0);
 
 private:
+
 	bool isClassExist(TS_UINT64 classid);
 
     void sendLeaveSuccess(TS_PEER_MESSAGE& pmsg);
 
-	friend void* scanOfflineProc(LPVOID lpParam);
+    friend void* scanOfflineProc(LPVOID lpParam);
 
     friend class tst_CAgentServer;
 };
