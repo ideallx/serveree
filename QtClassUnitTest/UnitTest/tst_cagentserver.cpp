@@ -163,7 +163,6 @@ void tst_CAgentServer::buildMessage(TestServer* ts, int type) {
     memcpy(up->password, password, 20);
 	
     pmsg.msg = *msg;
-
     ts->WriteOut(pmsg);
 }
 

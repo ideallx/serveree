@@ -1,0 +1,23 @@
+22
+teacher1 teacher1 1234 10000 0
+teacher2 teacher2 1235 10000 0
+student1 student1 1236 10000 1
+student2 student2 1237 10000 1
+student3 student3 1238 10000 1
+student4 student4 1239 10000 1
+student5 student5 1240 10000 1
+student6 student6 1241 10000 1
+student7 student7 1242 10000 1
+student8 student8 1243 10000 1
+student9 student9 1244 10000 1
+studentA studentA 1245 10000 1
+studentB studentB 1246 10000 1
+studentC studentC 1247 10000 1
+studentD studentD 1248 10000 1
+studentE studentE 1249 10000 1
+studentF studentF 1250 10000 1
+studentG studentG 1251 10000 1
+studentH studentH 1252 10000 1
+studentI studentI 1253 10000 1
+studentJ studentJ 1254 10000 1
+studentK studentK 1255 10000 1

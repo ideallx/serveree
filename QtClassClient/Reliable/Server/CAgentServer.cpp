@@ -1,6 +1,4 @@
 #include <iostream>
-#include <string>
-
 #include "CAgentServer.h"
 #include "CWSServer.h"
 #include "../DataUnit/UserBase.h"
@@ -48,7 +46,8 @@ void CAgentServer::loadUser() {
 		user._reserved = 0;
 		cin >> user._username >> user._password >> user._uid 
 			>> user._classid  >> user._role;
-		cout << user;
+		map_userinfo.insert(make_pair(user._uid, user));
+		map_alluser.insert(make_pair(string((char*) user._username), user._uid));
 	}
 	fclose(stdin);
 }
@@ -135,17 +134,30 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 		createClass(user._classid);
 	}
 	
-	iop_lock(&lockWorkServer);
+	enum MsgResult result = ErrorUnknown;
+	iop_lock(&lockWorkServer);	
 	CWSServer* pServer = map_workserver[user._classid];
     if (NULL == pServer)
         return false;
-	pServer->addPeer(inputMsg.peeraddr, user._uid);					// 这里的地址是client agent的端口地址
 	iop_unlock(&lockWorkServer);
 
+	// find user in usermap by username, then check password
+	auto findUser = map_alluser.find(string((char*) user._username));
+	if (findUser == map_alluser.end()) {
+		result = ErrorUsername;
+	} else if (strcmp((char*) map_userinfo[findUser->second]._password, (char*) user._password) != 0) {
+		result = ErrorPassword;
+	} else {
+		user._uid = findUser->second;
+        user._role = map_userinfo[findUser->second]._role;
+		result = SuccessEnterClass;
+	}
 
 	DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;	// 进入班级成功，把服务器信息告诉客户端
-	down->result = SuccessEnterClass;
+	down->result = result;
 	down->addr = *pServer->getServerAddr();							// server的地址加入到报文中
+	down->uid = user._uid;
+    down->role = (enum RoleOfClass) user._role;
 
 	down->head.time = getServerTime();
 	down->head.UID = ServerUID;
@@ -155,12 +167,12 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 #ifdef _DEBUG_INFO_
 	cout << "Add User: " << user._uid << "into class" << user._classid << endl; 
 #endif
-	map_userinfo.insert(make_pair(user._uid, user));
-	heartBeatTime.insert(make_pair(user._uid, down->head.time));
-
-	userLoginNotify(inputMsg, user._uid);
-
-	pServer->sendPrevMessage(user._uid);
+	if (SuccessEnterClass == result) {
+		pServer->addPeer(inputMsg.peeraddr, user._uid);					// 这里的地址是client agent的端口地址
+		heartBeatTime.insert(make_pair(user._uid, down->head.time));
+		userLoginNotify(inputMsg, user._uid);
+		pServer->sendPrevMessage(user._uid);
+	}
 	return true;
 }
 
@@ -294,8 +306,7 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
 			UP_AGENTSERVICE* in = (UP_AGENTSERVICE*) &inputMsg.msg;		// 收到进入/退出班级的请求
 			UserBase user;
 			user._classid = in->classid;
-			user._reserved = in->head.reserved;
-			user._role = in->role;
+            user._reserved = in->head.reserved;
 			user._uid = in->head.UID;
 
 			memcpy(user._username, in->username, 20);
@@ -309,8 +320,7 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
 			UP_AGENTSERVICE* in = (UP_AGENTSERVICE*) &inputMsg.msg;		// 收到进入/退出班级的请求
 			UserBase user;
 			user._classid = in->classid;
-			user._reserved = in->head.reserved;
-			user._role = in->role;
+            user._reserved = in->head.reserved;
 			user._uid = in->head.UID;
 
 			memcpy(user._username, in->username, 20);
@@ -358,6 +368,7 @@ bool CAgentServer::Start(unsigned short port) {
 	} else {
 		turnOff();
 	}
+	loadUser();
 	return isStarted;
 }
 

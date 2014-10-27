@@ -25,10 +25,11 @@ CReliableConnection::~CReliableConnection() {
     if (isRunning) {
         isRunning = false;
         iop_usleep(200);
-        iop_thread_cancel(pthread_input);
-        iop_thread_cancel(pthread_scan);
-        iop_thread_cancel(pthread_save);
+		iop_thread_cancel(pthread_input);
+		iop_thread_cancel(pthread_scan);
+		iop_thread_cancel(pthread_save);
     }
+
 
 	CloseHandle(semMsg);
 	CloseHandle(semSave);
@@ -64,6 +65,7 @@ bool CReliableConnection::create(unsigned short localport) {
 		cout << "MsgIn Thread start successfully" << endl;
 #endif
 	} else {
+		iop_thread_cancel(pthread_scan);
 		cout << "MsgIn Thread start failed " << endl;
 		isRunning = false;
 		return false;
@@ -77,6 +79,8 @@ bool CReliableConnection::create(unsigned short localport) {
 #endif
 		return true;
 	} else {
+		iop_thread_cancel(pthread_scan);
+		iop_thread_cancel(pthread_input);
 		cout << "MsgSave Thread start failed " << endl;
 		isRunning = false;
 		return false;

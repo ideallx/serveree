@@ -51,6 +51,8 @@ public:
 	void SetServerAddr(DWORD s_code, char* ip, WORD port);
 	void SetServerAddr(DWORD s_code, struct sockaddr_in addr);
 
+    void setUID(TS_UINT64 uid);
+
     inline void setTimeDiff(DWORD diff) { m_timeDiff = diff; }
 
 private:

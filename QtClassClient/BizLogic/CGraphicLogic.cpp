@@ -83,7 +83,7 @@ bool CGraphicLogic::procMsg(const ts_msg& msg, bool isRemote) {
 
     auto sendMap = userInfo[uid].receiveMsg(msg);
     for (auto i = sendMap.begin(); i != sendMap.end(); i++) {
-        ui->ProcessMessage(i->second, gmsg->graphicsType, 0, isRemote);
+        ui->ProcessMessage(i->second, 0, 0, isRemote);
     }
 
     return false;

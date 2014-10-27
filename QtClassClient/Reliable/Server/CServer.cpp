@@ -25,7 +25,7 @@ CServer::CServer() :
 
 CServer::~CServer(void) {
     Stop();
-//    delete pConnect;
+    delete pConnect;
 
 	CloseHandle(data_in);
 	CloseHandle(data_out);

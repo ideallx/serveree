@@ -58,7 +58,6 @@ typedef struct {
 typedef struct {
     TS_MESSAGE_HEAD head;
     TS_UINT64 classid;				// 进入或者离开的课堂ID
-    enum RoleOfClass role;			// 用户角色
     unsigned char username[20];		// 用户名
     unsigned char password[20];		// 密码
 } UP_AGENTSERVICE;
@@ -157,6 +156,8 @@ typedef struct {
 typedef struct {
     TS_MESSAGE_HEAD head;
     enum MsgResult result;			// 运行结果
+    enum RoleOfClass role;			// 用户角色
+    TS_UINT64 uid;					// 给予客户端的UID
     sockaddr_in addr;				// 服务器端地址
 } DOWN_AGENTSERVICE;
 
@@ -169,8 +170,9 @@ enum MsgResult {
 
     WarnAlreadyIn,
 
-    ErrorUserName,
-    ErrorUserPassword
+    ErrorUsername,
+    ErrorPassword,
+	ErrorUnknown
 };
 
 enum RoleOfClass {

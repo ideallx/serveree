@@ -32,6 +32,11 @@ int CBlock::addMsg(const ts_msg& msg) {
 
 	DWORD packageNum, pos;
 	TS_UINT64 seq = getSeq(msg);
+
+	if (0 == seq) {
+		return -1;
+	}
+
 	if (seq > maxSeq)
 		maxSeq = seq;
 	getArrayNumberAndPos(seq, packageNum, pos);			// 获取package号，msg在package的位置

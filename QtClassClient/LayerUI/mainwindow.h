@@ -53,11 +53,14 @@ public slots:
     void classIcon(bool entered);
 
     void drawScene();
+    void sendPrompt(int result);
+
 
 signals:
     void enOrLeaveClass(bool entered);
     void drawShape();
     void addScene(int uidh, int uidl);
+    void promptSent(int result);
 
 private slots:
     void on_listWidget_clicked(const QModelIndex &index);
@@ -67,6 +70,7 @@ private slots:
     void on_tbMyBoard_clicked();
 
     void addSceneSlot(int uidh, int uidl);
+    void showPrompt(int result);
 
     friend thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam);
 };

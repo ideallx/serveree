@@ -59,7 +59,8 @@ SOURCES  += main.cpp\
     UserInterface/cuserlistwidget.cpp \
     UserInterface/linewidthcombox.cpp \
     UserInterface/cshapechooser.cpp \
-    UserInterface/colorcombox.cpp
+    UserInterface/colorcombox.cpp \
+    LayerUI/cpromptframe.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
             LayerUI\myscene.h \
@@ -115,7 +116,8 @@ HEADERS  += LayerUI\mainwindow.h \
     UserInterface/cuserlistwidget.h \
     UserInterface/linewidthcombox.h \
     UserInterface/cshapechooser.h \
-    UserInterface/colorcombox.h
+    UserInterface/colorcombox.h \
+    LayerUI/cpromptframe.h
 
 FORMS    += \
     loginwidget.ui \

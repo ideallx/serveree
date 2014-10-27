@@ -4,6 +4,7 @@
 #include "ui_mainwindow.h"
 #include "myscene.h"
 #include "../Reliable/DataUnit/CMessage.h"
+#include "cpromptframe.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -36,6 +37,8 @@ MainWindow::MainWindow(QWidget *parent) :
             this, &MainWindow::drawScene);
     connect(this, &MainWindow::addScene,
             this, &MainWindow::addSceneSlot);
+    connect(this, &MainWindow::promptSent,
+            this, &MainWindow::showPrompt);
 
     ui->groupBox_2->setHidden(true);
 
@@ -135,7 +138,7 @@ void MainWindow::enterClassResult(bool result) {
     if (result) {
         emit enOrLeaveClass(true);
 
-        sem_msg = CreateSemaphore(NULL, 0, 1024, NULL);
+        sem_msg = CreateSemaphore(NULL, 0, 10240, NULL);
         isRunning = true;
         Sleep(10);
 
@@ -180,7 +183,7 @@ void MainWindow::addSceneSlot(int uidh, int uidl) {
 
 void MainWindow::msgProc() {
     while (isRunning) {
-        WaitForSingleObject(sem_msg, 3000);
+        WaitForSingleObject(sem_msg, 30);
         emit drawShape();
     }
 }
@@ -195,9 +198,9 @@ void MainWindow::drawScene() {
     MyScene* theScene = sceneMap[gmsg->SceneID];
 	if (theScene == NULL)
 		return;
-//    qDebug() << "draw: " << gmsg->head.subSeq <<
-//                "from " << gmsg->head.UID <<
-//                "on screen " << gmsg->SceneID;
+    qDebug() << "draw: " << gmsg->head.subSeq <<
+                "from " << gmsg->head.UID <<
+                "on screen " << gmsg->SceneID;
 
     switch (gmsg->graphicsType) {
     case GraphicPacketBeginMove:
@@ -226,6 +229,14 @@ void MainWindow::drawScene() {
     default:
         break;
     }
+}
+
+void MainWindow::sendPrompt(int result) {
+    emit promptSent(result);
+}
+
+void MainWindow::showPrompt(int result) {
+    CPromptFrame::prompt(result, this);
 }
 
 thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {

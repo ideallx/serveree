@@ -154,9 +154,12 @@ void tst_CServer::run10ClientEasy() {
     for (int i = 0; i < userNum; i++)
         generateClient();
 
-    for (int j = 0; j < userNum; j++) {
-        sendMessage(clientList[j], total);
+    for (int i = 0; i < userNum; i++) {
+        sendMessage(clientList[i], total);
     }
-    QCOMPARE(clientList[2]->allReceived.size(), total * (userNum - 1));
+
+    for (int i = 0; i < userNum; i++) {
+        QCOMPARE(clientList[i]->allReceived.size(), total * (userNum - 1));
+    }
 }
 

@@ -23,11 +23,14 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
         case LEAVECLASS:
         {
             DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &msg;
+            ui->sendPrompt(down->result);
+
             switch (down->result) {
             case SuccessEnterClass:
                 cn->addServerAddr(down->addr);
                 cn->setTimeDiff(down->head.time - getServerTime());
                 cn->startupHeartBeat();
+                cn->setUID(down->uid);
                 ui->enterClassResult(true);
                 isLoggedIn = true;
                 break;
@@ -70,7 +73,6 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
 			{
                 UP_AGENTSERVICE* up = (UP_AGENTSERVICE*) &msg;
                 up->classid = 10000;
-                up->role = RoleTeacher;
                 up->head.sequence = 0;
 
                 cn->ProcessMessage(const_cast<ts_msg&> (msg), 0, 0, false);
@@ -80,7 +82,6 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
 			{
                 UP_AGENTSERVICE* up = (UP_AGENTSERVICE*) &msg;
                 up->classid = 10000;
-                up->role = RoleTeacher;
                 up->head.sequence = 0;
 
                 cn->ProcessMessage(const_cast<ts_msg&> (msg), 0, 0, false);

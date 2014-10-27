@@ -14,20 +14,20 @@ int main(int argc, char *argv[])
     app.setAttribute(Qt::AA_Use96Dpi, true);
     QTEST_DISABLE_KEYPAD_NAVIGATION
 
-    tst_CPackage tc;
-    tst_CBlock tcb;
-    tst_CBlockManager tcbm;
-    tst_Reliable tcr;
-    tst_CAgentServer tcas;
-    tst_CServer tcs;
+    tst_CPackage package;
+    tst_CBlock block;
+    tst_CBlockManager blockmanager;
+    tst_Reliable reliable;
+    tst_CAgentServer agentserver;
+    tst_CServer server;
 
     int calc = 0;
-    calc += QTest::qExec(&tc, argc, argv);
-    calc += QTest::qExec(&tcb, argc, argv);
-    calc += QTest::qExec(&tcbm, argc, argv);
-    calc += QTest::qExec(&tcr, argc, argv);
-    calc += QTest::qExec(&tcas, argc, argv);
-    calc += QTest::qExec(&tcs, argc, argv);
+    calc += QTest::qExec(&package, argc, argv);
+    calc += QTest::qExec(&block, argc, argv);
+    calc += QTest::qExec(&blockmanager, argc, argv);
+    calc += QTest::qExec(&reliable, argc, argv);
+    calc += QTest::qExec(&agentserver, argc, argv);
+    calc += QTest::qExec(&server, argc, argv);
 
     cout << "total error: " << calc << endl;
     return calc;

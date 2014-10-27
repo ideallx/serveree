@@ -3,6 +3,7 @@
 
 #include <map>
 #include <queue>
+#include <string>
 #include <set>
 
 #include <iop_thread.h>
@@ -52,6 +53,7 @@ private:
 
 	map<TS_UINT64, CWSServer*> map_workserver;	// classid -> CWSServer
 	map<TS_UINT64, UserBase> map_userinfo;		// UID  -> UserBase
+	map<string, TS_UINT64> map_alluser;			// username -> UID
 
 	queue<int> port_queue;
 	map<TS_UINT64, TS_UINT64> heartBeatTime;	// uid->time 最近一次heartbeat包的时间
@@ -63,7 +65,7 @@ public:
 	CAgentServer();
 	virtual ~CAgentServer();
 
-	// 从文件加载用户，现在一般不用这个方式
+	// 从文件加载用户列表
 	void loadUser();
 
 	void createClass(TS_UINT64 classid);

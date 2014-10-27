@@ -8,11 +8,10 @@ CClientNet::CClientNet() :
 
     QTime time = QTime::currentTime();
     qsrand(time.msec()+time.second()*1000);
-    m_uid = qrand();
-    globalUID = m_uid;
 
-	m_Connect = dynamic_cast<CReliableConnection*> (pConnect);
-    m_Connect->setUID(m_uid);
+    m_Connect = dynamic_cast<CReliableConnection*> (pConnect);
+
+    setUID(qrand());
 }
 
 CClientNet::~CClientNet() {
@@ -90,6 +89,12 @@ void CClientNet::SetServerAddr(DWORD s_code, char* ip, WORD port){		// Éè¶¨ÏûÏ¢½
 void CClientNet::SetServerAddr(DWORD s_code, struct sockaddr_in addr){	// Éè¶¨ÏûÏ¢½«Òª·¢ËÍ³öÈ¥µÄÍâ²¿·þÎñÆ÷µØÖ·
 	m_Connect->addPeer(ServerUID, addr);
 	m_Addr = addr;
+}
+
+void CClientNet::setUID(TS_UINT64 uid) {
+    m_uid = uid;
+    globalUID = uid;
+    m_Connect->setUID(m_uid);
 }
 
 void CClientNet::MakeIPv4Addr(struct sockaddr_in& addr, char* ip, WORD port) {
