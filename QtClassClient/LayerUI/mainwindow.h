@@ -31,15 +31,16 @@ public:
     void msgProc();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow*             ui;
+    enum RoleOfClass            m_userRole;     // user role of the client, if teacher will be more powerful
+    bool                        isRunning;
 
-    MyScene* scene;
-    QMap<TS_UINT64, MyScene*> sceneMap;
+    MyScene*                    scene;          // the current shown scene
+    QMap<TS_UINT64, MyScene*>   sceneMap;       // all available scene of this class
 
-    HANDLE sem_msg;
-    iop_thread_t pthread_msg;
-    bool isRunning;
-    TSQueue<ts_msg> msgQueue;
+    HANDLE                      sem_msg;        // maintain the msgthread, but some problem
+    iop_thread_t                pthread_msg;
+    TSQueue<ts_msg>             msgQueue;
 
 public slots:
     void changeScene(TS_UINT64 uid);
@@ -49,6 +50,8 @@ public slots:
 
     void leaveClass();
     void leaveClassResult(bool result);
+
+    void setRole(enum RoleOfClass role);
 
     void classIcon(bool entered);
 

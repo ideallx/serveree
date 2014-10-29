@@ -17,13 +17,13 @@ CXXFLAGS      = -nologo -Zm200 -Zc:wchar_t -Zi -MDd -GR -W3 -w34100 -w34189 -EHs
 INCPATH       = -I"..\QtClassClient" -I"include" -I"..\QtClassClient\LayerUI" -I"..\QtClassClient\BizLogic" -I"..\QtClassClient\Message" -I"..\QtClassClient\Net" -I"..\QtClassClient\UserInterface" -I"..\QtClassClient\Reliable\Zip" -I"..\QtClassClient\Reliable\DataUnit" -I"..\QtClassClient\Reliable\OSInedependent\pthread" -I"..\QtClassClient\Reliable\OSInedependent\libiop" -I"F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include" -I"F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets" -I"F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui" -I"F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore" -I"debug" -I"." -I"." -I"F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\win32-msvc2010"
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /DEBUG /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
-LIBS          = glu32.lib opengl32.lib gdi32.lib user32.lib /LIBPATH:F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\lib F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\lib\qtmaind.lib F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\lib\Qt5Widgetsd.lib F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\lib\Qt5Guid.lib F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\lib\Qt5Cored.lib 
+LIBS          = glu32.lib opengl32.lib gdi32.lib user32.lib /LIBPATH:F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\lib F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\lib\qtmaind.lib F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\lib\Qt5Widgetsd.lib F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\lib\Qt5Guid.lib F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\lib\Qt5Cored.lib debug\TouchPad_resource.res 
 QMAKE         = F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\bin\qmake.exe
 IDC           = idc
 IDL           = midl
 ZIP           = zip -r -9
 DEF_FILE      = 
-RES_FILE      = 
+RES_FILE      = debug\TouchPad_resource.res
 COPY          = copy /y
 SED           = $(QMAKE) -install sed
 COPY_FILE     = $(COPY)
@@ -474,7 +474,7 @@ DESTDIR_TARGET = debug\TouchPad.exe
 first: all
 all: Makefile.Debug $(DESTDIR_TARGET)
 
-$(DESTDIR_TARGET): ui_loginwidget.h ui_mainwindow.h ui_settingwidget.h $(OBJECTS) 
+$(DESTDIR_TARGET): ui_loginwidget.h ui_mainwindow.h ui_settingwidget.h $(OBJECTS) debug\TouchPad_resource.res
 	echo 1 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */ 24 /* RT_MANIFEST */ "debug\\TouchPad.exe.embed.manifest">debug\TouchPad.exe_manifest.rc
 	if not exist $(DESTDIR_TARGET) if exist debug\TouchPad.exe.embed.manifest del debug\TouchPad.exe.embed.manifest
 	if exist debug\TouchPad.exe.embed.manifest copy /Y debug\TouchPad.exe.embed.manifest debug\TouchPad.exe_manifest.bak
@@ -491,6 +491,9 @@ $(OBJECTS) $(LIBS) debug\TouchPad.exe_manifest.res
 <<
 	if exist debug\TouchPad.exe_manifest.bak del debug\TouchPad.exe_manifest.bak
 
+debug\TouchPad_resource.res: TouchPad_resource.rc
+	rc -D_DEBUG $(DEFINES) -fo debug\TouchPad_resource.res TouchPad_resource.rc
+
 qmake: FORCE
 	@$(QMAKE) -spec win32-msvc2010 -o Makefile.Debug ..\QtClassClient\QtClassClient.pro
 
@@ -502,6 +505,7 @@ dist:
 clean: compiler_clean 
 	-$(DEL_FILE) debug\main.obj debug\mainwindow.obj debug\myscene.obj debug\myview.obj debug\CBaseLogic.obj debug\CUserLogic.obj debug\CClientNet.obj debug\CAbsConnection.obj debug\CAbsSocket.obj debug\CConnection.obj debug\CHubConnection.obj debug\CPeerConnection.obj debug\CReliableConnection.obj debug\CSynSocket.obj debug\CBlock.obj debug\CBlockManager.obj debug\CMessage.obj debug\CPackage.obj debug\others.obj debug\iop_thread.obj debug\iop_util.obj debug\CAbsServer.obj debug\CAgentServer.obj debug\CServer.obj debug\CWSServer.obj debug\CAbsStrategy.obj debug\CDestroyStrategy.obj debug\CWriteFileStrategy.obj debug\myzip.obj debug\ioapi.obj debug\iowin32.obj debug\unzip.obj debug\zip.obj debug\CMsgObject.obj debug\CMsgReceiver.obj debug\CMsgSender.obj debug\CModuleAgent.obj debug\CBusinessLogic.obj debug\cgraphicmsgcreator.obj debug\CGraphicLogic.obj debug\cshape.obj debug\cloginbutton.obj debug\csettingsbutton.obj debug\cuserlistwidget.obj debug\linewidthcombox.obj debug\cshapechooser.obj debug\colorcombox.obj debug\cpromptframe.obj debug\qrc_ui.obj debug\moc_mainwindow.obj debug\moc_myscene.obj debug\moc_myview.obj debug\moc_cloginbutton.obj debug\moc_csettingsbutton.obj debug\moc_cuserlistwidget.obj debug\moc_linewidthcombox.obj debug\moc_cshapechooser.obj debug\moc_colorcombox.obj
 	-$(DEL_FILE) debug\TouchPad.exp debug\TouchPad.ilk debug\TouchPad.idb debug\TouchPad.exe.embed.manifest debug\TouchPad.exe_manifest.rc debug\TouchPad.exe_manifest.res
+	-$(DEL_FILE) debug\TouchPad_resource.res
 
 distclean: clean 
 	-$(DEL_FILE) debug\TouchPad.pdb
@@ -526,13 +530,16 @@ debug\qrc_ui.cpp: ..\QtClassClient\ui.qrc \
 		..\QtClassClient\ui\icon\brush.png \
 		..\QtClassClient\ui\icon\password.png \
 		..\QtClassClient\ui\icon\username.png \
+		..\QtClassClient\ui\icon\64x64.png \
 		..\QtClassClient\ui\icon\shapeEllipse.png \
 		..\QtClassClient\ui\icon\platte.png \
 		..\QtClassClient\ui\icon\manage.png \
 		..\QtClassClient\ui\icon\exit.png \
 		..\QtClassClient\ui\icon\shapeRectangle.png \
+		..\QtClassClient\ui\icon\32x32.png \
 		..\QtClassClient\ui\icon\user.png \
 		..\QtClassClient\ui\icon\shapeScript.png \
+		..\QtClassClient\ui\icon\16x16.png \
 		..\QtClassClient\ui\icon\courseware.png \
 		..\QtClassClient\ui\icon\eraser.png \
 		..\QtClassClient\ui\icon\shapeLine.png \
@@ -3338,7 +3345,12 @@ debug\mainwindow.obj: ..\QtClassClient\LayerUI\mainwindow.cpp F:\Qt\Qt5.3.2\5.3\
 		..\QtClassClient\Reliable\OSInedependent\pthread\sched.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVector \
 		..\QtClassClient\Reliable\OSInedependent\pthread\semaphore.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		..\QtClassClient\LayerUI\cpromptframe.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QMessageBox \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qmessagebox.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qdialog.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QString
 
 debug\myscene.obj: ..\QtClassClient\LayerUI\myscene.cpp F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qdebug.h \
@@ -4450,12 +4462,7 @@ debug\CUserLogic.obj: ..\QtClassClient\BizLogic\CUserLogic.cpp ..\QtClassClient\
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QPointF \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QPen \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QBrush \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVector \
-		..\QtClassClient\LayerUI\cpromptframe.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QMessageBox \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qmessagebox.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qdialog.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QString
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVector
 
 debug\CClientNet.obj: ..\QtClassClient\Net\CClientNet.cpp F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QTime \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qdatetime.h \

@@ -71,28 +71,25 @@ private:
 
     void generateTestShape();
 
-    set<pair<TS_UINT64, DWORD> > eraseList;
+    DWORD                                   sceneID;        // scene id of this scene
+    CMsgObject*                             msgParent;      // mainwindow
+    CGraphicMsgCreator*                     gmc;            // graphic msg generator
 
-    CMsgObject* msgParent;
-    CGraphicMsgCreator* gmc;
-    QMap<TS_UINT64, CShape*> lastItems;
-    QMap<TS_UINT64, QPair<QPen, QBrush> > toolsMap;
-    QPointF cachedPos;
+    set<pair<TS_UINT64, DWORD> >            eraseList;      // for recv eraser earlier than the shape
+    bool                                    toolChanged;    // is pen or brush changed
+    int                                     drawingType;    // the type of shape drawing by the client user
+    bool                                    isEraser;       // is in eraser mode
 
-    QTimer panFixer;    // begin drawing when move type isnot move screen
+    QMap<TS_UINT64, CShape*>                lastItems;      // the recent shape each user was drawing
+    QMap<TS_UINT64, QPair<QPen, QBrush> >   toolsMap;       // the pen and brush each user was using
+    QPen                                    pen;            // the pen/brush of this client user
+    QBrush                                  brush;
 
-    DWORD sceneID;
-    bool toolChanged;   // is pen or brush changed
+    MoveType                                mt;             // use for multi-finger touch
+    QPointF                                 cachedPos;      // begin point cache for multi-finger touch
+    QTimer                                  panFixer;       // begin drawing when move type isnot move screen
 
-    QPen pen;
-    QBrush brush;
-
-    int drawingType;
-
-    bool isEraser;
-
-    MoveType mt;
-    QPointF lastPos;
+    QPointF                                 lastPos;        // last move point used when move type changed to movemode
 };
 
 #endif // MYSCENE_H

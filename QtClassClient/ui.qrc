@@ -33,6 +33,9 @@
         <file>ui/icon/shapeRectangle.png</file>
         <file>ui/icon/shapeRoundRectangle.png</file>
         <file>ui/icon/shapeScript.png</file>
+        <file>ui/icon/16x16.png</file>
+        <file>ui/icon/32x32.png</file>
+        <file>ui/icon/64x64.png</file>
     </qresource>
     <qresource prefix="/word">
         <file>ui/word/enterclass.png</file>

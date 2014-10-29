@@ -198,15 +198,14 @@ void CAgentServer::leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
         return;
 
     pServer->removeUser(user._uid);
-	iop_unlock(&lockWorkServer);
 
 	sendLeaveSuccess(inputMsg);
 	userLogoutNotify(inputMsg, user._uid);
-	pServer->removePeer(user._uid);
+	iop_unlock(&lockWorkServer);
+
 #ifdef _DEBUG_INFO_
 	cout << "user: " << user._uid << " removed" << endl;
 #endif
-	map_userinfo.erase(user._uid);
 
 	if (pServer->isEmpty()) {										// 教室里没人了就销毁
 #ifdef _DEBUG_INFO_

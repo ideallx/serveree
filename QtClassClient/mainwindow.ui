@@ -29,7 +29,11 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>互动课堂</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="ui.qrc">
+    <normaloff>:/icon/ui/icon/64x64.png</normaloff>:/icon/ui/icon/64x64.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">
@@ -97,6 +101,19 @@ QToolButton:checked, QToolButton:pressed {
         <number>0</number>
        </property>
        <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QLabel" name="lbLogo">
          <property name="text">
           <string/>
@@ -107,6 +124,19 @@ QToolButton:checked, QToolButton:pressed {
         </widget>
        </item>
        <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="Line" name="line">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -115,6 +145,12 @@ QToolButton:checked, QToolButton:pressed {
        </item>
        <item>
         <widget class="QToolButton" name="tbCourseWare">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
            <width>75</width>
@@ -123,7 +159,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>75</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
          </property>
@@ -160,6 +196,12 @@ QToolButton:checked, QToolButton:pressed {
        </item>
        <item>
         <widget class="QToolButton" name="tbTeacherBoard">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
            <width>75</width>
@@ -168,7 +210,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>75</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
          </property>
@@ -205,6 +247,12 @@ QToolButton:checked, QToolButton:pressed {
        </item>
        <item>
         <widget class="QToolButton" name="tbMyBoard">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
            <width>75</width>
@@ -213,7 +261,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>75</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
          </property>
@@ -250,6 +298,12 @@ QToolButton:checked, QToolButton:pressed {
        </item>
        <item>
         <widget class="QToolButton" name="tbMyClass">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
            <width>75</width>
@@ -258,7 +312,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>75</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
          </property>
@@ -295,6 +349,12 @@ QToolButton:checked, QToolButton:pressed {
        </item>
        <item>
         <widget class="LineWidthCombox" name="tbBrush">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
            <width>75</width>
@@ -303,7 +363,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>75</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
          </property>
@@ -340,6 +400,12 @@ QToolButton:checked, QToolButton:pressed {
        </item>
        <item>
         <widget class="CShapeChooser" name="tbShape">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
            <width>75</width>
@@ -348,7 +414,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>75</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
          </property>
@@ -385,6 +451,12 @@ QToolButton:checked, QToolButton:pressed {
        </item>
        <item>
         <widget class="QToolButton" name="tbEraser">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
            <width>75</width>
@@ -393,7 +465,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>75</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
          </property>
@@ -433,6 +505,12 @@ QToolButton:checked, QToolButton:pressed {
        </item>
        <item>
         <widget class="ColorCombox" name="tbPalette">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
            <width>75</width>
@@ -441,7 +519,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>75</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
          </property>
@@ -478,6 +556,12 @@ QToolButton:checked, QToolButton:pressed {
        </item>
        <item>
         <widget class="QToolButton" name="tbBackground">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
            <width>75</width>
@@ -486,7 +570,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>75</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
          </property>
@@ -523,6 +607,12 @@ QToolButton:checked, QToolButton:pressed {
        </item>
        <item>
         <widget class="CLoginButton" name="tbLogin">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
            <width>75</width>
@@ -531,7 +621,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>75</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
          </property>

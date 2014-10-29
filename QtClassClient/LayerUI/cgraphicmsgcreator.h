@@ -7,18 +7,19 @@
 #include "../stdafx.h"
 #include "../Reliable/DataUnit/CMessage.h"
 
+// used only for client user yourself
+
 class CGraphicMsgCreator
 {
 public:
     CGraphicMsgCreator(DWORD sceneID);
     ~CGraphicMsgCreator();
 
-    DWORD curShapeID;
-    DWORD curShapeType;
-    QPointF begin;
-    DWORD sceneID;
-
-    DWORD curPenBrushid;
+    DWORD       curShapeID;         // added by self when begin drawing
+    DWORD       curShapeType;
+    QPointF     begin;              // begin point of current shape
+    DWORD       sceneID;
+    DWORD       curPenBrushid;
 
     void create(DWORD type, QPointF in);
 

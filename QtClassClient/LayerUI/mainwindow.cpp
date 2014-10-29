@@ -8,6 +8,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
+    m_userRole(RoleStudent),
     ui(new Ui::MainWindow),
     isRunning(false) {
     ui->setupUi(this);
@@ -46,8 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
             this, &MainWindow::enterClass);
     connect(ui->tbLogin, &CLoginButton::logoutClicked,
             this, &MainWindow::leaveClass);
-
-    //showFullScreen();
+    showFullScreen();
 }
 
 MainWindow::~MainWindow() {
@@ -180,7 +180,6 @@ void MainWindow::addSceneSlot(int uidh, int uidl) {
     sceneMap.insert(uid, s);
 }
 
-
 void MainWindow::msgProc() {
     while (isRunning) {
         WaitForSingleObject(sem_msg, 30);
@@ -196,11 +195,10 @@ void MainWindow::drawScene() {
 
     TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
     MyScene* theScene = sceneMap[gmsg->SceneID];
-	if (theScene == NULL)
-		return;
-    qDebug() << "draw: " << gmsg->head.subSeq <<
-                "from " << gmsg->head.UID <<
-                "on screen " << gmsg->SceneID;
+    if (theScene == NULL) {
+        theScene = new MyScene(gmsg->SceneID, this, this);
+        sceneMap.insert(gmsg->SceneID, theScene);
+    }
 
     switch (gmsg->graphicsType) {
     case GraphicPacketBeginMove:
@@ -237,6 +235,10 @@ void MainWindow::sendPrompt(int result) {
 
 void MainWindow::showPrompt(int result) {
     CPromptFrame::prompt(result, this);
+}
+
+void MainWindow::setRole(enum RoleOfClass role) {
+    m_userRole = role;
 }
 
 thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {

@@ -143,3 +143,5 @@ OTHER_FILES += \
 
 RESOURCES += \
     ui.qrc
+
+RC_ICONS = class.ico

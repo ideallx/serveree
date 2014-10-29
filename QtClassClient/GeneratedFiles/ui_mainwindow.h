@@ -19,6 +19,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -39,7 +40,9 @@ public:
     QVBoxLayout *verticalLayout_2;
     QGroupBox *groupBox;
     QHBoxLayout *horizontalLayout;
+    QSpacerItem *horizontalSpacer;
     QLabel *lbLogo;
+    QSpacerItem *horizontalSpacer_2;
     QFrame *line;
     QToolButton *tbCourseWare;
     QFrame *line_2;
@@ -81,6 +84,9 @@ public:
         MainWindow->setSizePolicy(sizePolicy);
         MainWindow->setMinimumSize(QSize(1042, 700));
         MainWindow->setMaximumSize(QSize(1042, 510));
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/icon/ui/icon/64x64.png"), QSize(), QIcon::Normal, QIcon::Off);
+        MainWindow->setWindowIcon(icon);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         sizePolicy.setHeightForWidth(centralWidget->sizePolicy().hasHeightForWidth());
@@ -111,11 +117,19 @@ public:
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(9, 0, 0, 0);
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer);
+
         lbLogo = new QLabel(groupBox);
         lbLogo->setObjectName(QStringLiteral("lbLogo"));
         lbLogo->setPixmap(QPixmap(QString::fromUtf8(":/icon/ui/icon/logo.png")));
 
         horizontalLayout->addWidget(lbLogo);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_2);
 
         line = new QFrame(groupBox);
         line->setObjectName(QStringLiteral("line"));
@@ -126,12 +140,17 @@ public:
 
         tbCourseWare = new QToolButton(groupBox);
         tbCourseWare->setObjectName(QStringLiteral("tbCourseWare"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(tbCourseWare->sizePolicy().hasHeightForWidth());
+        tbCourseWare->setSizePolicy(sizePolicy1);
         tbCourseWare->setMinimumSize(QSize(75, 75));
-        tbCourseWare->setMaximumSize(QSize(75, 16777215));
+        tbCourseWare->setMaximumSize(QSize(16777215, 16777215));
         tbCourseWare->setStyleSheet(QStringLiteral(""));
-        QIcon icon;
-        icon.addFile(QStringLiteral(":/icon/ui/icon/courseware.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbCourseWare->setIcon(icon);
+        QIcon icon1;
+        icon1.addFile(QStringLiteral(":/icon/ui/icon/courseware.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbCourseWare->setIcon(icon1);
         tbCourseWare->setIconSize(QSize(32, 32));
         tbCourseWare->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         tbCourseWare->setAutoRaise(true);
@@ -147,12 +166,14 @@ public:
 
         tbTeacherBoard = new QToolButton(groupBox);
         tbTeacherBoard->setObjectName(QStringLiteral("tbTeacherBoard"));
+        sizePolicy1.setHeightForWidth(tbTeacherBoard->sizePolicy().hasHeightForWidth());
+        tbTeacherBoard->setSizePolicy(sizePolicy1);
         tbTeacherBoard->setMinimumSize(QSize(75, 75));
-        tbTeacherBoard->setMaximumSize(QSize(75, 16777215));
+        tbTeacherBoard->setMaximumSize(QSize(16777215, 16777215));
         tbTeacherBoard->setStyleSheet(QStringLiteral(""));
-        QIcon icon1;
-        icon1.addFile(QStringLiteral(":/icon/ui/icon/teacher board.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbTeacherBoard->setIcon(icon1);
+        QIcon icon2;
+        icon2.addFile(QStringLiteral(":/icon/ui/icon/teacher board.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbTeacherBoard->setIcon(icon2);
         tbTeacherBoard->setIconSize(QSize(32, 32));
         tbTeacherBoard->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         tbTeacherBoard->setAutoRaise(true);
@@ -168,12 +189,14 @@ public:
 
         tbMyBoard = new QToolButton(groupBox);
         tbMyBoard->setObjectName(QStringLiteral("tbMyBoard"));
+        sizePolicy1.setHeightForWidth(tbMyBoard->sizePolicy().hasHeightForWidth());
+        tbMyBoard->setSizePolicy(sizePolicy1);
         tbMyBoard->setMinimumSize(QSize(75, 75));
-        tbMyBoard->setMaximumSize(QSize(75, 16777215));
+        tbMyBoard->setMaximumSize(QSize(16777215, 16777215));
         tbMyBoard->setStyleSheet(QStringLiteral(""));
-        QIcon icon2;
-        icon2.addFile(QStringLiteral(":/icon/ui/icon/my board.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbMyBoard->setIcon(icon2);
+        QIcon icon3;
+        icon3.addFile(QStringLiteral(":/icon/ui/icon/my board.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbMyBoard->setIcon(icon3);
         tbMyBoard->setIconSize(QSize(32, 32));
         tbMyBoard->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         tbMyBoard->setAutoRaise(true);
@@ -189,12 +212,14 @@ public:
 
         tbMyClass = new QToolButton(groupBox);
         tbMyClass->setObjectName(QStringLiteral("tbMyClass"));
+        sizePolicy1.setHeightForWidth(tbMyClass->sizePolicy().hasHeightForWidth());
+        tbMyClass->setSizePolicy(sizePolicy1);
         tbMyClass->setMinimumSize(QSize(75, 75));
-        tbMyClass->setMaximumSize(QSize(75, 16777215));
+        tbMyClass->setMaximumSize(QSize(16777215, 16777215));
         tbMyClass->setStyleSheet(QStringLiteral(""));
-        QIcon icon3;
-        icon3.addFile(QStringLiteral(":/icon/ui/icon/my class.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbMyClass->setIcon(icon3);
+        QIcon icon4;
+        icon4.addFile(QStringLiteral(":/icon/ui/icon/my class.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbMyClass->setIcon(icon4);
         tbMyClass->setIconSize(QSize(32, 32));
         tbMyClass->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         tbMyClass->setAutoRaise(true);
@@ -210,12 +235,14 @@ public:
 
         tbBrush = new LineWidthCombox(groupBox);
         tbBrush->setObjectName(QStringLiteral("tbBrush"));
+        sizePolicy1.setHeightForWidth(tbBrush->sizePolicy().hasHeightForWidth());
+        tbBrush->setSizePolicy(sizePolicy1);
         tbBrush->setMinimumSize(QSize(75, 75));
-        tbBrush->setMaximumSize(QSize(75, 16777215));
+        tbBrush->setMaximumSize(QSize(16777215, 16777215));
         tbBrush->setStyleSheet(QStringLiteral(""));
-        QIcon icon4;
-        icon4.addFile(QStringLiteral(":/icon/ui/icon/brush.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbBrush->setIcon(icon4);
+        QIcon icon5;
+        icon5.addFile(QStringLiteral(":/icon/ui/icon/brush.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbBrush->setIcon(icon5);
         tbBrush->setIconSize(QSize(32, 32));
         tbBrush->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         tbBrush->setAutoRaise(true);
@@ -231,12 +258,14 @@ public:
 
         tbShape = new CShapeChooser(groupBox);
         tbShape->setObjectName(QStringLiteral("tbShape"));
+        sizePolicy1.setHeightForWidth(tbShape->sizePolicy().hasHeightForWidth());
+        tbShape->setSizePolicy(sizePolicy1);
         tbShape->setMinimumSize(QSize(75, 75));
-        tbShape->setMaximumSize(QSize(75, 16777215));
+        tbShape->setMaximumSize(QSize(16777215, 16777215));
         tbShape->setStyleSheet(QStringLiteral(""));
-        QIcon icon5;
-        icon5.addFile(QStringLiteral(":/icon/ui/icon/shape.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbShape->setIcon(icon5);
+        QIcon icon6;
+        icon6.addFile(QStringLiteral(":/icon/ui/icon/shape.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbShape->setIcon(icon6);
         tbShape->setIconSize(QSize(32, 32));
         tbShape->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         tbShape->setAutoRaise(true);
@@ -252,12 +281,14 @@ public:
 
         tbEraser = new QToolButton(groupBox);
         tbEraser->setObjectName(QStringLiteral("tbEraser"));
+        sizePolicy1.setHeightForWidth(tbEraser->sizePolicy().hasHeightForWidth());
+        tbEraser->setSizePolicy(sizePolicy1);
         tbEraser->setMinimumSize(QSize(75, 75));
-        tbEraser->setMaximumSize(QSize(75, 16777215));
+        tbEraser->setMaximumSize(QSize(16777215, 16777215));
         tbEraser->setStyleSheet(QStringLiteral(""));
-        QIcon icon6;
-        icon6.addFile(QStringLiteral(":/icon/ui/icon/eraser.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbEraser->setIcon(icon6);
+        QIcon icon7;
+        icon7.addFile(QStringLiteral(":/icon/ui/icon/eraser.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbEraser->setIcon(icon7);
         tbEraser->setIconSize(QSize(32, 32));
         tbEraser->setCheckable(true);
         tbEraser->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -274,12 +305,14 @@ public:
 
         tbPalette = new ColorCombox(groupBox);
         tbPalette->setObjectName(QStringLiteral("tbPalette"));
+        sizePolicy1.setHeightForWidth(tbPalette->sizePolicy().hasHeightForWidth());
+        tbPalette->setSizePolicy(sizePolicy1);
         tbPalette->setMinimumSize(QSize(75, 75));
-        tbPalette->setMaximumSize(QSize(75, 16777215));
+        tbPalette->setMaximumSize(QSize(16777215, 16777215));
         tbPalette->setStyleSheet(QStringLiteral(""));
-        QIcon icon7;
-        icon7.addFile(QStringLiteral(":/icon/ui/icon/platte.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbPalette->setIcon(icon7);
+        QIcon icon8;
+        icon8.addFile(QStringLiteral(":/icon/ui/icon/platte.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbPalette->setIcon(icon8);
         tbPalette->setIconSize(QSize(32, 32));
         tbPalette->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         tbPalette->setAutoRaise(true);
@@ -295,12 +328,14 @@ public:
 
         tbBackground = new QToolButton(groupBox);
         tbBackground->setObjectName(QStringLiteral("tbBackground"));
+        sizePolicy1.setHeightForWidth(tbBackground->sizePolicy().hasHeightForWidth());
+        tbBackground->setSizePolicy(sizePolicy1);
         tbBackground->setMinimumSize(QSize(75, 75));
-        tbBackground->setMaximumSize(QSize(75, 16777215));
+        tbBackground->setMaximumSize(QSize(16777215, 16777215));
         tbBackground->setStyleSheet(QStringLiteral(""));
-        QIcon icon8;
-        icon8.addFile(QStringLiteral(":/icon/ui/icon/back ground.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbBackground->setIcon(icon8);
+        QIcon icon9;
+        icon9.addFile(QStringLiteral(":/icon/ui/icon/back ground.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbBackground->setIcon(icon9);
         tbBackground->setIconSize(QSize(32, 32));
         tbBackground->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         tbBackground->setAutoRaise(true);
@@ -316,12 +351,14 @@ public:
 
         tbLogin = new CLoginButton(groupBox);
         tbLogin->setObjectName(QStringLiteral("tbLogin"));
+        sizePolicy1.setHeightForWidth(tbLogin->sizePolicy().hasHeightForWidth());
+        tbLogin->setSizePolicy(sizePolicy1);
         tbLogin->setMinimumSize(QSize(75, 75));
-        tbLogin->setMaximumSize(QSize(75, 16777215));
+        tbLogin->setMaximumSize(QSize(16777215, 16777215));
         tbLogin->setStyleSheet(QStringLiteral(""));
-        QIcon icon9;
-        icon9.addFile(QStringLiteral(":/icon/ui/icon/user.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbLogin->setIcon(icon9);
+        QIcon icon10;
+        icon10.addFile(QStringLiteral(":/icon/ui/icon/user.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbLogin->setIcon(icon10);
         tbLogin->setIconSize(QSize(32, 32));
         tbLogin->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         tbLogin->setAutoRaise(true);
@@ -340,9 +377,9 @@ public:
         tbSettings->setMinimumSize(QSize(30, 75));
         tbSettings->setMaximumSize(QSize(30, 16777215));
         tbSettings->setStyleSheet(QStringLiteral(""));
-        QIcon icon10;
-        icon10.addFile(QStringLiteral(":/icon/ui/icon/manage.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbSettings->setIcon(icon10);
+        QIcon icon11;
+        icon11.addFile(QStringLiteral(":/icon/ui/icon/manage.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbSettings->setIcon(icon11);
         tbSettings->setIconSize(QSize(32, 32));
         tbSettings->setToolButtonStyle(Qt::ToolButtonIconOnly);
         tbSettings->setAutoRaise(true);
@@ -364,11 +401,11 @@ public:
 
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
-        groupBox_2->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
+        groupBox_2->setSizePolicy(sizePolicy2);
         groupBox_2->setStyleSheet(QStringLiteral("background-color: rgb(31, 40, 49);"));
         verticalLayout = new QVBoxLayout(groupBox_2);
         verticalLayout->setSpacing(6);
@@ -417,7 +454,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "\344\272\222\345\212\250\350\257\276\345\240\202", 0));
         groupBox->setTitle(QString());
         lbLogo->setText(QString());
         tbCourseWare->setText(QApplication::translate("MainWindow", "\346\225\231\345\270\210\350\257\276\344\273\266", 0));

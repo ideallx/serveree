@@ -3,7 +3,7 @@
 #include "../LayerUI/mainwindow.h"
 #include "../Net/CClientNet.h"
 
-CGraphicUserInfo::CGraphicUserInfo(DWORD firstSeq) :
+CGraphicUserInfo::CGraphicUserInfo() :
     wantedSeq(1) {
 }
 
@@ -13,11 +13,11 @@ map<TS_UINT64, ts_msg> CGraphicUserInfo::receiveMsg(const ts_msg& msg) {
     TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
 
     if (gmsg->head.subSeq == wantedSeq) {
-        //qDebug() << "draw:" << wantedSeq << "from" << gmsg->head.UID << "total:" << ++ccccount;
+        //qDebug() << "draw:" << wantedSeq << "from" << gmsg->head.UID  << "on" << gmsg->SceneID << "total:" << ++ccccount;
         result.insert(make_pair(gmsg->head.sequence, msg));
         wantedSeq++;
     } else {
-        //qDebug() << "lost: " << wantedSeq << "from " << gmsg->head.UID;
+        // qDebug() << "lost: " << wantedSeq << "from " << gmsg->head.UID;
         waitingList.insert(make_pair(gmsg->head.sequence, msg));
     }
 
@@ -26,7 +26,7 @@ map<TS_UINT64, ts_msg> CGraphicUserInfo::receiveMsg(const ts_msg& msg) {
             break;
 
         if (iter->first == wantedSeq) {
-            //qDebug() << "draw:" << wantedSeq << "from" << gmsg->head.UID << "total:" << ++ccccount;
+            //qDebug() << "draw:" << wantedSeq << "from" << gmsg->head.UID  << "on" << gmsg->SceneID << "total:" << ++ccccount;
             result.insert(make_pair(iter->first, iter->second));
             waitingList.erase(iter++);
             wantedSeq++;
@@ -38,25 +38,6 @@ map<TS_UINT64, ts_msg> CGraphicUserInfo::receiveMsg(const ts_msg& msg) {
     }
     return result;
 }
-
-map<TS_UINT64, ts_msg> CGraphicScenes::receiveMsg(const ts_msg& msg) {
-    TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
-    DWORD sceneID = gmsg->SceneID;
-
-    if (sceneID == globalUID) {
-		gmsg->SceneID = sceneID = SelfUID;
-	} else if (sceneID == SelfUID) {
-        gmsg->SceneID = sceneID = gmsg->head.UID;
-	}
-
-    if (userInfos.find(sceneID) == userInfos.end()) {
-        CGraphicUserInfo user(gmsg->head.subSeq);
-        userInfos.insert(make_pair(sceneID, user));
-    }
-
-    return userInfos[sceneID].receiveMsg(msg);
-}
-
 
 CGraphicLogic::CGraphicLogic(CMsgObject *parent) :
     CBaseLogic(parent),
@@ -71,14 +52,22 @@ bool CGraphicLogic::procMsg(const ts_msg& msg, bool isRemote) {
         TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
         gmsg->head.subSeq = subseq++;
         cn->ProcessMessage(const_cast<ts_msg&> (msg), 0, 0, isRemote);
+        //qDebug() << "draw:" << gmsg->head.subSeq << "from" << gmsg->head.UID  << "on" << gmsg->SceneID << "total:" << ++ccccount;
         return false;
     }
 
     TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
+
+    if (gmsg->SceneID == globalUID) {
+        gmsg->SceneID = SelfUID;
+    } else if (gmsg->SceneID == SelfUID) {
+        gmsg->SceneID = gmsg->head.UID;
+    }
+
     TS_UINT64 uid = gmsg->head.UID;
     if (userInfo.find(uid) == userInfo.end()) {
-        CGraphicScenes scene;
-        userInfo.insert(make_pair(uid, scene));
+        CGraphicUserInfo ui;
+        userInfo.insert(make_pair(uid, ui));
     }
 
     auto sendMap = userInfo[uid].receiveMsg(msg);

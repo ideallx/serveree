@@ -221,14 +221,13 @@
     <ClCompile Include="Reliable\Server\CWSServer.cpp" />
     <ClCompile Include="Reliable\Strategy\CWriteFileStrategy.cpp" />
     <ClCompile Include="LayerUI\cgraphicmsgcreator.cpp" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\cleanup.c" />
     <ClCompile Include="UserInterface\cloginbutton.cpp" />
     <ClCompile Include="UserInterface\colorcombox.cpp" />
+    <ClCompile Include="LayerUI\cpromptframe.cpp" />
     <ClCompile Include="UserInterface\csettingsbutton.cpp" />
     <ClCompile Include="cshape.cpp" />
     <ClCompile Include="UserInterface\cshapechooser.cpp" />
     <ClCompile Include="UserInterface\cuserlistwidget.cpp" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\global.c" />
     <ClCompile Include="Reliable\Zip\ioapi.c" />
     <ClCompile Include="Reliable\OSInedependent\libiop\iop_thread.c" />
     <ClCompile Include="Reliable\OSInedependent\libiop\iop_util.c" />
@@ -240,47 +239,7 @@
     <ClCompile Include="LayerUI\myview.cpp" />
     <ClCompile Include="Reliable\Zip\myzip.cpp" />
     <ClCompile Include="Reliable\OSInedependent\others.cpp" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_cancel.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_create.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_detach.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_equal.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_getspecific.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_key_create.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_key_delete.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_kill.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_mutex_consistent.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_mutex_destroy.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_mutex_init.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_mutex_lock.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_mutex_trylock.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_mutex_unlock.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_mutexattr_destroy.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_self.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_setschedparam.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_setspecific.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_testcancel.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\pthread_win32_attach_detach_np.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_MCS_lock.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_callUserDestroyRoutines.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_mutex_check_need_init.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_new.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_processInitialize.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_processTerminate.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_reuse.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_threadDestroy.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_threadStart.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_throw.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_tkAssocCreate.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\ptw32_tkAssocDestroy.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\sched_get_priority_max.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\sched_get_priority_min.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\sched_yield.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\sem_destroy.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\sem_init.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\sem_post.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\sem_wait.c" />
     <ClCompile Include="Reliable\Zip\unzip.c" />
-    <ClCompile Include="Reliable\OSInedependent\pthread\w32_CancelableWait.c" />
     <ClCompile Include="Reliable\Zip\zip.c" />
   </ItemGroup>
   <ItemGroup>
@@ -339,8 +298,7 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing colorcombox.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
     </CustomBuild>
-    <ClInclude Include="Reliable\OSInedependent\pthread\config.h" />
-    <ClInclude Include="Reliable\OSInedependent\pthread\context.h" />
+    <ClInclude Include="LayerUI\cpromptframe.h" />
     <ClInclude Include="Reliable\Zip\crypt.h" />
     <CustomBuild Include="UserInterface\csettingsbutton.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
@@ -373,7 +331,6 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing cuserlistwidget.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
     </CustomBuild>
-    <ClInclude Include="Reliable\OSInedependent\pthread\implement.h" />
     <ClInclude Include="Reliable\Zip\ioapi.h" />
     <ClInclude Include="Reliable\OSInedependent\libiop\iop_config.h" />
     <ClInclude Include="Reliable\OSInedependent\libiop\iop_thread.h" />
@@ -421,9 +378,6 @@
     </CustomBuild>
     <ClInclude Include="Reliable\Zip\myzip.h" />
     <ClInclude Include="Reliable\OSInedependent\others.h" />
-    <ClInclude Include="Reliable\OSInedependent\pthread\pthread.h" />
-    <ClInclude Include="Reliable\OSInedependent\pthread\sched.h" />
-    <ClInclude Include="Reliable\OSInedependent\pthread\semaphore.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Reliable\Zip\unzip.h" />
     <ClInclude Include="Reliable\Zip\zconf.h" />
