@@ -48,6 +48,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->tbLogin, &CLoginButton::logoutClicked,
             this, &MainWindow::leaveClass);
     showFullScreen();
+
+    //setWindowOpacity(.3);
 }
 
 MainWindow::~MainWindow() {
@@ -251,6 +253,12 @@ thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {
     m->msgProc();
     iop_thread_exit(0);
     return 0;
+}
+
+void MainWindow::paintEvent(QPaintEvent *e) {
+    QPainter p(this);
+    p.setCompositionMode(QPainter::CompositionMode_Clear );
+    p.fillRect( 10, 10, 300, 300, Qt::SolidPattern );
 }
 
 void MainWindow::on_listWidget_clicked(const QModelIndex &index)

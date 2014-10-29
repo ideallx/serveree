@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QPushButton>
+#include <QPaintEvent>
 #include "myscene.h"
 #include "../Message/CMsgObject.h"
 #include "../Reliable/DataStructure/TSQueue.h"
@@ -29,6 +30,8 @@ public:
     void removeUser(TS_UINT64 uid);
 
     void msgProc();
+
+    void paintEvent(QPaintEvent *e);
 
 private:
     Ui::MainWindow*             ui;

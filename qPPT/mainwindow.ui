@@ -30,8 +30,8 @@
    <widget class="MyActiveX" name="axWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>90</y>
+      <x>90</x>
+      <y>120</y>
       <width>811</width>
       <height>421</height>
      </rect>

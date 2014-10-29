@@ -46,7 +46,7 @@ public:
         pushButton->setGeometry(QRect(250, 610, 75, 23));
         axWidget = new MyActiveX(centralWidget);
         axWidget->setObjectName(QStringLiteral("axWidget"));
-        axWidget->setGeometry(QRect(70, 90, 811, 421));
+        axWidget->setGeometry(QRect(90, 120, 811, 421));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));

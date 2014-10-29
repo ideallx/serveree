@@ -25,6 +25,7 @@ private:
     QAxObject* window;
     QAxObject* opened;
     QAxObject* sss;
+    QAxObject* ppt;
 };
 
 #endif // MAINWINDOW_H

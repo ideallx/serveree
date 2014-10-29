@@ -8,30 +8,30 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setAttribute(Qt::WA_TranslucentBackground, true);
 
-    ui->axWidget->setControl("bb.xlsx");
-//    ui->axWidget->setControl("Powerpoint.Application");
-//    presentation = ui->axWidget->querySubObject("Presentations");
-//    QString filename("D:/xxxx.ppt");
-//    opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", filename, 1, 0, 0);
-//    if (!opened) {
-//        qDebug() << "open error";
-//        return;
-//    }
+    ppt = new QAxObject();
+    ppt->setControl("Powerpoint.Application");
+    presentation = ppt->querySubObject("Presentations");
+    QString filename("D:/xxxx.ppt");
+    opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", filename, 1, 0, 0);
+    if (!opened) {
+        qDebug() << "open error";
+        return;
+    }
 
-//    sss = opened->querySubObject("SlideShowSettings");
-//    if (!sss) {
-//        qDebug() << "SlideShowSettings error";
-//        return;
-//    }
-//    sss->setProperty("RangeType", 1);
-//    sss->setProperty("SlideShowName", "Quick Show");
-//    sss->querySubObject("Run");
+    sss = opened->querySubObject("SlideShowSettings");
+    if (!sss) {
+        qDebug() << "SlideShowSettings error";
+        return;
+    }
+    sss->querySubObject("Run()");
+
 }
 
 MainWindow::~MainWindow()
 {
-    ui->axWidget->setControl("");
+    ppt->setControl("");
     delete ui;
 }
 
@@ -48,4 +48,5 @@ void MainWindow::on_pushButton_clicked()
         qDebug() << "view error";
         return;
     }
+    view->querySubObject("Next()");
 }
