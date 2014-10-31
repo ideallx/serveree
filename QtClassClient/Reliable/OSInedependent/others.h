@@ -31,18 +31,11 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <iop_config.h>
 
-#include "../../stdafx.h"
+#include "../stdafx.h"
 
 using namespace std;
-
-#ifdef WIN32
-#   define NOMINMAX
-#   include <windows.h>
-#else
-#   include <sys/time.h>
-#endif
-#ifdef WIN32
 
 int gettimeofday(struct timeval *tp, void *tzp);
 int getIp(char* ip);
@@ -50,5 +43,4 @@ TS_UINT64 getServerTime();
 TS_UINT64 getClientTime(DWORD bouns);
 string int2string(TS_UINT64 number);
 
-#endif
 #endif

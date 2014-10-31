@@ -3,7 +3,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "myscene.h"
-#include "../Reliable/DataUnit/CMessage.h"
 #include "cpromptframe.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -19,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     sceneMap.insert(TeacherUID, scene);
 
     ui->graphicsView->setScene(scene);
+    ui->graphicsView->setMsgObject(this);
 
     connect(ui->tbBrush, &LineWidthCombox::signalWidthChanged,
             scene, &MyScene::setPenWidth);
@@ -47,21 +47,19 @@ MainWindow::MainWindow(QWidget *parent) :
             this, &MainWindow::enterClass);
     connect(ui->tbLogin, &CLoginButton::logoutClicked,
             this, &MainWindow::leaveClass);
-    showFullScreen();
+    setWindowFlags(Qt::FramelessWindowHint |
+                   Qt::WindowSystemMenuHint |
+                   Qt::WindowStaysOnTopHint);
 
-    //setWindowOpacity(.3);
+    setAttribute(Qt::WA_TranslucentBackground, true);
+    showFullScreen();
 }
 
 MainWindow::~MainWindow() {
-//    if (ui->actionLeaveClass->isVisible()) {
-//        leaveClass();
-//        Sleep(10);
-//    }
     isRunning = false;
     iop_thread_cancel(pthread_msg);
     delete ui;
 }
-
 
 void MainWindow::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL isRemote) {
     Q_UNUSED(lParam);
@@ -133,7 +131,6 @@ void MainWindow::leaveClass() {
     ui->listWidget->clear();
 
     sendToAll(*(ts_msg*) &msg, 0, 0, false);
-
 }
 
 void MainWindow::enterClassResult(bool result) {
@@ -243,6 +240,10 @@ void MainWindow::setRole(enum RoleOfClass role) {
     m_userRole = role;
 }
 
+void MainWindow::playPPT(QString filepath) {
+    ui->graphicsView->playCourseware(filepath);
+}
+
 thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {
     iop_thread_detach_self();
     MainWindow* m = (MainWindow*) lpParam;
@@ -257,8 +258,7 @@ thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {
 
 void MainWindow::paintEvent(QPaintEvent *e) {
     QPainter p(this);
-    p.setCompositionMode(QPainter::CompositionMode_Clear );
-    p.fillRect( 10, 10, 300, 300, Qt::SolidPattern );
+    p.fillRect(this->rect(), QColor(0, 0, 0, 2));
 }
 
 void MainWindow::on_listWidget_clicked(const QModelIndex &index)
@@ -284,4 +284,14 @@ void MainWindow::on_tbTeacherBoard_clicked()
 void MainWindow::on_tbMyBoard_clicked()
 {
     changeScene(SelfUID);
+}
+
+void MainWindow::on_tbCourseWare_clicked()
+{
+    playPPT("D:/xxxx2.ppt");
+}
+
+void MainWindow::on_tbBackground_clicked()
+{
+    emit promptSent(0);
 }

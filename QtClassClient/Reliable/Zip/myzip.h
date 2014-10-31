@@ -3,6 +3,7 @@
 #ifndef _MYZIP_H
 #define _MYZIP_H
 
+#include "../DataUnit/CMessage.h"
 #include <stdio.h>
 #include "zip.h"
 #include "zlib.h"
@@ -17,8 +18,8 @@ class CZip
 private:
 
 public:
-	CZip(){};
-	~CZip(){};
+    CZip(){}
+    ~CZip(){}
 
 public:
 	static bool saveToZip(const char* DestPathName,const char* FileName,const void* pBuf,unsigned int nLen, bool isCreate);

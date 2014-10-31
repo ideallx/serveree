@@ -19,7 +19,6 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -40,9 +39,7 @@ public:
     QVBoxLayout *verticalLayout_2;
     QGroupBox *groupBox;
     QHBoxLayout *horizontalLayout;
-    QSpacerItem *horizontalSpacer;
     QLabel *lbLogo;
-    QSpacerItem *horizontalSpacer_2;
     QFrame *line;
     QToolButton *tbCourseWare;
     QFrame *line_2;
@@ -98,7 +95,13 @@ public:
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
+        groupBox->setSizePolicy(sizePolicy1);
         groupBox->setMinimumSize(QSize(1024, 75));
+        groupBox->setMaximumSize(QSize(16777215, 75));
         groupBox->setStyleSheet(QLatin1String("QGroupBox {\n"
 "	border-image: url(:/back/ui/back/orange1.png);\n"
 "}\n"
@@ -117,19 +120,13 @@ public:
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(9, 0, 0, 0);
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer);
-
         lbLogo = new QLabel(groupBox);
         lbLogo->setObjectName(QStringLiteral("lbLogo"));
+        lbLogo->setMinimumSize(QSize(480, 0));
+        lbLogo->setMaximumSize(QSize(480, 16777215));
         lbLogo->setPixmap(QPixmap(QString::fromUtf8(":/icon/ui/icon/logo.png")));
 
         horizontalLayout->addWidget(lbLogo);
-
-        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer_2);
 
         line = new QFrame(groupBox);
         line->setObjectName(QStringLiteral("line"));
@@ -140,11 +137,11 @@ public:
 
         tbCourseWare = new QToolButton(groupBox);
         tbCourseWare->setObjectName(QStringLiteral("tbCourseWare"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(tbCourseWare->sizePolicy().hasHeightForWidth());
-        tbCourseWare->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(tbCourseWare->sizePolicy().hasHeightForWidth());
+        tbCourseWare->setSizePolicy(sizePolicy2);
         tbCourseWare->setMinimumSize(QSize(75, 75));
         tbCourseWare->setMaximumSize(QSize(16777215, 16777215));
         tbCourseWare->setStyleSheet(QStringLiteral(""));
@@ -166,8 +163,8 @@ public:
 
         tbTeacherBoard = new QToolButton(groupBox);
         tbTeacherBoard->setObjectName(QStringLiteral("tbTeacherBoard"));
-        sizePolicy1.setHeightForWidth(tbTeacherBoard->sizePolicy().hasHeightForWidth());
-        tbTeacherBoard->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(tbTeacherBoard->sizePolicy().hasHeightForWidth());
+        tbTeacherBoard->setSizePolicy(sizePolicy2);
         tbTeacherBoard->setMinimumSize(QSize(75, 75));
         tbTeacherBoard->setMaximumSize(QSize(16777215, 16777215));
         tbTeacherBoard->setStyleSheet(QStringLiteral(""));
@@ -189,8 +186,8 @@ public:
 
         tbMyBoard = new QToolButton(groupBox);
         tbMyBoard->setObjectName(QStringLiteral("tbMyBoard"));
-        sizePolicy1.setHeightForWidth(tbMyBoard->sizePolicy().hasHeightForWidth());
-        tbMyBoard->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(tbMyBoard->sizePolicy().hasHeightForWidth());
+        tbMyBoard->setSizePolicy(sizePolicy2);
         tbMyBoard->setMinimumSize(QSize(75, 75));
         tbMyBoard->setMaximumSize(QSize(16777215, 16777215));
         tbMyBoard->setStyleSheet(QStringLiteral(""));
@@ -212,8 +209,8 @@ public:
 
         tbMyClass = new QToolButton(groupBox);
         tbMyClass->setObjectName(QStringLiteral("tbMyClass"));
-        sizePolicy1.setHeightForWidth(tbMyClass->sizePolicy().hasHeightForWidth());
-        tbMyClass->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(tbMyClass->sizePolicy().hasHeightForWidth());
+        tbMyClass->setSizePolicy(sizePolicy2);
         tbMyClass->setMinimumSize(QSize(75, 75));
         tbMyClass->setMaximumSize(QSize(16777215, 16777215));
         tbMyClass->setStyleSheet(QStringLiteral(""));
@@ -235,8 +232,8 @@ public:
 
         tbBrush = new LineWidthCombox(groupBox);
         tbBrush->setObjectName(QStringLiteral("tbBrush"));
-        sizePolicy1.setHeightForWidth(tbBrush->sizePolicy().hasHeightForWidth());
-        tbBrush->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(tbBrush->sizePolicy().hasHeightForWidth());
+        tbBrush->setSizePolicy(sizePolicy2);
         tbBrush->setMinimumSize(QSize(75, 75));
         tbBrush->setMaximumSize(QSize(16777215, 16777215));
         tbBrush->setStyleSheet(QStringLiteral(""));
@@ -258,8 +255,8 @@ public:
 
         tbShape = new CShapeChooser(groupBox);
         tbShape->setObjectName(QStringLiteral("tbShape"));
-        sizePolicy1.setHeightForWidth(tbShape->sizePolicy().hasHeightForWidth());
-        tbShape->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(tbShape->sizePolicy().hasHeightForWidth());
+        tbShape->setSizePolicy(sizePolicy2);
         tbShape->setMinimumSize(QSize(75, 75));
         tbShape->setMaximumSize(QSize(16777215, 16777215));
         tbShape->setStyleSheet(QStringLiteral(""));
@@ -281,8 +278,8 @@ public:
 
         tbEraser = new QToolButton(groupBox);
         tbEraser->setObjectName(QStringLiteral("tbEraser"));
-        sizePolicy1.setHeightForWidth(tbEraser->sizePolicy().hasHeightForWidth());
-        tbEraser->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(tbEraser->sizePolicy().hasHeightForWidth());
+        tbEraser->setSizePolicy(sizePolicy2);
         tbEraser->setMinimumSize(QSize(75, 75));
         tbEraser->setMaximumSize(QSize(16777215, 16777215));
         tbEraser->setStyleSheet(QStringLiteral(""));
@@ -305,8 +302,8 @@ public:
 
         tbPalette = new ColorCombox(groupBox);
         tbPalette->setObjectName(QStringLiteral("tbPalette"));
-        sizePolicy1.setHeightForWidth(tbPalette->sizePolicy().hasHeightForWidth());
-        tbPalette->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(tbPalette->sizePolicy().hasHeightForWidth());
+        tbPalette->setSizePolicy(sizePolicy2);
         tbPalette->setMinimumSize(QSize(75, 75));
         tbPalette->setMaximumSize(QSize(16777215, 16777215));
         tbPalette->setStyleSheet(QStringLiteral(""));
@@ -328,8 +325,8 @@ public:
 
         tbBackground = new QToolButton(groupBox);
         tbBackground->setObjectName(QStringLiteral("tbBackground"));
-        sizePolicy1.setHeightForWidth(tbBackground->sizePolicy().hasHeightForWidth());
-        tbBackground->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(tbBackground->sizePolicy().hasHeightForWidth());
+        tbBackground->setSizePolicy(sizePolicy2);
         tbBackground->setMinimumSize(QSize(75, 75));
         tbBackground->setMaximumSize(QSize(16777215, 16777215));
         tbBackground->setStyleSheet(QStringLiteral(""));
@@ -351,8 +348,8 @@ public:
 
         tbLogin = new CLoginButton(groupBox);
         tbLogin->setObjectName(QStringLiteral("tbLogin"));
-        sizePolicy1.setHeightForWidth(tbLogin->sizePolicy().hasHeightForWidth());
-        tbLogin->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(tbLogin->sizePolicy().hasHeightForWidth());
+        tbLogin->setSizePolicy(sizePolicy2);
         tbLogin->setMinimumSize(QSize(75, 75));
         tbLogin->setMaximumSize(QSize(16777215, 16777215));
         tbLogin->setStyleSheet(QStringLiteral(""));
@@ -374,7 +371,7 @@ public:
 
         tbSettings = new CSettingsButton(groupBox);
         tbSettings->setObjectName(QStringLiteral("tbSettings"));
-        tbSettings->setMinimumSize(QSize(30, 75));
+        tbSettings->setMinimumSize(QSize(60, 75));
         tbSettings->setMaximumSize(QSize(30, 16777215));
         tbSettings->setStyleSheet(QStringLiteral(""));
         QIcon icon11;
@@ -395,17 +392,17 @@ public:
         graphicsView = new MyView(centralWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
         graphicsView->viewport()->setProperty("cursor", QVariant(QCursor(Qt::CrossCursor)));
-        graphicsView->setStyleSheet(QStringLiteral("background-color: rgb(255, 254, 240);"));
+        graphicsView->setStyleSheet(QStringLiteral("background-color: rgb(255, 254, 240)"));
 
         horizontalLayout_2->addWidget(graphicsView);
 
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Preferred);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
-        groupBox_2->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
+        groupBox_2->setSizePolicy(sizePolicy3);
         groupBox_2->setStyleSheet(QStringLiteral("background-color: rgb(31, 40, 49);"));
         verticalLayout = new QVBoxLayout(groupBox_2);
         verticalLayout->setSpacing(6);

@@ -4,6 +4,7 @@
 #include <fstream>
 
 #include "CPackage.h"
+#include "../DataUnit/CMessage.h"
 #include "../Zip/myzip.h"
 
 CPackage::CPackage(int beginPos) :

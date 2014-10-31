@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../stdafx.h"
+#include "../Reliable/DataUnit/CMessage.h"
 #include "../Message/CMsgObject.h"
 #include "CUserLogic.h"
 #include "CGraphicLogic.h"

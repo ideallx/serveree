@@ -15,12 +15,9 @@
 #include <iop_thread.h>
 
 
+#include "../DataUnit/CMessage.h"
 #include "../Connections/CConnection.h"
 #include "../DataStructure/TSQueue.h"
-#include "../../Stdafx.h"
-#include "../DataUnit/CMessage.h"
-
-//#include "OSindependent\others.h"
 
 using namespace std;
 

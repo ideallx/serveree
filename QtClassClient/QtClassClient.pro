@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui axcontainer
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -60,7 +60,10 @@ SOURCES  += main.cpp\
     UserInterface/linewidthcombox.cpp \
     UserInterface/cshapechooser.cpp \
     UserInterface/colorcombox.cpp \
-    LayerUI/cpromptframe.cpp
+    LayerUI/cpromptframe.cpp \
+    player/pptplayer.cpp \
+    player/absplayer.cpp \
+    player/playerfactory.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
             LayerUI\myscene.h \
@@ -117,7 +120,10 @@ HEADERS  += LayerUI\mainwindow.h \
     UserInterface/linewidthcombox.h \
     UserInterface/cshapechooser.h \
     UserInterface/colorcombox.h \
-    LayerUI/cpromptframe.h
+    LayerUI/cpromptframe.h \
+    player/pptplayer.h \
+    player/absplayer.h \
+    player/playerfactory.h
 
 FORMS    += \
     loginwidget.ui \

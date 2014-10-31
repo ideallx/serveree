@@ -7,8 +7,9 @@
 #include <QMap>
 #include <QMutex>
 #include <QTimer>
-#include "cgraphicmsgcreator.h"
 
+#include "../Reliable/DataUnit/CMessage.h"
+#include "cgraphicmsgcreator.h"
 #include "../Message/CMsgObject.h"
 
 class CShape;

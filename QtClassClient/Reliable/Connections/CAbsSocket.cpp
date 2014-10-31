@@ -59,7 +59,7 @@ int CAbsSocket::setSockOpt(int level, int optname, const char *optval, int optle
 	return setsockopt(m_Socket, level, optname, optval, optlen);
 }
 
-int CAbsSocket::getSockOpt(int level, int optname, char *optval, socklen_t* optlen) {
+int CAbsSocket::getSockOpt(int level, int optname, char *optval, iop_socklen_t *optlen) {
 	return getsockopt(m_Socket, level, optname, optval, optlen);
 }
 

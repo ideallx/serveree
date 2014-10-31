@@ -32,7 +32,7 @@ public:
     {
         if (settingWidget->objectName().isEmpty())
             settingWidget->setObjectName(QStringLiteral("settingWidget"));
-        settingWidget->resize(92, 25);
+        settingWidget->resize(92, 32);
         verticalLayout = new QVBoxLayout(settingWidget);
         verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -43,6 +43,12 @@ public:
         horizontalLayout->setContentsMargins(-1, 9, -1, -1);
         exitButton = new QToolButton(settingWidget);
         exitButton->setObjectName(QStringLiteral("exitButton"));
+        QFont font;
+        font.setFamily(QStringLiteral("Times New Roman"));
+        font.setPointSize(10);
+        font.setBold(true);
+        font.setWeight(75);
+        exitButton->setFont(font);
         QIcon icon;
         icon.addFile(QStringLiteral(":/icon/ui/icon/exit.png"), QSize(), QIcon::Normal, QIcon::Off);
         exitButton->setIcon(icon);

@@ -115,7 +115,7 @@ int CSynSocket::sendData(const char* buf, ULONG len, const struct sockaddr_in* T
 }
 
 int CSynSocket::recvData(char* buf, ULONG& len, struct sockaddr_in* fromAddr) {
-	socklen_t Fromlen = sizeof(*fromAddr);
+    iop_socklen_t Fromlen = sizeof(*fromAddr);
 	int recv_len = recvfrom(m_Socket, buf, len, 0, (sockaddr*) fromAddr, &Fromlen);
 	if (recv_len <= 0)	{
         // cout << "recv failed, error no: " << GetLastError() << endl;

@@ -46,12 +46,12 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{23b9e516-88d1-44e0-8a58-ee5ded98a515}</UniqueIdentifier>
+      <UniqueIdentifier>{b00d4b4b-e03e-4455-98a6-d6983a4294bd}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{1aa2748b-158d-4109-858a-d733a5e6ff86}</UniqueIdentifier>
+      <UniqueIdentifier>{a4055655-d4ff-4dba-9da9-4c205e6b41da}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -193,6 +193,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Reliable\OSInedependent\others.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="player\pptplayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Reliable\Zip\unzip.c">
@@ -413,6 +416,9 @@
     <ClInclude Include="Reliable\OSInedependent\others.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="player\pptplayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -450,6 +456,15 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ui\icon\16x16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\32x32.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\64x64.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="ui\back\background.png">
       <Filter>Resource Files</Filter>
     </None>
@@ -570,5 +585,8 @@
     <None Include="ui\icon\teacher board.png">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="F:\server\trunk\EClass\QtClassClient\TouchPad_resource.rc" />
   </ItemGroup>
 </Project>

@@ -1,13 +1,75 @@
 #include "myview.h"
+#include <QGestureEvent>
+#include <QScrollBar>
+#include <QDebug>
+#include <QAction>
+#include <QDesktopWidget>
+#include <QApplication>
+#include "../player/playerfactory.h"
+
 
 MyView::MyView(QWidget *parent) :
-    QGraphicsView(parent) {
+    QGraphicsView(parent),
+    pm(PaintPPT),
+    isLeftClicked(false),
+    player(NULL),
+    msg(NULL) {
     //setRenderHint(QPainter::Antialiasing);
     viewport()->setAttribute(Qt::WA_AcceptTouchEvents);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     panTimer.setSingleShot(true);
     setAttribute(Qt::WA_AcceptTouchEvents);
+    setMouseTracking(true);
+
+    prev = new QToolButton(this);
+    stop = new QToolButton(this);
+    next = new QToolButton(this);
+
+    QDesktopWidget* desktopWidget = QApplication::desktop();
+    QRect screen = desktopWidget->screenGeometry();
+
+    const int width = 81;
+    const int height = 65;
+    prev->setGeometry(0, screen.height() - height - 75, width, height);
+    stop->setGeometry(width + 5, screen.height() - height - 75, width, height);
+    next->setGeometry(width*2 + 10, screen.height() - height - 75, width, height);
+
+    prev->setIcon(QIcon(":/icon/ui/icon/prev.png"));
+    prev->setIconSize(QSize(width, height));
+    stop->setIcon(QIcon(":/icon/ui/icon/start.png"));
+    stop->setIconSize(QSize(width, height));
+    next->setIcon(QIcon(":/icon/ui/icon/next.png"));
+    next->setIconSize(QSize(width, height));
+
+    connect(prev, &QToolButton::clicked,
+            this, &MyView::pprev);
+    connect(stop, &QToolButton::clicked,
+            this, &MyView::pstop);
+    connect(next, &QToolButton::clicked,
+            this, &MyView::pnext);
+}
+
+void MyView::pstop() {
+    if (player)
+        player->start();
+}
+
+void MyView::pprev() {
+    if (player)
+        player->prev();
+}
+
+void MyView::pnext() {
+    if (player)
+        player->next();
+}
+
+MyView::~MyView() {
+    if (player) {
+        player->close();
+        delete player;
+    }
 }
 
 bool MyView::viewportEvent(QEvent *event) {
@@ -25,13 +87,24 @@ bool MyView::viewportEvent(QEvent *event) {
         }
         return true;
     }
-    case QEvent::MouseButtonPress:
+
     case QEvent::TouchBegin:
-    case QEvent::MouseMove:
     case QEvent::TouchUpdate:
-    case QEvent::MouseButtonRelease:
     case QEvent::TouchEnd:
+        return true;
+    case QEvent::MouseButtonRelease:
+        isLeftClicked = false;
         break;
+    case QEvent::MouseButtonPress:
+        isLeftClicked = true;
+        break;
+    case QEvent::MouseMove:
+        if (!isLeftClicked)
+            return true;
+        isLeftClicked = true;
+        break;
+    case QEvent::KeyPress:
+    case QEvent::KeyRelease:
     case QEvent::Wheel:
         return true;
     default:
@@ -43,4 +116,29 @@ bool MyView::viewportEvent(QEvent *event) {
 void MyView::moveScreen(QPoint p) {
     verticalScrollBar()->setValue(p.y());
     horizontalScrollBar()->setValue(p.x());
+}
+
+void MyView::buildPlayer() {
+
+}
+
+void MyView::setPaintMode(PaintMode in) {
+    switch (in) {
+    case PaintPPT:
+        setStyleSheet("background: transparent");
+        break;
+    default:
+        setStyleSheet("background-color: rgb(255, 254, 240)");
+        break;
+    }
+}
+
+void MyView::playCourseware(QString filepath) {
+    setPaintMode(PaintPPT);
+    if (player) {
+        player->close();
+        delete player;
+    }
+    player = PlayerFactory::createPlayer(filepath, msg);
+    player->run();
 }

@@ -11,8 +11,6 @@
 #include <set>
 #include <map>
 
-#include <semaphore.h>
-
 #include "CServer.h"
 #include "../Connections/CReliableConnection.h"
 #include "../Connections/CHubConnection.h"

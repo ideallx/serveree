@@ -9,7 +9,7 @@
 #include "cshapechooser.h"
 
 static const qreal iconWidth = 150;
-static const qreal iconHeight = 20;
+static const qreal iconHeight = 40;
 
 CShapeChooser::CShapeChooser(QWidget *parent) :
     QToolButton(parent) {
@@ -33,13 +33,13 @@ QMenu* CShapeChooser::createLineMenu() {
                 this, &CShapeChooser::onTypeChanged);
 
         QToolButton *tb = new QToolButton;
-        tb->setFixedSize(iconWidth, iconHeight);
+        tb->setIconSize(QSize(iconWidth, iconHeight));
         tb->setAutoRaise(true);
         tb->setDefaultAction(action);
         tb->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
         tb->setIcon(createLineIcon(iRow));
-        tb->setIconSize(QSize(13, 13));
         tb->setText(createLineText(iRow));
+        tb->setFont(QFont(tb->font().family(), 16));
 
         layout->addWidget(tb);
         layout->setMargin(0);
@@ -55,7 +55,7 @@ QMenu* CShapeChooser::createLineMenu() {
 
     QMenu* lineMenu = new QMenu(this);
     lineMenu->setLayout(vlayout);
-    lineMenu->setStyleSheet("padding-left:10px;");
+    // lineMenu->setStyleSheet("padding-left:10px;");
 
     return lineMenu;
 }

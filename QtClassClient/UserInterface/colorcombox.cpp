@@ -6,7 +6,7 @@
 #include <QPainter>
 #include <QColorDialog>
 
-static const int iconWidth = 20;
+static const int iconWidth = 30;
 
 const QColor colors[6][8] =
 {
@@ -75,7 +75,7 @@ QMenu *ColorCombox::createColorMenu(const char *slot, const char *slotColorBoard
             connect(action, SIGNAL(triggered()), this, slot);
 
             QToolButton *pBtnColor = new QToolButton;
-            pBtnColor->setFixedSize(QSize(iconWidth, iconWidth));
+            pBtnColor->setIconSize(QSize(iconWidth, iconWidth));
             pBtnColor->setAutoRaise(true);
             pBtnColor->setDefaultAction(action);
 

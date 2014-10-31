@@ -6,7 +6,6 @@
 #include <map>
 #include <assert.h>
 #include <direct.h>
-#include <semaphore.h>
 
 #include "CMessage.h"
 #include "CPackage.h"

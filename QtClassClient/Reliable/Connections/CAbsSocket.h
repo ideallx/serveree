@@ -50,7 +50,7 @@ public:
 	static TS_UINT64 getAddressKey(const struct sockaddr_in addr);
 
 	int setSockOpt(int level, int optname, const char *optval, int optlen);
-	int getSockOpt(int level, int optname, char *optval, socklen_t* optlen);
+    int getSockOpt(int level, int optname, char *optval, iop_socklen_t* optlen);
 };
 
 

@@ -50,6 +50,8 @@ void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
         mt = MoveScreen;
         return;
     }
+    if (!mv->isLeftClicked)
+        return;
     if (panFixer.isActive())
         return;
     if (isEraser || mt != MoveDraw)

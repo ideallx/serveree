@@ -36,6 +36,10 @@
         <file>ui/icon/16x16.png</file>
         <file>ui/icon/32x32.png</file>
         <file>ui/icon/64x64.png</file>
+        <file>ui/icon/next.png</file>
+        <file>ui/icon/prev.png</file>
+        <file>ui/icon/start.png</file>
+        <file>ui/icon/stop.png</file>
     </qresource>
     <qresource prefix="/word">
         <file>ui/word/enterclass.png</file>

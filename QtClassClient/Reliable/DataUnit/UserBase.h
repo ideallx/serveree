@@ -11,6 +11,8 @@
 #include <string>
 #include <iostream>
 
+
+#include "CMessage.h"
 #include "../../Stdafx.h"
 
 using namespace std;

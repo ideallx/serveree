@@ -1,8 +1,7 @@
 #include <iostream>
 #include <iop_util.h>
-#include "Server\CAgentServer.h"
-
-#include "Server\CWSServer.h"
+#include "../../QtClassClient/Reliable/Server/CAgentServer.h"
+#include "../../QtClassClient/Reliable/Server/CWSServer.h"
 
 using namespace std;
 

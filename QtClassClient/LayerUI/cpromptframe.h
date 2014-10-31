@@ -4,15 +4,16 @@
 #include <QMessageBox>
 #include <QString>
 #include <QObject>
+#include "../Reliable/DataUnit/CMessage.h"
 
 const QString AllPrompts[] = {
-    QObject::tr("success"),
-    QObject::tr("login success"),
-    QObject::tr("logout success"),
-    QObject::tr("already logged in"),
-    QObject::tr("username error"),
-    QObject::tr("password error"),
-    QObject::tr("unknown error")
+    "成功",
+    "登录成功",
+    "logout success",
+    "already logged in",
+    "username error",
+    "password error",
+    "unknown error"
 };
 
 class CPromptFrame

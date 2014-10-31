@@ -60,9 +60,21 @@
     </property>
     <item>
      <widget class="QGroupBox" name="groupBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="minimumSize">
        <size>
         <width>1024</width>
+        <height>75</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
         <height>75</height>
        </size>
       </property>
@@ -101,20 +113,19 @@ QToolButton:checked, QToolButton:pressed {
         <number>0</number>
        </property>
        <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
+        <widget class="QLabel" name="lbLogo">
+         <property name="minimumSize">
           <size>
-           <width>40</width>
-           <height>20</height>
+           <width>480</width>
+           <height>0</height>
           </size>
          </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QLabel" name="lbLogo">
+         <property name="maximumSize">
+          <size>
+           <width>480</width>
+           <height>16777215</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -122,19 +133,6 @@ QToolButton:checked, QToolButton:pressed {
           <pixmap resource="ui.qrc">:/icon/ui/icon/logo.png</pixmap>
          </property>
         </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
        <item>
         <widget class="Line" name="line">
@@ -660,7 +658,7 @@ QToolButton:checked, QToolButton:pressed {
         <widget class="CSettingsButton" name="tbSettings">
          <property name="minimumSize">
           <size>
-           <width>30</width>
+           <width>60</width>
            <height>75</height>
           </size>
          </property>
@@ -708,7 +706,7 @@ QToolButton:checked, QToolButton:pressed {
          <cursorShape>CrossCursor</cursorShape>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 254, 240);</string>
+         <string notr="true">background-color: rgb(255, 254, 240)</string>
         </property>
        </widget>
       </item>

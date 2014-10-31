@@ -1,7 +1,9 @@
 #ifndef _DATAUNIT_CMESSAGE_H_
 #define _DATAUNIT_CMESSAGE_H_
 
+#include <iop_config.h>
 #include "../OSInedependent/others.h"
+#include "../stdafx.h"
 
 #pragma pack(4)
 
@@ -108,7 +110,7 @@ typedef struct {
     DWORD BeginPy;
     DWORD PointX;		// 图形当前点
     DWORD PointY;
-    BYTE DoneFlag;
+    BYTE BeginFlag;
     BYTE Alpha;
 } TS_GRAPHIC_DATA;
 
@@ -242,6 +244,12 @@ enum ShapeType {
     HEXAGON,
     TRIANGLE,
     IMAGE,
+};
+
+
+enum PaintMode {
+    PaintNormal,    // as usual
+    PaintPPT        // transparent background and covering the ppt
 };
 
 #endif

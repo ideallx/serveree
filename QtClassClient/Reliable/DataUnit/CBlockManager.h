@@ -5,7 +5,7 @@
 #include <set>
 
 #include "CBlock.h"
-#include "../../Stdafx.h"
+#include "CMessage.h"
 
 /*
  * 保存文件管理单元，所有用户都由他控制，包含：

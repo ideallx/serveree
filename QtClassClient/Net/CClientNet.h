@@ -3,8 +3,8 @@
 #include <QDebug>
 #include <iop_thread.h>
 
+#include "../Reliable/DataUnit/CMessage.h"
 #include "../Message/CMsgObject.h"
-
 #include "../Reliable/Connections/CReliableConnection.h"
 #include "../Reliable/DataStructure/TSQueue.h"
 #include "../Reliable/DataUnit/UserBase.h"

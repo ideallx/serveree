@@ -4,12 +4,16 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QPaintEvent>
+
+#include "../Reliable/DataUnit/CMessage.h"
+
 #include "myscene.h"
 #include "../Message/CMsgObject.h"
 #include "../Reliable/DataStructure/TSQueue.h"
 #include <QVector>
 #include <iop_thread.h>
-#include <semaphore.h>
+
+
 
 namespace Ui {
 class MainWindow;
@@ -32,6 +36,8 @@ public:
     void msgProc();
 
     void paintEvent(QPaintEvent *e);
+
+    void playPPT(QString filepath);
 
 private:
     Ui::MainWindow*             ui;
@@ -79,6 +85,8 @@ private slots:
     void showPrompt(int result);
 
     friend thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam);
+    void on_tbCourseWare_clicked();
+    void on_tbBackground_clicked();
 };
 
 #endif // MAINWINDOW_H

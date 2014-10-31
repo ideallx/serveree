@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>980</width>
+    <width>1375</width>
     <height>739</height>
    </rect>
   </property>
@@ -24,18 +24,90 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>first</string>
     </property>
    </widget>
-   <widget class="MyActiveX" name="axWidget" native="true">
-    <property name="geometry">
+   <widget class="QAxWidget" name="axWidget">
+    <property name="geometry" stdset="0">
      <rect>
       <x>90</x>
-      <y>120</y>
-      <width>811</width>
-      <height>421</height>
+      <y>-40</y>
+      <width>851</width>
+      <height>481</height>
      </rect>
     </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>610</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>prev</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>610</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>next</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>620</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>run</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>500</y>
+      <width>239</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="pushButton_5">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_6">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_7">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -43,7 +115,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>980</width>
+     <width>1375</width>
      <height>23</height>
     </rect>
    </property>
@@ -61,10 +133,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>MyActiveX</class>
+   <class>QAxWidget</class>
    <extends>QWidget</extends>
-   <header>myactivex.h</header>
-   <container>1</container>
+   <header>qaxwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

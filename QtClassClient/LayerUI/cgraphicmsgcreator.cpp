@@ -31,7 +31,7 @@ void CGraphicMsgCreator::generateGraphicsData(TS_GRAPHIC_PACKET& msg, QPointF p,
     buildCommonInfo(msg);
 
     msg.data.Alpha = 1;
-    msg.data.DoneFlag = isBegin;
+    msg.data.BeginFlag = isBegin;
     msg.data.PageID = 0;
     msg.data.PointX = p.x();
     msg.data.PointY = p.y();
@@ -58,7 +58,7 @@ void CGraphicMsgCreator::generateScreenMove(TS_GRAPHIC_PACKET& msg, QPoint p) {
     msg.graphicsType = GraphicPacketMoveScreen;
     buildCommonInfo(msg);
 
-    msg.data.DoneFlag = true;
+    msg.data.BeginFlag = true;
     msg.data.PointX = p.x();
     msg.data.PointY = p.y();
 }

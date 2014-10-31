@@ -9,7 +9,6 @@
 #define _DATASTRUCTURE_POOL_H_
 
 #include <iop_thread.h>
-#include <semaphore.h>
 #include <queue>
 #include <iostream>
 using namespace std;
