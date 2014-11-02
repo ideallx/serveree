@@ -1,4 +1,5 @@
 #include <QString>
+#include <QStringList>
 #include "playerfactory.h"
 
 #include "pptplayer.h"

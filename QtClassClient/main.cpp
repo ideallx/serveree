@@ -1,18 +1,17 @@
-#include <QApplication>
-#include <QObject>
 #include <iop_config.h>
 #include "LayerUI/mainwindow.h"
 #include "Net/CClientNet.h"
 #include "BizLogic/CBusinessLogic.h"
 #include "Message/CMsgObject.h"
 
+#include <QApplication>
+#include <QObject>
 
 int main(int argc, char *argv[])
 {
     Q_INIT_RESOURCE(ui);
 
     QApplication a(argc, argv);
-
     WSADATA wsadata;
     WSAStartup(MAKEWORD( 2, 2 ),&wsadata);
 
@@ -33,7 +32,7 @@ int main(int argc, char *argv[])
     if (argc > 2) {
         cn.SetServerAddr(0, argv[1], atoi(argv[2]));
     } else {
-        cn.SetServerAddr(0, "192.168.1.202", 2222);
+        cn.SetServerAddr(0, "192.168.1.102", 2222);
     }
     cn.Start(0);
 

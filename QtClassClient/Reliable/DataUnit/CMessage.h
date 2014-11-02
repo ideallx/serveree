@@ -8,6 +8,7 @@
 #pragma pack(4)
 
 const int MESSAGE_SIZE = 1024;				// 单个Package最大msgs数
+const int MaxTrans = 700;                   // 单条最大传输
 const int HeartBeatInterval = 10000;		// 心跳包间隔
 const TS_UINT64 SeqBegin = 1;				// seq开始位置，seq从1开始
 
@@ -154,15 +155,10 @@ typedef struct {
     };
 } TS_GRAPHIC_PACKET, *LPTS_GRAPHIC_PACKET;
 
-// 下行报文
 typedef struct {
     TS_MESSAGE_HEAD head;
-    enum MsgResult result;			// 运行结果
-    enum RoleOfClass role;			// 用户角色
-    TS_UINT64 uid;					// 给予客户端的UID
-    sockaddr_in addr;				// 服务器端地址
-} DOWN_AGENTSERVICE;
-
+    unsigned char content[MaxTrans];
+} TS_FILE_PACKET, *LPTS_FILE_PACKET;
 
 // 运行结果
 enum MsgResult {
@@ -251,5 +247,16 @@ enum PaintMode {
     PaintNormal,    // as usual
     PaintPPT        // transparent background and covering the ppt
 };
+
+
+
+// 下行报文
+typedef struct {
+    TS_MESSAGE_HEAD head;
+    enum MsgResult result;			// 运行结果
+    enum RoleOfClass role;			// 用户角色
+    TS_UINT64 uid;					// 给予客户端的UID
+    sockaddr_in addr;				// 服务器端地址
+} DOWN_AGENTSERVICE;
 
 #endif

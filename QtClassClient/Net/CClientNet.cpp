@@ -1,6 +1,22 @@
 #include <QTime>
 #include "CClientNet.h"
 
+
+thread_ret_type thread_func_call HBProc(LPVOID lpParam) {
+    CClientNet* c = (CClientNet*) lpParam;
+    if (!c) {
+        iop_thread_exit(0);
+        return 0;
+    }
+    c->sendHeartBeat();
+#ifdef _DEBUG_INFO_
+    cout << "hb thread exit" << endl;
+#endif
+    iop_thread_exit(0);
+    return 0;
+}
+
+
 CClientNet::CClientNet() :
     m_seq(1),
 	m_agent(NULL),
@@ -177,20 +193,5 @@ void CClientNet::sendHeartBeat() {
 
 void CClientNet::addServerAddr(sockaddr_in in) { 
 	m_Connect->addPeer(ServerUID, in); 
-}
-
-
-thread_ret_type thread_func_call HBProc(LPVOID lpParam) {
-	CClientNet* c = (CClientNet*) lpParam;
-	if (!c) {
-        iop_thread_exit(0);
-		return 0;
-    }
-    c->sendHeartBeat();
-#ifdef _DEBUG_INFO_
-    cout << "hb thread exit" << endl;
-#endif
-    iop_thread_exit(0);
-	return 0;
 }
 

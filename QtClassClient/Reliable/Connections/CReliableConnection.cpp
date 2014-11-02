@@ -6,6 +6,54 @@
 
 using namespace std;
 
+thread_ret_type thread_func_call ScanProc(LPVOID lpParam) {
+    iop_thread_detach_self();
+    CReliableConnection* conn = (CReliableConnection*) lpParam;
+    if (!conn) {
+        iop_thread_exit(0);
+        return 0;
+    }
+
+    conn->scanProcess();		// 扫描包并重发
+#ifdef _DEBUG_INFO_
+    cout << "ScanProc exit" << endl;
+#endif
+    iop_thread_exit(0);
+    return 0;
+}
+
+thread_ret_type thread_func_call MsgInProc(LPVOID lpParam) {
+    iop_thread_detach_self();
+    CReliableConnection* conn = (CReliableConnection*) lpParam;
+    if (!conn) {
+        iop_thread_exit(0);
+        return 0;
+    }
+
+    conn->receive();
+#ifdef _DEBUG_INFO_
+    cout << "MsgInProc exit" << endl;
+#endif
+    iop_thread_exit(0);
+    return 0;
+}
+
+thread_ret_type thread_func_call SaveProc(LPVOID lpParam) {
+    iop_thread_detach_self();
+    CReliableConnection* conn = (CReliableConnection*) lpParam;
+    if (!conn) {
+        iop_thread_exit(0);
+        return 0;
+    }
+
+    conn->saveProcess();
+#ifdef _DEBUG_INFO_
+    cout << "SaveProc exit" << endl;
+#endif
+    iop_thread_exit(0);
+    return 0;
+}
+
 CReliableConnection::CReliableConnection() :
 	bm(new CBlockManager()),			
 	msgQueue(new TSQueue<ts_msg>),		// 消息队列，处理收发
@@ -431,50 +479,3 @@ void CReliableConnection::sendMaxSeqList() {
     }
 }
 
-thread_ret_type thread_func_call ScanProc(LPVOID lpParam) {
-    iop_thread_detach_self();
-    CReliableConnection* conn = (CReliableConnection*) lpParam;
-	if (!conn) {
-        iop_thread_exit(0);
-		return 0;
-	}
-
-    conn->scanProcess();		// 扫描包并重发
-#ifdef _DEBUG_INFO_
-    cout << "ScanProc exit" << endl;
-#endif
-    iop_thread_exit(0);
-	return 0;
-}
-
-thread_ret_type thread_func_call MsgInProc(LPVOID lpParam) {
-    iop_thread_detach_self();
-    CReliableConnection* conn = (CReliableConnection*) lpParam;
-	if (!conn) {
-        iop_thread_exit(0);
-		return 0;
-    }
-
-    conn->receive();
-#ifdef _DEBUG_INFO_
-    cout << "MsgInProc exit" << endl;
-#endif
-    iop_thread_exit(0);
-	return 0;
-}
-
-thread_ret_type thread_func_call SaveProc(LPVOID lpParam) {
-    iop_thread_detach_self();
-    CReliableConnection* conn = (CReliableConnection*) lpParam;
-	if (!conn) {
-        iop_thread_exit(0);
-		return 0;
-    }
-
-    conn->saveProcess();
-#ifdef _DEBUG_INFO_
-    cout << "SaveProc exit" << endl;
-#endif
-    iop_thread_exit(0);
-	return 0;
-}

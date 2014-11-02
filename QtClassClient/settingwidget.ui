@@ -41,17 +41,15 @@
       <widget class="QToolButton" name="exitButton">
        <property name="font">
         <font>
-         <family>Times New Roman</family>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
+         <family>Agency FB</family>
+         <pointsize>11</pointsize>
         </font>
        </property>
        <property name="text">
         <string>退出软件</string>
        </property>
        <property name="icon">
-        <iconset resource="ui.qrc">
+        <iconset>
          <normaloff>:/icon/ui/icon/exit.png</normaloff>:/icon/ui/icon/exit.png</iconset>
        </property>
        <property name="toolButtonStyle">
@@ -66,8 +64,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="ui.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

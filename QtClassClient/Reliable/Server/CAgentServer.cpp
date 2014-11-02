@@ -5,6 +5,22 @@
 
 using namespace std;
 
+thread_ret_type thread_func_call scanOfflineProc(LPVOID lpParam) {
+    iop_thread_detach_self();
+    CAgentServer* object = (CAgentServer*) lpParam;
+    if (!object) {
+        iop_thread_exit(0);
+        return 0;
+    }
+    object->scanOffline();
+#ifdef _DEBUG_INFO_
+    cout << "scanOfflineProc exit" << endl;
+#endif
+    iop_thread_exit(0);
+    return 0;
+}
+
+
 CAgentServer::CAgentServer() {
 	iop_lock_init(&lockWorkServer);
 	iop_lock_init(&lockPortqueue);
@@ -377,19 +393,4 @@ CWSServer* CAgentServer::getServerByUID(TS_UINT64 uid) {
     }
 
     return map_workserver[map_userinfo[uid]._classid];
-}
-
-thread_ret_type thread_func_call scanOfflineProc(LPVOID lpParam) {
-    iop_thread_detach_self();
-    CAgentServer* object = (CAgentServer*) lpParam;
-	if (!object) {
-        iop_thread_exit(0);
-		return 0;
-	}
-    object->scanOffline();
-#ifdef _DEBUG_INFO_
-    cout << "scanOfflineProc exit" << endl;
-#endif
-    iop_thread_exit(0);
-	return 0;
 }

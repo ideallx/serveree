@@ -5,6 +5,20 @@
 #include "myscene.h"
 #include "cpromptframe.h"
 
+
+thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {
+    iop_thread_detach_self();
+    MainWindow* m = (MainWindow*) lpParam;
+    if (NULL == m) {
+        iop_thread_exit(0);
+        return 0;
+    }
+    m->msgProc();
+    iop_thread_exit(0);
+    return 0;
+}
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     m_userRole(RoleStudent),
@@ -47,12 +61,12 @@ MainWindow::MainWindow(QWidget *parent) :
             this, &MainWindow::enterClass);
     connect(ui->tbLogin, &CLoginButton::logoutClicked,
             this, &MainWindow::leaveClass);
-    setWindowFlags(Qt::FramelessWindowHint |
-                   Qt::WindowSystemMenuHint |
-                   Qt::WindowStaysOnTopHint);
+//    setWindowFlags(Qt::FramelessWindowHint |
+//                   Qt::WindowSystemMenuHint |
+//                   Qt::WindowStaysOnTopHint);
 
-    setAttribute(Qt::WA_TranslucentBackground, true);
-    showFullScreen();
+//    setAttribute(Qt::WA_TranslucentBackground, true);
+//    showFullScreen();
 }
 
 MainWindow::~MainWindow() {
@@ -242,18 +256,6 @@ void MainWindow::setRole(enum RoleOfClass role) {
 
 void MainWindow::playPPT(QString filepath) {
     ui->graphicsView->playCourseware(filepath);
-}
-
-thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {
-    iop_thread_detach_self();
-    MainWindow* m = (MainWindow*) lpParam;
-    if (NULL == m) {
-        iop_thread_exit(0);
-        return 0;
-    }
-    m->msgProc();
-    iop_thread_exit(0);
-    return 0;
 }
 
 void MainWindow::paintEvent(QPaintEvent *e) {

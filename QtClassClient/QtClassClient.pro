@@ -11,6 +11,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = TouchPad
 TEMPLATE = app
 
+DEFINES += NOMINMAX
+DEFINES += WIN32
+
 CONFIG += c++11
 
 SOURCES  += main.cpp\
@@ -63,7 +66,10 @@ SOURCES  += main.cpp\
     LayerUI/cpromptframe.cpp \
     player/pptplayer.cpp \
     player/absplayer.cpp \
-    player/playerfactory.cpp
+    player/playerfactory.cpp \
+    prompt.cpp \
+    BizLogic/cfilelogic.cpp \
+    LayerUI/cfilemsggenerater.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
             LayerUI\myscene.h \
@@ -123,12 +129,16 @@ HEADERS  += LayerUI\mainwindow.h \
     LayerUI/cpromptframe.h \
     player/pptplayer.h \
     player/absplayer.h \
-    player/playerfactory.h
+    player/playerfactory.h \
+    prompt.h \
+    BizLogic/cfilelogic.h \
+    LayerUI/cfilemsggenerater.h
 
 FORMS    += \
     loginwidget.ui \
     mainwindow.ui \
-    settingwidget.ui
+    settingwidget.ui \
+    prompt.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += include
