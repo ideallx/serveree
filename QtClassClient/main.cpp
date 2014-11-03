@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     if (argc > 2) {
         cn.SetServerAddr(0, argv[1], atoi(argv[2]));
     } else {
-        cn.SetServerAddr(0, "192.168.1.102", 2222);
+        cn.SetServerAddr(0, "192.168.1.202", 2222);
     }
     cn.Start(0);
 

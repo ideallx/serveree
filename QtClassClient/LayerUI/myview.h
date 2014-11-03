@@ -43,6 +43,10 @@ public slots:
     void pprev();
     void pnext();
 
+
+private:
+    void hideButtons(bool hide = true);
+
 private:
     enum PaintMode pm;
     AbsPlayer*   player;
@@ -51,7 +55,10 @@ private:
     QToolButton *next;
     QToolButton *stop;
 
+    QList<QToolButton*> ctrllist;
+
     CMsgObject* msg;
+    bool        isWareStarted;
 };
 
 #endif // MYVIEW_H

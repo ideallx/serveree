@@ -3,11 +3,13 @@
 
 #include <QMainWindow>
 #include <QPushButton>
+#include <QListWidgetItem>
 #include <QPaintEvent>
 
 #include "../Reliable/DataUnit/CMessage.h"
 
 #include "myscene.h"
+#include "cfilemsggenerater.h"
 #include "../Message/CMsgObject.h"
 #include "../Reliable/DataStructure/TSQueue.h"
 #include <QVector>
@@ -29,7 +31,7 @@ public:
 
     void ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL isRemote);
 
-    void addUser(TS_UINT64 uid, QString username);
+    void addUser(TS_UINT64 uid, QString username, bool isOnline);
 
     void removeUser(TS_UINT64 uid);
 
@@ -38,6 +40,8 @@ public:
     void paintEvent(QPaintEvent *e);
 
     void playPPT(QString filepath);
+
+    void syncFile(QString filename);
 
 private:
     Ui::MainWindow*             ui;
@@ -50,6 +54,7 @@ private:
     HANDLE                      sem_msg;        // maintain the msgthread, but some problem
     iop_thread_t                pthread_msg;
     TSQueue<ts_msg>             msgQueue;
+    CFileMsgGenerater           m_fmg;
 
 public slots:
     void changeScene(TS_UINT64 uid);
@@ -87,6 +92,11 @@ private slots:
     friend thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam);
     void on_tbCourseWare_clicked();
     void on_tbBackground_clicked();
+    void on_tbUpload_clicked();
+    void on_tbSync_clicked();
+    void on_lsWare_itemDoubleClicked(QListWidgetItem *item);
+    void on_tbExitWare_clicked();
+    void on_listWidget_doubleClicked(const QModelIndex &index);
 };
 
 #endif // MAINWINDOW_H

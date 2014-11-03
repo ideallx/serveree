@@ -91,29 +91,29 @@ QIcon CShapeChooser::createLineIcon(int shapeType) {
 
 QString CShapeChooser::createLineText(int shapeType) {
     QString s;
-//    switch (shapeType) {
-//    case SCRIPTS:
-//        s = QStringLiteral("    曲线工具");
-//        break;
-//    case ELLIPSE:
-//        s = QStringLiteral("    椭圆工具");
-//        break;
-//    case LINE:
-//        s = QStringLiteral("    直线工具");
-//        break;
-//    case RECTANGLE:
-//        s = QStringLiteral("    矩形工具");
-//        break;
-//    case ROUNDRECT:
-//        s = QStringLiteral("    圆角矩形工具");
-//        break;
-//    case HEXAGON:
-//        s = QStringLiteral("    六角形工具");
-//        break;
-//    default:
-//        s = QStringLiteral("    未知工具");
-//        break;
-//    }
+    switch (shapeType) {
+    case SCRIPTS:
+        s = QStringLiteral("    曲线工具");
+        break;
+    case ELLIPSE:
+        s = QStringLiteral("    椭圆工具");
+        break;
+    case LINE:
+        s = QStringLiteral("    直线工具");
+        break;
+    case RECTANGLE:
+        s = QStringLiteral("    矩形工具");
+        break;
+    case ROUNDRECT:
+        s = QStringLiteral("    圆角矩形工具");
+        break;
+    case HEXAGON:
+        s = QStringLiteral("    六角形工具");
+        break;
+    default:
+        s = QStringLiteral("    未知工具");
+        break;
+    }
 
     return s;
 }

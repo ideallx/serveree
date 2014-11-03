@@ -16,6 +16,8 @@ public:
     virtual ~CGraphicLogic() {}
 
     void procIsRemote(const ts_msg& msg);
+
+    void procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap);
 };
 
 #endif // CGRAPHICLOGIC_H

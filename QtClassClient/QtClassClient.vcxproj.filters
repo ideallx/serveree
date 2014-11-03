@@ -46,12 +46,12 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{b00d4b4b-e03e-4455-98a6-d6983a4294bd}</UniqueIdentifier>
+      <UniqueIdentifier>{c0dd2e94-c5fd-4a1a-abf8-a7673d6f3aa3}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{a4055655-d4ff-4dba-9da9-4c205e6b41da}</UniqueIdentifier>
+      <UniqueIdentifier>{cd28dfa2-0387-455b-88fa-fe34b5605ec3}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -138,6 +138,15 @@
     <ClCompile Include="Reliable\Strategy\CWriteFileStrategy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="player\absplayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BizLogic\cfilelogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerUI\cfilemsggenerater.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="LayerUI\cgraphicmsgcreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -153,7 +162,7 @@
     <ClCompile Include="UserInterface\csettingsbutton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cshape.cpp">
+    <ClCompile Include="LayerUI\cshape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UserInterface\cshapechooser.cpp">
@@ -195,7 +204,13 @@
     <ClCompile Include="Reliable\OSInedependent\others.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="player\playerfactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="player\pptplayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInterface\prompt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Reliable\Zip\unzip.c">
@@ -256,6 +271,12 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_myview.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_prompt.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_prompt.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_ui.cpp">
@@ -356,6 +377,15 @@
     <ClInclude Include="Reliable\DataUnit\UserBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="player\absplayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BizLogic\cfilelogic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LayerUI\cfilemsggenerater.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="LayerUI\cgraphicmsgcreator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -374,7 +404,7 @@
     <CustomBuild Include="UserInterface\csettingsbutton.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="cshape.h">
+    <ClInclude Include="LayerUI\cshape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <CustomBuild Include="UserInterface\cshapechooser.h">
@@ -416,9 +446,15 @@
     <ClInclude Include="Reliable\OSInedependent\others.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="player\playerfactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="player\pptplayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="UserInterface\prompt.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -440,6 +476,9 @@
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_prompt.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_settingwidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
@@ -449,6 +488,9 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="mainwindow.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="prompt.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="settingwidget.ui">
@@ -522,6 +564,9 @@
     <None Include="ui\icon\my">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="ui\icon\next.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="ui\back\orange1.png">
       <Filter>Resource Files</Filter>
     </None>
@@ -531,10 +576,16 @@
     <None Include="ui\icon\password.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="ui\icon\pencil.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="ui\back\pink.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\icon\platte.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\prev.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\icon\shape.png">
@@ -556,6 +607,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\icon\shapeScript.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\start.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\stop.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\icon\teacher">
@@ -587,6 +644,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="F:\server\trunk\EClass\QtClassClient\TouchPad_resource.rc" />
+    <ResourceCompile Include="C:\Users\Fulaan\Documents\GitHub\server\QtClassClient\TouchPad_resource.rc" />
   </ItemGroup>
 </Project>

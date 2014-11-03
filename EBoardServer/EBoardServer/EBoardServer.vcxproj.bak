@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\QtClassClient\Reliable\Connections\CAbsConnection.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Connections\CAbsSocket.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Connections\CConnection.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Connections\CHubConnection.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Connections\CPeerConnection.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Connections\CReliableConnection.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Connections\CSynSocket.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\DataUnit\CBlock.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\DataUnit\CBlockManager.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\DataUnit\CMessage.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\DataUnit\CPackage.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.c" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\OSInedependent\libiop\iop_util.c" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\OSInedependent\others.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Server\CAbsServer.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Server\CAgentServer.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Server\CServer.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Server\CWSServer.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Strategy\CAbsStrategy.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Strategy\CDestroyStrategy.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Strategy\CWriteFileStrategy.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Zip\ioapi.c" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Zip\iowin32.c" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Zip\myzip.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Zip\unzip.c" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Zip\zip.c" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\QtClassClient\Reliable\Connections\CAbsConnection.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Connections\CAbsSocket.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Connections\CConnection.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Connections\CHubConnection.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Connections\CPeerConnection.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Connections\CReliableConnection.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Connections\CSynSocket.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\DataStructure\Pool.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\DataStructure\TSQueue.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\DataUnit\CBlock.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\DataUnit\CBlockManager.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\DataUnit\CMessage.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\DataUnit\CPackage.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\DataUnit\CPeerPacket.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\DataUnit\UserBase.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\OSInedependent\libiop\iop_util.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\OSInedependent\others.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Server\CAbsServer.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Server\CAgentServer.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Server\CServer.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Server\CWSServer.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Strategy\CAbsStrategy.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Strategy\CDestroyStrategy.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Strategy\CWriteFileStrategy.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Zip\crypt.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Zip\ioapi.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Zip\iowin32.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Zip\myzip.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Zip\unzip.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Zip\zconf.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Zip\zip.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Zip\zlib.h" />
+    <ClInclude Include="..\..\QtClassClient\stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\QtClassClient\Reliable\Zip\zdll.lib" />
+    <Library Include="..\..\QtClassClient\Reliable\Zip\zlib.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\QtClassClient\Reliable\Zip\zlib1.dll" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1A495AA3-A592-4FEA-AB2B-D4F222EFFAF9}</ProjectGuid>
+    <RootNamespace>EBoardServer</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\QtClassClient\Reliable\Zip;..\..\QtClassClient\Reliable\OSInedependent\libiop;..\..\QtClassClient\Reliable\OSInedependent\pthread;..\..\QtClassClient\Reliable;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;PTW32_STATIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\..\QtClassClient\Reliable\Zip\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>zdll.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>C:\Users\Fulaan\Documents\Visual Studio 2010\Projects\EBoardServer\EBoardServer\OSInedependent\pthread;C:\Users\Fulaan\Documents\Visual Studio 2010\Projects\EBoardServer\EBoardServer\OSInedependent\libiop;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;PTW32_STATIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

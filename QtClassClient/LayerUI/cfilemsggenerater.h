@@ -2,16 +2,10 @@
 #define CFILEMSGGENERATER_H
 
 #include <QString>
+#include <QByteArray>
+#include <QFile>
 #include "../Reliable/DataUnit/CMessage.h"
 
-const int MaxFileName = 30;
-typedef struct {
-    DWORD nameLen;
-    DWORD fileLen;
-    DWORD progress;
-    unsigned char filename[MaxFileName];
-    unsigned char* filecontent;
-} FILE_CONTENT;
 
 class CFileMsgGenerater
 {

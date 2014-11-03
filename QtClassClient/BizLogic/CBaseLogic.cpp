@@ -70,9 +70,8 @@ bool CBaseLogic::procMsg(const ts_msg& msg, bool isRemote) {
         }
 
         auto sendMap = userInfo[uid].receiveMsg(msg);
-        for (auto i = sendMap.begin(); i != sendMap.end(); i++) {
-            ui->ProcessMessage(i->second, 0, 0, isRemote);
-        }
+
+        procRecvIsRemote(sendMap);
     }
     return false;
 }

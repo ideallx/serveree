@@ -3,6 +3,8 @@
 
 #include "../Reliable/DataUnit/CMessage.h"
 #include "CBaseLogic.h"
+#include <map>
+#include <QFile>
 
 class CFileLogic : public CBaseLogic
 {
@@ -10,7 +12,11 @@ public:
     CFileLogic(CMsgObject* parent = NULL);
     virtual ~CFileLogic() {}
 
-    virtual bool procMsg(const ts_msg& msg, bool isRemote);
+    virtual void procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap);
+
+private:
+    QFile m_writingFile;
+    bool  m_waitForNewFile;
 };
 
 #endif // CFILELOGIC_H

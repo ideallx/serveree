@@ -1,12 +1,13 @@
 #include "cpromptframe.h"
 #include <QMessageBox>
-#include "../prompt.h"
+#include "../UserInterface/prompt.h"
 
 CPromptFrame::CPromptFrame()
 {
 }
 
 void CPromptFrame::prompt(int result, QWidget *parent) {
-    Prompt* p = new Prompt(parent);
-    p->show();
+    Prompt p(result, parent);
+    p.setModal(true);
+    p.exec();
 }

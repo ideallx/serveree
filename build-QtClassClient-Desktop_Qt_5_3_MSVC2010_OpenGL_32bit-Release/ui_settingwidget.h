@@ -44,10 +44,8 @@ public:
         exitButton = new QToolButton(settingWidget);
         exitButton->setObjectName(QStringLiteral("exitButton"));
         QFont font;
-        font.setFamily(QStringLiteral("Times New Roman"));
-        font.setPointSize(10);
-        font.setBold(true);
-        font.setWeight(75);
+        font.setFamily(QStringLiteral("Agency FB"));
+        font.setPointSize(11);
         exitButton->setFont(font);
         QIcon icon;
         icon.addFile(QStringLiteral(":/icon/ui/icon/exit.png"), QSize(), QIcon::Normal, QIcon::Off);

@@ -18,7 +18,9 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -63,6 +65,15 @@ public:
     QFrame *line_11;
     CSettingsButton *tbSettings;
     QHBoxLayout *horizontalLayout_2;
+    QGroupBox *gbCourseware;
+    QVBoxLayout *verticalLayout_3;
+    QToolButton *tbExitWare;
+    QListWidget *lsWare;
+    QGroupBox *gbWareCtrl;
+    QHBoxLayout *horizontalLayout_3;
+    QSpacerItem *horizontalSpacer;
+    QToolButton *tbUpload;
+    QToolButton *tbSync;
     MyView *graphicsView;
     QGroupBox *groupBox_2;
     QVBoxLayout *verticalLayout;
@@ -84,6 +95,33 @@ public:
         QIcon icon;
         icon.addFile(QStringLiteral(":/icon/ui/icon/64x64.png"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
+        MainWindow->setStyleSheet(QLatin1String("QListView {\n"
+"	color: rgb(255, 255, 255);\n"
+"	background-color: rgb(45, 55, 64);\n"
+"	padding-left: 20px;\n"
+"	padding-right: 20px;\n"
+"	alternate-background-color: yellow;\n"
+"	border:none\n"
+"}\n"
+"\n"
+"QGroupBox {\n"
+"	background-color: rgb(31, 40, 49);\n"
+"	border: none;\n"
+"}\n"
+"\n"
+"QGroupBox#gbWareCtrl {\n"
+"	background-color: rgb(66, 79, 88);\n"
+"}\n"
+"\n"
+"QGroupBox {\n"
+"	background-color: rgb(31, 40, 49);\n"
+"	border: none;\n"
+"}\n"
+"\n"
+"QToolButton {\n"
+"	color: rgb(255, 255, 255);\n"
+"}\n"
+""));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         sizePolicy.setHeightForWidth(centralWidget->sizePolicy().hasHeightForWidth());
@@ -389,6 +427,73 @@ public:
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(0);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        gbCourseware = new QGroupBox(centralWidget);
+        gbCourseware->setObjectName(QStringLiteral("gbCourseware"));
+        QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(gbCourseware->sizePolicy().hasHeightForWidth());
+        gbCourseware->setSizePolicy(sizePolicy3);
+        gbCourseware->setStyleSheet(QStringLiteral(""));
+        verticalLayout_3 = new QVBoxLayout(gbCourseware);
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        verticalLayout_3->setContentsMargins(1, 9, 1, 0);
+        tbExitWare = new QToolButton(gbCourseware);
+        tbExitWare->setObjectName(QStringLiteral("tbExitWare"));
+        QFont font;
+        font.setFamily(QStringLiteral("Aharoni"));
+        font.setPointSize(12);
+        font.setBold(true);
+        font.setWeight(75);
+        tbExitWare->setFont(font);
+        tbExitWare->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        tbExitWare->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+        tbExitWare->setAutoRaise(true);
+        tbExitWare->setArrowType(Qt::NoArrow);
+
+        verticalLayout_3->addWidget(tbExitWare);
+
+        lsWare = new QListWidget(gbCourseware);
+        lsWare->setObjectName(QStringLiteral("lsWare"));
+
+        verticalLayout_3->addWidget(lsWare);
+
+        gbWareCtrl = new QGroupBox(gbCourseware);
+        gbWareCtrl->setObjectName(QStringLiteral("gbWareCtrl"));
+        horizontalLayout_3 = new QHBoxLayout(gbWareCtrl);
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalSpacer = new QSpacerItem(139, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer);
+
+        tbUpload = new QToolButton(gbWareCtrl);
+        tbUpload->setObjectName(QStringLiteral("tbUpload"));
+        QFont font1;
+        font1.setPointSize(12);
+        tbUpload->setFont(font1);
+        tbUpload->setStyleSheet(QStringLiteral(""));
+        tbUpload->setAutoRaise(true);
+
+        horizontalLayout_3->addWidget(tbUpload);
+
+        tbSync = new QToolButton(gbWareCtrl);
+        tbSync->setObjectName(QStringLiteral("tbSync"));
+        tbSync->setFont(font1);
+        tbSync->setToolButtonStyle(Qt::ToolButtonTextOnly);
+        tbSync->setAutoRaise(true);
+
+        horizontalLayout_3->addWidget(tbSync);
+
+
+        verticalLayout_3->addWidget(gbWareCtrl);
+
+
+        horizontalLayout_2->addWidget(gbCourseware);
+
         graphicsView = new MyView(centralWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
         graphicsView->viewport()->setProperty("cursor", QVariant(QCursor(Qt::CrossCursor)));
@@ -398,12 +503,9 @@ public:
 
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Preferred);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
         sizePolicy3.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
         groupBox_2->setSizePolicy(sizePolicy3);
-        groupBox_2->setStyleSheet(QStringLiteral("background-color: rgb(31, 40, 49);"));
+        groupBox_2->setStyleSheet(QStringLiteral(""));
         verticalLayout = new QVBoxLayout(groupBox_2);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -411,13 +513,8 @@ public:
         verticalLayout->setContentsMargins(1, 9, 1, 0);
         btClassInfo = new QToolButton(groupBox_2);
         btClassInfo->setObjectName(QStringLiteral("btClassInfo"));
-        QFont font;
-        font.setFamily(QStringLiteral("Aharoni"));
-        font.setPointSize(12);
-        font.setBold(true);
-        font.setWeight(75);
         btClassInfo->setFont(font);
-        btClassInfo->setStyleSheet(QStringLiteral("color: rgb(82, 90, 93);"));
+        btClassInfo->setStyleSheet(QStringLiteral(""));
         btClassInfo->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
         btClassInfo->setAutoRaise(true);
         btClassInfo->setArrowType(Qt::NoArrow);
@@ -425,14 +522,17 @@ public:
         verticalLayout->addWidget(btClassInfo);
 
         listWidget = new CUserListWidget(groupBox_2);
+        new QListWidgetItem(listWidget);
+        new QListWidgetItem(listWidget);
         listWidget->setObjectName(QStringLiteral("listWidget"));
-        listWidget->setStyleSheet(QLatin1String("color: rgb(255, 255, 255);\n"
-"background-color: rgb(27, 36, 45);\n"
-"padding-left: 20px;\n"
-"padding-right: 20px;\n"
-"alternate-background-color: yellow;"));
+        QFont font2;
+        font2.setPointSize(10);
+        listWidget->setFont(font2);
+        listWidget->setStyleSheet(QStringLiteral(""));
         listWidget->setSizeAdjustPolicy(QAbstractScrollArea::AdjustIgnored);
+        listWidget->setGridSize(QSize(0, 36));
         listWidget->setViewMode(QListView::ListMode);
+        listWidget->setUniformItemSizes(true);
 
         verticalLayout->addWidget(listWidget);
 
@@ -465,8 +565,22 @@ public:
         tbBackground->setText(QApplication::translate("MainWindow", "\350\203\214\346\231\257\347\261\273\345\236\213", 0));
         tbLogin->setText(QApplication::translate("MainWindow", "\347\231\273\345\275\225", 0));
         tbSettings->setText(QString());
+        gbCourseware->setTitle(QString());
+        tbExitWare->setText(QApplication::translate("MainWindow", "         \346\225\231\345\270\210\350\257\276\344\273\266                           X    ", 0));
+        gbWareCtrl->setTitle(QString());
+        tbUpload->setText(QApplication::translate("MainWindow", "\344\270\212\344\274\240", 0));
+        tbSync->setText(QApplication::translate("MainWindow", "\345\220\214\346\255\245", 0));
         groupBox_2->setTitle(QString());
-        btClassInfo->setText(QApplication::translate("MainWindow", "         CONTACT LIST                  X    ", 0));
+        btClassInfo->setText(QApplication::translate("MainWindow", "         \350\201\224\347\263\273\344\272\272\345\210\227\350\241\250                       X    ", 0));
+
+        const bool __sortingEnabled = listWidget->isSortingEnabled();
+        listWidget->setSortingEnabled(false);
+        QListWidgetItem *___qlistwidgetitem = listWidget->item(0);
+        ___qlistwidgetitem->setText(QApplication::translate("MainWindow", "---\345\234\250\347\272\277\347\224\250\346\210\267---", 0));
+        QListWidgetItem *___qlistwidgetitem1 = listWidget->item(1);
+        ___qlistwidgetitem1->setText(QApplication::translate("MainWindow", "---\347\246\273\347\272\277\347\224\250\346\210\267---", 0));
+        listWidget->setSortingEnabled(__sortingEnabled);
+
     } // retranslateUi
 
 };

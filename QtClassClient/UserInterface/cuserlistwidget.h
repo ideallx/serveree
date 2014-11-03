@@ -13,11 +13,13 @@ class CUserListWidget : public QListWidget
 public:
     explicit CUserListWidget(QWidget *parent = 0);
 
-    void addUser(TS_UINT64 uid, QString username);
+    void addUser(TS_UINT64 uid, QString username, bool isOnline);
 
     void removeUser(TS_UINT64 uid);
 
     TS_UINT64 getUIDByRow(int row) { return userList[row]; }
+
+    void changeAuth(int row);
 
 private:
     QList<TS_UINT64> userList;

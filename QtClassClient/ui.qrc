@@ -40,6 +40,7 @@
         <file>ui/icon/prev.png</file>
         <file>ui/icon/start.png</file>
         <file>ui/icon/stop.png</file>
+        <file>ui/icon/pencil.png</file>
     </qresource>
     <qresource prefix="/word">
         <file>ui/word/enterclass.png</file>

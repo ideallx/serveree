@@ -48,14 +48,16 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
         case ADDUSER:
         {
             SERVER_CLASS_ADD_USER* down = (SERVER_CLASS_ADD_USER*) &msg;
-            ui->addUser(down->enterUser.uid, (char *) down->enterUser.username);
+            ui->addUser(down->enterUser.uid, (char *) down->enterUser.username,
+                        down->enterUser.isLoggedIn);
             break;
         }
         case USERLIST:
         {
             SERVER_CLASS_USER_LIST* down = (SERVER_CLASS_USER_LIST*) &msg;
             for (int i = 0; i < down->userNumberInMessage; i++) {
-                ui->addUser(down->users[i].uid, (char *) down->users[i].username);
+                ui->addUser(down->users[i].uid, (char *) down->users[i].username,
+                            down->users[i].isLoggedIn);
             }
             break;
         }

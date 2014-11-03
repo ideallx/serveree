@@ -56,7 +56,6 @@ SOURCES  += main.cpp\
     BizLogic/CBusinessLogic.cpp \
     LayerUI/cgraphicmsgcreator.cpp \
     BizLogic/CGraphicLogic.cpp \
-    cshape.cpp \
     UserInterface/cloginbutton.cpp \
     UserInterface/csettingsbutton.cpp \
     UserInterface/cuserlistwidget.cpp \
@@ -67,9 +66,10 @@ SOURCES  += main.cpp\
     player/pptplayer.cpp \
     player/absplayer.cpp \
     player/playerfactory.cpp \
-    prompt.cpp \
     BizLogic/cfilelogic.cpp \
-    LayerUI/cfilemsggenerater.cpp
+    LayerUI/cfilemsggenerater.cpp \
+    LayerUI/cshape.cpp \
+    UserInterface/prompt.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
             LayerUI\myscene.h \
@@ -119,7 +119,6 @@ HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBusinessLogic.h \
     LayerUI/cgraphicmsgcreator.h \
     BizLogic/CGraphicLogic.h \
-    cshape.h \
     UserInterface/cloginbutton.h \
     UserInterface/csettingsbutton.h \
     UserInterface/cuserlistwidget.h \
@@ -130,9 +129,10 @@ HEADERS  += LayerUI\mainwindow.h \
     player/pptplayer.h \
     player/absplayer.h \
     player/playerfactory.h \
-    prompt.h \
     BizLogic/cfilelogic.h \
-    LayerUI/cfilemsggenerater.h
+    LayerUI/cfilemsggenerater.h \
+    LayerUI/cshape.h \
+    UserInterface/prompt.h
 
 FORMS    += \
     loginwidget.ui \

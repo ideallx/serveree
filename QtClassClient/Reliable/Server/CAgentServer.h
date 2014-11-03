@@ -82,6 +82,7 @@ public:
 
 	void userLoginNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
 	void userLogoutNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
+	void sendUserList(TS_PEER_MESSAGE& msg);
 
     CWSServer* getServerByUID(TS_UINT64 uid);
 

@@ -3,7 +3,8 @@
 CBusinessLogic::CBusinessLogic(CMsgObject* parent) :
 	CMsgObject(parent),
     m_UserLogic(new CUserLogic(this)),
-    m_GraphicLogic(new CGraphicLogic(this)){
+    m_GraphicLogic(new CGraphicLogic(this)),
+    m_FileLogic(new CFileLogic(this)) {
 }
 
 CBusinessLogic::~CBusinessLogic() {
@@ -21,6 +22,9 @@ void CBusinessLogic::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, B
         switch (head->type) {
         case GRAPHICS:
             m_GraphicLogic->procMsg(msg, isremote);
+            break;
+        case COURSEWARE:
+            m_FileLogic->procMsg(msg, isremote);
             break;
         default:
             break;

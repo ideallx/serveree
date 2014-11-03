@@ -6,15 +6,6 @@
 #include <QObject>
 #include "../Reliable/DataUnit/CMessage.h"
 
-const QString AllPrompts[] = {
-    "成功",
-    "登录成功",
-    "logout success",
-    "already logged in",
-    "username error",
-    "password error",
-    "unknown error"
-};
 
 class CPromptFrame
 {

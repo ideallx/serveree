@@ -62,6 +62,7 @@ void CAgentServer::loadUser() {
 		user._reserved = 0;
 		cin >> user._username >> user._password >> user._uid 
 			>> user._classid  >> user._role;
+		user._role -= '0';
 		map_userinfo.insert(make_pair(user._uid, user));
 		map_alluser.insert(make_pair(string((char*) user._username), user._uid));
 	}
@@ -239,8 +240,8 @@ void CAgentServer::userLoginNotify(TS_PEER_MESSAGE& pmsg, TS_UINT64 uid) {
 		return;
 	}
 
-	map<TS_UINT64, CPeerConnection*>* allUsers = pServer->getPeers();
-	for (auto iter = allUsers->begin(); iter != allUsers->end(); iter++) {
+	map<TS_UINT64, CPeerConnection*>* loginUser = pServer->getPeers();
+	for (auto iter = loginUser->begin(); iter != loginUser->end(); iter++) {
 		if (iter->first != uid && iter->first != ServerUID) {		// 所有人收到新增用户信息
 			SERVER_CLASS_ADD_USER *down = (SERVER_CLASS_ADD_USER*) &pmsg.msg;
 			UserBase us = map_userinfo[uid];
@@ -258,19 +259,23 @@ void CAgentServer::userLoginNotify(TS_PEER_MESSAGE& pmsg, TS_UINT64 uid) {
 		} else {													// 新用户收到现有用户列表
 			SERVER_CLASS_USER_LIST *down = (SERVER_CLASS_USER_LIST*) &pmsg.msg;
 			int calc = 0;
-			for (auto iter2 = allUsers->begin(); iter2 != allUsers->end(); iter2++) {
-				if (iter2->first == uid)
-					continue;
-
-				if (calc == 10)
+			for (auto iter2 = map_alluser.begin(); iter2 != map_alluser.end(); iter2++) {
+				if (calc == 10) {
 					iter->second->send(pmsg.msg.Body, sizeof(SERVER_CLASS_USER_LIST));
+					calc = 0;
+				}
 					
 				USER_INFO ui;
-				UserBase us = map_userinfo[iter2->first];
+				UserBase us = map_userinfo[iter2->second];
 				ui.uid = us._uid;
 				ui.classid = us._classid;
 				ui.reserved = us._reserved;
 				ui.role = us._role;
+				if (loginUser->find(iter2->second) == loginUser->end()) {
+					ui.isLoggedIn = false;
+				} else {
+					ui.isLoggedIn = true;
+				}
 				memcpy(ui.username, us._username, 20);
 
 				down->users[calc] = ui;

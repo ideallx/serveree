@@ -11,6 +11,8 @@ const int MESSAGE_SIZE = 1024;				// 单个Package最大msgs数
 const int MaxTrans = 700;                   // 单条最大传输
 const int HeartBeatInterval = 10000;		// 心跳包间隔
 const TS_UINT64 SeqBegin = 1;				// seq开始位置，seq从1开始
+const int MaxFileName = 30;
+const int MaxUserInfoOneMessage = 10;
 
 const int VersionNumber = 1;
 
@@ -82,6 +84,7 @@ typedef struct {
     TS_UINT64 reserved;
     TS_UINT64 classid;
     unsigned char role;
+	unsigned char isLoggedIn;
     unsigned char username[20];
 } USER_INFO;
 
@@ -98,7 +101,7 @@ typedef struct {
 typedef struct {
     TS_MESSAGE_HEAD head;
     int userNumberInMessage;
-    USER_INFO users[10];
+    USER_INFO users[MaxUserInfoOneMessage];
 } SERVER_CLASS_USER_LIST;
 
 
@@ -157,6 +160,7 @@ typedef struct {
 
 typedef struct {
     TS_MESSAGE_HEAD head;
+    WORD isEnd;
     unsigned char content[MaxTrans];
 } TS_FILE_PACKET, *LPTS_FILE_PACKET;
 
@@ -170,7 +174,11 @@ enum MsgResult {
 
     ErrorUsername,
     ErrorPassword,
-	ErrorUnknown
+    ErrorUnknown,
+
+
+    ErrorFormat,
+    PleaseWaiting
 };
 
 enum RoleOfClass {
@@ -195,6 +203,7 @@ enum PacketType {
     PACKETTRANSPORT,		// 正常传输包
 
     GRAPHICS,				// 图案
+    COURSEWARE,             // 文件，课件
     TEXT,					// 文字
     AUDIO,					// 音频
     VIDEO,					// 视频
@@ -258,5 +267,14 @@ typedef struct {
     TS_UINT64 uid;					// 给予客户端的UID
     sockaddr_in addr;				// 服务器端地址
 } DOWN_AGENTSERVICE;
+
+
+typedef struct {
+    DWORD nameLen;
+    DWORD fileLen;
+    DWORD progress;
+    unsigned char filename[MaxFileName];
+    unsigned char* filecontent;
+} FILE_CONTENT;
 
 #endif

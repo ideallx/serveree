@@ -32,6 +32,8 @@ public:
     virtual bool procMsg(const ts_msg& msg, bool isRemote);
 
     virtual void procIsRemote(const ts_msg& msg) {}
+    virtual void procRecvIsRemote(map<TS_UINT64, ts_msg> sendmap) {}
 
     virtual void procNotRemote(const ts_msg& msg) {}
+    virtual void procRecvNotRemote(const ts_msg& msg) {}
 };

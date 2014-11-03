@@ -1,9 +1,13 @@
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QFileDialog>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "myscene.h"
 #include "cpromptframe.h"
+
+#include "../LayerUI/cpromptframe.h"
 
 
 thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {
@@ -56,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
             this, &MainWindow::showPrompt);
 
     ui->groupBox_2->setHidden(true);
+    ui->gbCourseware->setHidden(true);
 
     connect(ui->tbLogin, &CLoginButton::loginClicked,
             this, &MainWindow::enterClass);
@@ -177,8 +182,8 @@ void MainWindow::classIcon(bool entered) {
     ui->tbLogin->setLoggedIn(entered);
 }
 
-void MainWindow::addUser(TS_UINT64 uid, QString username) {
-    ui->listWidget->addUser(uid, username);
+void MainWindow::addUser(TS_UINT64 uid, QString username, bool isOnline) {
+    ui->listWidget->addUser(uid, username, isOnline);
     emit addScene(uid >> 32, uid);
 }
 
@@ -246,12 +251,9 @@ void MainWindow::sendPrompt(int result) {
     emit promptSent(result);
 }
 
-void MainWindow::showPrompt(int result) {
-    CPromptFrame::prompt(result, this);
-}
-
 void MainWindow::setRole(enum RoleOfClass role) {
     m_userRole = role;
+    qDebug() << (int) role;
 }
 
 void MainWindow::playPPT(QString filepath) {
@@ -265,7 +267,8 @@ void MainWindow::paintEvent(QPaintEvent *e) {
 
 void MainWindow::on_listWidget_clicked(const QModelIndex &index)
 {
-    changeScene(ui->listWidget->getUIDByRow(index.row()));
+    if (m_userRole == RoleTeacher)
+        ui->listWidget->changeAuth(index.row());
 }
 
 void MainWindow::on_tbMyClass_clicked()
@@ -290,10 +293,74 @@ void MainWindow::on_tbMyBoard_clicked()
 
 void MainWindow::on_tbCourseWare_clicked()
 {
-    playPPT("D:/xxxx2.ppt");
+    ui->gbCourseware->setHidden(!ui->gbCourseware->isHidden());
+    //playPPT("D:/xxxx2.ppt");
 }
 
 void MainWindow::on_tbBackground_clicked()
 {
-    emit promptSent(0);
+    CPromptFrame::prompt(PleaseWaiting);
+}
+
+void MainWindow::on_tbUpload_clicked()
+{
+    QString file = QFileDialog::getOpenFileName(
+                this);
+    QString tofile = file.split('/').last();
+    if (tofile.isNull())
+        return;
+
+    if (tofile.split('.').last() != "ppt" &&
+            tofile.split('.').last() != "pptx") {
+        CPromptFrame::prompt(ErrorFormat);
+        return;
+    }
+
+    QFile::copy(file, tofile);
+    ui->lsWare->addItem(tofile);
+}
+
+void MainWindow::on_tbSync_clicked()
+{
+    for (int i = 0; i < ui->lsWare->count(); i++) {
+        syncFile(ui->lsWare->item(i)->text());
+    }
+}
+
+void MainWindow::syncFile(QString filename) {
+    qDebug() << "syncing" << filename;
+    if (!m_fmg.create(filename))
+        return;
+
+    ts_msg msg;
+    TS_FILE_PACKET* fmsg = (TS_FILE_PACKET*) &msg;
+    while (true) {
+        bool finish = m_fmg.generateFileData(*fmsg);
+        ProcessMessage(msg, 0, 0, false);
+        if (finish)
+            return;
+    }
+}
+
+void MainWindow::on_lsWare_itemDoubleClicked(QListWidgetItem *item)
+{
+    if (!QFile::exists(item->text()))
+        qDebug() << "fuck" << item->text();
+    playPPT(item->text());
+    ui->gbCourseware->setHidden(true);
+    ui->graphicsView->scene()->clear();
+}
+
+void MainWindow::on_tbExitWare_clicked()
+{
+    ui->gbCourseware->setHidden(true);
+}
+
+void MainWindow::on_listWidget_doubleClicked(const QModelIndex &index)
+{
+    // changeScene(ui->listWidget->getUIDByRow(index.row()));
+}
+
+void MainWindow::showPrompt(int result) {
+    CPromptFrame::prompt(result);
 }

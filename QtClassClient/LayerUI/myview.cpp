@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QAction>
 #include <QDesktopWidget>
+#include <QDir>
 #include <QApplication>
 #include "../player/playerfactory.h"
 
@@ -13,7 +14,8 @@ MyView::MyView(QWidget *parent) :
     pm(PaintPPT),
     isLeftClicked(false),
     player(NULL),
-    msg(NULL) {
+    msg(NULL),
+    isWareStarted(false) {
     //setRenderHint(QPainter::Antialiasing);
     viewport()->setAttribute(Qt::WA_AcceptTouchEvents);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -37,7 +39,7 @@ MyView::MyView(QWidget *parent) :
 
     prev->setIcon(QIcon(":/icon/ui/icon/prev.png"));
     prev->setIconSize(QSize(width, height));
-    stop->setIcon(QIcon(":/icon/ui/icon/start.png"));
+    stop->setIcon(QIcon(":/icon/ui/icon/stop.png"));
     stop->setIconSize(QSize(width, height));
     next->setIcon(QIcon(":/icon/ui/icon/next.png"));
     next->setIconSize(QSize(width, height));
@@ -48,27 +50,49 @@ MyView::MyView(QWidget *parent) :
             this, &MyView::pstop);
     connect(next, &QToolButton::clicked,
             this, &MyView::pnext);
+
+    ctrllist.append(prev);
+    ctrllist.append(stop);
+    ctrllist.append(next);
+
+    hideButtons();
 }
 
 void MyView::pstop() {
-    if (player)
-        player->start();
+//    if (isWareStarted) {
+        player->close();
+        delete player;
+        player = 0;
+        setPaintMode(PaintNormal);
+        isWareStarted = false;
+        scene()->clear();
+//    } else {
+//        if (player) {
+//            player->start();
+//            scene()->clear();
+//            stop->setIcon(QIcon(":/icon/ui/icon/stop.png"));
+//            isWareStarted = true;
+//        }
+//    }
 }
 
 void MyView::pprev() {
     if (player)
         player->prev();
+    scene()->clear();
 }
 
 void MyView::pnext() {
     if (player)
         player->next();
+    scene()->clear();
 }
 
 MyView::~MyView() {
     if (player) {
         player->close();
         delete player;
+        player = 0;
     }
 }
 
@@ -125,9 +149,11 @@ void MyView::buildPlayer() {
 void MyView::setPaintMode(PaintMode in) {
     switch (in) {
     case PaintPPT:
+        hideButtons(false);
         setStyleSheet("background: transparent");
         break;
     default:
+        hideButtons(true);
         setStyleSheet("background-color: rgb(255, 254, 240)");
         break;
     }
@@ -139,6 +165,15 @@ void MyView::playCourseware(QString filepath) {
         player->close();
         delete player;
     }
-    player = PlayerFactory::createPlayer(filepath, msg);
+    QString path = QDir::currentPath();
+    QString file = path + "/" + filepath;
+    qDebug() << file;
+    player = PlayerFactory::createPlayer(file, msg);
     player->run();
+}
+
+void MyView::hideButtons(bool hide) {
+    foreach (QToolButton* tb, ctrllist) {
+        tb->setHidden(hide);
+    }
 }
