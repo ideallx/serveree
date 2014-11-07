@@ -54,7 +54,7 @@ bool CClientNet::Start(unsigned short port) {
 
 DWORD CClientNet::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSClient
     TS_UINT64 uid = getUid(inputMsg.msg);
-    if ((uid == m_uid) || uid == SelfUID) {
+    if (uid == SelfUID) {
         return 0;
     }
 
@@ -69,7 +69,7 @@ void CClientNet::msgProc() {
 	while (isRunning()) {
 		memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
 		ReadIn(*pmsg);
-		MsgHandler(*pmsg);
+        MsgHandler(*pmsg);
 	}
 	delete pmsg;
 }
@@ -180,6 +180,7 @@ void CClientNet::sendHeartBeat() {
         upcmd->head.sequence = 0;
         upcmd->head.UID = m_uid;
         upcmd->head.version = VersionNumber;
+        upcmd->head.subSeq = 0;
         upcmd->maxSeq = m_seq - 1;
 
         m_agent->send(msg->msg.Body, packetSize(msg->msg));

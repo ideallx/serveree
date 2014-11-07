@@ -6,7 +6,9 @@
 #include "../Reliable/DataUnit/CMessage.h"
 #include "../Message/CMsgObject.h"
 
-class AbsPlayer {
+class AbsPlayer : public QObject {
+    Q_OBJECT
+
 public:
     AbsPlayer(QString filepath, CMsgObject* parent);
     virtual ~AbsPlayer();
@@ -27,6 +29,9 @@ protected:
     virtual bool procClose() = 0;
     virtual bool procStop() = 0;
     virtual bool procStart() = 0;
+
+signals:
+    void playerEnd();
 
 
 protected:

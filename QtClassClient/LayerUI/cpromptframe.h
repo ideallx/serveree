@@ -13,6 +13,8 @@ public:
     CPromptFrame();
 
     static void prompt(int result, QWidget* parent = 0);
+
+    static void prompt(QString prompt, QWidget* parent = 0);
 };
 
 #endif // CPROMPTFRAME_H

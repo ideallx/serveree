@@ -63,10 +63,11 @@ CReliableConnection::CReliableConnection() :
 	fileNamePrefix("L"),
 	resendWhenAsk(true),
 	isRunning(false) {						
-	semMsg = CreateSemaphore(NULL, 0, 1024, NULL);
-	semSave = CreateSemaphore(NULL, 0, 1024, NULL);
+    semMsg = CreateSemaphore(NULL, 0, 102400, NULL);
+    semSave = CreateSemaphore(NULL, 0, 102400, NULL);
 	needScan = CreateSemaphore(NULL, 0, 10, NULL);		// 最多10个，10次不收到新的msg，scan速度放缓
 	createdBlock.clear();
+	iop_lock_init(&ioLock);
 }
 
 CReliableConnection::~CReliableConnection() {
@@ -119,7 +120,7 @@ bool CReliableConnection::create(unsigned short localport) {
 		return false;
 	}
 
-    rc = iop_thread_create(&pthread_save, MsgInProc, (void *) this, 0);
+    rc = iop_thread_create(&pthread_save, SaveProc, (void *) this, 0);
 	if (0 == rc) {
 		iop_usleep(10);
 #ifdef _DEBUG_INFO_
@@ -135,15 +136,49 @@ bool CReliableConnection::create(unsigned short localport) {
 	}
 }
 
+
+void CReliableConnection::receive() {
+    ts_msg msg;
+    while (isRunning) {
+        WaitForSingleObject(semMsg, 5);
+
+        if (!msgQueue->deQueue(msg))
+            continue;
+
+        if (!validityCheck(msg))				// 有效性检测
+            continue;
+
+        unsigned char type = getType(msg);
+        switch (type) {
+        case RESEND:                            // 若是收到重传请求，自己处理
+            resend(msg);
+            break;
+        case MAXSEQLIST:
+            requestForSeriesResend(msg);
+            break;
+        default:                                // 若是收到重传请求，自己处理
+            bm->record(msg);					// 缓存记录
+            if (selfUid == ServerUID) {			// Server转发
+                send(msg.Body, packetSize(msg));
+            }
+            break;
+        }
+        ReleaseSemaphore(needScan, 1, NULL);	// 收到任意msg，都要重新scan
+    }
+}
+
 int CReliableConnection::recv(char* buf, ULONG& len) {
 	int result = CHubConnection::recv(buf, len);
 	if (result <= 0)
 		return result;
 
     ts_msg* msg = (ts_msg*) buf;
+    TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) msg;
+
     switch (getType(*msg)) {
     case RESEND:
         result = -1;
+		cout << "resend" << endl;
 		if (false == resendWhenAsk)		// 抑制重发请求！，则不重发
             return result;
         break;
@@ -151,6 +186,10 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
         result = -1;
         break;
 	default:
+        //cout << "reliable recv" << " "
+        //     << head->UID << "  "
+        //     << head->sequence << "  "
+        //     << head->subSeq << endl;
 		totalMsgs++;
 		break;
 	}
@@ -167,7 +206,9 @@ int CReliableConnection::send(const char* buf, ULONG len, TS_UINT64 uid) {
     // hub::send is same to send2peer uid in client mode for peerhub of hub is only server inside
 	if (seq != 0) {												// seq为0，控制类指令，暂不保存
         if (selfUid != ServerUID) {								// client端特殊处理.
+			iop_lock(&ioLock);
 			bm->record(*msg);									// client端需要记录发出的包
+			iop_unlock(&ioLock);
             return send2Peer(*msg, uid);
 		} else {
 			return CHubConnection::sendExcept(buf, len, getUid(*msg));
@@ -197,13 +238,8 @@ void CReliableConnection::scanProcess() {
             saveQueue.enQueue(*iter);
             ReleaseSemaphore(semSave, 1, NULL);
         }
-
-        // send User maxSeq list to all client every 10 scanprocess in server
-        if (selfUid == ServerUID) {
-            static int scanTimes = 0;
-            scanTimes++;
-            sendMaxSeqList();
-        }
+		
+        cout << "missing: " << totalMiss;
 #ifdef _DEBUG_INFO_
         cout << "missing: " << totalMiss;
 #endif
@@ -217,7 +253,7 @@ void CReliableConnection::saveProcess() {
 
         pair<TS_UINT64, CPackage*> file;
         if (!saveQueue.deQueue(file))
-            return;
+            continue;
 
         bool isFirst = false;
         if (createdBlock.count(file.first) == 0) {
@@ -297,6 +333,7 @@ void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
         TS_UINT64 uid = down->seq[2 * i];
         TS_UINT64 maxSeqClient = bm->getMaxSeqOfUID(uid);
         TS_UINT64 maxSeqServer = down->seq[2 * i + 1];
+        cout << maxSeqClient << " " << maxSeqServer << endl;
         if (maxSeqClient < maxSeqServer) {      // if server's seq bigger than client
             up->missingUID = uid;
             up->missingType = MISS_SERIES;
@@ -310,7 +347,8 @@ void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
             send(msg.Body, up->head.size);
         } else if (uid == selfUid) {            // if server lost client's latest msg
             if (maxSeqClient > maxSeqServer) {
-                resendPart(ServerUID, selfUid, maxSeqServer, maxSeqClient);
+                // only resend 1 max message for not block the network
+                resendPart(ServerUID, selfUid, maxSeqClient, maxSeqClient);
             }
         }
     }
@@ -358,35 +396,6 @@ void CReliableConnection::saveUserBlock(TS_UINT64 uid) {
 	// bm->removeBlock(uid);
 }
 
-void CReliableConnection::receive() {
-    ts_msg msg;
-    while (isRunning) {
-        WaitForSingleObject(semMsg, 3000);
-
-        if (!msgQueue->deQueue(msg))
-            continue;
-
-        if (!validityCheck(msg))				// 有效性检测
-            continue;
-
-        unsigned char type = getType(msg);
-        switch (type) {
-        case RESEND:                            // 若是收到重传请求，自己处理
-            resend(msg);
-            break;
-        case MAXSEQLIST:
-            requestForSeriesResend(msg);
-            break;
-        default:                                // 若是收到重传请求，自己处理
-            bm->record(msg);					// 缓存记录
-            if (selfUid == ServerUID) {			// Server转发
-                send(msg.Body, packetSize(msg));
-            }
-            break;
-        }
-        ReleaseSemaphore(needScan, 1, NULL);	// 收到任意msg，都要重新scan
-    }
-}
 
 // 现在就检查一下seq，后续检查全加入这个函数中
 bool CReliableConnection::validityCheck(ts_msg& msg) {
@@ -459,6 +468,7 @@ void CReliableConnection::sendMaxSeqList() {
     msg.head.type = MAXSEQLIST;
     msg.head.UID = ServerUID;
     msg.head.version = VersionNumber;
+	msg.head.sequence = 0;
     msg.count = 0;
 
     for (auto iter = allUsers.begin(); iter != allUsers.end(); iter++) {

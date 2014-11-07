@@ -19,14 +19,23 @@ public:
 
     TS_UINT64 getUIDByRow(int row) { return userList[row]; }
 
-    void changeAuth(int row);
+    bool changeAuth(int row);
+    bool changeAuth(int row, bool writeable);
+
+    bool changeAuth(TS_UINT64 uid, bool writeable);
+
+    void init();
 
 private:
     QList<TS_UINT64> userList;
 
-signals:
+    bool isOffline(TS_UINT64 uid);
 
 public slots:
+    void setRowIcon(int row, QString file);
+
+signals:
+    void changeIcon(int row, QString file);
 
 };
 

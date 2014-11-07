@@ -16,11 +16,13 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -29,16 +31,18 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QPushButton *pushButton;
+    QVBoxLayout *verticalLayout;
     QAxWidget *axWidget;
-    QPushButton *pushButton_2;
-    QPushButton *pushButton_3;
-    QPushButton *pushButton_4;
-    QWidget *widget;
     QHBoxLayout *horizontalLayout;
     QPushButton *pushButton_5;
     QPushButton *pushButton_6;
     QPushButton *pushButton_7;
+    QLineEdit *lineEdit;
+    QHBoxLayout *horizontalLayout_2;
+    QPushButton *pushButton;
+    QPushButton *pushButton_2;
+    QPushButton *pushButton_3;
+    QPushButton *pushButton_4;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -47,51 +51,80 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1375, 739);
+        MainWindow->resize(338, 459);
+        MainWindow->setStyleSheet(QLatin1String("background-color: rgb(85, 92, 120);\n"
+"\n"
+"QLineEdit {\n"
+"	color: rgb(255, 255, 255);\n"
+"}"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(250, 610, 75, 23));
+        verticalLayout = new QVBoxLayout(centralWidget);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         axWidget = new QAxWidget(centralWidget);
         axWidget->setObjectName(QStringLiteral("axWidget"));
-        axWidget->setProperty("geometry", QVariant(QRect(90, -40, 851, 481)));
-        pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(500, 610, 75, 23));
-        pushButton_3 = new QPushButton(centralWidget);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-        pushButton_3->setGeometry(QRect(690, 610, 75, 23));
-        pushButton_4 = new QPushButton(centralWidget);
-        pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
-        pushButton_4->setGeometry(QRect(870, 620, 75, 23));
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 500, 239, 25));
-        horizontalLayout = new QHBoxLayout(widget);
+
+        verticalLayout->addWidget(axWidget);
+
+        horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
-        horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        pushButton_5 = new QPushButton(widget);
+        pushButton_5 = new QPushButton(centralWidget);
         pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
 
         horizontalLayout->addWidget(pushButton_5);
 
-        pushButton_6 = new QPushButton(widget);
+        pushButton_6 = new QPushButton(centralWidget);
         pushButton_6->setObjectName(QStringLiteral("pushButton_6"));
 
         horizontalLayout->addWidget(pushButton_6);
 
-        pushButton_7 = new QPushButton(widget);
+        pushButton_7 = new QPushButton(centralWidget);
         pushButton_7->setObjectName(QStringLiteral("pushButton_7"));
 
         horizontalLayout->addWidget(pushButton_7);
 
+
+        verticalLayout->addLayout(horizontalLayout);
+
+        lineEdit = new QLineEdit(centralWidget);
+        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        lineEdit->setFrame(false);
+
+        verticalLayout->addWidget(lineEdit);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        pushButton = new QPushButton(centralWidget);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+
+        horizontalLayout_2->addWidget(pushButton);
+
+        pushButton_2 = new QPushButton(centralWidget);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+
+        horizontalLayout_2->addWidget(pushButton_2);
+
+        pushButton_3 = new QPushButton(centralWidget);
+        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
+
+        horizontalLayout_2->addWidget(pushButton_3);
+
+        pushButton_4 = new QPushButton(centralWidget);
+        pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
+
+        horizontalLayout_2->addWidget(pushButton_4);
+
+
+        verticalLayout->addLayout(horizontalLayout_2);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1375, 23));
+        menuBar->setGeometry(QRect(0, 0, 338, 23));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -108,13 +141,14 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        pushButton_5->setText(QApplication::translate("MainWindow", "PushButton", 0));
+        pushButton_6->setText(QApplication::translate("MainWindow", "PushButton", 0));
+        pushButton_7->setText(QApplication::translate("MainWindow", "PushButton", 0));
+        lineEdit->setPlaceholderText(QApplication::translate("MainWindow", "\345\210\206", 0));
         pushButton->setText(QApplication::translate("MainWindow", "first", 0));
         pushButton_2->setText(QApplication::translate("MainWindow", "prev", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "next", 0));
         pushButton_4->setText(QApplication::translate("MainWindow", "run", 0));
-        pushButton_5->setText(QApplication::translate("MainWindow", "PushButton", 0));
-        pushButton_6->setText(QApplication::translate("MainWindow", "PushButton", 0));
-        pushButton_7->setText(QApplication::translate("MainWindow", "PushButton", 0));
     } // retranslateUi
 
 };

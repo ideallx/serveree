@@ -77,3 +77,11 @@ void CWSServer::sendProc() {
 	delete pmsg;
 	cout << "send thread exit" << endl;
 }
+
+void CWSServer::sendMaxSeqList() {
+    conn->sendMaxSeqList();
+}
+
+TS_UINT64 CWSServer::getMaxSeqOfUID(TS_UINT64 uid) {
+    return conn->maxSeq(uid);
+}

@@ -2,6 +2,7 @@
 #define CLOGINBUTTON_H
 
 #include <QToolButton>
+#include <QTimer>
 #include "ui_loginwidget.h"
 
 class CLoginButton : public QToolButton
@@ -14,22 +15,28 @@ public:
 
     void setLoggedIn(bool isLoggedIn);
 
+    void setAccount(QString username, QString password);
+
 private:
     void menuCreate();
-
+    void sendNoResponse();
     Ui::loginWidget *ui;
-
-    void login();
 
 private:
     bool isLoggedIn;
+    QTimer serverNoResponse;
 
 signals:
     void loginClicked(QString username, QString password);
     void logoutClicked();
+    void sendResultPrompt(int);
 
 public slots:
     void usernameCheck(QString text);
+    void stopTimer();
+
+private slots:
+    void login();
 };
 
 #endif // CLOGINWIDGET_H

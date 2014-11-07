@@ -55,6 +55,8 @@ public:
 
     inline void setTimeDiff(DWORD diff) { m_timeDiff = diff; }
 
+    inline void setBeginSequence(TS_UINT64 seq) { m_seq = seq; }
+
 private:
 
 	void buildSendMessage(ts_msg& msg);

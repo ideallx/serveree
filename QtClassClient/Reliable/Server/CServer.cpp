@@ -4,9 +4,15 @@
 CServer::CServer() :
 	MsgLen(MESSAGE_SIZE),
 
+#ifdef _MULTI_THREAD_SERVER_
+    recvthread_num(5),
+    sendthread_num(2),
+    msgthread_num(3),
+#else
     recvthread_num(1),
     sendthread_num(1),
     msgthread_num(1),
+#endif
 
 
 	p_InMsgQueue(new TSQueue<TS_PEER_MESSAGE>),
@@ -19,8 +25,8 @@ CServer::CServer() :
 	Port = 0;
 	pConnect = new CReliableConnection;
 
-	data_in = CreateSemaphore(NULL, 0, 1024, NULL);
-	data_out = CreateSemaphore(NULL, 0, 1024, NULL);
+    data_in = CreateSemaphore(NULL, 0, 102400, NULL);
+    data_out = CreateSemaphore(NULL, 0, 102400, NULL);
 }
 
 CServer::~CServer(void) {

@@ -30,6 +30,7 @@ int CBlockManager::record(ts_msg& in) {
 	CBlock* b = getBlockByUid(uid);
 	if (b == NULL) {
 		b = new CBlock(uid);
+		b->setFilePrefix(fileNamePrefix);
 		map_userBlock.insert(make_pair(uid, b));
 	}
 

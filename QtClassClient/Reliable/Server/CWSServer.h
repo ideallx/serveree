@@ -52,6 +52,10 @@ public:
 	inline TS_UINT64 getReserved() const { return _reserved; }
 	inline void setReserved(TS_UINT64 res) { _reserved = res; }
 
+    TS_UINT64 getMaxSeqOfUID(TS_UINT64 uid);
+
+	void sendMaxSeqList();
+
 };
 
 #endif /* CWSSERVER_H_ */

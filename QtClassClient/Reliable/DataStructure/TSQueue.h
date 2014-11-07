@@ -111,8 +111,6 @@ template <class ElemType>
 bool Queue<ElemType>::deQueue(ElemType& x) {
 	if (isEmpty()) { 
 		return false;
-		// cout << "Queue is underflow" << endl; 
-		// do nothing
 	} else {
 		memcpy(&x, &elemArray[front], sizeof(ElemType));
 		increment(front);
@@ -122,21 +120,30 @@ bool Queue<ElemType>::deQueue(ElemType& x) {
 
 template <class ElemType>
 void Queue <ElemType>::doubleSize() {
-	int newSize = 2 * curSize;
-	ElemType *newArray = new ElemType[newSize];
+	//int newSize = 2 * curSize;
+	//ElemType *newArray = new ElemType[newSize];
 
+	//int j, k;
+	//for (j = 0, k = front; k != rear; j++, increment(k)) 
+	//	newArray[j] = elemArray[k];
+
+	//front = 0;
+	//rear = j;
+	//curSize = newSize;
+
+ //   // cout << "double" << endl;
+
+	//delete[] elemArray;
+	//elemArray = newArray;
+	int NewSize = 2 * curSize;
+	ElemType * old = elemArray;
+	elemArray = new ElemType[NewSize];
 	int j, k;
-	for (j = 0, k = front; k != rear; j++, increment(k)) 
-		newArray[j] = elemArray[k];
-
+	for ( j = 0, k = front; k!= rear; j++, increment(k)) elemArray[j] = old[k];
 	front = 0;
 	rear = j;
-	curSize = newSize;
-
-    // cout << "double" << endl;
-
-	delete[] elemArray;
-	elemArray = newArray;
+	curSize = NewSize;
+	delete [] old;
 }
 
 template< class ElemType>

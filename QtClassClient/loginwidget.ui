@@ -44,20 +44,11 @@ QLineEdit {
          <height>30</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <property name="maxLength">
-        <number>20</number>
-       </property>
        <property name="frame">
         <bool>false</bool>
        </property>
        <property name="placeholderText">
         <string>用户名</string>
-       </property>
-       <property name="cursorMoveStyle">
-        <enum>Qt::LogicalMoveStyle</enum>
        </property>
       </widget>
      </item>

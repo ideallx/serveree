@@ -32,7 +32,7 @@ public:
     {
         if (settingWidget->objectName().isEmpty())
             settingWidget->setObjectName(QStringLiteral("settingWidget"));
-        settingWidget->resize(92, 32);
+        settingWidget->resize(115, 33);
         verticalLayout = new QVBoxLayout(settingWidget);
         verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));

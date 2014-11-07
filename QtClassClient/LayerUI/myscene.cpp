@@ -22,7 +22,8 @@ MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent) :
     msgParent(msgParent),
     toolChanged(false),
     isEraser(false),
-    mt(MoveDraw) {
+    mt(MoveDraw),
+    isWriteable(false) {
     panFixer.setSingleShot(true);
     setSceneRect(0, 0, 5000, 50000);
     connect(&panFixer, &QTimer::timeout,
@@ -42,6 +43,9 @@ void MyScene::generateTestShape() {
 }
 
 void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
+    if (!isWriteable)
+        return;
+
     lastPos = event->scenePos();
     TS_GRAPHIC_PACKET gmsg;
     MyView* mv = static_cast<MyView*> (this->views()[0]);
@@ -62,6 +66,9 @@ void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    if (!isWriteable)
+        return;
+
     if (isEraser)
         return;
 
@@ -71,6 +78,9 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 void MyScene::sendMoveBegin() {
+    if (!isWriteable)
+        return;
+
     TS_GRAPHIC_PACKET gmsg;
     mt = MoveDraw;
     if (toolChanged) {
@@ -85,6 +95,9 @@ void MyScene::sendMoveBegin() {
 }
 
 void MyScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
+    if (!isWriteable)
+        return;
+
     if (panFixer.isActive() || mt != MoveDraw)
         return;
     TS_GRAPHIC_PACKET gmsg;

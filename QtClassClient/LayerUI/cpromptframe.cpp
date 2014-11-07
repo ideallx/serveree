@@ -8,6 +8,10 @@ CPromptFrame::CPromptFrame()
 
 void CPromptFrame::prompt(int result, QWidget *parent) {
     Prompt p(result, parent);
-    p.setModal(true);
     p.exec();
+}
+
+void CPromptFrame::prompt(QString prompt, QWidget* parent) {
+    Prompt p(prompt, parent);
+    p.show();
 }

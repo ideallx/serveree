@@ -19,7 +19,6 @@ void CGraphicLogic::procIsRemote(const ts_msg& msg) {
 
 
 void CGraphicLogic::procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap) {
-    MainWindow* ui = static_cast<MainWindow*>(p_Parent->getAgent()->getModule("UI"));
     for (auto i = sendMap.begin(); i != sendMap.end(); i++) {
         ui->ProcessMessage(i->second, 0, 0, true);
     }

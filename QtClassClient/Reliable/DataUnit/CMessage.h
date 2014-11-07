@@ -161,6 +161,7 @@ typedef struct {
 typedef struct {
     TS_MESSAGE_HEAD head;
     WORD isEnd;
+    DWORD totalPackets;
     unsigned char content[MaxTrans];
 } TS_FILE_PACKET, *LPTS_FILE_PACKET;
 
@@ -169,16 +170,19 @@ enum MsgResult {
     Success,
     SuccessEnterClass,
     SuccessLeaveClass,
+    SuccessDownload,
 
     WarnAlreadyIn,
 
     ErrorUsername,
     ErrorPassword,
     ErrorUnknown,
+    FailedPlay,
 
 
     ErrorFormat,
-    PleaseWaiting
+    PleaseWaiting,
+    ErrorNoResponseFromServer,
 };
 
 enum RoleOfClass {
@@ -209,6 +213,8 @@ enum PacketType {
     VIDEO,					// 视频
     PICTURE,				// 图像
     COMMAND,				// 画笔，画刷变更之类
+    SETWRITEAUTH,           // 设置学生是否可写
+    PLAYERCONTROL,          // 播放器控制
 
     PACKETFIX = 40,			// 修正包
     RESEND,					// 重发单个包
@@ -221,7 +227,7 @@ enum PacketType {
     HEARTBEAT,				// 心跳包
     USERLIST,				// 当前用户信息列表
     ADDUSER,				// 增加用户
-    REMOVEUSER				// 减少用户
+    REMOVEUSER,				// 减少用户
 };
 
 // 功能函数，获取一些信息
@@ -266,6 +272,7 @@ typedef struct {
     enum RoleOfClass role;			// 用户角色
     TS_UINT64 uid;					// 给予客户端的UID
     sockaddr_in addr;				// 服务器端地址
+    TS_UINT64 lastSeq;              // 上一次最后的序列号，断线重连！
 } DOWN_AGENTSERVICE;
 
 
@@ -273,8 +280,37 @@ typedef struct {
     DWORD nameLen;
     DWORD fileLen;
     DWORD progress;
+    DWORD totalPackets;
     unsigned char filename[MaxFileName];
     unsigned char* filecontent;
 } FILE_CONTENT;
+
+
+typedef struct {
+    TS_MESSAGE_HEAD head;
+    TS_UINT64 toUID;                // 被控制的UID
+    DWORD sceneID;                  // 被控制UID所对应的SCENEID
+    WORD writeable;                 // 1能写，0不能写
+} SET_USER_WRITE_AUTH;
+
+enum PlayerAction {
+    ActionStart,
+    ActionStop,
+    ActionPrev,
+    ActionNext,
+    ActionPause,
+    ActionSubNext,
+    ActionSubPrev,
+    ActionGoto,
+};
+
+typedef struct {
+    TS_MESSAGE_HEAD head;
+    unsigned char filename[MaxFileName];
+    WORD pa;
+    WORD step;
+    DWORD toPosition;
+    DWORD toSubPosition;
+} TS_PLAYER_PACKET;
 
 #endif

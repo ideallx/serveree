@@ -24,6 +24,9 @@ protected:
     QAxObject* opened;
     QAxObject* sss;
     QAxObject* window;
+
+    int totalSlide;
+    int curSlide;
 };
 
 

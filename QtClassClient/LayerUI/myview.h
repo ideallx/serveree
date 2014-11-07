@@ -9,8 +9,7 @@
 #include <QPaintEvent>
 #include <QHBoxLayout>
 #include "../Reliable/DataUnit/CMessage.h"
-#include "../player/absplayer.h"
-#include "../Message/CMsgObject.h"
+#include "cplayergenerator.h"
 
 class MyView : public QGraphicsView
 {
@@ -31,17 +30,10 @@ public:
 
     void setPaintMode(enum PaintMode in);
 
-    inline void setMsgObject(CMsgObject* in) { msg = in; }
-
     void playCourseware(QString filepath);
 
 signals:
     void screenMoved(QPoint p);
-
-public slots:
-    void pstop();
-    void pprev();
-    void pnext();
 
 
 private:
@@ -49,15 +41,9 @@ private:
 
 private:
     enum PaintMode pm;
-    AbsPlayer*   player;
-
-    QToolButton *prev;
-    QToolButton *next;
-    QToolButton *stop;
 
     QList<QToolButton*> ctrllist;
 
-    CMsgObject* msg;
     bool        isWareStarted;
 };
 

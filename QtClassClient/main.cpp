@@ -29,12 +29,19 @@ int main(int argc, char *argv[])
     ui.addReceiver(&bl);		// UI
     cn.addReceiver(&bl);        // CN
 
-    if (argc > 2) {
-        cn.SetServerAddr(0, argv[1], atoi(argv[2]));
+    if (argc == 4) {
+        cn.SetServerAddr(0, argv[1], 2222);
+        cn.Start(0);
+        ui.enterClass(argv[2], argv[3]);
+    } else if (argc > 1) {
+        cn.SetServerAddr(0, argv[1], 2222);
+        cn.Start(0);
     } else {
         cn.SetServerAddr(0, "192.168.1.202", 2222);
+        cn.Start(0);
     }
-    cn.Start(0);
+
+    ui.enterClass("teacher2", "teacher2");
 
     return a.exec();
 }

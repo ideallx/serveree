@@ -13,15 +13,18 @@ const QByteArray AllPrompts[] = {
     "成功",
     "登录成功",
     "登出成功",
+    "课件下载成功",
 
     "已经登录",
 
     "用户名错误",
     "密码错误",
     "未知错误",
+    "播放失败",
 
     "暂不支持该格式的文件",
-    "敬请期待"
+    "敬请期待",
+    "服务器没有响应",
 };
 
 class Prompt : public QDialog
@@ -30,6 +33,8 @@ class Prompt : public QDialog
 
 public:
     explicit Prompt(WORD index, QWidget *parent = 0);
+    explicit Prompt(QString prompt, QWidget *parent = 0);
+
     ~Prompt();
 
 private:

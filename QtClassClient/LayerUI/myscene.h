@@ -45,6 +45,8 @@ public:
 
     void changeType(enum ShapeType s);
 
+    inline void setWriteable(bool set) { isWriteable = set; }
+
 public slots:
 
     void changeShapeByUI(int shape);
@@ -66,6 +68,7 @@ public slots:
     void setEraser(bool set) { isEraser = set; }
 
     void moveScreen(QPoint p);
+
 
 private:
     void cachePressEvent(QGraphicsSceneMouseEvent *event);
@@ -91,6 +94,7 @@ private:
     QTimer                                  panFixer;       // begin drawing when move type isnot move screen
 
     QPointF                                 lastPos;        // last move point used when move type changed to movemode
+    bool                                    isWriteable;
 };
 
 #endif // MYSCENE_H

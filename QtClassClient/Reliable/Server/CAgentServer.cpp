@@ -142,6 +142,9 @@ void CAgentServer::scanOffline() {
         }
         iop_unlock(&lockOfflineMaps);
 
+		for (auto iter = map_workserver.begin(); iter != map_workserver.end(); iter++) {
+			iter->second->sendMaxSeqList();
+		}
         iop_usleep(HeartBeatInterval);
     }
 }
@@ -179,6 +182,8 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	down->head.time = getServerTime();
 	down->head.UID = ServerUID;
 	down->head.size = sizeof(DOWN_AGENTSERVICE);
+	down->head.sequence = 0;
+	down->lastSeq = pServer->getMaxSeqOfUID(down->head.UID);
 	WriteOut(inputMsg);
 
 #ifdef _DEBUG_INFO_
@@ -190,6 +195,8 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 		userLoginNotify(inputMsg, user._uid);
 		pServer->sendPrevMessage(user._uid);
 	}
+
+	pServer->sendMaxSeqList();
 	return true;
 }
 
@@ -199,6 +206,7 @@ void CAgentServer::sendLeaveSuccess(TS_PEER_MESSAGE& pmsg) {
 	down->addr = pmsg.peeraddr;
 	down->head.UID = ServerUID;
 	down->head.size = sizeof(DOWN_AGENTSERVICE);
+	down->head.sequence = 0;
 	WriteOut(pmsg);
 }
 
@@ -320,6 +328,7 @@ void CAgentServer::userLogoutNotify(TS_PEER_MESSAGE& pmsg, TS_UINT64 uid) {
 DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，加入退出班级等等
 	enum PacketType type = getType(inputMsg.msg);
 	
+	cout << "recv: " << type;
 	switch (type) {
 	case ENTERCLASS:
 		{

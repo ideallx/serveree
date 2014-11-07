@@ -4,7 +4,9 @@ CBusinessLogic::CBusinessLogic(CMsgObject* parent) :
 	CMsgObject(parent),
     m_UserLogic(new CUserLogic(this)),
     m_GraphicLogic(new CGraphicLogic(this)),
-    m_FileLogic(new CFileLogic(this)) {
+    m_FileLogic(new CFileLogic(this)),
+    m_AuthLogic(new CAuthLogic(this)),
+    m_PlayerLogic(new CPlayerLogic(this)) {
 }
 
 CBusinessLogic::~CBusinessLogic() {
@@ -25,6 +27,12 @@ void CBusinessLogic::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, B
             break;
         case COURSEWARE:
             m_FileLogic->procMsg(msg, isremote);
+            break;
+        case SETWRITEAUTH:
+            m_AuthLogic->procMsg(msg, isremote);
+            break;
+        case PLAYERCONTROL:
+            m_PlayerLogic->procMsg(msg, isremote);
             break;
         default:
             break;

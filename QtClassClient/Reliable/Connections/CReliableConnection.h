@@ -72,6 +72,8 @@ protected:
 	int totalMsgs;					// 总共收到的包数
 	int totalMiss;					// 总共丢掉的包数
 
+	iop_lock_t ioLock;
+
 	string fileNamePrefix;			// 保存的文件名的前缀
 
 	HANDLE needScan;				// 来了新的msg，需要重新scan

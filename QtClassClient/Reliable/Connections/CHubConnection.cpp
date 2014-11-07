@@ -191,6 +191,12 @@ int CHubConnection::send(const char* buf, ULONG len) {
 	for (iter = peerHub->begin(); iter != peerHub->end(); iter++) {
 		pc = iter->second;
 		brc = pc->send(buf, len);
+
+        //TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) buf;
+        //cout << "hub send" << " "
+        //     << head->UID << "  "
+        //     << head->sequence << "  "
+        //     << head->subSeq << endl;
 	}
 	iop_unlock(&mutex_lock);
 	return brc;

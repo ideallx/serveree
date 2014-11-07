@@ -5,12 +5,16 @@
 #include "CUserLogic.h"
 #include "CGraphicLogic.h"
 #include "cfilelogic.h"
+#include "cauthlogic.h"
+#include "cplayerlogic.h"
 
 class CBusinessLogic : public CMsgObject {
 private:
     CUserLogic*			m_UserLogic;
     CGraphicLogic*      m_GraphicLogic;
     CFileLogic*         m_FileLogic;
+    CAuthLogic*         m_AuthLogic;
+    CPlayerLogic*       m_PlayerLogic;
 
 public:
 	CBusinessLogic(CMsgObject* parent = NULL);

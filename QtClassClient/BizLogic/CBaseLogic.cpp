@@ -1,46 +1,45 @@
 #include "CBaseLogic.h"
-#include "../LayerUI/mainwindow.h"
-#include "../Net/CClientNet.h"
 
 CSubSeqUnit::CSubSeqUnit() :
     wantedSeq(1) {
 }
 
-map<TS_UINT64, ts_msg> CSubSeqUnit::receiveMsg(const ts_msg& msg) {
-    map<TS_UINT64, ts_msg> result;
+DWORD CSubSeqUnit::receiveMsg(const ts_msg& msg, map<TS_UINT64, ts_msg> &sendMap) {
+    const ts_msg* lastMsg = NULL;
     TS_MESSAGE_HEAD* hmsg = (TS_MESSAGE_HEAD*) &msg;
 
     if (hmsg->subSeq == wantedSeq) {
-        result.insert(make_pair(hmsg->sequence, msg));
+        sendMap.insert(make_pair(hmsg->sequence, msg));
+        lastMsg = &msg;
         wantedSeq++;
     } else {
         // qDebug() << "lost: " << wantedSeq << "from " << gmsg->head.UID;
         waitingList.insert(make_pair(hmsg->sequence, msg));
     }
 
-    for (auto iter = waitingList.begin(); iter != waitingList.end(); ) {
-        if (waitingList.size() == 0)
+    while (true) {
+        auto iter = waitingList.find(wantedSeq);
+        if (iter == waitingList.end())
             break;
-
-        if (iter->first == wantedSeq) {
-            result.insert(make_pair(iter->first, iter->second));
-            waitingList.erase(iter++);
-            wantedSeq++;
-        } else if (iter->first < wantedSeq) {
-            iter++;
-        } else {
-            break;
-        }
+        sendMap.insert(make_pair(iter->first, iter->second));
+        waitingList.erase(iter);
+        wantedSeq++;
+        lastMsg = &(iter->second);
     }
-    return result;
+
+    if (lastMsg == NULL) {
+        return 0;
+    } else {
+        return ((TS_MESSAGE_HEAD*) lastMsg)->subSeq;
+    }
 }
 
 
 CBaseLogic::CBaseLogic(CMsgObject* parent) :
     CMsgObject(parent),
-    subseq(1)  {
-
-
+    subseq(1),
+    ui(NULL),
+    cn(NULL) {
 }
 
 CBaseLogic::~CBaseLogic() {
@@ -49,16 +48,17 @@ CBaseLogic::~CBaseLogic() {
 }
 
 bool CBaseLogic::procMsg(const ts_msg& msg, bool isRemote) {
-    MainWindow* ui = static_cast<MainWindow*>(p_Parent->getAgent()->getModule("UI"));
-    CClientNet* cn = static_cast<CClientNet*>(p_Parent->getAgent()->getModule("NET"));
     TS_MESSAGE_HEAD* hmsg = (TS_MESSAGE_HEAD*) &msg;
+
+    if (!ui)
+        ui = static_cast<MainWindow*>(p_Parent->getAgent()->getModule("UI"));
+    if (!cn)
+        cn = static_cast<CClientNet*>(p_Parent->getAgent()->getModule("NET"));
 
     if (!isRemote) {
         procNotRemote(msg);
-
-        hmsg->subSeq = subseq++;
+        hmsg->subSeq = subseq++;                    // so nice design!!!
         cn->ProcessMessage(const_cast<ts_msg&> (msg), 0, 0, isRemote);
-        //qDebug() << "draw:" << gmsg->head.subSeq << "from" << gmsg->head.UID  << "on" << gmsg->SceneID << "total:" << ++ccccount;
         return false;
     } else {
         procIsRemote(msg);
@@ -69,9 +69,11 @@ bool CBaseLogic::procMsg(const ts_msg& msg, bool isRemote) {
             userInfo.insert(make_pair(uid, sub));
         }
 
-        auto sendMap = userInfo[uid].receiveMsg(msg);
-
-        procRecvIsRemote(sendMap);
+        map<TS_UINT64, ts_msg> sendMap;
+        DWORD maxSubSeq = userInfo[uid].receiveMsg(msg, sendMap);
+        if (hmsg->UID == globalUID)                 // if you offline and online, you'll get your
+            subseq = max(maxSubSeq, subseq);        // package sent before offline, and you'll get
+        procRecvIsRemote(sendMap);                  // your last sub seq here
     }
     return false;
 }

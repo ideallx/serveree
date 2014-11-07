@@ -8,8 +8,8 @@
 #include "../Reliable/DataUnit/CMessage.h"
 #include "cshapechooser.h"
 
-static const qreal iconWidth = 150;
-static const qreal iconHeight = 40;
+static const qreal iconWidth = 100;
+static const qreal iconHeight = 30;
 
 CShapeChooser::CShapeChooser(QWidget *parent) :
     QToolButton(parent) {
@@ -39,7 +39,7 @@ QMenu* CShapeChooser::createLineMenu() {
         tb->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
         tb->setIcon(createLineIcon(iRow));
         tb->setText(createLineText(iRow));
-        tb->setFont(QFont(tb->font().family(), 16));
+        tb->setFont(QFont(tb->font().family(), 12));
 
         layout->addWidget(tb);
         layout->setMargin(0);
@@ -55,7 +55,7 @@ QMenu* CShapeChooser::createLineMenu() {
 
     QMenu* lineMenu = new QMenu(this);
     lineMenu->setLayout(vlayout);
-    // lineMenu->setStyleSheet("padding-left:10px;");
+    lineMenu->setStyleSheet("padding-left:30px;");
 
     return lineMenu;
 }

@@ -67,9 +67,14 @@ SOURCES  += main.cpp\
     player/absplayer.cpp \
     player/playerfactory.cpp \
     BizLogic/cfilelogic.cpp \
-    LayerUI/cfilemsggenerater.cpp \
     LayerUI/cshape.cpp \
-    UserInterface/prompt.cpp
+    UserInterface/prompt.cpp \
+    LayerUI/cplayergenerator.cpp \
+    BizLogic/cauthlogic.cpp \
+    LayerUI/cfilemsggenerator.cpp \
+    BizLogic/cplayerlogic.cpp \
+    UserInterface/widgetwarelistitem.cpp \
+    player/docplayer.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
             LayerUI\myscene.h \
@@ -130,15 +135,21 @@ HEADERS  += LayerUI\mainwindow.h \
     player/absplayer.h \
     player/playerfactory.h \
     BizLogic/cfilelogic.h \
-    LayerUI/cfilemsggenerater.h \
     LayerUI/cshape.h \
-    UserInterface/prompt.h
+    UserInterface/prompt.h \
+    LayerUI/cplayergenerator.h \
+    BizLogic/cauthlogic.h \
+    LayerUI/cfilemsggenerator.h \
+    BizLogic/cplayerlogic.h \
+    UserInterface/widgetwarelistitem.h \
+    player/docplayer.h
 
 FORMS    += \
     loginwidget.ui \
     mainwindow.ui \
     settingwidget.ui \
-    prompt.ui
+    prompt.ui \
+    widgetwarelistitem.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += include

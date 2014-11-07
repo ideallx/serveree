@@ -41,6 +41,7 @@
         <file>ui/icon/start.png</file>
         <file>ui/icon/stop.png</file>
         <file>ui/icon/pencil.png</file>
+        <file>ui/icon/fulann_logo.png</file>
     </qresource>
     <qresource prefix="/word">
         <file>ui/word/enterclass.png</file>

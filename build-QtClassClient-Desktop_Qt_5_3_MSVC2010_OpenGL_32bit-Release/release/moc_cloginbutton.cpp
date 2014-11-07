@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../QtClassClient/UserInterface/cloginbutton.h"
+#include "F:/server/trunk/EClass/QtClassClient/UserInterface/cloginbutton.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_CLoginButton_t {
-    QByteArrayData data[8];
-    char stringdata[78];
+    QByteArrayData data[11];
+    char stringdata[111];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,12 +35,15 @@ QT_MOC_LITERAL(2, 26, 0),
 QT_MOC_LITERAL(3, 27, 8),
 QT_MOC_LITERAL(4, 36, 8),
 QT_MOC_LITERAL(5, 45, 13),
-QT_MOC_LITERAL(6, 59, 13),
-QT_MOC_LITERAL(7, 73, 4)
+QT_MOC_LITERAL(6, 59, 16),
+QT_MOC_LITERAL(7, 76, 13),
+QT_MOC_LITERAL(8, 90, 4),
+QT_MOC_LITERAL(9, 95, 9),
+QT_MOC_LITERAL(10, 105, 5)
     },
     "CLoginButton\0loginClicked\0\0username\0"
-    "password\0logoutClicked\0usernameCheck\0"
-    "text"
+    "password\0logoutClicked\0sendResultPrompt\0"
+    "usernameCheck\0text\0stopTimer\0login"
 };
 #undef QT_MOC_LITERAL
 
@@ -50,26 +53,32 @@ static const uint qt_meta_data_CLoginButton[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       2,       // signalCount
+       3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,   29,    2, 0x06 /* Public */,
-       5,    0,   34,    2, 0x06 /* Public */,
+       1,    2,   44,    2, 0x06 /* Public */,
+       5,    0,   49,    2, 0x06 /* Public */,
+       6,    1,   50,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       6,    1,   35,    2, 0x0a /* Public */,
+       7,    1,   53,    2, 0x0a /* Public */,
+       9,    0,   56,    2, 0x0a /* Public */,
+      10,    0,   57,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::QString,    3,    4,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,    2,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QString,    7,
+    QMetaType::Void, QMetaType::QString,    8,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -81,7 +90,10 @@ void CLoginButton::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         switch (_id) {
         case 0: _t->loginClicked((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         case 1: _t->logoutClicked(); break;
-        case 2: _t->usernameCheck((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 2: _t->sendResultPrompt((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 3: _t->usernameCheck((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 4: _t->stopTimer(); break;
+        case 5: _t->login(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -97,6 +109,12 @@ void CLoginButton::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
             typedef void (CLoginButton::*_t)();
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CLoginButton::logoutClicked)) {
                 *result = 1;
+            }
+        }
+        {
+            typedef void (CLoginButton::*_t)(int );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CLoginButton::sendResultPrompt)) {
+                *result = 2;
             }
         }
     }
@@ -127,13 +145,13 @@ int CLoginButton::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 6)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 6;
     }
     return _id;
 }
@@ -149,5 +167,12 @@ void CLoginButton::loginClicked(QString _t1, QString _t2)
 void CLoginButton::logoutClicked()
 {
     QMetaObject::activate(this, &staticMetaObject, 1, 0);
+}
+
+// SIGNAL 2
+void CLoginButton::sendResultPrompt(int _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 2, _a);
 }
 QT_END_MOC_NAMESPACE

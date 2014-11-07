@@ -10,18 +10,23 @@ Prompt::Prompt(WORD index, QWidget *parent) :
 
     QTextCodec *codec = QTextCodec::codecForName("GB18030");
     ui->lbPrompt->setText(codec->toUnicode(AllPrompts[index]));
+    setWindowFlags(Qt::FramelessWindowHint);
 
-//    switch (result) {
-//    case Success:
-//        ui->lbPrompt->setText(QStringLiteral("登录成功"));
-//        break;
+    setModal(true);
+    setWindowModality(Qt::WindowModal);
+}
 
-//    case ErrorUsername:
-//        ui->lbPrompt->setText(QStringLiteral("用户名错误"));
-//        break;
-//    }
+Prompt::Prompt(QString prompt, QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::Prompt) {
+    ui->setupUi(this);
 
-    this->setWindowFlags(Qt::FramelessWindowHint);
+    QTextCodec *codec = QTextCodec::codecForName("GB18030");
+    ui->lbPrompt->setText(codec->toUnicode(prompt.toLatin1()));
+    setWindowFlags(Qt::FramelessWindowHint);
+
+    setModal(true);
+    setWindowModality(Qt::WindowModal);
 }
 
 Prompt::~Prompt()

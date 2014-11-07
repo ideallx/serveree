@@ -46,12 +46,12 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{c0dd2e94-c5fd-4a1a-abf8-a7673d6f3aa3}</UniqueIdentifier>
+      <UniqueIdentifier>{53ff423d-1856-4a15-93b9-815d819e5309}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{cd28dfa2-0387-455b-88fa-fe34b5605ec3}</UniqueIdentifier>
+      <UniqueIdentifier>{69142431-b46b-4d77-aac3-74406d14cdb7}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -141,10 +141,13 @@
     <ClCompile Include="player\absplayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BizLogic\cauthlogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="BizLogic\cfilelogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\cfilemsggenerater.cpp">
+    <ClCompile Include="LayerUI\cfilemsggenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LayerUI\cgraphicmsgcreator.cpp">
@@ -154,6 +157,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UserInterface\colorcombox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerUI\cplayergenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BizLogic\cplayerlogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LayerUI\cpromptframe.cpp">
@@ -218,6 +227,12 @@
     </ClCompile>
     <ClCompile Include="Reliable\Zip\zip.c">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_absplayer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_absplayer.cpp">
+      <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_cloginbutton.cpp">
       <Filter>Generated Files\Release</Filter>
@@ -377,13 +392,16 @@
     <ClInclude Include="Reliable\DataUnit\UserBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="player\absplayer.h">
+    <CustomBuild Include="player\absplayer.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <ClInclude Include="BizLogic\cauthlogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BizLogic\cfilelogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LayerUI\cfilemsggenerater.h">
+    <ClInclude Include="LayerUI\cfilemsggenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LayerUI\cgraphicmsgcreator.h">
@@ -395,6 +413,12 @@
     <CustomBuild Include="UserInterface\colorcombox.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <ClInclude Include="LayerUI\cplayergenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BizLogic\cplayerlogic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="LayerUI\cpromptframe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -644,6 +668,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="C:\Users\Fulaan\Documents\GitHub\server\QtClassClient\TouchPad_resource.rc" />
+    <ResourceCompile Include="F:\server\trunk\EClass\QtClassClient\TouchPad_resource.rc" />
   </ItemGroup>
 </Project>

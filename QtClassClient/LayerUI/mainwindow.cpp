@@ -7,6 +7,8 @@
 #include "myscene.h"
 #include "cpromptframe.h"
 
+#include "../UserInterface/widgetwarelistitem.h"
+#include "../player/playerfactory.h"
 #include "../LayerUI/cpromptframe.h"
 
 
@@ -27,16 +29,18 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     m_userRole(RoleStudent),
     ui(new Ui::MainWindow),
-    isRunning(false) {
+    isRunning(false),
+    isPlayerPlaying(false),
+    m_player(NULL) {
     ui->setupUi(this);
 
     scene = new MyScene(SelfUID, this, this);
     sceneMap.insert(SelfUID, scene);
+    scene->setWriteable(true);
     scene = new MyScene(TeacherUID, this, this);
     sceneMap.insert(TeacherUID, scene);
 
     ui->graphicsView->setScene(scene);
-    ui->graphicsView->setMsgObject(this);
 
     connect(ui->tbBrush, &LineWidthCombox::signalWidthChanged,
             scene, &MyScene::setPenWidth);
@@ -49,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->graphicsView, &MyView::screenMoved,
             scene, &MyScene::moveScreen);
 
+
     // move to UI thread
     connect(this, &MainWindow::enOrLeaveClass,
             this, &MainWindow::classIcon);
@@ -56,8 +61,12 @@ MainWindow::MainWindow(QWidget *parent) :
             this, &MainWindow::drawScene);
     connect(this, &MainWindow::addScene,
             this, &MainWindow::addSceneSlot);
+    connect(this, &MainWindow::promptResultSent,
+            this, &MainWindow::showResultPrompt);
     connect(this, &MainWindow::promptSent,
             this, &MainWindow::showPrompt);
+    connect(this, &MainWindow::wareItemRecv,
+            this, &MainWindow::addWareItem);
 
     ui->groupBox_2->setHidden(true);
     ui->gbCourseware->setHidden(true);
@@ -66,18 +75,29 @@ MainWindow::MainWindow(QWidget *parent) :
             this, &MainWindow::enterClass);
     connect(ui->tbLogin, &CLoginButton::logoutClicked,
             this, &MainWindow::leaveClass);
-//    setWindowFlags(Qt::FramelessWindowHint |
-//                   Qt::WindowSystemMenuHint |
-//                   Qt::WindowStaysOnTopHint);
+    connect(ui->tbLogin, &CLoginButton::sendResultPrompt,
+            this, &MainWindow::showResultPrompt);
+    connect(this, &MainWindow::stopServerRespTimer,
+            ui->tbLogin, &CLoginButton::stopTimer);
 
-//    setAttribute(Qt::WA_TranslucentBackground, true);
-//    showFullScreen();
+    sem_msg = CreateSemaphore(NULL, 0, 102400, NULL);
+
+    setWindowFlags(Qt::FramelessWindowHint |
+                   Qt::WindowSystemMenuHint |
+                   Qt::WindowStaysOnTopHint);
+
+    setAttribute(Qt::WA_TranslucentBackground, true);
+    showFullScreen();
 }
 
 MainWindow::~MainWindow() {
     isRunning = false;
     iop_thread_cancel(pthread_msg);
     delete ui;
+    if (m_player) {
+        m_player->close();
+        delete m_player;
+    }
 }
 
 void MainWindow::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL isRemote) {
@@ -126,6 +146,7 @@ void MainWindow::changeScene(TS_UINT64 uid) {
             scene, &MyScene::moveScreen);
 }
 
+// 1 msg trans
 void MainWindow::enterClass(QString username, QString password) {
     ts_msg msg;
 
@@ -137,6 +158,9 @@ void MainWindow::enterClass(QString username, QString password) {
 
     ui->tbLogin->menu()->setHidden(true);
 
+    ui->tbLogin->setAccount(username, password);
+
+    qDebug() << "login" << username;
     sendToAll(*(ts_msg*) &msg, 0, 0, false);
 }
 
@@ -147,6 +171,7 @@ void MainWindow::leaveClass() {
     head->type = LEAVECLASS;
     head->size = sizeof(UP_AGENTSERVICE);
     ui->tbLogin->menu()->setHidden(true);
+
     ui->listWidget->clear();
 
     sendToAll(*(ts_msg*) &msg, 0, 0, false);
@@ -156,7 +181,6 @@ void MainWindow::enterClassResult(bool result) {
     if (result) {
         emit enOrLeaveClass(true);
 
-        sem_msg = CreateSemaphore(NULL, 0, 10240, NULL);
         isRunning = true;
         Sleep(10);
 
@@ -174,6 +198,7 @@ void MainWindow::leaveClassResult(bool result) {
         emit enOrLeaveClass(false);
         isRunning = false;
         CloseHandle(sem_msg);
+        ui->listWidget->init();
         qDebug() << "leave class successfully";
     }
 }
@@ -182,6 +207,16 @@ void MainWindow::classIcon(bool entered) {
     ui->tbLogin->setLoggedIn(entered);
 }
 
+void MainWindow::msgProc() {
+    while (isRunning) {
+        WaitForSingleObject(sem_msg, 30);
+        emit drawShape();
+    }
+}
+
+// 1 msg trans
+
+// 2 my class
 void MainWindow::addUser(TS_UINT64 uid, QString username, bool isOnline) {
     ui->listWidget->addUser(uid, username, isOnline);
     emit addScene(uid >> 32, uid);
@@ -192,17 +227,65 @@ void MainWindow::removeUser(TS_UINT64 uid) {
     sceneMap.remove(uid);
 }
 
+void MainWindow::on_listWidget_clicked(const QModelIndex &index)
+{
+    if (m_userRole != RoleTeacher)
+        return;
+
+    bool writeable = ui->listWidget->changeAuth(index.row());
+
+    ts_msg msg;
+    SET_USER_WRITE_AUTH* up = (SET_USER_WRITE_AUTH*) &msg;
+    up->head.type = SETWRITEAUTH;
+    up->head.size = sizeof(SET_USER_WRITE_AUTH);
+    up->head.sequence = 0;
+
+    up->toUID = ui->listWidget->getUIDByRow(index.row());
+    up->sceneID = TeacherUID;
+    up->writeable = writeable;
+
+    setWriteable(up->toUID, up->sceneID, up->writeable);
+
+    sendToAll(*(ts_msg*) &msg, 0, 0, false);
+}
+
+void MainWindow::on_tbMyClass_clicked()
+{
+    ui->groupBox_2->setHidden(!ui->groupBox_2->isHidden());
+}
+
+void MainWindow::on_btClassInfo_clicked()
+{
+    ui->groupBox_2->setHidden(true);
+}
+
+
+void MainWindow::on_listWidget_doubleClicked(const QModelIndex &index)
+{
+    // changeScene(ui->listWidget->getUIDByRow(index.row()));
+}
+
+void MainWindow::setWriteable(TS_UINT64 toUID, DWORD sceneID, WORD writeable) {
+    ui->listWidget->changeAuth(toUID, writeable);
+
+    if (toUID != globalUID)
+        return;
+
+    if (sceneID == globalUID) {
+        sceneMap[SelfUID]->setWriteable(writeable);
+    } else {
+        sceneMap[sceneID]->setWriteable(writeable);
+    }
+}
+
+
+// 2 my class
+
+// 3 my scene
 void MainWindow::addSceneSlot(int uidh, int uidl) {
     TS_UINT64 uid = uidl;
     MyScene *s = new MyScene(uid, this, this);
     sceneMap.insert(uid, s);
-}
-
-void MainWindow::msgProc() {
-    while (isRunning) {
-        WaitForSingleObject(sem_msg, 30);
-        emit drawShape();
-    }
 }
 
 void MainWindow::drawScene() {
@@ -246,60 +329,39 @@ void MainWindow::drawScene() {
         break;
     }
 }
+// 3 my scene
 
-void MainWindow::sendPrompt(int result) {
-    emit promptSent(result);
+// 4 prompt
+void MainWindow::sendResultPrompt(int result) {
+    emit promptResultSent(result);
 }
 
-void MainWindow::setRole(enum RoleOfClass role) {
-    m_userRole = role;
-    qDebug() << (int) role;
+void MainWindow::sendPrompt(QString prompt) {
+    emit promptSent(prompt);
 }
 
-void MainWindow::playPPT(QString filepath) {
-    ui->graphicsView->playCourseware(filepath);
+void MainWindow::showResultPrompt(int result) {
+    CPromptFrame::prompt(result, this);
 }
 
-void MainWindow::paintEvent(QPaintEvent *e) {
-    QPainter p(this);
-    p.fillRect(this->rect(), QColor(0, 0, 0, 2));
+void MainWindow::showPrompt(QString prompt) {
+    CPromptFrame::prompt(prompt, this);
 }
 
-void MainWindow::on_listWidget_clicked(const QModelIndex &index)
-{
-    if (m_userRole == RoleTeacher)
-        ui->listWidget->changeAuth(index.row());
+void MainWindow::recvClassInfo() {
+    emit stopServerRespTimer();
 }
 
-void MainWindow::on_tbMyClass_clicked()
-{
-    ui->groupBox_2->setHidden(!ui->groupBox_2->isHidden());
-}
+// 4 prompt
 
-void MainWindow::on_btClassInfo_clicked()
-{
-    ui->groupBox_2->setHidden(true);
-}
-
-void MainWindow::on_tbTeacherBoard_clicked()
-{
-    changeScene(TeacherUID);
-}
-
-void MainWindow::on_tbMyBoard_clicked()
-{
-    changeScene(SelfUID);
-}
-
+// 5 teacher ware
 void MainWindow::on_tbCourseWare_clicked()
 {
-    ui->gbCourseware->setHidden(!ui->gbCourseware->isHidden());
-    //playPPT("D:/xxxx2.ppt");
-}
+    if (isPlayerPlaying)
+        return;
 
-void MainWindow::on_tbBackground_clicked()
-{
-    CPromptFrame::prompt(PleaseWaiting);
+    if (m_userRole == RoleTeacher)
+        ui->gbCourseware->setHidden(!ui->gbCourseware->isHidden());
 }
 
 void MainWindow::on_tbUpload_clicked()
@@ -310,25 +372,25 @@ void MainWindow::on_tbUpload_clicked()
     if (tofile.isNull())
         return;
 
-    if (tofile.split('.').last() != "ppt" &&
-            tofile.split('.').last() != "pptx") {
-        CPromptFrame::prompt(ErrorFormat);
+    if ((tofile.split('.').last() != "ppt") && \
+            (tofile.split('.').last() != "doc")) {
+        CPromptFrame::prompt(ErrorFormat, this);
         return;
     }
 
     QFile::copy(file, tofile);
-    ui->lsWare->addItem(tofile);
+    addWareItem(tofile);
 }
 
 void MainWindow::on_tbSync_clicked()
 {
+    qDebug() << ui->lsWare->count();
     for (int i = 0; i < ui->lsWare->count(); i++) {
         syncFile(ui->lsWare->item(i)->text());
     }
 }
 
 void MainWindow::syncFile(QString filename) {
-    qDebug() << "syncing" << filename;
     if (!m_fmg.create(filename))
         return;
 
@@ -344,23 +406,228 @@ void MainWindow::syncFile(QString filename) {
 
 void MainWindow::on_lsWare_itemDoubleClicked(QListWidgetItem *item)
 {
-    if (!QFile::exists(item->text()))
+    if (!QFile::exists(item->text())) {
         qDebug() << "fuck" << item->text();
-    playPPT(item->text());
-    ui->gbCourseware->setHidden(true);
-    ui->graphicsView->scene()->clear();
+        return;
+    }
+    qDebug() << "play" << item->text();
+    if (!playerPlay(item->text()))
+        return;
+
+    TS_PLAYER_PACKET pmsg;
+    scene->clear();
+    m_pg.generatePlayerData(pmsg, ActionStart);
+    ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
+
+    connect(m_player, &AbsPlayer::playerEnd,
+            this, &MainWindow::playmodeEnd);
 }
 
 void MainWindow::on_tbExitWare_clicked()
 {
+    qDebug() << isPlayerPlaying;
+    if (isPlayerPlaying) {
+        isPlayerPlaying = false;
+        if (!stopPlayer())
+            return;
+
+        qDebug() << "stop success";
+        TS_PLAYER_PACKET pmsg;
+        scene->clear();
+        m_pg.generatePlayerData(pmsg, ActionStop);
+        ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
+    }
     ui->gbCourseware->setHidden(true);
 }
 
-void MainWindow::on_listWidget_doubleClicked(const QModelIndex &index)
-{
-    // changeScene(ui->listWidget->getUIDByRow(index.row()));
+bool MainWindow::playerPlay(QString filepath) {
+    playerStart(filepath);
+    m_pg.create(filepath);
+    return true;
 }
 
-void MainWindow::showPrompt(int result) {
-    CPromptFrame::prompt(result);
+bool MainWindow::stopPlayer(void) {
+    ui->graphicsView->setPaintMode(PaintNormal);
+    ui->gbCourseware->setHidden(true);
+    ui->graphicsView->scene()->clear();
+    isPlayerPlaying = false;
+    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/start.png"));
+    m_player->close();
+    return true;
 }
+
+void MainWindow::on_tbPrev_clicked()
+{
+    if (!playerPrev())
+        return;
+
+    TS_PLAYER_PACKET pmsg;
+    m_pg.generatePlayerData(pmsg, ActionPrev);
+    ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
+}
+
+void MainWindow::on_tbStart_clicked()
+{
+    if (isPlayerPlaying) {
+        if (!playerStop())
+            return;
+        TS_PLAYER_PACKET pmsg;
+        m_pg.generatePlayerData(pmsg, ActionStop);
+        ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
+    } else {
+        if (ui->lsWare->selectedItems().size() == 0)
+            return;
+
+        on_lsWare_itemDoubleClicked(ui->lsWare->selectedItems()[0]);
+    }
+}
+
+void MainWindow::on_tbNext_clicked()
+{
+    if (!playerNext())
+        return;
+
+    TS_PLAYER_PACKET pmsg;
+    m_pg.generatePlayerData(pmsg, ActionNext);
+    ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
+}
+
+bool MainWindow::playerPrev() {
+    if (!isPlayerPlaying)
+        return false;
+
+    if (!m_player->prev())
+        return false;
+
+    scene->clear();
+    return true;
+}
+
+bool MainWindow::playerNext() {
+    if (!isPlayerPlaying)
+        return false;
+
+    if (!m_player->next())
+        return false;
+
+    scene->clear();
+    return true;
+}
+
+bool MainWindow::playerStart(QString filename) {
+    if (m_player) {
+        m_player->close();
+        delete m_player;
+    }
+
+    QString path = QDir::currentPath();
+    QString file = path + "/" + filename;
+    qDebug() << file;
+
+    m_player = PlayerFactory::createPlayer(file, this);
+
+    if (!m_player || !m_player->run()) {
+        sendResultPrompt(FailedPlay);
+        return false;
+    }
+
+    ui->graphicsView->setPaintMode(PaintPPT);
+    ui->gbCourseware->setHidden(false);
+    ui->graphicsView->scene()->clear();
+    ui->groupBox_2->setHidden(true);
+    isPlayerPlaying = true;
+
+
+    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/stop.png"));
+}
+
+bool MainWindow::playerStop() {
+    isPlayerPlaying = false;
+    if (!m_player->stop())
+        return false;
+
+    ui->graphicsView->setPaintMode(PaintNormal);
+    ui->gbCourseware->setHidden(true);
+    ui->graphicsView->scene()->clear();
+    isPlayerPlaying = false;
+    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/start.png"));
+    m_player->close();
+    scene->clear();
+    return true;
+}
+
+
+void MainWindow::playmodeEnd() {
+    ui->graphicsView->setPaintMode(PaintNormal);
+    ui->gbCourseware->setHidden(true);
+}
+
+void MainWindow::addWareList(QString filename) {
+    emit wareItemRecv(filename);
+}
+
+void MainWindow::addWareItem(QString filename) {
+    QListWidgetItem *item = new QListWidgetItem(filename);
+    ui->lsWare->addItem(item);
+    ui->lbWareCount->setText(QString::number(ui->lsWare->count()));
+}
+
+
+
+void MainWindow::on_lsWare_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+{
+    WidgetWareListItem* wli = new WidgetWareListItem(current->text());
+    ui->lsWare->setItemWidget(current, wli);
+    ui->lsWare->removeItemWidget(previous);
+
+    connect(wli, &WidgetWareListItem::runFile,
+            this, &MainWindow::playerPlay);
+    connect(wli, &WidgetWareListItem::removeFile,
+            this, &MainWindow::deleteFile);
+}
+
+void MainWindow::deleteFile(QString filename) {
+//    auto list = ui->lsWare->findItems(filename, Qt::MatchExactly);
+//    //qDebug() << ui->lsWare->row(list[0]);
+//    //ui->lsWare->removeItemWidget(list[0]);
+//    qDebug() << list.size();
+    //ui->lsWare->removeItemWidget(ui->lsWare->item(0));
+    //ui->lsWare->takeItem(0);
+//    qDebug() << list.size();
+
+//    QFile::remove(filename);
+    ui->lbWareCount->setText(QString::number(ui->lsWare->count()));
+}
+
+// 5 teacher ware
+
+// 6 others
+void MainWindow::setRole(enum RoleOfClass role) {
+    m_userRole = role;
+    if (role == RoleTeacher) {
+        sceneMap[TeacherUID]->setWriteable(true);
+    }
+}
+
+void MainWindow::paintEvent(QPaintEvent *e) {
+    QPainter p(this);
+    p.fillRect(this->rect(), QColor(0, 0, 0, 2));
+}
+
+
+void MainWindow::on_tbTeacherBoard_clicked()
+{
+    changeScene(TeacherUID);
+}
+
+void MainWindow::on_tbMyBoard_clicked()
+{
+    changeScene(SelfUID);
+}
+
+void MainWindow::on_tbBackground_clicked()
+{
+    CPromptFrame::prompt(PleaseWaiting, this);
+}
+
+// 6 others

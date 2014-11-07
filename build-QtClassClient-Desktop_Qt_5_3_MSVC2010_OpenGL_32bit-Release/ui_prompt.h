@@ -43,9 +43,10 @@ public:
     {
         if (Prompt->objectName().isEmpty())
             Prompt->setObjectName(QStringLiteral("Prompt"));
-        Prompt->resize(275, 161);
+        Prompt->resize(275, 156);
         Prompt->setStyleSheet(QLatin1String("QDialog {\n"
-"	background-color:white\n"
+"	background-color:white;\n"
+"	border: 10px solid rgb(247, 237, 219);\n"
 "}\n"
 "\n"
 "QPushButton {\n"
@@ -55,7 +56,10 @@ public:
 "    padding: 6px;\n"
 "	color: white\n"
 "}\n"
-""));
+"\n"
+"QLabel {\n"
+"	color: black;\n"
+"}"));
         verticalLayout = new QVBoxLayout(Prompt);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalSpacer = new QSpacerItem(20, 21, QSizePolicy::Minimum, QSizePolicy::Expanding);

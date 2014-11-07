@@ -2,8 +2,11 @@
 #include "pptplayer.h"
 
 PPTPlayer::PPTPlayer(QString filepath, CMsgObject* parent):
-    AbsPlayer(filepath, parent){
-    m_controller->setControl("Powerpoint.Application");
+    AbsPlayer(filepath, parent),
+    totalSlide(0),
+    curSlide(1) {
+    if (!m_controller->setControl("Powerpoint.Application"))
+        return;
     m_controller->setProperty("Visible", false);
 
     presentation = m_controller->querySubObject("Presentations");
@@ -32,13 +35,18 @@ bool PPTPlayer::procRun() {
         return false;
     }
 
-    auto view = window->querySubObject("View");
-    view->querySubObject("GotoSlide(int)", 2);
-    view->querySubObject("Previous()");
-
-    int interval = 50;
-    window->setProperty("Top", interval);
-    window->setProperty("Height", window->property("Height").toInt() - interval);
+    auto presentation = window->querySubObject("Presentation");
+    auto Slides = presentation->querySubObject("Slides");
+    bool ok;
+    totalSlide = Slides->dynamicCall("Count").toInt(&ok);
+    if (!ok) {
+        return false;
+    }
+    curSlide = 1;
+    window->setProperty("Top", 50);
+    window->setProperty("Left", 200);
+    window->setProperty("Width", window->property("Width").toInt() - 200);
+    //window->setProperty("Height", window->property("Height").toInt() - 50);
     return true;
 }
 
@@ -47,17 +55,23 @@ bool PPTPlayer::procNext() {
     if (!view)
         return false;
 
-    auto test = view->querySubObject("Next()");
-    if (test) {
-        return true;
+    view->querySubObject("Next()");
+    if (curSlide > totalSlide) {
+        emit playerEnd();
+        return close();
     }
-    return false;
+    qDebug() << curSlide << totalSlide;
+    curSlide++;
+    return true;
 }
 
 bool PPTPlayer::procPrev() {
     auto view = window->querySubObject("View");
     if (!view)
         return false;
+    if (curSlide > 1) {
+        curSlide--;
+    }
     view->querySubObject("Previous()");
 
     return true;
@@ -74,7 +88,7 @@ bool PPTPlayer::procStop() {
 }
 
 bool PPTPlayer::procStart() {
-    return procNext();
+    return procRun();
 }
 
 PPTPlayer::~PPTPlayer() {

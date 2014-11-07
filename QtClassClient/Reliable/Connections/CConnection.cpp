@@ -47,7 +47,12 @@ bool CConnection::clear(void) {
 int CConnection::send(const char* buf, ULONG len) {
 	if (!pSocket)
 		return -1;
-	
+
+    //TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) buf;
+    //cout << "single send" << " "
+    //     << head->UID << "  "
+    //     << head->sequence << "  "
+    //     << head->subSeq << endl;
 	//cout << "0";
 	return pSocket->sendData(buf, len, &m_ToAddr);
 }

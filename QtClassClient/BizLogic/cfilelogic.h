@@ -17,6 +17,8 @@ public:
 private:
     QFile m_writingFile;
     bool  m_waitForNewFile;
+    DWORD m_fileBeginSubseq;
+    DWORD m_fileTotalPackets;
 };
 
 #endif // CFILELOGIC_H

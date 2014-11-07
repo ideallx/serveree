@@ -8,7 +8,7 @@ class PlayerFactory
 public:
     explicit PlayerFactory() {}
 
-    static AbsPlayer* createPlayer(QString filepath, CMsgObject* parent);
+    static AbsPlayer* createPlayer(QString filepath, CMsgObject *parent);
 
 signals:
 

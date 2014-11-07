@@ -17,3 +17,4 @@ TS_UINT64 getUid(const ts_msg& p) {
 enum PacketType getType(const ts_msg& p) {
 	return static_cast<enum PacketType> (((TS_MESSAGE_HEAD *) &p)->type);
 }
+

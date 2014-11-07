@@ -20,7 +20,6 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -71,7 +70,9 @@ public:
     QListWidget *lsWare;
     QGroupBox *gbWareCtrl;
     QHBoxLayout *horizontalLayout_3;
-    QSpacerItem *horizontalSpacer;
+    QToolButton *tbPrev;
+    QToolButton *tbStart;
+    QToolButton *tbNext;
     QToolButton *tbUpload;
     QToolButton *tbSync;
     MyView *graphicsView;
@@ -121,7 +122,10 @@ public:
 "QToolButton {\n"
 "	color: rgb(255, 255, 255);\n"
 "}\n"
-""));
+"\n"
+"MyView {\n"
+"	background-color: rgb(255, 254, 240);\n"
+"}"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         sizePolicy.setHeightForWidth(centralWidget->sizePolicy().hasHeightForWidth());
@@ -142,6 +146,7 @@ public:
         groupBox->setMaximumSize(QSize(16777215, 75));
         groupBox->setStyleSheet(QLatin1String("QGroupBox {\n"
 "	border-image: url(:/back/ui/back/orange1.png);\n"
+"	border:none;\n"
 "}\n"
 "Line {\n"
 "	background-image: url(:/back/ui/back/line.png);\n"
@@ -152,6 +157,7 @@ public:
 "}\n"
 "QToolButton:checked, QToolButton:pressed { \n"
 "	background-color: rgb(83, 83, 83);\n"
+"	border:none;\n"
 "}"));
         horizontalLayout = new QHBoxLayout(groupBox);
         horizontalLayout->setSpacing(0);
@@ -328,6 +334,7 @@ public:
         tbEraser->setCheckable(true);
         tbEraser->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         tbEraser->setAutoRaise(true);
+        tbEraser->setArrowType(Qt::NoArrow);
 
         horizontalLayout->addWidget(tbEraser);
 
@@ -448,7 +455,7 @@ public:
         font.setBold(true);
         font.setWeight(75);
         tbExitWare->setFont(font);
-        tbExitWare->setStyleSheet(QStringLiteral("color: rgb(255, 255, 255);"));
+        tbExitWare->setStyleSheet(QStringLiteral(""));
         tbExitWare->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
         tbExitWare->setAutoRaise(true);
         tbExitWare->setArrowType(Qt::NoArrow);
@@ -457,6 +464,9 @@ public:
 
         lsWare = new QListWidget(gbCourseware);
         lsWare->setObjectName(QStringLiteral("lsWare"));
+        QFont font1;
+        font1.setPointSize(12);
+        lsWare->setFont(font1);
 
         verticalLayout_3->addWidget(lsWare);
 
@@ -466,14 +476,36 @@ public:
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        horizontalSpacer = new QSpacerItem(139, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        tbPrev = new QToolButton(gbWareCtrl);
+        tbPrev->setObjectName(QStringLiteral("tbPrev"));
+        QIcon icon12;
+        icon12.addFile(QStringLiteral(":/icon/ui/icon/prev.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbPrev->setIcon(icon12);
+        tbPrev->setIconSize(QSize(40, 40));
 
-        horizontalLayout_3->addItem(horizontalSpacer);
+        horizontalLayout_3->addWidget(tbPrev);
+
+        tbStart = new QToolButton(gbWareCtrl);
+        tbStart->setObjectName(QStringLiteral("tbStart"));
+        QIcon icon13;
+        icon13.addFile(QStringLiteral(":/icon/ui/icon/start.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbStart->setIcon(icon13);
+        tbStart->setIconSize(QSize(40, 40));
+
+        horizontalLayout_3->addWidget(tbStart);
+
+        tbNext = new QToolButton(gbWareCtrl);
+        tbNext->setObjectName(QStringLiteral("tbNext"));
+        QIcon icon14;
+        icon14.addFile(QStringLiteral(":/icon/ui/icon/next.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbNext->setIcon(icon14);
+        tbNext->setIconSize(QSize(40, 40));
+        tbNext->setAutoRaise(false);
+
+        horizontalLayout_3->addWidget(tbNext);
 
         tbUpload = new QToolButton(gbWareCtrl);
         tbUpload->setObjectName(QStringLiteral("tbUpload"));
-        QFont font1;
-        font1.setPointSize(12);
         tbUpload->setFont(font1);
         tbUpload->setStyleSheet(QStringLiteral(""));
         tbUpload->setAutoRaise(true);
@@ -497,7 +529,7 @@ public:
         graphicsView = new MyView(centralWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
         graphicsView->viewport()->setProperty("cursor", QVariant(QCursor(Qt::CrossCursor)));
-        graphicsView->setStyleSheet(QStringLiteral("background-color: rgb(255, 254, 240)"));
+        graphicsView->setStyleSheet(QStringLiteral(""));
 
         horizontalLayout_2->addWidget(graphicsView);
 
@@ -522,7 +554,8 @@ public:
         verticalLayout->addWidget(btClassInfo);
 
         listWidget = new CUserListWidget(groupBox_2);
-        new QListWidgetItem(listWidget);
+        QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(listWidget);
+        __qlistwidgetitem->setTextAlignment(Qt::AlignLeft|Qt::AlignVCenter);
         new QListWidgetItem(listWidget);
         listWidget->setObjectName(QStringLiteral("listWidget"));
         QFont font2;
@@ -566,8 +599,11 @@ public:
         tbLogin->setText(QApplication::translate("MainWindow", "\347\231\273\345\275\225", 0));
         tbSettings->setText(QString());
         gbCourseware->setTitle(QString());
-        tbExitWare->setText(QApplication::translate("MainWindow", "         \346\225\231\345\270\210\350\257\276\344\273\266                           X    ", 0));
+        tbExitWare->setText(QApplication::translate("MainWindow", "         \346\225\231\345\270\210\350\257\276\344\273\266                                    X    ", 0));
         gbWareCtrl->setTitle(QString());
+        tbPrev->setText(QApplication::translate("MainWindow", "...", 0));
+        tbStart->setText(QApplication::translate("MainWindow", "...", 0));
+        tbNext->setText(QApplication::translate("MainWindow", "...", 0));
         tbUpload->setText(QApplication::translate("MainWindow", "\344\270\212\344\274\240", 0));
         tbSync->setText(QApplication::translate("MainWindow", "\345\220\214\346\255\245", 0));
         groupBox_2->setTitle(QString());

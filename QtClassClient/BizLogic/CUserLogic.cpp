@@ -13,17 +13,21 @@ CUserLogic::~CUserLogic() {
 }
 
 bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
-    CClientNet* cn = static_cast<CClientNet*>(p_Parent->getAgent()->getModule("NET"));
-    MainWindow* ui = static_cast<MainWindow*>(p_Parent->getAgent()->getModule("UI"));
+    if (!ui)
+        ui = static_cast<MainWindow*>(p_Parent->getAgent()->getModule("UI"));
+    if (!cn)
+        cn = static_cast<CClientNet*>(p_Parent->getAgent()->getModule("NET"));
 
     TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg;
     if (isRemote) {						// 外部来的，Net层收到的服务器来的下行
+        qDebug() << head->type;
         switch (head->type) {
         case ENTERCLASS:
         case LEAVECLASS:
         {
             DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &msg;
-            ui->sendPrompt(down->result);
+            ui->sendResultPrompt(down->result);
+            ui->recvClassInfo();
 
             switch (down->result) {
             case SuccessEnterClass:
@@ -31,6 +35,8 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
                 cn->setTimeDiff(down->head.time - getServerTime());
                 cn->startupHeartBeat();
                 cn->setUID(down->uid);
+                cn->setBeginSequence(down->lastSeq + 1);
+
                 ui->enterClassResult(true);
                 ui->setRole(down->role);
                 isLoggedIn = true;
@@ -73,23 +79,23 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
     } else {							// 内部来的，UI层收到的信息
 		switch (head->type) {
 		case ENTERCLASS:
-			{
-                UP_AGENTSERVICE* up = (UP_AGENTSERVICE*) &msg;
-                up->classid = 10000;
-                up->head.sequence = 0;
+        {
+            UP_AGENTSERVICE* up = (UP_AGENTSERVICE*) &msg;
+            up->classid = 10000;
+            up->head.sequence = 0;
 
-                cn->ProcessMessage(const_cast<ts_msg&> (msg), 0, 0, false);
-				break;
-			}
+            cn->ProcessMessage(const_cast<ts_msg&> (msg), 0, 0, false);
+            break;
+        }
 		case LEAVECLASS:
-			{
-                UP_AGENTSERVICE* up = (UP_AGENTSERVICE*) &msg;
-                up->classid = 10000;
-                up->head.sequence = 0;
+        {
+            UP_AGENTSERVICE* up = (UP_AGENTSERVICE*) &msg;
+            up->classid = 10000;
+            up->head.sequence = 0;
 
-                cn->ProcessMessage(const_cast<ts_msg&> (msg), 0, 0, false);
-				break;
-            }
+            cn->ProcessMessage(const_cast<ts_msg&> (msg), 0, 0, false);
+            break;
+        }
 		default:
 			break;
 		}

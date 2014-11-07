@@ -2,6 +2,9 @@
 #include <QVBoxLayout>
 #include <QDebug>
 #include <QBitmap>
+#include <QTimer>
+
+#include "../Reliable/DataUnit/CMessage.h"
 #include "cloginbutton.h"
 
 CLoginButton::CLoginButton(QWidget *parent) :
@@ -10,6 +13,10 @@ CLoginButton::CLoginButton(QWidget *parent) :
 {
     setPopupMode(QToolButton::InstantPopup);
     menuCreate();
+    serverNoResponse.setSingleShot(true);
+
+    connect(&serverNoResponse, &QTimer::timeout,
+            this, &CLoginButton::sendNoResponse);
 }
 
 void CLoginButton::menuCreate() {
@@ -20,10 +27,10 @@ void CLoginButton::menuCreate() {
     ui->setupUi(w);
 
     ui->toolButton->setEnabled(false);
-    connect(ui->toolButton, &QToolButton::clicked,
-            this, &CLoginButton::login);
     connect(ui->lineEdit, &QLineEdit::textChanged,
             this, &CLoginButton::usernameCheck);
+    connect(ui->toolButton, &QToolButton::clicked,
+            this, &CLoginButton::login);
 
     QVBoxLayout *vlayout = new QVBoxLayout;
     vlayout->addWidget(w);
@@ -48,14 +55,6 @@ bool CLoginButton::eventFilter(QObject *o, QEvent *e) {
     return QToolButton::eventFilter(o, e);
 }
 
-void CLoginButton::login() {
-    if (isLoggedIn) {
-        emit logoutClicked();
-    } else {
-        emit loginClicked(ui->lineEdit->text(), ui->lineEdit_2->text());
-    }
-}
-
 void CLoginButton::setLoggedIn(bool isLoggedInSuccess) {
     isLoggedIn = isLoggedInSuccess;
     if (isLoggedIn) {
@@ -71,4 +70,29 @@ void CLoginButton::usernameCheck(QString text) {
     } else {
         ui->toolButton->setEnabled(false);
     }
+}
+
+void CLoginButton::setAccount(QString username, QString password) {
+    ui->lineEdit->setText(username);
+    ui->lineEdit_2->setText(password);
+}
+
+void CLoginButton::login()
+{
+    if (isLoggedIn) {
+        emit logoutClicked();
+    } else {
+        emit loginClicked(ui->lineEdit->text(), ui->lineEdit_2->text());
+    }
+
+    serverNoResponse.start(2000);
+}
+
+void CLoginButton::sendNoResponse() {
+    emit sendResultPrompt(ErrorNoResponseFromServer);
+    menu()->setHidden(true);
+}
+
+void CLoginButton::stopTimer() {
+    serverNoResponse.stop();
 }

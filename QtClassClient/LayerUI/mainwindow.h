@@ -9,11 +9,13 @@
 #include "../Reliable/DataUnit/CMessage.h"
 
 #include "myscene.h"
-#include "cfilemsggenerater.h"
+#include "cfilemsggenerator.h"
+#include "cplayergenerator.h"
 #include "../Message/CMsgObject.h"
 #include "../Reliable/DataStructure/TSQueue.h"
 #include <QVector>
 #include <iop_thread.h>
+#include "../player/absplayer.h"
 
 
 
@@ -39,9 +41,21 @@ public:
 
     void paintEvent(QPaintEvent *e);
 
-    void playPPT(QString filepath);
 
     void syncFile(QString filename);
+
+    void setWriteable(TS_UINT64 toUID, DWORD sceneID, WORD writeable);
+
+    bool playerPrev();
+    bool playerNext();
+    bool playerStart(QString filename);
+    bool playerStop();
+
+    void recvClassInfo();
+    void playmodeEnd();
+    void addWareList(QString filename);
+
+    void setUserAccount(QString user, QString pass);
 
 private:
     Ui::MainWindow*             ui;
@@ -54,7 +68,11 @@ private:
     HANDLE                      sem_msg;        // maintain the msgthread, but some problem
     iop_thread_t                pthread_msg;
     TSQueue<ts_msg>             msgQueue;
-    CFileMsgGenerater           m_fmg;
+    CFileMsgGenerator           m_fmg;
+    bool                        isPlayerPlaying;
+    AbsPlayer*                  m_player;
+    CPlayerGenerator            m_pg;
+
 
 public slots:
     void changeScene(TS_UINT64 uid);
@@ -70,14 +88,23 @@ public slots:
     void classIcon(bool entered);
 
     void drawScene();
-    void sendPrompt(int result);
+
+    void sendPrompt(QString prompt);
+    void sendResultPrompt(int result);
+
+private:
+    bool playerPlay(QString filepath);
+    bool stopPlayer(void);
 
 
 signals:
     void enOrLeaveClass(bool entered);
     void drawShape();
     void addScene(int uidh, int uidl);
-    void promptSent(int result);
+    void promptSent(QString prompt);
+    void promptResultSent(int result);
+    void stopServerRespTimer();
+    void wareItemRecv(QString filename);
 
 private slots:
     void on_listWidget_clicked(const QModelIndex &index);
@@ -87,7 +114,10 @@ private slots:
     void on_tbMyBoard_clicked();
 
     void addSceneSlot(int uidh, int uidl);
-    void showPrompt(int result);
+    void showPrompt(QString prompt);
+    void showResultPrompt(int result);
+    void addWareItem(QString string);
+    void deleteFile(QString filename);
 
     friend thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam);
     void on_tbCourseWare_clicked();
@@ -97,6 +127,10 @@ private slots:
     void on_lsWare_itemDoubleClicked(QListWidgetItem *item);
     void on_tbExitWare_clicked();
     void on_listWidget_doubleClicked(const QModelIndex &index);
+    void on_tbPrev_clicked();
+    void on_tbStart_clicked();
+    void on_tbNext_clicked();
+    void on_lsWare_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 };
 
 #endif // MAINWINDOW_H
