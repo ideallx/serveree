@@ -6,6 +6,11 @@
 
 #include <QApplication>
 #include <QObject>
+#include <QTextCodec>
+
+#include <Windows.h>
+typedef BOOL (WINAPI *pSDARP)(ORIENTATION_PREFERENCE orientation);
+pSDARP pARP;
 
 int main(int argc, char *argv[])
 {
@@ -37,8 +42,17 @@ int main(int argc, char *argv[])
         cn.SetServerAddr(0, argv[1], 2222);
         cn.Start(0);
     } else {
-        cn.SetServerAddr(0, "192.168.1.202", 2222);
+        cn.SetServerAddr(0, "192.168.1.102", 2222);
         cn.Start(0);
+    }
+
+    auto pARP = (pSDARP) GetProcAddress( GetModuleHandle(TEXT("user32.dll")),
+                                        "SetDisplayAutoRotationPreferences");
+    if (pARP) {
+        pARP((ORIENTATION_PREFERENCE)(ORIENTATION_PREFERENCE_LANDSCAPE | ORIENTATION_PREFERENCE_LANDSCAPE_FLIPPED));
+    }else{
+        printf("System not supported.\t");
+        return 1;
     }
 
     ui.enterClass("teacher2", "teacher2");

@@ -10,6 +10,8 @@ public:
 
     static AbsPlayer* createPlayer(QString filepath, CMsgObject *parent);
 
+    static bool checkFileFormat(QString filename);
+
 signals:
 
 public slots:

@@ -74,7 +74,8 @@ SOURCES  += main.cpp\
     LayerUI/cfilemsggenerator.cpp \
     BizLogic/cplayerlogic.cpp \
     UserInterface/widgetwarelistitem.cpp \
-    player/docplayer.cpp
+    player/docplayer.cpp \
+    player/jpgplayer.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
             LayerUI\myscene.h \
@@ -142,7 +143,8 @@ HEADERS  += LayerUI\mainwindow.h \
     LayerUI/cfilemsggenerator.h \
     BizLogic/cplayerlogic.h \
     UserInterface/widgetwarelistitem.h \
-    player/docplayer.h
+    player/docplayer.h \
+    player/jpgplayer.h
 
 FORMS    += \
     loginwidget.ui \

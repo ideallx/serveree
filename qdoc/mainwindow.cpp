@@ -1,12 +1,15 @@
+#include <QDebug>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QAxObject>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    controller = new QAxObject;
+    if (!controller->setControl("Word.Application"))
+        qDebug() << "fuck";
 }
 
 MainWindow::~MainWindow()
@@ -14,11 +17,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_pbrun_clicked()
 {
-    QAxObject* controller = new QAxObject;
-    controller->setControl("Word.Application");
+    docu = controller->querySubObject("Documents");
+    QAxObject* open = docu->querySubObject("Open(QString)", QString("D:/abc.doc"));
 
-    QAxObject* docu = controller->querySubObject("Documents");
-    QAxObject* open = docu->querySubObject("D:/abc.doc");
 }

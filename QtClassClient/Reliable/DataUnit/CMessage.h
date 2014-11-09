@@ -183,6 +183,7 @@ enum MsgResult {
     ErrorFormat,
     PleaseWaiting,
     ErrorNoResponseFromServer,
+    ErrorFileExist,
 };
 
 enum RoleOfClass {

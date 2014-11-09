@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QAxObject>
 #include <QMainWindow>
 
 namespace Ui {
@@ -16,13 +15,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-private slots:
-    void on_pbrun_clicked();
-
 private:
     Ui::MainWindow *ui;
-    QAxObject* controller;
-    QAxObject* docu;
 };
 
 #endif // MAINWINDOW_H

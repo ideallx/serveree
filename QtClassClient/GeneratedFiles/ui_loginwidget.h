@@ -68,10 +68,7 @@ public:
         lineEdit = new QLineEdit(loginWidget);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
         lineEdit->setMinimumSize(QSize(0, 30));
-        lineEdit->setStyleSheet(QStringLiteral(""));
-        lineEdit->setMaxLength(20);
         lineEdit->setFrame(false);
-        lineEdit->setCursorMoveStyle(Qt::LogicalMoveStyle);
 
         horizontalLayout_2->addWidget(lineEdit);
 

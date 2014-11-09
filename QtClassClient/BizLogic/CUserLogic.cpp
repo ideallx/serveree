@@ -36,6 +36,7 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
                 cn->startupHeartBeat();
                 cn->setUID(down->uid);
                 cn->setBeginSequence(down->lastSeq + 1);
+                qDebug() <<"las seq" <<  down->lastSeq + 1;
 
                 ui->enterClassResult(true);
                 ui->setRole(down->role);

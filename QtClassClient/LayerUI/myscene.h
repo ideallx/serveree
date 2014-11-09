@@ -45,6 +45,8 @@ public:
 
     void changeType(enum ShapeType s);
 
+    void setBackground(QPixmap pix);
+
     inline void setWriteable(bool set) { isWriteable = set; }
 
 public slots:
@@ -95,6 +97,7 @@ private:
 
     QPointF                                 lastPos;        // last move point used when move type changed to movemode
     bool                                    isWriteable;
+    QGraphicsPixmapItem                     *m_backpixmap;
 };
 
 #endif // MYSCENE_H

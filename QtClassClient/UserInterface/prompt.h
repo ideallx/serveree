@@ -25,6 +25,7 @@ const QByteArray AllPrompts[] = {
     "暂不支持该格式的文件",
     "敬请期待",
     "服务器没有响应",
+    "文件已存在"
 };
 
 class Prompt : public QDialog

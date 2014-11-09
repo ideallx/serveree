@@ -3,6 +3,7 @@
 
 #include <QAxObject>
 #include <QString>
+#include <QPixmap>
 #include "../Reliable/DataUnit/CMessage.h"
 #include "../Message/CMsgObject.h"
 
@@ -14,6 +15,14 @@ public:
     virtual ~AbsPlayer();
 
     virtual bool isLoadSuccess() { return m_isLoadSuccess; }
+    // virtual void addFile(QString filename);
+
+    // if true, set the graphicsview background stylesheet as transparent
+    inline bool isTransBackground() { return m_transBackground; }
+
+    // if true, prev and next process was done by player class
+    // if false, process was done by mainwindow
+    inline bool isInnerNextPrev() { return m_isInnerPvNx; }
 
     bool run();
     bool next();
@@ -32,6 +41,7 @@ protected:
 
 signals:
     void playerEnd();
+    void backgroundChanged(QPixmap);
 
 
 protected:
@@ -39,6 +49,10 @@ protected:
     CMsgObject* m_parent;
     QString     m_filepath;
     bool        m_isLoadSuccess;
+    QList<QString> m_fileList;
+    QRect       m_screenRect;
+    bool        m_transBackground;
+    bool        m_isInnerPvNx;
 };
 
 

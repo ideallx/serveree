@@ -10,7 +10,7 @@ PPTPlayer::PPTPlayer(QString filepath, CMsgObject* parent):
     m_controller->setProperty("Visible", false);
 
     presentation = m_controller->querySubObject("Presentations");
-    opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", filepath, 1, 0, 0);
+    opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", filepath, true, false, true);
     if (!opened) {
         qDebug() << "open error";
         return;
@@ -25,6 +25,7 @@ PPTPlayer::PPTPlayer(QString filepath, CMsgObject* parent):
     }
     sss->setProperty("ShowType", 1);
 
+    m_transBackground = true;
     m_isLoadSuccess = true;
 }
 

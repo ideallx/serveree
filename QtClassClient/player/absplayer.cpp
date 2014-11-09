@@ -1,4 +1,6 @@
 #include <QDebug>
+#include <QDesktopWidget>
+#include <QApplication>
 #include "absplayer.h"
 
 #include "pptplayer.h"
@@ -7,8 +9,16 @@ AbsPlayer::AbsPlayer(QString filepath, CMsgObject *parent) :
     m_controller(NULL),
     m_parent(parent),
     m_filepath(filepath),
-    m_isLoadSuccess(false) {
+    m_isLoadSuccess(false),
+    m_transBackground(false),
+    m_isInnerPvNx(true) {
     m_controller = new QAxObject;
+    m_fileList.append(filepath);
+
+    QDesktopWidget *dwsktopwidget = QApplication::desktop();
+    m_screenRect = dwsktopwidget->screenGeometry();
+    m_screenRect.setHeight(m_screenRect.height() - 80);
+    m_screenRect.setWidth(m_screenRect.width() - 300);
 }
 
 AbsPlayer::~AbsPlayer() {

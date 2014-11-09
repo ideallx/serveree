@@ -33,7 +33,7 @@ public:
 
     void ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL isRemote);
 
-    void addUser(TS_UINT64 uid, QString username, bool isOnline);
+    void addUser(TS_UINT64 uid, QByteArray username, bool isOnline);
 
     void removeUser(TS_UINT64 uid);
 
@@ -91,6 +91,8 @@ public slots:
 
     void sendPrompt(QString prompt);
     void sendResultPrompt(int result);
+
+    void changeBackground(QPixmap newPix);
 
 private:
     bool playerPlay(QString filepath);

@@ -183,7 +183,7 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	down->head.UID = ServerUID;
 	down->head.size = sizeof(DOWN_AGENTSERVICE);
 	down->head.sequence = 0;
-	down->lastSeq = pServer->getMaxSeqOfUID(down->head.UID);
+	down->lastSeq = pServer->getMaxSeqOfUID(down->uid);
 	WriteOut(inputMsg);
 
 #ifdef _DEBUG_INFO_

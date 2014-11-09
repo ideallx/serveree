@@ -23,7 +23,8 @@ MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent) :
     toolChanged(false),
     isEraser(false),
     mt(MoveDraw),
-    isWriteable(false) {
+    isWriteable(false),
+    m_backpixmap(NULL) {
     panFixer.setSingleShot(true);
     setSceneRect(0, 0, 5000, 50000);
     connect(&panFixer, &QTimer::timeout,
@@ -103,7 +104,8 @@ void MyScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     TS_GRAPHIC_PACKET gmsg;
     if (isEraser) {
         QGraphicsItem* item = itemAt(event->scenePos(), QTransform());
-        if (item != NULL) {
+        qDebug() << item->zValue();
+        if (item != NULL && item->zValue() >= 0) {       // dont remvoe the background
             gmc->generateEraserData(gmsg, event->scenePos(),
                                     item->data(GraphicUID).toULongLong(),
                                     item->data(GraphicShapeID).toInt());
@@ -267,4 +269,18 @@ void MyScene::moveScreen(QPoint p) {
     TS_GRAPHIC_PACKET gmsg;
     gmc->generateScreenMove(gmsg, p);
     msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
+}
+
+void MyScene::setBackground(QPixmap pix) {
+    if (pix.isNull())
+        return;
+
+    if (items().contains(m_backpixmap))
+        removeItem(m_backpixmap);
+
+
+    m_backpixmap = addPixmap(pix);
+    m_backpixmap->setPos(views()[0]->mapToScene(0, 0));
+    m_backpixmap->setVisible(true);
+    m_backpixmap->setZValue(-100);
 }

@@ -39,9 +39,9 @@ void CLoginButton::menuCreate() {
     QPixmap pixmap(":/back/ui/back/combox.png");
     menu->setMask(pixmap.mask());
     menu->setStyleSheet("color:white; background-color: rgb(85, 92, 120);");
+    menu->installEventFilter(this);
 
     setMenu(menu);
-    menu->installEventFilter(this);
 }
 
 bool CLoginButton::eventFilter(QObject *o, QEvent *e) {

@@ -82,6 +82,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     sem_msg = CreateSemaphore(NULL, 0, 102400, NULL);
 
+    m_userRole = RoleTeacher;
+
     setWindowFlags(Qt::FramelessWindowHint |
                    Qt::WindowSystemMenuHint |
                    Qt::WindowStaysOnTopHint);
@@ -217,7 +219,7 @@ void MainWindow::msgProc() {
 // 1 msg trans
 
 // 2 my class
-void MainWindow::addUser(TS_UINT64 uid, QString username, bool isOnline) {
+void MainWindow::addUser(TS_UINT64 uid, QByteArray username, bool isOnline) {
     ui->listWidget->addUser(uid, username, isOnline);
     emit addScene(uid >> 32, uid);
 }
@@ -372,11 +374,15 @@ void MainWindow::on_tbUpload_clicked()
     if (tofile.isNull())
         return;
 
-    if ((tofile.split('.').last() != "ppt") && \
-            (tofile.split('.').last() != "doc")) {
+    if (!PlayerFactory::checkFileFormat(tofile)) {
         CPromptFrame::prompt(ErrorFormat, this);
         return;
     }
+    if (ui->lsWare->findItems(tofile, Qt::MatchExactly).size() > 0) {
+        CPromptFrame::prompt(ErrorFileExist, this);
+        return;
+    }
+
 
     QFile::copy(file, tofile);
     addWareItem(tofile);
@@ -410,17 +416,14 @@ void MainWindow::on_lsWare_itemDoubleClicked(QListWidgetItem *item)
         qDebug() << "fuck" << item->text();
         return;
     }
-    qDebug() << "play" << item->text();
+
     if (!playerPlay(item->text()))
         return;
+    qDebug() << "play" << item->text();
 
     TS_PLAYER_PACKET pmsg;
-    scene->clear();
     m_pg.generatePlayerData(pmsg, ActionStart);
     ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
-
-    connect(m_player, &AbsPlayer::playerEnd,
-            this, &MainWindow::playmodeEnd);
 }
 
 void MainWindow::on_tbExitWare_clicked()
@@ -433,7 +436,6 @@ void MainWindow::on_tbExitWare_clicked()
 
         qDebug() << "stop success";
         TS_PLAYER_PACKET pmsg;
-        scene->clear();
         m_pg.generatePlayerData(pmsg, ActionStop);
         ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
     }
@@ -441,7 +443,8 @@ void MainWindow::on_tbExitWare_clicked()
 }
 
 bool MainWindow::playerPlay(QString filepath) {
-    playerStart(filepath);
+    if (!playerStart(filepath))
+        return false;
     m_pg.create(filepath);
     return true;
 }
@@ -496,10 +499,10 @@ bool MainWindow::playerPrev() {
     if (!isPlayerPlaying)
         return false;
 
+    scene->clear();
     if (!m_player->prev())
         return false;
 
-    scene->clear();
     return true;
 }
 
@@ -507,10 +510,10 @@ bool MainWindow::playerNext() {
     if (!isPlayerPlaying)
         return false;
 
+    scene->clear();
     if (!m_player->next())
         return false;
 
-    scene->clear();
     return true;
 }
 
@@ -524,25 +527,33 @@ bool MainWindow::playerStart(QString filename) {
     QString file = path + "/" + filename;
     qDebug() << file;
 
-    m_player = PlayerFactory::createPlayer(file, this);
+    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/stop.png"));
+    isPlayerPlaying = true;
 
+    m_player = PlayerFactory::createPlayer(file, this);
+    connect(m_player, &AbsPlayer::playerEnd,
+            this, &MainWindow::playmodeEnd);
+    connect(m_player, &AbsPlayer::backgroundChanged,
+            this, &MainWindow::changeBackground);
+
+    ui->graphicsView->scene()->clear();
     if (!m_player || !m_player->run()) {
         sendResultPrompt(FailedPlay);
+        isPlayerPlaying = false;
         return false;
     }
 
-    ui->graphicsView->setPaintMode(PaintPPT);
+    if (m_player->isTransBackground())
+        ui->graphicsView->setPaintMode(PaintPPT);
+
     ui->gbCourseware->setHidden(false);
-    ui->graphicsView->scene()->clear();
     ui->groupBox_2->setHidden(true);
-    isPlayerPlaying = true;
-
-
-    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/stop.png"));
+    return true;
 }
 
 bool MainWindow::playerStop() {
     isPlayerPlaying = false;
+    scene->clear();
     if (!m_player->stop())
         return false;
 
@@ -552,7 +563,6 @@ bool MainWindow::playerStop() {
     isPlayerPlaying = false;
     ui->tbStart->setIcon(QIcon(":/icon/ui/icon/start.png"));
     m_player->close();
-    scene->clear();
     return true;
 }
 
@@ -576,27 +586,31 @@ void MainWindow::addWareItem(QString filename) {
 
 void MainWindow::on_lsWare_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
-    WidgetWareListItem* wli = new WidgetWareListItem(current->text());
-    ui->lsWare->setItemWidget(current, wli);
-    ui->lsWare->removeItemWidget(previous);
+    if (current) {
+        WidgetWareListItem* wli = new WidgetWareListItem(current->text());
+        ui->lsWare->setItemWidget(current, wli);
+        connect(wli, &WidgetWareListItem::runFile,
+                this, &MainWindow::playerPlay);
+        connect(wli, &WidgetWareListItem::removeFile,
+                this, &MainWindow::deleteFile);
+    }
 
-    connect(wli, &WidgetWareListItem::runFile,
-            this, &MainWindow::playerPlay);
-    connect(wli, &WidgetWareListItem::removeFile,
-            this, &MainWindow::deleteFile);
+    if (previous)
+        ui->lsWare->removeItemWidget(previous);
 }
 
 void MainWindow::deleteFile(QString filename) {
-//    auto list = ui->lsWare->findItems(filename, Qt::MatchExactly);
-//    //qDebug() << ui->lsWare->row(list[0]);
-//    //ui->lsWare->removeItemWidget(list[0]);
-//    qDebug() << list.size();
-    //ui->lsWare->removeItemWidget(ui->lsWare->item(0));
-    //ui->lsWare->takeItem(0);
-//    qDebug() << list.size();
+    auto list = ui->lsWare->findItems(filename, Qt::MatchExactly);
+    ui->lsWare->removeItemWidget(list[0]);
+    ui->lsWare->takeItem(0);
 
-//    QFile::remove(filename);
+    QFile::remove(filename);
     ui->lbWareCount->setText(QString::number(ui->lsWare->count()));
+}
+
+
+void MainWindow::changeBackground(QPixmap newPix) {
+    static_cast<MyScene*> (ui->graphicsView->scene())->setBackground(newPix);
 }
 
 // 5 teacher ware

@@ -32,7 +32,7 @@
    <string>互动课堂</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="ui.qrc">
+   <iconset>
     <normaloff>:/icon/ui/icon/fulann_logo.png</normaloff>:/icon/ui/icon/fulann_logo.png</iconset>
   </property>
   <property name="styleSheet">
@@ -46,6 +46,7 @@
 
 QListView::item:selected, QListView::item:hover{
 	background: rgb(66, 79, 88);
+	color: rgb(255, 255, 255);
 }
 
 QGroupBox {
@@ -227,7 +228,7 @@ QToolButton:checked, QToolButton:pressed {
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="ui.qrc">:/icon/ui/icon/fulann_logo.png</pixmap>
+          <pixmap>:/icon/ui/icon/fulann_logo.png</pixmap>
          </property>
         </widget>
        </item>
@@ -265,7 +266,7 @@ QToolButton:checked, QToolButton:pressed {
           <string>教师课件</string>
          </property>
          <property name="icon">
-          <iconset resource="ui.qrc">
+          <iconset>
            <normaloff>:/icon/ui/icon/courseware.png</normaloff>:/icon/ui/icon/courseware.png</iconset>
          </property>
          <property name="iconSize">
@@ -316,7 +317,7 @@ QToolButton:checked, QToolButton:pressed {
           <string>教师白板</string>
          </property>
          <property name="icon">
-          <iconset resource="ui.qrc">
+          <iconset>
            <normaloff>:/icon/ui/icon/teacher board.png</normaloff>:/icon/ui/icon/teacher board.png</iconset>
          </property>
          <property name="iconSize">
@@ -367,7 +368,7 @@ QToolButton:checked, QToolButton:pressed {
           <string>我的白板</string>
          </property>
          <property name="icon">
-          <iconset resource="ui.qrc">
+          <iconset>
            <normaloff>:/icon/ui/icon/my board.png</normaloff>:/icon/ui/icon/my board.png</iconset>
          </property>
          <property name="iconSize">
@@ -418,7 +419,7 @@ QToolButton:checked, QToolButton:pressed {
           <string>我的班级</string>
          </property>
          <property name="icon">
-          <iconset resource="ui.qrc">
+          <iconset>
            <normaloff>:/icon/ui/icon/my class.png</normaloff>:/icon/ui/icon/my class.png</iconset>
          </property>
          <property name="iconSize">
@@ -469,7 +470,7 @@ QToolButton:checked, QToolButton:pressed {
           <string>画笔</string>
          </property>
          <property name="icon">
-          <iconset resource="ui.qrc">
+          <iconset>
            <normaloff>:/icon/ui/icon/brush.png</normaloff>:/icon/ui/icon/brush.png</iconset>
          </property>
          <property name="iconSize">
@@ -520,7 +521,7 @@ QToolButton:checked, QToolButton:pressed {
           <string>图形</string>
          </property>
          <property name="icon">
-          <iconset resource="ui.qrc">
+          <iconset>
            <normaloff>:/icon/ui/icon/shape.png</normaloff>:/icon/ui/icon/shape.png</iconset>
          </property>
          <property name="iconSize">
@@ -571,7 +572,7 @@ QToolButton:checked, QToolButton:pressed {
           <string>橡皮擦</string>
          </property>
          <property name="icon">
-          <iconset resource="ui.qrc">
+          <iconset>
            <normaloff>:/icon/ui/icon/eraser.png</normaloff>:/icon/ui/icon/eraser.png</iconset>
          </property>
          <property name="iconSize">
@@ -628,7 +629,7 @@ QToolButton:checked, QToolButton:pressed {
           <string>调色板</string>
          </property>
          <property name="icon">
-          <iconset resource="ui.qrc">
+          <iconset>
            <normaloff>:/icon/ui/icon/platte.png</normaloff>:/icon/ui/icon/platte.png</iconset>
          </property>
          <property name="iconSize">
@@ -679,7 +680,7 @@ QToolButton:checked, QToolButton:pressed {
           <string>背景类型</string>
          </property>
          <property name="icon">
-          <iconset resource="ui.qrc">
+          <iconset>
            <normaloff>:/icon/ui/icon/back ground.png</normaloff>:/icon/ui/icon/back ground.png</iconset>
          </property>
          <property name="iconSize">
@@ -730,7 +731,7 @@ QToolButton:checked, QToolButton:pressed {
           <string>登录</string>
          </property>
          <property name="icon">
-          <iconset resource="ui.qrc">
+          <iconset>
            <normaloff>:/icon/ui/icon/user.png</normaloff>:/icon/ui/icon/user.png</iconset>
          </property>
          <property name="iconSize">
@@ -775,7 +776,7 @@ QToolButton:checked, QToolButton:pressed {
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="ui.qrc">
+          <iconset>
            <normaloff>:/icon/ui/icon/manage.png</normaloff>:/icon/ui/icon/manage.png</iconset>
          </property>
          <property name="iconSize">
@@ -947,7 +948,7 @@ QToolButton:checked, QToolButton:pressed {
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset resource="ui.qrc">
+               <iconset>
                 <normaloff>:/icon/ui/icon/prev.png</normaloff>:/icon/ui/icon/prev.png</iconset>
               </property>
               <property name="iconSize">
@@ -964,7 +965,7 @@ QToolButton:checked, QToolButton:pressed {
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset resource="ui.qrc">
+               <iconset>
                 <normaloff>:/icon/ui/icon/start.png</normaloff>:/icon/ui/icon/start.png</iconset>
               </property>
               <property name="iconSize">
@@ -981,7 +982,7 @@ QToolButton:checked, QToolButton:pressed {
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset resource="ui.qrc">
+               <iconset>
                 <normaloff>:/icon/ui/icon/next.png</normaloff>:/icon/ui/icon/next.png</iconset>
               </property>
               <property name="iconSize">
@@ -1219,8 +1220,6 @@ QToolButton:checked, QToolButton:pressed {
    <header>colorcombox.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="ui.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

@@ -49,15 +49,17 @@ void MainWindow::on_pushButton_3_clicked()
 
 void MainWindow::on_pushButton_4_clicked()
 {
-    ppt->setControl("Powerpoint.Application");
+    if (!ppt->setControl("Powerpoint.Application")) {
+        ui->txShow->append("power point controler set failed");
+        return;
+    }
     ppt->setProperty("Visible", false);
-
-
+    ui->txShow->append("application success");
     presentation = ppt->querySubObject("Presentations");
     QString filename("D:/xxxx.ppt");
     opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", filename, 1, 0, 0);
     if (!opened) {
-        qDebug() << "open error";
+        ui->txShow->append("open error");
         return;
     }
     opened->setProperty("IsFullScreen", false);

@@ -20,6 +20,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -40,6 +41,7 @@ public:
     QVBoxLayout *verticalLayout_2;
     QGroupBox *groupBox;
     QHBoxLayout *horizontalLayout;
+    QSpacerItem *horizontalSpacer_5;
     QLabel *lbLogo;
     QFrame *line;
     QToolButton *tbCourseWare;
@@ -66,6 +68,12 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QGroupBox *gbCourseware;
     QVBoxLayout *verticalLayout_3;
+    QHBoxLayout *horizontalLayout_5;
+    QSpacerItem *horizontalSpacer_4;
+    QLabel *label;
+    QLabel *lbWareCount;
+    QLabel *label_3;
+    QSpacerItem *horizontalSpacer;
     QToolButton *tbExitWare;
     QListWidget *lsWare;
     QGroupBox *gbWareCtrl;
@@ -78,6 +86,10 @@ public:
     MyView *graphicsView;
     QGroupBox *groupBox_2;
     QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_6;
+    QSpacerItem *horizontalSpacer_3;
+    QLabel *label_2;
+    QSpacerItem *horizontalSpacer_2;
     QToolButton *btClassInfo;
     CUserListWidget *listWidget;
 
@@ -94,15 +106,19 @@ public:
         MainWindow->setMinimumSize(QSize(1042, 700));
         MainWindow->setMaximumSize(QSize(1042, 510));
         QIcon icon;
-        icon.addFile(QStringLiteral(":/icon/ui/icon/64x64.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon.addFile(QStringLiteral(":/icon/ui/icon/fulann_logo.png"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
         MainWindow->setStyleSheet(QLatin1String("QListView {\n"
 "	color: rgb(255, 255, 255);\n"
 "	background-color: rgb(45, 55, 64);\n"
 "	padding-left: 20px;\n"
 "	padding-right: 20px;\n"
-"	alternate-background-color: yellow;\n"
 "	border:none\n"
+"}\n"
+"\n"
+"QListView::item:selected, QListView::item:hover{\n"
+"	background: rgb(66, 79, 88);\n"
+"	color: rgb(255, 255, 255);\n"
 "}\n"
 "\n"
 "QGroupBox {\n"
@@ -125,7 +141,55 @@ public:
 "\n"
 "MyView {\n"
 "	background-color: rgb(255, 254, 240);\n"
-"}"));
+"}\n"
+"\n"
+"QLabel {\n"
+"	color: white;\n"
+"}\n"
+"\n"
+"QListWidget:item {\n"
+"	height: 33;\n"
+"}\n"
+"\n"
+"QScrollBar:vertical {\n"
+"	border-radius: 5px;\n"
+"    background: rgb(69, 77, 80);\n"
+"    width: 12px;\n"
+"    margin: 22px 0 22px 0;\n"
+"}\n"
+"QScrollBar::handle:vertical {\n"
+"	border-radius: 5px;\n"
+"    background: rgb(26, 29, 34);\n"
+"    min-height"
+                        ": 20px;\n"
+"}\n"
+"QScrollBar::add-line:vertical {\n"
+"	border-radius: 5px;\n"
+"    background: rgb(45, 55, 64);\n"
+"    height: 20px;\n"
+"    subcontrol-position: bottom;\n"
+"    subcontrol-origin: margin;\n"
+"}\n"
+"\n"
+"QScrollBar::sub-line:vertical {\n"
+"	border-radius: 5px;\n"
+"    background: rgb(45, 55, 64);\n"
+"    height: 20px;\n"
+"    subcontrol-position: top;\n"
+"    subcontrol-origin: margin;\n"
+"}\n"
+"QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {\n"
+"	border-radius: 5px;\n"
+"    width: 3px;\n"
+"    height: 3px;\n"
+"    background: white;\n"
+"}\n"
+"\n"
+"QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
+"	border-radius: 5px;\n"
+"    background: none;\n"
+"}\n"
+""));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         sizePolicy.setHeightForWidth(centralWidget->sizePolicy().hasHeightForWidth());
@@ -164,11 +228,15 @@ public:
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(9, 0, 0, 0);
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_5);
+
         lbLogo = new QLabel(groupBox);
         lbLogo->setObjectName(QStringLiteral("lbLogo"));
         lbLogo->setMinimumSize(QSize(480, 0));
         lbLogo->setMaximumSize(QSize(480, 16777215));
-        lbLogo->setPixmap(QPixmap(QString::fromUtf8(":/icon/ui/icon/logo.png")));
+        lbLogo->setPixmap(QPixmap(QString::fromUtf8(":/icon/ui/icon/fulann_logo.png")));
 
         horizontalLayout->addWidget(lbLogo);
 
@@ -447,26 +515,60 @@ public:
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         verticalLayout_3->setContentsMargins(1, 9, 1, 0);
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(0);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_4);
+
+        label = new QLabel(gbCourseware);
+        label->setObjectName(QStringLiteral("label"));
+        QFont font;
+        font.setPointSize(12);
+        label->setFont(font);
+
+        horizontalLayout_5->addWidget(label);
+
+        lbWareCount = new QLabel(gbCourseware);
+        lbWareCount->setObjectName(QStringLiteral("lbWareCount"));
+        lbWareCount->setFont(font);
+
+        horizontalLayout_5->addWidget(lbWareCount);
+
+        label_3 = new QLabel(gbCourseware);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setFont(font);
+
+        horizontalLayout_5->addWidget(label_3);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer);
+
         tbExitWare = new QToolButton(gbCourseware);
         tbExitWare->setObjectName(QStringLiteral("tbExitWare"));
-        QFont font;
-        font.setFamily(QStringLiteral("Aharoni"));
-        font.setPointSize(12);
-        font.setBold(true);
-        font.setWeight(75);
-        tbExitWare->setFont(font);
+        QFont font1;
+        font1.setFamily(QStringLiteral("Aharoni"));
+        font1.setPointSize(12);
+        font1.setBold(true);
+        font1.setWeight(75);
+        tbExitWare->setFont(font1);
         tbExitWare->setStyleSheet(QStringLiteral(""));
         tbExitWare->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
         tbExitWare->setAutoRaise(true);
         tbExitWare->setArrowType(Qt::NoArrow);
 
-        verticalLayout_3->addWidget(tbExitWare);
+        horizontalLayout_5->addWidget(tbExitWare);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_5);
 
         lsWare = new QListWidget(gbCourseware);
         lsWare->setObjectName(QStringLiteral("lsWare"));
-        QFont font1;
-        font1.setPointSize(12);
-        lsWare->setFont(font1);
+        QFont font2;
+        font2.setPointSize(9);
+        lsWare->setFont(font2);
 
         verticalLayout_3->addWidget(lsWare);
 
@@ -506,7 +608,7 @@ public:
 
         tbUpload = new QToolButton(gbWareCtrl);
         tbUpload->setObjectName(QStringLiteral("tbUpload"));
-        tbUpload->setFont(font1);
+        tbUpload->setFont(font);
         tbUpload->setStyleSheet(QStringLiteral(""));
         tbUpload->setAutoRaise(true);
 
@@ -514,7 +616,7 @@ public:
 
         tbSync = new QToolButton(gbWareCtrl);
         tbSync->setObjectName(QStringLiteral("tbSync"));
-        tbSync->setFont(font1);
+        tbSync->setFont(font);
         tbSync->setToolButtonStyle(Qt::ToolButtonTextOnly);
         tbSync->setAutoRaise(true);
 
@@ -543,24 +645,41 @@ public:
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(1, 9, 1, 0);
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_6->addItem(horizontalSpacer_3);
+
+        label_2 = new QLabel(groupBox_2);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setFont(font);
+
+        horizontalLayout_6->addWidget(label_2);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_6->addItem(horizontalSpacer_2);
+
         btClassInfo = new QToolButton(groupBox_2);
         btClassInfo->setObjectName(QStringLiteral("btClassInfo"));
-        btClassInfo->setFont(font);
+        btClassInfo->setFont(font1);
         btClassInfo->setStyleSheet(QStringLiteral(""));
         btClassInfo->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
         btClassInfo->setAutoRaise(true);
         btClassInfo->setArrowType(Qt::NoArrow);
 
-        verticalLayout->addWidget(btClassInfo);
+        horizontalLayout_6->addWidget(btClassInfo);
+
+
+        verticalLayout->addLayout(horizontalLayout_6);
 
         listWidget = new CUserListWidget(groupBox_2);
-        QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(listWidget);
-        __qlistwidgetitem->setTextAlignment(Qt::AlignLeft|Qt::AlignVCenter);
-        new QListWidgetItem(listWidget);
         listWidget->setObjectName(QStringLiteral("listWidget"));
-        QFont font2;
-        font2.setPointSize(10);
-        listWidget->setFont(font2);
+        QFont font3;
+        font3.setPointSize(10);
+        listWidget->setFont(font3);
         listWidget->setStyleSheet(QStringLiteral(""));
         listWidget->setSizeAdjustPolicy(QAbstractScrollArea::AdjustIgnored);
         listWidget->setGridSize(QSize(0, 36));
@@ -599,7 +718,10 @@ public:
         tbLogin->setText(QApplication::translate("MainWindow", "\347\231\273\345\275\225", 0));
         tbSettings->setText(QString());
         gbCourseware->setTitle(QString());
-        tbExitWare->setText(QApplication::translate("MainWindow", "         \346\225\231\345\270\210\350\257\276\344\273\266                                    X    ", 0));
+        label->setText(QApplication::translate("MainWindow", "\346\225\231\345\270\210\350\257\276\344\273\266(", 0));
+        lbWareCount->setText(QApplication::translate("MainWindow", "0", 0));
+        label_3->setText(QApplication::translate("MainWindow", "\357\274\211", 0));
+        tbExitWare->setText(QApplication::translate("MainWindow", "    X    ", 0));
         gbWareCtrl->setTitle(QString());
         tbPrev->setText(QApplication::translate("MainWindow", "...", 0));
         tbStart->setText(QApplication::translate("MainWindow", "...", 0));
@@ -607,16 +729,8 @@ public:
         tbUpload->setText(QApplication::translate("MainWindow", "\344\270\212\344\274\240", 0));
         tbSync->setText(QApplication::translate("MainWindow", "\345\220\214\346\255\245", 0));
         groupBox_2->setTitle(QString());
-        btClassInfo->setText(QApplication::translate("MainWindow", "         \350\201\224\347\263\273\344\272\272\345\210\227\350\241\250                       X    ", 0));
-
-        const bool __sortingEnabled = listWidget->isSortingEnabled();
-        listWidget->setSortingEnabled(false);
-        QListWidgetItem *___qlistwidgetitem = listWidget->item(0);
-        ___qlistwidgetitem->setText(QApplication::translate("MainWindow", "---\345\234\250\347\272\277\347\224\250\346\210\267---", 0));
-        QListWidgetItem *___qlistwidgetitem1 = listWidget->item(1);
-        ___qlistwidgetitem1->setText(QApplication::translate("MainWindow", "---\347\246\273\347\272\277\347\224\250\346\210\267---", 0));
-        listWidget->setSortingEnabled(__sortingEnabled);
-
+        label_2->setText(QApplication::translate("MainWindow", "\350\201\224\347\263\273\344\272\272\345\210\227\350\241\250", 0));
+        btClassInfo->setText(QApplication::translate("MainWindow", "   X   ", 0));
     } // retranslateUi
 
 };

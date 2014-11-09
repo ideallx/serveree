@@ -22,39 +22,7 @@
      <widget class="QAxWidget" name="axWidget"/>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QPushButton" name="pushButton_5">
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_6">
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_7">
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="lineEdit">
-      <property name="frame">
-       <bool>false</bool>
-      </property>
-      <property name="placeholderText">
-       <string>分</string>
-      </property>
-     </widget>
+     <widget class="QTextBrowser" name="txShow"/>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
