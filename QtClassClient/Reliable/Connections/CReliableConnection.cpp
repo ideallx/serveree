@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <iop_thread.h>
 #include "CReliableConnection.h"
 #include "../DataUnit/CMessage.h"
 #include "../../Stdafx.h"
@@ -178,7 +179,8 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
     switch (getType(*msg)) {
     case RESEND:
         result = -1;
-		cout << "resend" << endl;
+        cout << "resend " << head->sequence << " "
+             << head->subSeq << endl;
 		if (false == resendWhenAsk)		// 抑制重发请求！，则不重发
             return result;
         break;
@@ -238,8 +240,7 @@ void CReliableConnection::scanProcess() {
             saveQueue.enQueue(*iter);
             ReleaseSemaphore(semSave, 1, NULL);
         }
-		
-        cout << "missing: " << totalMiss;
+
 #ifdef _DEBUG_INFO_
         cout << "missing: " << totalMiss;
 #endif
@@ -310,7 +311,8 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 
 		int count = 0;
 		while (count < r->count) {
-			r->seq[count++] = *iter++;
+            cout << "ask for resend: " << r->seq[count];
+            r->seq[count++] = *iter++;
 		}
 		if (ServerUID == selfUid) {		// Server端问各个用户要
 			result += (send2Peer(*(ts_msg*) r, uid) > 0);
@@ -371,6 +373,7 @@ int CReliableConnection::resend(ts_msg& requestMsg) {
             return -1;
 
 		for (int i = 0; i < r->count; i++) {
+            cout << "miss:" << missingUID;
 			if (bm->readRecord(missingUID, r->seq[i], *p) < 0)	// 读到几条请求，发多少条
                 continue;
 			if (peer->send(p->Body, packetSize(*p)) > 0)

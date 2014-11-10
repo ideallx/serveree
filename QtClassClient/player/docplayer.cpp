@@ -11,6 +11,12 @@ DocPlayer::~DocPlayer() {
 
 }
 
+bool DocPlayer::isPostfixRight(QString filename) {
+    QString postfix = filename.split('.').last();
+    if (postfix == "doc")
+        return true;
+    return false;
+}
 
 bool DocPlayer::procRun() { return true; }
 bool DocPlayer::procNext() { return true; }

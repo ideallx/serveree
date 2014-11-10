@@ -57,6 +57,11 @@ public:
 
     void setUserAccount(QString user, QString pass);
 
+    void signalPlayerMove(WORD move);
+    void signalPlayerStart(QString filename);
+
+    void debuginfo(QString str);
+
 private:
     Ui::MainWindow*             ui;
     enum RoleOfClass            m_userRole;     // user role of the client, if teacher will be more powerful
@@ -95,7 +100,7 @@ public slots:
     void changeBackground(QPixmap newPix);
 
 private:
-    bool playerPlay(QString filepath);
+    bool playerPlay(QByteArray filepath);
     bool stopPlayer(void);
 
 
@@ -107,6 +112,11 @@ signals:
     void promptResultSent(int result);
     void stopServerRespTimer();
     void wareItemRecv(QString filename);
+
+    void playerPreved();
+    void playerNexted();
+    void playerStoped();
+    void playerStarted(QString filename);
 
 private slots:
     void on_listWidget_clicked(const QModelIndex &index);

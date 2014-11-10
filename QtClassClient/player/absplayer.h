@@ -24,6 +24,8 @@ public:
     // if false, process was done by mainwindow
     inline bool isInnerNextPrev() { return m_isInnerPvNx; }
 
+    virtual bool isPostfixRight(QString filename) { return false; }
+
     bool run();
     bool next();
     bool prev();

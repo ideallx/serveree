@@ -8,6 +8,7 @@
 class JpgPlayer : public AbsPlayer {
 public:
     JpgPlayer(QString filepath, CMsgObject *parent);
+    bool isPostfixRight(QString filename);
 
     bool procRun();
     bool procNext();

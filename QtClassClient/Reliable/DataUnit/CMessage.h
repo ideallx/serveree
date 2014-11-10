@@ -3,7 +3,7 @@
 
 #include <iop_config.h>
 #include "../OSInedependent/others.h"
-#include "../stdafx.h"
+#include "../../stdafx.h"
 
 #pragma pack(4)
 
@@ -224,7 +224,6 @@ enum PacketType {
     PACKETCONTROL = 50,		// 控制包
     ENTERCLASS,				// 进入班级
     LEAVECLASS,				// 离开班级
-    ENTERAGENT,				// 登录Agent服务器
     HEARTBEAT,				// 心跳包
     USERLIST,				// 当前用户信息列表
     ADDUSER,				// 增加用户

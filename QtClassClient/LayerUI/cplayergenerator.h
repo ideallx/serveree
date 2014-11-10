@@ -10,14 +10,14 @@ class CPlayerGenerator
 public:
     CPlayerGenerator();
 
-    bool create(QString filename);
+    bool create(QByteArray filename);
 
     bool generatePlayerData(TS_PLAYER_PACKET& pmsg, WORD action);
 
     void buildCommonInfo(TS_PLAYER_PACKET& pmsg);
 
 private:
-    QString curFileName;
+    QByteArray curFileName;
     int pos;
     int subpos;
 };

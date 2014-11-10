@@ -6,7 +6,7 @@ CPlayerGenerator::CPlayerGenerator() :
     subpos(0) {
 }
 
-bool CPlayerGenerator::create(QString filename) {
+bool CPlayerGenerator::create(QByteArray filename) {
     QFile f(filename);
     f.open(QIODevice::ReadOnly);
     if (!f.isReadable()) {
@@ -56,5 +56,5 @@ bool CPlayerGenerator::generatePlayerData(TS_PLAYER_PACKET& pmsg, WORD action) {
 void CPlayerGenerator::buildCommonInfo(TS_PLAYER_PACKET& pmsg) {
     pmsg.head.UID = globalUID;
     pmsg.head.type = PLAYERCONTROL;
-    memcpy(pmsg.filename, curFileName.toLatin1().data(), MaxFileName);
+    memcpy(pmsg.filename, curFileName.data(), MaxFileName);
 }

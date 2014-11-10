@@ -16,6 +16,14 @@ QPixmap JpgPlayer::pixmapCut(QPixmap& pix) {
                Qt::KeepAspectRatio, Qt::SmoothTransformation);
 }
 
+bool JpgPlayer::isPostfixRight(QString filename) {
+    QString postfix = filename.split('.').last();
+    if (postfix == "jpg" || postfix == "jpeg" || \
+            postfix == "png" || postfix == "bmp")
+        return true;
+    return false;
+}
+
 bool JpgPlayer::procRun() {
     emit backgroundChanged(pixmapCut(*m_background));
     return true;

@@ -1,4 +1,5 @@
 #include <QTime>
+#include <QFile>
 #include "CClientNet.h"
 
 
@@ -58,6 +59,17 @@ DWORD CClientNet::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSC
         return 0;
     }
 
+    TS_MESSAGE_HEAD *head = (TS_MESSAGE_HEAD*) &inputMsg.msg;
+    QFile f("aa.txt");
+    f.open(QIODevice::Append);
+    QString str = QString::number(getType(inputMsg.msg)).toLatin1().data();
+    str += " " + QString::number(head->sequence) + " ";
+    str += QString::number(head->subSeq) + " ";
+    str += QString::number(head->UID);
+    f.write(str.toLatin1().data());
+    f.write("\r\n");
+    f.close();
+
     sendToAll(inputMsg.msg, 0, 0, true);
 	return 0;
 }
@@ -90,6 +102,7 @@ void CClientNet::buildSendMessage(ts_msg& msg) {
     head->isEnd = 0;
     head->UID = m_uid;
     head->version = VersionNumber;
+    qDebug() << head->sequence << head->subSeq;
 	
     TS_PEER_MESSAGE pmsg;
     pmsg.msg = msg;

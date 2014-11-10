@@ -64,9 +64,9 @@ int CBlock::addMsg(const ts_msg& msg) {
 
 #ifdef _DEBUG_INFO_
 	if (pLen <= 0)
-		cout << "block: add fail ";
+        cout << "block: add " << seq << " fail ";
 	else
-		cout << "block: add okok ";
+        cout << "block: add " << seq << " okok ";
 #endif
 	return pLen;
 }

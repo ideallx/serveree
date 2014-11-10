@@ -55,12 +55,15 @@ bool CBaseLogic::procMsg(const ts_msg& msg, bool isRemote) {
     if (!cn)
         cn = static_cast<CClientNet*>(p_Parent->getAgent()->getModule("NET"));
 
+
+
     if (!isRemote) {
         procNotRemote(msg);
         hmsg->subSeq = subseq++;                    // so nice design!!!
         cn->ProcessMessage(const_cast<ts_msg&> (msg), 0, 0, isRemote);
         return false;
     } else {
+
         procIsRemote(msg);
 
         TS_UINT64 uid = hmsg->UID;
@@ -72,7 +75,7 @@ bool CBaseLogic::procMsg(const ts_msg& msg, bool isRemote) {
         map<TS_UINT64, ts_msg> sendMap;
         DWORD maxSubSeq = userInfo[uid].receiveMsg(msg, sendMap);
         if (hmsg->UID == globalUID)                 // if you offline and online, you'll get your
-            subseq = max(maxSubSeq, subseq);        // package sent before offline, and you'll get
+            subseq = max(maxSubSeq, subseq) + 1;        // package sent before offline, and you'll get
         procRecvIsRemote(sendMap);                  // your last sub seq here
     }
     return false;

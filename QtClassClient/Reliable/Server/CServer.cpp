@@ -5,9 +5,9 @@ CServer::CServer() :
 	MsgLen(MESSAGE_SIZE),
 
 #ifdef _MULTI_THREAD_SERVER_
-    recvthread_num(5),
-    sendthread_num(2),
-    msgthread_num(3),
+    recvthread_num(1),
+    sendthread_num(1),
+    msgthread_num(1),
 #else
     recvthread_num(1),
     sendthread_num(1),

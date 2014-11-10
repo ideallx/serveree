@@ -10,7 +10,7 @@ PPTPlayer::PPTPlayer(QString filepath, CMsgObject* parent):
     m_controller->setProperty("Visible", false);
 
     presentation = m_controller->querySubObject("Presentations");
-    opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", filepath, true, false, true);
+    opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", filepath, true, false, false);
     if (!opened) {
         qDebug() << "open error";
         return;
@@ -29,6 +29,14 @@ PPTPlayer::PPTPlayer(QString filepath, CMsgObject* parent):
     m_isLoadSuccess = true;
 }
 
+
+bool PPTPlayer::isPostfixRight(QString filename) {
+    QString postfix = filename.split('.').last();
+    if (postfix == "ppt")
+        return true;
+    return false;
+}
+
 bool PPTPlayer::procRun() {
     sss->querySubObject("Run()");
     window = opened->querySubObject("SlideShowWindow");
@@ -44,10 +52,10 @@ bool PPTPlayer::procRun() {
         return false;
     }
     curSlide = 1;
-    window->setProperty("Top", 50);
-    window->setProperty("Left", 200);
-    window->setProperty("Width", window->property("Width").toInt() - 200);
-    //window->setProperty("Height", window->property("Height").toInt() - 50);
+    window->setProperty("Top", 40);
+    window->setProperty("Left", 180);
+    window->setProperty("Width", window->property("Width").toInt() - 180);
+    window->setProperty("Height", window->property("Height").toInt() - 40);
     return true;
 }
 

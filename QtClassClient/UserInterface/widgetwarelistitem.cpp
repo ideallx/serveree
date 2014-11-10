@@ -1,7 +1,7 @@
 #include "widgetwarelistitem.h"
 #include "ui_widgetwarelistitem.h"
 
-WidgetWareListItem::WidgetWareListItem(QString filename, QWidget *parent) :
+WidgetWareListItem::WidgetWareListItem(QByteArray filename, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::WidgetWareListItem),
     m_filename(filename) {

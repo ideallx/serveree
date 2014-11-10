@@ -17,6 +17,7 @@ public:
     bool procStop();
     bool procStart();
 
+    bool isPostfixRight(QString filename);
     virtual ~DocPlayer();
 
 protected:

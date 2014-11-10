@@ -263,13 +263,16 @@ void CAgentServer::userLoginNotify(TS_PEER_MESSAGE& pmsg, TS_UINT64 uid) {
 			down->head.sequence = 0;
 			down->head.type = ADDUSER;
 			down->head.size = sizeof(SERVER_CLASS_ADD_USER);
-			iter->second->send(pmsg.msg.Body, sizeof(SERVER_CLASS_ADD_USER));
+			
+			pmsg.peeraddr = *iter->second->getPeer();
+			WriteOut(pmsg);
 		} else {													// 新用户收到现有用户列表
 			SERVER_CLASS_USER_LIST *down = (SERVER_CLASS_USER_LIST*) &pmsg.msg;
 			int calc = 0;
 			for (auto iter2 = map_alluser.begin(); iter2 != map_alluser.end(); iter2++) {
 				if (calc == 10) {
-					iter->second->send(pmsg.msg.Body, sizeof(SERVER_CLASS_USER_LIST));
+					pmsg.peeraddr = *iter->second->getPeer();
+					WriteOut(pmsg);
 					calc = 0;
 				}
 					
@@ -288,13 +291,15 @@ void CAgentServer::userLoginNotify(TS_PEER_MESSAGE& pmsg, TS_UINT64 uid) {
 
 				down->users[calc] = ui;
 				down->userNumberInMessage = ++calc;
+
 				down->head.type = USERLIST;
 				down->head.UID = ServerUID;
 				down->head.sequence = 0;
 				down->head.size = sizeof(SERVER_CLASS_USER_LIST);
 			}
 			if (calc != 0) {
-				iter->second->send(pmsg.msg.Body, sizeof(SERVER_CLASS_USER_LIST));
+				pmsg.peeraddr = *iter->second->getPeer();
+				WriteOut(pmsg);
 			}
 		}
 	}

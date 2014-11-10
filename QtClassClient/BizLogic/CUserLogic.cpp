@@ -20,7 +20,6 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
 
     TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg;
     if (isRemote) {						// 外部来的，Net层收到的服务器来的下行
-        qDebug() << head->type;
         switch (head->type) {
         case ENTERCLASS:
         case LEAVECLASS:
@@ -63,7 +62,8 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
         {
             SERVER_CLASS_USER_LIST* down = (SERVER_CLASS_USER_LIST*) &msg;
             for (int i = 0; i < down->userNumberInMessage; i++) {
-                ui->addUser(down->users[i].uid, (char *) down->users[i].username,
+                ui->addUser(down->users[i].uid,
+                            (char *) down->users[i].username,
                             down->users[i].isLoggedIn);
             }
             break;

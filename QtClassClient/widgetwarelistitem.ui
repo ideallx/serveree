@@ -53,6 +53,16 @@
      <property name="text">
       <string>运行</string>
      </property>
+     <property name="icon">
+      <iconset resource="ui.qrc">
+       <normaloff>:/icon/ui/icon/run.png</normaloff>:/icon/ui/icon/run.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
      <property name="autoRaise">
       <bool>true</bool>
      </property>
@@ -63,6 +73,16 @@
      <property name="text">
       <string>删除</string>
      </property>
+     <property name="icon">
+      <iconset resource="ui.qrc">
+       <normaloff>:/icon/ui/icon/remove.png</normaloff>:/icon/ui/icon/remove.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
      <property name="autoRaise">
       <bool>true</bool>
      </property>
@@ -70,6 +90,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="ui.qrc"/>
+ </resources>
  <connections/>
 </ui>

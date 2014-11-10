@@ -33,7 +33,7 @@
 #include <iostream>
 #include <iop_config.h>
 
-#include "../stdafx.h"
+#include "../../stdafx.h"
 
 using namespace std;
 

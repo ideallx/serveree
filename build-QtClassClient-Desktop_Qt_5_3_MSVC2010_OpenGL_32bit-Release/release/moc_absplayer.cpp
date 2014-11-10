@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "F:/server/trunk/EClass/QtClassClient/player/absplayer.h"
+#include "../../QtClassClient/player/absplayer.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_AbsPlayer_t {
-    QByteArrayData data[3];
-    char stringdata[21];
+    QByteArrayData data[4];
+    char stringdata[39];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -31,9 +31,10 @@ static const qt_meta_stringdata_AbsPlayer_t qt_meta_stringdata_AbsPlayer = {
     {
 QT_MOC_LITERAL(0, 0, 9),
 QT_MOC_LITERAL(1, 10, 9),
-QT_MOC_LITERAL(2, 20, 0)
+QT_MOC_LITERAL(2, 20, 0),
+QT_MOC_LITERAL(3, 21, 17)
     },
-    "AbsPlayer\0playerEnd\0"
+    "AbsPlayer\0playerEnd\0\0backgroundChanged"
 };
 #undef QT_MOC_LITERAL
 
@@ -43,18 +44,20 @@ static const uint qt_meta_data_AbsPlayer[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
+       2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   19,    2, 0x06 /* Public */,
+       1,    0,   24,    2, 0x06 /* Public */,
+       3,    1,   25,    2, 0x06 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QPixmap,    2,
 
        0        // eod
 };
@@ -65,6 +68,7 @@ void AbsPlayer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         AbsPlayer *_t = static_cast<AbsPlayer *>(_o);
         switch (_id) {
         case 0: _t->playerEnd(); break;
+        case 1: _t->backgroundChanged((*reinterpret_cast< QPixmap(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -76,8 +80,13 @@ void AbsPlayer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
                 *result = 0;
             }
         }
+        {
+            typedef void (AbsPlayer::*_t)(QPixmap );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&AbsPlayer::backgroundChanged)) {
+                *result = 1;
+            }
+        }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObject AbsPlayer::staticMetaObject = {
@@ -105,13 +114,13 @@ int AbsPlayer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 2)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 1;
+        _id -= 2;
     }
     return _id;
 }
@@ -120,5 +129,12 @@ int AbsPlayer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 void AbsPlayer::playerEnd()
 {
     QMetaObject::activate(this, &staticMetaObject, 0, 0);
+}
+
+// SIGNAL 1
+void AbsPlayer::backgroundChanged(QPixmap _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
 }
 QT_END_MOC_NAMESPACE

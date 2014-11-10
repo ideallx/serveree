@@ -9,6 +9,7 @@
 class PPTPlayer : public AbsPlayer {
 public:
     PPTPlayer(QString filepath, CMsgObject* parent);
+    bool isPostfixRight(QString filename);
 
     bool procRun();
     bool procNext();

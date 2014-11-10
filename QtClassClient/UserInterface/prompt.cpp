@@ -2,6 +2,7 @@
 #include "ui_prompt.h"
 #include <QTextCodec>
 
+
 Prompt::Prompt(WORD index, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Prompt)

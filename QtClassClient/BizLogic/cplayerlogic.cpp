@@ -11,16 +11,12 @@ void CPlayerLogic::procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap) {
         qDebug() << (char*)pmsg->filename;
         switch (pmsg->pa) {
         case ActionPrev:
-            ui->playerPrev();
-            break;
         case ActionNext:
-            ui->playerNext();
-            break;
         case ActionStop:
-            ui->playerStop();
+            ui->signalPlayerMove(pmsg->pa);
             break;
         case ActionStart:
-            ui->playerStart((char*) pmsg->filename);
+            ui->signalPlayerStart((char*) pmsg->filename);
             break;
         default:
             break;

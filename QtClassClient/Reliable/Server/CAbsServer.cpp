@@ -5,6 +5,7 @@
  *      Author: root
  */
 
+#include <iop_thread.h>
 #include "CAbsServer.h"
 #include "../../Stdafx.h"
 #include "../Connections/CHubConnection.h"
