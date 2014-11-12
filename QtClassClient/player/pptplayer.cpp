@@ -67,7 +67,7 @@ bool PPTPlayer::procNext() {
     view->querySubObject("Next()");
     if (curSlide > totalSlide) {
         emit playerEnd();
-        return close();
+        return true;		// TODO return close() for emit
     }
     qDebug() << curSlide << totalSlide;
     curSlide++;

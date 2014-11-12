@@ -7,6 +7,8 @@
 #include <QMap>
 #include <QMutex>
 #include <QTimer>
+#include <QGraphicsVideoItem>
+#include <QMediaPlayer>
 
 #include "../Reliable/DataUnit/CMessage.h"
 #include "cgraphicmsgcreator.h"
@@ -49,11 +51,13 @@ public:
 
     inline void setWriteable(bool set) { isWriteable = set; }
 
+    void playMedia(QMediaPlayer* player);
+
 public slots:
 
     void changeShapeByUI(int shape);
 
-    void setPenWidth(int width) { pen.setWidth(width); toolChanged = true; }
+    void setPenWidth(int width) { pen.setWidth(width); toolChanged = true; isEraser = false;}
 
     void setPenColor(QColor c) { pen.setColor(c); toolChanged = true; }
 
@@ -98,6 +102,8 @@ private:
     QPointF                                 lastPos;        // last move point used when move type changed to movemode
     bool                                    isWriteable;
     QGraphicsPixmapItem                     *m_backpixmap;
+    QGraphicsVideoItem*                     media;
+
 };
 
 #endif // MYSCENE_H

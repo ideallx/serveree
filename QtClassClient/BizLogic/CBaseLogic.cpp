@@ -5,39 +5,36 @@ CSubSeqUnit::CSubSeqUnit() :
 }
 
 DWORD CSubSeqUnit::receiveMsg(const ts_msg& msg, map<TS_UINT64, ts_msg> &sendMap) {
-    const ts_msg* lastMsg = NULL;
+    DWORD maxSubSeq = 0;
     TS_MESSAGE_HEAD* hmsg = (TS_MESSAGE_HEAD*) &msg;
 
     if (hmsg->subSeq == wantedSeq) {
         sendMap.insert(make_pair(hmsg->sequence, msg));
-        lastMsg = &msg;
+		maxSubSeq = hmsg->subSeq;
         wantedSeq++;
     } else {
         // qDebug() << "lost: " << wantedSeq << "from " << gmsg->head.UID;
-        waitingList.insert(make_pair(hmsg->sequence, msg));
+        waitingList.insert(make_pair(hmsg->subSeq, msg));
     }
 
     while (true) {
         auto iter = waitingList.find(wantedSeq);
         if (iter == waitingList.end())
             break;
-        sendMap.insert(make_pair(iter->first, iter->second));
+		sendMap.insert(make_pair(getSeq(iter->second), iter->second));
+		maxSubSeq = ((TS_MESSAGE_HEAD*) &(iter->second))->subSeq;
         waitingList.erase(iter);
         wantedSeq++;
-        lastMsg = &(iter->second);
     }
 
-    if (lastMsg == NULL) {
-        return 0;
-    } else {
-        return ((TS_MESSAGE_HEAD*) lastMsg)->subSeq;
-    }
+
+    return maxSubSeq;
 }
 
 
 CBaseLogic::CBaseLogic(CMsgObject* parent) :
     CMsgObject(parent),
-    subseq(1),
+    subseq(0),
     ui(NULL),
     cn(NULL) {
 }
@@ -55,15 +52,13 @@ bool CBaseLogic::procMsg(const ts_msg& msg, bool isRemote) {
     if (!cn)
         cn = static_cast<CClientNet*>(p_Parent->getAgent()->getModule("NET"));
 
-
-
     if (!isRemote) {
         procNotRemote(msg);
-        hmsg->subSeq = subseq++;                    // so nice design!!!
+        hmsg->subSeq = ++subseq;                    // so nice design!!!
+        qDebug() << "proc msg isnot remote" << hmsg->sequence << hmsg->subSeq;
         cn->ProcessMessage(const_cast<ts_msg&> (msg), 0, 0, isRemote);
         return false;
     } else {
-
         procIsRemote(msg);
 
         TS_UINT64 uid = hmsg->UID;
@@ -75,7 +70,7 @@ bool CBaseLogic::procMsg(const ts_msg& msg, bool isRemote) {
         map<TS_UINT64, ts_msg> sendMap;
         DWORD maxSubSeq = userInfo[uid].receiveMsg(msg, sendMap);
         if (hmsg->UID == globalUID)                 // if you offline and online, you'll get your
-            subseq = max(maxSubSeq, subseq) + 1;        // package sent before offline, and you'll get
+            subseq = max(maxSubSeq, subseq);        // package sent before offline, and you'll get
         procRecvIsRemote(sendMap);                  // your last sub seq here
     }
     return false;

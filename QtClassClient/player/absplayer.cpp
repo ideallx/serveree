@@ -9,6 +9,7 @@ AbsPlayer::AbsPlayer(QString filepath, CMsgObject *parent) :
     m_controller(NULL),
     m_parent(parent),
     m_filepath(filepath),
+
     m_isLoadSuccess(false),
     m_transBackground(false),
     m_isInnerPvNx(true) {
@@ -19,6 +20,14 @@ AbsPlayer::AbsPlayer(QString filepath, CMsgObject *parent) :
     m_screenRect = dwsktopwidget->screenGeometry();
     m_screenRect.setHeight(m_screenRect.height() - 80);
     m_screenRect.setWidth(m_screenRect.width() - 300);
+}
+
+QRect AbsPlayer::screenSize() {
+    QDesktopWidget *dwsktopwidget = QApplication::desktop();
+    QRect result = dwsktopwidget->screenGeometry();
+    result.setHeight(result.height() - 80);
+    result.setWidth(result.width() - 300);
+    return result;
 }
 
 AbsPlayer::~AbsPlayer() {

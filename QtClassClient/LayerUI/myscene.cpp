@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QTouchEvent>
 
+#include "../player/absplayer.h"
 #include "cshape.h"
 #include "myscene.h"
 #include "myview.h"
@@ -29,6 +30,10 @@ MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent) :
     setSceneRect(0, 0, 5000, 50000);
     connect(&panFixer, &QTimer::timeout,
             this, &MyScene::sendMoveBegin);
+
+    media = new QGraphicsVideoItem;
+    media->setVisible(false);
+    addItem(media);
     //generateTestShape();
 }
 
@@ -104,7 +109,6 @@ void MyScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     TS_GRAPHIC_PACKET gmsg;
     if (isEraser) {
         QGraphicsItem* item = itemAt(event->scenePos(), QTransform());
-        qDebug() << item->zValue();
         if (item != NULL && item->zValue() >= 0) {       // dont remvoe the background
             gmc->generateEraserData(gmsg, event->scenePos(),
                                     item->data(GraphicUID).toULongLong(),
@@ -283,4 +287,19 @@ void MyScene::setBackground(QPixmap pix) {
     m_backpixmap->setPos(views()[0]->mapToScene(0, 0));
     m_backpixmap->setVisible(true);
     m_backpixmap->setZValue(-100);
+}
+
+void MyScene::playMedia(QMediaPlayer *player) {
+    // TODO new new!!
+    media = new QGraphicsVideoItem;
+    player->setVideoOutput(media);
+    media->setPos(views()[0]->mapToScene(0, 0));
+    QRect r = AbsPlayer::screenSize();
+    media->setSize(QSize(r.width(), r.height()));
+    media->setZValue(-100);
+    media->setVisible(true);
+    addItem(media);
+
+    player->play();
+    qDebug() << "media play" << player->isVideoAvailable();
 }

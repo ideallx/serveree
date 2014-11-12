@@ -10,7 +10,7 @@ CSettingsButton::CSettingsButton(QWidget *parent) :
     menuCreate();
 
     connect(ui->exitButton, &QToolButton::clicked,
-            qApp, &QApplication::exit);
+            qApp, &QApplication::quit);
 }
 
 

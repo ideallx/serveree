@@ -34,17 +34,28 @@ int main(int argc, char *argv[])
     ui.addReceiver(&bl);		// UI
     cn.addReceiver(&bl);        // CN
 
-    if (argc == 4) {
-        cn.SetServerAddr(0, argv[1], 2222);
+    FILE* fp = freopen("config.txt", "r", stdin);
+    char username[30];
+    char password[30];
+    char serverip[30];
+    if (fp != NULL) {
+        cin >> serverip >> username >> password;
+        cn.SetServerAddr(0, serverip, 2222);
         cn.Start(0);
-        ui.enterClass(argv[2], argv[3]);
-    } else if (argc > 1) {
-        cn.SetServerAddr(0, argv[1], 2222);
-        cn.Start(0);
+        ui.enterClass(username, password);
     } else {
-        cn.SetServerAddr(0, "192.168.1.202", 2222);
+        if (argc == 4) {
+            cn.SetServerAddr(0, argv[1], 2222);
+            ui.enterClass(argv[2], argv[3]);
+        } else if (argc > 1) {
+            cn.SetServerAddr(0, argv[1], 2222);
+        } else {
+            cn.SetServerAddr(0, "192.168.1.202", 2222);
+        }
         cn.Start(0);
     }
+    fclose(stdin);
+
 
 //    auto pARP = (pSDARP) GetProcAddress( GetModuleHandle(TEXT("user32.dll")),
 //                                        "SetDisplayAutoRotationPreferences");
@@ -55,7 +66,7 @@ int main(int argc, char *argv[])
 //        return 1;
 //    }
 
-    ui.enterClass("teacher2", "teacher2");
+    //ui.enterClass("teacher1", "11");
 
     return a.exec();
 }

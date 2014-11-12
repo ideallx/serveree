@@ -19,6 +19,7 @@ CUserListWidget::CUserListWidget(QWidget *parent) :
 
 void CUserListWidget::init() {
     userList.clear();
+    clear();
     userList.append(OnlineList);
     userList.append(OfflineList);
 

@@ -20,7 +20,6 @@ private:
 signals:
 
 public slots:
-
 };
 
 #endif // CSETTINGSBUTTON_H

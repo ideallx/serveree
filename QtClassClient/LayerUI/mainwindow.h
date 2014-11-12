@@ -41,14 +41,13 @@ public:
 
     void paintEvent(QPaintEvent *e);
 
-
     void syncFile(QString filename);
 
     void setWriteable(TS_UINT64 toUID, DWORD sceneID, WORD writeable);
 
     bool playerPrev();
     bool playerNext();
-    bool playerStart(QString filename);
+    bool playerStart(QByteArray filename);
     bool playerStop();
 
     void recvClassInfo();
@@ -58,7 +57,7 @@ public:
     void setUserAccount(QString user, QString pass);
 
     void signalPlayerMove(WORD move);
-    void signalPlayerStart(QString filename);
+    void signalPlayerStart(QByteArray filename);
 
     void debuginfo(QString str);
 
@@ -82,7 +81,7 @@ private:
 public slots:
     void changeScene(TS_UINT64 uid);
 
-    void enterClass(QString username, QString password);
+    void enterClass(QByteArray username, QByteArray password);
     void enterClassResult(bool result);
 
     void leaveClass();
@@ -98,6 +97,9 @@ public slots:
     void sendResultPrompt(int result);
 
     void changeBackground(QPixmap newPix);
+    void changeMedia(QMediaPlayer* player);
+
+    void setPenWidth(int width);
 
 private:
     bool playerPlay(QByteArray filepath);
@@ -116,7 +118,7 @@ signals:
     void playerPreved();
     void playerNexted();
     void playerStoped();
-    void playerStarted(QString filename);
+    void playerStarted(QByteArray filename);
 
 private slots:
     void on_listWidget_clicked(const QModelIndex &index);

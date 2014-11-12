@@ -30,8 +30,6 @@ public:
 
     void setPaintMode(enum PaintMode in);
 
-    void playCourseware(QString filepath);
-
 signals:
     void screenMoved(QPoint p);
 

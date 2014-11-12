@@ -1,7 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QtClassClient", "QtClassClient.vcxproj", "{819C5AB5-8CA3-3B6C-9ED6-2A105D552516}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QtClassClient", "QtClassClient.vcxproj", "{79E981A1-81FE-3C39-BAA9-41D4C170451F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{819C5AB5-8CA3-3B6C-9ED6-2A105D552516}.Debug|Win32.ActiveCfg = Debug|Win32
-		{819C5AB5-8CA3-3B6C-9ED6-2A105D552516}.Debug|Win32.Build.0 = Debug|Win32
-		{819C5AB5-8CA3-3B6C-9ED6-2A105D552516}.Release|Win32.ActiveCfg = Release|Win32
-		{819C5AB5-8CA3-3B6C-9ED6-2A105D552516}.Release|Win32.Build.0 = Release|Win32
+		{79E981A1-81FE-3C39-BAA9-41D4C170451F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{79E981A1-81FE-3C39-BAA9-41D4C170451F}.Debug|Win32.Build.0 = Debug|Win32
+		{79E981A1-81FE-3C39-BAA9-41D4C170451F}.Release|Win32.ActiveCfg = Release|Win32
+		{79E981A1-81FE-3C39-BAA9-41D4C170451F}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

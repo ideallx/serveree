@@ -27,7 +27,7 @@ bool CPlayerGenerator::generatePlayerData(TS_PLAYER_PACKET& pmsg, WORD action) {
         subpos = 0;
         break;
     case ActionPrev:
-        pos++;
+        pos--;
         subpos = 0;
         break;
     case ActionSubNext:
@@ -56,5 +56,6 @@ bool CPlayerGenerator::generatePlayerData(TS_PLAYER_PACKET& pmsg, WORD action) {
 void CPlayerGenerator::buildCommonInfo(TS_PLAYER_PACKET& pmsg) {
     pmsg.head.UID = globalUID;
     pmsg.head.type = PLAYERCONTROL;
+    pmsg.head.size = sizeof(TS_PLAYER_PACKET);
     memcpy(pmsg.filename, curFileName.data(), MaxFileName);
 }

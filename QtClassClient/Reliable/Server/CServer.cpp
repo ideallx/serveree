@@ -5,9 +5,9 @@ CServer::CServer() :
 	MsgLen(MESSAGE_SIZE),
 
 #ifdef _MULTI_THREAD_SERVER_
-    recvthread_num(1),
-    sendthread_num(1),
-    msgthread_num(1),
+    recvthread_num(5),
+    sendthread_num(2),
+    msgthread_num(3),
 #else
     recvthread_num(1),
     sendthread_num(1),
@@ -53,25 +53,26 @@ bool CServer::Uninitialize(void) {
 	return TRUE;
 }
 
-
-void CServer::ReadIn(TS_PEER_MESSAGE& pmsg) {
-    WaitForSingleObject(data_in, INFINITE);
-	p_InMsgQueue->deQueue(pmsg);
+bool CServer::ReadIn(TS_PEER_MESSAGE& pmsg) {
+    WaitForSingleObject(data_in, 40);
+    return p_InMsgQueue->deQueue(pmsg);
 }
 
-void CServer::WriteIn(const TS_PEER_MESSAGE& pmsg) {
-    p_InMsgQueue->enQueue(pmsg);
+bool CServer::WriteIn(const TS_PEER_MESSAGE& pmsg) {
+    bool set = p_InMsgQueue->enQueue(pmsg);
 	ReleaseSemaphore(data_in, 1, NULL);
+    return set;
 }
 
-void CServer::ReadOut(TS_PEER_MESSAGE& pmsg) {
-    WaitForSingleObject(data_out, INFINITE);
-	p_OutMsgQueue->deQueue(pmsg);
+bool CServer::ReadOut(TS_PEER_MESSAGE& pmsg) {
+    WaitForSingleObject(data_out, 40);
+    return p_OutMsgQueue->deQueue(pmsg);
 }
 
-void CServer::WriteOut(const TS_PEER_MESSAGE& pmsg) {
-    p_OutMsgQueue->enQueue(pmsg);
+bool CServer::WriteOut(const TS_PEER_MESSAGE& pmsg) {
+    bool set = p_OutMsgQueue->enQueue(pmsg);
 	ReleaseSemaphore(data_out, 1, NULL);
+    return set;
 }
 
 
@@ -170,7 +171,8 @@ void CServer::sendProc() {
 		return;
 	}
 	while (isRunning()) {
-		ReadOut(pmsg);
+        if (!ReadOut(pmsg))
+            continue;
 		pPeerConn->setPeer(pmsg.peeraddr);
         pPeerConn->send(pmsg.msg.Body, sizeof(ts_msg));
 
@@ -186,8 +188,8 @@ void CServer::msgProc() {
 
 	while (isRunning()) {
 		memset(&pmsg, 0, sizeof(TS_PEER_MESSAGE));
-		ReadIn(pmsg);
-		MsgHandler(pmsg);
+        if (ReadIn(pmsg))
+            MsgHandler(pmsg);
 	}
 	cout << "msg thread exit" << endl;
 }

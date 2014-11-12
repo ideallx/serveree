@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_AbsPlayer_t {
-    QByteArrayData data[4];
-    char stringdata[39];
+    QByteArrayData data[6];
+    char stringdata[63];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,9 +32,12 @@ static const qt_meta_stringdata_AbsPlayer_t qt_meta_stringdata_AbsPlayer = {
 QT_MOC_LITERAL(0, 0, 9),
 QT_MOC_LITERAL(1, 10, 9),
 QT_MOC_LITERAL(2, 20, 0),
-QT_MOC_LITERAL(3, 21, 17)
+QT_MOC_LITERAL(3, 21, 17),
+QT_MOC_LITERAL(4, 39, 9),
+QT_MOC_LITERAL(5, 49, 13)
     },
-    "AbsPlayer\0playerEnd\0\0backgroundChanged"
+    "AbsPlayer\0playerEnd\0\0backgroundChanged\0"
+    "playMedia\0QMediaPlayer*"
 };
 #undef QT_MOC_LITERAL
 
@@ -44,20 +47,22 @@ static const uint qt_meta_data_AbsPlayer[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       2,       // signalCount
+       3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x06 /* Public */,
-       3,    1,   25,    2, 0x06 /* Public */,
+       1,    0,   29,    2, 0x06 /* Public */,
+       3,    1,   30,    2, 0x06 /* Public */,
+       4,    1,   33,    2, 0x06 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
     QMetaType::Void, QMetaType::QPixmap,    2,
+    QMetaType::Void, 0x80000000 | 5,    2,
 
        0        // eod
 };
@@ -69,7 +74,19 @@ void AbsPlayer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         switch (_id) {
         case 0: _t->playerEnd(); break;
         case 1: _t->backgroundChanged((*reinterpret_cast< QPixmap(*)>(_a[1]))); break;
+        case 2: _t->playMedia((*reinterpret_cast< QMediaPlayer*(*)>(_a[1]))); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+        case 2:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QMediaPlayer* >(); break;
+            }
+            break;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
@@ -84,6 +101,12 @@ void AbsPlayer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
             typedef void (AbsPlayer::*_t)(QPixmap );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&AbsPlayer::backgroundChanged)) {
                 *result = 1;
+            }
+        }
+        {
+            typedef void (AbsPlayer::*_t)(QMediaPlayer * );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&AbsPlayer::playMedia)) {
+                *result = 2;
             }
         }
     }
@@ -114,13 +137,13 @@ int AbsPlayer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
-            *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        if (_id < 3)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 3;
     }
     return _id;
 }
@@ -136,5 +159,12 @@ void AbsPlayer::backgroundChanged(QPixmap _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 1, _a);
+}
+
+// SIGNAL 2
+void AbsPlayer::playMedia(QMediaPlayer * _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 2, _a);
 }
 QT_END_MOC_NAMESPACE

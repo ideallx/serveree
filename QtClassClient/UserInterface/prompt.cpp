@@ -23,7 +23,7 @@ Prompt::Prompt(QString prompt, QWidget *parent) :
     ui->setupUi(this);
 
     QTextCodec *codec = QTextCodec::codecForName("GB18030");
-    ui->lbPrompt->setText(codec->toUnicode(prompt.toLatin1()));
+    ui->lbPrompt->setText(codec->toUnicode(prompt.toLocal8Bit()));
     setWindowFlags(Qt::FramelessWindowHint);
 
     setModal(true);

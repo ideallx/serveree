@@ -4,6 +4,7 @@
 #include <QAxObject>
 #include <QString>
 #include <QPixmap>
+#include <QMediaPlayer>
 #include "../Reliable/DataUnit/CMessage.h"
 #include "../Message/CMsgObject.h"
 
@@ -26,6 +27,8 @@ public:
 
     virtual bool isPostfixRight(QString filename) { return false; }
 
+    static QRect screenSize();
+
     bool run();
     bool next();
     bool prev();
@@ -44,6 +47,7 @@ protected:
 signals:
     void playerEnd();
     void backgroundChanged(QPixmap);
+    void playMedia(QMediaPlayer*);
 
 
 protected:

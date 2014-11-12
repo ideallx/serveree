@@ -8,7 +8,7 @@
 
 class DocPlayer : public AbsPlayer {
 public:
-    DocPlayer(QString filepath, CMsgObject* parent);
+    DocPlayer(QByteArray filepath, CMsgObject* parent);
 
     bool procRun();
     bool procNext();

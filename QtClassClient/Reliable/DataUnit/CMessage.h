@@ -9,7 +9,7 @@
 
 const int MESSAGE_SIZE = 1024;				// 单个Package最大msgs数
 const int MaxTrans = 700;                   // 单条最大传输
-const int HeartBeatInterval = 10000;		// 心跳包间隔
+const int HeartBeatInterval = 5000;			// 心跳包间隔
 const TS_UINT64 SeqBegin = 1;				// seq开始位置，seq从1开始
 const int MaxFileName = 30;
 const int MaxUserInfoOneMessage = 10;
@@ -54,10 +54,23 @@ typedef struct {
 } RCONNECT;
 
 typedef struct {
+    TS_UINT64 uid;
+    TS_UINT64 maxSeq;
+} MAXSEQ_UNIT;
+
+typedef struct {
     TS_MESSAGE_HEAD head;
-    unsigned short count;		// 后续uid/seq对 对数，即最多 MaxSeqsInOnePacket / 2
-    TS_UINT64 seq[MaxSeqsInOnePacket];
+    unsigned short count;		// 后续单元数
+    MAXSEQ_UNIT unit[MaxSeqsInOnePacket / 2];
 } DOWN_MAXSEQ_LIST;
+
+
+typedef struct {
+    TS_MESSAGE_HEAD head;
+    int count;
+    MAXSEQ_UNIT unit[MaxSeqsInOnePacket];
+} ONLINE_LIST;
+
 
 // 上行报文
 typedef struct {
@@ -228,6 +241,9 @@ enum PacketType {
     USERLIST,				// 当前用户信息列表
     ADDUSER,				// 增加用户
     REMOVEUSER,				// 减少用户
+
+
+    CONNECTION  = 100,      // 建立连接用废指令
 };
 
 // 功能函数，获取一些信息

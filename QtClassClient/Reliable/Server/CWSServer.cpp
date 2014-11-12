@@ -60,10 +60,18 @@ void CWSServer::msgProc() {
 
 	while (isRunning()) {
 		memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
-		ReadIn(*pmsg);
-		MsgHandler(*pmsg);
+        if (ReadIn(*pmsg))
+            MsgHandler(*pmsg);
 	}
 	delete pmsg;
+}
+
+DWORD CWSServer::MsgHandler(TS_PEER_MESSAGE& pmsg) {
+    TS_UINT64 uid = getUid(pmsg.msg);
+    if (conn->findPeer(uid) == NULL) {
+        conn->addPeer(uid, pmsg.peeraddr);
+    }
+    return 0;
 }
 
 void CWSServer::sendProc() {
@@ -71,7 +79,8 @@ void CWSServer::sendProc() {
 	memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
 
 	while (isRunning()) {
-		ReadOut(*pmsg);
+        if (!ReadOut(*pmsg))
+            continue;
 		pConnect->send(pmsg->msg.Body, packetSize(pmsg->msg));
 	}
 	delete pmsg;

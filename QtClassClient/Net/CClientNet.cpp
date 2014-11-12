@@ -62,11 +62,11 @@ DWORD CClientNet::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSC
     TS_MESSAGE_HEAD *head = (TS_MESSAGE_HEAD*) &inputMsg.msg;
     QFile f("aa.txt");
     f.open(QIODevice::Append);
-    QString str = QString::number(getType(inputMsg.msg)).toLatin1().data();
+    QString str = QString::number(getType(inputMsg.msg)).toLocal8Bit().data();
     str += " " + QString::number(head->sequence) + " ";
     str += QString::number(head->subSeq) + " ";
     str += QString::number(head->UID);
-    f.write(str.toLatin1().data());
+    f.write(str.toLocal8Bit().data());
     f.write("\r\n");
     f.close();
 
@@ -76,12 +76,12 @@ DWORD CClientNet::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSC
 
 void CClientNet::msgProc() {
 	TS_PEER_MESSAGE *pmsg = new TS_PEER_MESSAGE();
-	memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
+    memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
 
-	while (isRunning()) {
-		memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
-		ReadIn(*pmsg);
-        MsgHandler(*pmsg);
+    while (isRunning()) {
+        memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
+        if (ReadIn(*pmsg))
+            MsgHandler(*pmsg);
 	}
 	delete pmsg;
 }
@@ -158,7 +158,8 @@ void CClientNet::sendProc() {
 	int result;
 	
 	while (isRunning()) {
-        ReadOut(*pmsg);
+        if (!ReadOut(*pmsg))
+            continue;
 		if (getType(pmsg->msg) > PACKETCONTROL)
 			result = m_agent->send(pmsg->msg.Body, packetSize(pmsg->msg));
 		else
@@ -180,6 +181,10 @@ void CClientNet::startupHeartBeat() {
 	} else {
 		turnOff();
 	}
+}
+
+void CClientNet::endHeartBeat() {
+    iop_thread_cancel(pthread_hb);
 }
 
 void CClientNet::sendHeartBeat() {

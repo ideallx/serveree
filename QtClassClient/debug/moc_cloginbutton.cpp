@@ -71,7 +71,7 @@ static const uint qt_meta_data_CLoginButton[] = {
       10,    0,   57,    2, 0x08 /* Private */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::QString, QMetaType::QString,    3,    4,
+    QMetaType::Void, QMetaType::QByteArray, QMetaType::QByteArray,    3,    4,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    2,
 
@@ -88,7 +88,7 @@ void CLoginButton::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
     if (_c == QMetaObject::InvokeMetaMethod) {
         CLoginButton *_t = static_cast<CLoginButton *>(_o);
         switch (_id) {
-        case 0: _t->loginClicked((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 0: _t->loginClicked((*reinterpret_cast< QByteArray(*)>(_a[1])),(*reinterpret_cast< QByteArray(*)>(_a[2]))); break;
         case 1: _t->logoutClicked(); break;
         case 2: _t->sendResultPrompt((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 3: _t->usernameCheck((*reinterpret_cast< QString(*)>(_a[1]))); break;
@@ -100,7 +100,7 @@ void CLoginButton::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (CLoginButton::*_t)(QString , QString );
+            typedef void (CLoginButton::*_t)(QByteArray , QByteArray );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CLoginButton::loginClicked)) {
                 *result = 0;
             }
@@ -157,7 +157,7 @@ int CLoginButton::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void CLoginButton::loginClicked(QString _t1, QString _t2)
+void CLoginButton::loginClicked(QByteArray _t1, QByteArray _t2)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);

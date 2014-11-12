@@ -25,7 +25,7 @@ bool CFileMsgGenerator::create(QString filename) {
     m_fc.totalPackets = (m_fc.fileLen + MaxTrans - 1) / MaxTrans;   // modules + 1
 
     memcpy(m_fc.filecontent, f.read(filelen).constData(), filelen);
-    memcpy(m_fc.filename, f.fileName().toLatin1().data(), MaxFileName);
+    memcpy(m_fc.filename, f.fileName().toLocal8Bit().data(), MaxFileName);
     f.close();
 }
 

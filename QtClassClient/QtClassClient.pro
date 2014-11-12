@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui axcontainer
+QT       += core gui axcontainer multimedia multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -75,7 +75,8 @@ SOURCES  += main.cpp\
     BizLogic/cplayerlogic.cpp \
     UserInterface/widgetwarelistitem.cpp \
     player/docplayer.cpp \
-    player/jpgplayer.cpp
+    player/jpgplayer.cpp \
+    player/videoplayer.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
             LayerUI\myscene.h \
@@ -144,7 +145,8 @@ HEADERS  += LayerUI\mainwindow.h \
     BizLogic/cplayerlogic.h \
     UserInterface/widgetwarelistitem.h \
     player/docplayer.h \
-    player/jpgplayer.h
+    player/jpgplayer.h \
+    player/videoplayer.h
 
 FORMS    += \
     loginwidget.ui \

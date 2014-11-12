@@ -18,6 +18,10 @@ void CBusinessLogic::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, B
     if (head->type > PACKETCONTROL) {	// Net层传来的控制类下行处理
         m_UserLogic->procMsg(msg, isremote);
     } else {							// Net层传来的其他指令传给UI层
+        if (isremote)
+            qDebug() << head->UID << head->type
+                     << head->sequence << head->subSeq;
+
         if (!m_UserLogic->isServerAvailable() && !isremote)
             return;
 

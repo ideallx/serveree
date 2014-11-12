@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->graphicsView->setScene(scene);
 
     connect(ui->tbBrush, &LineWidthCombox::signalWidthChanged,
-            scene, &MyScene::setPenWidth);
+            this, &MainWindow::setPenWidth);
     connect(ui->tbPalette, &ColorCombox::sigColorChanged,
             scene, &MyScene::setPenColor);
     connect(ui->tbShape, &CShapeChooser::signalShapeChanged,
@@ -68,6 +68,15 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, &MainWindow::wareItemRecv,
             this, &MainWindow::addWareItem);
 
+    connect(this, &MainWindow::playerPreved,
+            this, &MainWindow::playerPrev);
+    connect(this, &MainWindow::playerStoped,
+            this, &MainWindow::playerStop);
+    connect(this, &MainWindow::playerNexted,
+            this, &MainWindow::playerNext);
+    connect(this, &MainWindow::playerStarted,
+            this, &MainWindow::playerStart);
+
     ui->groupBox_2->setHidden(true);
     ui->gbCourseware->setHidden(true);
 
@@ -82,14 +91,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     sem_msg = CreateSemaphore(NULL, 0, 102400, NULL);
 
-    m_userRole = RoleTeacher;
-
     setWindowFlags(Qt::FramelessWindowHint |
                    Qt::WindowSystemMenuHint |
                    Qt::WindowStaysOnTopHint);
 
     setAttribute(Qt::WA_TranslucentBackground, true);
     showFullScreen();
+//	setRole(RoleTeacher);
 }
 
 MainWindow::~MainWindow() {
@@ -99,6 +107,7 @@ MainWindow::~MainWindow() {
     if (m_player) {
         m_player->close();
         delete m_player;
+		m_player = 0;
     }
 }
 
@@ -120,7 +129,7 @@ void MainWindow::changeScene(TS_UINT64 uid) {
         return;
 
     disconnect(ui->tbBrush, &LineWidthCombox::signalWidthChanged,
-            scene, &MyScene::setPenWidth);
+               this, &MainWindow::setPenWidth);
     disconnect(ui->tbPalette, &ColorCombox::sigColorChanged,
             scene, &MyScene::setPenColor);
     disconnect(ui->tbShape, &CShapeChooser::signalShapeChanged,
@@ -137,7 +146,7 @@ void MainWindow::changeScene(TS_UINT64 uid) {
     ui->graphicsView->setScene(scene);
 
     connect(ui->tbBrush, &LineWidthCombox::signalWidthChanged,
-            scene, &MyScene::setPenWidth);
+            this, &MainWindow::setPenWidth);
     connect(ui->tbPalette, &ColorCombox::sigColorChanged,
             scene, &MyScene::setPenColor);
     connect(ui->tbShape, &CShapeChooser::signalShapeChanged,
@@ -149,14 +158,14 @@ void MainWindow::changeScene(TS_UINT64 uid) {
 }
 
 // 1 msg trans
-void MainWindow::enterClass(QString username, QString password) {
+void MainWindow::enterClass(QByteArray username, QByteArray password) {
     ts_msg msg;
 
     UP_AGENTSERVICE* up = (UP_AGENTSERVICE*) &msg;
     up->head.type = ENTERCLASS;
     up->head.size = sizeof(UP_AGENTSERVICE);
-    memcpy(up->username, username.toLatin1().data(), 20);
-    memcpy(up->password, password.toLatin1().data(), 20);
+    memcpy(up->username, username, 20);
+    memcpy(up->password, password, 20);
 
     ui->tbLogin->menu()->setHidden(true);
 
@@ -172,7 +181,7 @@ void MainWindow::leaveClass() {
     TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg;
     head->type = LEAVECLASS;
     head->size = sizeof(UP_AGENTSERVICE);
-    ui->tbLogin->menu()->setHidden(true);
+	ui->tbLogin->menu()->close();
 
     ui->listWidget->clear();
 
@@ -274,20 +283,30 @@ void MainWindow::setWriteable(TS_UINT64 toUID, DWORD sceneID, WORD writeable) {
         return;
 
     if (sceneID == globalUID) {
+        if (!sceneMap[SelfUID])
+            return;
         sceneMap[SelfUID]->setWriteable(writeable);
     } else {
+        if (!sceneMap[sceneID])
+            return;
         sceneMap[sceneID]->setWriteable(writeable);
     }
 }
-
-
 // 2 my class
 
 // 3 my scene
+
+void MainWindow::setPenWidth(int width) {
+    scene->setPenWidth(width);
+    ui->tbEraser->setChecked(false);
+}
+
 void MainWindow::addSceneSlot(int uidh, int uidl) {
     TS_UINT64 uid = uidl;
-    MyScene *s = new MyScene(uid, this, this);
-    sceneMap.insert(uid, s);
+	if (sceneMap.find(uid) == sceneMap.end()) {
+		MyScene *s = new MyScene(uid, this, this);
+		sceneMap.insert(uid, s);
+	}
 }
 
 void MainWindow::drawScene() {
@@ -364,6 +383,8 @@ void MainWindow::on_tbCourseWare_clicked()
 
     if (m_userRole == RoleTeacher)
         ui->gbCourseware->setHidden(!ui->gbCourseware->isHidden());
+    else
+        ui->gbCourseware->setHidden(true);
 }
 
 void MainWindow::on_tbUpload_clicked()
@@ -382,7 +403,6 @@ void MainWindow::on_tbUpload_clicked()
         CPromptFrame::prompt(ErrorFileExist, this);
         return;
     }
-
 
     QFile::copy(file, tofile);
     addWareItem(tofile);
@@ -417,7 +437,7 @@ void MainWindow::on_lsWare_itemDoubleClicked(QListWidgetItem *item)
         return;
     }
 
-    if (!playerPlay(item->text()))
+    if (!playerPlay(item->text().toLocal8Bit()))
         return;
     qDebug() << "play" << item->text();
 
@@ -442,7 +462,7 @@ void MainWindow::on_tbExitWare_clicked()
     ui->gbCourseware->setHidden(true);
 }
 
-bool MainWindow::playerPlay(QString filepath) {
+bool MainWindow::playerPlay(QByteArray filepath) {
     if (!playerStart(filepath))
         return false;
     m_pg.create(filepath);
@@ -465,8 +485,12 @@ void MainWindow::on_tbPrev_clicked()
         return;
 
     TS_PLAYER_PACKET pmsg;
-    m_pg.generatePlayerData(pmsg, ActionPrev);
-    ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
+    if (m_player->isInnerNextPrev()) {
+        m_pg.generatePlayerData(pmsg, ActionPrev);
+        ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
+    } else {
+        on_lsWare_itemDoubleClicked(ui->lsWare->selectedItems()[0]);
+    }
 }
 
 void MainWindow::on_tbStart_clicked()
@@ -491,8 +515,15 @@ void MainWindow::on_tbNext_clicked()
         return;
 
     TS_PLAYER_PACKET pmsg;
-    m_pg.generatePlayerData(pmsg, ActionNext);
-    ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
+    if (m_player->isInnerNextPrev()) {
+        m_pg.generatePlayerData(pmsg, ActionNext);
+        ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
+    } else {
+		if (ui->lsWare->selectedItems().size() == 0)
+			return;
+
+		on_lsWare_itemDoubleClicked(ui->lsWare->selectedItems()[0]);
+    }
 }
 
 bool MainWindow::playerPrev() {
@@ -500,31 +531,72 @@ bool MainWindow::playerPrev() {
         return false;
 
     scene->clear();
-    if (!m_player->prev())
-        return false;
+    if (m_player->isInnerNextPrev()) {
+        if (!m_player->prev())
+            return false;
+    } else {
+        if (ui->lsWare->selectedItems().size() == 0)
+            return false;
+        int curRow = ui->lsWare->row(ui->lsWare->selectedItems()[0]);
+        for (int i = 1; i <ui->lsWare->count(); i++) {      // 0 is your self~
+            int itemid = curRow - i;
+            if (itemid < 0) {
+                itemid += ui->lsWare->count();
+            }
+
+            if (m_player->isPostfixRight(ui->lsWare->item(itemid)->text())) {
+//                if (!playerPlay(ui->lsWare->item(itemid)->text().toLocal8Bit()))
+//                    return false;
+//                playerStart(ui->lsWare->item(itemid)->text().toLocal8Bit());
+                ui->lsWare->setCurrentRow(itemid);
+                break;
+            }
+        }
+    }
 
     return true;
 }
 
 bool MainWindow::playerNext() {
-    if (!isPlayerPlaying)
+    if (!isPlayerPlaying || !m_player)
         return false;
 
     scene->clear();
-    if (!m_player->next())
-        return false;
+    if (m_player->isInnerNextPrev()) {
+        if (!m_player->next())
+            return false;
+    } else {
+        if (ui->lsWare->selectedItems().size() == 0)
+            return false;
+        int curRow = ui->lsWare->row(ui->lsWare->selectedItems()[0]);
+        for (int i = 1; i <ui->lsWare->count(); i++) {      // 0 is your self~
+            int itemid = i + curRow;
+            if (itemid >= ui->lsWare->count()) {
+                itemid -= ui->lsWare->count();
+            }
+
+            if (m_player->isPostfixRight(ui->lsWare->item(itemid)->text())) {
+//                if (!playerPlay(ui->lsWare->item(itemid)->text().toLocal8Bit()))
+//                    return false;
+//                playerStart(ui->lsWare->item(itemid)->text().toLocal8Bit());
+                ui->lsWare->setCurrentRow(itemid);
+                break;
+            }
+        }
+    }
 
     return true;
 }
 
-bool MainWindow::playerStart(QString filename) {
+bool MainWindow::playerStart(QByteArray filename) {
     if (m_player) {
         m_player->close();
         delete m_player;
+		m_player = NULL;
     }
 
-    QString path = QDir::currentPath();
-    QString file = path + "/" + filename;
+    QByteArray path = QDir::currentPath().toLocal8Bit();
+    QByteArray file = path + "/" + filename;
     qDebug() << file;
 
     ui->tbStart->setIcon(QIcon(":/icon/ui/icon/stop.png"));
@@ -535,6 +607,8 @@ bool MainWindow::playerStart(QString filename) {
             this, &MainWindow::playmodeEnd);
     connect(m_player, &AbsPlayer::backgroundChanged,
             this, &MainWindow::changeBackground);
+    connect(m_player, &AbsPlayer::playMedia,
+            this, &MainWindow::changeMedia);
 
     ui->graphicsView->scene()->clear();
     if (!m_player || !m_player->run()) {
@@ -547,29 +621,31 @@ bool MainWindow::playerStart(QString filename) {
         ui->graphicsView->setPaintMode(PaintPPT);
 
     ui->gbCourseware->setHidden(false);
-    ui->groupBox_2->setHidden(true);
+    if (m_userRole == RoleTeacher)
+        ui->groupBox_2->setHidden(true);
     return true;
 }
 
 bool MainWindow::playerStop() {
     isPlayerPlaying = false;
     scene->clear();
-    if (!m_player->stop())
-        return false;
-
     ui->graphicsView->setPaintMode(PaintNormal);
     ui->gbCourseware->setHidden(true);
     ui->graphicsView->scene()->clear();
-    isPlayerPlaying = false;
     ui->tbStart->setIcon(QIcon(":/icon/ui/icon/start.png"));
+
+    if (!m_player || !m_player->stop())
+        return false;
+
     m_player->close();
+	delete m_player;
+	m_player = 0;
     return true;
 }
 
 
 void MainWindow::playmodeEnd() {
-    ui->graphicsView->setPaintMode(PaintNormal);
-    ui->gbCourseware->setHidden(true);
+    playerStop();
 }
 
 void MainWindow::addWareList(QString filename) {
@@ -577,17 +653,21 @@ void MainWindow::addWareList(QString filename) {
 }
 
 void MainWindow::addWareItem(QString filename) {
+    if (ui->lsWare->findItems(filename, Qt::MatchExactly).size() > 0) {
+        return;
+    }
     QListWidgetItem *item = new QListWidgetItem(filename);
     ui->lsWare->addItem(item);
     ui->lbWareCount->setText(QString::number(ui->lsWare->count()));
 }
 
-
-
 void MainWindow::on_lsWare_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
+    if (m_userRole != RoleTeacher)
+        return;
+
     if (current) {
-        WidgetWareListItem* wli = new WidgetWareListItem(current->text());
+        WidgetWareListItem* wli = new WidgetWareListItem(current->text().toLocal8Bit());
         ui->lsWare->setItemWidget(current, wli);
         connect(wli, &WidgetWareListItem::runFile,
                 this, &MainWindow::playerPlay);
@@ -613,9 +693,37 @@ void MainWindow::changeBackground(QPixmap newPix) {
     static_cast<MyScene*> (ui->graphicsView->scene())->setBackground(newPix);
 }
 
+void MainWindow::changeMedia(QMediaPlayer *player) {
+    static_cast<MyScene*> (ui->graphicsView->scene())->playMedia(player);
+}
+
+void MainWindow::signalPlayerMove(WORD move) {
+    switch (move) {
+    case ActionPrev:
+        emit playerPreved();
+        break;
+    case ActionNext:
+        emit playerNexted();
+        break;
+    case ActionStop:
+        emit playerStoped();
+        break;
+    default:
+        break;
+    }
+}
+
+void MainWindow::signalPlayerStart(QByteArray filename) {
+    emit playerStarted(filename);
+}
+
 // 5 teacher ware
 
 // 6 others
+void MainWindow::debuginfo(QString str) {
+
+}
+
 void MainWindow::setRole(enum RoleOfClass role) {
     m_userRole = role;
     if (role == RoleTeacher) {
@@ -625,7 +733,7 @@ void MainWindow::setRole(enum RoleOfClass role) {
 
 void MainWindow::paintEvent(QPaintEvent *e) {
     QPainter p(this);
-    p.fillRect(this->rect(), QColor(0, 0, 0, 2));
+    p.fillRect(this->rect(), QColor(0, 0, 0, 2));   // alpha = 2 transparent
 }
 
 

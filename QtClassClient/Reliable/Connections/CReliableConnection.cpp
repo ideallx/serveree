@@ -296,7 +296,7 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 
 	r->head.type = RESEND;
 	r->head.UID = selfUid;				// 自己的UID
-	r->head.sequence = 22121;			// 序号非0即可
+    r->head.sequence = 0;
 	r->missingUID = uid;				// 没收到的包所属的UID
 	r->missingType = MISS_SINGLE;		// 掉单一的包
 	int total = pids.size();			// 总共需要发的条数
@@ -310,9 +310,9 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 		r->head.size = sizeof(RCONNECT);
 
 		int count = 0;
-		while (count < r->count) {
-            cout << "ask for resend: " << r->seq[count];
+        while (count < r->count) {
             r->seq[count++] = *iter++;
+            cout << "ask for resend: " << r->seq[count - 1];
 		}
 		if (ServerUID == selfUid) {		// Server端问各个用户要
 			result += (send2Peer(*(ts_msg*) r, uid) > 0);
@@ -332,9 +332,9 @@ void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
     ts_msg msg;
     RCONNECT* up = (RCONNECT*) &msg;
     for (int i = 0; i < down->count; i++) {
-        TS_UINT64 uid = down->seq[2 * i];
+        TS_UINT64 uid = down->unit[i].uid;
         TS_UINT64 maxSeqClient = bm->getMaxSeqOfUID(uid);
-        TS_UINT64 maxSeqServer = down->seq[2 * i + 1];
+        TS_UINT64 maxSeqServer = down->unit[i].maxSeq;
         cout << maxSeqClient << " " << maxSeqServer << endl;
         if (maxSeqClient < maxSeqServer) {      // if server's seq bigger than client
             up->missingUID = uid;
@@ -476,15 +476,17 @@ void CReliableConnection::sendMaxSeqList() {
 
     for (auto iter = allUsers.begin(); iter != allUsers.end(); iter++) {
         TS_UINT64 maxSeq = bm->getMaxSeqOfUID(*iter);
-        if (maxSeq != 0) {  // the user whose seq is nonzero can be listed
-            msg.seq[msg.count * 2] = *iter;
-            msg.seq[msg.count * 2 + 1] = maxSeq;
-            msg.count++;
-        }
+        if (maxSeq == 0)
+            continue;
+
+        msg.unit[msg.count].uid = *iter;
+        msg.unit[msg.count].maxSeq = maxSeq;
+        // msg.unit[msg.count].isOnline = (findPeer(*iter) != NULL);
+        msg.count++;
 
         if (msg.count == MaxSeqsInOnePacket / 2) {
             send(m->Body, msg.head.size);
-            msg.head.size = 0;
+            msg.count = 0;
         }
     }
     if (msg.head.size != 0) {

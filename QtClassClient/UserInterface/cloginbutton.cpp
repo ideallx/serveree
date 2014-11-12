@@ -82,7 +82,8 @@ void CLoginButton::login()
     if (isLoggedIn) {
         emit logoutClicked();
     } else {
-        emit loginClicked(ui->lineEdit->text(), ui->lineEdit_2->text());
+        emit loginClicked(ui->lineEdit->text().toLocal8Bit(),
+                          ui->lineEdit_2->text().toLocal8Bit());
     }
 
     serverNoResponse.start(2000);

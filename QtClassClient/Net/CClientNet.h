@@ -43,6 +43,7 @@ public:
 
 	// ĞÄÌø°ü¿ªÆô
 	void startupHeartBeat();
+    void endHeartBeat();
 
 	void addServerAddr(sockaddr_in in);
 

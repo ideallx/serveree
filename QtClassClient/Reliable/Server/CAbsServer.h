@@ -42,10 +42,10 @@ public:
 	virtual DWORD MsgHandler(TS_PEER_MESSAGE& pmsg) = 0;		// 消息处理
 
 public:
-	virtual void ReadIn(TS_PEER_MESSAGE& pmsg) = 0;
-	virtual void WriteIn(const TS_PEER_MESSAGE& pmsg) = 0;
-	virtual void ReadOut(TS_PEER_MESSAGE& pmsg) = 0;
-	virtual void WriteOut(const TS_PEER_MESSAGE& pmsg) = 0;
+    virtual bool ReadIn(TS_PEER_MESSAGE& pmsg) = 0;
+    virtual bool WriteIn(const TS_PEER_MESSAGE& pmsg) = 0;
+    virtual bool ReadOut(TS_PEER_MESSAGE& pmsg) = 0;
+    virtual bool WriteOut(const TS_PEER_MESSAGE& pmsg) = 0;
 
 	virtual void sendProc() = 0;
 	virtual void recvProc() = 0;

@@ -32,7 +32,7 @@ public:
     {
         if (settingWidget->objectName().isEmpty())
             settingWidget->setObjectName(QStringLiteral("settingWidget"));
-        settingWidget->resize(115, 33);
+        settingWidget->resize(115, 42);
         verticalLayout = new QVBoxLayout(settingWidget);
         verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -40,7 +40,7 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(0);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalLayout->setContentsMargins(-1, 9, -1, -1);
+        horizontalLayout->setContentsMargins(-1, 0, -1, -1);
         exitButton = new QToolButton(settingWidget);
         exitButton->setObjectName(QStringLiteral("exitButton"));
         QFont font;

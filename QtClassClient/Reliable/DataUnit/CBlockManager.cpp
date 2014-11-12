@@ -27,6 +27,10 @@ int CBlockManager::readRecord(TS_UINT64 uid, TS_UINT64 seq, ts_msg& p) {
 
 int CBlockManager::record(ts_msg& in) {
 	TS_UINT64 uid = getUid(in);
+#ifdef _IDEAL_ENV_
+	if (uid > 10000)
+		return -1;
+#endif
 	CBlock* b = getBlockByUid(uid);
 	if (b == NULL) {
 		b = new CBlock(uid);

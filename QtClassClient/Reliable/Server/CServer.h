@@ -30,10 +30,10 @@ public:
 	virtual ~CServer(void);
 
 public:
-	void ReadIn(TS_PEER_MESSAGE& pmsg);
-	void WriteIn(const TS_PEER_MESSAGE& pmsg);
-	void ReadOut(TS_PEER_MESSAGE& pmsg);
-	void WriteOut(const TS_PEER_MESSAGE& pmsg);
+    bool ReadIn(TS_PEER_MESSAGE& pmsg);
+    bool WriteIn(const TS_PEER_MESSAGE& pmsg);
+    bool ReadOut(TS_PEER_MESSAGE& pmsg);
+    bool WriteOut(const TS_PEER_MESSAGE& pmsg);
 
 	void sendProc();
 	void recvProc();

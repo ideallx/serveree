@@ -115,7 +115,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\..\QtClassClient\Reliable\OSInedependent\libiop;..\..\QtClassClient\Reliable\OSInedependent\pthread;..\..\QtClassClient\Reliable;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;PTW32_STATIC_LIB;_MULTI_THREAD_SERVER_;_DEBUG_INFO_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;PTW32_STATIC_LIB;_MULTI_THREAD_SERVER_;_DEBUG_INFO_;_IDEAL_ENV_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

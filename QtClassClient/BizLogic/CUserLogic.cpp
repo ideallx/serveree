@@ -40,9 +40,11 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
                 ui->enterClassResult(true);
                 ui->setRole(down->role);
                 isLoggedIn = true;
+
                 break;
             case SuccessLeaveClass:
                 ui->leaveClassResult(true);
+                cn->endHeartBeat();
                 isLoggedIn = false;
                 //cn->Stop();
                 break;

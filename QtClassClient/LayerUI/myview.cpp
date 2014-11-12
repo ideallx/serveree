@@ -11,7 +11,7 @@
 
 MyView::MyView(QWidget *parent) :
     QGraphicsView(parent),
-    pm(PaintPPT),
+    pm(PaintNormal),
     isLeftClicked(false) {
     //setRenderHint(QPainter::Antialiasing);
     viewport()->setAttribute(Qt::WA_AcceptTouchEvents);

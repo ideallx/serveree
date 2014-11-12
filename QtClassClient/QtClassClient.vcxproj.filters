@@ -45,13 +45,13 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{b102794e-d477-4bc3-883e-9c9bed669724}</UniqueIdentifier>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{9d6facf8-a8f2-446c-87d5-ff9c98155415}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{7f2ec05d-180b-40cb-85c0-ab70bb59bee3}</UniqueIdentifier>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{fc0e125d-ae54-4f63-98d9-fba267e195b6}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -231,83 +231,86 @@
     <ClCompile Include="Reliable\Zip\unzip.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="player\videoplayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="UserInterface\widgetwarelistitem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Reliable\Zip\zip.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_absplayer.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
     <ClCompile Include="Release\moc_absplayer.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_cloginbutton.cpp">
+    <ClCompile Include="Debug\moc_absplayer.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_cloginbutton.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_colorcombox.cpp">
+    <ClCompile Include="Debug\moc_cloginbutton.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_colorcombox.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_csettingsbutton.cpp">
+    <ClCompile Include="Debug\moc_colorcombox.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_csettingsbutton.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_cshapechooser.cpp">
+    <ClCompile Include="Debug\moc_csettingsbutton.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_cshapechooser.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_cuserlistwidget.cpp">
+    <ClCompile Include="Debug\moc_cshapechooser.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_cuserlistwidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_linewidthcombox.cpp">
+    <ClCompile Include="Debug\moc_cuserlistwidget.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_linewidthcombox.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_mainwindow.cpp">
+    <ClCompile Include="Debug\moc_linewidthcombox.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_mainwindow.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_myscene.cpp">
+    <ClCompile Include="Debug\moc_mainwindow.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_myscene.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_myview.cpp">
+    <ClCompile Include="Debug\moc_myscene.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_myview.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_prompt.cpp">
+    <ClCompile Include="Debug\moc_myview.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_prompt.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_widgetwarelistitem.cpp">
+    <ClCompile Include="Debug\moc_prompt.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_widgetwarelistitem.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_widgetwarelistitem.cpp">
+      <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_ui.cpp">
       <Filter>Generated Files</Filter>
@@ -506,6 +509,9 @@
     <ClInclude Include="Reliable\Zip\unzip.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="player\videoplayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <CustomBuild Include="UserInterface\widgetwarelistitem.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -552,139 +558,161 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ui\icon\16x16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\32x32.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\64x64.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\back\background.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\back">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\back\blue.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="board.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\brush.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="class.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\back\combox.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\back\combox2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\courseware.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\word\enterclass.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\eraser.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\exit.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\fulann_logo.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\back\grey.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ground.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\word\leaveclass.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\back\line.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\logo.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\manage.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\my">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\next.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\back\orange1.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\back\orange2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\password.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\pencil.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\back\pink.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\platte.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\prev.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\remove.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\run.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\shape.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\shapeEllipse.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\shapeHexagon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\shapeLine.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\shapeRectangle.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\shapeRoundRectangle.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\shapeScript.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\start.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\stop.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\teacher">
+      <Filter>Resource Files</Filter>
+    </None>
     <CustomBuild Include="ui.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
+    <None Include="ui\icon\user.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\username.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\back\yellow.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\back ground.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\my board.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\my class.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\teacher board.png">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="C:\Users\xiang\Documents\GitHub\serveree\QtClassClient\TouchPad_resource.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="ui\back\blue.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\back\combox.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\back\combox2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\back\grey.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\back\line.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\back\orange1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\back\orange2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\back\pink.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\back\yellow.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\back\background.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\back ground.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\brush.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\courseware.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\eraser.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\exit.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\logo.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\manage.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\my board.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\my class.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\password.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\platte.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\shape.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\teacher board.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\user.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\username.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\shapeEllipse.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\shapeHexagon.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\shapeLine.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\shapeRectangle.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\shapeRoundRectangle.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\shapeScript.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\16x16.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\32x32.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\64x64.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\next.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\prev.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\start.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\stop.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\pencil.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\icon\fulann_logo.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\word\enterclass.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ui\word\leaveclass.png">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <ResourceCompile Include="C:\Users\Fulaan\Documents\GitHub\server\QtClassClient\TouchPad_resource.rc" />
   </ItemGroup>
 </Project>

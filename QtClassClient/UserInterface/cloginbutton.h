@@ -27,7 +27,7 @@ private:
     QTimer serverNoResponse;
 
 signals:
-    void loginClicked(QString username, QString password);
+    void loginClicked(QByteArray username, QByteArray password);
     void logoutClicked();
     void sendResultPrompt(int);
 

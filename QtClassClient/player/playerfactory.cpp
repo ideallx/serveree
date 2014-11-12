@@ -5,8 +5,9 @@
 #include "docplayer.h"
 #include "pptplayer.h"
 #include "jpgplayer.h"
+#include "videoplayer.h"
 
-AbsPlayer* PlayerFactory::createPlayer(QString filepath, CMsgObject *parent) {
+AbsPlayer* PlayerFactory::createPlayer(QByteArray filepath, CMsgObject *parent) {
     QString postfix = filepath.split('.').last();
 
     if (postfix == "ppt") {
@@ -16,16 +17,21 @@ AbsPlayer* PlayerFactory::createPlayer(QString filepath, CMsgObject *parent) {
     } else if (postfix == "jpg" || postfix == "jpeg" || \
                postfix == "png" || postfix == "bmp") {
         return new JpgPlayer(filepath, parent);
+    } else if (postfix == "mp4" || postfix == "rmvb" || \
+               postfix == "avi" || postfix == "rm" || \
+               postfix == "wmv") {
+        return new VideoPlayer(filepath, parent);
     }
 
     return NULL;
 }
 
-QString allowedList[] = {"ppt", "doc", "jpg", "jpeg", "png", "bmp"};
+QString allowedList[] = {"ppt", "doc", "jpg", "jpeg", "png", "bmp",
+                        "avi", "rmvb", "rm", "mp4", "wmv"};
 
 bool PlayerFactory::checkFileFormat(QString filename) {
     QString postfix = filename.split('.').last();
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 11; i++) {
         if (allowedList[i] == postfix)
             return true;
     }

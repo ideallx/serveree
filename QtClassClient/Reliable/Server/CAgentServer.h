@@ -80,9 +80,9 @@ public:
 	// …®√ËµÙœﬂ
 	void scanOffline();
 
+    void sendUserList(TS_PEER_MESSAGE& pmsg, CWSServer *pServer);
 	void userLoginNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
-	void userLogoutNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
-	void sendUserList(TS_PEER_MESSAGE& msg);
+    void userLogoutNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
 
     CWSServer* getServerByUID(TS_UINT64 uid);
 

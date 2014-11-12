@@ -49,12 +49,20 @@ public:
 
         tbRun = new QToolButton(WidgetWareListItem);
         tbRun->setObjectName(QStringLiteral("tbRun"));
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/icon/ui/icon/run.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbRun->setIcon(icon);
+        tbRun->setIconSize(QSize(25, 25));
         tbRun->setAutoRaise(true);
 
         horizontalLayout->addWidget(tbRun);
 
         tbRemove = new QToolButton(WidgetWareListItem);
         tbRemove->setObjectName(QStringLiteral("tbRemove"));
+        QIcon icon1;
+        icon1.addFile(QStringLiteral(":/icon/ui/icon/remove.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbRemove->setIcon(icon1);
+        tbRemove->setIconSize(QSize(25, 25));
         tbRemove->setAutoRaise(true);
 
         horizontalLayout->addWidget(tbRemove);

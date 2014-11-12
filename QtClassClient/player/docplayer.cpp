@@ -1,7 +1,7 @@
 #include <QDebug>
 #include "docplayer.h"
 
-DocPlayer::DocPlayer(QString filepath, CMsgObject* parent):
+DocPlayer::DocPlayer(QByteArray filepath, CMsgObject* parent):
     AbsPlayer(filepath, parent) {
     if (!m_controller->setControl("Word.Application"))
         qDebug() << "sfsf";
