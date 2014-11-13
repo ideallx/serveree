@@ -364,7 +364,6 @@ void CAgentServer::userLogoutNotify(TS_PEER_MESSAGE& pmsg, TS_UINT64 uid) {
 DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，加入退出班级等等
 	enum PacketType type = getType(inputMsg.msg);
 	
-	cout << "recv: " << type;
 	switch (type) {
 	case ENTERCLASS:
 		{
@@ -403,13 +402,14 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
 				break;
 
 			if (heartBeatTime.count(uid) == 0) {				// 将最新时间加入set中
-				CWSServer* pServer = getServerByUID(uid);
-				if (pServer == NULL) {
-					createClass(map_userinfo.find(uid)->second._classid);
-					pServer = getServerByUID(uid);
-				}
-				pServer->addPeer(inputMsg.peeraddr, in->head.UID);					// 这里的地址是client agent的端口地址
-				heartBeatTime.insert(make_pair(uid, in->head.time));
+				//CWSServer* pServer = getServerByUID(uid);
+				//if (pServer == NULL) {
+				//	createClass(map_userinfo.find(uid)->second._classid);
+				//	pServer = getServerByUID(uid);
+				//}
+				//pServer->addPeer(inputMsg.peeraddr, in->head.UID);					// 这里的地址是client agent的端口地址
+				//heartBeatTime.insert(make_pair(uid, in->head.time));
+				break;
 			}
 
 			iop_lock(&lockOfflineMaps);

@@ -15,6 +15,8 @@ public:
     AbsPlayer(QString filepath, CMsgObject* parent);
     virtual ~AbsPlayer();
 
+	inline const QString filePath() { return m_filepath; }
+
     virtual bool isLoadSuccess() { return m_isLoadSuccess; }
     // virtual void addFile(QString filename);
 
@@ -24,6 +26,8 @@ public:
     // if true, prev and next process was done by player class
     // if false, process was done by mainwindow
     inline bool isInnerNextPrev() { return m_isInnerPvNx; }
+
+	inline bool isWaiting() { return m_isWaiting; }
 
     virtual bool isPostfixRight(QString filename) { return false; }
 
@@ -59,6 +63,7 @@ protected:
     QRect       m_screenRect;
     bool        m_transBackground;
     bool        m_isInnerPvNx;
+	bool		m_isWaiting;
 };
 
 

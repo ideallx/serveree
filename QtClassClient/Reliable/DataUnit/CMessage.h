@@ -233,6 +233,9 @@ enum PacketType {
     PACKETFIX = 40,			// 修正包
     RESEND,					// 重发单个包
     MAXSEQLIST,             // 最大包列表
+	
+
+    CONNECTION  = 49,       // 建立连接用废指令
 
     PACKETCONTROL = 50,		// 控制包
     ENTERCLASS,				// 进入班级
@@ -243,7 +246,6 @@ enum PacketType {
     REMOVEUSER,				// 减少用户
 
 
-    CONNECTION  = 100,      // 建立连接用废指令
 };
 
 // 功能函数，获取一些信息

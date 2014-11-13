@@ -65,8 +65,8 @@ static const uint qt_meta_data_WidgetWareListItem[] = {
        6,    0,   41,    2, 0x08 /* Private */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::QByteArray,    3,
-    QMetaType::Void, QMetaType::QByteArray,    3,
+    QMetaType::Void, QMetaType::QString,    3,
+    QMetaType::Void, QMetaType::QString,    3,
 
  // slots: parameters
     QMetaType::Void,
@@ -80,8 +80,8 @@ void WidgetWareListItem::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
     if (_c == QMetaObject::InvokeMetaMethod) {
         WidgetWareListItem *_t = static_cast<WidgetWareListItem *>(_o);
         switch (_id) {
-        case 0: _t->runFile((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
-        case 1: _t->removeFile((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
+        case 0: _t->runFile((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 1: _t->removeFile((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 2: _t->on_tbRun_clicked(); break;
         case 3: _t->on_tbRemove_clicked(); break;
         default: ;
@@ -90,13 +90,13 @@ void WidgetWareListItem::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (WidgetWareListItem::*_t)(QByteArray );
+            typedef void (WidgetWareListItem::*_t)(QString );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&WidgetWareListItem::runFile)) {
                 *result = 0;
             }
         }
         {
-            typedef void (WidgetWareListItem::*_t)(QByteArray );
+            typedef void (WidgetWareListItem::*_t)(QString );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&WidgetWareListItem::removeFile)) {
                 *result = 1;
             }
@@ -141,14 +141,14 @@ int WidgetWareListItem::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void WidgetWareListItem::runFile(QByteArray _t1)
+void WidgetWareListItem::runFile(QString _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1
-void WidgetWareListItem::removeFile(QByteArray _t1)
+void WidgetWareListItem::removeFile(QString _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 1, _a);

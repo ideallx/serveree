@@ -1,7 +1,6 @@
 #include <QDebug>
 #include <QTextCodec>
 #include <QListWidgetItem>
-#include <QByteArray>
 #include "cuserlistwidget.h"
 
 const int OnlineList = 4;
@@ -28,7 +27,7 @@ void CUserListWidget::init() {
 }
 
 
-void CUserListWidget::addUser(TS_UINT64 uid, QByteArray username, bool isOnline) {
+void CUserListWidget::addUser(TS_UINT64 uid, QString username, bool isOnline) {
     int offlineRow = userList.indexOf(OfflineList);
     int userRow = userList.indexOf(uid);
 
@@ -40,13 +39,12 @@ void CUserListWidget::addUser(TS_UINT64 uid, QByteArray username, bool isOnline)
             return;
         }
     }
-    QTextCodec *codec = QTextCodec::codecForName("GB18030");
     if (isOnline) {
         userList.insert(1, uid);
-        insertItem(1, codec->toUnicode(username));
+        insertItem(1, username);
     } else {
         userList.insert(offlineRow + 1, uid);
-        insertItem(offlineRow + 1, codec->toUnicode(username));
+        insertItem(offlineRow + 1, username);
     }
 }
 

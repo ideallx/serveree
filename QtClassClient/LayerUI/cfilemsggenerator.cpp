@@ -1,5 +1,4 @@
 #include <QFile>
-#include <QByteArray>
 #include <QDebug>
 #include <QDir>
 #include "cfilemsggenerator.h"

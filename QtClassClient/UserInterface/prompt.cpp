@@ -1,7 +1,7 @@
 #include "prompt.h"
 #include "ui_prompt.h"
 #include <QTextCodec>
-
+#include <QDebug>
 
 Prompt::Prompt(WORD index, QWidget *parent) :
     QDialog(parent),
@@ -9,8 +9,7 @@ Prompt::Prompt(WORD index, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QTextCodec *codec = QTextCodec::codecForName("GB18030");
-    ui->lbPrompt->setText(codec->toUnicode(AllPrompts[index]));
+    ui->lbPrompt->setText(QString::fromLocal8Bit(AllPrompts[index]));
     setWindowFlags(Qt::FramelessWindowHint);
 
     setModal(true);
@@ -22,8 +21,7 @@ Prompt::Prompt(QString prompt, QWidget *parent) :
     ui(new Ui::Prompt) {
     ui->setupUi(this);
 
-    QTextCodec *codec = QTextCodec::codecForName("GB18030");
-    ui->lbPrompt->setText(codec->toUnicode(prompt.toLocal8Bit()));
+    ui->lbPrompt->setText(prompt);
     setWindowFlags(Qt::FramelessWindowHint);
 
     setModal(true);

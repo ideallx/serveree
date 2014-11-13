@@ -1,10 +1,12 @@
+#include <QDebug>
 #include "widgetwarelistitem.h"
 #include "ui_widgetwarelistitem.h"
 
-WidgetWareListItem::WidgetWareListItem(QByteArray filename, QWidget *parent) :
+WidgetWareListItem::WidgetWareListItem(QString filename, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::WidgetWareListItem),
     m_filename(filename) {
+    qDebug() << "item" << filename;
     ui->setupUi(this);
 }
 

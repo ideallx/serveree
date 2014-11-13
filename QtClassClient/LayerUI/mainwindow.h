@@ -33,7 +33,7 @@ public:
 
     void ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL isRemote);
 
-    void addUser(TS_UINT64 uid, QByteArray username, bool isOnline);
+    void addUser(TS_UINT64 uid, QString username, bool isOnline);
 
     void removeUser(TS_UINT64 uid);
 
@@ -47,7 +47,7 @@ public:
 
     bool playerPrev();
     bool playerNext();
-    bool playerStart(QByteArray filename);
+    bool playerStart(QString filename);
     bool playerStop();
 
     void recvClassInfo();
@@ -57,7 +57,7 @@ public:
     void setUserAccount(QString user, QString pass);
 
     void signalPlayerMove(WORD move);
-    void signalPlayerStart(QByteArray filename);
+    void signalPlayerStart(QString filename);
 
     void debuginfo(QString str);
 
@@ -76,12 +76,13 @@ private:
     bool                        isPlayerPlaying;
     AbsPlayer*                  m_player;
     CPlayerGenerator            m_pg;
+    QList<QString>              m_syncedWares;
 
 
 public slots:
     void changeScene(TS_UINT64 uid);
 
-    void enterClass(QByteArray username, QByteArray password);
+    void enterClass(QString username, QString password);
     void enterClassResult(bool result);
 
     void leaveClass();
@@ -102,7 +103,7 @@ public slots:
     void setPenWidth(int width);
 
 private:
-    bool playerPlay(QByteArray filepath);
+    bool playerPlay(QString filepath);
     bool stopPlayer(void);
 
 
@@ -118,7 +119,7 @@ signals:
     void playerPreved();
     void playerNexted();
     void playerStoped();
-    void playerStarted(QByteArray filename);
+    void playerStarted(QString filename);
 
 private slots:
     void on_listWidget_clicked(const QModelIndex &index);
@@ -133,6 +134,7 @@ private slots:
     void addWareItem(QString string);
     void deleteFile(QString filename);
 
+
     friend thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam);
     void on_tbCourseWare_clicked();
     void on_tbBackground_clicked();
@@ -143,6 +145,7 @@ private slots:
     void on_listWidget_doubleClicked(const QModelIndex &index);
     void on_tbPrev_clicked();
     void on_tbStart_clicked();
+    void itemPlay_clicked(QString filename);
     void on_tbNext_clicked();
     void on_lsWare_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 };

@@ -7,7 +7,7 @@
 #include "jpgplayer.h"
 #include "videoplayer.h"
 
-AbsPlayer* PlayerFactory::createPlayer(QByteArray filepath, CMsgObject *parent) {
+AbsPlayer* PlayerFactory::createPlayer(QString filepath, CMsgObject *parent) {
     QString postfix = filepath.split('.').last();
 
     if (postfix == "ppt") {

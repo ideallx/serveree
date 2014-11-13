@@ -61,15 +61,13 @@ bool PPTPlayer::procRun() {
 
 bool PPTPlayer::procNext() {
     auto view = window->querySubObject("View");
-    if (!view)
-        return false;
-
-    view->querySubObject("Next()");
-    if (curSlide > totalSlide) {
+    if (!view) {
+        m_filepath = QString::Null();
         emit playerEnd();
         return true;		// TODO return close() for emit
     }
-    qDebug() << curSlide << totalSlide;
+
+    view->querySubObject("Next()");
     curSlide++;
     return true;
 }

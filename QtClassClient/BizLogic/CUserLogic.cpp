@@ -32,9 +32,10 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
             case SuccessEnterClass:
                 cn->addServerAddr(down->addr);
                 cn->setTimeDiff(down->head.time - getServerTime());
-                cn->startupHeartBeat();
                 cn->setUID(down->uid);
                 cn->setBeginSequence(down->lastSeq + 1);
+                cn->startupHeartBeat();
+				cn->sendConnectionMsg();
                 qDebug() <<"las seq" <<  down->lastSeq + 1;
 
                 ui->enterClassResult(true);
@@ -56,7 +57,8 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
         case ADDUSER:
         {
             SERVER_CLASS_ADD_USER* down = (SERVER_CLASS_ADD_USER*) &msg;
-            ui->addUser(down->enterUser.uid, (char *) down->enterUser.username,
+            ui->addUser(down->enterUser.uid,
+                        QString::fromLocal8Bit((char *) down->enterUser.username),
                         down->enterUser.isLoggedIn);
             break;
         }
@@ -65,7 +67,7 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
             SERVER_CLASS_USER_LIST* down = (SERVER_CLASS_USER_LIST*) &msg;
             for (int i = 0; i < down->userNumberInMessage; i++) {
                 ui->addUser(down->users[i].uid,
-                            (char *) down->users[i].username,
+                            QString::fromLocal8Bit((char *) down->users[i].username),
                             down->users[i].isLoggedIn);
             }
             break;

@@ -2,7 +2,6 @@
 #define CFILEMSGGENERATER_H
 
 #include <QString>
-#include <QByteArray>
 #include <QFile>
 #include "../Reliable/DataUnit/CMessage.h"
 

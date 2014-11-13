@@ -97,7 +97,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setAttribute(Qt::WA_TranslucentBackground, true);
     showFullScreen();
-//	setRole(RoleTeacher);
+    // setRole(RoleTeacher);
 }
 
 MainWindow::~MainWindow() {
@@ -158,14 +158,14 @@ void MainWindow::changeScene(TS_UINT64 uid) {
 }
 
 // 1 msg trans
-void MainWindow::enterClass(QByteArray username, QByteArray password) {
+void MainWindow::enterClass(QString username, QString password) {
     ts_msg msg;
 
     UP_AGENTSERVICE* up = (UP_AGENTSERVICE*) &msg;
     up->head.type = ENTERCLASS;
     up->head.size = sizeof(UP_AGENTSERVICE);
-    memcpy(up->username, username, 20);
-    memcpy(up->password, password, 20);
+	memcpy(up->username, username.toLocal8Bit().data(), 20);
+    memcpy(up->password, password.toLocal8Bit().data(), 20);
 
     ui->tbLogin->menu()->setHidden(true);
 
@@ -228,7 +228,7 @@ void MainWindow::msgProc() {
 // 1 msg trans
 
 // 2 my class
-void MainWindow::addUser(TS_UINT64 uid, QByteArray username, bool isOnline) {
+void MainWindow::addUser(TS_UINT64 uid, QString username, bool isOnline) {
     ui->listWidget->addUser(uid, username, isOnline);
     emit addScene(uid >> 32, uid);
 }
@@ -383,14 +383,14 @@ void MainWindow::on_tbCourseWare_clicked()
 
     if (m_userRole == RoleTeacher)
         ui->gbCourseware->setHidden(!ui->gbCourseware->isHidden());
-    else
-        ui->gbCourseware->setHidden(true);
 }
 
 void MainWindow::on_tbUpload_clicked()
 {
-    QString file = QFileDialog::getOpenFileName(
-                this);
+	if (m_userRole != RoleTeacher)
+		return;
+
+    QString file = QFileDialog::getOpenFileName(this);
     QString tofile = file.split('/').last();
     if (tofile.isNull())
         return;
@@ -410,9 +410,15 @@ void MainWindow::on_tbUpload_clicked()
 
 void MainWindow::on_tbSync_clicked()
 {
+	if (m_userRole != RoleTeacher)
+		return;
     qDebug() << ui->lsWare->count();
     for (int i = 0; i < ui->lsWare->count(); i++) {
-        syncFile(ui->lsWare->item(i)->text());
+        QString filename = ui->lsWare->item(i)->text();
+        if (m_syncedWares.contains(filename))
+            continue;
+        syncFile(filename);
+        m_syncedWares.append(filename);
     }
 }
 
@@ -432,14 +438,19 @@ void MainWindow::syncFile(QString filename) {
 
 void MainWindow::on_lsWare_itemDoubleClicked(QListWidgetItem *item)
 {
+	if (m_userRole != RoleTeacher)
+		return;
+
     if (!QFile::exists(item->text())) {
         qDebug() << "fuck" << item->text();
         return;
     }
 
-    if (!playerPlay(item->text().toLocal8Bit()))
+    QString str = item->text();
+    qDebug() << "play" << str;
+
+    if (!playerPlay(item->text()))
         return;
-    qDebug() << "play" << item->text();
 
     TS_PLAYER_PACKET pmsg;
     m_pg.generatePlayerData(pmsg, ActionStart);
@@ -448,6 +459,8 @@ void MainWindow::on_lsWare_itemDoubleClicked(QListWidgetItem *item)
 
 void MainWindow::on_tbExitWare_clicked()
 {
+	if (m_userRole != RoleTeacher)
+		return;
     qDebug() << isPlayerPlaying;
     if (isPlayerPlaying) {
         isPlayerPlaying = false;
@@ -462,7 +475,7 @@ void MainWindow::on_tbExitWare_clicked()
     ui->gbCourseware->setHidden(true);
 }
 
-bool MainWindow::playerPlay(QByteArray filepath) {
+bool MainWindow::playerPlay(QString filepath) {
     if (!playerStart(filepath))
         return false;
     m_pg.create(filepath);
@@ -481,6 +494,8 @@ bool MainWindow::stopPlayer(void) {
 
 void MainWindow::on_tbPrev_clicked()
 {
+	if (m_userRole != RoleTeacher)
+		return;
     if (!playerPrev())
         return;
 
@@ -495,9 +510,12 @@ void MainWindow::on_tbPrev_clicked()
 
 void MainWindow::on_tbStart_clicked()
 {
+	if (m_userRole != RoleTeacher)
+		return;
     if (isPlayerPlaying) {
         if (!playerStop())
             return;
+
         TS_PLAYER_PACKET pmsg;
         m_pg.generatePlayerData(pmsg, ActionStop);
         ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
@@ -509,12 +527,27 @@ void MainWindow::on_tbStart_clicked()
     }
 }
 
+void MainWindow::itemPlay_clicked(QString filename) {
+	if (ui->lsWare->selectedItems().size() == 0)
+        return;
+	auto selectedItem = ui->lsWare->selectedItems()[0];
+	if (m_player) {
+        if (m_player->filePath() == filename)
+			return;
+	}
+	
+    on_lsWare_itemDoubleClicked(selectedItem);
+}
+
 void MainWindow::on_tbNext_clicked()
 {
+	if (m_userRole != RoleTeacher)
+		return;
     if (!playerNext())
         return;
 
     TS_PLAYER_PACKET pmsg;
+
     if (m_player->isInnerNextPrev()) {
         m_pg.generatePlayerData(pmsg, ActionNext);
         ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
@@ -545,9 +578,9 @@ bool MainWindow::playerPrev() {
             }
 
             if (m_player->isPostfixRight(ui->lsWare->item(itemid)->text())) {
-//                if (!playerPlay(ui->lsWare->item(itemid)->text().toLocal8Bit()))
+//                if (!playerPlay(ui->lsWare->item(itemid)->text())
 //                    return false;
-//                playerStart(ui->lsWare->item(itemid)->text().toLocal8Bit());
+//                playerStart(ui->lsWare->item(itemid)->text());
                 ui->lsWare->setCurrentRow(itemid);
                 break;
             }
@@ -576,9 +609,9 @@ bool MainWindow::playerNext() {
             }
 
             if (m_player->isPostfixRight(ui->lsWare->item(itemid)->text())) {
-//                if (!playerPlay(ui->lsWare->item(itemid)->text().toLocal8Bit()))
+//                if (!playerPlay(ui->lsWare->item(itemid)->text())
 //                    return false;
-//                playerStart(ui->lsWare->item(itemid)->text().toLocal8Bit());
+//                playerStart(ui->lsWare->item(itemid)->text());
                 ui->lsWare->setCurrentRow(itemid);
                 break;
             }
@@ -588,15 +621,19 @@ bool MainWindow::playerNext() {
     return true;
 }
 
-bool MainWindow::playerStart(QByteArray filename) {
+bool MainWindow::playerStart(QString filename) {
     if (m_player) {
+		QString filePath = m_player->filePath();
+		if (filename == filePath.split('/').last())
+			return false;
+
         m_player->close();
         delete m_player;
 		m_player = NULL;
     }
 
-    QByteArray path = QDir::currentPath().toLocal8Bit();
-    QByteArray file = path + "/" + filename;
+    QString path = QDir::currentPath();
+    QString file = path + "/" + filename;
     qDebug() << file;
 
     ui->tbStart->setIcon(QIcon(":/icon/ui/icon/stop.png"));
@@ -638,8 +675,9 @@ bool MainWindow::playerStop() {
         return false;
 
     m_player->close();
-	delete m_player;
-	m_player = 0;
+	// always delete on create
+	//delete m_player;
+	//m_player = 0;
     return true;
 }
 
@@ -650,6 +688,9 @@ void MainWindow::playmodeEnd() {
 
 void MainWindow::addWareList(QString filename) {
     emit wareItemRecv(filename);
+    if (m_userRole != RoleTeacher) {
+        ui->gbCourseware->setHidden(true);
+    }
 }
 
 void MainWindow::addWareItem(QString filename) {
@@ -663,14 +704,16 @@ void MainWindow::addWareItem(QString filename) {
 
 void MainWindow::on_lsWare_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
-    if (m_userRole != RoleTeacher)
+    if (m_userRole != RoleTeacher) {
+		ui->gbCourseware->setHidden(true);
         return;
+	}
 
     if (current) {
-        WidgetWareListItem* wli = new WidgetWareListItem(current->text().toLocal8Bit());
+        WidgetWareListItem* wli = new WidgetWareListItem(current->text());
         ui->lsWare->setItemWidget(current, wli);
         connect(wli, &WidgetWareListItem::runFile,
-                this, &MainWindow::playerPlay);
+                this, &MainWindow::itemPlay_clicked);
         connect(wli, &WidgetWareListItem::removeFile,
                 this, &MainWindow::deleteFile);
     }
@@ -682,8 +725,9 @@ void MainWindow::on_lsWare_currentItemChanged(QListWidgetItem *current, QListWid
 void MainWindow::deleteFile(QString filename) {
     auto list = ui->lsWare->findItems(filename, Qt::MatchExactly);
     ui->lsWare->removeItemWidget(list[0]);
-    ui->lsWare->takeItem(0);
+    delete list[0];
 
+    qDebug() << filename;
     QFile::remove(filename);
     ui->lbWareCount->setText(QString::number(ui->lsWare->count()));
 }
@@ -713,7 +757,7 @@ void MainWindow::signalPlayerMove(WORD move) {
     }
 }
 
-void MainWindow::signalPlayerStart(QByteArray filename) {
+void MainWindow::signalPlayerStart(QString filename) {
     emit playerStarted(filename);
 }
 

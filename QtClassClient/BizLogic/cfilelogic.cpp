@@ -12,11 +12,9 @@ CFileLogic::CFileLogic(CMsgObject* parent):
 void CFileLogic::procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap) {
     for (auto iter = sendMap.begin(); iter != sendMap.end(); iter++) {
         TS_FILE_PACKET* fmsg = (TS_FILE_PACKET*) &(iter->second);
-        qDebug() << fmsg->head.subSeq;
         int offset = 0;
         if (m_waitForNewFile) {
-            char filename[MaxFileName];
-            memcpy(filename, fmsg->content, MaxFileName);
+            QString filename = QString::fromLocal8Bit((char *) fmsg->content);
             offset += MaxFileName;
             m_writingFile.setFileName(filename);
             m_writingFile.open(QIODevice::WriteOnly);

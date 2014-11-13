@@ -12,7 +12,8 @@ AbsPlayer::AbsPlayer(QString filepath, CMsgObject *parent) :
 
     m_isLoadSuccess(false),
     m_transBackground(false),
-    m_isInnerPvNx(true) {
+    m_isInnerPvNx(true),
+	m_isWaiting(false) {
     m_controller = new QAxObject;
     m_fileList.append(filepath);
 
@@ -36,44 +37,64 @@ AbsPlayer::~AbsPlayer() {
 }
 
 bool AbsPlayer::run() {
-    if (m_isLoadSuccess)
+	m_isWaiting = true;
+    if (m_isLoadSuccess) {
+		m_isWaiting = false;
         return procRun();
-
+	}
+	
+	m_isWaiting = false;
     return false;
 }
 
 bool AbsPlayer::close() {
-    if (m_isLoadSuccess)
+    if (m_isLoadSuccess) {
+		m_isWaiting = false;
         return procClose();
-
+	}
+	
+	m_filepath = QString::Null();
+	m_isWaiting = false;
     return false;
 }
 
 bool AbsPlayer::next() {
-    if (m_isLoadSuccess)
+    if (m_isLoadSuccess) {
+		m_isWaiting = false;
         return procNext();
-
+	}
+	
+	m_isWaiting = false;
     return false;
 }
 
 
 bool AbsPlayer::prev() {
-    if (m_isLoadSuccess)
+    if (m_isLoadSuccess) {
+		m_isWaiting = false;
         return procPrev();
-
+	}
+	
+	m_isWaiting = false;
     return false;
 }
 
 bool AbsPlayer::stop() {
-    if (m_isLoadSuccess)
+    if (m_isLoadSuccess) {
+		m_isWaiting = false;
         return procStop();
-
+	}
+	
+	m_isWaiting = false;
     return false;
 }
 
 bool AbsPlayer::start() {
-    if (m_isLoadSuccess)
+    if (m_isLoadSuccess) {
+		m_isWaiting = false;
         return procStart();
-
+	}
+	
+	m_isWaiting = false;
     return false;
 }

@@ -157,6 +157,8 @@ void CReliableConnection::receive() {
         case MAXSEQLIST:
             requestForSeriesResend(msg);
             break;
+		case CONNECTION:
+			break;
         default:                                // 若是收到重传请求，自己处理
             bm->record(msg);					// 缓存记录
             if (selfUid == ServerUID) {			// Server转发

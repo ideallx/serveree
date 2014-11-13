@@ -12,7 +12,7 @@ class WidgetWareListItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit WidgetWareListItem(QByteArray filename, QWidget *parent = 0);
+    explicit WidgetWareListItem(QString filename, QWidget *parent = 0);
     ~WidgetWareListItem();
 
 private slots:
@@ -20,12 +20,12 @@ private slots:
     void on_tbRemove_clicked();
 
 signals:
-    void runFile(QByteArray filename);
-    void removeFile(QByteArray filename);
+    void runFile(QString filename);
+    void removeFile(QString filename);
 
 private:
     Ui::WidgetWareListItem *ui;
-    QByteArray m_filename;
+    QString m_filename;
 };
 
 #endif // WIDGETWARELISTITEM_H

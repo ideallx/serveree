@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[69];
-    char stringdata[926];
+    QByteArrayData data[70];
+    char stringdata[943];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -94,10 +94,11 @@ QT_MOC_LITERAL(61, 775, 21),
 QT_MOC_LITERAL(62, 797, 27),
 QT_MOC_LITERAL(63, 825, 17),
 QT_MOC_LITERAL(64, 843, 18),
-QT_MOC_LITERAL(65, 862, 17),
-QT_MOC_LITERAL(66, 880, 28),
-QT_MOC_LITERAL(67, 909, 7),
-QT_MOC_LITERAL(68, 917, 8)
+QT_MOC_LITERAL(65, 862, 16),
+QT_MOC_LITERAL(66, 879, 17),
+QT_MOC_LITERAL(67, 897, 28),
+QT_MOC_LITERAL(68, 926, 7),
+QT_MOC_LITERAL(69, 934, 8)
     },
     "MainWindow\0enOrLeaveClass\0\0entered\0"
     "drawShape\0addScene\0uidh\0uidl\0promptSent\0"
@@ -122,8 +123,9 @@ QT_MOC_LITERAL(68, 917, 8)
     "QListWidgetItem*\0item\0on_tbExitWare_clicked\0"
     "on_listWidget_doubleClicked\0"
     "on_tbPrev_clicked\0on_tbStart_clicked\0"
-    "on_tbNext_clicked\0on_lsWare_currentItemChanged\0"
-    "current\0previous"
+    "itemPlay_clicked\0on_tbNext_clicked\0"
+    "on_lsWare_currentItemChanged\0current\0"
+    "previous"
 };
 #undef QT_MOC_LITERAL
 
@@ -133,7 +135,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      45,   14, // methods
+      46,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -141,53 +143,54 @@ static const uint qt_meta_data_MainWindow[] = {
       11,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  239,    2, 0x06 /* Public */,
-       4,    0,  242,    2, 0x06 /* Public */,
-       5,    2,  243,    2, 0x06 /* Public */,
-       8,    1,  248,    2, 0x06 /* Public */,
-      10,    1,  251,    2, 0x06 /* Public */,
-      12,    0,  254,    2, 0x06 /* Public */,
-      13,    1,  255,    2, 0x06 /* Public */,
-      15,    0,  258,    2, 0x06 /* Public */,
-      16,    0,  259,    2, 0x06 /* Public */,
-      17,    0,  260,    2, 0x06 /* Public */,
-      18,    1,  261,    2, 0x06 /* Public */,
+       1,    1,  244,    2, 0x06 /* Public */,
+       4,    0,  247,    2, 0x06 /* Public */,
+       5,    2,  248,    2, 0x06 /* Public */,
+       8,    1,  253,    2, 0x06 /* Public */,
+      10,    1,  256,    2, 0x06 /* Public */,
+      12,    0,  259,    2, 0x06 /* Public */,
+      13,    1,  260,    2, 0x06 /* Public */,
+      15,    0,  263,    2, 0x06 /* Public */,
+      16,    0,  264,    2, 0x06 /* Public */,
+      17,    0,  265,    2, 0x06 /* Public */,
+      18,    1,  266,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      19,    1,  264,    2, 0x0a /* Public */,
-      22,    2,  267,    2, 0x0a /* Public */,
-      25,    1,  272,    2, 0x0a /* Public */,
-      26,    0,  275,    2, 0x0a /* Public */,
-      27,    1,  276,    2, 0x0a /* Public */,
-      28,    1,  279,    2, 0x0a /* Public */,
-      31,    1,  282,    2, 0x0a /* Public */,
-      32,    0,  285,    2, 0x0a /* Public */,
-      33,    1,  286,    2, 0x0a /* Public */,
-      34,    1,  289,    2, 0x0a /* Public */,
-      35,    1,  292,    2, 0x0a /* Public */,
-      37,    1,  295,    2, 0x0a /* Public */,
-      40,    1,  298,    2, 0x0a /* Public */,
-      42,    1,  301,    2, 0x08 /* Private */,
-      44,    0,  304,    2, 0x08 /* Private */,
-      45,    0,  305,    2, 0x08 /* Private */,
-      46,    0,  306,    2, 0x08 /* Private */,
-      47,    0,  307,    2, 0x08 /* Private */,
-      48,    2,  308,    2, 0x08 /* Private */,
-      49,    1,  313,    2, 0x08 /* Private */,
-      50,    1,  316,    2, 0x08 /* Private */,
-      51,    1,  319,    2, 0x08 /* Private */,
-      53,    1,  322,    2, 0x08 /* Private */,
-      54,    0,  325,    2, 0x08 /* Private */,
-      55,    0,  326,    2, 0x08 /* Private */,
-      56,    0,  327,    2, 0x08 /* Private */,
-      57,    0,  328,    2, 0x08 /* Private */,
-      58,    1,  329,    2, 0x08 /* Private */,
-      61,    0,  332,    2, 0x08 /* Private */,
-      62,    1,  333,    2, 0x08 /* Private */,
-      63,    0,  336,    2, 0x08 /* Private */,
-      64,    0,  337,    2, 0x08 /* Private */,
-      65,    0,  338,    2, 0x08 /* Private */,
-      66,    2,  339,    2, 0x08 /* Private */,
+      19,    1,  269,    2, 0x0a /* Public */,
+      22,    2,  272,    2, 0x0a /* Public */,
+      25,    1,  277,    2, 0x0a /* Public */,
+      26,    0,  280,    2, 0x0a /* Public */,
+      27,    1,  281,    2, 0x0a /* Public */,
+      28,    1,  284,    2, 0x0a /* Public */,
+      31,    1,  287,    2, 0x0a /* Public */,
+      32,    0,  290,    2, 0x0a /* Public */,
+      33,    1,  291,    2, 0x0a /* Public */,
+      34,    1,  294,    2, 0x0a /* Public */,
+      35,    1,  297,    2, 0x0a /* Public */,
+      37,    1,  300,    2, 0x0a /* Public */,
+      40,    1,  303,    2, 0x0a /* Public */,
+      42,    1,  306,    2, 0x08 /* Private */,
+      44,    0,  309,    2, 0x08 /* Private */,
+      45,    0,  310,    2, 0x08 /* Private */,
+      46,    0,  311,    2, 0x08 /* Private */,
+      47,    0,  312,    2, 0x08 /* Private */,
+      48,    2,  313,    2, 0x08 /* Private */,
+      49,    1,  318,    2, 0x08 /* Private */,
+      50,    1,  321,    2, 0x08 /* Private */,
+      51,    1,  324,    2, 0x08 /* Private */,
+      53,    1,  327,    2, 0x08 /* Private */,
+      54,    0,  330,    2, 0x08 /* Private */,
+      55,    0,  331,    2, 0x08 /* Private */,
+      56,    0,  332,    2, 0x08 /* Private */,
+      57,    0,  333,    2, 0x08 /* Private */,
+      58,    1,  334,    2, 0x08 /* Private */,
+      61,    0,  337,    2, 0x08 /* Private */,
+      62,    1,  338,    2, 0x08 /* Private */,
+      63,    0,  341,    2, 0x08 /* Private */,
+      64,    0,  342,    2, 0x08 /* Private */,
+      65,    1,  343,    2, 0x08 /* Private */,
+      66,    0,  346,    2, 0x08 /* Private */,
+      67,    2,  347,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Bool,    3,
@@ -200,11 +203,11 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QByteArray,   14,
+    QMetaType::Void, QMetaType::QString,   14,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 20,   21,
-    QMetaType::Void, QMetaType::QByteArray, QMetaType::QByteArray,   23,   24,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString,   23,   24,
     QMetaType::Void, QMetaType::Bool,   11,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,   11,
@@ -235,8 +238,9 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::QModelIndex,   43,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,   14,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 59, 0x80000000 | 59,   67,   68,
+    QMetaType::Void, 0x80000000 | 59, 0x80000000 | 59,   68,   69,
 
        0        // eod
 };
@@ -256,9 +260,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 7: _t->playerPreved(); break;
         case 8: _t->playerNexted(); break;
         case 9: _t->playerStoped(); break;
-        case 10: _t->playerStarted((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
+        case 10: _t->playerStarted((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 11: _t->changeScene((*reinterpret_cast< TS_UINT64(*)>(_a[1]))); break;
-        case 12: _t->enterClass((*reinterpret_cast< QByteArray(*)>(_a[1])),(*reinterpret_cast< QByteArray(*)>(_a[2]))); break;
+        case 12: _t->enterClass((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         case 13: _t->enterClassResult((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 14: _t->leaveClass(); break;
         case 15: _t->leaveClassResult((*reinterpret_cast< bool(*)>(_a[1]))); break;
@@ -289,8 +293,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 40: _t->on_listWidget_doubleClicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
         case 41: _t->on_tbPrev_clicked(); break;
         case 42: _t->on_tbStart_clicked(); break;
-        case 43: _t->on_tbNext_clicked(); break;
-        case 44: _t->on_lsWare_currentItemChanged((*reinterpret_cast< QListWidgetItem*(*)>(_a[1])),(*reinterpret_cast< QListWidgetItem*(*)>(_a[2]))); break;
+        case 43: _t->itemPlay_clicked((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 44: _t->on_tbNext_clicked(); break;
+        case 45: _t->on_lsWare_currentItemChanged((*reinterpret_cast< QListWidgetItem*(*)>(_a[1])),(*reinterpret_cast< QListWidgetItem*(*)>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -368,7 +373,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             }
         }
         {
-            typedef void (MainWindow::*_t)(QByteArray );
+            typedef void (MainWindow::*_t)(QString );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::playerStarted)) {
                 *result = 10;
             }
@@ -403,13 +408,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 45)
+        if (_id < 46)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 45;
+        _id -= 46;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 45)
+        if (_id < 46)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 45;
+        _id -= 46;
     }
     return _id;
 }
@@ -480,7 +485,7 @@ void MainWindow::playerStoped()
 }
 
 // SIGNAL 10
-void MainWindow::playerStarted(QByteArray _t1)
+void MainWindow::playerStarted(QString _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 10, _a);

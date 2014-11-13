@@ -38,6 +38,9 @@ public:
 	void recvProc();
 	void msgProc();
 
+	// 发送建立连接信息
+	void sendConnectionMsg();
+
 	// 心跳包发送
 	void sendHeartBeat();
 

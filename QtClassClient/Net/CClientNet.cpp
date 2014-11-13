@@ -187,6 +187,23 @@ void CClientNet::endHeartBeat() {
     iop_thread_cancel(pthread_hb);
 }
 
+// throooooough the NAT, type must < PACKETCONTROL
+void CClientNet::sendConnectionMsg() {
+    ts_msg msg;
+	TS_MESSAGE_HEAD *head = (TS_MESSAGE_HEAD*) &msg;
+
+	head->type = CONNECTION;
+    head->time = getClientTime(m_timeDiff);
+    head->size = sizeof(TS_MESSAGE_HEAD);
+    head->sequence = 0;
+    head->UID = m_uid;
+    head->version = VersionNumber;
+    head->subSeq = 0;
+
+	for (int i = 0; i < 5; i++) 
+		m_Connect->send(msg.Body, packetSize(msg));
+}
+
 void CClientNet::sendHeartBeat() {
     while (isRunning()) {
         TS_PEER_MESSAGE *msg = new TS_PEER_MESSAGE();
