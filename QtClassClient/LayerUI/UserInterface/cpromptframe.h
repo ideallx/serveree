@@ -4,7 +4,7 @@
 #include <QMessageBox>
 #include <QString>
 #include <QObject>
-#include "../Reliable/DataUnit/CMessage.h"
+#include "../../Reliable/DataUnit/CMessage.h"
 
 
 class CPromptFrame

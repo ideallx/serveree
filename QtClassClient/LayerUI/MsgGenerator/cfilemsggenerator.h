@@ -2,15 +2,14 @@
 #define CFILEMSGGENERATER_H
 
 #include <QString>
-#include <QByteArray>
 #include <QFile>
-#include "../Reliable/DataUnit/CMessage.h"
+#include "../../Reliable/DataUnit/CMessage.h"
 
 
-class CFileMsgGenerater
+class CFileMsgGenerator
 {
 public:
-    CFileMsgGenerater();
+    CFileMsgGenerator();
 
     bool create(QString filename);
 

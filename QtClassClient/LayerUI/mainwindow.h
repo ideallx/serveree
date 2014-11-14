@@ -6,16 +6,17 @@
 #include <QListWidgetItem>
 #include <QPaintEvent>
 
-#include "../Reliable/DataUnit/CMessage.h"
-
-#include "myscene.h"
-#include "cfilemsggenerator.h"
-#include "cplayergenerator.h"
 #include "../Message/CMsgObject.h"
 #include "../Reliable/DataStructure/TSQueue.h"
+#include "../Reliable/DataUnit/CMessage.h"
+
+#include "DrawingScreen/myscene.h"
+#include "MsgGenerator/cfilemsggenerator.h"
+#include "MsgGenerator/cplayergenerator.h"
 #include <QVector>
 #include <iop_thread.h>
 #include "../player/absplayer.h"
+#include "../SlideScreen/couseware.h"
 
 
 
@@ -72,11 +73,8 @@ private:
     HANDLE                      sem_msg;        // maintain the msgthread, but some problem
     iop_thread_t                pthread_msg;
     TSQueue<ts_msg>             msgQueue;
-    CFileMsgGenerator           m_fmg;
-    bool                        isPlayerPlaying;
-    AbsPlayer*                  m_player;
-    CPlayerGenerator            m_pg;
-    QList<QString>              m_syncedWares;
+
+    CourseWareData              m_cwd;
 
 
 public slots:

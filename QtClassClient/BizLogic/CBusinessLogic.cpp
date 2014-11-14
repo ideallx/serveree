@@ -14,6 +14,8 @@ CBusinessLogic::~CBusinessLogic() {
 }
 
 void CBusinessLogic::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isremote) {
+    Q_UNUSED(wParam);
+    Q_UNUSED(lParam);
     TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg;
     if (head->type > PACKETCONTROL) {	// Net层传来的控制类下行处理
         m_UserLogic->procMsg(msg, isremote);

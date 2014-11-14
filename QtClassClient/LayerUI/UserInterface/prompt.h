@@ -1,7 +1,7 @@
 #ifndef PROMPT_H
 #define PROMPT_H
 
-#include "../Reliable/DataUnit/CMessage.h"
+#include "../../Reliable/DataUnit/CMessage.h"
 #include <QDialog>
 
 namespace Ui {

@@ -2,7 +2,7 @@
 #define CSHAPE_H_
 
 #include <QGraphicsItem>
-#include "../Reliable/DataUnit/CMessage.h"
+#include "../../Reliable/DataUnit/CMessage.h"
 
 class CGraphicRoundRectItem : public QGraphicsRectItem {
 public:

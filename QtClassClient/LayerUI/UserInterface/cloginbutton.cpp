@@ -4,7 +4,7 @@
 #include <QBitmap>
 #include <QTimer>
 
-#include "../Reliable/DataUnit/CMessage.h"
+#include "../../Reliable/DataUnit/CMessage.h"
 #include "cloginbutton.h"
 
 CLoginButton::CLoginButton(QWidget *parent) :

@@ -4,7 +4,7 @@
 #include <QPointF>
 #include <QPen>
 #include <QBrush>
-#include "../Reliable/DataUnit/CMessage.h"
+#include "../../Reliable/DataUnit/CMessage.h"
 
 // used only for client user yourself
 

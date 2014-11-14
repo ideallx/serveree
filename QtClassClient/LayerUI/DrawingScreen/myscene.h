@@ -10,9 +10,9 @@
 #include <QGraphicsVideoItem>
 #include <QMediaPlayer>
 
-#include "../Reliable/DataUnit/CMessage.h"
-#include "cgraphicmsgcreator.h"
-#include "../Message/CMsgObject.h"
+#include "../../Reliable/DataUnit/CMessage.h"
+#include "../MsgGenerator/cgraphicmsgcreator.h"
+#include "../../Message/CMsgObject.h"
 
 class CShape;
 

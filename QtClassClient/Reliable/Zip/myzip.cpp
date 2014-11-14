@@ -62,7 +62,7 @@ unsigned int CZip::getOriginalSize(const char* SrcPathName,const char* FileName)
 		return 0;  
 	}
 
-	nSize = uFileInfo.uncompressed_size;    
+    nSize = static_cast<unsigned int> (uFileInfo.uncompressed_size);
 	unzClose(uf);
 	return nSize;
 };
@@ -93,7 +93,7 @@ bool CZip::loadFromZip(const char* SrcPathName, const char* FileName, void* pBuf
 	if (unzGetCurrentFileInfo64(uf,&uFileInfo,szName,sizeof(szName),NULL,0,NULL,0)!= UNZ_OK)
 		return false;
 
-	nSize = uFileInfo.uncompressed_size;
+    nSize = static_cast<unsigned int> (uFileInfo.uncompressed_size);
 
 	//if (nLen < nSize)
 	//	return false;

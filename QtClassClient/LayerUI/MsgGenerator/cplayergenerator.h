@@ -1,7 +1,7 @@
 #ifndef CPLAYERGENERATOR_H
 #define CPLAYERGENERATOR_H
 
-#include "../Reliable/DataUnit/CMessage.h"
+#include "../../Reliable/DataUnit/CMessage.h"
 #include <QString>
 #include <QFile>
 

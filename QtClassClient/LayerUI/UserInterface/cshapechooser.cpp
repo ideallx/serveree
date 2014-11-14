@@ -5,7 +5,7 @@
 #include <QColorDialog>
 #include <QDebug>
 
-#include "../Reliable/DataUnit/CMessage.h"
+#include "../../Reliable/DataUnit/CMessage.h"
 #include "cshapechooser.h"
 
 static const qreal iconWidth = 100;

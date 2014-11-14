@@ -89,7 +89,7 @@ set<TS_UINT64> CBlock::scanMissingPackets() {
 				iter++;
 			}
 		} else {
-			int answer = pack->scanMissingPackets(results);						// 获取包内丢失packet的位置
+            pack->scanMissingPackets(results);                                  // 获取包内丢失packet的位置
 			for (auto i = results.begin(); i != results.end(); i++) {	
 				answers.insert(getSequence(iter->first, (*i)));					// 根据包号，位置号，得到序号
 			}
@@ -152,5 +152,6 @@ void CBlock::saveAll() {
 }
 
 void CBlock::setMaxSeq(TS_UINT64 seq) {
-    // TODO
+    maxSeq = seq;
+	// TODO
 }

@@ -69,6 +69,7 @@ int CConnection::recv(char* buf, ULONG& len) {
 }
 
 void CConnection::setPeerConnection(const struct sockaddr_in& peeraddr) {
+    (void) peeraddr;
 	return;
 }
 

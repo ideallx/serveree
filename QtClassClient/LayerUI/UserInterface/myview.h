@@ -8,8 +8,8 @@
 #include <QToolButton>
 #include <QPaintEvent>
 #include <QHBoxLayout>
-#include "../Reliable/DataUnit/CMessage.h"
-#include "cplayergenerator.h"
+#include "../../Reliable/DataUnit/CMessage.h"
+#include "../MsgGenerator/cplayergenerator.h"
 
 class MyView : public QGraphicsView
 {

@@ -17,6 +17,7 @@ CMsgObject::~CMsgObject() {
 }
 
 void CMsgObject::setAgent(CModuleAgent* agent) {
+    Q_UNUSED(agent);
 	p_agent = CModuleAgent::getUniqueAgent();
 	//m_agent = agent;
 	//for (auto iter = p_ChildList.begin(); iter != p_ChildList.end(); iter++) {

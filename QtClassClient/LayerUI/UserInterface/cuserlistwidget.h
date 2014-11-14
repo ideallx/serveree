@@ -5,7 +5,7 @@
 #include <QTimer>
 #include <QMouseEvent>
 #include <QList>
-#include "../Reliable/DataUnit/CMessage.h"
+#include "../../Reliable/DataUnit/CMessage.h"
 
 class CUserListWidget : public QListWidget
 {

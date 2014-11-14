@@ -54,7 +54,10 @@ bool CAgentServer::isClassExist(TS_UINT64 classid) {
 
 void CAgentServer::loadUser() {
 	FILE* fp = freopen("User.txt", "r", stdin);
-	assert(fp != NULL);
+    if (fp == NULL) {
+        cout << "cant get user list" << endl;
+        return;
+    }
 	UserBase user;
 	int cnt = 0;
 	cin >> cnt;

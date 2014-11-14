@@ -29,6 +29,8 @@ public:
 
 	inline bool isWaiting() { return m_isWaiting; }
 
+    inline bool isFinished() { return m_filepath == QString::null; }
+
     virtual bool isPostfixRight(QString filename) { return false; }
 
     static QRect screenSize();

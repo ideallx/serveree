@@ -10,7 +10,6 @@ bool CPlayerGenerator::create(QString filename) {
     QFile f(filename);
     f.open(QIODevice::ReadOnly);
     if (!f.isReadable()) {
-        qDebug() << "not readable" << filename;
         return false;
     }
     curFileName = filename;

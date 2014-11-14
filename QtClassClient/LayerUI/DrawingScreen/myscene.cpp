@@ -5,7 +5,7 @@
 #include <QMessageBox>
 #include <QTouchEvent>
 
-#include "../player/absplayer.h"
+#include "../../player/absplayer.h"
 #include "cshape.h"
 #include "myscene.h"
 #include "myview.h"

@@ -159,6 +159,7 @@ bool CServer::Stop(void) {
 }
 
 DWORD CServer::MsgHandler(TS_PEER_MESSAGE& pmsg) {
+    (void) pmsg;
 	return 0;
 }
 

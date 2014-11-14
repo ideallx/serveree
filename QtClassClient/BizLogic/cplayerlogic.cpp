@@ -1,5 +1,4 @@
 #include "cplayerlogic.h"
-#include "mainwindow.h"
 
 CPlayerLogic::CPlayerLogic(CMsgObject* parent):
     CBaseLogic(parent) {

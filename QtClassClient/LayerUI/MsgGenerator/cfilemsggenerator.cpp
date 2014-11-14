@@ -26,6 +26,7 @@ bool CFileMsgGenerator::create(QString filename) {
     memcpy(m_fc.filecontent, f.read(filelen).constData(), filelen);
     memcpy(m_fc.filename, f.fileName().toLocal8Bit().data(), MaxFileName);
     f.close();
+    return true;
 }
 
 void CFileMsgGenerator::buildCommonInfo(TS_FILE_PACKET& fmsg) {

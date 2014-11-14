@@ -3,8 +3,6 @@
 #include <QApplication>
 #include "absplayer.h"
 
-#include "pptplayer.h"
-
 AbsPlayer::AbsPlayer(QString filepath, CMsgObject *parent) :
     m_controller(NULL),
     m_parent(parent),
@@ -40,7 +38,12 @@ bool AbsPlayer::run() {
 	m_isWaiting = true;
     if (m_isLoadSuccess) {
 		m_isWaiting = false;
-        return procRun();
+        if (procRun()) {
+            return true;
+        } else {
+            m_filepath = QString::Null();
+            return false;
+        }
 	}
 	
 	m_isWaiting = false;
@@ -48,20 +51,28 @@ bool AbsPlayer::run() {
 }
 
 bool AbsPlayer::close() {
+    m_isWaiting = false;
     if (m_isLoadSuccess) {
-		m_isWaiting = false;
-        return procClose();
-	}
-	
-	m_filepath = QString::Null();
-	m_isWaiting = false;
-    return false;
+        if (procClose()) {
+            m_filepath = QString::Null();
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
 }
 
 bool AbsPlayer::next() {
     if (m_isLoadSuccess) {
-		m_isWaiting = false;
-        return procNext();
+        m_isWaiting = false;
+        if (procNext()) {
+            return true;
+        } else {
+            m_filepath = QString::Null();
+            return false;
+        }
 	}
 	
 	m_isWaiting = false;
@@ -71,8 +82,13 @@ bool AbsPlayer::next() {
 
 bool AbsPlayer::prev() {
     if (m_isLoadSuccess) {
-		m_isWaiting = false;
-        return procPrev();
+        m_isWaiting = false;
+        if (procPrev()) {
+            return true;
+        } else {
+            m_filepath = QString::Null();
+            return false;
+        }
 	}
 	
 	m_isWaiting = false;
@@ -81,8 +97,13 @@ bool AbsPlayer::prev() {
 
 bool AbsPlayer::stop() {
     if (m_isLoadSuccess) {
-		m_isWaiting = false;
-        return procStop();
+        m_isWaiting = false;
+        if (procStop()) {
+            return true;
+        } else {
+            m_filepath = QString::Null();
+            return false;
+        }
 	}
 	
 	m_isWaiting = false;
@@ -91,8 +112,12 @@ bool AbsPlayer::stop() {
 
 bool AbsPlayer::start() {
     if (m_isLoadSuccess) {
-		m_isWaiting = false;
-        return procStart();
+        if (procStart()) {
+            return true;
+        } else {
+            m_filepath = QString::Null();
+            return false;
+        }
 	}
 	
 	m_isWaiting = false;

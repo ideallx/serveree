@@ -374,8 +374,7 @@ int CReliableConnection::resend(ts_msg& requestMsg) {
         if (NULL == peer)
             return -1;
 
-		for (int i = 0; i < r->count; i++) {
-            cout << "miss:" << missingUID;
+        for (int i = 0; i < r->count; i++) {
 			if (bm->readRecord(missingUID, r->seq[i], *p) < 0)	// 读到几条请求，发多少条
                 continue;
 			if (peer->send(p->Body, packetSize(*p)) > 0)
@@ -404,6 +403,7 @@ void CReliableConnection::saveUserBlock(TS_UINT64 uid) {
 
 // 现在就检查一下seq，后续检查全加入这个函数中
 bool CReliableConnection::validityCheck(ts_msg& msg) {
+    (void) msg;
 	return true;
 }
 

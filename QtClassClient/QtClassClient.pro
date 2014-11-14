@@ -18,8 +18,6 @@ CONFIG += c++11
 
 SOURCES  += main.cpp\
             LayerUI\mainwindow.cpp \
-            LayerUI\myscene.cpp \
-            LayerUI\myview.cpp \
     BizLogic/CBaseLogic.cpp \
     BizLogic/CUserLogic.cpp \
     Net/CClientNet.cpp \
@@ -54,33 +52,34 @@ SOURCES  += main.cpp\
     Message/CMsgSender.cpp \
     Message/CModuleAgent.cpp \
     BizLogic/CBusinessLogic.cpp \
-    LayerUI/cgraphicmsgcreator.cpp \
     BizLogic/CGraphicLogic.cpp \
-    UserInterface/cloginbutton.cpp \
-    UserInterface/csettingsbutton.cpp \
-    UserInterface/cuserlistwidget.cpp \
-    UserInterface/linewidthcombox.cpp \
-    UserInterface/cshapechooser.cpp \
-    UserInterface/colorcombox.cpp \
-    LayerUI/cpromptframe.cpp \
+    BizLogic/cfilelogic.cpp \
+    BizLogic/cauthlogic.cpp \
+    BizLogic/cplayerlogic.cpp \
     player/pptplayer.cpp \
     player/absplayer.cpp \
     player/playerfactory.cpp \
-    BizLogic/cfilelogic.cpp \
-    LayerUI/cshape.cpp \
-    UserInterface/prompt.cpp \
-    LayerUI/cplayergenerator.cpp \
-    BizLogic/cauthlogic.cpp \
-    LayerUI/cfilemsggenerator.cpp \
-    BizLogic/cplayerlogic.cpp \
-    UserInterface/widgetwarelistitem.cpp \
     player/docplayer.cpp \
     player/jpgplayer.cpp \
-    player/videoplayer.cpp
+    player/videoplayer.cpp \
+    LayerUI/DrawingScreen/cshape.cpp \
+    LayerUI/DrawingScreen/myscene.cpp \
+    LayerUI/MsgGenerator/cfilemsggenerator.cpp \
+    LayerUI/MsgGenerator/cgraphicmsgcreator.cpp \
+    LayerUI/MsgGenerator/cplayergenerator.cpp \
+    LayerUI/UserInterface/cloginbutton.cpp \
+    LayerUI/UserInterface/colorcombox.cpp \
+    LayerUI/UserInterface/cpromptframe.cpp \
+    LayerUI/UserInterface/csettingsbutton.cpp \
+    LayerUI/UserInterface/cshapechooser.cpp \
+    LayerUI/UserInterface/linewidthcombox.cpp \
+    LayerUI/UserInterface/prompt.cpp \
+    LayerUI/UserInterface/widgetwarelistitem.cpp \
+    LayerUI/UserInterface/myview.cpp \
+    LayerUI/SlideScreen/couseware.cpp \
+    LayerUI/UserInterface/cuserlistwidget.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
-            LayerUI\myscene.h \
-            LayerUI\myview.h \
     BizLogic/CBaseLogic.h \
     BizLogic/CUserLogic.h \
     Net/CClientNet.h \
@@ -121,32 +120,35 @@ HEADERS  += LayerUI\mainwindow.h \
     Message/CMsgObject.h \
     Message/CMsgReceiver.h \
     Message/CMsgSender.h \
-    stdafx.h \
     Message/CModuleAgent.h \
+    stdafx.h \
     BizLogic/CBusinessLogic.h \
-    LayerUI/cgraphicmsgcreator.h \
     BizLogic/CGraphicLogic.h \
-    UserInterface/cloginbutton.h \
-    UserInterface/csettingsbutton.h \
-    UserInterface/cuserlistwidget.h \
-    UserInterface/linewidthcombox.h \
-    UserInterface/cshapechooser.h \
-    UserInterface/colorcombox.h \
-    LayerUI/cpromptframe.h \
+    BizLogic/cfilelogic.h \
+    BizLogic/cauthlogic.h \
+    BizLogic/cplayerlogic.h \
     player/pptplayer.h \
     player/absplayer.h \
     player/playerfactory.h \
-    BizLogic/cfilelogic.h \
-    LayerUI/cshape.h \
-    UserInterface/prompt.h \
-    LayerUI/cplayergenerator.h \
-    BizLogic/cauthlogic.h \
-    LayerUI/cfilemsggenerator.h \
-    BizLogic/cplayerlogic.h \
-    UserInterface/widgetwarelistitem.h \
     player/docplayer.h \
     player/jpgplayer.h \
-    player/videoplayer.h
+    player/videoplayer.h \
+    LayerUI/DrawingScreen/cshape.h \
+    LayerUI/DrawingScreen/myscene.h \
+    LayerUI/MsgGenerator/cfilemsggenerator.h \
+    LayerUI/MsgGenerator/cgraphicmsgcreator.h \
+    LayerUI/MsgGenerator/cplayergenerator.h \
+    LayerUI/UserInterface/cloginbutton.h \
+    LayerUI/UserInterface/colorcombox.h \
+    LayerUI/UserInterface/cpromptframe.h \
+    LayerUI/UserInterface/csettingsbutton.h \
+    LayerUI/UserInterface/cshapechooser.h \
+    LayerUI/UserInterface/cuserlistwidget.h \
+    LayerUI/UserInterface/linewidthcombox.h \
+    LayerUI/UserInterface/prompt.h \
+    LayerUI/UserInterface/widgetwarelistitem.h \
+    LayerUI/UserInterface/myview.h \
+    LayerUI/SlideScreen/couseware.h
 
 FORMS    += \
     loginwidget.ui \
@@ -157,14 +159,7 @@ FORMS    += \
 
 INCLUDEPATH += .
 INCLUDEPATH += include
-INCLUDEPATH += LayerUI
-INCLUDEPATH += BizLogic
-INCLUDEPATH += Message
-INCLUDEPATH += Net
-INCLUDEPATH += UserInterface
-INCLUDEPATH += Reliable/Zip
-INCLUDEPATH += Reliable/DataUnit
-INCLUDEPATH += Reliable/OSInedependent/pthread
+INCLUDEPATH += LayerUI/UserInterface
 INCLUDEPATH += Reliable/OSInedependent/libiop
 
 OTHER_FILES += \

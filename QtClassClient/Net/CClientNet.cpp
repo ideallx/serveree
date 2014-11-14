@@ -87,6 +87,8 @@ void CClientNet::msgProc() {
 }
 
 void CClientNet::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isremote) {
+    Q_UNUSED(wParam);
+    Q_UNUSED(lParam);
     if (!isremote)
         buildSendMessage(msg);
 }
@@ -116,6 +118,7 @@ void CClientNet::SetServerAddr(DWORD s_code, char* ip, WORD port){		// Éè¶¨ÏûÏ¢½
 }
 
 void CClientNet::SetServerAddr(DWORD s_code, struct sockaddr_in addr){	// Éè¶¨ÏûÏ¢½«Òª·¢ËÍ³öÈ¥µÄÍâ²¿·şÎñÆ÷µØÖ·
+    Q_UNUSED(s_code);
 	m_Connect->addPeer(ServerUID, addr);
 	m_Addr = addr;
 }

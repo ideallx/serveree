@@ -105,7 +105,14 @@ void CBlockManager::saveBlock(TS_UINT64 uid) {
 void CBlockManager::setMaxSeqOfUid(TS_UINT64 uid, TS_UINT64 seq) {
     if ((map_userBlock.count(uid) == 0) || (map_userBlock[uid] == NULL))
         return;
-    map_userBlock[uid]->setMaxSeq(seq);
+	if (seq == 0) {
+		removeBlock(uid);
+		CBlock* b = new CBlock(uid);
+		b->setFilePrefix(fileNamePrefix);
+		map_userBlock.insert(make_pair(uid, b));
+	} else {
+		map_userBlock[uid]->setMaxSeq(seq);
+	}
 }
 
 TS_UINT64 CBlockManager::getMaxSeqOfUID(TS_UINT64 uid) {

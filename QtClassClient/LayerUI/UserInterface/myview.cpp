@@ -6,7 +6,7 @@
 #include <QDesktopWidget>
 #include <QDir>
 #include <QApplication>
-#include "../player/playerfactory.h"
+#include "../../player/playerfactory.h"
 
 
 MyView::MyView(QWidget *parent) :
