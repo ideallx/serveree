@@ -3,10 +3,10 @@
 #include "Net/CClientNet.h"
 #include "BizLogic/CBusinessLogic.h"
 #include "Message/CMsgObject.h"
+#include "Reliable/Server/CWSServer.h"
 
 #include <QApplication>
 #include <QObject>
-#include <QTextCodec>
 
 //#include <Windows.h>
 //typedef BOOL (WINAPI *pSDARP)(ORIENTATION_PREFERENCE orientation);
@@ -15,13 +15,17 @@
 
 int program(int argc, char *argv[]) {
     QApplication a(argc, argv);
-    CClientNet cn;
+    
     MainWindow ui;
     CBusinessLogic bl;
     ui.show();
 
-    cn.SetServerAddr(0, "192.168.1.202", 2222);
-    cn.Start(0);
+    CWSServer ws(100, 2);
+    ws.Start(10000);
+
+
+//    cn.SetServerAddr(0, "192.168.1.202", 2222);
+//    cn.Start(0);
 
     //CModuleAgent *ma = CModuleAgent::getUniqueAgent();
 
