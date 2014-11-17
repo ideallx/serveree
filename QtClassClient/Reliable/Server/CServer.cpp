@@ -1,83 +1,27 @@
 #include "CServer.h"
 #include "../Connections/CReliableConnection.h"
 
-CServer::CServer() :
-	MsgLen(MESSAGE_SIZE),
-
+CServer::CServer()
+	: MsgLen(MESSAGE_SIZE)
 #ifdef _MULTI_THREAD_SERVER_
-    recvthread_num(5),
-    sendthread_num(2),
-    msgthread_num(3),
+    , recvthread_num(1)
+    , sendthread_num(1)
+    , msgthread_num(1)
 #else
-    recvthread_num(1),
-    sendthread_num(1),
-    msgthread_num(1),
+    , recvthread_num(1)
+    , sendthread_num(1)
+    , msgthread_num(1)
 #endif
-
-
-	p_InMsgQueue(new TSQueue<TS_PEER_MESSAGE>),
-	p_OutMsgQueue(new TSQueue<TS_PEER_MESSAGE>) {
-		
-    pthread_recv = new iop_thread_t[recvthread_num],
-    pthread_send = new iop_thread_t[sendthread_num],
-    pthread_msg = new iop_thread_t[msgthread_num],
-
+	, pthread_recv(new iop_thread_t[recvthread_num])
+	, pthread_send(new iop_thread_t[sendthread_num])
+	, pthread_msg(new iop_thread_t[msgthread_num]){
 	Port = 0;
 	pConnect = new CReliableConnection;
-
-    data_in = CreateSemaphore(NULL, 0, 102400, NULL);
-    data_out = CreateSemaphore(NULL, 0, 102400, NULL);
 }
 
 CServer::~CServer(void) {
     Stop();
-    delete pConnect;
-
-	CloseHandle(data_in);
-	CloseHandle(data_out);
-
-	DESTROY(p_InMsgQueue);
-	DESTROY(p_OutMsgQueue);
-}
-
-TS_UINT64 CServer::AllocateSessionID(void) {
-	return getServerTime();
-}
-
-bool CServer::Initialize(void) {
-	return TRUE;
-}
-
-bool CServer::Uninitialize(void) {
-	pConnect->clear();
-	return TRUE;
-}
-
-bool CServer::ReadIn(TS_PEER_MESSAGE& pmsg) {
-    WaitForSingleObject(data_in, 40);
-    return p_InMsgQueue->deQueue(pmsg);
-}
-
-bool CServer::WriteIn(const TS_PEER_MESSAGE& pmsg) {
-    bool set = p_InMsgQueue->enQueue(pmsg);
-	ReleaseSemaphore(data_in, 1, NULL);
-    return set;
-}
-
-bool CServer::ReadOut(TS_PEER_MESSAGE& pmsg) {
-    WaitForSingleObject(data_out, 40);
-    return p_OutMsgQueue->deQueue(pmsg);
-}
-
-bool CServer::WriteOut(const TS_PEER_MESSAGE& pmsg) {
-    bool set = p_OutMsgQueue->enQueue(pmsg);
-	ReleaseSemaphore(data_out, 1, NULL);
-    return set;
-}
-
-
-bool CServer::ReadIniFile(void) {
-	return TRUE;
+	DESTROY(pConnect);
 }
 
 bool CServer::Start(unsigned short port) {
@@ -86,17 +30,14 @@ bool CServer::Start(unsigned short port) {
 		|| p_InMsgQueue == NULL 
 		|| p_OutMsgQueue == NULL 
 		|| isStarted)
-		return FALSE;
+		return false;
 
 	Port = port;
+	isStarted = true;	// u must start before create thread or thread will exit soon
 
 	if (!pConnect->create(port)) {
-		return FALSE;
+		return false;
 	}
-
-	turnOn();
-	if (!Initialize ())
-		return FALSE;
 
 	for (unsigned int i = 0; i < recvthread_num; i++) {
         int rc = iop_thread_create(&pthread_recv[i], RecvProc, (void *) this, 0);
@@ -106,7 +47,7 @@ bool CServer::Start(unsigned short port) {
 			cout << "Recv Thread start successfully " << endl;
 #endif
 		} else {
-			turnOff();
+			isStarted = false;
 		}
 	}
 
@@ -119,7 +60,7 @@ bool CServer::Start(unsigned short port) {
 			cout << "Send Thread start successfully " << endl;
 #endif
 		} else {
-			turnOff();
+			isStarted = false;
 		}
 	}
 
@@ -131,16 +72,15 @@ bool CServer::Start(unsigned short port) {
 			cout << "Msg Thread start successfully" << endl;
 #endif
 		} else {
-			turnOff();
+			isStarted = false;
 		}
 	}
-	return isRunning();
+	return isStarted;
 }
 
 bool CServer::Stop(void) {
-    Uninitialize();
     if (isRunning()) {
-        turnOff();
+		isStarted = false;
         iop_usleep(100);
         for (unsigned int i = 0; i < sendthread_num; i++) {
             iop_thread_cancel(pthread_send[i]);
@@ -155,7 +95,7 @@ bool CServer::Stop(void) {
 		delete[] pthread_recv;
 		delete[] pthread_msg;
     }
-	return TRUE;
+	return true;
 }
 
 DWORD CServer::MsgHandler(TS_PEER_MESSAGE& pmsg) {
@@ -167,20 +107,18 @@ void CServer::sendProc() {
 	TS_PEER_MESSAGE pmsg;
 	memset(&pmsg, 0, sizeof(TS_PEER_MESSAGE));
 
-	CAbsConnection* pPeerConn = new CPeerConnection();
-	if (!pPeerConn->copy(getConnection())) {
-		return;
-	}
+	CPeerConnection* peer = new CPeerConnection(pConnect->getSocket());
+
 	while (isRunning()) {
-        if (!ReadOut(pmsg))
-            continue;
-		pPeerConn->setPeer(pmsg.peeraddr);
-        pPeerConn->send(pmsg.msg.Body, sizeof(ts_msg));
+		ReadOut(pmsg);
+		peer->setPeer(pmsg.peeraddr);
+		peer->send(pmsg.msg.Body, packetSize(pmsg.msg));
 
 #ifdef _DEBUG_INFO_
-		cout << "port:" << pPeerConn->getPeer()->sin_port << endl;
+		cout << "port:" << pConnect->getPeer()->sin_port << endl;
 #endif
 	}
+	delete peer;
 }
 
 void CServer::msgProc() {
@@ -189,8 +127,8 @@ void CServer::msgProc() {
 
 	while (isRunning()) {
 		memset(&pmsg, 0, sizeof(TS_PEER_MESSAGE));
-        if (ReadIn(pmsg))
-            MsgHandler(pmsg);
+		ReadIn(pmsg);
+		MsgHandler(pmsg);
 	}
 	cout << "msg thread exit" << endl;
 }
@@ -199,20 +137,18 @@ void CServer::recvProc() {
 	ULONG msglen = sizeof(ts_msg);
 	TS_PEER_MESSAGE pmsg;
 	memset(&pmsg, 0, sizeof(TS_PEER_MESSAGE));
-
-	CAbsConnection* pConn = new CPeerConnection();
-	if (!pConn->copy(getConnection())) {
-		return;
-	}
+	
+	CPeerConnection* peer = new CPeerConnection(pConnect->getSocket());
 
 	while (isRunning()) {
 		memset(&pmsg, 0, sizeof(TS_PEER_MESSAGE));
-		if (pConn->recv(pmsg.msg.Body, msglen) > 0) {
-			memcpy(&pmsg.peeraddr, pConn->getRecvAddr(), sizeof(struct sockaddr_in));
+		if (peer->recv(pmsg.msg.Body, msglen) > 0) {
+			memcpy(&pmsg.peeraddr, peer->getRecvAddr(), CAbsSocket::m_LocalAddrSize);
 			WriteIn(pmsg);
 		}
 	}
 #ifdef _DEBUG_INFO_
 	cout << "recv thread exit" << endl;
 #endif
+	delete peer;
 }

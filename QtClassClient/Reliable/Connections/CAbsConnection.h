@@ -4,6 +4,9 @@
 #include "CSynSocket.h"
 #include "../DataUnit/CMessage.h"
 
+// peer ==> Send ==> toAddr
+// recv ==> Recv ==> fromAddr
+
 class CAbsConnection {
 protected:
 	CAbsSocket* pSocket;
@@ -13,22 +16,19 @@ protected:
 
 public:
 	CAbsConnection(void);
-	CAbsConnection(TS_UINT64 classid);
 	virtual ~CAbsConnection(void);
 
 public:
-	CAbsSocket* getSocket(void) const;
-	bool setSocket(CAbsSocket* ps);
+	inline CAbsSocket* getSocket(void) const { return pSocket; }
+	inline bool setSocket(CAbsSocket* ps) { return pSocket->copy(ps); }
 
-	bool isValidSocket();
+	inline bool isValidSocket() { if (!pSocket) return false; return pSocket->isValidSocket(); }
 
-	struct sockaddr_in* getPeer(void) const;
+	inline struct sockaddr_in* getPeer(void) const { return (struct sockaddr_in*) &m_ToAddr; }
 	void setPeer(const struct sockaddr_in& peeraddr);
 
-	struct sockaddr_in* getRecvAddr(void) const;
-
-public:
-	virtual bool copy(CAbsConnection* conn) = 0;
+	inline struct sockaddr_in* getRecvAddr(void) const { return (struct sockaddr_in*) &m_FromAddr; }
+	inline void setRecvAddr(const struct sockaddr_in &addr) { m_FromAddr = addr; }
 
 public:
 	virtual bool create(unsigned short localport = 0) = 0;

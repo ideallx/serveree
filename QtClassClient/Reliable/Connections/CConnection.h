@@ -5,20 +5,17 @@
 
 class CConnection : public CAbsConnection {
 public:
-	CConnection(void);
+	CConnection(void) {}
 	virtual ~CConnection(void);
+
 public:
 	bool create(unsigned short localport = 0);
 	bool clear(void);
 	int send(const char* buf, ULONG len);
 	int recv(char* buf, ULONG& len);
 
-public:
-	bool copy(CAbsConnection* conn);
-	//void setIpaddress
-
 protected:
-	void setPeerConnection(const struct sockaddr_in& peeraddr);
+	inline void setPeerConnection(const struct sockaddr_in& peeraddr) { m_ToAddr = peeraddr; }
 };
 
 

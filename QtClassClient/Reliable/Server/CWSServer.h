@@ -32,8 +32,6 @@ public:
 	void recvProc();
 	void msgProc();
 
-    DWORD MsgHandler(TS_PEER_MESSAGE& pmsg);
-
 	void displayPeer();
 	bool addPeer(sockaddr_in addr, TS_UINT64 uid);
 	bool removePeer(TS_UINT64 uid);
@@ -56,7 +54,8 @@ public:
 
     TS_UINT64 getMaxSeqOfUID(TS_UINT64 uid);
 
-    void sendMaxSeqList();
+	void sendMaxSeqList();
+
 };
 
 #endif /* CWSSERVER_H_ */

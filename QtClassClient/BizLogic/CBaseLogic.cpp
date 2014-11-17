@@ -55,7 +55,6 @@ bool CBaseLogic::procMsg(const ts_msg& msg, bool isRemote) {
     if (!isRemote) {
         procNotRemote(msg);
         hmsg->subSeq = ++subseq;                    // so nice design!!!
-        qDebug() << "proc msg isnot remote" << hmsg->sequence << hmsg->subSeq;
         cn->ProcessMessage(const_cast<ts_msg&> (msg), 0, 0, isRemote);
         return false;
     } else {

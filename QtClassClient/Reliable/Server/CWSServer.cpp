@@ -30,7 +30,7 @@ bool CWSServer::removePeer(TS_UINT64 uid) {
 }
 
 void CWSServer::removeUser(TS_UINT64 uid) {
-	dynamic_cast<CReliableConnection*>(pConnect)->saveUserBlock(uid);
+	conn->saveUserBlock(uid);
 	removePeer(uid);
 }
 
@@ -46,6 +46,8 @@ void CWSServer::recvProc() {
 	while (isRunning()) {
 		if (pConnect->recv(pmsg->msg.Body, msglen) > 0) {
 			WriteIn(*pmsg);
+		} else {
+			iop_usleep(100);
 		}
 	}
 	return;
@@ -60,18 +62,10 @@ void CWSServer::msgProc() {
 
 	while (isRunning()) {
 		memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
-        if (ReadIn(*pmsg))
-            MsgHandler(*pmsg);
+		ReadIn(*pmsg);
+		MsgHandler(*pmsg);
 	}
 	delete pmsg;
-}
-
-DWORD CWSServer::MsgHandler(TS_PEER_MESSAGE& pmsg) {
-    TS_UINT64 uid = getUid(pmsg.msg);
-    if (conn->findPeer(uid) == NULL) {
-        conn->addPeer(uid, pmsg.peeraddr);
-    }
-    return 0;
 }
 
 void CWSServer::sendProc() {
@@ -79,13 +73,13 @@ void CWSServer::sendProc() {
 	memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
 
 	while (isRunning()) {
-        if (!ReadOut(*pmsg))
-            continue;
+		ReadOut(*pmsg);
 		pConnect->send(pmsg->msg.Body, packetSize(pmsg->msg));
 	}
 	delete pmsg;
 	cout << "send thread exit" << endl;
 }
+
 
 void CWSServer::sendMaxSeqList() {
     conn->sendMaxSeqList();

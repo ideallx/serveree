@@ -1,13 +1,13 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QFileDialog>
+#include <iop_util.h>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "DrawingScreen/myscene.h"
 #include "cpromptframe.h"
 
-#include "../UserInterface/widgetwarelistitem.h"
 #include "../player/playerfactory.h"
 #include "UserInterface/cpromptframe.h"
 
@@ -25,14 +25,13 @@ thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {
 }
 
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    m_userRole(RoleStudent),
-    ui(new Ui::MainWindow),
-    isRunning(false),
-    isPlayerPlaying(false),
-    m_player(NULL) {
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , m_userRole(RoleStudent)
+    , ui(new Ui::MainWindow)
+    , isRunning(false) {
     ui->setupUi(this);
+    ui->wgtCourse->setHidden(true);
 
     scene = new MyScene(SelfUID, this, this);
     sceneMap.insert(SelfUID, scene);
@@ -66,19 +65,18 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, &MainWindow::promptSent,
             this, &MainWindow::showPrompt);
     connect(this, &MainWindow::wareItemRecv,
-            this, &MainWindow::addWareItem);
+            ui->wgtCourse, &CourseWareWidget::addWareItem);
 
     connect(this, &MainWindow::playerPreved,
-            this, &MainWindow::playerPrev);
+            ui->wgtCourse, &CourseWareWidget::prev);
     connect(this, &MainWindow::playerStoped,
-            this, &MainWindow::playerStop);
+            ui->wgtCourse, &CourseWareWidget::stop);
     connect(this, &MainWindow::playerNexted,
-            this, &MainWindow::playerNext);
+            ui->wgtCourse, &CourseWareWidget::next);
     connect(this, &MainWindow::playerStarted,
-            this, &MainWindow::playerStart);
+            ui->wgtCourse, &CourseWareWidget::start);
 
     ui->groupBox_2->setHidden(true);
-    ui->gbCourseware->setHidden(true);
 
     connect(ui->tbLogin, &CLoginButton::loginClicked,
             this, &MainWindow::enterClass);
@@ -91,24 +89,27 @@ MainWindow::MainWindow(QWidget *parent) :
 
     sem_msg = CreateSemaphore(NULL, 0, 102400, NULL);
 
-//    setWindowFlags(Qt::FramelessWindowHint |
-//                   Qt::WindowSystemMenuHint |
-//                   Qt::WindowStaysOnTopHint);
 
-//    setAttribute(Qt::WA_TranslucentBackground, true);
-//    showFullScreen();
+#define _DEBUG_UI_
+#ifdef _DEBUG_UI_
     setRole(RoleTeacher);
+#else
+    setWindowFlags(Qt::FramelessWindowHint |
+                   Qt::WindowSystemMenuHint |
+                   Qt::WindowStaysOnTopHint);
+
+    setAttribute(Qt::WA_TranslucentBackground, true);
+    showFullScreen();
+#endif
 }
 
 MainWindow::~MainWindow() {
     isRunning = false;
     iop_thread_cancel(pthread_msg);
+    CloseHandle(sem_msg);
+    qDeleteAll(sceneMap);
+    sceneMap.clear();
     delete ui;
-    if (m_player) {
-        m_player->close();
-        delete m_player;
-        m_player = NULL;
-    }
 }
 
 void MainWindow::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL isRemote) {
@@ -194,7 +195,7 @@ void MainWindow::enterClassResult(bool result) {
         emit enOrLeaveClass(true);
 
         isRunning = true;
-        Sleep(10);
+        iop_usleep(10);
 
         int rc = iop_thread_create(&pthread_msg, UIMsgProc, (void *) this, 0);
         if (0 == rc) {
@@ -380,170 +381,20 @@ void MainWindow::recvClassInfo() {
 // 4 prompt
 
 // 5 teacher ware
-void MainWindow::on_tbCourseWare_clicked()
-{
-    if (m_cwd.isPlayerPlaying())
-        return;
 
-    if (m_userRole == RoleTeacher)
-        ui->gbCourseware->setHidden(!ui->gbCourseware->isHidden());
-}
-
-void MainWindow::on_tbUpload_clicked()
-{
-	if (m_userRole != RoleTeacher)
-		return;
-
-    QString filepath = QFileDialog::getOpenFileName(this);
-    QString filename = getFileName(filepath);
-
-    int result = m_cwd.checkUploadFile(filename);
-    if (result != Success) {
-        CPromptFrame::prompt(result, this);
-        return;
-    }
-
-    QFile::copy(file, filename);
-    m_cwd.addFileToList(filename);
-}
-
-void MainWindow::on_tbSync_clicked()
-{
-	if (m_userRole != RoleTeacher)
-        return;
-    m_cwd.syncFileList();
-}
-
-
-void MainWindow::on_lsWare_itemDoubleClicked(QListWidgetItem *item) {
-	if (m_userRole != RoleTeacher)
-		return;
-    playFileByUser(item->text());
-
-}
-
-void MainWindow::on_tbExitWare_clicked()
-{
-	if (m_userRole != RoleTeacher)
-        return;
-
-    if (m_cwd.isPlayerPlaying()) {
-        m_cwd.stop(false);
-    }
-
-    ui->gbCourseware->setHidden(true);
-    ui->graphicsView->setPaintMode(PaintNormal);
-    ui->graphicsView->scene()->clear();
-    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/start.png"));
-    return true;
-}
-
-void MainWindow::on_tbPrev_clicked()
-{
-	if (m_userRole != RoleTeacher)
-		return;
-    if (!m_cwd.prev(false))
-        return;
-
-    scene->clear();
-}
-
-void MainWindow::on_tbStart_clicked()
-{
-	if (m_userRole != RoleTeacher)
-        return;
-
-    if (m_cwd.isPlayerPlaying()) {
-        m_cwd.stop(false);
-        ui->tbStart->setIcon(QIcon(":/icon/ui/icon/start.png"));
-    } else {
-        if (ui->lsWare->selectedItems().size() == 0)
-            return;
-        on_lsWare_itemDoubleClicked(ui->lsWare->selectedItems()[0]);
-    }
-}
-
-void MainWindow::playFileByUser(QString filename) {
-    if (!m_cwd.playTest(filename)) {
-        CPromptFrame::prompt(FailedPlay);
-        return;
-    }
-
-    if (!m_cwd.play(filename, false)) {
-        CPromptFrame::prompt(FailedPlay);
-        return;
-    }
-
-    ui->gbCourseware->setHidden(false);
-    ui->graphicsView->scene()->clear();
-    ui->groupBox_2->setHidden(true);
-    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/stop.png"));
-}
-
-void MainWindow::on_tbNext_clicked()
-{
-	if (m_userRole != RoleTeacher)
-		return;
-    if (!m_cwd.next(false))
-        return;
-
-    scene->clear();
-}
-
-
-bool MainWindow::playerStop() {
-    m_cwd.stop(false);
-    scene->clear();
-    ui->graphicsView->setPaintMode(PaintNormal);
-    ui->gbCourseware->setHidden(true);
-    ui->graphicsView->scene()->clear();
-    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/start.png"));
-}
-
-
-void MainWindow::playmodeEnd() {
-    playerStop();
-}
 
 void MainWindow::addWareList(QString filename) {
     emit wareItemRecv(filename);
 }
 
-void MainWindow::addWareItem(QString filename) {
-    int result = m_cwd.addFileToList(filename);
-    if (result >= 0) {
-        ui->lbWareCount->setText(QString::number(result));
-    }
-}
 
-void MainWindow::on_lsWare_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+void MainWindow::on_tbCourseWare_clicked()
 {
-    if (m_userRole != RoleTeacher) {
-		ui->gbCourseware->setHidden(true);
+    if (ui->wgtCourse->isPlayerPlaying())
         return;
-	}
 
-    if (current) {
-        WidgetWareListItem* wli = new WidgetWareListItem(current->text());
-        ui->lsWare->setItemWidget(current, wli);
-        connect(wli, &WidgetWareListItem::runFile,
-                this, &MainWindow::playFileByUser);
-        connect(wli, &WidgetWareListItem::removeFile,
-                this, &MainWindow::deleteFile);
-    }
-
-    if (previous)
-        ui->lsWare->removeItemWidget(previous);
-}
-
-void MainWindow::deleteFile(QString filename) {
-    auto list = ui->lsWare->findItems(filename, Qt::MatchExactly);
-    ui->lsWare->removeItemWidget(list[0]);
-    delete list[0];
-
-    qDebug() << filename;
-    QFile::remove(filename);
-    ui->lbWareCount->setText(QString::number(ui->lsWare->count()));
+    if (m_userRole == RoleTeacher)
+        ui->wgtCourse->setHidden(!ui->wgtCourse->isHidden());
 }
 
 
@@ -555,24 +406,26 @@ void MainWindow::changeMedia(QMediaPlayer *player) {
     static_cast<MyScene*> (ui->graphicsView->scene())->playMedia(player);
 }
 
+
 void MainWindow::signalPlayerMove(WORD move) {
     switch (move) {
     case ActionPrev:
-        emit playerPreved();
+        emit playerPreved(true);
         break;
     case ActionNext:
-        emit playerNexted();
+        emit playerNexted(true);
         break;
     case ActionStop:
-        emit playerStoped();
+        emit playerStoped(true);
         break;
     default:
         break;
     }
 }
 
+
 void MainWindow::signalPlayerStart(QString filename) {
-    emit playerStarted(filename);
+    emit playerStarted(filename, true);
 }
 
 // 5 teacher ware

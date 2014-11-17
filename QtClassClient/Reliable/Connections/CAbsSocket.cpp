@@ -1,66 +1,42 @@
 #include "CAbsSocket.h"
 
-CAbsSocket::CAbsSocket(void) :
-	m_Socket(INVALID_SOCKET),
-	m_LocalAddrSize(sizeof(m_LocalAddr)),
-	rc(0),
-	err(0),
-	bInit(false) {
+const int CAbsSocket::m_LocalAddrSize = sizeof(struct sockaddr_in);
+
+CAbsSocket::CAbsSocket(void)
+	: m_Socket(INVALID_SOCKET)
+	, bInit(false)
+
+	, rc(0)
+	, err(0) {
 }
 
-CAbsSocket::~CAbsSocket(void) {
+CAbsSocket::~CAbsSocket() {
+	// closeSocket();
+}
 
+
+bool CAbsSocket::closeSocket(void) {
+	if (0 == iop_close_handle(m_Socket))
+		return true;
+	else
+		return false;
 }
 
 bool CAbsSocket::copy(CAbsSocket* s) {
 	if (!s)
-		return FALSE;
+		return false;
 
-	m_Socket = s->getSocket();
-	setLocalAddr(s->getLocalAddr());
-	bInit = s->getInitStatus();
+	m_Socket = s->m_Socket;
+	m_LocalAddr = s->m_LocalAddr;
+	bInit = s->bInit;
 
-	return TRUE;
+	return true;
 }
 
 CAbsSocket::CAbsSocket(const CAbsSocket& that) {
 	m_Socket = that.m_Socket;
-	memcpy(&m_LocalAddr, &(that.m_LocalAddr), 
-		sizeof(struct sockaddr_in));
+	m_LocalAddr = that.m_LocalAddr;
 	bInit = that.bInit;
-}
-
-void CAbsSocket::setSocket(const SOCKET& s) {
-	if (s != INVALID_SOCKET)
-		m_Socket = s;
-}
-
-SOCKET CAbsSocket::getSocket(void) const {
-	return m_Socket;
-}
-
-bool CAbsSocket::isValidSocket(void) const {
-	return m_Socket != INVALID_SOCKET;
-}
-
-struct sockaddr_in* CAbsSocket::getLocalAddr(void) const {
-	return (struct sockaddr_in*) &m_LocalAddr;
-}
-
-void CAbsSocket::setLocalAddr(const struct sockaddr_in* addr) {
-	memcpy(&m_LocalAddr, addr, sizeof(struct sockaddr_in));
-}
-
-bool CAbsSocket::getInitStatus(void) const {
-	return bInit;
-}
-
-int CAbsSocket::setSockOpt(int level, int optname, const char *optval, int optlen) {
-	return setsockopt(m_Socket, level, optname, optval, optlen);
-}
-
-int CAbsSocket::getSockOpt(int level, int optname, char *optval, iop_socklen_t *optlen) {
-	return getsockopt(m_Socket, level, optname, optval, optlen);
 }
 
 // example 192 168 1 202 7780  0xC0 A8 01 CA 1E64

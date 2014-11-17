@@ -18,38 +18,29 @@ thread_ret_type thread_func_call HBProc(LPVOID lpParam) {
 }
 
 
-CClientNet::CClientNet() :
-    m_seq(1),
-	m_agent(NULL),
-	m_timeDiff(0) {
-
+CClientNet::CClientNet()
+    : m_seq(1)
+	, m_agent(NULL)
+	, m_timeDiff(0) {
     QTime time = QTime::currentTime();
-    qsrand(time.msec()+time.second()*1000);
-
+    qsrand(time.msec() + time.second() * 1000);
     m_Connect = dynamic_cast<CReliableConnection*> (pConnect);
-
     setUID(qrand());
 }
 
 CClientNet::~CClientNet() {
-    Stop();										// 如果没有停止则先停止数据服务
     iop_thread_cancel(pthread_hb);
-
-    delete m_agent;
+	DESTROY(m_agent);
 }
 
 bool CClientNet::Start(unsigned short port) {
-    CServer::Start(port);
+    if (!CServer::Start(port))
+        return false;
 
-	m_agent = new CPeerConnection(m_Connect->getSocket());
-	m_agent->copy(m_Connect);
-	assert(m_agent->getSocket()->getSocket() > 0);
-	m_agent->setPeer(m_Addr);
-
-	turnOn();
-	if (!Initialize ())
-		return FALSE;
-
+    DESTROY(m_agent);
+	//m_agent = new CPeerConnection(m_Connect->getSocket());
+	//assert(m_agent->isValidSocket());
+	//m_agent->setPeer(m_Addr);
 	return isRunning();
 }
 
@@ -80,8 +71,8 @@ void CClientNet::msgProc() {
 
     while (isRunning()) {
         memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
-        if (ReadIn(*pmsg))
-            MsgHandler(*pmsg);
+        ReadIn(*pmsg);
+        MsgHandler(*pmsg);
 	}
 	delete pmsg;
 }
@@ -141,10 +132,10 @@ void CClientNet::recvProc() {
     memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
 	
 	while (isRunning()) {
-        if (m_Connect->recv(pmsg->msg.Body, msglen) > 0) {
+        if (pConnect->recv(pmsg->msg.Body, msglen) > 0) {
             WriteIn(*pmsg);
 		} else {
-			Sleep(1);
+			iop_usleep(100);
 		}
 	}
 	delete pmsg;
@@ -157,12 +148,11 @@ void CClientNet::sendProc() {
 	TS_PEER_MESSAGE *pmsg = new TS_PEER_MESSAGE();
 	memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
 
-    Sleep(10);
+    iop_usleep(10);
 	int result;
 	
 	while (isRunning()) {
-        if (!ReadOut(*pmsg))
-            continue;
+        ReadOut(*pmsg);
 		if (getType(pmsg->msg) > PACKETCONTROL)
 			result = m_agent->send(pmsg->msg.Body, packetSize(pmsg->msg));
 		else
@@ -226,7 +216,7 @@ void CClientNet::sendHeartBeat() {
         cout << m_uid << "send heart beat at " << upcmd->head.time << endl;
 #endif
         delete msg;
-        Sleep(HeartBeatInterval);				// 1分钟一个
+        iop_usleep(HeartBeatInterval);				// 1分钟一个
     }
 }
 

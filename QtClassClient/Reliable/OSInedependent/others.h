@@ -38,6 +38,7 @@
 using namespace std;
 
 int gettimeofday(struct timeval *tp, void *tzp);
+int getIp(char* ip);
 TS_UINT64 getServerTime();
 TS_UINT64 getClientTime(DWORD bouns);
 string int2string(TS_UINT64 number);

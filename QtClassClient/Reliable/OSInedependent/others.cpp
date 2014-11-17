@@ -2,7 +2,6 @@
 
 int gettimeofday(struct timeval *tp, void *tzp)
 {
-    (void) tzp;
     time_t clock;
     struct tm tm;
     SYSTEMTIME wtm;
@@ -15,11 +14,32 @@ int gettimeofday(struct timeval *tp, void *tzp)
     tm.tm_sec      = wtm.wSecond;
     tm.tm_isdst    = -1;
     clock = mktime(&tm);
-    tp->tv_sec = static_cast<long> (clock);
+    tp->tv_sec = clock;
     tp->tv_usec = wtm.wMilliseconds * 1000;
     return 0;
 }
 
+int getIp(char* ip) {
+	WSADATA wsaData;
+	int ret = WSAStartup(MAKEWORD(2, 2), &wsaData);
+	if (ret != 0) {
+		return 1;
+	}
+
+	char host[256];
+	ret = gethostname(host, sizeof(host));
+	if (ret == SOCKET_ERROR) {
+		return 2;
+	}
+
+	HOSTENT* hosts = gethostbyname(host);
+	if (host == NULL) {
+		return 3;
+	}
+
+	strcpy(ip, inet_ntoa(*(in_addr*) *hosts->h_addr_list));
+	return 0;
+}
 
 TS_UINT64 getServerTime() {
     return GetTickCount();

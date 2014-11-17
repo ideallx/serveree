@@ -1,38 +1,13 @@
 #include <assert.h>
 #include "CSynSocket.h"
 #include "../DataUnit/CMessage.h"
+#include "../Strategy/CSettings.h"
 
-CSynSocket::CSynSocket() :
-	ipAddress("127.0.0.1") {
-
-}
-
-CSynSocket::~CSynSocket(void) {
-
-}
-
-bool CSynSocket::init(void) {
-	return true;
-}
-
-void CSynSocket::unInit(void) {
-	return;
+CSynSocket::CSynSocket()
+	: ipAddress("127.0.0.1") {
 }
 
 bool CSynSocket::bindPort(unsigned short iPort) {
-/*
-	m_LocalAddr.sin_family = AF_INET;
-	m_LocalAddr.sin_addr.s_addr = inet_addr(ipAddress.c_str());
-    m_LocalAddr.sin_port = htons(iPort);
-	if (iPort != 0) {
-		rc = bind(m_Socket, (struct sockaddr *) &m_LocalAddr, m_LocalAddrSize);
-		if (rc == SOCKET_ERROR) {
-			return false;
-		}
-	}
-	return true;
-*/
-
 #ifdef WIN32
 	struct hostent *localhost;
     char *ip;
@@ -53,6 +28,7 @@ bool CSynSocket::bindPort(unsigned short iPort) {
 			return false;
 	}
 
+	ipAddress = ip;
     m_LocalAddr.sin_family = AF_INET;
     m_LocalAddr.sin_addr.s_addr = inet_addr(ip);
     m_LocalAddr.sin_port = htons(iPort);
@@ -89,25 +65,22 @@ bool CSynSocket::bindPort(unsigned short iPort) {
 // 创建socket并绑定端口
 bool CSynSocket::createSocket(unsigned short iPort) {
 	if ((m_Socket = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-		perror("error");
+		cout << "socket create error" << endl;
+		// perror("error");
 		return false;
 	} else {
 #ifdef _DEBUG_INFO_
 		printf("socket created\n");
 #endif
+		if (iPort != 0)
+			settingsServerSocketOpt(m_Socket);
 		return bindPort(iPort);
 	}
 }
 
-bool CSynSocket::closeSocket(void) {
-	if (0 == iop_close_handle(m_Socket))
-		return true;
-	else
-		return false;
-}
 
 int CSynSocket::sendData(const char* buf, ULONG len, const struct sockaddr_in* ToAddr) {
-	int nSend = sendto(m_Socket, buf, len, 0, (sockaddr*) ToAddr, sizeof(*ToAddr));
+	int nSend = sendto(m_Socket, buf, len, 0, (sockaddr*) ToAddr, m_LocalAddrSize);
 	if (nSend <= 0)	{
 		cout << "send failed, error no: " << GetLastError() << endl;
 	}
@@ -115,10 +88,10 @@ int CSynSocket::sendData(const char* buf, ULONG len, const struct sockaddr_in* T
 }
 
 int CSynSocket::recvData(char* buf, ULONG& len, struct sockaddr_in* fromAddr) {
-    iop_socklen_t Fromlen = sizeof(*fromAddr);
+	iop_socklen_t Fromlen = m_LocalAddrSize;
 	int recv_len = recvfrom(m_Socket, buf, len, 0, (sockaddr*) fromAddr, &Fromlen);
 	if (recv_len <= 0)	{
-        // cout << "recv failed, error no: " << GetLastError() << endl;
+        cout << "recv failed, error no: " << GetLastError() << endl;
 	}
 	return recv_len;
 }

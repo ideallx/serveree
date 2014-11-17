@@ -1,3 +1,6 @@
+#ifndef _COURSEWARE_H_
+#define _COURSEWARE_H_
+
 #include <QList>
 #include <QString>
 #include <QListWidget>
@@ -7,9 +10,7 @@
 #include "../MsgGenerator/cfilemsggenerator.h"
 #include "../MsgGenerator/cplayergenerator.h"
 
-QString getFileName(QString filepath) {
-    return filepath.split('/').last();
-}
+QString getFileName(QString filepath);
 
 
 class CourseWareData  {
@@ -33,7 +34,7 @@ public:
     // return false when can't be played
     bool playTest(QString filename) const;
 
-    bool play(QString filename, bool isRemote);
+    int play(QString filename, bool isRemote);
 
     bool stop(bool isRemote);
 
@@ -54,3 +55,5 @@ private:
     QList<QString>          m_syncedWares;
     QListWidget*            m_listWidget;
 };
+
+#endif

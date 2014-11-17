@@ -2,10 +2,19 @@
 #include "couseware.h"
 #include "../../player/playerfactory.h"
 
+QString getFileName(QString filepath) {
+    return filepath.split('/').last();
+}
+
+
 CourseWareData::CourseWareData(CMsgObject* parent) :
     m_parent(parent),
     m_isPlayerPlaying(false),
     m_player(NULL) {
+}
+
+CourseWareData::~CourseWareData() {
+    delete m_player;
 }
 
 int CourseWareData::checkUploadFile(QString filename) const {
@@ -67,25 +76,27 @@ bool CourseWareData::playTest(QString filename) const {
     return true;
 }
 
-int CourseWareData::play(QString filename) {
+int CourseWareData::play(QString filename, bool isRemote) {
     if (!m_pg.create(filename))
         return FailedPlay;
 
-    m_player = PlayerFactory::createPlayer(filename, this);
+    m_player = PlayerFactory::createPlayer(filename, m_parent);
     if (!m_player)
         return FailedPlay;
 
-    TS_PLAYER_PACKET pmsg;
-    m_pg.generatePlayerData(pmsg, ActionStart);
-    ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
+    if (!isRemote) {
+        TS_PLAYER_PACKET pmsg;
+        m_pg.generatePlayerData(pmsg, ActionStart);
+        m_parent->ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
+    }
 
 
-    connect(m_player, &AbsPlayer::playerEnd,
-            this, &MainWindow::playmodeEnd);
-    connect(m_player, &AbsPlayer::backgroundChanged,
-            this, &MainWindow::changeBackground);
-    connect(m_player, &AbsPlayer::playMedia,
-            this, &MainWindow::changeMedia);
+//    connect(m_player, &AbsPlayer::playerEnd,
+//            this, &MainWindow::playmodeEnd);
+//    connect(m_player, &AbsPlayer::backgroundChanged,
+//            this, &MainWindow::changeBackground);
+//    connect(m_player, &AbsPlayer::playMedia,
+//            this, &MainWindow::changeMedia);
 
     if (!m_player || !m_player->run()) {
         return FailedPlay;
@@ -107,8 +118,9 @@ bool CourseWareData::stop(bool isRemote) {
     if (!isRemote) {
         TS_PLAYER_PACKET pmsg;
         m_pg.generatePlayerData(pmsg, ActionStop);
-        ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
+        m_parent->ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
     }
+    return true;
 }
 
 bool CourseWareData::prev(bool isRemote) {
@@ -142,7 +154,7 @@ bool CourseWareData::prev(bool isRemote) {
         m_pg.generatePlayerData(pmsg, ActionPrev);
         m_parent->ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
     } else {
-        play(ui->lsWare->selectedItems()[0], isRemote);
+        play(m_listWidget->selectedItems()[0]->text(), isRemote);
     }
     return true;
 }
@@ -178,7 +190,7 @@ bool CourseWareData::next(bool isRemote) {
         m_pg.generatePlayerData(pmsg, ActionNext);
         m_parent->ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
     } else {
-        play(ui->lsWare->selectedItems()[0], isRemote);
+        play(m_listWidget->selectedItems()[0]->text(), isRemote);
     }
     return true;
 }

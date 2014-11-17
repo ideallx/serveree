@@ -76,8 +76,9 @@ SOURCES  += main.cpp\
     LayerUI/UserInterface/prompt.cpp \
     LayerUI/UserInterface/widgetwarelistitem.cpp \
     LayerUI/UserInterface/myview.cpp \
-    LayerUI/SlideScreen/couseware.cpp \
-    LayerUI/UserInterface/cuserlistwidget.cpp
+    LayerUI/UserInterface/cuserlistwidget.cpp \
+    LayerUI/SlideScreen/coursewarewidget.cpp \
+    Reliable/Strategy/CSettings.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBaseLogic.h \
@@ -148,18 +149,21 @@ HEADERS  += LayerUI\mainwindow.h \
     LayerUI/UserInterface/prompt.h \
     LayerUI/UserInterface/widgetwarelistitem.h \
     LayerUI/UserInterface/myview.h \
-    LayerUI/SlideScreen/couseware.h
+    LayerUI/SlideScreen/coursewarewidget.h \
+    Reliable/Strategy/CSettings.h
 
 FORMS    += \
     loginwidget.ui \
-    mainwindow.ui \
     settingwidget.ui \
     prompt.ui \
-    widgetwarelistitem.ui
+    widgetwarelistitem.ui \
+    coursewarewidget.ui \
+    mainwindow.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += include
 INCLUDEPATH += LayerUI/UserInterface
+INCLUDEPATH += LayerUI/SlideScreen
 INCLUDEPATH += Reliable/OSInedependent/libiop
 
 OTHER_FILES += \

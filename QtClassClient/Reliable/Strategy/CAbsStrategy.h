@@ -6,7 +6,6 @@ class CPackage;
 
 #include "../DataUnit/CMessage.h"
 #include <set>
-using namespace std;
 
 class CAbsStrategy {
 protected:

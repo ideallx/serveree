@@ -13,9 +13,9 @@ using namespace std;
 
 class  CHubConnection : public CAbsConnection {
 protected:
-    iop_lock_t                          mutex_lock;
-    map<TS_UINT64, CPeerConnection*>*   peerHub;
+    iop_lock_t                          mutex_lock;		// peerhub lock
     CPeerConnection*                    pPeerConnect;
+    map<TS_UINT64, CPeerConnection*>*   peerHub;		// all users who are now in the class
     set<TS_UINT64>                      allUsers;		// all users who has logged in the class
 
 public:
@@ -26,11 +26,6 @@ public:
 	map<TS_UINT64, CPeerConnection*>* getPeerHub(void) const { return peerHub; }
 
 public:
-	// 旧版，用getAddressKey(sockaddr_in)作为key
-	bool addPeer(const struct sockaddr_in& peeraddr);
-	bool removePeer(const struct sockaddr_in& peeraddr);
-	CPeerConnection* findPeer(const struct sockaddr_in& peeraddr);
-
 	// 新版，用uid作为key
 	bool addPeer(const TS_UINT64 uid, const struct sockaddr_in& peeraddr);
 	bool removePeer(const TS_UINT64 uid);

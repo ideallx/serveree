@@ -46,19 +46,16 @@ public:
 
     void setWriteable(TS_UINT64 toUID, DWORD sceneID, WORD writeable);
 
-    bool playerPrev();
-    bool playerNext();
-    bool playerStart(QString filename);
-    bool playerStop();
-
     void recvClassInfo();
-    void playmodeEnd();
-    void addWareList(QString filename);
 
     void setUserAccount(QString user, QString pass);
 
+    void addWareList(QString filename);
+
     void signalPlayerMove(WORD move);
     void signalPlayerStart(QString filename);
+
+    void playFileByUser(QString filename);
 
     void debuginfo(QString str);
 
@@ -73,8 +70,6 @@ private:
     HANDLE                      sem_msg;        // maintain the msgthread, but some problem
     iop_thread_t                pthread_msg;
     TSQueue<ts_msg>             msgQueue;
-
-    CourseWareData              m_cwd;
 
 
 public slots:
@@ -114,10 +109,10 @@ signals:
     void stopServerRespTimer();
     void wareItemRecv(QString filename);
 
-    void playerPreved();
-    void playerNexted();
-    void playerStoped();
-    void playerStarted(QString filename);
+    void playerPreved(bool isRemote);
+    void playerNexted(bool isRemote);
+    void playerStoped(bool isRemote);
+    void playerStarted(QString filename, bool isRemote);
 
 private slots:
     void on_listWidget_clicked(const QModelIndex &index);
@@ -129,23 +124,12 @@ private slots:
     void addSceneSlot(int uidh, int uidl);
     void showPrompt(QString prompt);
     void showResultPrompt(int result);
-    void addWareItem(QString string);
-    void deleteFile(QString filename);
-
 
     friend thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam);
     void on_tbCourseWare_clicked();
     void on_tbBackground_clicked();
-    void on_tbUpload_clicked();
-    void on_tbSync_clicked();
-    void on_lsWare_itemDoubleClicked(QListWidgetItem *item);
-    void on_tbExitWare_clicked();
     void on_listWidget_doubleClicked(const QModelIndex &index);
-    void on_tbPrev_clicked();
-    void on_tbStart_clicked();
-    void itemPlay_clicked(QString filename);
-    void on_tbNext_clicked();
-    void on_lsWare_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+    //void itemPlay_clicked(QString filename);
 };
 
 #endif // MAINWINDOW_H

@@ -31,6 +31,7 @@
     <ClCompile Include="..\..\QtClassClient\Reliable\Server\CWSServer.cpp" />
     <ClCompile Include="..\..\QtClassClient\Reliable\Strategy\CAbsStrategy.cpp" />
     <ClCompile Include="..\..\QtClassClient\Reliable\Strategy\CDestroyStrategy.cpp" />
+    <ClCompile Include="..\..\QtClassClient\Reliable\Strategy\CSettings.cpp" />
     <ClCompile Include="..\..\QtClassClient\Reliable\Strategy\CWriteFileStrategy.cpp" />
     <ClCompile Include="..\..\QtClassClient\Reliable\Zip\ioapi.c" />
     <ClCompile Include="..\..\QtClassClient\Reliable\Zip\iowin32.c" />
@@ -65,6 +66,7 @@
     <ClInclude Include="..\..\QtClassClient\Reliable\Server\CWSServer.h" />
     <ClInclude Include="..\..\QtClassClient\Reliable\Strategy\CAbsStrategy.h" />
     <ClInclude Include="..\..\QtClassClient\Reliable\Strategy\CDestroyStrategy.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Strategy\CSettings.h" />
     <ClInclude Include="..\..\QtClassClient\Reliable\Strategy\CWriteFileStrategy.h" />
     <ClInclude Include="..\..\QtClassClient\Reliable\Zip\crypt.h" />
     <ClInclude Include="..\..\QtClassClient\Reliable\Zip\ioapi.h" />

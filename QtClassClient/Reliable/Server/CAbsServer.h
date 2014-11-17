@@ -27,47 +27,53 @@ protected:
 	CAbsConnection* pConnect;
 	unsigned short Port;
 	bool isStarted;
-
-	iop_lock_t lockStart;
+	TSQueue<TS_PEER_MESSAGE>* p_InMsgQueue;				// 接收队列 in Queue
+	TSQueue<TS_PEER_MESSAGE>* p_OutMsgQueue;			// 发送队列 out Queue
+	HANDLE data_in;
+	HANDLE data_out;
 
 public:
 	CAbsServer();
 	virtual ~CAbsServer(void);
 
 public:
-	virtual bool Initialize(void) = 0;
-	virtual bool Uninitialize(void) = 0;
 	virtual bool Start(unsigned short port) = 0;
-	virtual bool Stop(void) = 0;
 	virtual DWORD MsgHandler(TS_PEER_MESSAGE& pmsg) = 0;		// 消息处理
 
 public:
-    virtual bool ReadIn(TS_PEER_MESSAGE& pmsg) = 0;
-    virtual bool WriteIn(const TS_PEER_MESSAGE& pmsg) = 0;
-    virtual bool ReadOut(TS_PEER_MESSAGE& pmsg) = 0;
-    virtual bool WriteOut(const TS_PEER_MESSAGE& pmsg) = 0;
+	inline void ReadIn(TS_PEER_MESSAGE& pmsg) {
+		WaitForSingleObject(data_in, INFINITE);
+		p_InMsgQueue->deQueue(pmsg);
+	}
+	inline void WriteIn(const TS_PEER_MESSAGE& pmsg) {
+		p_InMsgQueue->enQueue(pmsg);
+		ReleaseSemaphore(data_in, 1, NULL);
+	}
+	inline void ReadOut(TS_PEER_MESSAGE& pmsg) {
+		WaitForSingleObject(data_out, INFINITE);
+		p_OutMsgQueue->deQueue(pmsg);
+	}
+	inline void WriteOut(const TS_PEER_MESSAGE& pmsg) {
+		p_OutMsgQueue->enQueue(pmsg);
+		ReleaseSemaphore(data_out, 1, NULL);
+	}
+
+    inline void turnOn() { isStarted = true; }
+    inline void turnOff() { isStarted = false; }
 
 	virtual void sendProc() = 0;
 	virtual void recvProc() = 0;
 	virtual void msgProc() = 0;
 
-public:
-	bool isRunning();
-	CAbsConnection* getConnection(void);
-	sockaddr_in* getServerAddr(void);
-	unsigned short getPort(void);
-	
-	void turnOn() {
-		iop_lock(&lockStart);
-		isStarted = TRUE;
-		iop_unlock(&lockStart);
-	}
 
-	void turnOff() {
-		iop_lock(&lockStart);
-		isStarted = FALSE;
-		iop_unlock(&lockStart);
-	}
+
+public:
+	inline bool isRunning() { return isStarted; }
+
+	inline CAbsConnection* getConnection(void) { return pConnect; }
+	inline unsigned short getPort(void) { return Port; }
+	
+	sockaddr_in* getServerAddr(void);
 };
 
 

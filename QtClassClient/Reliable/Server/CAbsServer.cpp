@@ -5,47 +5,36 @@
  *      Author: root
  */
 
-#include <iop_thread.h>
 #include "CAbsServer.h"
 #include "../../Stdafx.h"
 #include "../Connections/CHubConnection.h"
 #include "../OSInedependent/others.h"
 
-CAbsServer::CAbsServer(void) : 
-	pConnect(NULL),
-	Port(0),
-	isStarted(FALSE) {
-	iop_lock_init(&lockStart);
-
-	turnOff();
+CAbsServer::CAbsServer(void)
+	: pConnect(NULL)
+	, Port(0)
+	, isStarted(false)
+	, p_InMsgQueue(new TSQueue<TS_PEER_MESSAGE>)
+	, p_OutMsgQueue(new TSQueue<TS_PEER_MESSAGE>)
+	, data_in(CreateSemaphore(NULL, 0, 102400, NULL))
+	, data_out(CreateSemaphore(NULL, 0, 102400, NULL))  {
 }
 
 CAbsServer::~CAbsServer(void) {
-    turnOff();
-	iop_lock_destroy(&lockStart);
-}
-
-CAbsConnection* CAbsServer::getConnection(void) {
-	return pConnect;
+    isStarted = false;
+	DESTROY(p_InMsgQueue);
+	DESTROY(p_OutMsgQueue);
+	CloseHandle(data_in);
+	CloseHandle(data_out);
+	DESTROY(pConnect);
 }
 
 sockaddr_in* CAbsServer::getServerAddr(void) {
 	if (NULL == pConnect) {
 		return NULL;
 	} else {
-		return pConnect->getSocket()->getLocalAddr();
+		return &pConnect->getSocket()->getLocalAddr();
 	}
-}
-
-bool CAbsServer::isRunning() {
-	iop_lock(&lockStart);
-    bool ret = isStarted;
-	iop_unlock(&lockStart);
-    return ret;
-}
-
-unsigned short CAbsServer::getPort(void) {
-	return Port;
 }
 
 thread_ret_type thread_func_call SendProc(LPVOID lpParam) {

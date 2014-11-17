@@ -14,15 +14,14 @@ private:
 
 public:
 	CSynSocket();
-	virtual ~CSynSocket(void);
-
-protected:
-	bool init(void);
-	void unInit(void);
+	virtual ~CSynSocket(void) {}
 
 public:
+	// port == 0 means you are a client
+	// port != 0 server
 	bool createSocket(unsigned short iPort = 0);
 	bool closeSocket(void);
+
 	int sendData(const char* buf, ULONG len, const struct sockaddr_in* ToAddr);
 	int recvData(char* buf, ULONG& len, struct sockaddr_in* FromAddr);
 

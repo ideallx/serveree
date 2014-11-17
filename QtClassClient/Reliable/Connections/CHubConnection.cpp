@@ -5,9 +5,9 @@
 
 using namespace std;
 
-CHubConnection::CHubConnection(void) : 
-	pPeerConnect(NULL),
-	peerHub(new map<TS_UINT64, CPeerConnection*>) {
+CHubConnection::CHubConnection(void)
+	: pPeerConnect(NULL)
+	, peerHub(new map<TS_UINT64, CPeerConnection*>) {
 	iop_lock_init(&mutex_lock);
 }
 
@@ -15,9 +15,10 @@ CHubConnection::~CHubConnection(void) {
 	if (isCloned) 
 		return;
 
-    clear();
+	allUsers.clear();
+	clearMap();
     DESTROY(peerHub);
-    DESTROY(pSocket);
+	DESTROY(pPeerConnect);
 
     iop_lock_destroy(&mutex_lock);
 }
@@ -25,10 +26,11 @@ CHubConnection::~CHubConnection(void) {
 void CHubConnection::clearMap(void) {
 	if (isCloned)
 		return;
+
 	iop_lock(&mutex_lock);
 	map<TS_UINT64, CPeerConnection*>::iterator iter;
 	for (iter = peerHub->begin(); iter != peerHub->end();) {
-		DESTROY((*iter).second);
+		DESTROY(iter->second);
 		peerHub->erase(iter++);
 	}
 	iop_unlock(&mutex_lock);
@@ -41,60 +43,30 @@ int CHubConnection::size(void){
 	return size;
 }
 
-bool CHubConnection::addPeer(const struct sockaddr_in& peeraddr) {
-	if (isCloned)
-		return false;
-
-	pPeerConnect = new CPeerConnection(pSocket);
-	pPeerConnect->copy(this);
-	assert(pPeerConnect->getSocket()->getSocket() > 0);
-
-	iop_lock(&mutex_lock);
-	pPeerConnect->setPeer(peeraddr);
-	if ((*peerHub).count(pSocket->getAddressKey(peeraddr)) == 0) {
-		(*peerHub)[pSocket->getAddressKey(peeraddr)] = pPeerConnect;
-	} else {
-		delete pPeerConnect;
-	}
-	iop_unlock(&mutex_lock);
-	return true;
-}
-
 bool CHubConnection::addPeer(const TS_UINT64 uid, 
 	                         const struct sockaddr_in& peeraddr) {
 	if (isCloned)
 		return false;
-
-	allUsers.insert(uid);
-
-	pPeerConnect = new CPeerConnection(pSocket);
-	pPeerConnect->copy(this);
-	assert(pPeerConnect->getSocket()->getSocket() > 0);
-
+	
 	iop_lock(&mutex_lock);
-	pPeerConnect->setPeer(peeraddr);
-	if ((*peerHub).count(uid) == 0) {
-		(*peerHub)[uid] = pPeerConnect;
+	allUsers.insert(uid);
+	bool result;
+	pPeerConnect = new CPeerConnection(pSocket);
+	if (pPeerConnect->isValidSocket()) {
+		pPeerConnect->setPeer(peeraddr);
+		if (peerHub->count(uid) != 0) {
+			delete peerHub->at(uid);
+			peerHub->erase(uid);
+		}
+		peerHub->insert(make_pair(uid, pPeerConnect));
+		result = true;
 	} else {
-		delete (*peerHub)[uid];
-		(*peerHub)[uid] = pPeerConnect;
+		delete pPeerConnect;
+		result = false;
 	}
 	iop_unlock(&mutex_lock);
+
 	return true;
-}
-
-bool CHubConnection::removePeer(const struct sockaddr_in& peeraddr) {
-	if (isCloned)
-		return false;
-
-	if (size() > 0) {
-		iop_lock(&mutex_lock);
-		CPeerConnection* temp = (*peerHub)[pSocket->getAddressKey(peeraddr)];
-		DESTROY(temp);
-		peerHub->erase(pSocket->getAddressKey(peeraddr));
-		iop_unlock(&mutex_lock);
-	}
-	return TRUE;
 }
 
 bool CHubConnection::removePeer(const TS_UINT64 uid) {
@@ -104,39 +76,26 @@ bool CHubConnection::removePeer(const TS_UINT64 uid) {
 	if (size() > 0) {
 		iop_lock(&mutex_lock);
 		CPeerConnection* temp = (*peerHub)[uid];
-		DESTROY(temp);
-		peerHub->erase(uid);
+		if (temp) {
+			DESTROY(temp);
+			peerHub->erase(uid);
+		}
 		iop_unlock(&mutex_lock);
 	}
-	return TRUE;
-}
-
-CPeerConnection* CHubConnection::findPeer(const struct sockaddr_in& peeraddr) {
-	map<TS_UINT64, CPeerConnection*>::iterator iter;
-	iop_lock(&mutex_lock);
-	iter = peerHub->find(pSocket->getAddressKey(peeraddr));
-
-	if (iter != peerHub->end()) {
-		iop_unlock(&mutex_lock);
-		return iter->second;
-	} else {
-		iop_unlock(&mutex_lock);
-		return NULL;
-	}
+	return true;
 }
 
 CPeerConnection* CHubConnection::findPeer(const TS_UINT64 uid) {
-	map<TS_UINT64, CPeerConnection*>::iterator iter;
+	CPeerConnection* result;
 	iop_lock(&mutex_lock);
-	iter = peerHub->find(uid);
-
+	auto iter = peerHub->find(uid);
 	if (iter != peerHub->end()) {
-		iop_unlock(&mutex_lock);
-		return iter->second;
+		result = iter->second;
 	} else {
-		iop_unlock(&mutex_lock);
-		return NULL;
+		result =  NULL;
 	}
+	iop_unlock(&mutex_lock);
+	return result;
 }
 
 bool CHubConnection::create(unsigned short localport) {
@@ -166,16 +125,11 @@ bool CHubConnection::clear(void){
     if (!pSocket)
         return true;
 
-    bool brc = true;
-
-    memset(&m_ToAddr, 0, sizeof(struct sockaddr_in));
-    memset(&m_FromAddr, 0, sizeof(struct sockaddr_in));
-
-    brc = pSocket->closeSocket();
-
+    memset(&m_ToAddr, 0, CAbsSocket::m_LocalAddrSize);
+    memset(&m_FromAddr, 0, CAbsSocket::m_LocalAddrSize);
     clearMap();
 
-	return brc;
+	return true; //pSocket->closeSocket();
 }
 
 int CHubConnection::send(const char* buf, ULONG len) {
@@ -184,19 +138,11 @@ int CHubConnection::send(const char* buf, ULONG len) {
 
 	CPeerConnection* pc;
 	int brc = 0;
-	//cout << "debug: total peers# is: " << size() << endl;
-	map<TS_UINT64, CPeerConnection*>::iterator iter;
 
 	iop_lock(&mutex_lock);
-	for (iter = peerHub->begin(); iter != peerHub->end(); iter++) {
+	for (auto iter = peerHub->begin(); iter != peerHub->end(); iter++) {
 		pc = iter->second;
-		brc = pc->send(buf, len);
-
-        //TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) buf;
-        //cout << "hub send" << " "
-        //     << head->UID << "  "
-        //     << head->sequence << "  "
-        //     << head->subSeq << endl;
+		brc += pc->send(buf, len) > 0;
 	}
 	iop_unlock(&mutex_lock);
 	return brc;
@@ -209,7 +155,6 @@ int CHubConnection::sendExcept(const char* buf, ULONG len, TS_UINT64 uid) {
 	CPeerConnection* pc;
 	int brc = 0;
 	
-	//cout << "debug: total peers# is: " << size() << endl;
 	map<TS_UINT64, CPeerConnection*>::iterator iter;
 
 	iop_lock(&mutex_lock);
@@ -217,17 +162,16 @@ int CHubConnection::sendExcept(const char* buf, ULONG len, TS_UINT64 uid) {
 		if (iter->first == uid)			// 除了这个UID的，别人都要发
 			continue;
 		pc = iter->second;
-		brc = pc->send(buf, len);
+		brc += pc->send(buf, len) > 0;
 	}
 	iop_unlock(&mutex_lock);
 	return brc;
 }
 
 int CHubConnection::recv(char* buf, ULONG& len) {
-	if (!pSocket)
+	if (!pSocket || !pSocket->isValidSocket())
 		return -1;
 
-	//cout << "1";
 	return pSocket->recvData(buf, len, &m_FromAddr);
 }
 
@@ -238,8 +182,7 @@ void CHubConnection::setPeerConnection(const struct sockaddr_in& peeraddr) {
 	if (!peerHub)
 		return;
 
-	removePeer(m_ToAddr);
-	addPeer(peeraddr);
+	//pPeerConnect->setPeer(peeraddr);
 }
 
 bool CHubConnection::copy(CAbsConnection* pConn) {
@@ -252,7 +195,7 @@ bool CHubConnection::copy(CAbsConnection* pConn) {
 
 	assert(ps->getSocket() > 0);
 	if (pSocket->copy(ps)) {
-		memcpy(&m_ToAddr, pConn->getPeer(), sizeof(struct sockaddr_in));
+		memcpy(&m_ToAddr, pConn->getPeer(), CAbsSocket::m_LocalAddrSize);
 
 		CHubConnection* pHubConnection = (CHubConnection*) pConn;
 		if (NULL != peerHub) {

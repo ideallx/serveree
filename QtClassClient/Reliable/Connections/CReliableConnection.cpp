@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <iop_thread.h>
 #include "CReliableConnection.h"
 #include "../DataUnit/CMessage.h"
 #include "../../Stdafx.h"
@@ -55,15 +54,15 @@ thread_ret_type thread_func_call SaveProc(LPVOID lpParam) {
     return 0;
 }
 
-CReliableConnection::CReliableConnection() :
-	bm(new CBlockManager()),			
-	msgQueue(new TSQueue<ts_msg>),		// 消息队列，处理收发
-	selfUid(ServerUID),					// 默认为服务器UID，client端时需要setUID()
-	totalMiss(0),						// 
-	totalMsgs(1),						// 防止除0错误
-	fileNamePrefix("L"),
-	resendWhenAsk(true),
-	isRunning(false) {						
+CReliableConnection::CReliableConnection()
+	: bm(new CBlockManager())			
+	, msgQueue(new TSQueue<ts_msg>)		// 消息队列，处理收发
+	, selfUid(ServerUID)				// 默认为服务器UID，client端时需要setUID()
+	, totalMiss(0)						// 
+	, totalMsgs(0)						// 防止除0错误
+	, fileNamePrefix("L")
+	, resendWhenAsk(true)
+	, isRunning(false) {						
     semMsg = CreateSemaphore(NULL, 0, 102400, NULL);
     semSave = CreateSemaphore(NULL, 0, 102400, NULL);
 	needScan = CreateSemaphore(NULL, 0, 10, NULL);		// 最多10个，10次不收到新的msg，scan速度放缓
@@ -141,7 +140,7 @@ bool CReliableConnection::create(unsigned short localport) {
 void CReliableConnection::receive() {
     ts_msg msg;
     while (isRunning) {
-        WaitForSingleObject(semMsg, 5);
+        WaitForSingleObject(semMsg, INFINITE);
 
         if (!msgQueue->deQueue(msg))
             continue;
@@ -157,8 +156,8 @@ void CReliableConnection::receive() {
         case MAXSEQLIST:
             requestForSeriesResend(msg);
             break;
-		case CONNECTION:
-			break;
+        case CONNECTION:
+            break;
         default:                                // 若是收到重传请求，自己处理
             bm->record(msg);					// 缓存记录
             if (selfUid == ServerUID) {			// Server转发
@@ -181,8 +180,9 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
     switch (getType(*msg)) {
     case RESEND:
         result = -1;
-        cout << "resend " << head->sequence << " "
-             << head->subSeq << endl;
+#ifdef _DEBUG_INFO_
+		cout << "resend" << endl;
+#endif
 		if (false == resendWhenAsk)		// 抑制重发请求！，则不重发
             return result;
         break;
@@ -190,10 +190,6 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
         result = -1;
         break;
 	default:
-        //cout << "reliable recv" << " "
-        //     << head->UID << "  "
-        //     << head->sequence << "  "
-        //     << head->subSeq << endl;
 		totalMsgs++;
 		break;
 	}
@@ -263,9 +259,8 @@ void CReliableConnection::saveProcess() {
             createdBlock.insert(file.first);
             isFirst = true;
         }
-        //cout << "3";
+
         file.second->save(fileNamePrefix + "_" + int2string(file.first) + ".zip", isFirst);
-        // cout << "Missing Rate: " << getMissingRate() << endl;
     }
 }
 
@@ -280,7 +275,6 @@ int CReliableConnection::send2Peer(ts_msg& msg, TS_UINT64 uid) {
 	CPeerConnection *peer = findPeer(uid);
 	if (NULL == peer)
 		return -1;
-	// cout << "port:" << peer->getPeer()->sin_port << endl;
 	return peer->send(msg.Body, packetSize(msg));
 }
 
@@ -298,7 +292,7 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 
 	r->head.type = RESEND;
 	r->head.UID = selfUid;				// 自己的UID
-    r->head.sequence = 0;
+	r->head.sequence = 0;
 	r->missingUID = uid;				// 没收到的包所属的UID
 	r->missingType = MISS_SINGLE;		// 掉单一的包
 	int total = pids.size();			// 总共需要发的条数
@@ -312,9 +306,8 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 		r->head.size = sizeof(RCONNECT);
 
 		int count = 0;
-        while (count < r->count) {
-            r->seq[count++] = *iter++;
-            cout << "ask for resend: " << r->seq[count - 1];
+		while (count < r->count) {
+			r->seq[count++] = *iter++;
 		}
 		if (ServerUID == selfUid) {		// Server端问各个用户要
 			result += (send2Peer(*(ts_msg*) r, uid) > 0);
@@ -323,7 +316,6 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 		}
 	}
 
-	// cout << "resend: " << result << endl;
 	delete r;
 	return result;
 }
@@ -374,7 +366,7 @@ int CReliableConnection::resend(ts_msg& requestMsg) {
         if (NULL == peer)
             return -1;
 
-        for (int i = 0; i < r->count; i++) {
+		for (int i = 0; i < r->count; i++) {
 			if (bm->readRecord(missingUID, r->seq[i], *p) < 0)	// 读到几条请求，发多少条
                 continue;
 			if (peer->send(p->Body, packetSize(*p)) > 0)
@@ -424,7 +416,6 @@ int CReliableConnection::resendAll(TS_UINT64 uid) {
 #ifdef _DEBUG_INFO_
 		cout << "user: " << uid << " has " << end << " message" << endl;
 #endif
-
 		for (int j = 1; j <= end; j++) {
 			if (bm->readRecord(uid, j, p) < 0)
 				continue;
@@ -483,7 +474,6 @@ void CReliableConnection::sendMaxSeqList() {
 
         msg.unit[msg.count].uid = *iter;
         msg.unit[msg.count].maxSeq = maxSeq;
-        // msg.unit[msg.count].isOnline = (findPeer(*iter) != NULL);
         msg.count++;
 
         if (msg.count == MaxSeqsInOnePacket / 2) {
@@ -491,7 +481,7 @@ void CReliableConnection::sendMaxSeqList() {
             msg.count = 0;
         }
     }
-    if (msg.head.size != 0) {
+    if (msg.count != 0) {
         send(m->Body, msg.head.size);
     }
 }

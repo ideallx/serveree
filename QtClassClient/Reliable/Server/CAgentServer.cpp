@@ -44,7 +44,7 @@ CAgentServer::~CAgentServer() {
 		delete iter->second;
 		map_workserver.erase(iter++);
 	}
-    Sleep(100);
+    iop_usleep(100);
 }
 
 bool CAgentServer::isClassExist(TS_UINT64 classid) {
@@ -190,6 +190,7 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 		inputMsg.peeraddr = backup;
 	}
 
+	
 	DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;	// 进入班级成功，把服务器信息告诉客户端
 	down->result = result;
 	down->addr = *pServer->getServerAddr();							// server的地址加入到报文中
@@ -202,16 +203,17 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	down->head.sequence = 0;
 	down->lastSeq = pServer->getMaxSeqOfUID(down->uid);
 	WriteOut(inputMsg);
-
+	
 #ifdef _DEBUG_INFO_
 	cout << "Add User: " << user._uid << "into class" << user._classid << endl; 
 #endif
 	if (SuccessEnterClass == result) {
 		pServer->addPeer(inputMsg.peeraddr, user._uid);					// 这里的地址是client agent的端口地址
-		heartBeatTime.insert(make_pair(user._uid, down->head.time));
+		heartBeatTime.insert(make_pair(user._uid, getServerTime()));
 		userLoginNotify(inputMsg, user._uid);
         pServer->sendPrevMessage(user._uid);
 	}
+
 
 	pServer->sendMaxSeqList();
 	return true;

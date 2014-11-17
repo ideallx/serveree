@@ -117,7 +117,11 @@ public:
 	void setFilePrefix(string fprefix);
 
 	// 获取丢包率（千分比 超过1000则可能是反复丢包）
-	inline int getMissingRate() { return 1000 * totalMiss / totalMsgs; }
+	inline int getMissingRate() { 
+		if (totalMsgs == 0)
+			return 0; 
+		return 1000 * totalMiss / totalMsgs; 
+	}
 
     inline int getCurrentMissingNum() { return totalMiss; }
 

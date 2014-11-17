@@ -80,6 +80,9 @@
     <ClCompile Include="..\..\QtClassClient\Reliable\Zip\zip.c">
       <Filter>Zip</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\QtClassClient\Reliable\Strategy\CSettings.cpp">
+      <Filter>Strategy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\QtClassClient\Reliable\Connections\CAbsConnection.h">
@@ -185,6 +188,9 @@
       <Filter>Zip</Filter>
     </ClInclude>
     <ClInclude Include="..\..\QtClassClient\stdafx.h" />
+    <ClInclude Include="..\..\QtClassClient\Reliable\Strategy\CSettings.h">
+      <Filter>Strategy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Connections">

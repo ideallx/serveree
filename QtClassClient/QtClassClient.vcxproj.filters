@@ -46,12 +46,12 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{9d6facf8-a8f2-446c-87d5-ff9c98155415}</UniqueIdentifier>
+      <UniqueIdentifier>{f5029221-8a03-4a83-9d1d-5706ac611f83}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{fc0e125d-ae54-4f63-98d9-fba267e195b6}</UniqueIdentifier>
+      <UniqueIdentifier>{30b8ecda-e758-4aeb-a66a-511c115afdf3}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -126,6 +126,9 @@
     <ClCompile Include="Reliable\Server\CServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Reliable\Strategy\CSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Reliable\Connections\CSynSocket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -147,37 +150,40 @@
     <ClCompile Include="BizLogic\cfilelogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\cfilemsggenerator.cpp">
+    <ClCompile Include="LayerUI\MsgGenerator\cfilemsggenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\cgraphicmsgcreator.cpp">
+    <ClCompile Include="LayerUI\MsgGenerator\cgraphicmsgcreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UserInterface\cloginbutton.cpp">
+    <ClCompile Include="LayerUI\UserInterface\cloginbutton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UserInterface\colorcombox.cpp">
+    <ClCompile Include="LayerUI\UserInterface\colorcombox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\cplayergenerator.cpp">
+    <ClCompile Include="LayerUI\SlideScreen\coursewarewidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerUI\MsgGenerator\cplayergenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BizLogic\cplayerlogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\cpromptframe.cpp">
+    <ClCompile Include="LayerUI\UserInterface\cpromptframe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UserInterface\csettingsbutton.cpp">
+    <ClCompile Include="LayerUI\UserInterface\csettingsbutton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\cshape.cpp">
+    <ClCompile Include="LayerUI\DrawingScreen\cshape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UserInterface\cshapechooser.cpp">
+    <ClCompile Include="LayerUI\UserInterface\cshapechooser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UserInterface\cuserlistwidget.cpp">
+    <ClCompile Include="LayerUI\UserInterface\cuserlistwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="player\docplayer.cpp">
@@ -198,7 +204,7 @@
     <ClCompile Include="player\jpgplayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UserInterface\linewidthcombox.cpp">
+    <ClCompile Include="LayerUI\UserInterface\linewidthcombox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -207,10 +213,10 @@
     <ClCompile Include="LayerUI\mainwindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\myscene.cpp">
+    <ClCompile Include="LayerUI\DrawingScreen\myscene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\myview.cpp">
+    <ClCompile Include="LayerUI\UserInterface\myview.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Reliable\Zip\myzip.cpp">
@@ -225,7 +231,7 @@
     <ClCompile Include="player\pptplayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UserInterface\prompt.cpp">
+    <ClCompile Include="LayerUI\UserInterface\prompt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Reliable\Zip\unzip.c">
@@ -234,7 +240,7 @@
     <ClCompile Include="player\videoplayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UserInterface\widgetwarelistitem.cpp">
+    <ClCompile Include="LayerUI\UserInterface\widgetwarelistitem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Reliable\Zip\zip.c">
@@ -256,6 +262,12 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_colorcombox.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_coursewarewidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_coursewarewidget.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_csettingsbutton.cpp">
@@ -389,6 +401,9 @@
     <ClInclude Include="Reliable\Server\CServer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Reliable\Strategy\CSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Reliable\Connections\CSynSocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -419,40 +434,43 @@
     <ClInclude Include="BizLogic\cfilelogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LayerUI\cfilemsggenerator.h">
+    <ClInclude Include="LayerUI\MsgGenerator\cfilemsggenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LayerUI\cgraphicmsgcreator.h">
+    <ClInclude Include="LayerUI\MsgGenerator\cgraphicmsgcreator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="UserInterface\cloginbutton.h">
+    <CustomBuild Include="LayerUI\UserInterface\cloginbutton.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="UserInterface\colorcombox.h">
+    <CustomBuild Include="LayerUI\UserInterface\colorcombox.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="LayerUI\cplayergenerator.h">
+    <CustomBuild Include="LayerUI\SlideScreen\coursewarewidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <ClInclude Include="LayerUI\MsgGenerator\cplayergenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BizLogic\cplayerlogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LayerUI\cpromptframe.h">
+    <ClInclude Include="LayerUI\UserInterface\cpromptframe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Reliable\Zip\crypt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="UserInterface\csettingsbutton.h">
+    <CustomBuild Include="LayerUI\UserInterface\csettingsbutton.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="LayerUI\cshape.h">
+    <ClInclude Include="LayerUI\DrawingScreen\cshape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="UserInterface\cshapechooser.h">
+    <CustomBuild Include="LayerUI\UserInterface\cshapechooser.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="UserInterface\cuserlistwidget.h">
+    <CustomBuild Include="LayerUI\UserInterface\cuserlistwidget.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <ClInclude Include="player\docplayer.h">
@@ -476,16 +494,16 @@
     <ClInclude Include="player\jpgplayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="UserInterface\linewidthcombox.h">
+    <CustomBuild Include="LayerUI\UserInterface\linewidthcombox.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="LayerUI\mainwindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\myscene.h">
+    <CustomBuild Include="LayerUI\DrawingScreen\myscene.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\myview.h">
+    <CustomBuild Include="LayerUI\UserInterface\myview.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <ClInclude Include="Reliable\Zip\myzip.h">
@@ -500,7 +518,7 @@
     <ClInclude Include="player\pptplayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="UserInterface\prompt.h">
+    <CustomBuild Include="LayerUI\UserInterface\prompt.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <ClInclude Include="stdafx.h">
@@ -512,7 +530,7 @@
     <ClInclude Include="player\videoplayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="UserInterface\widgetwarelistitem.h">
+    <CustomBuild Include="LayerUI\UserInterface\widgetwarelistitem.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <ClInclude Include="Reliable\Zip\zconf.h">
@@ -523,6 +541,9 @@
     </ClInclude>
     <ClInclude Include="Reliable\Zip\zlib.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_coursewarewidget.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_loginwidget.h">
       <Filter>Generated Files</Filter>
@@ -541,6 +562,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="coursewarewidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="loginwidget.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>

@@ -18,39 +18,23 @@ protected:
     iop_thread_t* pthread_recv;
     iop_thread_t* pthread_send;
     iop_thread_t* pthread_msg;
-	
-	TSQueue<TS_PEER_MESSAGE>* p_InMsgQueue;				// 接收队列 in Queue
-	TSQueue<TS_PEER_MESSAGE>* p_OutMsgQueue;			// 发送队列 out Queue
-	
-	HANDLE data_in;
-	HANDLE data_out;
 
 public:
 	CServer();
 	virtual ~CServer(void);
 
 public:
-    bool ReadIn(TS_PEER_MESSAGE& pmsg);
-    bool WriteIn(const TS_PEER_MESSAGE& pmsg);
-    bool ReadOut(TS_PEER_MESSAGE& pmsg);
-    bool WriteOut(const TS_PEER_MESSAGE& pmsg);
-
 	void sendProc();
 	void recvProc();
 	void msgProc();
 
 public:
-	bool Initialize(void);
-	bool Uninitialize(void);
 	bool Start(unsigned short port = 0);
 	bool Stop(void);
 	DWORD MsgHandler(TS_PEER_MESSAGE& pmsg);
 
-private:
-	bool ReadIniFile(void);
-
 public:
-	TS_UINT64 AllocateSessionID(void);
+	inline TS_UINT64 AllocateSessionID(void) { return getServerTime(); }
 
     friend thread_ret_type thread_func_call RecvProc(LPVOID lpParam);		// 缓存过程
     friend thread_ret_type thread_func_call SendProc(LPVOID lpParam);		// 缓存过程
