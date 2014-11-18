@@ -18,6 +18,9 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
     if (!cn)
         cn = static_cast<CClientNet*>(p_Parent->getAgent()->getModule("NET"));
 
+    if (!cn->isRunning())
+        cn->Start(0);
+
     TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg;
     if (isRemote) {						// 外部来的，Net层收到的服务器来的下行
         switch (head->type) {

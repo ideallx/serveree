@@ -32,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
     , isRunning(false) {
     ui->setupUi(this);
     ui->wgtCourse->setHidden(true);
+    ui->wgtCourse->setMsgParent(this);
 
     scene = new MyScene(SelfUID, this, this);
     sceneMap.insert(SelfUID, scene);
@@ -41,16 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->graphicsView->setScene(scene);
 
-    connect(ui->tbBrush, &LineWidthCombox::signalWidthChanged,
-            this, &MainWindow::setPenWidth);
-    connect(ui->tbPalette, &ColorCombox::sigColorChanged,
-            scene, &MyScene::setPenColor);
-    connect(ui->tbShape, &CShapeChooser::signalShapeChanged,
-            scene, &MyScene::changeShapeByUI);
-    connect(ui->tbEraser, &QToolButton::clicked,
-            scene, &MyScene::revocation);
-    connect(ui->graphicsView, &MyView::screenMoved,
-            scene, &MyScene::moveScreen);
+    buildSceneConnection(true);
 
 
     // move to UI thread
@@ -87,10 +79,22 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::stopServerRespTimer,
             ui->tbLogin, &CLoginButton::stopTimer);
 
+    connect(ui->wgtCourse, &CourseWareWidget::clearScreen,
+            this, &MainWindow::cleanCentralArea);
+    connect(ui->wgtCourse, &CourseWareWidget::paintModeChanged,
+            this, &MainWindow::setViewPaintMode);
+    connect(ui->wgtCourse, &CourseWareWidget::promptSent,
+            this, &MainWindow::showResultPrompt);
+
+	connect(ui->wgtCourse, &CourseWareWidget::changeBackground, 
+			this, &MainWindow::changeBackground);
+	connect(ui->wgtCourse, &CourseWareWidget::changeMedia, 
+		this, &MainWindow::changeMedia);
     sem_msg = CreateSemaphore(NULL, 0, 102400, NULL);
 
 
 #define _DEBUG_UI_
+
 #ifdef _DEBUG_UI_
     setRole(RoleTeacher);
 #else
@@ -123,6 +127,32 @@ void MainWindow::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL i
 	}
 }
 
+void MainWindow::buildSceneConnection(bool isCreate) {
+    if (isCreate) {
+        connect(ui->tbBrush, &LineWidthCombox::signalWidthChanged,
+                this, &MainWindow::setScenePenWidth);
+        connect(ui->tbPalette, &ColorCombox::sigColorChanged,
+                this, &MainWindow::setScenePenColor);
+        connect(ui->tbShape, &CShapeChooser::signalShapeChanged,
+                this, &MainWindow::changeSceneShape);
+        connect(ui->tbEraser, &QToolButton::clicked,
+                scene, &MyScene::revocation);
+        connect(ui->graphicsView, &MyView::screenMoved,
+                scene, &MyScene::moveScreen);
+    } else {
+        disconnect(ui->tbBrush, &LineWidthCombox::signalWidthChanged,
+                   this, &MainWindow::setScenePenWidth);
+        disconnect(ui->tbPalette, &ColorCombox::sigColorChanged,
+                   this, &MainWindow::setScenePenColor);
+        disconnect(ui->tbShape, &CShapeChooser::signalShapeChanged,
+                   this, &MainWindow::changeSceneShape);
+        disconnect(ui->tbEraser, &QToolButton::clicked,
+                   scene, &MyScene::revocation);
+        disconnect(ui->graphicsView, &MyView::screenMoved,
+                   scene, &MyScene::moveScreen);
+    }
+}
+
 void MainWindow::changeScene(TS_UINT64 uid) {
     if (sceneMap[uid] == 0)
         return;
@@ -130,16 +160,7 @@ void MainWindow::changeScene(TS_UINT64 uid) {
     if (scene == sceneMap[uid])
         return;
 
-    disconnect(ui->tbBrush, &LineWidthCombox::signalWidthChanged,
-               this, &MainWindow::setPenWidth);
-    disconnect(ui->tbPalette, &ColorCombox::sigColorChanged,
-            scene, &MyScene::setPenColor);
-    disconnect(ui->tbShape, &CShapeChooser::signalShapeChanged,
-            scene, &MyScene::changeShapeByUI);
-    disconnect(ui->tbEraser, &QToolButton::clicked,
-            scene, &MyScene::revocation);
-    disconnect(ui->graphicsView, &MyView::screenMoved,
-            scene, &MyScene::moveScreen);
+    buildSceneConnection(false);
 
     scene = sceneMap[uid];
 
@@ -147,16 +168,7 @@ void MainWindow::changeScene(TS_UINT64 uid) {
     ui->tbEraser->setChecked(false);
     ui->graphicsView->setScene(scene);
 
-    connect(ui->tbBrush, &LineWidthCombox::signalWidthChanged,
-            this, &MainWindow::setPenWidth);
-    connect(ui->tbPalette, &ColorCombox::sigColorChanged,
-            scene, &MyScene::setPenColor);
-    connect(ui->tbShape, &CShapeChooser::signalShapeChanged,
-            scene, &MyScene::changeShapeByUI);
-    connect(ui->tbEraser, &QToolButton::clicked,
-            scene, &MyScene::revocation);
-    connect(ui->graphicsView, &MyView::screenMoved,
-            scene, &MyScene::moveScreen);
+    buildSceneConnection(true);
 }
 
 // 1 msg trans
@@ -277,7 +289,7 @@ void MainWindow::on_listWidget_doubleClicked(const QModelIndex &index)
 {
     Q_UNUSED(index);
     // TODO
-    // changeScene(ui->listWidget->getUIDByRow(index.row()));
+    changeScene(ui->listWidget->getUIDByRow(index.row()));
 }
 
 void MainWindow::setWriteable(TS_UINT64 toUID, DWORD sceneID, WORD writeable) {
@@ -299,10 +311,21 @@ void MainWindow::setWriteable(TS_UINT64 toUID, DWORD sceneID, WORD writeable) {
 // 2 my class
 
 // 3 my scene
-void MainWindow::setPenWidth(int width) {
+void MainWindow::setScenePenWidth(int width) {
     scene->setPenWidth(width);
     ui->tbEraser->setChecked(false);
 }
+
+void MainWindow::setScenePenColor(QColor color) {
+    scene->setPenColor(color);
+    ui->tbEraser->setChecked(false);
+}
+
+void MainWindow::changeSceneShape(int shapeType) {
+    scene->changeShapeByUI(shapeType);
+    ui->tbEraser->setChecked(false);
+}
+
 
 void MainWindow::addSceneSlot(int uidh, int uidl) {
     Q_UNUSED(uidh);
@@ -355,6 +378,33 @@ void MainWindow::drawScene() {
         break;
     }
 }
+
+void MainWindow::cleanCentralArea(TS_UINT64 sceneID, int cleanOption) {
+    MyScene* theScene = sceneMap[sceneID];
+    if (theScene == NULL) {
+        return;
+    }
+
+    theScene->clear();
+
+    if (CleanShowWare & cleanOption) {
+        ui->wgtCourse->setHidden(false);
+    }
+    if (CleanHideWare & cleanOption) {
+        ui->wgtCourse->setHidden(true);
+    }
+    if (CleanShowClass & cleanOption) {
+        ui->groupBox_2->setHidden(false);
+    }
+    if (CleanHideClass & cleanOption) {
+        ui->groupBox_2->setHidden(true);
+    }
+}
+
+void MainWindow::setViewPaintMode(int mode) {
+    ui->graphicsView->setPaintMode(mode);
+}
+
 // 3 my scene
 
 // 4 prompt
@@ -437,6 +487,7 @@ void MainWindow::debuginfo(QString str) {
 
 void MainWindow::setRole(enum RoleOfClass role) {
     m_userRole = role;
+    ui->wgtCourse->setRole(role);
     if (role == RoleTeacher) {
         sceneMap[TeacherUID]->setWriteable(true);
     }

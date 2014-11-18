@@ -28,7 +28,8 @@ public:
     QTimer panTimer;        // gesture -> move
     bool isLeftClicked;
 
-    void setPaintMode(enum PaintMode in);
+public slots:
+    void setPaintMode(int in);
 
 signals:
     void screenMoved(QPoint p);

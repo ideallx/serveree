@@ -20,43 +20,38 @@ int program(int argc, char *argv[]) {
     CBusinessLogic bl;
     ui.show();
 
-    CWSServer ws(100, 2);
-    ws.Start(10000);
+    CClientNet cn;
 
+    CModuleAgent *ma = CModuleAgent::getUniqueAgent();
 
-//    cn.SetServerAddr(0, "192.168.1.202", 2222);
-//    cn.Start(0);
+    ma->registerModule("UI", &ui);
+    ma->registerModule("BIZ", &bl);
+    ma->registerModule("NET", &cn);
 
-    //CModuleAgent *ma = CModuleAgent::getUniqueAgent();
+    ui.addReceiver(&bl);		// UI
+    cn.addReceiver(&bl);        // CN
 
-    //ma->registerModule("UI", &ui);
-    //ma->registerModule("BIZ", &bl);
-    //ma->registerModule("NET", &cn);
+    FILE* fp = freopen("config.txt", "r", stdin);
+    char username[30];
+    char password[30];
+    char serverip[30];
 
-    //ui.addReceiver(&bl);		// UI
-    //cn.addReceiver(&bl);        // CN
+    if (fp != NULL) {
+        cin >> serverip >> username >> password;
+        cn.SetServerAddr(0, serverip, 2222);
+        ui.enterClass(username, password);
+        fclose(stdin);
+    } else {
+        if (argc == 4) {
+            cn.SetServerAddr(0, argv[1], 2222);
+            ui.enterClass(argv[2], argv[3]);
+        } else if (argc > 1) {
+            cn.SetServerAddr(0, argv[1], 2222);
+        } else {
+            cn.SetServerAddr(0, "192.168.1.128", 2222);
+        }
+    }
 
-    //FILE* fp = freopen("config.txt", "r", stdin);
-    //char username[30];
-    //char password[30];
-    //char serverip[30];
-    //if (fp != NULL) {
-    //    cin >> serverip >> username >> password;
-    //    cn.SetServerAddr(0, serverip, 2222);
-    //    cn.Start(0);
-    //    ui.enterClass(username, password);
-    //} else {
-    //    if (argc == 4) {
-    //        cn.SetServerAddr(0, argv[1], 2222);
-    //        ui.enterClass(argv[2], argv[3]);
-    //    } else if (argc > 1) {
-    //        cn.SetServerAddr(0, argv[1], 2222);
-    //    } else {
-    //        cn.SetServerAddr(0, "192.168.1.202", 2222);
-    //    }
-    //    cn.Start(0);
-    //}
-    //fclose(stdin);
 //    auto pARP = (pSDARP) GetProcAddress( GetModuleHandle(TEXT("user32.dll")),
 //                                        "SetDisplayAutoRotationPreferences");
 //    if (pARP) {

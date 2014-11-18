@@ -6,8 +6,7 @@
 using namespace std;
 
 CHubConnection::CHubConnection(void)
-	: pPeerConnect(NULL)
-	, peerHub(new map<TS_UINT64, CPeerConnection*>) {
+    : peerHub(new map<TS_UINT64, CPeerConnection*>) {
 	iop_lock_init(&mutex_lock);
 }
 
@@ -18,7 +17,6 @@ CHubConnection::~CHubConnection(void) {
 	allUsers.clear();
 	clearMap();
     DESTROY(peerHub);
-	DESTROY(pPeerConnect);
 
     iop_lock_destroy(&mutex_lock);
 }
@@ -51,17 +49,17 @@ bool CHubConnection::addPeer(const TS_UINT64 uid,
 	iop_lock(&mutex_lock);
 	allUsers.insert(uid);
 	bool result;
-	pPeerConnect = new CPeerConnection(pSocket);
-	if (pPeerConnect->isValidSocket()) {
-		pPeerConnect->setPeer(peeraddr);
+	CPeerConnection *p = new CPeerConnection(pSocket);
+	if (p->isValidSocket()) {
+		p->setPeer(peeraddr);
 		if (peerHub->count(uid) != 0) {
-			delete peerHub->at(uid);
+			DESTROY(peerHub->at(uid));
 			peerHub->erase(uid);
 		}
-		peerHub->insert(make_pair(uid, pPeerConnect));
+		peerHub->insert(make_pair(uid, p));
 		result = true;
 	} else {
-		delete pPeerConnect;
+		DESTROY(p);
 		result = false;
 	}
 	iop_unlock(&mutex_lock);
@@ -70,7 +68,7 @@ bool CHubConnection::addPeer(const TS_UINT64 uid,
 }
 
 bool CHubConnection::removePeer(const TS_UINT64 uid) {
-	if (isCloned)
+//	if (isCloned)
 		return false;
 
 	if (size() > 0) {

@@ -15,17 +15,15 @@ enum GRAPHICITEM_KEY_t {
     GraphicShapeID
 };
 
-MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent) :
-    QGraphicsScene(parent),
-    sceneID(sceneID),
-    gmc(new CGraphicMsgCreator(sceneID)),
-    drawingType(SCRIPTS),
-    msgParent(msgParent),
-    toolChanged(false),
-    isEraser(false),
-    mt(MoveDraw),
-    isWriteable(false),
-    m_backpixmap(NULL) {
+MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent)
+    : QGraphicsScene(parent)
+    , sceneID(sceneID)
+    , gmc(new CGraphicMsgCreator(sceneID))
+    , msgParent(msgParent)
+    , toolChanged(true)
+    , isEraser(false)
+    , mt(MoveDraw)
+    , isWriteable(false) {
     panFixer.setSingleShot(true);
     setSceneRect(0, 0, 5000, 50000);
     connect(&panFixer, &QTimer::timeout,
@@ -34,6 +32,12 @@ MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent) :
     media = new QGraphicsVideoItem;
     media->setVisible(false);
     addItem(media);
+
+    setErase.pen = QPen(Qt::white, 50);
+    setErase.drawingType = SCRIPTS;
+
+    setDraw.pen = QPen(Qt::black, 1);
+    setDraw.drawingType = SCRIPTS;
     //generateTestShape();
 }
 
@@ -64,7 +68,7 @@ void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
         return;
     if (panFixer.isActive())
         return;
-    if (isEraser || mt != MoveDraw)
+    if (mt != MoveDraw)
         return;
     gmc->generateGraphicsData(gmsg, event->scenePos(), false);
     actMove(gmsg);
@@ -73,9 +77,6 @@ void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 
 void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if (!isWriteable)
-        return;
-
-    if (isEraser)
         return;
 
     mt = MovePending;
@@ -89,12 +90,15 @@ void MyScene::sendMoveBegin() {
 
     TS_GRAPHIC_PACKET gmsg;
     mt = MoveDraw;
+
+    DrawingSettingData *s = isEraser ? &setErase : &setDraw;
+
     if (toolChanged) {
-        gmc->generatePenBrushData(gmsg, pen, brush);
+        gmc->generatePenBrushData(gmsg, s->pen, s->brush);
         msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
         toolChanged = false;
     }
-    gmc->create(drawingType, cachedPos);
+    gmc->create(s->drawingType, cachedPos);
     gmc->generateGraphicsData(gmsg, cachedPos, true);
     actMoveBegin(gmsg);
     msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
@@ -107,24 +111,14 @@ void MyScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     if (panFixer.isActive() || mt != MoveDraw)
         return;
     TS_GRAPHIC_PACKET gmsg;
-    if (isEraser) {
-        QGraphicsItem* item = itemAt(event->scenePos(), QTransform());
-        if (item != NULL && item->zValue() >= 0) {       // dont remvoe the background
-            gmc->generateEraserData(gmsg, event->scenePos(),
-                                    item->data(GraphicUID).toULongLong(),
-                                    item->data(GraphicShapeID).toInt());
-            actErase(gmsg);
-            msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
-        }
-    } else {
-        gmc->generateGraphicsData(gmsg, event->scenePos(), false);
-        actMove(gmsg);
-        msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
-    }
+    gmc->generateGraphicsData(gmsg, event->scenePos(), false);
+    actMove(gmsg);
+    msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
 }
 
 void MyScene::revocation() {
     isEraser = !isEraser;
+    toolChanged = true;
 }
 
 
@@ -137,9 +131,12 @@ CShape *MyScene::createNewItem(TS_UINT64 uid, int shapeType, QPointF curPoint) {
 
     QPen p;
     QBrush b(Qt::NoBrush);
+
+    DrawingSettingData *s = isEraser ? &setErase : &setDraw;
+
     if (uid == SelfUID) {
-        p = pen;
-        b = brush;
+        p = s->pen;
+        b = s->brush;
     } else if (toolsMap.contains(uid)) {
         p = toolsMap[uid].first;
         b = toolsMap[uid].second;
@@ -147,7 +144,8 @@ CShape *MyScene::createNewItem(TS_UINT64 uid, int shapeType, QPointF curPoint) {
 
     item->setPen(p);
     item->setBrush(b);
-    item->getGraphicsItem()->setOpacity(0.9);
+    //if (!isEraser)
+    item->getGraphicsItem()->setOpacity(0.98);
     return item;
 }
 
@@ -177,17 +175,6 @@ void MyScene::actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg) {
 
     if (SelfUID == graphicMsg.head.UID)
         graphicMsg.head.UID = globalUID;
-    auto itemPair = make_pair(graphicMsg.head.UID,
-                              graphicMsg.data.ShapeID);
-    // qDebug() << "recv" << graphicMsg.head.UID << graphicMsg.data.ShapeID;
-
-    if (eraseList.count(itemPair)) {
-        qDebug() << "find and remaining" << eraseList.size() << "remove" <<
-                    graphicMsg.head.UID << graphicMsg.data.ShapeID;;
-        eraseList.erase(itemPair);
-        return;
-    }
-
 
     QGraphicsItem* item = lastItems[uid]->getGraphicsItem();
     item->setData(GraphicUID, graphicMsg.head.UID);
@@ -199,6 +186,7 @@ void MyScene::actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg) {
         update();   // repaint
 }
 
+// deprecated
 void MyScene::actErase(TS_GRAPHIC_PACKET& graphicMsg) {
     qDebug() << "erase" << graphicMsg.eraser.targetUID << graphicMsg.eraser.shapeID;
     QPointF scenePos = QPointF(graphicMsg.eraser.PointX, graphicMsg.eraser.PointY);
@@ -220,10 +208,6 @@ void MyScene::actErase(TS_GRAPHIC_PACKET& graphicMsg) {
     };
     eraseList.insert(make_pair(graphicMsg.eraser.targetUID,
                                graphicMsg.eraser.shapeID));
-}
-
-void MyScene::changeType(ShapeType s) {
-    drawingType = s;
 }
 
 void MyScene::setOthersPenBrush(TS_GRAPHIC_PACKET& graphicMsg) {
@@ -254,7 +238,8 @@ void MyScene::cls() {
 }
 
 void MyScene::changeShapeByUI(int shape) {
-    drawingType = shape;
+    setDraw.drawingType = shape;
+    isEraser = false;
 }
 
 void MyScene::moveScreen(QPoint p) {

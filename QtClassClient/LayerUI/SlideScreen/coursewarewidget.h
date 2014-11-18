@@ -23,6 +23,7 @@ public:
     virtual ~CourseWareWidget();
 
     inline bool isPlayerPlaying() { return m_isPlayerPlaying; }
+    inline void setMsgParent(CMsgObject* msg) { m_parent = msg; }
 
     // return errno
     int checkUploadFile(QString filename) const;
@@ -50,9 +51,11 @@ public:
     inline void setRole(enum RoleOfClass role) { m_userRole = role; }
 
 signals:
-    void clearScreen();
+    void clearScreen(TS_UINT64 sceneID, int cleanOption);
     void paintModeChanged(int mode);
     void promptSent(int result);
+    void changeBackground(QPixmap pic);
+    void changeMedia(QMediaPlayer* player);
 
 private:
 
@@ -61,19 +64,12 @@ private:
 
 private slots:
     void on_tbStart_clicked();
-
     void on_tbPrev_clicked();
-
     void on_tbNext_clicked();
-
     void on_tbUpload_clicked();
-
     void on_tbSync_clicked();
-
     void on_lsWare_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
-
     void on_tbExitWare_clicked();
-
     void on_lsWare_itemDoubleClicked(QListWidgetItem *item);
 
 private:

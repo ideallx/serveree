@@ -20,7 +20,6 @@ MyView::MyView(QWidget *parent) :
     panTimer.setSingleShot(true);
     setAttribute(Qt::WA_AcceptTouchEvents);
     setMouseTracking(true);
-
 }
 
 MyView::~MyView() {
@@ -72,7 +71,7 @@ void MyView::moveScreen(QPoint p) {
     horizontalScrollBar()->setValue(p.x());
 }
 
-void MyView::setPaintMode(PaintMode in) {
+void MyView::setPaintMode(int in) {
     switch (in) {
     case PaintPPT:
         setStyleSheet("background: transparent");
@@ -81,4 +80,5 @@ void MyView::setPaintMode(PaintMode in) {
         setStyleSheet("background-color: rgb(255, 254, 240)");
         break;
     }
+    qDebug() << this->backgroundBrush().color();
 }

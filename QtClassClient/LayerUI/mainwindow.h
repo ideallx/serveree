@@ -75,6 +75,9 @@ private:
 public slots:
     void changeScene(TS_UINT64 uid);
 
+    // connect or disconnect the signal/slot between scene and mainwindow
+    void buildSceneConnection(bool isCreate);
+
     void enterClass(QString username, QString password);
     void enterClassResult(bool result);
 
@@ -93,7 +96,12 @@ public slots:
     void changeBackground(QPixmap newPix);
     void changeMedia(QMediaPlayer* player);
 
-    void setPenWidth(int width);
+    void setScenePenWidth(int width);
+    void setScenePenColor(QColor color);
+    void changeSceneShape(int shapeType);
+
+    void cleanCentralArea(TS_UINT64 sceneID, int cleanOption);
+    void setViewPaintMode(int mode);
 
 private:
     bool playerPlay(QString filepath);

@@ -38,9 +38,12 @@ bool CClientNet::Start(unsigned short port) {
         return false;
 
     DESTROY(m_agent);
-	//m_agent = new CPeerConnection(m_Connect->getSocket());
-	//assert(m_agent->isValidSocket());
-	//m_agent->setPeer(m_Addr);
+    m_Connect->addPeer(ServerUID, m_Addr);
+    m_agent = new CPeerConnection(m_Connect->getSocket());
+    if (!m_agent->isValidSocket())
+        return false;
+
+    m_agent->setPeer(m_Addr);
 	return isRunning();
 }
 
@@ -105,12 +108,11 @@ void CClientNet::buildSendMessage(ts_msg& msg) {
 void CClientNet::SetServerAddr(DWORD s_code, char* ip, WORD port){		// 设定消息将要发送出去的外部服务器地址
 	struct sockaddr_in addr;
 	MakeIPv4Addr(addr, ip, port);
-	SetServerAddr(s_code, addr);
+    SetServerAddr(s_code, addr);
 }
 
 void CClientNet::SetServerAddr(DWORD s_code, struct sockaddr_in addr){	// 设定消息将要发送出去的外部服务器地址
     Q_UNUSED(s_code);
-	m_Connect->addPeer(ServerUID, addr);
 	m_Addr = addr;
 }
 
@@ -198,9 +200,9 @@ void CClientNet::sendConnectionMsg() {
 }
 
 void CClientNet::sendHeartBeat() {
+   ts_msg msg;
     while (isRunning()) {
-        TS_PEER_MESSAGE *msg = new TS_PEER_MESSAGE();
-        UP_HEARTBEAT* upcmd = (UP_HEARTBEAT*) &msg->msg;
+        UP_HEARTBEAT* upcmd = (UP_HEARTBEAT*) &msg;
 
         upcmd->head.type = HEARTBEAT;
         upcmd->head.time = getClientTime(m_timeDiff);
@@ -211,11 +213,10 @@ void CClientNet::sendHeartBeat() {
         upcmd->head.subSeq = 0;
         upcmd->maxSeq = m_seq - 1;
 
-        m_agent->send(msg->msg.Body, packetSize(msg->msg));
+		m_agent->send(msg.Body, upcmd->head.size);
 #ifdef _DEBUG_INFO_
         cout << m_uid << "send heart beat at " << upcmd->head.time << endl;
 #endif
-        delete msg;
         iop_usleep(HeartBeatInterval);				// 1分钟一个
     }
 }

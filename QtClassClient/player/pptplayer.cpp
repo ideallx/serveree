@@ -2,9 +2,7 @@
 #include "pptplayer.h"
 
 PPTPlayer::PPTPlayer(QString filepath, CMsgObject* parent):
-    AbsPlayer(filepath, parent),
-    totalSlide(0),
-    curSlide(1) {
+    AbsPlayer(filepath, parent) {
     if (!m_controller->setControl("Powerpoint.Application"))
         return;
     m_controller->setProperty("Visible", false);
@@ -28,6 +26,11 @@ PPTPlayer::PPTPlayer(QString filepath, CMsgObject* parent):
     m_transBackground = true;
     m_isLoadSuccess = true;
 }
+	
+
+PPTPlayer::~PPTPlayer() {
+    opened->querySubObject("Close()");
+}
 
 
 bool PPTPlayer::isPostfixRight(QString filename) {
@@ -44,14 +47,6 @@ bool PPTPlayer::procRun() {
         return false;
     }
 
-    auto presentation = window->querySubObject("Presentation");
-    auto Slides = presentation->querySubObject("Slides");
-    bool ok;
-    totalSlide = Slides->dynamicCall("Count").toInt(&ok);
-    if (!ok) {
-        return false;
-    }
-    curSlide = 1;
     window->setProperty("Top", 40);
     window->setProperty("Left", 180);
     window->setProperty("Width", window->property("Width").toInt() - 180);
@@ -68,7 +63,13 @@ bool PPTPlayer::procNext() {
     }
 
     view->querySubObject("Next()");
-    curSlide++;
+    view = window->querySubObject("View");
+    if (!view) {
+        m_filepath = QString::Null();
+        emit playerEnd();
+        return true;		// TODO return close() for emit
+    }
+
     return true;
 }
 
@@ -76,9 +77,6 @@ bool PPTPlayer::procPrev() {
     auto view = window->querySubObject("View");
     if (!view)
         return false;
-    if (curSlide > 1) {
-        curSlide--;
-    }
     view->querySubObject("Previous()");
 
     return true;
@@ -96,8 +94,4 @@ bool PPTPlayer::procStop() {
 
 bool PPTPlayer::procStart() {
     return procRun();
-}
-
-PPTPlayer::~PPTPlayer() {
-
 }

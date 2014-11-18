@@ -8,6 +8,11 @@ QString getFileName(QString filepath) {
     return filepath.split('/').last();
 }
 
+QString getFilePath(QString filename) {
+    QString path = QDir::currentPath();
+    return path + "/" + filename;
+}
+
 
 CourseWareWidget::CourseWareWidget(QWidget *parent)
     : QWidget(parent)
@@ -87,7 +92,17 @@ int CourseWareWidget::start(QString filename, bool isRemote) {
     if (!m_pg.create(filename))
         return FailedPlay;
 
-    m_player = PlayerFactory::createPlayer(filename, m_parent);
+    if (isRemote) {
+        if (Success == checkUploadFile(filename)) {
+            int result = addFileToList(filename);
+            if (result >= 0) {
+                ui->lbWareCount->setText(QString::number(result));
+            }
+        }
+    }
+
+	QString filepath = getFilePath(filename);
+    m_player = PlayerFactory::createPlayer(filepath, m_parent);
     if (!m_player)
         return FailedPlay;
 
@@ -97,13 +112,12 @@ int CourseWareWidget::start(QString filename, bool isRemote) {
         m_parent->ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
     }
 
-
-//    connect(m_player, &AbsPlayer::playerEnd,
-//            this, &MainWindow::playmodeEnd);
-//    connect(m_player, &AbsPlayer::backgroundChanged,
-//            this, &MainWindow::changeBackground);
-//    connect(m_player, &AbsPlayer::playMedia,
-//            this, &MainWindow::changeMedia);
+    connect(m_player, &AbsPlayer::playerEnd,
+            this, &CourseWareWidget::playmodeEnd);
+    connect(m_player, SIGNAL(backgroundChanged(QPixmap)),
+            this, SIGNAL(changeBackground(QPixmap)));
+    connect(m_player, &AbsPlayer::playMedia,
+            this, &CourseWareWidget::changeMedia);
 
     if (!m_player || !m_player->run()) {
         return FailedPlay;
@@ -113,7 +127,8 @@ int CourseWareWidget::start(QString filename, bool isRemote) {
     if (m_player->isTransBackground())
         emit paintModeChanged(PaintPPT);
 
-    return true;
+    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
+    return Success;
 }
 
 bool CourseWareWidget::stop(bool isRemote) {
@@ -202,25 +217,31 @@ bool CourseWareWidget::next(bool isRemote) {
     return true;
 }
 
-
-
-
 void CourseWareWidget::on_tbUpload_clicked()
 {
     if (m_userRole != RoleTeacher)
         return;
 
     QString filepath = QFileDialog::getOpenFileName(this);
+	if (filepath.isNull())
+		return;
+
     QString filename = getFileName(filepath);
+	if (filepath != getFilePath(filename)) {		// if origin file is not dest file
+		int result = checkUploadFile(filename);		// we have to check it 
+		if (result != Success) {
+			emit promptSent(result);
+			return;
+		}
 
-    int result = checkUploadFile(filename);
-    if (result != Success) {
-        emit promptSent(result);
-        return;
-    }
+		if (!QFile::copy(filepath, filename)) {		// cover if exists
+			QFile::remove(filename);
+			if (!QFile::copy(filepath, filename))
+				return;
+		}
+	}
 
-    if (QFile::copy(filepath, filename))
-        addFileToList(filename);
+    addFileToList(filename);
     // TODO ELSE
 }
 
@@ -251,6 +272,7 @@ void CourseWareWidget::on_tbExitWare_clicked()
     setHidden(true);
     ui->tbStart->setIcon(QIcon(":/icon/ui/icon/start.png"));
     emit paintModeChanged(PaintNormal);
+    emit clearScreen(TeacherUID, CleanHideClass | CleanHideWare);
     return;
 }
 
@@ -261,7 +283,7 @@ void CourseWareWidget::on_tbPrev_clicked()
     if (prev(false))
         return;
 
-    emit clearScreen();
+    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
 }
 
 void CourseWareWidget::on_tbStart_clicked()
@@ -285,14 +307,14 @@ void CourseWareWidget::playFileByUser(QString filename) {
         return;
     }
 
-    if (!start(filename, false)) {
+    if (Success != start(filename, false)) {
         emit promptSent(FailedPlay);
         return;
     }
 
     setHidden(false);
 
-    emit clearScreen();
+    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
     ui->tbStart->setIcon(QIcon(":/icon/ui/icon/stop.png"));
 }
 
@@ -303,7 +325,7 @@ void CourseWareWidget::on_tbNext_clicked()
     if (!next(false))
         return;
 
-    emit clearScreen();
+    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
 }
 
 

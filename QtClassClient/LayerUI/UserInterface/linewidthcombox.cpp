@@ -8,7 +8,7 @@
 #include "linewidthcombox.h"
 
 static const qreal iconWidth = 200;
-static const qreal iconHeight = 40;
+static const qreal iconHeight = 30;
 
 LineWidthCombox::LineWidthCombox(QWidget *parent) :
     QToolButton(parent) {
@@ -25,7 +25,7 @@ QMenu* LineWidthCombox::createLineMenu() {
     layout->setAlignment(Qt::AlignCenter);
     layout->setSpacing(0);
 
-    for (int iRow = 0; iRow < 6; iRow++) {
+    for (int iRow = 0; iRow < 9; iRow++) {
         QAction *action = new QAction(this);
         action->setData(iRow);
         connect(action, &QAction::triggered,

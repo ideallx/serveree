@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[55];
-    char stringdata[694];
+    QByteArrayData data[66];
+    char stringdata[838];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -52,38 +52,49 @@ QT_MOC_LITERAL(19, 196, 13),
 QT_MOC_LITERAL(20, 210, 11),
 QT_MOC_LITERAL(21, 222, 9),
 QT_MOC_LITERAL(22, 232, 3),
-QT_MOC_LITERAL(23, 236, 10),
-QT_MOC_LITERAL(24, 247, 8),
-QT_MOC_LITERAL(25, 256, 8),
-QT_MOC_LITERAL(26, 265, 16),
-QT_MOC_LITERAL(27, 282, 10),
-QT_MOC_LITERAL(28, 293, 16),
-QT_MOC_LITERAL(29, 310, 7),
-QT_MOC_LITERAL(30, 318, 11),
-QT_MOC_LITERAL(31, 330, 4),
-QT_MOC_LITERAL(32, 335, 9),
-QT_MOC_LITERAL(33, 345, 9),
-QT_MOC_LITERAL(34, 355, 10),
-QT_MOC_LITERAL(35, 366, 16),
-QT_MOC_LITERAL(36, 383, 16),
-QT_MOC_LITERAL(37, 400, 6),
-QT_MOC_LITERAL(38, 407, 11),
-QT_MOC_LITERAL(39, 419, 13),
-QT_MOC_LITERAL(40, 433, 6),
-QT_MOC_LITERAL(41, 440, 11),
-QT_MOC_LITERAL(42, 452, 5),
-QT_MOC_LITERAL(43, 458, 21),
-QT_MOC_LITERAL(44, 480, 5),
-QT_MOC_LITERAL(45, 486, 20),
-QT_MOC_LITERAL(46, 507, 22),
-QT_MOC_LITERAL(47, 530, 25),
-QT_MOC_LITERAL(48, 556, 20),
-QT_MOC_LITERAL(49, 577, 12),
-QT_MOC_LITERAL(50, 590, 10),
-QT_MOC_LITERAL(51, 601, 16),
-QT_MOC_LITERAL(52, 618, 23),
-QT_MOC_LITERAL(53, 642, 23),
-QT_MOC_LITERAL(54, 666, 27)
+QT_MOC_LITERAL(23, 236, 20),
+QT_MOC_LITERAL(24, 257, 8),
+QT_MOC_LITERAL(25, 266, 10),
+QT_MOC_LITERAL(26, 277, 8),
+QT_MOC_LITERAL(27, 286, 8),
+QT_MOC_LITERAL(28, 295, 16),
+QT_MOC_LITERAL(29, 312, 10),
+QT_MOC_LITERAL(30, 323, 16),
+QT_MOC_LITERAL(31, 340, 7),
+QT_MOC_LITERAL(32, 348, 11),
+QT_MOC_LITERAL(33, 360, 4),
+QT_MOC_LITERAL(34, 365, 9),
+QT_MOC_LITERAL(35, 375, 9),
+QT_MOC_LITERAL(36, 385, 10),
+QT_MOC_LITERAL(37, 396, 16),
+QT_MOC_LITERAL(38, 413, 16),
+QT_MOC_LITERAL(39, 430, 6),
+QT_MOC_LITERAL(40, 437, 11),
+QT_MOC_LITERAL(41, 449, 13),
+QT_MOC_LITERAL(42, 463, 6),
+QT_MOC_LITERAL(43, 470, 16),
+QT_MOC_LITERAL(44, 487, 5),
+QT_MOC_LITERAL(45, 493, 16),
+QT_MOC_LITERAL(46, 510, 5),
+QT_MOC_LITERAL(47, 516, 16),
+QT_MOC_LITERAL(48, 533, 9),
+QT_MOC_LITERAL(49, 543, 16),
+QT_MOC_LITERAL(50, 560, 7),
+QT_MOC_LITERAL(51, 568, 11),
+QT_MOC_LITERAL(52, 580, 16),
+QT_MOC_LITERAL(53, 597, 4),
+QT_MOC_LITERAL(54, 602, 21),
+QT_MOC_LITERAL(55, 624, 5),
+QT_MOC_LITERAL(56, 630, 20),
+QT_MOC_LITERAL(57, 651, 22),
+QT_MOC_LITERAL(58, 674, 25),
+QT_MOC_LITERAL(59, 700, 20),
+QT_MOC_LITERAL(60, 721, 12),
+QT_MOC_LITERAL(61, 734, 10),
+QT_MOC_LITERAL(62, 745, 16),
+QT_MOC_LITERAL(63, 762, 23),
+QT_MOC_LITERAL(64, 786, 23),
+QT_MOC_LITERAL(65, 810, 27)
     },
     "MainWindow\0enOrLeaveClass\0\0entered\0"
     "drawShape\0addScene\0uidh\0uidl\0promptSent\0"
@@ -91,14 +102,18 @@ QT_MOC_LITERAL(54, 666, 27)
     "stopServerRespTimer\0wareItemRecv\0"
     "filename\0playerPreved\0isRemote\0"
     "playerNexted\0playerStoped\0playerStarted\0"
-    "changeScene\0TS_UINT64\0uid\0enterClass\0"
+    "changeScene\0TS_UINT64\0uid\0"
+    "buildSceneConnection\0isCreate\0enterClass\0"
     "username\0password\0enterClassResult\0"
     "leaveClass\0leaveClassResult\0setRole\0"
     "RoleOfClass\0role\0classIcon\0drawScene\0"
     "sendPrompt\0sendResultPrompt\0"
     "changeBackground\0newPix\0changeMedia\0"
-    "QMediaPlayer*\0player\0setPenWidth\0width\0"
-    "on_listWidget_clicked\0index\0"
+    "QMediaPlayer*\0player\0setScenePenWidth\0"
+    "width\0setScenePenColor\0color\0"
+    "changeSceneShape\0shapeType\0cleanCentralArea\0"
+    "sceneID\0cleanOption\0setViewPaintMode\0"
+    "mode\0on_listWidget_clicked\0index\0"
     "on_tbMyClass_clicked\0on_btClassInfo_clicked\0"
     "on_tbTeacherBoard_clicked\0"
     "on_tbMyBoard_clicked\0addSceneSlot\0"
@@ -114,7 +129,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      35,   14, // methods
+      40,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -122,43 +137,48 @@ static const uint qt_meta_data_MainWindow[] = {
       11,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  189,    2, 0x06 /* Public */,
-       4,    0,  192,    2, 0x06 /* Public */,
-       5,    2,  193,    2, 0x06 /* Public */,
-       8,    1,  198,    2, 0x06 /* Public */,
-      10,    1,  201,    2, 0x06 /* Public */,
-      12,    0,  204,    2, 0x06 /* Public */,
-      13,    1,  205,    2, 0x06 /* Public */,
-      15,    1,  208,    2, 0x06 /* Public */,
-      17,    1,  211,    2, 0x06 /* Public */,
-      18,    1,  214,    2, 0x06 /* Public */,
-      19,    2,  217,    2, 0x06 /* Public */,
+       1,    1,  214,    2, 0x06 /* Public */,
+       4,    0,  217,    2, 0x06 /* Public */,
+       5,    2,  218,    2, 0x06 /* Public */,
+       8,    1,  223,    2, 0x06 /* Public */,
+      10,    1,  226,    2, 0x06 /* Public */,
+      12,    0,  229,    2, 0x06 /* Public */,
+      13,    1,  230,    2, 0x06 /* Public */,
+      15,    1,  233,    2, 0x06 /* Public */,
+      17,    1,  236,    2, 0x06 /* Public */,
+      18,    1,  239,    2, 0x06 /* Public */,
+      19,    2,  242,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      20,    1,  222,    2, 0x0a /* Public */,
-      23,    2,  225,    2, 0x0a /* Public */,
-      26,    1,  230,    2, 0x0a /* Public */,
-      27,    0,  233,    2, 0x0a /* Public */,
-      28,    1,  234,    2, 0x0a /* Public */,
-      29,    1,  237,    2, 0x0a /* Public */,
-      32,    1,  240,    2, 0x0a /* Public */,
-      33,    0,  243,    2, 0x0a /* Public */,
-      34,    1,  244,    2, 0x0a /* Public */,
-      35,    1,  247,    2, 0x0a /* Public */,
-      36,    1,  250,    2, 0x0a /* Public */,
-      38,    1,  253,    2, 0x0a /* Public */,
-      41,    1,  256,    2, 0x0a /* Public */,
-      43,    1,  259,    2, 0x08 /* Private */,
-      45,    0,  262,    2, 0x08 /* Private */,
-      46,    0,  263,    2, 0x08 /* Private */,
-      47,    0,  264,    2, 0x08 /* Private */,
-      48,    0,  265,    2, 0x08 /* Private */,
-      49,    2,  266,    2, 0x08 /* Private */,
-      50,    1,  271,    2, 0x08 /* Private */,
-      51,    1,  274,    2, 0x08 /* Private */,
-      52,    0,  277,    2, 0x08 /* Private */,
-      53,    0,  278,    2, 0x08 /* Private */,
-      54,    1,  279,    2, 0x08 /* Private */,
+      20,    1,  247,    2, 0x0a /* Public */,
+      23,    1,  250,    2, 0x0a /* Public */,
+      25,    2,  253,    2, 0x0a /* Public */,
+      28,    1,  258,    2, 0x0a /* Public */,
+      29,    0,  261,    2, 0x0a /* Public */,
+      30,    1,  262,    2, 0x0a /* Public */,
+      31,    1,  265,    2, 0x0a /* Public */,
+      34,    1,  268,    2, 0x0a /* Public */,
+      35,    0,  271,    2, 0x0a /* Public */,
+      36,    1,  272,    2, 0x0a /* Public */,
+      37,    1,  275,    2, 0x0a /* Public */,
+      38,    1,  278,    2, 0x0a /* Public */,
+      40,    1,  281,    2, 0x0a /* Public */,
+      43,    1,  284,    2, 0x0a /* Public */,
+      45,    1,  287,    2, 0x0a /* Public */,
+      47,    1,  290,    2, 0x0a /* Public */,
+      49,    2,  293,    2, 0x0a /* Public */,
+      52,    1,  298,    2, 0x0a /* Public */,
+      54,    1,  301,    2, 0x08 /* Private */,
+      56,    0,  304,    2, 0x08 /* Private */,
+      57,    0,  305,    2, 0x08 /* Private */,
+      58,    0,  306,    2, 0x08 /* Private */,
+      59,    0,  307,    2, 0x08 /* Private */,
+      60,    2,  308,    2, 0x08 /* Private */,
+      61,    1,  313,    2, 0x08 /* Private */,
+      62,    1,  316,    2, 0x08 /* Private */,
+      63,    0,  319,    2, 0x08 /* Private */,
+      64,    0,  320,    2, 0x08 /* Private */,
+      65,    1,  321,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Bool,    3,
@@ -175,19 +195,24 @@ static const uint qt_meta_data_MainWindow[] = {
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 21,   22,
-    QMetaType::Void, QMetaType::QString, QMetaType::QString,   24,   25,
+    QMetaType::Void, QMetaType::Bool,   24,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString,   26,   27,
     QMetaType::Void, QMetaType::Bool,   11,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,   11,
-    QMetaType::Void, 0x80000000 | 30,   31,
+    QMetaType::Void, 0x80000000 | 32,   33,
     QMetaType::Void, QMetaType::Bool,    3,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,    9,
     QMetaType::Void, QMetaType::Int,   11,
-    QMetaType::Void, QMetaType::QPixmap,   37,
-    QMetaType::Void, 0x80000000 | 39,   40,
-    QMetaType::Void, QMetaType::Int,   42,
-    QMetaType::Void, QMetaType::QModelIndex,   44,
+    QMetaType::Void, QMetaType::QPixmap,   39,
+    QMetaType::Void, 0x80000000 | 41,   42,
+    QMetaType::Void, QMetaType::Int,   44,
+    QMetaType::Void, QMetaType::QColor,   46,
+    QMetaType::Void, QMetaType::Int,   48,
+    QMetaType::Void, 0x80000000 | 21, QMetaType::Int,   50,   51,
+    QMetaType::Void, QMetaType::Int,   53,
+    QMetaType::Void, QMetaType::QModelIndex,   55,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -197,7 +222,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Int,   11,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QModelIndex,   44,
+    QMetaType::Void, QMetaType::QModelIndex,   55,
 
        0        // eod
 };
@@ -219,35 +244,40 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 9: _t->playerStoped((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 10: _t->playerStarted((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
         case 11: _t->changeScene((*reinterpret_cast< TS_UINT64(*)>(_a[1]))); break;
-        case 12: _t->enterClass((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        case 13: _t->enterClassResult((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 14: _t->leaveClass(); break;
-        case 15: _t->leaveClassResult((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 16: _t->setRole((*reinterpret_cast< RoleOfClass(*)>(_a[1]))); break;
-        case 17: _t->classIcon((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 18: _t->drawScene(); break;
-        case 19: _t->sendPrompt((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 20: _t->sendResultPrompt((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 21: _t->changeBackground((*reinterpret_cast< QPixmap(*)>(_a[1]))); break;
-        case 22: _t->changeMedia((*reinterpret_cast< QMediaPlayer*(*)>(_a[1]))); break;
-        case 23: _t->setPenWidth((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 24: _t->on_listWidget_clicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
-        case 25: _t->on_tbMyClass_clicked(); break;
-        case 26: _t->on_btClassInfo_clicked(); break;
-        case 27: _t->on_tbTeacherBoard_clicked(); break;
-        case 28: _t->on_tbMyBoard_clicked(); break;
-        case 29: _t->addSceneSlot((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 30: _t->showPrompt((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 31: _t->showResultPrompt((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 32: _t->on_tbCourseWare_clicked(); break;
-        case 33: _t->on_tbBackground_clicked(); break;
-        case 34: _t->on_listWidget_doubleClicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
+        case 12: _t->buildSceneConnection((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 13: _t->enterClass((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 14: _t->enterClassResult((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 15: _t->leaveClass(); break;
+        case 16: _t->leaveClassResult((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 17: _t->setRole((*reinterpret_cast< RoleOfClass(*)>(_a[1]))); break;
+        case 18: _t->classIcon((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 19: _t->drawScene(); break;
+        case 20: _t->sendPrompt((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 21: _t->sendResultPrompt((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 22: _t->changeBackground((*reinterpret_cast< QPixmap(*)>(_a[1]))); break;
+        case 23: _t->changeMedia((*reinterpret_cast< QMediaPlayer*(*)>(_a[1]))); break;
+        case 24: _t->setScenePenWidth((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 25: _t->setScenePenColor((*reinterpret_cast< QColor(*)>(_a[1]))); break;
+        case 26: _t->changeSceneShape((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 27: _t->cleanCentralArea((*reinterpret_cast< TS_UINT64(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 28: _t->setViewPaintMode((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 29: _t->on_listWidget_clicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
+        case 30: _t->on_tbMyClass_clicked(); break;
+        case 31: _t->on_btClassInfo_clicked(); break;
+        case 32: _t->on_tbTeacherBoard_clicked(); break;
+        case 33: _t->on_tbMyBoard_clicked(); break;
+        case 34: _t->addSceneSlot((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 35: _t->showPrompt((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 36: _t->showResultPrompt((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 37: _t->on_tbCourseWare_clicked(); break;
+        case 38: _t->on_tbBackground_clicked(); break;
+        case 39: _t->on_listWidget_doubleClicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 22:
+        case 23:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
@@ -354,13 +384,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 35)
+        if (_id < 40)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 35;
+        _id -= 40;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 35)
+        if (_id < 40)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 35;
+        _id -= 40;
     }
     return _id;
 }

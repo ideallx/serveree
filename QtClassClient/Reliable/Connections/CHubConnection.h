@@ -14,7 +14,6 @@ using namespace std;
 class  CHubConnection : public CAbsConnection {
 protected:
     iop_lock_t                          mutex_lock;		// peerhub lock
-    CPeerConnection*                    pPeerConnect;
     map<TS_UINT64, CPeerConnection*>*   peerHub;		// all users who are now in the class
     set<TS_UINT64>                      allUsers;		// all users who has logged in the class
 

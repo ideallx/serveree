@@ -39,7 +39,7 @@ CAbsSocket::CAbsSocket(const CAbsSocket& that) {
 	bInit = that.bInit;
 }
 
-// example 192 168 1 202 7780  0xC0 A8 01 CA 1E64
+// example 192 168 1 128 7780  0xC0 A8 01 CA 1E64
 TS_UINT64 CAbsSocket::getAddressKey(const struct sockaddr_in addr) {
 	TS_UINT64 key;
 

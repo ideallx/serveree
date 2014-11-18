@@ -22,6 +22,13 @@ enum MoveType {
     MoveDraw
 };
 
+class DrawingSettingData {
+public:
+    int     drawingType;    // the type of shape drawing by the client user
+    QPen    pen;            // the pen/brush of this client user
+    QBrush  brush;
+};
+
 class MyScene : public QGraphicsScene
 {
     Q_OBJECT
@@ -45,8 +52,6 @@ public:
 
     void actErase(TS_GRAPHIC_PACKET& graphicMsg);
 
-    void changeType(enum ShapeType s);
-
     void setBackground(QPixmap pix);
 
     inline void setWriteable(bool set) { isWriteable = set; }
@@ -57,11 +62,11 @@ public slots:
 
     void changeShapeByUI(int shape);
 
-    void setPenWidth(int width) { pen.setWidth(width); toolChanged = true; isEraser = false;}
+    void setPenWidth(int width) { setDraw.pen.setWidth(width); toolChanged = true; isEraser = false;}
 
-    void setPenColor(QColor c) { pen.setColor(c); toolChanged = true; }
+    void setPenColor(QColor c) { setDraw.pen.setColor(c); toolChanged = true ; isEraser = false; }
 
-    void setBrushColor(QColor c) { brush = QBrush(c); toolChanged = true; }
+    void setBrushColor(QColor c) { setDraw.brush = QBrush(c); toolChanged = true; isEraser = false; }
 
     void setOthersPenBrush(TS_GRAPHIC_PACKET& graphicMsg);
 
@@ -86,14 +91,13 @@ private:
     CGraphicMsgCreator*                     gmc;            // graphic msg generator
 
     set<pair<TS_UINT64, DWORD> >            eraseList;      // for recv eraser earlier than the shape
+
     bool                                    toolChanged;    // is pen or brush changed
-    int                                     drawingType;    // the type of shape drawing by the client user
     bool                                    isEraser;       // is in eraser mode
 
     QMap<TS_UINT64, CShape*>                lastItems;      // the recent shape each user was drawing
     QMap<TS_UINT64, QPair<QPen, QBrush> >   toolsMap;       // the pen and brush each user was using
-    QPen                                    pen;            // the pen/brush of this client user
-    QBrush                                  brush;
+
 
     MoveType                                mt;             // use for multi-finger touch
     QPointF                                 cachedPos;      // begin point cache for multi-finger touch
@@ -104,6 +108,8 @@ private:
     QGraphicsPixmapItem                     *m_backpixmap;
     QGraphicsVideoItem*                     media;
 
+    DrawingSettingData                      setDraw;
+    DrawingSettingData                      setErase;
 };
 
 #endif // MYSCENE_H

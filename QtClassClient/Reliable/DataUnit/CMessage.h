@@ -18,6 +18,14 @@ const int VersionNumber = 1;
 
 extern TS_UINT64 globalUID;
 
+enum CleanType {
+    CleanSceneOnly      = 0,
+    CleanShowWare       = 1,
+    CleanHideWare       = 2,
+    CleanShowClass      = 4,
+    CleanHideClass      = 8
+};
+
 // 报文头
 typedef struct {
     TS_UINT64 UID;				// 8 Bytes 用户ID

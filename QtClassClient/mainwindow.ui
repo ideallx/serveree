@@ -157,20 +157,70 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
       </property>
       <property name="styleSheet">
        <string notr="true">QGroupBox {
-	border-image: url(:/back/ui/back/orange1.png);
+	
+	background-color: rgb(106, 160, 127);
 	border:none;
 }
 Line {
 	background-image: url(:/back/ui/back/line.png);
 }
+
+QToolButton#tbBackground, #tbBrush, #tbCourseWare,
+	#tbEraser, #tbLogin, #tbMyBoard, #tbMyClass,
+	#tbPalette, #tbSettings, #tbShape, #tbTeacherBoard {
+	border-style: outset;
+	border-top-width: 4px;
+	border-left-width: 1px;
+	border-left-color: rgb(214, 214, 214);
+}
+
 QToolButton:!checked {
 	color: rgb(255, 255, 255);
-	border:none;
 }
-QToolButton:checked, QToolButton:pressed { 
+QToolButton:checked, QToolButton:pressed {
 	background-color: rgb(83, 83, 83);
-	border:none;
-}</string>
+}
+
+QToolButton#tbCourseWare {
+	border-top-color: rgb(233, 71, 7);
+}
+
+QToolButton#tbTeacherBoard {
+	border-top-color: rgb(253, 213, 3);
+}
+
+QToolButton#tbMyBoard {
+	border-top-color: rgb(94, 192, 191);
+}
+
+QToolButton#tbMyClass {
+	border-top-color: rgb(73, 167, 167);
+}
+
+QToolButton#tbBrush {
+	border-top-color: rgb(163, 207, 67);
+}
+
+QToolButton#tbEraser {
+	border-top-color: rgb(180, 61, 109);
+}
+
+QToolButton#tbPalette {
+	border-top-color: rgb(242, 69, 109);
+}
+
+QToolButton#tbBackground {
+	border-top-color: rgb(3, 155, 239);
+}
+
+QToolButton#tbLogin {
+	border-top-color: rgb(213, 213, 213);
+}
+
+QToolButton#tbShape {
+	border-top-color: rgb(208, 238, 139);
+}
+</string>
       </property>
       <property name="title">
        <string/>
@@ -192,31 +242,25 @@ QToolButton:checked, QToolButton:pressed {
         <number>0</number>
        </property>
        <item>
-        <spacer name="horizontalSpacer_5">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
         <widget class="QLabel" name="lbLogo">
          <property name="minimumSize">
           <size>
-           <width>480</width>
+           <width>0</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>480</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QToolButton#tbCourseWare {
+	border-style: outset;
+	border-top-width: 4px;
+	border-top-color: rgb(233, 71, 7);
+};</string>
          </property>
          <property name="text">
           <string/>
@@ -224,12 +268,8 @@ QToolButton:checked, QToolButton:pressed {
          <property name="pixmap">
           <pixmap resource="ui.qrc">:/icon/ui/icon/fulann_logo.png</pixmap>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="Line" name="line">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -249,7 +289,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
+           <width>120</width>
            <height>16777215</height>
           </size>
          </property>
@@ -278,13 +318,6 @@ QToolButton:checked, QToolButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="Line" name="line_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QToolButton" name="tbTeacherBoard">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -300,7 +333,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
+           <width>120</width>
            <height>16777215</height>
           </size>
          </property>
@@ -329,13 +362,6 @@ QToolButton:checked, QToolButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="Line" name="line_3">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QToolButton" name="tbMyBoard">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -351,7 +377,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
+           <width>120</width>
            <height>16777215</height>
           </size>
          </property>
@@ -380,13 +406,6 @@ QToolButton:checked, QToolButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="Line" name="line_8">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QToolButton" name="tbMyClass">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -402,7 +421,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
+           <width>120</width>
            <height>16777215</height>
           </size>
          </property>
@@ -431,13 +450,6 @@ QToolButton:checked, QToolButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="Line" name="line_7">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="LineWidthCombox" name="tbBrush">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -453,7 +465,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
+           <width>120</width>
            <height>16777215</height>
           </size>
          </property>
@@ -482,13 +494,6 @@ QToolButton:checked, QToolButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="Line" name="line_4">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="CShapeChooser" name="tbShape">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -504,7 +509,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
+           <width>120</width>
            <height>16777215</height>
           </size>
          </property>
@@ -533,13 +538,6 @@ QToolButton:checked, QToolButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="Line" name="line_6">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QToolButton" name="tbEraser">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -555,7 +553,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
+           <width>120</width>
            <height>16777215</height>
           </size>
          </property>
@@ -590,13 +588,6 @@ QToolButton:checked, QToolButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="Line" name="line_5">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="ColorCombox" name="tbPalette">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -612,7 +603,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
+           <width>120</width>
            <height>16777215</height>
           </size>
          </property>
@@ -641,13 +632,6 @@ QToolButton:checked, QToolButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="Line" name="line_9">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QToolButton" name="tbBackground">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -663,7 +647,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
+           <width>120</width>
            <height>16777215</height>
           </size>
          </property>
@@ -692,13 +676,6 @@ QToolButton:checked, QToolButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="Line" name="line_10">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="CLoginButton" name="tbLogin">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -714,7 +691,7 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
+           <width>120</width>
            <height>16777215</height>
           </size>
          </property>
@@ -739,13 +716,6 @@ QToolButton:checked, QToolButton:pressed {
          </property>
          <property name="autoRaise">
           <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="Line" name="line_11">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
          </property>
         </widget>
        </item>

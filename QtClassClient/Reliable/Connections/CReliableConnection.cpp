@@ -175,7 +175,7 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
 		return result;
 
     ts_msg* msg = (ts_msg*) buf;
-    TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) msg;
+    // TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) msg;
 
     switch (getType(*msg)) {
     case RESEND:
