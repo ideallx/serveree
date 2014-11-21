@@ -8,18 +8,16 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     controller = new QAxObject;
-    if (!controller->setControl("Word.Application"))
-        qDebug() << "fuck";
+    ui->axWidget->setControl("Word.Application");
+    controller = ui->axWidget->querySubObject("Documents");
+    if (!controller)
+        qDebug() << "fff";
+    auto open = controller->querySubObject("Open(QString)", QString("D:/abc.doc"));
+    if (!open)
+        qDebug() << "ddd";
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::on_pbrun_clicked()
-{
-    docu = controller->querySubObject("Documents");
-    QAxObject* open = docu->querySubObject("Open(QString)", QString("D:/abc.doc"));
-
 }

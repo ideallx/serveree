@@ -159,7 +159,6 @@ bool CourseWareWidget::stop(bool isRemote) {
     if (m_player) {
         if (m_player->isMedia()) {
             m_player->stop();
-            qDebug() << "stop";
         } else {
             m_player->close();
         }
@@ -173,12 +172,13 @@ bool CourseWareWidget::stop(bool isRemote) {
 
     ui->tbStart->setIcon(QIcon(":/icon/ui/icon/start.png"));
 
-    if (!m_player->isMedia()) {
-        setHidden(true);
-        emit paintModeChanged(PaintNormal);
-        emit clearScreen(TeacherUID, CleanHideClass | CleanHideWare);
+    if (m_player->isMedia() && !m_player->isMediaEnd()) {
+        return true;
     }
-
+    m_player->close();
+    setHidden(true);
+    emit paintModeChanged(PaintNormal);
+    emit clearScreen(TeacherUID, CleanHideClass | CleanHideWare);
     return true;
 }
 

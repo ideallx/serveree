@@ -33,6 +33,8 @@ public:
 
     inline bool isMedia() { return m_isMedia; }
 
+    inline bool isMediaEnd() { return m_isMediaEnd; }
+
     virtual bool isPostfixRight(QString filename) { return false; }
 
     static QRect screenSize();
@@ -69,6 +71,7 @@ protected:
     bool        m_isInnerPvNx;
 	bool		m_isWaiting;
     bool        m_isMedia;              // media: pause start
+    bool        m_isMediaEnd;
 };
 
 

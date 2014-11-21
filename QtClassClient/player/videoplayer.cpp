@@ -29,6 +29,7 @@ bool VideoPlayer::procRun() {
         return true;
     }
 
+    m_isMediaEnd = false;
 	if (mediaPlayer.isAvailable()) {
         qDebug() << "proc run";
         connect(&mediaPlayer, &QMediaPlayer::stateChanged,
@@ -41,14 +42,18 @@ bool VideoPlayer::procRun() {
 }
 
 void VideoPlayer::checkStatus(QMediaPlayer::State status) {
-    if (status == QMediaPlayer::StoppedState)
+    if (status == QMediaPlayer::StoppedState) {
+        m_isMediaEnd = true;
         emit playerEnd();
+    }
 }
 
 bool VideoPlayer::procNext() {
     mediaPlayer.setPosition(mediaPlayer.position() + 5000);
-    if (mediaPlayer.position() >= mediaPlayer.duration())
+    if (mediaPlayer.position() >= mediaPlayer.duration()) {
+        m_isMediaEnd = true;
         emit playerEnd();
+    }
     return true;
 }
 
@@ -60,6 +65,7 @@ bool VideoPlayer::procPrev() {
 }
 
 bool VideoPlayer::procClose() {
+    m_isMediaEnd = true;
     return true;
 }
 

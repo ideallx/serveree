@@ -8,10 +8,6 @@
 //typedef BOOL (WINAPI *pSDARP)(ORIENTATION_PREFERENCE orientation);
 //pSDARP pARP;
 
-
-int program(int argc, char *argv[]) {
-    QApplication a(argc, argv);
-
 //    auto pARP = (pSDARP) GetProcAddress( GetModuleHandle(TEXT("user32.dll")),
 //                                        "SetDisplayAutoRotationPreferences");
 //    if (pARP) {
@@ -22,15 +18,6 @@ int program(int argc, char *argv[]) {
 //    }
 
     //ui.enterClass("teacher1", "11");
-    return a.exec();
-}
-
-int before(int argc, char *argv[]) {
-    QApplication a(argc, argv);
-    LoginDialog ld;
-    ld.show();
-    return a.exec();
-}
 
 int main(int argc, char *argv[])
 {

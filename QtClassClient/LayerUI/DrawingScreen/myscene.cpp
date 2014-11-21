@@ -15,6 +15,25 @@ enum GRAPHICITEM_KEY_t {
     GraphicShapeID
 };
 
+const int percentage = 1920;
+QPointF screenToViewPercent(QPointF p, QGraphicsView* view) {
+//    QPointF p2 = view->mapFromScene(p);
+//    QPointF result = QPointF(p2.x() * percentage / view->width(),
+//                             p2.y() * percentage / view->height());
+//    return result;
+    return p;
+}
+
+
+// TODO may be < 0 error
+QPointF viewToScreenPercent(QPointF p, QGraphicsView *view) {
+//    QPointF p2 = QPointF(p.x() * view->width() / percentage,
+//                             p.y() * view->height() / percentage);
+//    QPointF result = view->mapToScene(p2.toPoint());
+//    return result;
+    return p;
+}
+
 MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent)
     : QGraphicsScene(parent)
     , sceneID(sceneID)
@@ -54,7 +73,13 @@ void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     if (!isWriteable)
         return;
 
-    lastPos = event->scenePos();
+//    qDebug() << event->screenPos() << event->scenePos();
+//    QPointF ff = screenToViewPercent(event->scenePos().toPoint(), views()[0]);
+//    viewToScreenPercent(ff, views()[0]);
+//    qDebug();
+
+    //lastPos = event->scenePos();
+    lastPos = screenToViewPercent(event->scenePos(), views()[0]);
     TS_GRAPHIC_PACKET gmsg;
     MyView* mv = static_cast<MyView*> (this->views()[0]);
     if (mv->panTimer.isActive()) {
@@ -68,7 +93,7 @@ void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
         return;
     if (mt != MoveDraw)
         return;
-    gmc->generateGraphicsData(gmsg, event->scenePos(), false);
+    gmc->generateGraphicsData(gmsg, lastPos, false);
     actMove(gmsg);
     msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
 }
@@ -79,7 +104,7 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
     mt = MovePending;
     panFixer.start(40);
-    cachedPos = event->scenePos();
+    cachedPos = screenToViewPercent(event->scenePos(), views()[0]);
 }
 
 void MyScene::sendMoveBegin() {
@@ -109,7 +134,7 @@ void MyScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     if (panFixer.isActive() || mt != MoveDraw)
         return;
     TS_GRAPHIC_PACKET gmsg;
-    gmc->generateGraphicsData(gmsg, event->scenePos(), false);
+    gmc->generateGraphicsData(gmsg, screenToViewPercent(event->scenePos(), views()[0]), false);
     actMove(gmsg);
     msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
 }
@@ -150,10 +175,11 @@ CShape *MyScene::createNewItem(TS_UINT64 uid, int shapeType, QPointF curPoint) {
 static int updateCounter = 0;
 void MyScene::actMove(TS_GRAPHIC_PACKET &graphicMsg) {
     QPointF scenePos = QPointF(graphicMsg.data.PointX, graphicMsg.data.PointY);
+    QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
     CShape* lastItem = lastItems[graphicMsg.head.UID];
 	if (NULL == lastItem)
 		return;
-    lastItem->setCurPos(scenePos);
+    lastItem->setCurPos(p2);
 
     updateCounter++;
     if (updateCounter % 10)
@@ -162,12 +188,13 @@ void MyScene::actMove(TS_GRAPHIC_PACKET &graphicMsg) {
 
 void MyScene::actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg) {
     QPointF scenePos = QPointF(graphicMsg.data.BeginPx, graphicMsg.data.BeginPy);
+    QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
     TS_UINT64 uid = graphicMsg.head.UID;
     if (!lastItems.contains(uid)) {
         lastItems.insert(uid, NULL);
     }
 
-    lastItems[uid] = createNewItem(uid, graphicMsg.data.ShapeType, scenePos);
+    lastItems[uid] = createNewItem(uid, graphicMsg.data.ShapeType, p2);
     if (NULL == lastItems[uid])
         return;
 
@@ -188,7 +215,8 @@ void MyScene::actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg) {
 void MyScene::actErase(TS_GRAPHIC_PACKET& graphicMsg) {
     qDebug() << "erase" << graphicMsg.eraser.targetUID << graphicMsg.eraser.shapeID;
     QPointF scenePos = QPointF(graphicMsg.eraser.PointX, graphicMsg.eraser.PointY);
-    QGraphicsItem* chosenItem = itemAt(scenePos, QTransform());
+    QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
+    QGraphicsItem* chosenItem = itemAt(p2, QTransform());
     // first find by position
     if ((chosenItem->data(GraphicUID).toLongLong() == graphicMsg.eraser.targetUID) &&
             (chosenItem->data(GraphicShapeID).toInt() == graphicMsg.eraser.shapeID)) {
