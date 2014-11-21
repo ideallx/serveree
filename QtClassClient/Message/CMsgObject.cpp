@@ -47,3 +47,23 @@ void CMsgObject::changeParent(CMsgObject* newParent) {
 	p_Parent = newParent;
 	setAgent(newParent->p_agent);
 }
+
+void CMsgObject::sendToUp(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote) {
+	CMsgObject* sender = this;
+	while (sender->p_Parent) {
+		sender = sender->p_Parent;
+	}
+	for (auto iter = sender->upReceivers.begin(); iter != sender->upReceivers.end(); iter++) {
+		(*iter)->ProcessMessage(const_cast<ts_msg&>(msg), wParam, lParam, isRemote);
+	}
+}
+
+void CMsgObject::sendToDown(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote) {
+	CMsgObject* sender = this;
+	while (sender->p_Parent) {
+		sender = sender->p_Parent;
+	}
+	for (auto iter = sender->downReceivers.begin(); iter != sender->downReceivers.end(); iter++) {
+		(*iter)->ProcessMessage(const_cast<ts_msg&>(msg), wParam, lParam, isRemote);
+	}
+}

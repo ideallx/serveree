@@ -34,8 +34,9 @@ void CFileLogic::procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap) {
                 qDebug() << "succes";
                 m_waitForNewFile = true;
                 m_writingFile.close();
-                ui->addWareList(m_writingFile.fileName());
-                ui->sendResultPrompt(SuccessDownload);
+                // TODO
+                memcpy(fmsg->content, m_writingFile.fileName().toLatin1().data(), MaxFileName);
+                sendToUp(iter->second, 0, 0, true);
             }
         } else {
             qDebug() << "cant write file";

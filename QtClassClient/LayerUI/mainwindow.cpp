@@ -48,8 +48,8 @@ MainWindow::MainWindow(QWidget *parent)
     // move to UI thread
     connect(this, &MainWindow::enOrLeaveClass,
             this, &MainWindow::classIcon);
-    connect(this, &MainWindow::drawShape,
-            this, &MainWindow::drawScene);
+    connect(this, &MainWindow::msgReceived,
+            this, &MainWindow::msgExcute);
     connect(this, &MainWindow::addScene,
             this, &MainWindow::addSceneSlot);
     connect(this, &MainWindow::promptResultSent,
@@ -91,8 +91,15 @@ MainWindow::MainWindow(QWidget *parent)
 		this, &MainWindow::changeMedia);
     sem_msg = CreateSemaphore(NULL, 0, 102400, NULL);
 
+    isRunning = true;
+    int rc = iop_thread_create(&pthread_msg, UIMsgProc, (void *) this, 0);
+    if (0 == rc) {
+        qDebug() << "enter class successfully";
+    } else {
+        isRunning = false;
+    }
 
-//#define _DEBUG_UI_
+#define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
     setRole(RoleTeacher);
@@ -119,7 +126,7 @@ void MainWindow::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL i
     Q_UNUSED(event);
     Q_UNUSED(lParam);
     if (!isRemote) {
-        sendToAll(msg, 0, 0, false);
+        sendToDown(msg, 0, 0, false);
     } else {
         msgQueue.enQueue(msg);
         ReleaseSemaphore(sem_msg, 1, NULL);
@@ -185,7 +192,7 @@ void MainWindow::enterClass(QString username, QString password) {
     ui->tbLogin->setAccount(username, password);
 
     qDebug() << "login" << username;
-    sendToAll(*(ts_msg*) &msg, 0, 0, false);
+    sendToDown(*(ts_msg*) &msg, 0, 0, false);
 }
 
 void MainWindow::leaveClass() {
@@ -198,22 +205,13 @@ void MainWindow::leaveClass() {
 
     ui->listWidget->clear();
 
-    sendToAll(*(ts_msg*) &msg, 0, 0, false);
+    sendToDown(*(ts_msg*) &msg, 0, 0, false);
 }
 
 void MainWindow::enterClassResult(bool result) {
     if (result) {
         emit enOrLeaveClass(true);
-
-        isRunning = true;
         iop_usleep(10);
-
-        int rc = iop_thread_create(&pthread_msg, UIMsgProc, (void *) this, 0);
-        if (0 == rc) {
-            qDebug() << "enter class successfully";
-        } else {
-            isRunning = false;
-        }
     }
 }
 
@@ -234,7 +232,7 @@ void MainWindow::classIcon(bool entered) {
 void MainWindow::msgProc() {
     while (isRunning) {
         WaitForSingleObject(sem_msg, 30);
-        emit drawShape();
+        emit msgReceived();
     }
 }
 
@@ -270,7 +268,7 @@ void MainWindow::on_listWidget_clicked(const QModelIndex &index)
 
     setWriteable(up->toUID, up->sceneID, up->writeable);
 
-    sendToAll(*(ts_msg*) &msg, 0, 0, false);
+    sendToDown(*(ts_msg*) &msg, 0, 0, false);
 }
 
 void MainWindow::on_tbMyClass_clicked()
@@ -336,43 +334,99 @@ void MainWindow::addSceneSlot(int uidh, int uidl) {
 	}
 }
 
-void MainWindow::drawScene() {
+void MainWindow::msgExcute() {
     ts_msg msg;
     if (msgQueue.deQueue(msg) == false) {
         return;
     }
 
-    TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
-    MyScene* theScene = sceneMap[gmsg->SceneID];
-    if (theScene == NULL) {
-        theScene = new MyScene(gmsg->SceneID, this, this);
-        sceneMap.insert(gmsg->SceneID, theScene);
-    }
+    TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg;
+    switch (head->type) {
+    case GRAPHICS:
+        {
+            TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
+            MyScene* theScene = sceneMap[gmsg->SceneID];
+            if (theScene == NULL) {
+                theScene = new MyScene(gmsg->SceneID, this, this);
+                sceneMap.insert(gmsg->SceneID, theScene);
+            }
 
-    switch (gmsg->graphicsType) {
-    case GraphicPacketBeginMove:
-        theScene->actMoveBegin(*gmsg);
+            switch (gmsg->graphicsType) {
+            case GraphicPacketBeginMove:
+                theScene->actMoveBegin(*gmsg);
+                break;
+            case GraphicPacketNormal:
+                theScene->actMove(*gmsg);
+                break;
+            case GraphicPacketPenBrush:
+                theScene->setOthersPenBrush(*gmsg);
+                break;
+            case GraphicPacketEraser:
+                theScene->actErase(*gmsg);
+                break;
+            case GraphicPacketCls:
+                theScene->clear();
+                theScene->update();
+                break;
+            case GraphicPacketMoveScreen:
+            {
+                int x = gmsg->data.PointX;
+                int y = gmsg->data.PointY;
+                ui->graphicsView->moveScreen(QPoint(x, y));
+                break;
+            }
+            default:
+                break;
+            }
+        }
         break;
-    case GraphicPacketNormal:
-        theScene->actMove(*gmsg);
+    case ENTERCLASS:
+    case LEAVECLASS:
+        {
+            DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &msg;
+            sendResultPrompt(down->result);
+            recvClassInfo();
+            switch (down->result) {
+            case SuccessEnterClass:
+                enterClassResult(true);
+                setRole(down->role);
+                break;
+            case SuccessLeaveClass:
+                leaveClassResult(true);
+            }
+        }
         break;
-    case GraphicPacketPenBrush:
-        theScene->setOthersPenBrush(*gmsg);
+    case ADDUSER:
+        {
+            SERVER_CLASS_ADD_USER* down = (SERVER_CLASS_ADD_USER*) &msg;
+            addUser(down->enterUser.uid,
+                    QString::fromLocal8Bit((char *) down->enterUser.username),
+                    down->enterUser.isLoggedIn);
+        }
         break;
-    case GraphicPacketEraser:
-        theScene->actErase(*gmsg);
+    case USERLIST:
+        {
+            SERVER_CLASS_USER_LIST* down = (SERVER_CLASS_USER_LIST*) &msg;
+            for (int i = 0; i < down->userNumberInMessage; i++) {
+                addUser(down->users[i].uid,
+                        QString::fromLocal8Bit((char *) down->users[i].username),
+                        down->users[i].isLoggedIn);
+            }
+        }
         break;
-    case GraphicPacketCls:
-        theScene->clear();
-        theScene->update();
+    case REMOVEUSER:
+        {
+            SERVER_CLASS_REMOVE_USER* down = (SERVER_CLASS_REMOVE_USER*) &msg;
+            removeUser(down->leaveUser);
+        }
         break;
-    case GraphicPacketMoveScreen:
-    {
-        int x = gmsg->data.PointX;
-        int y = gmsg->data.PointY;
-        ui->graphicsView->moveScreen(QPoint(x, y));
-        break;
-    }
+    case COURSEWARE:
+        {
+            TS_FILE_PACKET* fmsg = (TS_FILE_PACKET*) &msg;
+            addWareList(QString((char*) fmsg->content));
+            sendResultPrompt(SuccessDownload);
+        }
+		break;
     default:
         break;
     }

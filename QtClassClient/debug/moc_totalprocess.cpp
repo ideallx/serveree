@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_TotalProcess_t {
     QByteArrayData data[5];
-    char stringdata[43];
+    char stringdata[40];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,13 +30,12 @@ struct qt_meta_stringdata_TotalProcess_t {
 static const qt_meta_stringdata_TotalProcess_t qt_meta_stringdata_TotalProcess = {
     {
 QT_MOC_LITERAL(0, 0, 12),
-QT_MOC_LITERAL(1, 13, 10),
-QT_MOC_LITERAL(2, 24, 0),
-QT_MOC_LITERAL(3, 25, 8),
-QT_MOC_LITERAL(4, 34, 8)
+QT_MOC_LITERAL(1, 13, 7),
+QT_MOC_LITERAL(2, 21, 0),
+QT_MOC_LITERAL(3, 22, 8),
+QT_MOC_LITERAL(4, 31, 8)
     },
-    "TotalProcess\0enterclass\0\0username\0"
-    "password"
+    "TotalProcess\0setUnPw\0\0username\0password"
 };
 #undef QT_MOC_LITERAL
 
@@ -67,7 +66,7 @@ void TotalProcess::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
     if (_c == QMetaObject::InvokeMetaMethod) {
         TotalProcess *_t = static_cast<TotalProcess *>(_o);
         switch (_id) {
-        case 0: _t->enterclass((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 0: _t->setUnPw((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         default: ;
         }
     }

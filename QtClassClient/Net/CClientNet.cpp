@@ -64,7 +64,21 @@ DWORD CClientNet::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSC
     f.write("\r\n");
     f.close();
 
-    sendToAll(inputMsg.msg, 0, 0, true);
+    if (ENTERCLASS == head->type || LEAVECLASS == head->type) {
+        DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;
+        if (SuccessEnterClass == down->result) {
+            addServerAddr(down->addr);
+            setTimeDiff(down->head.time - getServerTime());
+            setUID(down->uid);
+            setBeginSequence(down->lastSeq + 1);
+            startupHeartBeat();
+            sendConnectionMsg();
+        } else if (SuccessLeaveClass == down->result) {
+            endHeartBeat();
+        }
+    }
+
+    sendToUp(inputMsg.msg, 0, 0, true);
 	return 0;
 }
 
@@ -88,6 +102,8 @@ void CClientNet::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL 
 }
 
 void CClientNet::buildSendMessage(ts_msg& msg) {
+	if (!isStarted)
+		Start(0);
     TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg;
     head->time = getClientTime(m_timeDiff);
     if (getType(msg) > PACKETCONTROL) {

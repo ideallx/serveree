@@ -12,17 +12,22 @@ class CMsgSender {
 protected:
 	CMsgReceiver* p_MsgReceiver;
 
-    set<CMsgReceiver*> receivers;
+    set<CMsgReceiver*> upReceivers;
+    set<CMsgReceiver*> downReceivers;
 
 public:
 	CMsgSender(void);
     virtual ~CMsgSender(void) {}
 
 	// 成功加入返回true，若之前已存在，返回false
-    bool addReceiver(CMsgReceiver* recv);
+    bool addUpReceiver(CMsgReceiver* recv);
+
+    bool addDownReceiver(CMsgReceiver* recv);
 
 	// 成功移除返回true，若之前不存在，返回false
-    bool removeReceiver(CMsgReceiver* recv);
+    bool removeUpReceiver(CMsgReceiver* recv);
+
+    bool removeDownReceiver(CMsgReceiver* recv);
 
 public:
 	// 发给某个具体的消息接收者
@@ -30,5 +35,7 @@ public:
 		WPARAM wParam, LPARAM lParam, BOOL isremote = FALSE);
 	
 	// 发送给所有接收者
-    virtual void sendToAll(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote = FALSE);
+    virtual void sendToUp(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote = FALSE);
+
+    virtual void sendToDown(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote = FALSE);
 };

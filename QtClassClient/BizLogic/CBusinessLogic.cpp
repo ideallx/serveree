@@ -42,7 +42,6 @@ void CBusinessLogic::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, B
             break;
         default:
             break;
-            // sendToAll(msg, wParam, lParam, isremote);
         }
     }
 }

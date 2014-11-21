@@ -72,8 +72,11 @@ void TotalProcess::buildBoard() {
     ma->registerModule("BIZ", bl);
     ma->registerModule("NET", cn);
 
-    ui->addReceiver(bl);		// UI
-    cn->addReceiver(bl);        // CN
+    ui->addDownReceiver(bl);
+    bl->addDownReceiver(cn);
+
+    cn->addUpReceiver(bl); 
+    bl->addUpReceiver(ui);
 
     cn->SetServerAddr(0, serverIp.toLatin1().data(), 2222);
     ui->enterClass(username, password);

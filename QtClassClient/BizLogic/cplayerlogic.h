@@ -10,8 +10,6 @@ class CPlayerLogic : public CBaseLogic
 public:
     CPlayerLogic(CMsgObject* parent = NULL);
     virtual ~CPlayerLogic() {}
-
-    void procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap);
 };
 
 #endif // CPLAYERLOGIC_H

@@ -31,6 +31,9 @@ public:
 
 	void changeParent(CMsgObject* newParent);
 
+	void sendToUp(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote = FALSE);
+
+	void sendToDown(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote = FALSE);
 
 private:
 	void removeChild(CMsgObject* child);

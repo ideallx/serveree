@@ -88,7 +88,7 @@ public slots:
 
     void classIcon(bool entered);
 
-    void drawScene();
+    void msgExcute();
 
     void sendPrompt(QString prompt);
     void sendResultPrompt(int result);
@@ -110,7 +110,7 @@ private:
 
 signals:
     void enOrLeaveClass(bool entered);
-    void drawShape();
+    void msgReceived();
     void addScene(int uidh, int uidl);
     void promptSent(QString prompt);
     void promptResultSent(int result);

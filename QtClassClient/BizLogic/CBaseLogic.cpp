@@ -32,11 +32,9 @@ DWORD CSubSeqUnit::receiveMsg(const ts_msg& msg, map<TS_UINT64, ts_msg> &sendMap
 }
 
 
-CBaseLogic::CBaseLogic(CMsgObject* parent) :
-    CMsgObject(parent),
-    subseq(0),
-    ui(NULL),
-    cn(NULL) {
+CBaseLogic::CBaseLogic(CMsgObject* parent)
+    : CMsgObject(parent)
+    , subseq(0) {
 }
 
 CBaseLogic::~CBaseLogic() {
@@ -47,15 +45,10 @@ CBaseLogic::~CBaseLogic() {
 bool CBaseLogic::procMsg(const ts_msg& msg, bool isRemote) {
     TS_MESSAGE_HEAD* hmsg = (TS_MESSAGE_HEAD*) &msg;
 
-    if (!ui)
-        ui = static_cast<MainWindow*>(p_Parent->getAgent()->getModule("UI"));
-    if (!cn)
-        cn = static_cast<CClientNet*>(p_Parent->getAgent()->getModule("NET"));
-
     if (!isRemote) {
         procNotRemote(msg);
         hmsg->subSeq = ++subseq;                    // so nice design!!!
-        cn->ProcessMessage(const_cast<ts_msg&> (msg), 0, 0, isRemote);
+        sendToDown(const_cast<ts_msg&> (msg), 0, 0, isRemote);
         return false;
     } else {
         procIsRemote(msg);
@@ -73,4 +66,11 @@ bool CBaseLogic::procMsg(const ts_msg& msg, bool isRemote) {
         procRecvIsRemote(sendMap);                  // your last sub seq here
     }
     return false;
+}
+
+void CBaseLogic::procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap) {
+    for (auto i = sendMap.begin(); i != sendMap.end(); i++) {
+        sendToUp(i->second, 0, 0, true);
+        // ui->ProcessMessage(i->second, 0, 0, true);
+    }
 }

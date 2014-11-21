@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[66];
-    char stringdata[838];
+    char stringdata[840];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,80 +33,80 @@ QT_MOC_LITERAL(0, 0, 10),
 QT_MOC_LITERAL(1, 11, 14),
 QT_MOC_LITERAL(2, 26, 0),
 QT_MOC_LITERAL(3, 27, 7),
-QT_MOC_LITERAL(4, 35, 9),
-QT_MOC_LITERAL(5, 45, 8),
-QT_MOC_LITERAL(6, 54, 4),
-QT_MOC_LITERAL(7, 59, 4),
-QT_MOC_LITERAL(8, 64, 10),
-QT_MOC_LITERAL(9, 75, 6),
-QT_MOC_LITERAL(10, 82, 16),
-QT_MOC_LITERAL(11, 99, 6),
-QT_MOC_LITERAL(12, 106, 19),
-QT_MOC_LITERAL(13, 126, 12),
-QT_MOC_LITERAL(14, 139, 8),
-QT_MOC_LITERAL(15, 148, 12),
-QT_MOC_LITERAL(16, 161, 8),
-QT_MOC_LITERAL(17, 170, 12),
-QT_MOC_LITERAL(18, 183, 12),
-QT_MOC_LITERAL(19, 196, 13),
-QT_MOC_LITERAL(20, 210, 11),
-QT_MOC_LITERAL(21, 222, 9),
-QT_MOC_LITERAL(22, 232, 3),
-QT_MOC_LITERAL(23, 236, 20),
-QT_MOC_LITERAL(24, 257, 8),
-QT_MOC_LITERAL(25, 266, 10),
-QT_MOC_LITERAL(26, 277, 8),
-QT_MOC_LITERAL(27, 286, 8),
-QT_MOC_LITERAL(28, 295, 16),
-QT_MOC_LITERAL(29, 312, 10),
-QT_MOC_LITERAL(30, 323, 16),
-QT_MOC_LITERAL(31, 340, 7),
-QT_MOC_LITERAL(32, 348, 11),
-QT_MOC_LITERAL(33, 360, 4),
-QT_MOC_LITERAL(34, 365, 9),
-QT_MOC_LITERAL(35, 375, 9),
-QT_MOC_LITERAL(36, 385, 10),
-QT_MOC_LITERAL(37, 396, 16),
-QT_MOC_LITERAL(38, 413, 16),
-QT_MOC_LITERAL(39, 430, 6),
-QT_MOC_LITERAL(40, 437, 11),
-QT_MOC_LITERAL(41, 449, 13),
-QT_MOC_LITERAL(42, 463, 6),
-QT_MOC_LITERAL(43, 470, 16),
-QT_MOC_LITERAL(44, 487, 5),
-QT_MOC_LITERAL(45, 493, 16),
-QT_MOC_LITERAL(46, 510, 5),
-QT_MOC_LITERAL(47, 516, 16),
-QT_MOC_LITERAL(48, 533, 9),
-QT_MOC_LITERAL(49, 543, 16),
-QT_MOC_LITERAL(50, 560, 7),
-QT_MOC_LITERAL(51, 568, 11),
-QT_MOC_LITERAL(52, 580, 16),
-QT_MOC_LITERAL(53, 597, 4),
-QT_MOC_LITERAL(54, 602, 21),
-QT_MOC_LITERAL(55, 624, 5),
-QT_MOC_LITERAL(56, 630, 20),
-QT_MOC_LITERAL(57, 651, 22),
-QT_MOC_LITERAL(58, 674, 25),
-QT_MOC_LITERAL(59, 700, 20),
-QT_MOC_LITERAL(60, 721, 12),
-QT_MOC_LITERAL(61, 734, 10),
-QT_MOC_LITERAL(62, 745, 16),
-QT_MOC_LITERAL(63, 762, 23),
-QT_MOC_LITERAL(64, 786, 23),
-QT_MOC_LITERAL(65, 810, 27)
+QT_MOC_LITERAL(4, 35, 11),
+QT_MOC_LITERAL(5, 47, 8),
+QT_MOC_LITERAL(6, 56, 4),
+QT_MOC_LITERAL(7, 61, 4),
+QT_MOC_LITERAL(8, 66, 10),
+QT_MOC_LITERAL(9, 77, 6),
+QT_MOC_LITERAL(10, 84, 16),
+QT_MOC_LITERAL(11, 101, 6),
+QT_MOC_LITERAL(12, 108, 19),
+QT_MOC_LITERAL(13, 128, 12),
+QT_MOC_LITERAL(14, 141, 8),
+QT_MOC_LITERAL(15, 150, 12),
+QT_MOC_LITERAL(16, 163, 8),
+QT_MOC_LITERAL(17, 172, 12),
+QT_MOC_LITERAL(18, 185, 12),
+QT_MOC_LITERAL(19, 198, 13),
+QT_MOC_LITERAL(20, 212, 11),
+QT_MOC_LITERAL(21, 224, 9),
+QT_MOC_LITERAL(22, 234, 3),
+QT_MOC_LITERAL(23, 238, 20),
+QT_MOC_LITERAL(24, 259, 8),
+QT_MOC_LITERAL(25, 268, 10),
+QT_MOC_LITERAL(26, 279, 8),
+QT_MOC_LITERAL(27, 288, 8),
+QT_MOC_LITERAL(28, 297, 16),
+QT_MOC_LITERAL(29, 314, 10),
+QT_MOC_LITERAL(30, 325, 16),
+QT_MOC_LITERAL(31, 342, 7),
+QT_MOC_LITERAL(32, 350, 11),
+QT_MOC_LITERAL(33, 362, 4),
+QT_MOC_LITERAL(34, 367, 9),
+QT_MOC_LITERAL(35, 377, 9),
+QT_MOC_LITERAL(36, 387, 10),
+QT_MOC_LITERAL(37, 398, 16),
+QT_MOC_LITERAL(38, 415, 16),
+QT_MOC_LITERAL(39, 432, 6),
+QT_MOC_LITERAL(40, 439, 11),
+QT_MOC_LITERAL(41, 451, 13),
+QT_MOC_LITERAL(42, 465, 6),
+QT_MOC_LITERAL(43, 472, 16),
+QT_MOC_LITERAL(44, 489, 5),
+QT_MOC_LITERAL(45, 495, 16),
+QT_MOC_LITERAL(46, 512, 5),
+QT_MOC_LITERAL(47, 518, 16),
+QT_MOC_LITERAL(48, 535, 9),
+QT_MOC_LITERAL(49, 545, 16),
+QT_MOC_LITERAL(50, 562, 7),
+QT_MOC_LITERAL(51, 570, 11),
+QT_MOC_LITERAL(52, 582, 16),
+QT_MOC_LITERAL(53, 599, 4),
+QT_MOC_LITERAL(54, 604, 21),
+QT_MOC_LITERAL(55, 626, 5),
+QT_MOC_LITERAL(56, 632, 20),
+QT_MOC_LITERAL(57, 653, 22),
+QT_MOC_LITERAL(58, 676, 25),
+QT_MOC_LITERAL(59, 702, 20),
+QT_MOC_LITERAL(60, 723, 12),
+QT_MOC_LITERAL(61, 736, 10),
+QT_MOC_LITERAL(62, 747, 16),
+QT_MOC_LITERAL(63, 764, 23),
+QT_MOC_LITERAL(64, 788, 23),
+QT_MOC_LITERAL(65, 812, 27)
     },
     "MainWindow\0enOrLeaveClass\0\0entered\0"
-    "drawShape\0addScene\0uidh\0uidl\0promptSent\0"
-    "prompt\0promptResultSent\0result\0"
-    "stopServerRespTimer\0wareItemRecv\0"
+    "msgReceived\0addScene\0uidh\0uidl\0"
+    "promptSent\0prompt\0promptResultSent\0"
+    "result\0stopServerRespTimer\0wareItemRecv\0"
     "filename\0playerPreved\0isRemote\0"
     "playerNexted\0playerStoped\0playerStarted\0"
     "changeScene\0TS_UINT64\0uid\0"
     "buildSceneConnection\0isCreate\0enterClass\0"
     "username\0password\0enterClassResult\0"
     "leaveClass\0leaveClassResult\0setRole\0"
-    "RoleOfClass\0role\0classIcon\0drawScene\0"
+    "RoleOfClass\0role\0classIcon\0msgExcute\0"
     "sendPrompt\0sendResultPrompt\0"
     "changeBackground\0newPix\0changeMedia\0"
     "QMediaPlayer*\0player\0setScenePenWidth\0"
@@ -233,7 +233,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         MainWindow *_t = static_cast<MainWindow *>(_o);
         switch (_id) {
         case 0: _t->enOrLeaveClass((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 1: _t->drawShape(); break;
+        case 1: _t->msgReceived(); break;
         case 2: _t->addScene((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 3: _t->promptSent((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 4: _t->promptResultSent((*reinterpret_cast< int(*)>(_a[1]))); break;
@@ -251,7 +251,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 16: _t->leaveClassResult((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 17: _t->setRole((*reinterpret_cast< RoleOfClass(*)>(_a[1]))); break;
         case 18: _t->classIcon((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 19: _t->drawScene(); break;
+        case 19: _t->msgExcute(); break;
         case 20: _t->sendPrompt((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 21: _t->sendResultPrompt((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 22: _t->changeBackground((*reinterpret_cast< QPixmap(*)>(_a[1]))); break;
@@ -296,7 +296,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         }
         {
             typedef void (MainWindow::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::drawShape)) {
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::msgReceived)) {
                 *result = 1;
             }
         }
@@ -403,7 +403,7 @@ void MainWindow::enOrLeaveClass(bool _t1)
 }
 
 // SIGNAL 1
-void MainWindow::drawShape()
+void MainWindow::msgReceived()
 {
     QMetaObject::activate(this, &staticMetaObject, 1, 0);
 }
