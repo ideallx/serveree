@@ -17,6 +17,7 @@ public:
     bool procStop();
     bool procStart();
 
+    void checkStatus(QMediaPlayer::State status);
     virtual ~VideoPlayer() {}
 
 private:

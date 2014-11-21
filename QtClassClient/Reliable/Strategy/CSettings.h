@@ -6,6 +6,7 @@
 
 void settingsServerSocketOpt(io_handle_t h);
 
+bool controlReliableConnect(int currentMissingRate);
 
 
 #endif

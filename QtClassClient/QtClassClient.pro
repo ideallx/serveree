@@ -78,7 +78,9 @@ SOURCES  += main.cpp\
     LayerUI/UserInterface/myview.cpp \
     LayerUI/UserInterface/cuserlistwidget.cpp \
     LayerUI/SlideScreen/coursewarewidget.cpp \
-    Reliable/Strategy/CSettings.cpp
+    Reliable/Strategy/CSettings.cpp \
+    BeforeClass/logindialog.cpp \
+    BeforeClass/totalprocess.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBaseLogic.h \
@@ -150,7 +152,9 @@ HEADERS  += LayerUI\mainwindow.h \
     LayerUI/UserInterface/widgetwarelistitem.h \
     LayerUI/UserInterface/myview.h \
     LayerUI/SlideScreen/coursewarewidget.h \
-    Reliable/Strategy/CSettings.h
+    Reliable/Strategy/CSettings.h \
+    BeforeClass/logindialog.h \
+    BeforeClass/totalprocess.h
 
 FORMS    += \
     loginwidget.ui \
@@ -158,7 +162,8 @@ FORMS    += \
     prompt.ui \
     widgetwarelistitem.ui \
     coursewarewidget.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    BeforeClass/logindialog.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += include
@@ -169,7 +174,9 @@ INCLUDEPATH += Reliable/OSInedependent/libiop
 OTHER_FILES += \
     Reliable/Zip/zdll.lib \
     Reliable/Zip/zlib.lib \
-    Reliable/Zip/zlib1.dll
+    Reliable/Zip/zlib1.dll \
+    ui/icon/llpassword.png \
+    ui/icon/llusername.png
 
 RESOURCES += \
     ui.qrc

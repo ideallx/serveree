@@ -157,12 +157,8 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
       </property>
       <property name="styleSheet">
        <string notr="true">QGroupBox {
-	
 	background-color: rgb(106, 160, 127);
 	border:none;
-}
-Line {
-	background-image: url(:/back/ui/back/line.png);
 }
 
 QToolButton#tbBackground, #tbBrush, #tbCourseWare,
@@ -266,7 +262,10 @@ QToolButton#tbShape {
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="ui.qrc">:/icon/ui/icon/fulann_logo.png</pixmap>
+          <pixmap resource="ui.qrc">:/icon/ui/icon/logo1.png</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>false</bool>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>

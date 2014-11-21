@@ -11,7 +11,8 @@ AbsPlayer::AbsPlayer(QString filepath, CMsgObject *parent) :
     m_isLoadSuccess(false),
     m_transBackground(false),
     m_isInnerPvNx(true),
-	m_isWaiting(false) {
+    m_isWaiting(false),
+    m_isMedia(false) {
     m_controller = new QAxObject;
     m_fileList.append(filepath);
 
@@ -101,7 +102,6 @@ bool AbsPlayer::stop() {
         if (procStop()) {
             return true;
         } else {
-            m_filepath = QString::Null();
             return false;
         }
 	}

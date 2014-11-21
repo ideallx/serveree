@@ -46,12 +46,12 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{f5029221-8a03-4a83-9d1d-5706ac611f83}</UniqueIdentifier>
+      <UniqueIdentifier>{e98d82a6-1b78-470a-938b-db68e096f129}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{30b8ecda-e758-4aeb-a66a-511c115afdf3}</UniqueIdentifier>
+      <UniqueIdentifier>{b460e183-5f02-403d-bd07-289e534bf02c}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -207,6 +207,9 @@
     <ClCompile Include="LayerUI\UserInterface\linewidthcombox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BeforeClass\logindialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -232,6 +235,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LayerUI\UserInterface\prompt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BeforeClass\totalprocess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Reliable\Zip\unzip.c">
@@ -294,6 +300,12 @@
     <ClCompile Include="Debug\moc_linewidthcombox.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="Release\moc_logindialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_logindialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
     <ClCompile Include="Release\moc_mainwindow.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
@@ -316,6 +328,12 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_prompt.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_totalprocess.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_totalprocess.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_widgetwarelistitem.cpp">
@@ -497,6 +515,9 @@
     <CustomBuild Include="LayerUI\UserInterface\linewidthcombox.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="BeforeClass\logindialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="LayerUI\mainwindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -524,6 +545,9 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="BeforeClass\totalprocess.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="Reliable\Zip\unzip.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -543,6 +567,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_coursewarewidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_logindialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_loginwidget.h">
@@ -565,6 +592,9 @@
     <CustomBuild Include="coursewarewidget.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="BeforeClass\logindialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="loginwidget.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
@@ -582,6 +612,9 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <None Include="(2).png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="ui\icon\16x16.png">
       <Filter>Resource Files</Filter>
     </None>
@@ -589,6 +622,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\icon\64x64.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\back\background.jpg">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\back\background.png">
@@ -609,6 +645,12 @@
     <None Include="class.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="ui\icon\close1.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\close2.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="ui\back\combox.png">
       <Filter>Resource Files</Filter>
     </None>
@@ -622,6 +664,15 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\icon\eraser.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\eraser1.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\eraser2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\eraser3.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\icon\exit.png">
@@ -642,7 +693,25 @@
     <None Include="ui\back\line.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="ui\icon\llpassword.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\llusername.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="ui\icon\logo.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\logo1.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\logo1.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\logo2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\logo3.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\icon\manage.png">
@@ -654,6 +723,9 @@
     <None Include="ui\icon\next.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="ui\icon\numeber.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="ui\back\orange1.png">
       <Filter>Resource Files</Filter>
     </None>
@@ -661,6 +733,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\icon\password.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\password">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\icon\pencil.png">
@@ -733,6 +808,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\icon\teacher board.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\password (2).png">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

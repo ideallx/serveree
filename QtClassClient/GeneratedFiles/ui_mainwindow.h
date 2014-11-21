@@ -178,12 +178,8 @@ public:
         groupBox->setMinimumSize(QSize(1024, 75));
         groupBox->setMaximumSize(QSize(16777215, 75));
         groupBox->setStyleSheet(QLatin1String("QGroupBox {\n"
-"	\n"
 "	background-color: rgb(106, 160, 127);\n"
 "	border:none;\n"
-"}\n"
-"Line {\n"
-"	background-image: url(:/back/ui/back/line.png);\n"
 "}\n"
 "\n"
 "QToolButton#tbBackground, #tbBrush, #tbCourseWare,\n"
@@ -220,11 +216,11 @@ public:
 "\n"
 "QToolButton#tbBrush {\n"
 "	border-top-color: rgb(163, 207, 67);\n"
-""
-                        "}\n"
+"}\n"
 "\n"
 "QToolButton#tbEraser {\n"
-"	border-top-color: rgb(180, 61, 109);\n"
+"	border-top-color: rgb(180, 61, 109);"
+                        "\n"
 "}\n"
 "\n"
 "QToolButton#tbPalette {\n"
@@ -257,7 +253,8 @@ public:
 "	border-top-width: 4px;\n"
 "	border-top-color: rgb(233, 71, 7);\n"
 "};"));
-        lbLogo->setPixmap(QPixmap(QString::fromUtf8(":/icon/ui/icon/fulann_logo.png")));
+        lbLogo->setPixmap(QPixmap(QString::fromUtf8(":/icon/ui/icon/logo1.png")));
+        lbLogo->setScaledContents(false);
         lbLogo->setAlignment(Qt::AlignCenter);
 
         horizontalLayout->addWidget(lbLogo);

@@ -7,7 +7,8 @@ VideoPlayer::VideoPlayer(QString filepath, CMsgObject* parent):
 
     mediaPlayer.setMedia(QUrl::fromLocalFile(filepath));
     m_isLoadSuccess = true;
-    m_isInnerPvNx = false;
+    m_isInnerPvNx = true;
+    m_isMedia = true;
     return;
 }
 
@@ -23,8 +24,15 @@ bool VideoPlayer::isPostfixRight(QString filename) {
 
 
 bool VideoPlayer::procRun() {
+    if (mediaPlayer.state() == QMediaPlayer::PausedState) {
+        mediaPlayer.play();
+        return true;
+    }
+
 	if (mediaPlayer.isAvailable()) {
         qDebug() << "proc run";
+        connect(&mediaPlayer, &QMediaPlayer::stateChanged,
+                this, &VideoPlayer::checkStatus);
         emit playMedia(&mediaPlayer);
         return true;
     } else {
@@ -32,11 +40,22 @@ bool VideoPlayer::procRun() {
     }
 }
 
+void VideoPlayer::checkStatus(QMediaPlayer::State status) {
+    if (status == QMediaPlayer::StoppedState)
+        emit playerEnd();
+}
+
 bool VideoPlayer::procNext() {
+    mediaPlayer.setPosition(mediaPlayer.position() + 5000);
+    if (mediaPlayer.position() >= mediaPlayer.duration())
+        emit playerEnd();
     return true;
 }
 
 bool VideoPlayer::procPrev() {
+    qint64 pos = mediaPlayer.position() - 5000;
+    if (pos < 0) pos = 1;
+    mediaPlayer.setPosition(pos);
     return true;
 }
 
@@ -45,10 +64,11 @@ bool VideoPlayer::procClose() {
 }
 
 bool VideoPlayer::procStop() {
+    mediaPlayer.pause();
     return true;
 }
 
 bool VideoPlayer::procStart() {
-    return true;
+    return procRun();
 }
 

@@ -85,7 +85,6 @@ MainWindow::MainWindow(QWidget *parent)
             this, &MainWindow::setViewPaintMode);
     connect(ui->wgtCourse, &CourseWareWidget::promptSent,
             this, &MainWindow::showResultPrompt);
-
 	connect(ui->wgtCourse, &CourseWareWidget::changeBackground, 
 			this, &MainWindow::changeBackground);
 	connect(ui->wgtCourse, &CourseWareWidget::changeMedia, 
@@ -93,7 +92,7 @@ MainWindow::MainWindow(QWidget *parent)
     sem_msg = CreateSemaphore(NULL, 0, 102400, NULL);
 
 
-#define _DEBUG_UI_
+//#define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
     setRole(RoleTeacher);

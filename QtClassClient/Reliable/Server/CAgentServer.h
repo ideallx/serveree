@@ -67,8 +67,6 @@ public:
 
 	void loadUser();
 
-	void createClass(TS_UINT64 classid);
-	void destroyClass(TS_UINT64 classid);
 	bool enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user);
 	void leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user);
 
@@ -80,9 +78,6 @@ public:
 	// …®√ËµÙœﬂ
 	void scanOffline();
 
-    void sendUserList(TS_PEER_MESSAGE& pmsg, CWSServer *pServer);
-	void userLoginNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
-    void userLogoutNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
 
     CWSServer* getServerByUID(TS_UINT64 uid);
 
@@ -91,6 +86,13 @@ public:
     bool isClassExist(TS_UINT64 classid);
 
 private:
+	void userLoginNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
+    void userLogoutNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
+    void sendUserList(TS_PEER_MESSAGE& pmsg, CWSServer *pServer);
+
+	void createClass(TS_UINT64 classid);
+	void destroyClass(TS_UINT64 classid);
+
     void sendLeaveSuccess(TS_PEER_MESSAGE& pmsg);
 
     friend thread_ret_type thread_func_call scanOfflineProc(LPVOID lpParam);

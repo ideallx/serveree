@@ -23,21 +23,19 @@ MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent)
     , toolChanged(true)
     , isEraser(false)
     , mt(MoveDraw)
-    , isWriteable(false) {
+    , isWriteable(false)
+    , media(NULL) {
     panFixer.setSingleShot(true);
-    setSceneRect(0, 0, 5000, 50000);
+    setSceneRect(0, 0, 5000, 5000);
     connect(&panFixer, &QTimer::timeout,
             this, &MyScene::sendMoveBegin);
-
-    media = new QGraphicsVideoItem;
-    media->setVisible(false);
-    addItem(media);
 
     setErase.pen = QPen(Qt::white, 50);
     setErase.drawingType = SCRIPTS;
 
     setDraw.pen = QPen(Qt::black, 1);
     setDraw.drawingType = SCRIPTS;
+
     //generateTestShape();
 }
 
@@ -243,6 +241,9 @@ void MyScene::changeShapeByUI(int shape) {
 }
 
 void MyScene::moveScreen(QPoint p) {
+    if (!isWriteable)
+        return;
+
     if (mt == MoveDraw) {
         TS_GRAPHIC_PACKET gmsg;
         gmc->generateGraphicsData(gmsg, lastPos, false);
@@ -267,16 +268,28 @@ void MyScene::setBackground(QPixmap pix) {
     if (items().contains(m_backpixmap))
         removeItem(m_backpixmap);
 
+    QRect size = AbsPlayer::screenSize();
+    QPointF sceneBeginPoint;
+
+    if (size.height() > pix.height())
+        sceneBeginPoint.setY((size.width() - pix.width()) / 2);
+
+    if (size.width() > pix.width())
+        sceneBeginPoint.setX((size.height() - pix.height()) / 2);
+
+    const QPointF p = sceneBeginPoint;
 
     m_backpixmap = addPixmap(pix);
-    m_backpixmap->setPos(views()[0]->mapToScene(0, 0));
+	m_backpixmap->setPos(views()[0]->mapToScene(p.x(), p.y()));
     m_backpixmap->setVisible(true);
     m_backpixmap->setZValue(-100);
 }
 
 void MyScene::playMedia(QMediaPlayer *player) {
-    // TODO new new!!
+    // TODO new new!! maybe deleted somewhere else.
     media = new QGraphicsVideoItem;
+    media->setVisible(false);
+
     player->setVideoOutput(media);
     media->setPos(views()[0]->mapToScene(0, 0));
     QRect r = AbsPlayer::screenSize();
@@ -285,6 +298,7 @@ void MyScene::playMedia(QMediaPlayer *player) {
     media->setVisible(true);
     addItem(media);
 
+    qDebug() << player->position();
     player->play();
     qDebug() << "media play" << player->isVideoAvailable();
 }

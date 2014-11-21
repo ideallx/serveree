@@ -13,7 +13,7 @@ bool CSynSocket::bindPort(unsigned short iPort) {
     char *ip;
     localhost = gethostbyname("");
 	if (localhost == NULL) {
-		ip = "192.168.1.128";
+        ip = "192.168.1.123";
 	} else {
 		int i = 0;
 		bool find = false;

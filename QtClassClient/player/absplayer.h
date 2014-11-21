@@ -31,6 +31,8 @@ public:
 
     inline bool isFinished() { return m_filepath == QString::null; }
 
+    inline bool isMedia() { return m_isMedia; }
+
     virtual bool isPostfixRight(QString filename) { return false; }
 
     static QRect screenSize();
@@ -66,6 +68,7 @@ protected:
     bool        m_transBackground;
     bool        m_isInnerPvNx;
 	bool		m_isWaiting;
+    bool        m_isMedia;              // media: pause start
 };
 
 

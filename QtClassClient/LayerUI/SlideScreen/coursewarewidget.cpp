@@ -36,6 +36,7 @@ int CourseWareWidget::checkUploadFile(QString filename) const {
     if (!PlayerFactory::checkFileFormat(filename)) {
         return ErrorFormat;
     }
+    qDebug() << filename << "check upload";
     if (ui->lsWare->findItems(filename, Qt::MatchExactly).size() > 0) {
         return ErrorFileExist;
     }
@@ -81,9 +82,12 @@ bool CourseWareWidget::playTest(QString filename) const {
     if (!QFile::exists(filename))
         return false;
 
-    if (m_isPlayerPlaying && m_player &&
-            getFileName(m_player->filePath()) == filename)
-        return false;
+    if (!m_isPlayerPlaying && !m_player)
+        return true;
+
+//    if (m_player->isMedia()
+//            getFileName(m_player->filePath()) == filename)
+//        return false;
 
     return true;
 }
@@ -101,10 +105,34 @@ int CourseWareWidget::start(QString filename, bool isRemote) {
         }
     }
 
-	QString filepath = getFilePath(filename);
-    m_player = PlayerFactory::createPlayer(filepath, m_parent);
-    if (!m_player)
-        return FailedPlay;
+    bool needNewMedia = true;
+    if (m_player) {
+		if (getFileName(m_player->filePath()) == filename) {
+            if (m_player->isMedia()) {
+				needNewMedia = false;
+			} else {
+				return Success;
+			}
+		}
+	}
+
+    if (needNewMedia) {
+        DESTROY(m_player);
+
+        QString filepath = getFilePath(filename);
+        m_player = PlayerFactory::createPlayer(filepath, m_parent);
+        if (!m_player)
+            return FailedPlay;
+
+        connect(m_player, &AbsPlayer::playerEnd,
+                this, &CourseWareWidget::playmodeEnd);
+        connect(m_player, SIGNAL(backgroundChanged(QPixmap)),
+                this, SIGNAL(changeBackground(QPixmap)));
+        connect(m_player, &AbsPlayer::playMedia,
+                this, &CourseWareWidget::changeMedia);
+
+        emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
+    }
 
     if (!isRemote) {
         TS_PLAYER_PACKET pmsg;
@@ -112,12 +140,6 @@ int CourseWareWidget::start(QString filename, bool isRemote) {
         m_parent->ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
     }
 
-    connect(m_player, &AbsPlayer::playerEnd,
-            this, &CourseWareWidget::playmodeEnd);
-    connect(m_player, SIGNAL(backgroundChanged(QPixmap)),
-            this, SIGNAL(changeBackground(QPixmap)));
-    connect(m_player, &AbsPlayer::playMedia,
-            this, &CourseWareWidget::changeMedia);
 
     if (!m_player || !m_player->run()) {
         return FailedPlay;
@@ -126,15 +148,21 @@ int CourseWareWidget::start(QString filename, bool isRemote) {
     m_isPlayerPlaying = true;
     if (m_player->isTransBackground())
         emit paintModeChanged(PaintPPT);
+    else
+        emit paintModeChanged(PaintNormal);
 
-    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
     return Success;
 }
 
 bool CourseWareWidget::stop(bool isRemote) {
     m_isPlayerPlaying = false;
     if (m_player) {
-        m_player->close();
+        if (m_player->isMedia()) {
+            m_player->stop();
+            qDebug() << "stop";
+        } else {
+            m_player->close();
+        }
     }
 
     if (!isRemote) {
@@ -142,6 +170,15 @@ bool CourseWareWidget::stop(bool isRemote) {
         m_pg.generatePlayerData(pmsg, ActionStop);
         m_parent->ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
     }
+
+    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/start.png"));
+
+    if (!m_player->isMedia()) {
+        setHidden(true);
+        emit paintModeChanged(PaintNormal);
+        emit clearScreen(TeacherUID, CleanHideClass | CleanHideWare);
+    }
+
     return true;
 }
 
@@ -156,11 +193,15 @@ bool CourseWareWidget::prev(bool isRemote) {
         if (ui->lsWare->selectedItems().size() == 0)
             return false;
         int curRow = ui->lsWare->row(ui->lsWare->selectedItems()[0]);
-        for (int i = 1; i <ui->lsWare->count(); i++) {      // 0 is your self~
+		if (ui->lsWare->count() < 2)
+			return true;
+        for (int i = 1; i < ui->lsWare->count(); i++) {			// 0 is your self~
             int itemid = curRow - i;
             if (itemid < 0) {
                 itemid += ui->lsWare->count();
             }
+			if (itemid == curRow)								// nothing happen
+				return true;
 
             if (m_player->isPostfixRight(ui->lsWare->item(itemid)->text())) {
                 ui->lsWare->setCurrentRow(itemid);
@@ -168,6 +209,7 @@ bool CourseWareWidget::prev(bool isRemote) {
             }
         }
     }
+    // emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
     if (isRemote)
         return true;
 
@@ -192,11 +234,15 @@ bool CourseWareWidget::next(bool isRemote) {
         if (ui->lsWare->selectedItems().size() == 0)
             return false;
         int curRow = ui->lsWare->row(ui->lsWare->selectedItems()[0]);
+		if (ui->lsWare->count() < 2)
+			return true;
         for (int i = 1; i < ui->lsWare->count(); i++) {      // 0 is your self~
             int itemid = curRow + i;
             if (itemid >= ui->lsWare->count()) {
                 itemid -= ui->lsWare->count();
             }
+			if (itemid == curRow)
+				return true;
 
             if (m_player->isPostfixRight(ui->lsWare->item(itemid)->text())) {
                 ui->lsWare->setCurrentRow(itemid);
@@ -204,6 +250,7 @@ bool CourseWareWidget::next(bool isRemote) {
             }
         }
     }
+    //emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
     if (isRemote)
         return true;
 
@@ -227,21 +274,23 @@ void CourseWareWidget::on_tbUpload_clicked()
 		return;
 
     QString filename = getFileName(filepath);
-	if (filepath != getFilePath(filename)) {		// if origin file is not dest file
-		int result = checkUploadFile(filename);		// we have to check it 
-		if (result != Success) {
-			emit promptSent(result);
-			return;
-		}
 
+    int result = checkUploadFile(filename);		// we have to check it
+    qDebug() << "result" << result;
+    if (result != Success) {
+        emit promptSent(result);
+        return;
+    }
+
+    if (filepath != getFilePath(filename)) {		// if origin file is not dest file
 		if (!QFile::copy(filepath, filename)) {		// cover if exists
 			QFile::remove(filename);
 			if (!QFile::copy(filepath, filename))
 				return;
-		}
-	}
-
+        }
+    }
     addFileToList(filename);
+
     // TODO ELSE
 }
 
@@ -265,7 +314,7 @@ void CourseWareWidget::on_tbExitWare_clicked()
     if (m_userRole != RoleTeacher)
         return;
 
-    if (isPlayerPlaying()) {
+    if (m_isPlayerPlaying) {
         stop(false);
     }
 
@@ -280,11 +329,18 @@ void CourseWareWidget::on_tbPrev_clicked()
 {
     if (m_userRole != RoleTeacher)
         return;
-    if (prev(false))
+    if (!prev(false))
         return;
-
-    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
 }
+
+void CourseWareWidget::on_tbNext_clicked()
+{
+    if (m_userRole != RoleTeacher)
+        return;
+    if (!next(false))
+        return;
+}
+
 
 void CourseWareWidget::on_tbStart_clicked()
 {
@@ -302,6 +358,9 @@ void CourseWareWidget::on_tbStart_clicked()
 }
 
 void CourseWareWidget::playFileByUser(QString filename) {
+    if (m_isPlayerPlaying && getFileName(m_player->filePath()) == filename)
+		return;
+
     if (!playTest(filename)) {
         emit promptSent(FailedPlay);
         return;
@@ -314,34 +373,21 @@ void CourseWareWidget::playFileByUser(QString filename) {
 
     setHidden(false);
 
-    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
     ui->tbStart->setIcon(QIcon(":/icon/ui/icon/stop.png"));
 }
 
-void CourseWareWidget::on_tbNext_clicked()
-{
-    if (m_userRole != RoleTeacher)
-        return;
-    if (!next(false))
-        return;
-
-    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
-}
-
-
 bool CourseWareWidget::playerStop() {
-    if (!stop(false))
-        return false;
+//    if (!stop(false))
+//        return false;
+    stop(false);
 
 
-    setHidden(true);
-    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/start.png"));
-    emit paintModeChanged(PaintNormal);
     return true;
 }
 
 
 void CourseWareWidget::playmodeEnd() {
+    // TODO client not end
     playerStop();
 }
 

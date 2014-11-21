@@ -10,6 +10,7 @@
         <file>ui/back/pink.png</file>
         <file>ui/back/yellow.png</file>
         <file>ui/back/background.png</file>
+        <file>ui/back/background.jpg</file>
     </qresource>
     <qresource prefix="/icon">
         <file>ui/icon/back ground.png</file>
@@ -44,6 +45,19 @@
         <file>ui/icon/fulann_logo.png</file>
         <file>ui/icon/remove.png</file>
         <file>ui/icon/run.png</file>
+        <file>ui/icon/close1.png</file>
+        <file>ui/icon/close2.png</file>
+        <file>ui/icon/eraser1.png</file>
+        <file>ui/icon/eraser2.png</file>
+        <file>ui/icon/eraser3.png</file>
+        <file>ui/icon/logo1.jpg</file>
+        <file>ui/icon/logo1.png</file>
+        <file>ui/icon/logo2.png</file>
+        <file>ui/icon/numeber.png</file>
+        <file>ui/icon/password (2).png</file>
+        <file>ui/icon/logo3.png</file>
+        <file>ui/icon/llpassword.png</file>
+        <file>ui/icon/llusername.png</file>
     </qresource>
     <qresource prefix="/word">
         <file>ui/word/enterclass.png</file>

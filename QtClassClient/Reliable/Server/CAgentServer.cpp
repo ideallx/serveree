@@ -73,25 +73,20 @@ void CAgentServer::loadUser() {
 }
 
 void CAgentServer::createClass(TS_UINT64 classid) {
-	iop_lock(&lockWorkServer);
-
 	iop_lock(&lockPortqueue);				// 获取一个未用过的端口号
 	int port = port_queue.front();
 	port_queue.pop();
 	iop_unlock(&lockPortqueue);
-
+	
 	CWSServer* pWorker = new CWSServer(classid, 1);		// 创建一个新的WorkServer
 	map_workserver[classid] = pWorker;
 	pWorker->Start(port);
 #ifdef _DEBUG_INFO_
 	cout << "Worker Server Start successfully on Port " << port << "." << endl;
 #endif
-	iop_unlock(&lockWorkServer);
 }
 
 void CAgentServer::destroyClass(TS_UINT64 classid) {
-	iop_lock(&lockWorkServer);
-
 	CWSServer* pServer = map_workserver[classid];
 	if (NULL == pServer)
 		return;
@@ -108,8 +103,6 @@ void CAgentServer::destroyClass(TS_UINT64 classid) {
 	iop_lock(&lockPortqueue);
 	port_queue.push(port);				// 返还给端口队列
 	iop_unlock(&lockPortqueue);
-
-	iop_unlock(&lockWorkServer);
 }
 
 void CAgentServer::scanOffline() {
@@ -159,17 +152,7 @@ void CAgentServer::scanOffline() {
 }
 
 bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
-	if (!isClassExist(user._classid)) {								// 第一个用户加入，则创建班级
-		createClass(user._classid);
-	}
-	
 	enum MsgResult result = ErrorUnknown;
-	iop_lock(&lockWorkServer);	
-	CWSServer* pServer = map_workserver[user._classid];
-    if (NULL == pServer)
-        return false;
-	iop_unlock(&lockWorkServer);
-
 	// find user in usermap by username, then check password
 	auto findUser = map_alluser.find(string((char*) user._username));
 	if (findUser == map_alluser.end()) {
@@ -182,7 +165,18 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 		result = SuccessEnterClass;
 	}
 
+	iop_lock(&lockWorkServer);
+	if (!isClassExist(user._classid)) {								// 第一个用户加入，则创建班级
+		createClass(user._classid);
+	}
+
+	CWSServer* pServer = map_workserver[user._classid];
+    if (NULL == pServer)
+        return false;
+
 	auto loginUsers = pServer->getPeers();
+	iop_unlock(&lockWorkServer);
+
 	if (loginUsers->find(user._uid) != loginUsers->end()) {				// 登陆过，推掉原来的
 		sockaddr_in backup = inputMsg.peeraddr;
 		inputMsg.peeraddr = *loginUsers->at(user._uid)->getPeer();
@@ -208,10 +202,12 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	cout << "Add User: " << user._uid << "into class" << user._classid << endl; 
 #endif
 	if (SuccessEnterClass == result) {
+		iop_lock(&lockWorkServer);
 		pServer->addPeer(inputMsg.peeraddr, user._uid);					// 这里的地址是client agent的端口地址
 		heartBeatTime.insert(make_pair(user._uid, getServerTime()));
 		userLoginNotify(inputMsg, user._uid);
         pServer->sendPrevMessage(user._uid);
+		iop_unlock(&lockWorkServer);
 	}
 
 

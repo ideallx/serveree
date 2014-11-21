@@ -3,8 +3,12 @@
 #include "CReliableConnection.h"
 #include "../DataUnit/CMessage.h"
 #include "../../Stdafx.h"
+#include "../Strategy/CSettings.h"
 
 using namespace std;
+
+const int minScanInterval = 300;
+const int maxScanInterval = 3000;
 
 thread_ret_type thread_func_call ScanProc(LPVOID lpParam) {
     iop_thread_detach_self();
@@ -60,6 +64,7 @@ CReliableConnection::CReliableConnection()
 	, selfUid(ServerUID)				// 默认为服务器UID，client端时需要setUID()
 	, totalMiss(0)						// 
 	, totalMsgs(0)						// 防止除0错误
+	, phaseMsgs(0)
 	, fileNamePrefix("L")
 	, resendWhenAsk(true)
 	, isRunning(false) {						
@@ -220,7 +225,7 @@ int CReliableConnection::send(const char* buf, ULONG len, TS_UINT64 uid) {
 
 void CReliableConnection::scanProcess() {
     while (isRunning) {
-        WaitForSingleObject(needScan, 1000);	// 最多等1秒
+        WaitForSingleObject(needScan, maxScanInterval);	// 最多等2秒
         // 扫描丢包，重发
         totalMiss = 0;
         map<TS_UINT64, set<TS_UINT64> > results = bm->getLostSeqIDs();				// blockManager层找
@@ -242,7 +247,11 @@ void CReliableConnection::scanProcess() {
 #ifdef _DEBUG_INFO_
         cout << "missing: " << totalMiss;
 #endif
-        iop_usleep(100);			// 时间间隔
+		phaseMsgs = totalMsgs;
+
+		if (controlReliableConnect(getMissingRate()))
+			resendWhenAsk = false;
+        iop_usleep(minScanInterval);			// 时间间隔
     }
 }
 
