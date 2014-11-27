@@ -1,16 +1,21 @@
 #include "CBusinessLogic.h"
 
-CBusinessLogic::CBusinessLogic(CMsgObject* parent) :
-	CMsgObject(parent),
-    m_UserLogic(new CUserLogic(this)),
-    m_GraphicLogic(new CGraphicLogic(this)),
-    m_FileLogic(new CFileLogic(this)),
-    m_AuthLogic(new CAuthLogic(this)),
-    m_PlayerLogic(new CPlayerLogic(this)) {
+CBusinessLogic::CBusinessLogic(CMsgObject* parent)
+    : CMsgObject(parent)
+    , m_UserLogic(new CUserLogic(this))
+    , m_GraphicLogic(new CGraphicLogic(this))
+    , m_FileLogic(new CFileLogic(this))
+    , m_AuthLogic(new CAuthLogic(this))
+    , m_PlayerLogic(new CPlayerLogic(this))
+    , isUIBuilt(false) {
 }
 
 CBusinessLogic::~CBusinessLogic() {
     delete m_UserLogic;
+    delete m_GraphicLogic;
+    delete m_FileLogic;
+    delete m_AuthLogic;
+    delete m_PlayerLogic;
 }
 
 void CBusinessLogic::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isremote) {
@@ -21,10 +26,10 @@ void CBusinessLogic::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, B
         m_UserLogic->procMsg(msg, isremote);
     } else {							// Net层传来的其他指令传给UI层
         if (isremote)
-            qDebug() << head->UID << head->type
+            qDebug() << "recv:" << head->UID << head->type
                      << head->sequence << head->subSeq;
 
-        if (!m_UserLogic->isServerAvailable() && !isremote)
+        if (!m_UserLogic->isServerAvailable())
             return;
 
         switch (head->type) {

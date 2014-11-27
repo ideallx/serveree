@@ -1,0 +1,60 @@
+QGroupBox {
+        background-color: rgb(255, 103, 50);
+        border:none;
+}
+
+QToolButton#tbBackground, #tbBrush, #tbCourseWare,
+        #tbEraser, #tbLogin, #tbMyBoard, #tbMyClass,
+        #tbPalette, #tbSettings, #tbShape, #tbTeacherBoard {
+        border-style: outset;
+        border-top-width: 4px;
+        border-left-width: 1px;
+        border-left-color: rgb(214, 214, 214);
+}
+
+QToolButton:!checked {
+        color: rgb(255, 255, 255);
+}
+QToolButton:checked, QToolButton:pressed {
+        background-color: rgb(83, 83, 83);
+}
+
+QToolButton#tbCourseWare {
+        border-top-color: rgb(233, 71, 7);
+}
+
+QToolButton#tbTeacherBoard {
+        border-top-color: rgb(253, 213, 3);
+}
+
+QToolButton#tbMyBoard {
+        border-top-color: rgb(94, 192, 191);
+}
+
+QToolButton#tbMyClass {
+        border-top-color: rgb(73, 167, 167);
+}
+
+QToolButton#tbBrush {
+        border-top-color: rgb(163, 207, 67);
+}
+
+QToolButton#tbEraser {
+        border-top-color: rgb(180, 61, 109);
+}
+
+QToolButton#tbPalette {
+        border-top-color: rgb(242, 69, 109);
+}
+
+QToolButton#tbBackground {
+        border-top-color: rgb(3, 155, 239);
+}
+
+QToolButton#tbLogin {
+        border-top-color: rgb(213, 213, 213);
+}
+
+QToolButton#tbShape {
+        border-top-color: rgb(208, 238, 139);
+}

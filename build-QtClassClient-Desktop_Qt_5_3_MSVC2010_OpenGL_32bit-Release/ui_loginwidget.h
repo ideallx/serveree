@@ -14,13 +14,13 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QFrame>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QToolButton>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -28,7 +28,7 @@ QT_BEGIN_NAMESPACE
 class Ui_loginWidget
 {
 public:
-    QVBoxLayout *verticalLayout;
+    QGridLayout *gridLayout;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label;
     QLineEdit *lineEdit;
@@ -54,9 +54,8 @@ public:
 "QLineEdit {\n"
 "	color: rgb(255, 255, 255);\n"
 "}"));
-        verticalLayout = new QVBoxLayout(loginWidget);
-        verticalLayout->setSpacing(0);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        gridLayout = new QGridLayout(loginWidget);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         label = new QLabel(loginWidget);
@@ -73,14 +72,14 @@ public:
         horizontalLayout_2->addWidget(lineEdit);
 
 
-        verticalLayout->addLayout(horizontalLayout_2);
+        gridLayout->addLayout(horizontalLayout_2, 0, 0, 1, 1);
 
         line = new QFrame(loginWidget);
         line->setObjectName(QStringLiteral("line"));
         line->setFrameShape(QFrame::HLine);
         line->setFrameShadow(QFrame::Sunken);
 
-        verticalLayout->addWidget(line);
+        gridLayout->addWidget(line, 1, 0, 1, 1);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
@@ -100,18 +99,18 @@ public:
         horizontalLayout_3->addWidget(lineEdit_2);
 
 
-        verticalLayout->addLayout(horizontalLayout_3);
+        gridLayout->addLayout(horizontalLayout_3, 2, 0, 1, 1);
 
         line_2 = new QFrame(loginWidget);
         line_2->setObjectName(QStringLiteral("line_2"));
         line_2->setFrameShape(QFrame::HLine);
         line_2->setFrameShadow(QFrame::Sunken);
 
-        verticalLayout->addWidget(line_2);
+        gridLayout->addWidget(line_2, 3, 0, 1, 1);
 
         verticalSpacer_3 = new QSpacerItem(134, 13, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        verticalLayout->addItem(verticalSpacer_3);
+        gridLayout->addItem(verticalSpacer_3, 4, 0, 1, 1);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
@@ -134,11 +133,11 @@ public:
         horizontalLayout->addItem(horizontalSpacer_2);
 
 
-        verticalLayout->addLayout(horizontalLayout);
+        gridLayout->addLayout(horizontalLayout, 5, 0, 1, 1);
 
         verticalSpacer_2 = new QSpacerItem(134, 13, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        verticalLayout->addItem(verticalSpacer_2);
+        gridLayout->addItem(verticalSpacer_2, 6, 0, 1, 1);
 
         QWidget::setTabOrder(lineEdit, lineEdit_2);
         QWidget::setTabOrder(lineEdit_2, toolButton);

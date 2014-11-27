@@ -8,6 +8,12 @@ CSynSocket::CSynSocket()
 }
 
 bool CSynSocket::bindPort(unsigned short iPort) {
+	string ipPrefix;
+	FILE* fp = freopen("config.txt", "r", stdin);
+    if (fp != NULL) {
+        cin >> ipPrefix;
+    }
+
 #ifdef WIN32
 	struct hostent *localhost;
     char *ip;
@@ -17,17 +23,21 @@ bool CSynSocket::bindPort(unsigned short iPort) {
 	} else {
 		int i = 0;
 		bool find = false;
-		while (localhost->h_addr_list[i] != 0) {	// 寻找本机局域网IP
-			ip = inet_ntoa(*(struct in_addr *) localhost->h_addr_list[i++]);
-			if (memcmp(ip, "192.168", 7) == 0) {
-				find = true;
-				break;
+		if (ipPrefix.length() < 16 && ipPrefix.length() > 1) {
+			while (localhost->h_addr_list[i] != 0) {	// 寻找本机局域网IP
+				ip = inet_ntoa(*(struct in_addr *) localhost->h_addr_list[i++]);
+				if (memcmp(ip, ipPrefix.data(), ipPrefix.length()) == 0) {
+					find = true;
+					break;
+				}
 			}
 		}
-		if (!find)
-			return false;
-	}
 
+		if (!find) {
+            ip = inet_ntoa(*(struct in_addr *) localhost->h_addr_list[0]);
+		}
+	}
+	cout << "server ip is " << ip << " port is 2222" << endl; 
 	ipAddress = ip;
     m_LocalAddr.sin_family = AF_INET;
     m_LocalAddr.sin_addr.s_addr = inet_addr(ip);

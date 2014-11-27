@@ -16,6 +16,8 @@ protected:
 	CMsgObject* p_Parent;
 	set<CMsgObject*> p_ChildList;
 
+
+
 public:
 	CMsgObject(CMsgObject* parent = NULL);
 

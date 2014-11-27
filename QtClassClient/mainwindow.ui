@@ -30,87 +30,7 @@
     <normaloff>:/icon/ui/icon/fulann_logo.png</normaloff>:/icon/ui/icon/fulann_logo.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">QListView {
-	color: rgb(255, 255, 255);
-	background-color: rgb(45, 55, 64);
-	padding-left: 20px;
-	padding-right: 20px;
-	border:none
-}
-
-QListView::item:selected, QListView::item:hover{
-	background: rgb(66, 79, 88);
-	color: rgb(255, 255, 255);
-}
-
-QGroupBox {
-	background-color: rgb(31, 40, 49);
-	border: none;
-}
-
-QGroupBox#gbWareCtrl {
-	background-color: rgb(66, 79, 88);
-}
-
-QGroupBox {
-	background-color: rgb(31, 40, 49);
-	border: none;
-}
-
-QToolButton {
-	color: rgb(255, 255, 255);
-}
-
-MyView {
-	background-color: rgb(255, 254, 240);
-}
-
-QLabel {
-	color: white;
-}
-
-QListWidget:item {
-	height: 33;
-}
-
-QScrollBar:vertical {
-	border-radius: 5px;
-    background: rgb(69, 77, 80);
-    width: 12px;
-    margin: 22px 0 22px 0;
-}
-QScrollBar::handle:vertical {
-	border-radius: 5px;
-    background: rgb(26, 29, 34);
-    min-height: 20px;
-}
-QScrollBar::add-line:vertical {
-	border-radius: 5px;
-    background: rgb(45, 55, 64);
-    height: 20px;
-    subcontrol-position: bottom;
-    subcontrol-origin: margin;
-}
-
-QScrollBar::sub-line:vertical {
-	border-radius: 5px;
-    background: rgb(45, 55, 64);
-    height: 20px;
-    subcontrol-position: top;
-    subcontrol-origin: margin;
-}
-QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
-	border-radius: 5px;
-    width: 3px;
-    height: 3px;
-    background: white;
-}
-
-QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-	border-radius: 5px;
-    background: none;
-}
-</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">
@@ -118,6 +38,91 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QListView {
+        color: rgb(255, 255, 255);
+        background-color: rgb(106, 160, 127);
+        border:none
+}
+
+MyView {
+        background-color: rgb(255, 254, 240);
+}
+
+QListView::item:selected, QListView::item:hover{
+        background: rgb(145, 152, 158);
+        color: rgb(255, 255, 255);
+}
+
+QGroupBox {
+        background-color: rgb(31, 40, 49);
+        border: none;
+}
+
+QGroupBox#gbWareCtrl {
+        background-color: rgb(66, 79, 88);
+}
+
+QGroupBox {
+        background-color: rgb(31, 40, 49);
+        border: none;
+}
+
+QToolButton {
+        color: rgb(255, 255, 255);
+}
+
+QLabel {
+        color: white;
+}
+
+QListWidget:item {
+        height: 33;
+}
+
+QScrollBar:vertical {
+        border-radius: 5px;
+    background: rgb(69, 77, 80);
+    width: 12px;
+    margin: 22px 0 22px 0;
+}
+QScrollBar::handle:vertical {
+        border-radius: 5px;
+    background: rgb(26, 29, 34);
+    min-height: 20px;
+}
+QScrollBar::add-line:vertical {
+        border-radius: 5px;
+    background: rgb(45, 55, 64);
+    height: 20px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+        border-radius: 5px;
+    background: rgb(45, 55, 64);
+    height: 20px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+        border-radius: 5px;
+    width: 3px;
+    height: 3px;
+    background: white;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+        border-radius: 5px;
+    background: none;
+}
+
+QGroupBox#gbUserlist {
+        background-color: rgb(18, 145, 113);
+}
+</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <property name="spacing">
@@ -136,7 +141,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
      <number>0</number>
     </property>
     <item>
-     <widget class="QGroupBox" name="groupBox">
+     <widget class="QGroupBox" name="gbCommandbar">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -262,7 +267,7 @@ QToolButton#tbShape {
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="ui.qrc">:/icon/ui/icon/logo1.png</pixmap>
+          <pixmap resource="ui.qrc">:/icon/ui/icon/logo icon.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>false</bool>
@@ -493,6 +498,50 @@ QToolButton#tbShape {
         </widget>
        </item>
        <item>
+        <widget class="ColorCombox" name="tbPalette">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>75</width>
+           <height>75</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>120</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>调色板</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ui.qrc">
+           <normaloff>:/icon/ui/icon/platte.png</normaloff>:/icon/ui/icon/platte.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="CShapeChooser" name="tbShape">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -583,50 +632,6 @@ QToolButton#tbShape {
          </property>
          <property name="arrowType">
           <enum>Qt::NoArrow</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="ColorCombox" name="tbPalette">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>75</width>
-           <height>75</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>120</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>调色板</string>
-         </property>
-         <property name="icon">
-          <iconset resource="ui.qrc">
-           <normaloff>:/icon/ui/icon/platte.png</normaloff>:/icon/ui/icon/platte.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-         <property name="toolButtonStyle">
-          <enum>Qt::ToolButtonTextUnderIcon</enum>
-         </property>
-         <property name="autoRaise">
-          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -778,7 +783,7 @@ QToolButton#tbShape {
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_2">
+       <widget class="QGroupBox" name="gbUserlist">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
           <horstretch>0</horstretch>

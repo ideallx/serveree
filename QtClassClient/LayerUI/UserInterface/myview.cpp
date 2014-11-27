@@ -20,6 +20,8 @@ MyView::MyView(QWidget *parent) :
     panTimer.setSingleShot(true);
     setAttribute(Qt::WA_AcceptTouchEvents);
     setMouseTracking(true);
+
+    setStyleSheet("background-color: rgb(255, 254, 240)");
 }
 
 MyView::~MyView() {

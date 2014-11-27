@@ -14,6 +14,8 @@ protected:
 	struct sockaddr_in m_ToAddr;
 	struct sockaddr_in m_FromAddr;
 
+    TS_UINT64 latestTime;
+
 public:
 	CAbsConnection(void);
 	virtual ~CAbsConnection(void);
@@ -29,6 +31,8 @@ public:
 
 	inline struct sockaddr_in* getRecvAddr(void) const { return (struct sockaddr_in*) &m_FromAddr; }
 	inline void setRecvAddr(const struct sockaddr_in &addr) { m_FromAddr = addr; }
+
+    inline TS_UINT64 getLatestRecvTime(void) const { return latestTime; }
 
 public:
 	virtual bool create(unsigned short localport = 0) = 0;

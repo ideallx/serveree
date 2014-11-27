@@ -2,6 +2,7 @@
 #define LOGINDIALOG_H
 
 #include <QDialog>
+#include <QTimer>
 #include "../Message/CMsgObject.h"
 
 namespace Ui {
@@ -18,15 +19,32 @@ public:
 
     void setUsernamePassword(QString username, QString password);
 
+    void ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL isRemote);
+
+    void setPrompt(int result);
+
 private slots:
     void on_tbEnterClass_clicked();
     void on_tbExit_clicked();
 
+    void sendNoResponse();
+
+    void on_leUsername_textChanged(const QString &arg1);
+
+    void on_lePassword_textChanged(const QString &arg1);
+
 signals:
     void loginClass(QString username, QString password);
+    void loginSuccess(int role);
+    void endTimer();
+    void promptChanged(int result);
+
+private:
+    void showPrompt(int result);
 
 private:
     Ui::LoginDialog *ui;
+    QTimer serverNoResponse;
 };
 
 #endif // LOGINDIALOG_H

@@ -32,7 +32,7 @@ public:
     {
         if (settingWidget->objectName().isEmpty())
             settingWidget->setObjectName(QStringLiteral("settingWidget"));
-        settingWidget->resize(115, 42);
+        settingWidget->resize(115, 84);
         verticalLayout = new QVBoxLayout(settingWidget);
         verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -43,6 +43,8 @@ public:
         horizontalLayout->setContentsMargins(-1, 0, -1, -1);
         exitButton = new QToolButton(settingWidget);
         exitButton->setObjectName(QStringLiteral("exitButton"));
+        exitButton->setMinimumSize(QSize(115, 42));
+        exitButton->setMaximumSize(QSize(115, 42));
         QFont font;
         font.setFamily(QStringLiteral("Agency FB"));
         font.setPointSize(11);

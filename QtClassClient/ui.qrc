@@ -58,9 +58,21 @@
         <file>ui/icon/logo3.png</file>
         <file>ui/icon/llpassword.png</file>
         <file>ui/icon/llusername.png</file>
+        <file>ui/icon/l.png</file>
+        <file>ui/icon/logo icon.png</file>
+        <file>ui/icon/r.png</file>
+        <file>ui/icon/s.png</file>
     </qresource>
     <qresource prefix="/word">
         <file>ui/word/enterclass.png</file>
         <file>ui/word/leaveclass.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>stylesheets/GreenGroupIcon.qss</file>
+        <file>stylesheets/GreenMainwindow.qss</file>
+        <file>stylesheets/OrangeGroupIcon.qss</file>
+        <file>stylesheets/OrangeMainwindow.qss</file>
+        <file>stylesheets/GreenCourseWare.qss</file>
+        <file>stylesheets/OrangeCourseWare.qss</file>
     </qresource>
 </RCC>

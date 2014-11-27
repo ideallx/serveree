@@ -26,6 +26,7 @@ public:
 	int recvData(char* buf, ULONG& len, struct sockaddr_in* FromAddr);
 
 	void setIp(string in) { ipAddress = in; }
+    inline string getIpAddress() { return ipAddress; }
 
 private:
 	bool bindPort(unsigned short iPort = 0);

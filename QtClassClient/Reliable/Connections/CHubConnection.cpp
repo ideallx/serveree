@@ -68,7 +68,7 @@ bool CHubConnection::addPeer(const TS_UINT64 uid,
 }
 
 bool CHubConnection::removePeer(const TS_UINT64 uid) {
-//	if (isCloned)
+	if (isCloned)
 		return false;
 
 	if (size() > 0) {
@@ -170,7 +170,10 @@ int CHubConnection::recv(char* buf, ULONG& len) {
 	if (!pSocket || !pSocket->isValidSocket())
 		return -1;
 
-	return pSocket->recvData(buf, len, &m_FromAddr);
+    int result = pSocket->recvData(buf, len, &m_FromAddr);
+	if (result > 0)
+		latestTime = getTime(*(ts_msg*) buf);
+    return result;
 }
 
 void CHubConnection::setPeerConnection(const struct sockaddr_in& peeraddr) {

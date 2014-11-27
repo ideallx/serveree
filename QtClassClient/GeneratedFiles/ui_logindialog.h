@@ -46,6 +46,7 @@ public:
     QSpacerItem *horizontalSpacer;
     QLabel *label_2;
     QToolButton *tbEnterClass;
+    QLabel *lbPrompt;
     QProgressBar *pbDownload;
     QSpacerItem *horizontalSpacer_6;
     QSpacerItem *verticalSpacer;
@@ -63,6 +64,10 @@ public:
 "	color: rgb(0, 255, 127);\n"
 "}\n"
 "\n"
+"QLabel#lbPrompt {\n"
+"	color: rgb(0, 0, 0);\n"
+"}\n"
+"\n"
 "#QToolButton#tbExit:hover[autoRaise = \"true\"] {\n"
 "	background-image: url(:/icon/ui/icon/close2.png);\n"
 "}\n"
@@ -73,6 +78,8 @@ public:
 "	font: 16px;\n"
 "}\n"
 "\n"
+"QToolButton#tbEnterClass:!enabled {\n"
+"}\n"
 "\n"
 "QLineEdit {\n"
 "	font: 16px;\n"
@@ -172,6 +179,7 @@ public:
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         label = new QLabel(LoginDialog);
         label->setObjectName(QStringLiteral("label"));
+        label->setOpenExternalLinks(true);
 
         horizontalLayout->addWidget(label);
 
@@ -181,6 +189,7 @@ public:
 
         label_2 = new QLabel(LoginDialog);
         label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setOpenExternalLinks(true);
 
         horizontalLayout->addWidget(label_2);
 
@@ -189,6 +198,7 @@ public:
 
         tbEnterClass = new QToolButton(LoginDialog);
         tbEnterClass->setObjectName(QStringLiteral("tbEnterClass"));
+        tbEnterClass->setEnabled(false);
         sizePolicy.setHeightForWidth(tbEnterClass->sizePolicy().hasHeightForWidth());
         tbEnterClass->setSizePolicy(sizePolicy);
         tbEnterClass->setMinimumSize(QSize(330, 40));
@@ -197,9 +207,15 @@ public:
 
         verticalLayout->addWidget(tbEnterClass);
 
+        lbPrompt = new QLabel(LoginDialog);
+        lbPrompt->setObjectName(QStringLiteral("lbPrompt"));
+
+        verticalLayout->addWidget(lbPrompt);
+
         pbDownload = new QProgressBar(LoginDialog);
         pbDownload->setObjectName(QStringLiteral("pbDownload"));
         pbDownload->setValue(0);
+        pbDownload->setTextVisible(false);
 
         verticalLayout->addWidget(pbDownload);
 
@@ -229,9 +245,10 @@ public:
         label_4->setText(QString());
         leUsername->setPlaceholderText(QApplication::translate("LoginDialog", "\350\257\267\350\276\223\345\205\245\346\202\250\347\232\204\350\264\246\345\217\267", 0));
         lePassword->setPlaceholderText(QApplication::translate("LoginDialog", "\350\257\267\350\276\223\345\205\245\346\202\250\347\232\204\345\257\206\347\240\201", 0));
-        label->setText(QApplication::translate("LoginDialog", "<a href=\"http://www.k6kt.com/\">\345\277\230\350\256\260\345\257\206\347\240\201\357\274\237", 0));
-        label_2->setText(QApplication::translate("LoginDialog", "<a href=\"http://www.k6kt.com/\">\346\263\250\345\206\214\346\226\260\347\224\250\346\210\267", 0));
+        label->setText(QApplication::translate("LoginDialog", "<a  style='color: green;' href=\"http://www.k6kt.com/\">\345\277\230\350\256\260\345\257\206\347\240\201\357\274\237", 0));
+        label_2->setText(QApplication::translate("LoginDialog", "<a style='color: green;' href=\"http://www.k6kt.com/\">\346\263\250\345\206\214\346\226\260\347\224\250\346\210\267", 0));
         tbEnterClass->setText(QApplication::translate("LoginDialog", "\350\277\233\345\205\245\350\257\276\345\240\202", 0));
+        lbPrompt->setText(QString());
         Q_UNUSED(LoginDialog);
     } // retranslateUi
 

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_CourseWareWidget_t {
-    QByteArrayData data[27];
-    char stringdata[365];
+    QByteArrayData data[29];
+    char stringdata[386];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -39,31 +39,34 @@ QT_MOC_LITERAL(6, 60, 16),
 QT_MOC_LITERAL(7, 77, 4),
 QT_MOC_LITERAL(8, 82, 10),
 QT_MOC_LITERAL(9, 93, 6),
-QT_MOC_LITERAL(10, 100, 16),
-QT_MOC_LITERAL(11, 117, 3),
-QT_MOC_LITERAL(12, 121, 11),
-QT_MOC_LITERAL(13, 133, 13),
-QT_MOC_LITERAL(14, 147, 6),
-QT_MOC_LITERAL(15, 154, 18),
-QT_MOC_LITERAL(16, 173, 17),
-QT_MOC_LITERAL(17, 191, 17),
-QT_MOC_LITERAL(18, 209, 19),
-QT_MOC_LITERAL(19, 229, 17),
-QT_MOC_LITERAL(20, 247, 28),
-QT_MOC_LITERAL(21, 276, 16),
-QT_MOC_LITERAL(22, 293, 7),
-QT_MOC_LITERAL(23, 301, 8),
-QT_MOC_LITERAL(24, 310, 21),
-QT_MOC_LITERAL(25, 332, 27),
-QT_MOC_LITERAL(26, 360, 4)
+QT_MOC_LITERAL(10, 100, 13),
+QT_MOC_LITERAL(11, 114, 6),
+QT_MOC_LITERAL(12, 121, 16),
+QT_MOC_LITERAL(13, 138, 3),
+QT_MOC_LITERAL(14, 142, 11),
+QT_MOC_LITERAL(15, 154, 13),
+QT_MOC_LITERAL(16, 168, 6),
+QT_MOC_LITERAL(17, 175, 18),
+QT_MOC_LITERAL(18, 194, 17),
+QT_MOC_LITERAL(19, 212, 17),
+QT_MOC_LITERAL(20, 230, 19),
+QT_MOC_LITERAL(21, 250, 17),
+QT_MOC_LITERAL(22, 268, 28),
+QT_MOC_LITERAL(23, 297, 16),
+QT_MOC_LITERAL(24, 314, 7),
+QT_MOC_LITERAL(25, 322, 8),
+QT_MOC_LITERAL(26, 331, 21),
+QT_MOC_LITERAL(27, 353, 27),
+QT_MOC_LITERAL(28, 381, 4)
     },
     "CourseWareWidget\0clearScreen\0\0TS_UINT64\0"
     "sceneID\0cleanOption\0paintModeChanged\0"
-    "mode\0promptSent\0result\0changeBackground\0"
-    "pic\0changeMedia\0QMediaPlayer*\0player\0"
-    "on_tbStart_clicked\0on_tbPrev_clicked\0"
-    "on_tbNext_clicked\0on_tbUpload_clicked\0"
-    "on_tbSync_clicked\0on_lsWare_currentItemChanged\0"
+    "mode\0promptSent\0result\0promptMsgSent\0"
+    "prompt\0changeBackground\0pic\0changeMedia\0"
+    "QMediaPlayer*\0player\0on_tbStart_clicked\0"
+    "on_tbPrev_clicked\0on_tbNext_clicked\0"
+    "on_tbUpload_clicked\0on_tbSync_clicked\0"
+    "on_lsWare_currentItemChanged\0"
     "QListWidgetItem*\0current\0previous\0"
     "on_tbExitWare_clicked\0on_lsWare_itemDoubleClicked\0"
     "item"
@@ -76,36 +79,38 @@ static const uint qt_meta_data_CourseWareWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       5,       // signalCount
+       6,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,   79,    2, 0x06 /* Public */,
-       6,    1,   84,    2, 0x06 /* Public */,
-       8,    1,   87,    2, 0x06 /* Public */,
-      10,    1,   90,    2, 0x06 /* Public */,
-      12,    1,   93,    2, 0x06 /* Public */,
+       1,    2,   84,    2, 0x06 /* Public */,
+       6,    1,   89,    2, 0x06 /* Public */,
+       8,    1,   92,    2, 0x06 /* Public */,
+      10,    1,   95,    2, 0x06 /* Public */,
+      12,    1,   98,    2, 0x06 /* Public */,
+      14,    1,  101,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      15,    0,   96,    2, 0x08 /* Private */,
-      16,    0,   97,    2, 0x08 /* Private */,
-      17,    0,   98,    2, 0x08 /* Private */,
-      18,    0,   99,    2, 0x08 /* Private */,
-      19,    0,  100,    2, 0x08 /* Private */,
-      20,    2,  101,    2, 0x08 /* Private */,
-      24,    0,  106,    2, 0x08 /* Private */,
-      25,    1,  107,    2, 0x08 /* Private */,
+      17,    0,  104,    2, 0x08 /* Private */,
+      18,    0,  105,    2, 0x08 /* Private */,
+      19,    0,  106,    2, 0x08 /* Private */,
+      20,    0,  107,    2, 0x08 /* Private */,
+      21,    0,  108,    2, 0x08 /* Private */,
+      22,    2,  109,    2, 0x08 /* Private */,
+      26,    0,  114,    2, 0x08 /* Private */,
+      27,    1,  115,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3, QMetaType::Int,    4,    5,
     QMetaType::Void, QMetaType::Int,    7,
     QMetaType::Void, QMetaType::Int,    9,
-    QMetaType::Void, QMetaType::QPixmap,   11,
-    QMetaType::Void, 0x80000000 | 13,   14,
+    QMetaType::Void, QMetaType::QString,   11,
+    QMetaType::Void, QMetaType::QPixmap,   13,
+    QMetaType::Void, 0x80000000 | 15,   16,
 
  // slots: parameters
     QMetaType::Void,
@@ -113,9 +118,9 @@ static const uint qt_meta_data_CourseWareWidget[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 21, 0x80000000 | 21,   22,   23,
+    QMetaType::Void, 0x80000000 | 23, 0x80000000 | 23,   24,   25,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 21,   26,
+    QMetaType::Void, 0x80000000 | 23,   28,
 
        0        // eod
 };
@@ -128,22 +133,23 @@ void CourseWareWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         case 0: _t->clearScreen((*reinterpret_cast< TS_UINT64(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 1: _t->paintModeChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 2: _t->promptSent((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 3: _t->changeBackground((*reinterpret_cast< QPixmap(*)>(_a[1]))); break;
-        case 4: _t->changeMedia((*reinterpret_cast< QMediaPlayer*(*)>(_a[1]))); break;
-        case 5: _t->on_tbStart_clicked(); break;
-        case 6: _t->on_tbPrev_clicked(); break;
-        case 7: _t->on_tbNext_clicked(); break;
-        case 8: _t->on_tbUpload_clicked(); break;
-        case 9: _t->on_tbSync_clicked(); break;
-        case 10: _t->on_lsWare_currentItemChanged((*reinterpret_cast< QListWidgetItem*(*)>(_a[1])),(*reinterpret_cast< QListWidgetItem*(*)>(_a[2]))); break;
-        case 11: _t->on_tbExitWare_clicked(); break;
-        case 12: _t->on_lsWare_itemDoubleClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 3: _t->promptMsgSent((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 4: _t->changeBackground((*reinterpret_cast< QPixmap(*)>(_a[1]))); break;
+        case 5: _t->changeMedia((*reinterpret_cast< QMediaPlayer*(*)>(_a[1]))); break;
+        case 6: _t->on_tbStart_clicked(); break;
+        case 7: _t->on_tbPrev_clicked(); break;
+        case 8: _t->on_tbNext_clicked(); break;
+        case 9: _t->on_tbUpload_clicked(); break;
+        case 10: _t->on_tbSync_clicked(); break;
+        case 11: _t->on_lsWare_currentItemChanged((*reinterpret_cast< QListWidgetItem*(*)>(_a[1])),(*reinterpret_cast< QListWidgetItem*(*)>(_a[2]))); break;
+        case 12: _t->on_tbExitWare_clicked(); break;
+        case 13: _t->on_lsWare_itemDoubleClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 4:
+        case 5:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
@@ -173,15 +179,21 @@ void CourseWareWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
             }
         }
         {
+            typedef void (CourseWareWidget::*_t)(QString );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CourseWareWidget::promptMsgSent)) {
+                *result = 3;
+            }
+        }
+        {
             typedef void (CourseWareWidget::*_t)(QPixmap );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CourseWareWidget::changeBackground)) {
-                *result = 3;
+                *result = 4;
             }
         }
         {
             typedef void (CourseWareWidget::*_t)(QMediaPlayer * );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CourseWareWidget::changeMedia)) {
-                *result = 4;
+                *result = 5;
             }
         }
     }
@@ -212,13 +224,13 @@ int CourseWareWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 14;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 13)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 14;
     }
     return _id;
 }
@@ -245,16 +257,23 @@ void CourseWareWidget::promptSent(int _t1)
 }
 
 // SIGNAL 3
-void CourseWareWidget::changeBackground(QPixmap _t1)
+void CourseWareWidget::promptMsgSent(QString _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 3, _a);
 }
 
 // SIGNAL 4
-void CourseWareWidget::changeMedia(QMediaPlayer * _t1)
+void CourseWareWidget::changeBackground(QPixmap _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 4, _a);
+}
+
+// SIGNAL 5
+void CourseWareWidget::changeMedia(QMediaPlayer * _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 5, _a);
 }
 QT_END_MOC_NAMESPACE

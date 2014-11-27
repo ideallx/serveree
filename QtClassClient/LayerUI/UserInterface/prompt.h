@@ -25,7 +25,9 @@ const QByteArray AllPrompts[] = {
     "暂不支持该格式的文件",
     "敬请期待",
     "服务器没有响应",
-    "文件已存在"
+    "文件已存在",
+
+    "课程装载中"
 };
 
 class Prompt : public QDialog
@@ -36,9 +38,18 @@ public:
     explicit Prompt(WORD index, QWidget *parent = 0);
     explicit Prompt(QString prompt, QWidget *parent = 0);
 
+    void setPrompt(int result);
+    void setPrompt(QString prompt);
+
+    static QString getPrompt(int index);
+
     ~Prompt();
 
+private slots:
+    void on_pbConfirm_clicked();
+
 private:
+    static bool isExist;
     Ui::Prompt *ui;
 };
 

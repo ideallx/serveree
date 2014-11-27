@@ -3,6 +3,7 @@
 #include "../stdafx.h"
 
 #include "CMsgReceiver.h"
+#include "../Reliable/DataStructure/TSQueue.h"
 
 #include <set>
 
@@ -14,6 +15,9 @@ protected:
 
     set<CMsgReceiver*> upReceivers;
     set<CMsgReceiver*> downReceivers;
+
+    TSQueue<ts_msg> upCache;
+    TSQueue<ts_msg> downCache;
 
 public:
 	CMsgSender(void);

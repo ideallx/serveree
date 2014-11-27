@@ -54,6 +54,7 @@ signals:
     void clearScreen(TS_UINT64 sceneID, int cleanOption);
     void paintModeChanged(int mode);
     void promptSent(int result);
+    void promptMsgSent(QString prompt);
     void changeBackground(QPixmap pic);
     void changeMedia(QMediaPlayer* player);
 

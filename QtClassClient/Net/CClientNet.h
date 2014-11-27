@@ -28,6 +28,8 @@ public:
 	CClientNet(void);
 	virtual ~CClientNet(void);
 
+    bool scanServer(struct sockaddr_in& result);
+
 public:				
 	// Æô¶¯ÍøÂçÄ£¿é
 	bool Start(unsigned short port);

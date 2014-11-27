@@ -5,9 +5,11 @@
 
 CBlockManager::CBlockManager() :
 	fileNamePrefix("L") {
+	iop_lock_init(&lockUserBlock);
 }
 
 CBlockManager::~CBlockManager() {
+	iop_lock_destroy(&lockUserBlock);
 	for (auto iter = map_userBlock.begin(); 
 		iter != map_userBlock.end(); ++iter) {
 		DESTROY(iter->second);
@@ -35,7 +37,9 @@ int CBlockManager::record(ts_msg& in) {
 	if (b == NULL) {
 		b = new CBlock(uid);
 		b->setFilePrefix(fileNamePrefix);
+		iop_lock(&lockUserBlock);
 		map_userBlock.insert(make_pair(uid, b));
+		iop_unlock(&lockUserBlock);
 	}
 
 	int result = b->addMsg(in);
@@ -49,16 +53,22 @@ int CBlockManager::record(ts_msg& in) {
 }
 
 CBlock* CBlockManager::getBlockByUid(TS_UINT64 uid) {
+	CBlock* result;
+	iop_lock(&lockUserBlock);
 	auto iter = map_userBlock.find(uid);
 	if (iter != map_userBlock.end()) {
-		return iter->second;
+		result = iter->second;
 	} else {
-		return NULL;
+		result =  NULL;
 	}
+	iop_unlock(&lockUserBlock);
+	return result;
 }
 
 map<TS_UINT64, set<TS_UINT64> > CBlockManager::getLostSeqIDs() {
 	map<TS_UINT64, set<TS_UINT64> > results;
+	
+	iop_lock(&lockUserBlock);
 	for (auto iter = map_userBlock.begin();
 		iter != map_userBlock.end(); iter++) {
 		set<TS_UINT64> pids = iter->second->scanMissingPackets();
@@ -66,11 +76,13 @@ map<TS_UINT64, set<TS_UINT64> > CBlockManager::getLostSeqIDs() {
 			results.insert(make_pair(iter->first, pids));
 		}
 	}
+	iop_unlock(&lockUserBlock);
 	return results;
 }
 
 int CBlockManager::getSavePackage(set<pair<TS_UINT64, CPackage*> >& out) {
 	int count = 0;
+	iop_lock(&lockUserBlock);
 	for (auto iter = map_userBlock.begin(); iter != map_userBlock.end(); ) {
 		set<CPackage*> packages;
 		iter->second->savePackage(packages);
@@ -81,6 +93,7 @@ int CBlockManager::getSavePackage(set<pair<TS_UINT64, CPackage*> >& out) {
 		}
 		iter++;
 	}
+	iop_unlock(&lockUserBlock);
 	return count;
 }
 
@@ -91,7 +104,9 @@ void CBlockManager::removeBlock(TS_UINT64 uid) {
 	CBlock* cb = map_userBlock[uid];
 	delete cb;
 	cb = NULL;
+	iop_lock(&lockUserBlock);
 	map_userBlock.erase(uid);
+	iop_unlock(&lockUserBlock);
 }
 
 void CBlockManager::saveBlock(TS_UINT64 uid) {
@@ -105,6 +120,7 @@ void CBlockManager::saveBlock(TS_UINT64 uid) {
 void CBlockManager::setMaxSeqOfUid(TS_UINT64 uid, TS_UINT64 seq) {
     if ((map_userBlock.count(uid) == 0) || (map_userBlock[uid] == NULL))
         return;
+	iop_lock(&lockUserBlock);
 	if (seq == 0) {
 		removeBlock(uid);
 		CBlock* b = new CBlock(uid);
@@ -113,10 +129,17 @@ void CBlockManager::setMaxSeqOfUid(TS_UINT64 uid, TS_UINT64 seq) {
 	} else {
 		map_userBlock[uid]->setMaxSeq(seq);
 	}
+	iop_unlock(&lockUserBlock);
 }
 
 TS_UINT64 CBlockManager::getMaxSeqOfUID(TS_UINT64 uid) {
+	TS_UINT64 result = 0;
+	iop_lock(&lockUserBlock);
 	if ((map_userBlock.count(uid) == 0) || (map_userBlock[uid] == NULL))
-		return 0;
-	return map_userBlock[uid]->getMaxSeq();
+		result = 0;
+	else
+		result = map_userBlock[uid]->getMaxSeq();
+	iop_unlock(&lockUserBlock);
+
+	return result;
 }

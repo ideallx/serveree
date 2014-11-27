@@ -7,8 +7,8 @@
 
 using namespace std;
 
-const int minScanInterval = 300;
-const int maxScanInterval = 3000;
+const int minScanInterval = 30;
+const int maxScanInterval = 1000;
 
 thread_ret_type thread_func_call ScanProc(LPVOID lpParam) {
     iop_thread_detach_self();
@@ -95,8 +95,9 @@ CReliableConnection::~CReliableConnection() {
 
 // 除了基本的开端口之外，还要增加一个扫描线程，一个消息处理线程
 bool CReliableConnection::create(unsigned short localport) {
-	if (!CHubConnection::create(localport))
+	if (!CHubConnection::create(localport)) {
 		return false;
+	}
 
 	isRunning = true;
 
@@ -443,7 +444,6 @@ int CReliableConnection::resendPart(TS_UINT64 toUID,
                                     TS_UINT64 needUID,
                                     TS_UINT64 fromSeq,
                                     TS_UINT64 toSeq) {
-
     CPeerConnection *peer = findPeer(toUID);			// 请求方的地址
     if (NULL == peer)
         return -1;
@@ -458,6 +458,9 @@ int CReliableConnection::resendPart(TS_UINT64 toUID,
             continue;
         if (peer->send(p.Body, packetSize(p)) > 0)
             count++;
+		iop_usleep(1);
+		//if (j % 30 == 0)						// 不知道为什么，如果不加 他就78条一发 不知道为什么。
+		//	iop_usleep(30);
     }
     return count;
 }

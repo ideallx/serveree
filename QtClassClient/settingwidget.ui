@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>115</width>
-    <height>42</height>
+    <height>84</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,6 +39,18 @@
      </property>
      <item>
       <widget class="QToolButton" name="exitButton">
+       <property name="minimumSize">
+        <size>
+         <width>115</width>
+         <height>42</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>115</width>
+         <height>42</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <family>Agency FB</family>
@@ -49,7 +61,7 @@
         <string>退出软件</string>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="ui.qrc">
          <normaloff>:/icon/ui/icon/exit.png</normaloff>:/icon/ui/icon/exit.png</iconset>
        </property>
        <property name="toolButtonStyle">
@@ -64,6 +76,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="ui.qrc"/>
+ </resources>
  <connections/>
 </ui>

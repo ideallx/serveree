@@ -18,3 +18,6 @@ enum PacketType getType(const ts_msg& p) {
 	return static_cast<enum PacketType> (((TS_MESSAGE_HEAD *) &p)->type);
 }
 
+TS_UINT64 getTime(const ts_msg& p) {
+    return ((TS_MESSAGE_HEAD*) &p)->time;
+}

@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QDir>
 #include "pptplayer.h"
 
 PPTPlayer::PPTPlayer(QString filepath, CMsgObject* parent):
@@ -8,7 +9,7 @@ PPTPlayer::PPTPlayer(QString filepath, CMsgObject* parent):
     m_controller->setProperty("Visible", false);
 
     presentation = m_controller->querySubObject("Presentations");
-    opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", filepath, true, false, false);
+    opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", filepath, false, false, false);
     if (!opened) {
         qDebug() << "open error";
         return;
@@ -21,7 +22,6 @@ PPTPlayer::PPTPlayer(QString filepath, CMsgObject* parent):
         qDebug() << "SlideShowSettings error";
         return;
     }
-    sss->setProperty("ShowType", 1);
 
     m_transBackground = true;
     m_isLoadSuccess = true;
@@ -44,6 +44,7 @@ bool PPTPlayer::procRun() {
     sss->querySubObject("Run()");
     window = opened->querySubObject("SlideShowWindow");
     if (!window) {
+        qDebug() << "ddfsas";
         return false;
     }
 
@@ -51,6 +52,24 @@ bool PPTPlayer::procRun() {
     window->setProperty("Left", 180);
     window->setProperty("Width", window->property("Width").toInt() - 180);
     window->setProperty("Height", window->property("Height").toInt() - 40);
+
+    auto slides = window->querySubObject("Presentation");
+    slides = slides->querySubObject("Slides(int)", 1);
+    if (!slides) {
+        return false;
+    }
+
+//    QString fp = m_filepath + ".jpg";
+//    qDebug() << fp;
+//    slides->querySubObject("Export(QString, QString, int, int)", fp, "jpg", 1920, 1080);
+//    if (!slides) {
+//        return false;
+//    }
+
+//    qDebug() << "ppt pixmap";
+//    QPixmap p(fp);
+//    emit backgroundChanged(p);
+
     return true;
 }
 

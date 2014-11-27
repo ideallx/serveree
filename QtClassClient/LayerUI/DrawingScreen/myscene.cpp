@@ -49,7 +49,7 @@ MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent)
     connect(&panFixer, &QTimer::timeout,
             this, &MyScene::sendMoveBegin);
 
-    setErase.pen = QPen(Qt::white, 50);
+    setErase.pen = QPen(QColor(255, 254, 240), 50);
     setErase.drawingType = SCRIPTS;
 
     setDraw.pen = QPen(Qt::black, 1);
@@ -167,8 +167,9 @@ CShape *MyScene::createNewItem(TS_UINT64 uid, int shapeType, QPointF curPoint) {
 
     item->setPen(p);
     item->setBrush(b);
-    //if (!isEraser)
-    item->getGraphicsItem()->setOpacity(0.98);
+
+    if (!isEraser)
+        item->getGraphicsItem()->setOpacity(0.9);
     return item;
 }
 
@@ -254,13 +255,14 @@ void MyScene::setOthersPenBrush(TS_GRAPHIC_PACKET& graphicMsg) {
 }
 
 void MyScene::cls() {
-    TS_GRAPHIC_PACKET gmsg;
-    gmc->generateClearScreen(gmsg);
     if (items().size() != 0) {
         clear();
-        msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
+//        TS_GRAPHIC_PACKET gmsg;
+//        gmc->generateClearScreen(gmsg);
+//        msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
         update();
     }
+    lastItems.clear();
 }
 
 void MyScene::changeShapeByUI(int shape) {

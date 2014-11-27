@@ -54,15 +54,6 @@ DWORD CClientNet::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSC
     }
 
     TS_MESSAGE_HEAD *head = (TS_MESSAGE_HEAD*) &inputMsg.msg;
-    QFile f("aa.txt");
-    f.open(QIODevice::Append);
-    QString str = QString::number(getType(inputMsg.msg)).toLocal8Bit().data();
-    str += " " + QString::number(head->sequence) + " ";
-    str += QString::number(head->subSeq) + " ";
-    str += QString::number(head->UID);
-    f.write(str.toLocal8Bit().data());
-    f.write("\r\n");
-    f.close();
 
     if (ENTERCLASS == head->type || LEAVECLASS == head->type) {
         DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;
@@ -76,7 +67,9 @@ DWORD CClientNet::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSC
         } else if (SuccessLeaveClass == down->result) {
             endHeartBeat();
         }
-    }
+	} else if (SCANPORT == head->type) {
+		addServerAddr(inputMsg.peeraddr);
+	}
 
     sendToUp(inputMsg.msg, 0, 0, true);
 	return 0;
@@ -102,20 +95,24 @@ void CClientNet::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL 
 }
 
 void CClientNet::buildSendMessage(ts_msg& msg) {
-	if (!isStarted)
-		Start(0);
+	if (!isStarted || !Start(0))
+		return;
+
     TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg;
     head->time = getClientTime(m_timeDiff);
-    if (getType(msg) > PACKETCONTROL) {
-        head->sequence = 0;
-    } else {
-        head->sequence = m_seq++;
-    }
     head->isEnd = 0;
     head->UID = m_uid;
     head->version = VersionNumber;
-    qDebug() << head->sequence << head->subSeq;
 	
+    if (getType(msg) > PACKETCONTROL) {
+        head->sequence = 0;
+		m_agent->send(msg.Body, packetSize(msg));
+		return;
+    } else {
+        head->sequence = m_seq++;
+    }
+    qDebug() << "sent seq, subseq:" << head->sequence << head->subSeq;
+
     TS_PEER_MESSAGE pmsg;
     pmsg.msg = msg;
     WriteOut(pmsg);
@@ -218,6 +215,7 @@ void CClientNet::sendConnectionMsg() {
 void CClientNet::sendHeartBeat() {
    ts_msg msg;
     while (isRunning()) {
+        iop_usleep(HeartBeatInterval);
         UP_HEARTBEAT* upcmd = (UP_HEARTBEAT*) &msg;
 
         upcmd->head.type = HEARTBEAT;
@@ -230,14 +228,41 @@ void CClientNet::sendHeartBeat() {
         upcmd->maxSeq = m_seq - 1;
 
 		m_agent->send(msg.Body, upcmd->head.size);
+        qDebug() << m_Connect->getLatestRecvTime();
 #ifdef _DEBUG_INFO_
         cout << m_uid << "send heart beat at " << upcmd->head.time << endl;
 #endif
-        iop_usleep(HeartBeatInterval);				// 1分钟一个
     }
 }
 
 void CClientNet::addServerAddr(sockaddr_in in) { 
 	m_Connect->addPeer(ServerUID, in); 
+}
+
+bool CClientNet::scanServer(struct sockaddr_in& result) {
+    io_handle_t sock = socket(AF_INET, SOCK_DGRAM, 0);
+    if (sock < 0)
+        return false;
+
+    TS_MESSAGE_HEAD head;
+    head.size = sizeof(TS_MESSAGE_HEAD);
+    head.sequence = 0;
+    head.subSeq = 0;
+    head.type = SCANPORT;
+
+    if (!isStarted|| !Start(0))
+		return false;
+
+	auto ip = pConnect->getSocket()->getLocalAddr().sin_addr.S_un.S_un_b;
+
+    int tolen = sizeof(struct sockaddr_in);
+    result = pConnect->getSocket()->getLocalAddr();
+    result.sin_family = AF_INET;
+    result.sin_port = htons(2222);
+
+	for (int i = 0; i < 256; i++) {
+		result.sin_addr.S_un.S_un_b.s_b4 = i;
+		sendto(sock, (const char*) &head, head.size, 0, (const sockaddr*) &result, tolen);
+	}
 }
 

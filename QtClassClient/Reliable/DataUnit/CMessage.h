@@ -46,7 +46,7 @@ typedef struct {
 
 // 报文体（重发类型）。跟在报文头之后
 
-const int MaxSeqsInOnePacket = 50;		// 每个重发包中最多含有的序号数量，20个是不是少了点
+const int MaxSeqsInOnePacket = 50;
 enum MissingType {
     MISS_SINGLE,
     MISS_SERIES,
@@ -205,6 +205,8 @@ enum MsgResult {
     PleaseWaiting,
     ErrorNoResponseFromServer,
     ErrorFileExist,
+
+    NormalCourseLoading,
 };
 
 enum RoleOfClass {
@@ -242,7 +244,6 @@ enum PacketType {
     RESEND,					// 重发单个包
     MAXSEQLIST,             // 最大包列表
 	
-
     CONNECTION  = 49,       // 建立连接用废指令
 
     PACKETCONTROL = 50,		// 控制包
@@ -252,7 +253,8 @@ enum PacketType {
     USERLIST,				// 当前用户信息列表
     ADDUSER,				// 增加用户
     REMOVEUSER,				// 减少用户
-
+	
+	SCANPORT,				// 端口扫描用
 
 };
 
@@ -261,6 +263,7 @@ short packetSize(const ts_msg& p);
 TS_UINT64 getSeq(const ts_msg& p);
 TS_UINT64 getUid(const ts_msg& p);
 enum PacketType getType(const ts_msg& p);
+TS_UINT64 getTime(const ts_msg& p);
 
 enum ReservedUID_t {
     ServerUID,

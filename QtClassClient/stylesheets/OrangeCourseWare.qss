@@ -1,0 +1,15 @@
+QGroupBox#gbCourseware {
+        background-color: rgb(31, 40, 49);
+        border: none;
+}
+
+QToolButton#tbUpload, #tbSync {
+        border-style: outset;
+        border-width: 1px;
+        border-color: white;
+}
+
+QGroupBox#gbTools {
+    background-color: rgb(45, 55, 64);
+    border: none;
+}

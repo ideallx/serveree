@@ -120,7 +120,6 @@ public:
 
 
         retranslateUi(Prompt);
-        QObject::connect(pbConfirm, SIGNAL(clicked()), Prompt, SLOT(accept()));
 
         QMetaObject::connectSlotsByName(Prompt);
     } // setupUi

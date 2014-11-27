@@ -162,6 +162,8 @@ void CShapeScripts::setBeginPos(QPointF pos) {
 }
 
 void CShapeScripts::setCurPos(QPointF pos) {
+    if (!item)
+        return;
     QPainterPath p = static_cast<QGraphicsPathItem*> (item)->path();
     p.lineTo(pos);
     static_cast<QGraphicsPathItem*> (item)->setPath(p);

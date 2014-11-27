@@ -16,11 +16,12 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -33,11 +34,8 @@ public:
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
     QAxWidget *axWidget;
-    QHBoxLayout *horizontalLayout;
-    QPushButton *pushButton_5;
-    QPushButton *pushButton_6;
-    QPushButton *pushButton_7;
-    QLineEdit *lineEdit;
+    QLabel *label;
+    QTextBrowser *txShow;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
@@ -52,11 +50,7 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(338, 459);
-        MainWindow->setStyleSheet(QLatin1String("background-color: rgb(85, 92, 120);\n"
-"\n"
-"QLineEdit {\n"
-"	color: rgb(255, 255, 255);\n"
-"}"));
+        MainWindow->setStyleSheet(QStringLiteral(""));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -68,32 +62,15 @@ public:
 
         verticalLayout->addWidget(axWidget);
 
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        pushButton_5 = new QPushButton(centralWidget);
-        pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
 
-        horizontalLayout->addWidget(pushButton_5);
+        verticalLayout->addWidget(label);
 
-        pushButton_6 = new QPushButton(centralWidget);
-        pushButton_6->setObjectName(QStringLiteral("pushButton_6"));
+        txShow = new QTextBrowser(centralWidget);
+        txShow->setObjectName(QStringLiteral("txShow"));
 
-        horizontalLayout->addWidget(pushButton_6);
-
-        pushButton_7 = new QPushButton(centralWidget);
-        pushButton_7->setObjectName(QStringLiteral("pushButton_7"));
-
-        horizontalLayout->addWidget(pushButton_7);
-
-
-        verticalLayout->addLayout(horizontalLayout);
-
-        lineEdit = new QLineEdit(centralWidget);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setFrame(false);
-
-        verticalLayout->addWidget(lineEdit);
+        verticalLayout->addWidget(txShow);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
@@ -141,10 +118,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-        pushButton_5->setText(QApplication::translate("MainWindow", "PushButton", 0));
-        pushButton_6->setText(QApplication::translate("MainWindow", "PushButton", 0));
-        pushButton_7->setText(QApplication::translate("MainWindow", "PushButton", 0));
-        lineEdit->setPlaceholderText(QApplication::translate("MainWindow", "\345\210\206", 0));
+        label->setText(QApplication::translate("MainWindow", "<a style='color: green;' href = www.baidu.com> \346\237\245\347\234\213</a>", 0));
         pushButton->setText(QApplication::translate("MainWindow", "first", 0));
         pushButton_2->setText(QApplication::translate("MainWindow", "prev", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "next", 0));

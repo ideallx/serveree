@@ -107,7 +107,8 @@ SOURCES       = ..\QtClassClient\main.cpp \
 		..\QtClassClient\LayerUI\SlideScreen\coursewarewidget.cpp \
 		..\QtClassClient\Reliable\Strategy\CSettings.cpp \
 		..\QtClassClient\BeforeClass\logindialog.cpp \
-		..\QtClassClient\BeforeClass\totalprocess.cpp release\qrc_ui.cpp \
+		..\QtClassClient\BeforeClass\totalprocess.cpp \
+		..\QtClassClient\BizLogic\cloadlogic.cpp release\qrc_ui.cpp \
 		release\moc_mainwindow.cpp \
 		release\moc_absplayer.cpp \
 		release\moc_myscene.cpp \
@@ -188,6 +189,7 @@ OBJECTS       = release\main.obj \
 		release\CSettings.obj \
 		release\logindialog.obj \
 		release\totalprocess.obj \
+		release\cloadlogic.obj \
 		release\qrc_ui.obj \
 		release\moc_mainwindow.obj \
 		release\moc_absplayer.obj \
@@ -638,7 +640,7 @@ dist:
 	$(ZIP) TouchPad.zip $(SOURCES) $(DIST) ..\QtClassClient\QtClassClient.pro F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\spec_pre.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\common\shell-win32.conf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\qconfig.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_axbase.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_axbase_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_axcontainer.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_axcontainer_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_axserver.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_axserver_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_bluetooth.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_bluetooth_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_bootstrap_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_clucene_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_concurrent.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_concurrent_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_core.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_core_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_declarative.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_declarative_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_designer.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_designer_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_designercomponents_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_enginio.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_enginio_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_gui.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_gui_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_help.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_help_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_multimedia.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_multimedia_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_multimediawidgets.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_multimediawidgets_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_network.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_network_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_nfc.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_nfc_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_opengl.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_opengl_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_openglextensions.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_openglextensions_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_platformsupport_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_positioning.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_positioning_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_printsupport.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_printsupport_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_qml.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_qml_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_qmldevtools_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_qmltest.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_qmltest_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_quick.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_quick_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_quickparticles_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_quickwidgets.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_quickwidgets_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_script.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_script_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_scripttools.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_scripttools_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_sensors.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_sensors_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_serialport.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_serialport_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_sql.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_sql_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_svg.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_svg_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_testlib.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_testlib_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_uitools.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_uitools_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_webkit.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_webkit_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_webkitwidgets.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_webkitwidgets_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_websockets.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_websockets_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_widgets.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_widgets_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_winextras.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_winextras_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_xml.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_xml_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_xmlpatterns.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\modules\qt_lib_xmlpatterns_private.pri F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\qt_functions.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\qt_config.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\win32\qt_config.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\win32-msvc2010\qmake.conf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\spec_post.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\exclusive_builds.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\default_pre.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\win32\default_pre.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\resolve_config.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\exclusive_builds_post.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\default_post.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\build_pass.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\c++11.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\win32\rtti.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\precompile_header.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\warn_on.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\qt.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\resources.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\moc.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\win32\opengl.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\uic.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\win32\dumpcpp.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\win32\windows.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\testcase_targets.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\exceptions.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\yacc.prf F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\mkspecs\features\lex.prf ..\QtClassClient\QtClassClient.pro ..\QtClassClient\ui.qrc F:/Qt/Qt5.3.2/5.3/msvc2010_opengl/lib/qtmain.prl F:/Qt/Qt5.3.2/5.3/msvc2010_opengl/lib/Qt5Core.prl F:/Qt/Qt5.3.2/5.3/msvc2010_opengl/lib/Qt5MultimediaWidgets.prl F:/Qt/Qt5.3.2/5.3/msvc2010_opengl/lib/Qt5AxContainer.prl F:/Qt/Qt5.3.2/5.3/msvc2010_opengl/lib/Qt5AxBase.prl F:/Qt/Qt5.3.2/5.3/msvc2010_opengl/lib/Qt5Gui.prl F:/Qt/Qt5.3.2/5.3/msvc2010_opengl/lib/Qt5Widgets.prl F:/Qt/Qt5.3.2/5.3/msvc2010_opengl/lib/Qt5Multimedia.prl F:/Qt/Qt5.3.2/5.3/msvc2010_opengl/lib/Qt5Network.prl  NO_PCH_SOURCES RESOURCES TYPELIBS HEADERS TYPELIBS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\main.obj release\mainwindow.obj release\CBaseLogic.obj release\CUserLogic.obj release\CClientNet.obj release\CAbsConnection.obj release\CAbsSocket.obj release\CConnection.obj release\CHubConnection.obj release\CPeerConnection.obj release\CReliableConnection.obj release\CSynSocket.obj release\CBlock.obj release\CBlockManager.obj release\CMessage.obj release\CPackage.obj release\others.obj release\iop_thread.obj release\iop_util.obj release\CAbsServer.obj release\CAgentServer.obj release\CServer.obj release\CWSServer.obj release\CAbsStrategy.obj release\CDestroyStrategy.obj release\CWriteFileStrategy.obj release\myzip.obj release\ioapi.obj release\iowin32.obj release\unzip.obj release\zip.obj release\CMsgObject.obj release\CMsgReceiver.obj release\CMsgSender.obj release\CModuleAgent.obj release\CBusinessLogic.obj release\CGraphicLogic.obj release\cfilelogic.obj release\cauthlogic.obj release\cplayerlogic.obj release\pptplayer.obj release\absplayer.obj release\playerfactory.obj release\docplayer.obj release\jpgplayer.obj release\videoplayer.obj release\cshape.obj release\myscene.obj release\cfilemsggenerator.obj release\cgraphicmsgcreator.obj release\cplayergenerator.obj release\cloginbutton.obj release\colorcombox.obj release\cpromptframe.obj release\csettingsbutton.obj release\cshapechooser.obj release\linewidthcombox.obj release\prompt.obj release\widgetwarelistitem.obj release\myview.obj release\cuserlistwidget.obj release\coursewarewidget.obj release\CSettings.obj release\logindialog.obj release\totalprocess.obj release\qrc_ui.obj release\moc_mainwindow.obj release\moc_absplayer.obj release\moc_myscene.obj release\moc_cloginbutton.obj release\moc_colorcombox.obj release\moc_csettingsbutton.obj release\moc_cshapechooser.obj release\moc_cuserlistwidget.obj release\moc_linewidthcombox.obj release\moc_prompt.obj release\moc_widgetwarelistitem.obj release\moc_myview.obj release\moc_coursewarewidget.obj release\moc_logindialog.obj release\moc_totalprocess.obj
+	-$(DEL_FILE) release\main.obj release\mainwindow.obj release\CBaseLogic.obj release\CUserLogic.obj release\CClientNet.obj release\CAbsConnection.obj release\CAbsSocket.obj release\CConnection.obj release\CHubConnection.obj release\CPeerConnection.obj release\CReliableConnection.obj release\CSynSocket.obj release\CBlock.obj release\CBlockManager.obj release\CMessage.obj release\CPackage.obj release\others.obj release\iop_thread.obj release\iop_util.obj release\CAbsServer.obj release\CAgentServer.obj release\CServer.obj release\CWSServer.obj release\CAbsStrategy.obj release\CDestroyStrategy.obj release\CWriteFileStrategy.obj release\myzip.obj release\ioapi.obj release\iowin32.obj release\unzip.obj release\zip.obj release\CMsgObject.obj release\CMsgReceiver.obj release\CMsgSender.obj release\CModuleAgent.obj release\CBusinessLogic.obj release\CGraphicLogic.obj release\cfilelogic.obj release\cauthlogic.obj release\cplayerlogic.obj release\pptplayer.obj release\absplayer.obj release\playerfactory.obj release\docplayer.obj release\jpgplayer.obj release\videoplayer.obj release\cshape.obj release\myscene.obj release\cfilemsggenerator.obj release\cgraphicmsgcreator.obj release\cplayergenerator.obj release\cloginbutton.obj release\colorcombox.obj release\cpromptframe.obj release\csettingsbutton.obj release\cshapechooser.obj release\linewidthcombox.obj release\prompt.obj release\widgetwarelistitem.obj release\myview.obj release\cuserlistwidget.obj release\coursewarewidget.obj release\CSettings.obj release\logindialog.obj release\totalprocess.obj release\cloadlogic.obj release\qrc_ui.obj release\moc_mainwindow.obj release\moc_absplayer.obj release\moc_myscene.obj release\moc_cloginbutton.obj release\moc_colorcombox.obj release\moc_csettingsbutton.obj release\moc_cshapechooser.obj release\moc_cuserlistwidget.obj release\moc_linewidthcombox.obj release\moc_prompt.obj release\moc_widgetwarelistitem.obj release\moc_myview.obj release\moc_coursewarewidget.obj release\moc_logindialog.obj release\moc_totalprocess.obj
 	-$(DEL_FILE) release\TouchPad.exp release\TouchPad.exe.embed.manifest
 	-$(DEL_FILE) release\TouchPad_resource.res
 
@@ -663,6 +665,7 @@ release\qrc_ui.cpp: ..\QtClassClient\ui.qrc \
 		..\QtClassClient\ui\icon\start.png \
 		..\QtClassClient\ui\icon\exit.png \
 		..\QtClassClient\ui\icon\logo.png \
+		..\QtClassClient\ui\icon\l.png \
 		..\QtClassClient\ui\icon\shapeLine.png \
 		..\QtClassClient\ui\icon\next.png \
 		..\QtClassClient\ui\icon\run.png \
@@ -670,6 +673,7 @@ release\qrc_ui.cpp: ..\QtClassClient\ui.qrc \
 		..\QtClassClient\ui\icon\password.png \
 		..\QtClassClient\ui\icon\shapeRectangle.png \
 		..\QtClassClient\ui\icon\logo3.png \
+		..\QtClassClient\ui\icon\s.png \
 		..\QtClassClient\ui\icon\remove.png \
 		..\QtClassClient\ui\icon\32x32.png \
 		..\QtClassClient\ui\icon\logo1.jpg \
@@ -678,6 +682,7 @@ release\qrc_ui.cpp: ..\QtClassClient\ui.qrc \
 		..\QtClassClient\ui\icon\shapeScript.png \
 		..\QtClassClient\ui\icon\eraser3.png \
 		..\QtClassClient\ui\icon\logo2.png \
+		..\QtClassClient\ui\icon\r.png \
 		..\QtClassClient\ui\icon\llusername.png \
 		..\QtClassClient\ui\icon\llpassword.png \
 		..\QtClassClient\ui\icon\eraser2.png \
@@ -710,7 +715,11 @@ release\qrc_ui.cpp: ..\QtClassClient\ui.qrc \
 		..\QtClassClient\ui\back\line.png \
 		..\QtClassClient\ui\back\orange1.png \
 		..\QtClassClient\ui\back\combox.png \
-		..\QtClassClient\ui\back\background.jpg
+		..\QtClassClient\ui\back\background.jpg \
+		..\QtClassClient\stylesheets\OrangeGroupIcon.qss \
+		..\QtClassClient\stylesheets\GreenMainwindow.qss \
+		..\QtClassClient\stylesheets\OrangeMainwindow.qss \
+		..\QtClassClient\stylesheets\GreenGroupIcon.qss
 	F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\bin\rcc.exe -name ui ..\QtClassClient\ui.qrc -o release\qrc_ui.cpp
 
 compiler_dumpcpp_decl_make_all:
@@ -851,9 +860,9 @@ release\moc_mainwindow.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\
 		..\QtClassClient\Reliable\OSInedependent\others.h \
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Message\CMsgSender.h \
-		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\LayerUI\DrawingScreen\myscene.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGraphicsScene \
@@ -1016,6 +1025,8 @@ release\moc_absplayer.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\ActiveQt\QA
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\player\absplayer.h
 	F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1600 -D_WIN32 -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtCore -I. ..\QtClassClient\player\absplayer.h -o release\moc_absplayer.cpp
@@ -1161,6 +1172,8 @@ release\moc_myscene.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug
 		..\QtClassClient\Message\CMsgObject.h \
 		..\QtClassClient\Message\CMsgReceiver.h \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\LayerUI\DrawingScreen\myscene.h
 	F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1600 -D_WIN32 -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtCore -I. ..\QtClassClient\LayerUI\DrawingScreen\myscene.h -o release\moc_myscene.cpp
@@ -1287,11 +1300,12 @@ release\moc_cloginbutton.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidget
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qbuttongroup.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QFrame \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qframe.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QHBoxLayout \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qboxlayout.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGridLayout \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qgridlayout.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qlayout.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qlayoutitem.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qgridlayout.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qboxlayout.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QHBoxLayout \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QHeaderView \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qheaderview.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qabstractitemview.h \
@@ -1318,7 +1332,6 @@ release\moc_cloginbutton.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidget
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qpen.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qtextoption.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QSpacerItem \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QVBoxLayout \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QWidget \
 		..\QtClassClient\LayerUI\UserInterface\cloginbutton.h
 	F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1600 -D_WIN32 -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtCore -I. ..\QtClassClient\LayerUI\UserInterface\cloginbutton.h -o release\moc_cloginbutton.cpp
@@ -2396,6 +2409,8 @@ release\moc_coursewarewidget.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWi
 		..\QtClassClient\Reliable\OSInedependent\others.h \
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\player\absplayer.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\ActiveQt\QAxObject \
@@ -2524,6 +2539,9 @@ release\moc_logindialog.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfiledevice.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qvector2d.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qtouchdevice.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QTimer \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qtimer.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qbasictimer.h \
 		..\QtClassClient\Message\CMsgObject.h \
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
@@ -2532,6 +2550,8 @@ release\moc_logindialog.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets
 		..\QtClassClient\Reliable\OSInedependent\others.h \
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\BeforeClass\logindialog.h
 	F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1600 -D_WIN32 -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtCore -I. ..\QtClassClient\BeforeClass\logindialog.h -o release\moc_logindialog.cpp
@@ -2639,6 +2659,9 @@ release\moc_totalprocess.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\Q
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfiledevice.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qvector2d.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qtouchdevice.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QTimer \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qtimer.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qbasictimer.h \
 		..\QtClassClient\Message\CMsgObject.h \
 		..\QtClassClient\Message\CMsgReceiver.h \
 		..\QtClassClient\Reliable\DataUnit\CMessage.h \
@@ -2646,6 +2669,8 @@ release\moc_totalprocess.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\Q
 		..\QtClassClient\Reliable\OSInedependent\others.h \
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\LayerUI\mainwindow.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QMainWindow \
@@ -2674,8 +2699,6 @@ release\moc_totalprocess.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\Q
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qtabbar.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qrubberband.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QPaintEvent \
-		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\LayerUI\DrawingScreen\myscene.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGraphicsScene \
@@ -2683,9 +2706,6 @@ release\moc_totalprocess.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\Q
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qpen.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QMap \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QMutex \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QTimer \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qtimer.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qbasictimer.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimediaWidgets\QGraphicsVideoItem \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimediaWidgets\qgraphicsvideoitem.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qgraphicsitem.h \
@@ -2754,6 +2774,7 @@ release\moc_totalprocess.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\Q
 		..\QtClassClient\BizLogic\cfilelogic.h \
 		..\QtClassClient\BizLogic\cauthlogic.h \
 		..\QtClassClient\BizLogic\cplayerlogic.h \
+		..\QtClassClient\BeforeClass\loading.h \
 		..\QtClassClient\Reliable\Server\CWSServer.h \
 		..\QtClassClient\BeforeClass\totalprocess.h
 	F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1600 -D_WIN32 -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/Qt/Qt5.3.2/5.3/msvc2010_opengl/include/QtCore -I. ..\QtClassClient\BeforeClass\totalprocess.h -o release\moc_totalprocess.cpp
@@ -3015,11 +3036,12 @@ ui_mainwindow.h: ..\QtClassClient\mainwindow.ui \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qbuttongroup.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QFrame \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qframe.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QHBoxLayout \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qboxlayout.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGridLayout \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qgridlayout.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qlayout.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qlayoutitem.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qgridlayout.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qboxlayout.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QHBoxLayout \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QHeaderView \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qheaderview.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qabstractitemview.h \
@@ -3046,7 +3068,6 @@ ui_mainwindow.h: ..\QtClassClient\mainwindow.ui \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qpen.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qtextoption.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QSpacerItem \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QVBoxLayout \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QWidget \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QToolButton \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qtoolbutton.h \
@@ -3788,6 +3809,8 @@ ui_mainwindow.h: ..\QtClassClient\mainwindow.ui \
 		..\QtClassClient\Reliable\OSInedependent\others.h \
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\player\absplayer.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\ActiveQt\QAxObject \
@@ -3934,12 +3957,17 @@ release\main.obj: ..\QtClassClient\main.cpp ..\QtClassClient\Reliable\OSInedepen
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfiledevice.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qvector2d.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qtouchdevice.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QTimer \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qtimer.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qbasictimer.h \
 		..\QtClassClient\Message\CMsgObject.h \
 		..\QtClassClient\Message\CMsgReceiver.h \
 		..\QtClassClient\Reliable\DataUnit\CMessage.h \
 		..\QtClassClient\Reliable\OSInedependent\others.h \
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\LayerUI\mainwindow.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QMainWindow \
@@ -3968,8 +3996,6 @@ release\main.obj: ..\QtClassClient\main.cpp ..\QtClassClient\Reliable\OSInedepen
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qtabbar.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qrubberband.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QPaintEvent \
-		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\LayerUI\DrawingScreen\myscene.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGraphicsScene \
@@ -3977,9 +4003,6 @@ release\main.obj: ..\QtClassClient\main.cpp ..\QtClassClient\Reliable\OSInedepen
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qpen.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QMap \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QMutex \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QTimer \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qtimer.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qbasictimer.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimediaWidgets\QGraphicsVideoItem \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimediaWidgets\qgraphicsvideoitem.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qgraphicsitem.h \
@@ -4048,6 +4071,7 @@ release\main.obj: ..\QtClassClient\main.cpp ..\QtClassClient\Reliable\OSInedepen
 		..\QtClassClient\BizLogic\cfilelogic.h \
 		..\QtClassClient\BizLogic\cauthlogic.h \
 		..\QtClassClient\BizLogic\cplayerlogic.h \
+		..\QtClassClient\BeforeClass\loading.h \
 		..\QtClassClient\Reliable\Server\CWSServer.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QApplication \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qapplication.h \
@@ -4204,9 +4228,9 @@ release\mainwindow.obj: ..\QtClassClient\LayerUI\mainwindow.cpp F:\Qt\Qt5.3.2\5.
 		..\QtClassClient\Reliable\OSInedependent\others.h \
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Message\CMsgSender.h \
-		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\LayerUI\DrawingScreen\myscene.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGraphicsScene \
@@ -4279,6 +4303,7 @@ release\mainwindow.obj: ..\QtClassClient\LayerUI\mainwindow.cpp F:\Qt\Qt5.3.2\5.
 		..\QtClassClient\LayerUI\UserInterface\cloginbutton.h \
 		ui_loginwidget.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QFrame \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGridLayout \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QLineEdit \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qlineedit.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qtextcursor.h \
@@ -4442,9 +4467,9 @@ release\CBaseLogic.obj: ..\QtClassClient\BizLogic\CBaseLogic.cpp ..\QtClassClien
 		..\QtClassClient\Reliable\OSInedependent\others.h \
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Message\CMsgSender.h \
-		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\LayerUI\DrawingScreen\myscene.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGraphicsScene \
@@ -4653,9 +4678,9 @@ release\CUserLogic.obj: ..\QtClassClient\BizLogic\CUserLogic.cpp ..\QtClassClien
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
 		..\QtClassClient\Message\CMsgSender.h \
-		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\LayerUI\DrawingScreen\myscene.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGraphicsScene \
@@ -4811,6 +4836,7 @@ release\CClientNet.obj: ..\QtClassClient\Net\CClientNet.cpp F:\Qt\Qt5.3.2\5.3\ms
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\Reliable\Connections\CReliableConnection.h \
 		..\QtClassClient\Reliable\Connections\CHubConnection.h \
@@ -4832,7 +4858,6 @@ release\CClientNet.obj: ..\QtClassClient\Net\CClientNet.cpp F:\Qt\Qt5.3.2\5.3\ms
 		..\QtClassClient\Reliable\Strategy\CDestroyStrategy.h \
 		..\QtClassClient\Reliable\Strategy\CAbsStrategy.h \
 		..\QtClassClient\Reliable\Strategy\CWriteFileStrategy.h \
-		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\DataUnit\UserBase.h \
 		..\QtClassClient\Reliable\Server\CServer.h \
 		..\QtClassClient\Reliable\Server\CAbsServer.h
@@ -5215,7 +5240,27 @@ release\CMsgObject.obj: ..\QtClassClient\Message\CMsgObject.cpp ..\QtClassClient
 		..\QtClassClient\Reliable\OSInedependent\others.h \
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Message\CMsgSender.h \
-		..\QtClassClient\Message\CModuleAgent.h
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Message\CModuleAgent.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qdebug.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qhash.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qpair.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qmap.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qtextstream.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qiodevice.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qlocale.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qvariant.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qstringlist.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qdatastream.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qregexp.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qstringmatcher.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qshareddata.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qvector.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qpoint.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qset.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qcontiguouscache.h
 
 release\CMsgReceiver.obj: ..\QtClassClient\Message\CMsgReceiver.cpp ..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
@@ -5326,7 +5371,9 @@ release\CMsgSender.obj: ..\QtClassClient\Message\CMsgSender.cpp ..\QtClassClient
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qobject_impl.h \
 		..\QtClassClient\Reliable\DataUnit\CMessage.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h \
-		..\QtClassClient\Reliable\OSInedependent\others.h
+		..\QtClassClient\Reliable\OSInedependent\others.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h
 
 release\CModuleAgent.obj: ..\QtClassClient\Message\CModuleAgent.cpp ..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\Message\CMsgObject.h \
@@ -5384,7 +5431,9 @@ release\CModuleAgent.obj: ..\QtClassClient\Message\CModuleAgent.cpp ..\QtClassCl
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h \
 		..\QtClassClient\Reliable\OSInedependent\others.h \
 		..\QtClassClient\stdafx.h \
-		..\QtClassClient\Message\CMsgSender.h
+		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h
 
 release\CBusinessLogic.obj: ..\QtClassClient\BizLogic\CBusinessLogic.cpp ..\QtClassClient\BizLogic\CBusinessLogic.h \
 		..\QtClassClient\Reliable\DataUnit\CMessage.h \
@@ -5443,6 +5492,8 @@ release\CBusinessLogic.obj: ..\QtClassClient\BizLogic\CBusinessLogic.cpp ..\QtCl
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qisenum.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qobject_impl.h \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\BizLogic\CUserLogic.h \
 		..\QtClassClient\BizLogic\CBaseLogic.h \
@@ -5524,8 +5575,6 @@ release\CBusinessLogic.obj: ..\QtClassClient\BizLogic\CBusinessLogic.cpp ..\QtCl
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qtabbar.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qrubberband.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QPaintEvent \
-		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\LayerUI\DrawingScreen\myscene.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGraphicsScene \
@@ -5600,7 +5649,8 @@ release\CBusinessLogic.obj: ..\QtClassClient\BizLogic\CBusinessLogic.cpp ..\QtCl
 		..\QtClassClient\BizLogic\CGraphicLogic.h \
 		..\QtClassClient\BizLogic\cfilelogic.h \
 		..\QtClassClient\BizLogic\cauthlogic.h \
-		..\QtClassClient\BizLogic\cplayerlogic.h
+		..\QtClassClient\BizLogic\cplayerlogic.h \
+		..\QtClassClient\BeforeClass\loading.h
 
 release\CGraphicLogic.obj: ..\QtClassClient\BizLogic\CGraphicLogic.cpp F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qdebug.h \
@@ -5741,9 +5791,9 @@ release\CGraphicLogic.obj: ..\QtClassClient\BizLogic\CGraphicLogic.cpp F:\Qt\Qt5
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
 		..\QtClassClient\Message\CMsgSender.h \
-		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\LayerUI\DrawingScreen\myscene.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGraphicsScene \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qgraphicsscene.h \
@@ -5949,9 +5999,9 @@ release\cfilelogic.obj: ..\QtClassClient\BizLogic\cfilelogic.cpp ..\QtClassClien
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
 		..\QtClassClient\Message\CMsgSender.h \
-		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\LayerUI\DrawingScreen\myscene.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGraphicsScene \
@@ -6160,9 +6210,9 @@ release\cauthlogic.obj: ..\QtClassClient\BizLogic\cauthlogic.cpp ..\QtClassClien
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
 		..\QtClassClient\Message\CMsgSender.h \
-		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\LayerUI\DrawingScreen\myscene.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGraphicsScene \
@@ -6371,9 +6421,9 @@ release\cplayerlogic.obj: ..\QtClassClient\BizLogic\cplayerlogic.cpp ..\QtClassC
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
 		..\QtClassClient\Message\CMsgSender.h \
-		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\LayerUI\DrawingScreen\myscene.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGraphicsScene \
@@ -6512,6 +6562,11 @@ release\pptplayer.obj: ..\QtClassClient\player\pptplayer.cpp F:\Qt\Qt5.3.2\5.3\m
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qpoint.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qset.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qcontiguouscache.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDir \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qdir.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfileinfo.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfile.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfiledevice.h \
 		..\QtClassClient\player\pptplayer.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\ActiveQt\QAxObject \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\ActiveQt\qaxobject.h \
@@ -6561,6 +6616,8 @@ release\pptplayer.obj: ..\QtClassClient\player\pptplayer.cpp F:\Qt\Qt5.3.2\5.3\m
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h
 
 release\absplayer.obj: ..\QtClassClient\player\absplayer.cpp F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
@@ -6699,6 +6756,8 @@ release\absplayer.obj: ..\QtClassClient\player\absplayer.cpp F:\Qt\Qt5.3.2\5.3\m
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h
 
 release\playerfactory.obj: ..\QtClassClient\player\playerfactory.cpp F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QString \
@@ -6816,6 +6875,8 @@ release\playerfactory.obj: ..\QtClassClient\player\playerfactory.cpp F:\Qt\Qt5.3
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\player\docplayer.h \
 		..\QtClassClient\player\pptplayer.h \
@@ -6937,6 +6998,8 @@ release\docplayer.obj: ..\QtClassClient\player\docplayer.cpp F:\Qt\Qt5.3.2\5.3\m
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h
 
 release\jpgplayer.obj: ..\QtClassClient\player\jpgplayer.cpp F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
@@ -7054,6 +7117,8 @@ release\jpgplayer.obj: ..\QtClassClient\player\jpgplayer.cpp F:\Qt\Qt5.3.2\5.3\m
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h
 
 release\videoplayer.obj: ..\QtClassClient\player\videoplayer.cpp ..\QtClassClient\player\videoplayer.h \
@@ -7170,6 +7235,8 @@ release\videoplayer.obj: ..\QtClassClient\player\videoplayer.cpp ..\QtClassClien
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h
 
 release\cshape.obj: ..\QtClassClient\LayerUI\DrawingScreen\cshape.cpp F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QPainter \
@@ -7412,6 +7479,8 @@ release\myscene.obj: ..\QtClassClient\LayerUI\DrawingScreen\myscene.cpp F:\Qt\Qt
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\LayerUI\DrawingScreen\cshape.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGraphicsItem \
@@ -7841,6 +7910,7 @@ release\cloginbutton.obj: ..\QtClassClient\LayerUI\UserInterface\cloginbutton.cp
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qbuttongroup.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QFrame \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qframe.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGridLayout \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QHBoxLayout \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QHeaderView \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qheaderview.h \
@@ -8981,6 +9051,8 @@ release\myview.obj: ..\QtClassClient\LayerUI\UserInterface\myview.cpp ..\QtClass
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h
 
 release\cuserlistwidget.obj: ..\QtClassClient\LayerUI\UserInterface\cuserlistwidget.cpp F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
@@ -9251,6 +9323,8 @@ release\coursewarewidget.obj: ..\QtClassClient\LayerUI\SlideScreen\coursewarewid
 		..\QtClassClient\Reliable\OSInedependent\others.h \
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\player\absplayer.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\ActiveQt\QAxObject \
@@ -9378,6 +9452,12 @@ release\logindialog.obj: ..\QtClassClient\BeforeClass\logindialog.cpp F:\Qt\Qt5.
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qpoint.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qset.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qcontiguouscache.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QDesktopServices \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qdesktopservices.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qstandardpaths.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QUrl \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qurl.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qurlquery.h \
 		..\QtClassClient\BeforeClass\logindialog.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QDialog \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qdialog.h \
@@ -9409,12 +9489,13 @@ release\logindialog.obj: ..\QtClassClient\BeforeClass\logindialog.cpp F:\Qt\Qt5.
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qcursor.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qkeysequence.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qevent.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qurl.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qurlquery.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfile.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfiledevice.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qvector2d.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qtouchdevice.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QTimer \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qtimer.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qbasictimer.h \
 		..\QtClassClient\Message\CMsgObject.h \
 		..\QtClassClient\Message\CMsgReceiver.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
@@ -9423,6 +9504,8 @@ release\logindialog.obj: ..\QtClassClient\BeforeClass\logindialog.cpp F:\Qt\Qt5.
 		..\QtClassClient\Reliable\OSInedependent\others.h \
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		ui_logindialog.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVariant \
@@ -9476,7 +9559,8 @@ release\logindialog.obj: ..\QtClassClient\BeforeClass\logindialog.cpp F:\Qt\Qt5.
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QToolButton \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qtoolbutton.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qabstractbutton.h \
-		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QVBoxLayout
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QVBoxLayout \
+		..\QtClassClient\LayerUI\UserInterface\prompt.h
 
 release\totalprocess.obj: ..\QtClassClient\BeforeClass\totalprocess.cpp ..\QtClassClient\BeforeClass\totalprocess.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
@@ -9582,6 +9666,9 @@ release\totalprocess.obj: ..\QtClassClient\BeforeClass\totalprocess.cpp ..\QtCla
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfiledevice.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qvector2d.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qtouchdevice.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QTimer \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qtimer.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qbasictimer.h \
 		..\QtClassClient\Message\CMsgObject.h \
 		..\QtClassClient\Message\CMsgReceiver.h \
 		..\QtClassClient\Reliable\DataUnit\CMessage.h \
@@ -9589,6 +9676,8 @@ release\totalprocess.obj: ..\QtClassClient\BeforeClass\totalprocess.cpp ..\QtCla
 		..\QtClassClient\Reliable\OSInedependent\others.h \
 		..\QtClassClient\stdafx.h \
 		..\QtClassClient\Message\CMsgSender.h \
+		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\LayerUI\mainwindow.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QMainWindow \
@@ -9617,8 +9706,223 @@ release\totalprocess.obj: ..\QtClassClient\BeforeClass\totalprocess.cpp ..\QtCla
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qtabbar.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qrubberband.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QPaintEvent \
+		..\QtClassClient\LayerUI\DrawingScreen\myscene.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGraphicsScene \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qgraphicsscene.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qpen.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QMap \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QMutex \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimediaWidgets\QGraphicsVideoItem \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimediaWidgets\qgraphicsvideoitem.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qgraphicsitem.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimediaWidgets\qvideowidget.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimediaWidgets\qtmultimediawidgetdefs.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimedia\qmediabindableinterface.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimedia\qmediaobject.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimedia\qtmultimediadefs.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimedia\qmultimedia.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimedia\QMediaPlayer \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimedia\qmediaplayer.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimedia\qmediacontent.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimedia\qmediaresource.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtNetwork\qnetworkrequest.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QSharedDataPointer \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QString \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QUrl \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVariant \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtMultimedia\qmediaenumdebug.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qmetaobject.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtNetwork\qnetworkconfiguration.h \
+		..\QtClassClient\LayerUI\MsgGenerator\cgraphicmsgcreator.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QPointF \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QPen \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QBrush \
+		..\QtClassClient\LayerUI\MsgGenerator\cfilemsggenerator.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QFile \
+		..\QtClassClient\LayerUI\MsgGenerator\cplayergenerator.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVector \
+		..\QtClassClient\player\absplayer.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\ActiveQt\QAxObject \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\ActiveQt\qaxobject.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\ActiveQt\qaxbase.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QPixmap \
+		..\QtClassClient\LayerUI\SlideScreen\couseware.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QList \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QListWidget \
+		..\QtClassClient\Net\CClientNet.h \
+		..\QtClassClient\Reliable\Connections\CReliableConnection.h \
+		..\QtClassClient\Reliable\Connections\CHubConnection.h \
+		..\QtClassClient\Reliable\Connections\CAbsConnection.h \
+		..\QtClassClient\Reliable\Connections\CSynSocket.h \
+		..\QtClassClient\Reliable\Connections\CAbsSocket.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_util.h \
+		..\QtClassClient\Stdafx.h \
+		..\QtClassClient\Reliable\Connections\CPeerConnection.h \
+		..\QtClassClient\Reliable\Connections\CConnection.h \
+		..\QtClassClient\Reliable\DataUnit\CBlockManager.h \
+		..\QtClassClient\Reliable\DataUnit\CBlock.h \
+		..\QtClassClient\Reliable\DataUnit\CPackage.h \
+		..\QtClassClient\Reliable\Zip\zip.h \
+		..\QtClassClient\Reliable\Zip\zlib.h \
+		..\QtClassClient\Reliable\Zip\zconf.h \
+		..\QtClassClient\Reliable\Zip\ioapi.h \
+		..\QtClassClient\Reliable\Zip\unzip.h \
+		..\QtClassClient\Reliable\Strategy\CDestroyStrategy.h \
+		..\QtClassClient\Reliable\Strategy\CAbsStrategy.h \
+		..\QtClassClient\Reliable\Strategy\CWriteFileStrategy.h \
+		..\QtClassClient\Reliable\DataUnit\UserBase.h \
+		..\QtClassClient\Reliable\Server\CServer.h \
+		..\QtClassClient\Reliable\Server\CAbsServer.h \
+		..\QtClassClient\BizLogic\CBusinessLogic.h \
+		..\QtClassClient\BizLogic\CUserLogic.h \
+		..\QtClassClient\BizLogic\CBaseLogic.h \
+		..\QtClassClient\BizLogic\CGraphicLogic.h \
+		..\QtClassClient\BizLogic\cfilelogic.h \
+		..\QtClassClient\BizLogic\cauthlogic.h \
+		..\QtClassClient\BizLogic\cplayerlogic.h \
+		..\QtClassClient\BeforeClass\loading.h \
+		..\QtClassClient\Reliable\Server\CWSServer.h
+
+release\cloadlogic.obj: ..\QtClassClient\BizLogic\cloadlogic.cpp ..\QtClassClient\BizLogic\cloadlogic.h \
+		..\QtClassClient\BizLogic\CBaseLogic.h \
+		..\QtClassClient\LayerUI\mainwindow.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QMainWindow \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qmainwindow.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qwidget.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qwindowdefs.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qglobal.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qconfig.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfeatures.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qsystemdetection.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qprocessordetection.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qcompilerdetection.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qtypeinfo.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qtypetraits.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qsysinfo.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qlogging.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qflags.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qatomic.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qbasicatomic.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qatomic_bootstrap.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qgenericatomic.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qatomic_msvc.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qatomic_armv7.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qatomic_armv6.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qatomic_armv5.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qatomic_ia64.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qatomic_mips.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qatomic_x86.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qatomic_cxx11.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qatomic_gcc.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qatomic_unix.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qglobalstatic.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qmutex.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qnumeric.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qobjectdefs.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qnamespace.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qobjectdefs_impl.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qwindowdefs_win.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qobject.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qstring.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qchar.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qbytearray.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qrefcount.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qarraydata.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qstringbuilder.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qlist.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qalgorithms.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qiterator.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qcoreevent.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qscopedpointer.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qmetatype.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qvarlengtharray.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qcontainerfwd.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qisenum.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qobject_impl.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qmargins.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qpaintdevice.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qrect.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qsize.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qpoint.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qpalette.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qcolor.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qrgb.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qstringlist.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qdatastream.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qiodevice.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qpair.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qregexp.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qstringmatcher.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qbrush.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qvector.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qmatrix.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qpolygon.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qregion.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qline.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qtransform.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qpainterpath.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qimage.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qpixmap.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qsharedpointer.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qshareddata.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qsharedpointer_impl.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qhash.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qfont.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qfontmetrics.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qfontinfo.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qsizepolicy.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qcursor.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qkeysequence.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qevent.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qvariant.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qmap.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qdebug.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qtextstream.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qlocale.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qset.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qcontiguouscache.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qurl.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qurlquery.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfile.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfiledevice.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qvector2d.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qtouchdevice.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qtabwidget.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qicon.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QPushButton \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qpushbutton.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qabstractbutton.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QListWidgetItem \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qlistwidget.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qlistview.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qabstractitemview.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qabstractscrollarea.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qframe.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qabstractitemmodel.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qitemselectionmodel.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qabstractitemdelegate.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qstyleoption.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qabstractspinbox.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qvalidator.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qregularexpression.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qslider.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qabstractslider.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qstyle.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qtabbar.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qrubberband.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QPaintEvent \
+		..\QtClassClient\Message\CMsgObject.h \
+		..\QtClassClient\Message\CMsgReceiver.h \
+		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QObject \
+		..\QtClassClient\Reliable\DataUnit\CMessage.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h \
+		..\QtClassClient\Reliable\OSInedependent\others.h \
+		..\QtClassClient\stdafx.h \
+		..\QtClassClient\Message\CMsgSender.h \
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Message\CModuleAgent.h \
 		..\QtClassClient\LayerUI\DrawingScreen\myscene.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QDebug \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGraphicsScene \
@@ -9689,15 +9993,7 @@ release\totalprocess.obj: ..\QtClassClient\BeforeClass\totalprocess.cpp ..\QtCla
 		..\QtClassClient\Reliable\Strategy\CWriteFileStrategy.h \
 		..\QtClassClient\Reliable\DataUnit\UserBase.h \
 		..\QtClassClient\Reliable\Server\CServer.h \
-		..\QtClassClient\Reliable\Server\CAbsServer.h \
-		..\QtClassClient\BizLogic\CBusinessLogic.h \
-		..\QtClassClient\BizLogic\CUserLogic.h \
-		..\QtClassClient\BizLogic\CBaseLogic.h \
-		..\QtClassClient\BizLogic\CGraphicLogic.h \
-		..\QtClassClient\BizLogic\cfilelogic.h \
-		..\QtClassClient\BizLogic\cauthlogic.h \
-		..\QtClassClient\BizLogic\cplayerlogic.h \
-		..\QtClassClient\Reliable\Server\CWSServer.h
+		..\QtClassClient\Reliable\Server\CAbsServer.h
 
 release\qrc_ui.obj: release\qrc_ui.cpp 
 

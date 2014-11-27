@@ -80,7 +80,8 @@ SOURCES  += main.cpp\
     LayerUI/SlideScreen/coursewarewidget.cpp \
     Reliable/Strategy/CSettings.cpp \
     BeforeClass/logindialog.cpp \
-    BeforeClass/totalprocess.cpp
+    BeforeClass/totalprocess.cpp \
+    BizLogic/cloadlogic.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBaseLogic.h \
@@ -154,7 +155,8 @@ HEADERS  += LayerUI\mainwindow.h \
     LayerUI/SlideScreen/coursewarewidget.h \
     Reliable/Strategy/CSettings.h \
     BeforeClass/logindialog.h \
-    BeforeClass/totalprocess.h
+    BeforeClass/totalprocess.h \
+    BizLogic/cloadlogic.h
 
 FORMS    += \
     loginwidget.ui \
@@ -175,8 +177,6 @@ OTHER_FILES += \
     Reliable/Zip/zdll.lib \
     Reliable/Zip/zlib.lib \
     Reliable/Zip/zlib1.dll \
-    ui/icon/llpassword.png \
-    ui/icon/llusername.png
 
 RESOURCES += \
     ui.qrc

@@ -33,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->wgtCourse->setHidden(true);
     ui->wgtCourse->setMsgParent(this);
+    // ui->tbLogin->setHidden(true);
 
     scene = new MyScene(SelfUID, this, this);
     sceneMap.insert(SelfUID, scene);
@@ -68,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::playerStarted,
             ui->wgtCourse, &CourseWareWidget::start);
 
-    ui->groupBox_2->setHidden(true);
+    ui->gbUserlist->setHidden(true);
 
     connect(ui->tbLogin, &CLoginButton::loginClicked,
             this, &MainWindow::enterClass);
@@ -88,7 +89,9 @@ MainWindow::MainWindow(QWidget *parent)
 	connect(ui->wgtCourse, &CourseWareWidget::changeBackground, 
 			this, &MainWindow::changeBackground);
 	connect(ui->wgtCourse, &CourseWareWidget::changeMedia, 
-		this, &MainWindow::changeMedia);
+            this, &MainWindow::changeMedia);
+    connect(ui->wgtCourse, &CourseWareWidget::promptMsgSent,
+            this, &MainWindow::showPrompt);
     sem_msg = CreateSemaphore(NULL, 0, 102400, NULL);
 
     isRunning = true;
@@ -99,7 +102,9 @@ MainWindow::MainWindow(QWidget *parent)
         isRunning = false;
     }
 
-#define _DEBUG_UI_
+
+
+// #define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
     setRole(RoleTeacher);
@@ -114,11 +119,11 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 MainWindow::~MainWindow() {
+    sceneMap.clear();
+    qDeleteAll(sceneMap);
     isRunning = false;
     iop_thread_cancel(pthread_msg);
     CloseHandle(sem_msg);
-    qDeleteAll(sceneMap);
-    sceneMap.clear();
     delete ui;
 }
 
@@ -246,12 +251,15 @@ void MainWindow::addUser(TS_UINT64 uid, QString username, bool isOnline) {
 
 void MainWindow::removeUser(TS_UINT64 uid) {
     ui->listWidget->removeUser(uid);
-    sceneMap.remove(uid);
+    //sceneMap.remove(uid);
 }
 
 void MainWindow::on_listWidget_clicked(const QModelIndex &index)
 {
     if (m_userRole != RoleTeacher)
+        return;
+
+    if (ui->listWidget->getUIDByRow(index.row()) == globalUID)
         return;
 
     bool writeable = ui->listWidget->changeAuth(index.row());
@@ -273,12 +281,12 @@ void MainWindow::on_listWidget_clicked(const QModelIndex &index)
 
 void MainWindow::on_tbMyClass_clicked()
 {
-    ui->groupBox_2->setHidden(!ui->groupBox_2->isHidden());
+    ui->gbUserlist->setHidden(!ui->gbUserlist->isHidden());
 }
 
 void MainWindow::on_btClassInfo_clicked()
 {
-    ui->groupBox_2->setHidden(true);
+    ui->gbUserlist->setHidden(true);
 }
 
 
@@ -365,7 +373,7 @@ void MainWindow::msgExcute() {
                 theScene->actErase(*gmsg);
                 break;
             case GraphicPacketCls:
-                theScene->clear();
+                theScene->cls();
                 theScene->update();
                 break;
             case GraphicPacketMoveScreen:
@@ -427,6 +435,17 @@ void MainWindow::msgExcute() {
             sendResultPrompt(SuccessDownload);
         }
 		break;
+	case PLAYERCONTROL:
+		{
+			TS_PLAYER_PACKET* pmsg = (TS_PLAYER_PACKET*) &msg;
+			signalPlayerMove(QString::fromLocal8Bit((char*) pmsg->filename), pmsg->pa);
+			break;
+		}
+	case SETWRITEAUTH:
+		{
+			SET_USER_WRITE_AUTH* down = (SET_USER_WRITE_AUTH*) &msg;
+			setWriteable(down->toUID, down->sceneID, down->writeable);
+		}
     default:
         break;
     }
@@ -438,7 +457,7 @@ void MainWindow::cleanCentralArea(TS_UINT64 sceneID, int cleanOption) {
         return;
     }
 
-    theScene->clear();
+    theScene->cls();
 
     if (CleanShowWare & cleanOption) {
         ui->wgtCourse->setHidden(false);
@@ -447,10 +466,10 @@ void MainWindow::cleanCentralArea(TS_UINT64 sceneID, int cleanOption) {
         ui->wgtCourse->setHidden(true);
     }
     if (CleanShowClass & cleanOption) {
-        ui->groupBox_2->setHidden(false);
+        ui->gbUserlist->setHidden(false);
     }
     if (CleanHideClass & cleanOption) {
-        ui->groupBox_2->setHidden(true);
+        ui->gbUserlist->setHidden(true);
     }
 }
 
@@ -475,6 +494,7 @@ void MainWindow::showResultPrompt(int result) {
 
 void MainWindow::showPrompt(QString prompt) {
     CPromptFrame::prompt(prompt, this);
+    qDebug() << prompt;
 }
 
 void MainWindow::recvClassInfo() {
@@ -510,7 +530,7 @@ void MainWindow::changeMedia(QMediaPlayer *player) {
 }
 
 
-void MainWindow::signalPlayerMove(WORD move) {
+void MainWindow::signalPlayerMove(QString filename, WORD move) {
     switch (move) {
     case ActionPrev:
         emit playerPreved(true);
@@ -521,14 +541,11 @@ void MainWindow::signalPlayerMove(WORD move) {
     case ActionStop:
         emit playerStoped(true);
         break;
+	case ActionStart:
+		emit playerStarted(filename, true);
     default:
         break;
     }
-}
-
-
-void MainWindow::signalPlayerStart(QString filename) {
-    emit playerStarted(filename, true);
 }
 
 // 5 teacher ware
@@ -563,9 +580,44 @@ void MainWindow::on_tbMyBoard_clicked()
     changeScene(SelfUID);
 }
 
+static int backStyle = 0;
 void MainWindow::on_tbBackground_clicked()
 {
-    CPromptFrame::prompt(PleaseWaiting, this);
+    backStyle++;
+    if (backStyle == 2)
+        backStyle = 0;
+
+    if (0 == backStyle) {
+        QFile qss(":/stylesheets/GreenMainwindow.qss");
+        qss.open(QFile::ReadOnly);
+        ui->centralWidget->setStyleSheet(qss.readAll());
+        qss.close();
+
+        QFile qss2(":/stylesheets/GreenGroupIcon.qss");
+        qss2.open(QFile::ReadOnly);
+        ui->gbCommandbar->setStyleSheet(qss2.readAll());
+        qss2.close();
+
+        QFile qss3(":/stylesheets/GreenCourseWare.qss");
+        qss3.open(QFile::ReadOnly);
+        ui->wgtCourse->setStyleSheet(qss3.readAll());
+        qss3.close();
+    } else {
+        QFile qss(":/stylesheets/OrangeMainwindow.qss");
+        qss.open(QFile::ReadOnly);
+        ui->centralWidget->setStyleSheet(qss.readAll());
+        qss.close();
+
+        QFile qss2(":/stylesheets/OrangeGroupIcon.qss");
+        qss2.open(QFile::ReadOnly);
+        ui->gbCommandbar->setStyleSheet(qss2.readAll());
+        qss2.close();
+
+        QFile qss3(":/stylesheets/OrangeCourseWare.qss");
+        qss3.open(QFile::ReadOnly);
+        ui->wgtCourse->setStyleSheet(qss3.readAll());
+        qss3.close();
+    }
 }
 
 // 6 others

@@ -19,8 +19,10 @@ public:
     explicit TotalProcess(int argc, char* argv[]);
     virtual ~TotalProcess();
 
-    void buildBoard();
-    void buildConnection();
+    void buildBoard(int role);
+    void buildNetwork();
+
+    void buildOldStyle();
 
 signals:
 

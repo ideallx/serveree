@@ -165,22 +165,5 @@ QLabel {
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>pbConfirm</sender>
-   <signal>clicked()</signal>
-   <receiver>Prompt</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>185</x>
-     <y>137</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>185</x>
-     <y>80</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

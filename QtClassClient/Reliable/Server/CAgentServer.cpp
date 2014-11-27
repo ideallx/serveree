@@ -80,7 +80,8 @@ void CAgentServer::createClass(TS_UINT64 classid) {
 	
 	CWSServer* pWorker = new CWSServer(classid, 1);		// 创建一个新的WorkServer
 	map_workserver[classid] = pWorker;
-	pWorker->Start(port);
+	if (!pWorker->Start(port))
+		return;
 #ifdef _DEBUG_INFO_
 	cout << "Worker Server Start successfully on Port " << port << "." << endl;
 #endif
@@ -120,14 +121,15 @@ void CAgentServer::scanOffline() {
 #ifdef _DEBUG_INFO_
             cout << iter->first << " lost " << currentTime - iter->second << endl;
 #endif
+			// TODO iter->second may be a little bigger than currentTime
             if (currentTime - iter->second > maxAllowedInterval) {
                 TS_PEER_MESSAGE msg;
-                userLogoutNotify(msg, iter->first);
 
                 CWSServer* pServer = map_workserver[map_userinfo[iter->first]._classid];
                 if (pServer != NULL) {
                     pServer->removeUser(iter->first);
                 }
+                userLogoutNotify(msg, iter->first);
 #ifdef _DEBUG_INFO_
                 cout << iter->first << "drop connection" << endl;
 #endif
@@ -177,11 +179,13 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	auto loginUsers = pServer->getPeers();
 	iop_unlock(&lockWorkServer);
 
-	if (loginUsers->find(user._uid) != loginUsers->end()) {				// 登陆过，推掉原来的
+	if (loginUsers->find(user._uid) != loginUsers->end()) {					// 登陆过，推掉原来的
 		sockaddr_in backup = inputMsg.peeraddr;
 		inputMsg.peeraddr = *loginUsers->at(user._uid)->getPeer();
-		sendLeaveSuccess(inputMsg);
-		inputMsg.peeraddr = backup;
+		if (memcmp(&backup, &inputMsg.peeraddr, sizeof(sockaddr_in))) {		// 同一客户端重复登录则不管
+			sendLeaveSuccess(inputMsg);
+			inputMsg.peeraddr = backup;
+		}
 	}
 
 	
@@ -204,9 +208,12 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	if (SuccessEnterClass == result) {
 		iop_lock(&lockWorkServer);
 		pServer->addPeer(inputMsg.peeraddr, user._uid);					// 这里的地址是client agent的端口地址
-		heartBeatTime.insert(make_pair(user._uid, getServerTime()));
+		if (heartBeatTime.count(user._uid) == 0)
+			heartBeatTime.insert(make_pair(user._uid, getServerTime()));
+		else
+			heartBeatTime[user._uid] = getServerTime();
 		userLoginNotify(inputMsg, user._uid);
-        pServer->sendPrevMessage(user._uid);
+        // pServer->sendPrevMessage(user._uid);
 		iop_unlock(&lockWorkServer);
 	}
 
@@ -422,6 +429,15 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
 			iop_unlock(&lockOfflineMaps);
 			break;
 		}
+	case SCANPORT:
+		{
+			TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &inputMsg.msg;
+			head->UID = 0;
+			head->sequence = 0;
+			head->subSeq = 0;
+			WriteOut(inputMsg);
+		}
+		break;
 	default:
 		break;
 	}

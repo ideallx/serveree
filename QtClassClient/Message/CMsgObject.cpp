@@ -48,12 +48,24 @@ void CMsgObject::changeParent(CMsgObject* newParent) {
 	setAgent(newParent->p_agent);
 }
 
+#include <QDebug>
 void CMsgObject::sendToUp(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote) {
 	CMsgObject* sender = this;
 	while (sender->p_Parent) {
 		sender = sender->p_Parent;
 	}
+    if (sender->upReceivers.size() == 0) {
+        qDebug() << "cache";
+        sender->upCache.enQueue(msg);
+        return;
+    }
+
 	for (auto iter = sender->upReceivers.begin(); iter != sender->upReceivers.end(); iter++) {
+        ts_msg cacheMsg;
+        while (sender->upCache.size()) {
+            if (sender->upCache.deQueue(cacheMsg))
+                (*iter)->ProcessMessage(const_cast<ts_msg&>(cacheMsg), wParam, lParam, isRemote);
+        }
 		(*iter)->ProcessMessage(const_cast<ts_msg&>(msg), wParam, lParam, isRemote);
 	}
 }
@@ -63,7 +75,16 @@ void CMsgObject::sendToDown(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOO
 	while (sender->p_Parent) {
 		sender = sender->p_Parent;
 	}
-	for (auto iter = sender->downReceivers.begin(); iter != sender->downReceivers.end(); iter++) {
+    if (sender->downReceivers.size() == 0) {
+        sender->downCache.enQueue(msg);
+        return;
+    }
+    for (auto iter = sender->downReceivers.begin(); iter != sender->downReceivers.end(); iter++) {
+        ts_msg cacheMsg;
+        while (sender->downCache.size()) {
+            if (sender->downCache.deQueue(cacheMsg))
+                (*iter)->ProcessMessage(const_cast<ts_msg&>(cacheMsg), wParam, lParam, isRemote);
+        }
 		(*iter)->ProcessMessage(const_cast<ts_msg&>(msg), wParam, lParam, isRemote);
 	}
 }

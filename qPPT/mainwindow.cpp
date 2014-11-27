@@ -2,6 +2,7 @@
 #include <QString>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDir>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -57,6 +58,7 @@ void MainWindow::on_pushButton_4_clicked()
     ui->txShow->append("application success");
     presentation = ppt->querySubObject("Presentations");
     QString filename("D:/xxxx.ppt");
+
     opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", filename, 1, 0, 0);
     if (!opened) {
         ui->txShow->append("open error");
@@ -84,8 +86,29 @@ void MainWindow::on_pushButton_4_clicked()
     window->setProperty("Width", 400);
     window->setProperty("Height", 400);
 
+
+    auto slides = window->querySubObject("Presentation");
+    slides = slides->querySubObject("Slides(int)", 1);
+    if (!slides) {
+        qDebug() << "fuck";
+        return;
+    }
+    QString fp = QDir::currentPath() + "/aaa.jpg";
+    qDebug() << fp;
+    slides->querySubObject("Export(QString, QString, int, int)", fp, "jpg", 1920, 1080);
+    if (!slides) {
+        qDebug() << "fuck";
+        return;
+    }
+
 //    QWidget* w = QWidget::find((WId) handle);
 //    if (handle.isNull()) {
 //        qDebug() << "sfadsf";
 //    }
+}
+
+#include <QDesktopServices>
+void MainWindow::on_label_linkActivated(const QString &link)
+{
+    QDesktopServices::openUrl(QUrl(link));
 }

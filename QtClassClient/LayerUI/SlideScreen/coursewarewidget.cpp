@@ -68,6 +68,8 @@ void CourseWareWidget::syncFile(QString filename) {
     if (!m_fmg.create(filename))
         return;
 
+    emit promptMsgSent(QString::fromLocal8Bit("正在同步文件：") + filename);
+
     ts_msg msg;
     TS_FILE_PACKET* fmsg = (TS_FILE_PACKET*) &msg;
     while (true) {
@@ -151,6 +153,7 @@ int CourseWareWidget::start(QString filename, bool isRemote) {
     else
         emit paintModeChanged(PaintNormal);
 
+    qDebug() << "pic complete";
     return Success;
 }
 
@@ -170,7 +173,7 @@ bool CourseWareWidget::stop(bool isRemote) {
         m_parent->ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
     }
 
-    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/start.png"));
+    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/run.png"));
 
     if (m_player->isMedia() && !m_player->isMediaEnd()) {
         return true;
@@ -209,7 +212,7 @@ bool CourseWareWidget::prev(bool isRemote) {
             }
         }
     }
-    // emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
+    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
     if (isRemote)
         return true;
 
@@ -250,7 +253,7 @@ bool CourseWareWidget::next(bool isRemote) {
             }
         }
     }
-    //emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
+    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
     if (isRemote)
         return true;
 
@@ -289,7 +292,7 @@ void CourseWareWidget::on_tbUpload_clicked()
 				return;
         }
     }
-    addFileToList(filename);
+    addWareItem(filename);
 
     // TODO ELSE
 }
@@ -319,7 +322,7 @@ void CourseWareWidget::on_tbExitWare_clicked()
     }
 
     setHidden(true);
-    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/start.png"));
+    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/run.png"));
     emit paintModeChanged(PaintNormal);
     emit clearScreen(TeacherUID, CleanHideClass | CleanHideWare);
     return;
@@ -349,7 +352,7 @@ void CourseWareWidget::on_tbStart_clicked()
 
     if (isPlayerPlaying()) {
         stop(false);
-        ui->tbStart->setIcon(QIcon(":/icon/ui/icon/start.png"));
+        ui->tbStart->setIcon(QIcon(":/icon/ui/icon/run.png"));
     } else {
         if (ui->lsWare->selectedItems().size() == 0)
             return;
@@ -373,7 +376,7 @@ void CourseWareWidget::playFileByUser(QString filename) {
 
     setHidden(false);
 
-    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/stop.png"));
+    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/s.png"));
 }
 
 bool CourseWareWidget::playerStop() {
@@ -393,6 +396,8 @@ void CourseWareWidget::playmodeEnd() {
 
 
 void CourseWareWidget::addWareItem(QString filename) {
+    if (Success != checkUploadFile(filename))
+        return;
     int result = addFileToList(filename);
     if (result >= 0) {
         ui->lbWareCount->setText(QString::number(result));
@@ -412,7 +417,6 @@ void CourseWareWidget::deleteFile(QString filename) {
 void CourseWareWidget::on_lsWare_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
     if (m_userRole != RoleTeacher) {
-        ui->gbCourseware->setHidden(true);
         return;
     }
 

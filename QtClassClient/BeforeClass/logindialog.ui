@@ -19,6 +19,10 @@ QLabel {
 	color: rgb(0, 255, 127);
 }
 
+QLabel#lbPrompt {
+	color: rgb(0, 0, 0);
+}
+
 #QToolButton#tbExit:hover[autoRaise = &quot;true&quot;] {
 	background-image: url(:/icon/ui/icon/close2.png);
 }
@@ -29,6 +33,8 @@ QToolButton#tbEnterClass {
 	font: 16px;
 }
 
+QToolButton#tbEnterClass:!enabled {
+}
 
 QLineEdit {
 	font: 16px;
@@ -215,7 +221,10 @@ QLineEdit#lePassword {
          <item>
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>&lt;a href=&quot;http://www.k6kt.com/&quot;&gt;忘记密码？</string>
+            <string>&lt;a  style='color: green;' href=&quot;http://www.k6kt.com/&quot;&gt;忘记密码？</string>
+           </property>
+           <property name="openExternalLinks">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -235,7 +244,10 @@ QLineEdit#lePassword {
          <item>
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>&lt;a href=&quot;http://www.k6kt.com/&quot;&gt;注册新用户</string>
+            <string>&lt;a style='color: green;' href=&quot;http://www.k6kt.com/&quot;&gt;注册新用户</string>
+           </property>
+           <property name="openExternalLinks">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -243,6 +255,9 @@ QLineEdit#lePassword {
        </item>
        <item>
         <widget class="QToolButton" name="tbEnterClass">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -270,9 +285,19 @@ QLineEdit#lePassword {
         </widget>
        </item>
        <item>
+        <widget class="QLabel" name="lbPrompt">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QProgressBar" name="pbDownload">
          <property name="value">
           <number>0</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
          </property>
         </widget>
        </item>

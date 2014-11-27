@@ -4,7 +4,8 @@
 
 CAbsConnection::CAbsConnection(void)
 	: pSocket(new CSynSocket())
-	, isCloned(false) {
+    , isCloned(false)
+    , latestTime(0) {
 	memset(&m_ToAddr, 0, CAbsSocket::m_LocalAddrSize);
 	memset(&m_FromAddr, 0, CAbsSocket::m_LocalAddrSize);
 }

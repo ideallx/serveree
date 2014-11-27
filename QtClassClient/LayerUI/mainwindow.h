@@ -52,8 +52,7 @@ public:
 
     void addWareList(QString filename);
 
-    void signalPlayerMove(WORD move);
-    void signalPlayerStart(QString filename);
+    void signalPlayerMove(QString filename, WORD move);
 
     void playFileByUser(QString filename);
 
