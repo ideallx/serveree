@@ -154,6 +154,9 @@
     <ClCompile Include="Debug\moc_cuserlistwidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Debug\moc_dialogpixmap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Debug\moc_linewidthcombox.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -203,6 +206,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Release\moc_cuserlistwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_dialogpixmap.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Release\moc_linewidthcombox.cpp">
@@ -262,16 +268,19 @@
     <ClCompile Include="BizLogic\cfilelogic.cpp" />
     <ClCompile Include="LayerUI\MsgGenerator\cfilemsggenerator.cpp" />
     <ClCompile Include="LayerUI\MsgGenerator\cgraphicmsgcreator.cpp" />
+    <ClCompile Include="BizLogic\cloadlogic.cpp" />
     <ClCompile Include="LayerUI\UserInterface\cloginbutton.cpp" />
     <ClCompile Include="LayerUI\UserInterface\colorcombox.cpp" />
     <ClCompile Include="LayerUI\SlideScreen\coursewarewidget.cpp" />
     <ClCompile Include="LayerUI\MsgGenerator\cplayergenerator.cpp" />
     <ClCompile Include="BizLogic\cplayerlogic.cpp" />
     <ClCompile Include="LayerUI\UserInterface\cpromptframe.cpp" />
+    <ClCompile Include="LayerUI\MsgGenerator\cracegenerator.cpp" />
     <ClCompile Include="LayerUI\UserInterface\csettingsbutton.cpp" />
     <ClCompile Include="LayerUI\DrawingScreen\cshape.cpp" />
     <ClCompile Include="LayerUI\UserInterface\cshapechooser.cpp" />
     <ClCompile Include="LayerUI\UserInterface\cuserlistwidget.cpp" />
+    <ClCompile Include="LayerUI\UserInterface\dialogpixmap.cpp" />
     <ClCompile Include="player\docplayer.cpp" />
     <ClCompile Include="Reliable\Zip\ioapi.c" />
     <ClCompile Include="Reliable\OSInedependent\libiop\iop_thread.c" />
@@ -297,6 +306,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_coursewarewidget.h" />
+    <ClInclude Include="GeneratedFiles\ui_dialogpixmap.h" />
     <ClInclude Include="GeneratedFiles\ui_logindialog.h" />
     <ClInclude Include="GeneratedFiles\ui_loginwidget.h" />
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h" />
@@ -349,6 +359,7 @@
     <ClInclude Include="BizLogic\cfilelogic.h" />
     <ClInclude Include="LayerUI\MsgGenerator\cfilemsggenerator.h" />
     <ClInclude Include="LayerUI\MsgGenerator\cgraphicmsgcreator.h" />
+    <ClInclude Include="BizLogic\cloadlogic.h" />
     <CustomBuild Include="LayerUI\UserInterface\cloginbutton.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG  "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtMultimediaWidgets" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtMultimedia" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\ActiveQt" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtNetwork" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtGui" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtCore" "-I.\release" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\mkspecs\win32-msvc2010" "-I.\GeneratedFiles"</Command>
@@ -382,6 +393,7 @@
     <ClInclude Include="LayerUI\MsgGenerator\cplayergenerator.h" />
     <ClInclude Include="BizLogic\cplayerlogic.h" />
     <ClInclude Include="LayerUI\UserInterface\cpromptframe.h" />
+    <ClInclude Include="LayerUI\MsgGenerator\cracegenerator.h" />
     <ClInclude Include="Reliable\Zip\crypt.h" />
     <CustomBuild Include="LayerUI\UserInterface\csettingsbutton.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
@@ -412,6 +424,16 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB  "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtMultimediaWidgets" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtMultimedia" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\ActiveQt" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtNetwork" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtGui" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtCore" "-I.\debug" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\mkspecs\win32-msvc2010" "-I.\GeneratedFiles"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing cuserlistwidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialogpixmap.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG  "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtMultimediaWidgets" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtMultimedia" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\ActiveQt" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtNetwork" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtGui" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtCore" "-I.\release" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\mkspecs\win32-msvc2010" "-I.\GeneratedFiles"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing dialogpixmap.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB  "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtMultimediaWidgets" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtMultimedia" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\ActiveQt" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtNetwork" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtGui" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\include\QtCore" "-I.\debug" "-IF:\qt\qt5.3.2\5.3\msvc2010_opengl\mkspecs\win32-msvc2010" "-I.\GeneratedFiles"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing dialogpixmap.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <ClInclude Include="player\docplayer.h" />
@@ -524,6 +546,17 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
     </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialogpixmap.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+    </CustomBuild>
     <CustomBuild Include="BeforeClass\logindialog.ui">
       <FileType>Document</FileType>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
@@ -605,6 +638,34 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
+    <None Include="stylesheets\GreenCourseWare.qss">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="stylesheets\GreenGroupIcon.qss">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="stylesheets\GreenMainwindow.qss">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="stylesheets\OrangeCourseWare.qss">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="stylesheets\OrangeGroupIcon.qss">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="stylesheets\OrangeMainwindow.qss">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\back\backRace.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
     <None Include="ui\back\background.jpg">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -645,6 +706,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
     <None Include="ui\icon\courseware.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\logo icon.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
@@ -697,6 +762,11 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
     <None Include="ground.png" />
+    <None Include="icon.png" />
+    <None Include="ui\icon\l.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
     <None Include="ui\word\leaveclass.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -733,6 +803,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
+    <None Include="ui\icon\logo" />
     <None Include="ui\icon\manage.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -775,11 +846,27 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
+    <None Include="ui\icon\r.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\raceDown.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\raceUp.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
     <None Include="ui\icon\remove.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
     <None Include="ui\icon\run.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\s.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
@@ -822,11 +909,11 @@
     <None Include="ui\icon\teacher" />
     <CustomBuild Include="ui.qrc">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FullPath);.\ui\back\blue.png;.\ui\back\combox.png;.\ui\back\combox2.png;.\ui\back\grey.png;.\ui\back\line.png;.\ui\back\orange1.png;.\ui\back\orange2.png;.\ui\back\pink.png;.\ui\back\yellow.png;.\ui\back\background.png;.\ui\back\background.jpg;.\ui\icon\back ground.png;.\ui\icon\brush.png;.\ui\icon\courseware.png;.\ui\icon\eraser.png;.\ui\icon\exit.png;.\ui\icon\logo.png;.\ui\icon\manage.png;.\ui\icon\my board.png;.\ui\icon\my class.png;.\ui\icon\password.png;.\ui\icon\platte.png;.\ui\icon\shape.png;.\ui\icon\teacher board.png;.\ui\icon\user.png;.\ui\icon\username.png;.\ui\icon\shapeEllipse.png;.\ui\icon\shapeHexagon.png;.\ui\icon\shapeLine.png;.\ui\icon\shapeRectangle.png;.\ui\icon\shapeRoundRectangle.png;.\ui\icon\shapeScript.png;.\ui\icon\16x16.png;.\ui\icon\32x32.png;.\ui\icon\64x64.png;.\ui\icon\next.png;.\ui\icon\prev.png;.\ui\icon\start.png;.\ui\icon\stop.png;.\ui\icon\pencil.png;.\ui\icon\fulann_logo.png;.\ui\icon\remove.png;.\ui\icon\run.png;.\ui\icon\close1.png;.\ui\icon\close2.png;.\ui\icon\eraser1.png;.\ui\icon\eraser2.png;.\ui\icon\eraser3.png;.\ui\icon\logo1.jpg;.\ui\icon\logo1.png;.\ui\icon\logo2.png;.\ui\icon\numeber.png;.\ui\icon\password (2).png;.\ui\icon\logo3.png;.\ui\icon\llpassword.png;.\ui\icon\llusername.png;.\ui\word\enterclass.png;.\ui\word\leaveclass.png;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FullPath);.\ui\back\blue.png;.\ui\back\combox.png;.\ui\back\combox2.png;.\ui\back\grey.png;.\ui\back\line.png;.\ui\back\orange1.png;.\ui\back\orange2.png;.\ui\back\pink.png;.\ui\back\yellow.png;.\ui\back\background.png;.\ui\back\background.jpg;.\ui\back\backRace.png;.\ui\icon\back ground.png;.\ui\icon\brush.png;.\ui\icon\courseware.png;.\ui\icon\eraser.png;.\ui\icon\exit.png;.\ui\icon\logo.png;.\ui\icon\manage.png;.\ui\icon\my board.png;.\ui\icon\my class.png;.\ui\icon\password.png;.\ui\icon\platte.png;.\ui\icon\shape.png;.\ui\icon\teacher board.png;.\ui\icon\user.png;.\ui\icon\username.png;.\ui\icon\shapeEllipse.png;.\ui\icon\shapeHexagon.png;.\ui\icon\shapeLine.png;.\ui\icon\shapeRectangle.png;.\ui\icon\shapeRoundRectangle.png;.\ui\icon\shapeScript.png;.\ui\icon\16x16.png;.\ui\icon\32x32.png;.\ui\icon\64x64.png;.\ui\icon\next.png;.\ui\icon\prev.png;.\ui\icon\start.png;.\ui\icon\stop.png;.\ui\icon\pencil.png;.\ui\icon\fulann_logo.png;.\ui\icon\remove.png;.\ui\icon\run.png;.\ui\icon\close1.png;.\ui\icon\close2.png;.\ui\icon\eraser1.png;.\ui\icon\eraser2.png;.\ui\icon\eraser3.png;.\ui\icon\logo1.jpg;.\ui\icon\logo1.png;.\ui\icon\logo2.png;.\ui\icon\numeber.png;.\ui\icon\password (2).png;.\ui\icon\logo3.png;.\ui\icon\llpassword.png;.\ui\icon\llusername.png;.\ui\icon\l.png;.\ui\icon\logo icon.png;.\ui\icon\r.png;.\ui\icon\s.png;.\ui\icon\raceDown.png;.\ui\icon\raceUp.png;.\ui\word\enterclass.png;.\ui\word\leaveclass.png;.\stylesheets\GreenGroupIcon.qss;.\stylesheets\GreenMainwindow.qss;.\stylesheets\OrangeGroupIcon.qss;.\stylesheets\OrangeMainwindow.qss;.\stylesheets\GreenCourseWare.qss;.\stylesheets\OrangeCourseWare.qss;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rcc%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FullPath);.\ui\back\blue.png;.\ui\back\combox.png;.\ui\back\combox2.png;.\ui\back\grey.png;.\ui\back\line.png;.\ui\back\orange1.png;.\ui\back\orange2.png;.\ui\back\pink.png;.\ui\back\yellow.png;.\ui\back\background.png;.\ui\back\background.jpg;.\ui\icon\back ground.png;.\ui\icon\brush.png;.\ui\icon\courseware.png;.\ui\icon\eraser.png;.\ui\icon\exit.png;.\ui\icon\logo.png;.\ui\icon\manage.png;.\ui\icon\my board.png;.\ui\icon\my class.png;.\ui\icon\password.png;.\ui\icon\platte.png;.\ui\icon\shape.png;.\ui\icon\teacher board.png;.\ui\icon\user.png;.\ui\icon\username.png;.\ui\icon\shapeEllipse.png;.\ui\icon\shapeHexagon.png;.\ui\icon\shapeLine.png;.\ui\icon\shapeRectangle.png;.\ui\icon\shapeRoundRectangle.png;.\ui\icon\shapeScript.png;.\ui\icon\16x16.png;.\ui\icon\32x32.png;.\ui\icon\64x64.png;.\ui\icon\next.png;.\ui\icon\prev.png;.\ui\icon\start.png;.\ui\icon\stop.png;.\ui\icon\pencil.png;.\ui\icon\fulann_logo.png;.\ui\icon\remove.png;.\ui\icon\run.png;.\ui\icon\close1.png;.\ui\icon\close2.png;.\ui\icon\eraser1.png;.\ui\icon\eraser2.png;.\ui\icon\eraser3.png;.\ui\icon\logo1.jpg;.\ui\icon\logo1.png;.\ui\icon\logo2.png;.\ui\icon\numeber.png;.\ui\icon\password (2).png;.\ui\icon\logo3.png;.\ui\icon\llpassword.png;.\ui\icon\llusername.png;.\ui\word\enterclass.png;.\ui\word\leaveclass.png;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FullPath);.\ui\back\blue.png;.\ui\back\combox.png;.\ui\back\combox2.png;.\ui\back\grey.png;.\ui\back\line.png;.\ui\back\orange1.png;.\ui\back\orange2.png;.\ui\back\pink.png;.\ui\back\yellow.png;.\ui\back\background.png;.\ui\back\background.jpg;.\ui\back\backRace.png;.\ui\icon\back ground.png;.\ui\icon\brush.png;.\ui\icon\courseware.png;.\ui\icon\eraser.png;.\ui\icon\exit.png;.\ui\icon\logo.png;.\ui\icon\manage.png;.\ui\icon\my board.png;.\ui\icon\my class.png;.\ui\icon\password.png;.\ui\icon\platte.png;.\ui\icon\shape.png;.\ui\icon\teacher board.png;.\ui\icon\user.png;.\ui\icon\username.png;.\ui\icon\shapeEllipse.png;.\ui\icon\shapeHexagon.png;.\ui\icon\shapeLine.png;.\ui\icon\shapeRectangle.png;.\ui\icon\shapeRoundRectangle.png;.\ui\icon\shapeScript.png;.\ui\icon\16x16.png;.\ui\icon\32x32.png;.\ui\icon\64x64.png;.\ui\icon\next.png;.\ui\icon\prev.png;.\ui\icon\start.png;.\ui\icon\stop.png;.\ui\icon\pencil.png;.\ui\icon\fulann_logo.png;.\ui\icon\remove.png;.\ui\icon\run.png;.\ui\icon\close1.png;.\ui\icon\close2.png;.\ui\icon\eraser1.png;.\ui\icon\eraser2.png;.\ui\icon\eraser3.png;.\ui\icon\logo1.jpg;.\ui\icon\logo1.png;.\ui\icon\logo2.png;.\ui\icon\numeber.png;.\ui\icon\password (2).png;.\ui\icon\logo3.png;.\ui\icon\llpassword.png;.\ui\icon\llusername.png;.\ui\icon\l.png;.\ui\icon\logo icon.png;.\ui\icon\r.png;.\ui\icon\s.png;.\ui\icon\raceDown.png;.\ui\icon\raceUp.png;.\ui\word\enterclass.png;.\ui\word\leaveclass.png;.\stylesheets\GreenGroupIcon.qss;.\stylesheets\GreenMainwindow.qss;.\stylesheets\OrangeGroupIcon.qss;.\stylesheets\OrangeMainwindow.qss;.\stylesheets\GreenCourseWare.qss;.\stylesheets\OrangeCourseWare.qss;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rcc%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>

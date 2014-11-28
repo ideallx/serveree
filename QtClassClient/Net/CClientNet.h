@@ -18,8 +18,7 @@ private:
 	CPeerConnection*	 m_agent;
 	struct sockaddr_in	 m_Addr;
     TS_UINT64			 m_seq;             // next seq
-	TS_UINT64			 m_uid;
-	DWORD				 m_timeDiff;		// 服务器端和客户端的时间差
+    TS_UINT64			 m_uid;
 
     iop_thread_t         pthread_hb;
 
@@ -59,7 +58,7 @@ public:
 
     void setUID(TS_UINT64 uid);
 
-    inline void setTimeDiff(DWORD diff) { m_timeDiff = diff; }
+    inline void setTimeDiff(TS_UINT64 diff) { globalTimeDiff = diff; }
 
     inline void setBeginSequence(TS_UINT64 seq) { m_seq = seq; }
 

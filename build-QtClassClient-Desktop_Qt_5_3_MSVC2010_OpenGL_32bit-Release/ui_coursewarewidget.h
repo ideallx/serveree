@@ -44,6 +44,7 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QToolButton *tbUpload;
     QToolButton *tbSync;
+    QToolButton *tbRace;
     QHBoxLayout *horizontalLayout;
     QToolButton *tbPrev;
     QToolButton *tbStart;
@@ -59,21 +60,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(CourseWareWidget->sizePolicy().hasHeightForWidth());
         CourseWareWidget->setSizePolicy(sizePolicy);
-        CourseWareWidget->setStyleSheet(QLatin1String("QGroupBox#gbCourseware {\n"
-"	background-color: rgb(18, 145, 113);\n"
-"	border: none;\n"
-"}\n"
-"\n"
-"QToolButton#tbUpload, #tbSync {	\n"
-"	border-style: outset;\n"
-"	border-width: 1px;\n"
-"	border-color: white;\n"
-"}\n"
-"\n"
-"QGroupBox#gbTools {\n"
-"	background-color: rgb(106, 160, 127);\n"
-"	border: none;\n"
-"}"));
+        CourseWareWidget->setStyleSheet(QStringLiteral(""));
         verticalLayout_3 = new QVBoxLayout(CourseWareWidget);
         verticalLayout_3->setSpacing(0);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
@@ -190,6 +177,18 @@ public:
 
         horizontalLayout_2->addWidget(tbSync);
 
+        tbRace = new QToolButton(gbTools);
+        tbRace->setObjectName(QStringLiteral("tbRace"));
+        sizePolicy2.setHeightForWidth(tbRace->sizePolicy().hasHeightForWidth());
+        tbRace->setSizePolicy(sizePolicy2);
+        tbRace->setMinimumSize(QSize(0, 40));
+        tbRace->setFont(font);
+        tbRace->setStyleSheet(QStringLiteral(""));
+        tbRace->setToolButtonStyle(Qt::ToolButtonTextOnly);
+        tbRace->setAutoRaise(true);
+
+        horizontalLayout_2->addWidget(tbRace);
+
 
         verticalLayout_2->addLayout(horizontalLayout_2);
 
@@ -257,8 +256,18 @@ public:
         label_3->setText(QApplication::translate("CourseWareWidget", "\357\274\211", 0));
         tbExitWare->setText(QApplication::translate("CourseWareWidget", "    X    ", 0));
         gbTools->setTitle(QString());
+#ifndef QT_NO_TOOLTIP
+        tbUpload->setToolTip(QApplication::translate("CourseWareWidget", "<html><head/><body><p>\345\217\257\344\273\245\345\260\206\350\247\206\351\242\221\357\274\214\345\233\276\347\211\207\357\274\214PPT\347\255\211\344\270\212\344\274\240\345\210\260\350\257\276\344\273\266\345\210\227\350\241\250\344\270\255</p></body></html>", 0));
+#endif // QT_NO_TOOLTIP
         tbUpload->setText(QApplication::translate("CourseWareWidget", "\344\270\212\344\274\240\350\257\276\344\273\266", 0));
+#ifndef QT_NO_TOOLTIP
+        tbSync->setToolTip(QApplication::translate("CourseWareWidget", "<html><head/><body><p>\350\200\201\345\270\210\345\217\257\344\273\245\345\260\206\350\257\276\344\273\266\346\216\250\351\200\201\350\207\263\345\255\246\347\224\237\345\256\242\346\210\267\347\253\257</p></body></html>", 0));
+#endif // QT_NO_TOOLTIP
         tbSync->setText(QApplication::translate("CourseWareWidget", "\345\220\214\346\255\245\350\257\276\344\273\266", 0));
+#ifndef QT_NO_TOOLTIP
+        tbRace->setToolTip(QApplication::translate("CourseWareWidget", "<html><head/><body><p>\350\200\201\345\270\210\350\256\251\345\255\246\347\224\237\346\212\242\347\255\224\350\216\267\345\217\226\345\261\217\345\271\225\345\206\231\346\235\203\351\231\220</p></body></html>", 0));
+#endif // QT_NO_TOOLTIP
+        tbRace->setText(QApplication::translate("CourseWareWidget", "\345\217\221\350\265\267\346\212\242\347\255\224", 0));
         tbPrev->setText(QApplication::translate("CourseWareWidget", "...", 0));
         tbStart->setText(QApplication::translate("CourseWareWidget", "...", 0));
         tbNext->setText(QApplication::translate("CourseWareWidget", "...", 0));

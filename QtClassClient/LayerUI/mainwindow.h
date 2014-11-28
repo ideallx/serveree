@@ -70,6 +70,8 @@ private:
     iop_thread_t                pthread_msg;
     TSQueue<ts_msg>             msgQueue;
 
+    QDialog*                    m_prompt;
+
 
 public slots:
     void changeScene(TS_UINT64 uid);
@@ -102,9 +104,12 @@ public slots:
     void cleanCentralArea(TS_UINT64 sceneID, int cleanOption);
     void setViewPaintMode(int mode);
 
+    void raceSuccessPrompt(TS_UINT64 uid);
+
 private:
-    bool playerPlay(QString filepath);
-    bool stopPlayer(void);
+    void raceBegin(TS_UINT64 teacherUID);
+    void raceRun(TS_UINT64 studentUID, TS_UINT64 time);
+    void raceResult(TS_UINT64 teacherUID, TS_UINT64 studentUID, WORD writingTime);
 
 
 signals:
@@ -120,6 +125,7 @@ signals:
     void playerNexted(bool isRemote);
     void playerStoped(bool isRemote);
     void playerStarted(QString filename, bool isRemote);
+    void racePromptSent();
 
 private slots:
     void on_listWidget_clicked(const QModelIndex &index);
@@ -131,6 +137,8 @@ private slots:
     void addSceneSlot(int uidh, int uidl);
     void showPrompt(QString prompt);
     void showResultPrompt(int result);
+    void buildRaceDialog();
+    void studentRaced();
 
     friend thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam);
     void on_tbCourseWare_clicked();

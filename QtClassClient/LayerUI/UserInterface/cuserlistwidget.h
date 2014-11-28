@@ -25,6 +25,7 @@ public:
     bool changeAuth(TS_UINT64 uid, bool writeable);
 
     void init();
+    QString getUserName(TS_UINT64 uid);
 
 private:
     QList<TS_UINT64> userList;

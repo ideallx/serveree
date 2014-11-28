@@ -7,6 +7,7 @@ CBusinessLogic::CBusinessLogic(CMsgObject* parent)
     , m_FileLogic(new CFileLogic(this))
     , m_AuthLogic(new CAuthLogic(this))
     , m_PlayerLogic(new CPlayerLogic(this))
+	, m_RaceLogic(new CBaseLogic(this))
     , isUIBuilt(false) {
 }
 
@@ -26,8 +27,8 @@ void CBusinessLogic::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, B
         m_UserLogic->procMsg(msg, isremote);
     } else {							// Net层传来的其他指令传给UI层
         if (isremote)
-            qDebug() << "recv:" << head->UID << head->type
-                     << head->sequence << head->subSeq;
+//            qDebug() << "recv:" << head->UID << head->type
+//                     << head->sequence << head->subSeq;
 
         if (!m_UserLogic->isServerAvailable())
             return;
@@ -44,6 +45,9 @@ void CBusinessLogic::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, B
             break;
         case PLAYERCONTROL:
             m_PlayerLogic->procMsg(msg, isremote);
+            break;
+        case RACE:
+            m_RaceLogic->procMsg(msg, isremote);
             break;
         default:
             break;

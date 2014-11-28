@@ -28,12 +28,14 @@ Prompt::Prompt(QString prompt, QWidget *parent) :
 }
 
 void Prompt::setPrompt(int result) {
-    ui->lbPrompt->setText(QString::fromLocal8Bit(AllPrompts[result]));
+    ui->lbPrompt->setText(ui->lbPrompt->text() + "\n" +
+                          QString::fromLocal8Bit(AllPrompts[result]));
+    ui->pbConfirm->setEnabled(true);
 }
 
 void Prompt::setPrompt(QString prompt) {
-    ui->lbPrompt->setText(prompt);
-
+    ui->lbPrompt->setText(ui->lbPrompt->text() + "\n" + prompt);
+    ui->pbConfirm->setEnabled(true);
 }
 
 QString Prompt::getPrompt(int index) {
@@ -47,5 +49,5 @@ Prompt::~Prompt()
 
 void Prompt::on_pbConfirm_clicked()
 {
-    hide();
+    accept();
 }

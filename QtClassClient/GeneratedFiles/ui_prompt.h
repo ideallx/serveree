@@ -43,7 +43,7 @@ public:
     {
         if (Prompt->objectName().isEmpty())
             Prompt->setObjectName(QStringLiteral("Prompt"));
-        Prompt->resize(275, 156);
+        Prompt->resize(323, 175);
         Prompt->setStyleSheet(QLatin1String("QDialog {\n"
 "	background-color:white;\n"
 "	border: 10px solid rgb(247, 237, 219);\n"

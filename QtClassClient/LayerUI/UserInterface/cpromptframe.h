@@ -12,9 +12,11 @@ class CPromptFrame
 public:
     CPromptFrame();
 
-    static void prompt(int result, QWidget* parent = 0);
+    static QDialog* prompt(int result, QWidget* parent = 0);
 
-    static void prompt(QString prompt, QWidget* parent = 0);
+    static QDialog* prompt(QString prompt, QWidget* parent = 0);
+
+    static QDialog* racePrompt(QWidget* parent);
 };
 
 #endif // CPROMPTFRAME_H

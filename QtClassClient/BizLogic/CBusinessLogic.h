@@ -16,6 +16,7 @@ private:
     CFileLogic*         m_FileLogic;
     CAuthLogic*         m_AuthLogic;
     CPlayerLogic*       m_PlayerLogic;
+    CBaseLogic*         m_RaceLogic;
 
 public:
 	CBusinessLogic(CMsgObject* parent = NULL);

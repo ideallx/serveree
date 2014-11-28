@@ -40,89 +40,7 @@
     </sizepolicy>
    </property>
    <property name="styleSheet">
-    <string notr="true">QListView {
-        color: rgb(255, 255, 255);
-        background-color: rgb(106, 160, 127);
-        border:none
-}
-
-MyView {
-        background-color: rgb(255, 254, 240);
-}
-
-QListView::item:selected, QListView::item:hover{
-        background: rgb(145, 152, 158);
-        color: rgb(255, 255, 255);
-}
-
-QGroupBox {
-        background-color: rgb(31, 40, 49);
-        border: none;
-}
-
-QGroupBox#gbWareCtrl {
-        background-color: rgb(66, 79, 88);
-}
-
-QGroupBox {
-        background-color: rgb(31, 40, 49);
-        border: none;
-}
-
-QToolButton {
-        color: rgb(255, 255, 255);
-}
-
-QLabel {
-        color: white;
-}
-
-QListWidget:item {
-        height: 33;
-}
-
-QScrollBar:vertical {
-        border-radius: 5px;
-    background: rgb(69, 77, 80);
-    width: 12px;
-    margin: 22px 0 22px 0;
-}
-QScrollBar::handle:vertical {
-        border-radius: 5px;
-    background: rgb(26, 29, 34);
-    min-height: 20px;
-}
-QScrollBar::add-line:vertical {
-        border-radius: 5px;
-    background: rgb(45, 55, 64);
-    height: 20px;
-    subcontrol-position: bottom;
-    subcontrol-origin: margin;
-}
-
-QScrollBar::sub-line:vertical {
-        border-radius: 5px;
-    background: rgb(45, 55, 64);
-    height: 20px;
-    subcontrol-position: top;
-    subcontrol-origin: margin;
-}
-QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
-        border-radius: 5px;
-    width: 3px;
-    height: 3px;
-    background: white;
-}
-
-QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-        border-radius: 5px;
-    background: none;
-}
-
-QGroupBox#gbUserlist {
-        background-color: rgb(18, 145, 113);
-}
-</string>
+    <string notr="true"/>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <property name="spacing">
@@ -161,67 +79,7 @@ QGroupBox#gbUserlist {
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">QGroupBox {
-	background-color: rgb(106, 160, 127);
-	border:none;
-}
-
-QToolButton#tbBackground, #tbBrush, #tbCourseWare,
-	#tbEraser, #tbLogin, #tbMyBoard, #tbMyClass,
-	#tbPalette, #tbSettings, #tbShape, #tbTeacherBoard {
-	border-style: outset;
-	border-top-width: 4px;
-	border-left-width: 1px;
-	border-left-color: rgb(214, 214, 214);
-}
-
-QToolButton:!checked {
-	color: rgb(255, 255, 255);
-}
-QToolButton:checked, QToolButton:pressed {
-	background-color: rgb(83, 83, 83);
-}
-
-QToolButton#tbCourseWare {
-	border-top-color: rgb(233, 71, 7);
-}
-
-QToolButton#tbTeacherBoard {
-	border-top-color: rgb(253, 213, 3);
-}
-
-QToolButton#tbMyBoard {
-	border-top-color: rgb(94, 192, 191);
-}
-
-QToolButton#tbMyClass {
-	border-top-color: rgb(73, 167, 167);
-}
-
-QToolButton#tbBrush {
-	border-top-color: rgb(163, 207, 67);
-}
-
-QToolButton#tbEraser {
-	border-top-color: rgb(180, 61, 109);
-}
-
-QToolButton#tbPalette {
-	border-top-color: rgb(242, 69, 109);
-}
-
-QToolButton#tbBackground {
-	border-top-color: rgb(3, 155, 239);
-}
-
-QToolButton#tbLogin {
-	border-top-color: rgb(213, 213, 213);
-}
-
-QToolButton#tbShape {
-	border-top-color: rgb(208, 238, 139);
-}
-</string>
+       <string notr="true"/>
       </property>
       <property name="title">
        <string/>

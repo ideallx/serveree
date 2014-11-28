@@ -119,6 +119,11 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         label->setText(QApplication::translate("MainWindow", "<a style='color: green;' href = www.baidu.com> \346\237\245\347\234\213</a>", 0));
+        txShow->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Run E:/xxxx.ppt</p></body></html>", 0));
         pushButton->setText(QApplication::translate("MainWindow", "first", 0));
         pushButton_2->setText(QApplication::translate("MainWindow", "prev", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "next", 0));

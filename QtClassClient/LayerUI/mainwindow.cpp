@@ -29,7 +29,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , m_userRole(RoleStudent)
     , ui(new Ui::MainWindow)
-    , isRunning(false) {
+    , isRunning(false)
+    , m_prompt(NULL) {
     ui->setupUi(this);
     ui->wgtCourse->setHidden(true);
     ui->wgtCourse->setMsgParent(this);
@@ -57,6 +58,8 @@ MainWindow::MainWindow(QWidget *parent)
             this, &MainWindow::showResultPrompt);
     connect(this, &MainWindow::promptSent,
             this, &MainWindow::showPrompt);
+    connect(this, &MainWindow::racePromptSent,
+            this, &MainWindow::buildRaceDialog);
     connect(this, &MainWindow::wareItemRecv,
             ui->wgtCourse, &CourseWareWidget::addWareItem);
 
@@ -92,6 +95,8 @@ MainWindow::MainWindow(QWidget *parent)
             this, &MainWindow::changeMedia);
     connect(ui->wgtCourse, &CourseWareWidget::promptMsgSent,
             this, &MainWindow::showPrompt);
+    connect(ui->wgtCourse, &CourseWareWidget::someBodyRaceSuccess,
+            this, &MainWindow::raceSuccessPrompt);
     sem_msg = CreateSemaphore(NULL, 0, 102400, NULL);
 
     isRunning = true;
@@ -102,9 +107,9 @@ MainWindow::MainWindow(QWidget *parent)
         isRunning = false;
     }
 
+    on_tbBackground_clicked();
 
-
-// #define _DEBUG_UI_
+#define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
     setRole(RoleTeacher);
@@ -119,12 +124,12 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 MainWindow::~MainWindow() {
+    delete ui;
     sceneMap.clear();
     qDeleteAll(sceneMap);
     isRunning = false;
     iop_thread_cancel(pthread_msg);
     CloseHandle(sem_msg);
-    delete ui;
 }
 
 void MainWindow::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL isRemote) {
@@ -216,16 +221,14 @@ void MainWindow::leaveClass() {
 void MainWindow::enterClassResult(bool result) {
     if (result) {
         emit enOrLeaveClass(true);
-        iop_usleep(10);
     }
 }
 
 void MainWindow::leaveClassResult(bool result) {
     if (result) {
         emit enOrLeaveClass(false);
-        isRunning = false;
-        CloseHandle(sem_msg);
         ui->listWidget->init();
+        qDeleteAll(sceneMap);
         qDebug() << "leave class successfully";
     }
 }
@@ -392,8 +395,6 @@ void MainWindow::msgExcute() {
     case LEAVECLASS:
         {
             DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &msg;
-            sendResultPrompt(down->result);
-            recvClassInfo();
             switch (down->result) {
             case SuccessEnterClass:
                 enterClassResult(true);
@@ -402,6 +403,8 @@ void MainWindow::msgExcute() {
             case SuccessLeaveClass:
                 leaveClassResult(true);
             }
+            recvClassInfo();
+            emit promptResultSent(down->result);
         }
         break;
     case ADDUSER:
@@ -437,15 +440,27 @@ void MainWindow::msgExcute() {
 		break;
 	case PLAYERCONTROL:
 		{
-			TS_PLAYER_PACKET* pmsg = (TS_PLAYER_PACKET*) &msg;
-			signalPlayerMove(QString::fromLocal8Bit((char*) pmsg->filename), pmsg->pa);
-			break;
+            TS_PLAYER_PACKET* pmsg = (TS_PLAYER_PACKET*) &msg;
+            signalPlayerMove(QString::fromLocal8Bit((char*) pmsg->filename), pmsg->pa);
 		}
+        break;
 	case SETWRITEAUTH:
 		{
 			SET_USER_WRITE_AUTH* down = (SET_USER_WRITE_AUTH*) &msg;
 			setWriteable(down->toUID, down->sceneID, down->writeable);
 		}
+        break;
+    case RACE:
+        {
+            TS_RACE_PACKET* rmsg = (TS_RACE_PACKET*) &msg;
+            if (RaceInit == rmsg->raceType)
+                raceBegin(rmsg->teacherUID);
+            else if (RaceRace == rmsg->raceType)
+                raceRun(rmsg->studentUID, rmsg->head.time);
+            else if (RaceResult == rmsg->raceType)
+                raceResult(rmsg->teacherUID, rmsg->studentUID, rmsg->writingTime);
+        }
+        break;
     default:
         break;
     }
@@ -489,12 +504,19 @@ void MainWindow::sendPrompt(QString prompt) {
 }
 
 void MainWindow::showResultPrompt(int result) {
-    CPromptFrame::prompt(result, this);
+    if (m_prompt) {
+        delete m_prompt;
+    }
+    m_prompt = CPromptFrame::prompt(result, this);
+    m_prompt->exec();
 }
 
 void MainWindow::showPrompt(QString prompt) {
-    CPromptFrame::prompt(prompt, this);
-    qDebug() << prompt;
+    if (m_prompt) {
+        delete m_prompt;
+    }
+    m_prompt = CPromptFrame::prompt(prompt, this);
+    m_prompt->exec();
 }
 
 void MainWindow::recvClassInfo() {
@@ -580,7 +602,7 @@ void MainWindow::on_tbMyBoard_clicked()
     changeScene(SelfUID);
 }
 
-static int backStyle = 0;
+static int backStyle = 1;
 void MainWindow::on_tbBackground_clicked()
 {
     backStyle++;
@@ -621,3 +643,60 @@ void MainWindow::on_tbBackground_clicked()
 }
 
 // 6 others
+
+// 7 race
+void MainWindow::raceBegin(TS_UINT64 teacherUID) {
+    if (m_userRole != RoleStudent)
+        return;
+
+    emit racePromptSent();
+}
+
+void MainWindow::raceRun(TS_UINT64 studentUID, TS_UINT64 time) {
+    if (m_userRole != RoleTeacher)
+        return;
+
+    ui->wgtCourse->recvRace(studentUID, time);
+    qDebug() << "race student uid is" << studentUID;
+}
+
+void MainWindow::raceResult(TS_UINT64 teacherUID, TS_UINT64 studentUID, WORD writingTime) {
+    qDebug() << "race result";
+    if (m_userRole != RoleStudent || teacherUID == globalUID) {
+        ui->listWidget->changeAuth(studentUID, true);
+        return;
+    }
+
+    ui->listWidget->changeAuth(studentUID, true);
+    raceSuccessPrompt(studentUID);
+}
+
+void MainWindow::buildRaceDialog() {
+    if (m_prompt) {
+        delete m_prompt;
+    }
+    m_prompt = CPromptFrame::racePrompt(this);
+    connect(m_prompt, &QDialog::accepted,
+            this, &MainWindow::studentRaced);
+    m_prompt->exec();
+}
+
+void MainWindow::studentRaced() {
+    ui->wgtCourse->sendRace();
+}
+
+void MainWindow::raceSuccessPrompt(TS_UINT64 uid) {
+    QString prompt;
+    if (NobodyUID == uid) {
+        prompt = QString::fromLocal8Bit("无人抢答。。。");
+    } else if (uid == globalUID) {
+        prompt = QString::fromLocal8Bit("您抢答成功！！");
+    } else {
+        QString stu = ui->listWidget->getUserName(uid);
+        if (stu.isNull()) {
+            stu = QString::fromLocal8Bit("有人");
+        }
+        prompt = stu + QString::fromLocal8Bit("抢答成功");
+    }
+    emit promptSent(prompt);
+}

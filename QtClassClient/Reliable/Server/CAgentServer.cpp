@@ -246,11 +246,12 @@ void CAgentServer::leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
         return;
 	}
 
-    pServer->removeUser(user._uid);
-	heartBeatTime.erase(user._uid);
 
 	sendLeaveSuccess(inputMsg);
 	userLogoutNotify(inputMsg, user._uid);
+    pServer->removeUser(user._uid);
+	heartBeatTime.erase(user._uid);
+
 	iop_unlock(&lockWorkServer);
 
 #ifdef _DEBUG_INFO_

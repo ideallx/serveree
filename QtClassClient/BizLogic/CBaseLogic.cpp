@@ -123,7 +123,7 @@ bool CBaseLogic::procMsg(const ts_msg& msg, bool isRemote) {
 void CBaseLogic::procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap) {
     for (auto i = sendMap.begin(); i != sendMap.end(); i++) {
         TS_MESSAGE_HEAD* hmsg = (TS_MESSAGE_HEAD*) &i->second;
-        qDebug() << "send:" << hmsg->UID << hmsg->sequence << hmsg->subSeq;
+        //qDebug() << "send:" << hmsg->UID << hmsg->sequence << hmsg->subSeq;
         sendToUp(i->second, 0, 0, true);
     }
 }

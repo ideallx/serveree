@@ -1,6 +1,7 @@
 #include "CMessage.h"
 
 TS_UINT64 globalUID = SelfUID;
+TS_UINT64 globalTimeDiff = 0;
 
 short packetSize(const ts_msg& p) {
 	return ((TS_MESSAGE_HEAD*) &p)->size;

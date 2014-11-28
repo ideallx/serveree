@@ -1,4 +1,5 @@
 #include <QFileDialog>
+#include <QDebug>
 #include "coursewarewidget.h"
 #include "ui_coursewarewidget.h"
 #include "../../player/playerfactory.h"
@@ -19,8 +20,15 @@ CourseWareWidget::CourseWareWidget(QWidget *parent)
     , ui(new Ui::CourseWareWidget)
     , m_isPlayerPlaying(false)
     , m_player(NULL)
-    , m_userRole(RoleStudent) {
+    , m_userRole(RoleStudent)
+    , m_raceTime(0)
+    , m_raceOne(NobodyUID) {
     ui->setupUi(this);
+    ui->tbSync->setHidden(true);
+
+    m_raceTimer.setSingleShot(true);
+    connect(&m_raceTimer, &QTimer::timeout,
+            this, &CourseWareWidget::raceTimeOut);
 }
 
 CourseWareWidget::~CourseWareWidget()
@@ -36,7 +44,7 @@ int CourseWareWidget::checkUploadFile(QString filename) const {
     if (!PlayerFactory::checkFileFormat(filename)) {
         return ErrorFormat;
     }
-    qDebug() << filename << "check upload";
+
     if (ui->lsWare->findItems(filename, Qt::MatchExactly).size() > 0) {
         return ErrorFileExist;
     }
@@ -61,6 +69,15 @@ void CourseWareWidget::syncFileList() {
             continue;
         syncFile(filename);
         m_syncedWares.append(filename);
+    }
+}
+
+void CourseWareWidget::scanLocalCourseware() {
+    qDebug() << QDir::current().entryList();
+    foreach (QString filename, QDir::current().entryList()) {
+        if (PlayerFactory::checkFileFormat(filename)) {
+            addWareItem(filename);
+        }
     }
 }
 
@@ -132,6 +149,8 @@ int CourseWareWidget::start(QString filename, bool isRemote) {
                 this, SIGNAL(changeBackground(QPixmap)));
         connect(m_player, &AbsPlayer::playMedia,
                 this, &CourseWareWidget::changeMedia);
+        connect(m_player, &AbsPlayer::promptSent,
+                this, &CourseWareWidget::promptMsgSent);
 
         emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
     }
@@ -431,4 +450,62 @@ void CourseWareWidget::on_lsWare_currentItemChanged(QListWidgetItem *current, QL
 
     if (previous)
         ui->lsWare->removeItemWidget(previous);
+}
+
+
+const int MaxAllowedWriteTime = 10000;
+void CourseWareWidget::on_tbRace_clicked()
+{
+    if (m_userRole != RoleTeacher)
+        return;
+
+    if (m_raceTimer.isActive())
+        return;
+
+    m_raceTime = getClientTime();
+    qDebug() << "m_raceTime" << m_raceTime << globalTimeDiff;
+    TS_RACE_PACKET rmsg;
+    m_rg.generateRaceData(rmsg, RaceInit, MaxAllowedWriteTime, NobodyUID);
+    m_parent->ProcessMessage(*(ts_msg*) &rmsg, 0, 0, false);
+
+    m_raceTimer.start(5000);
+    emit promptMsgSent(QString::fromLocal8Bit("ÒÑ·¢ÆðÇÀ´ð!"));
+
+}
+
+void CourseWareWidget::raceTimeOut() {
+    m_raceTimer.stop();
+
+    TS_RACE_PACKET rmsg;
+    m_rg.generateRaceData(rmsg, RaceResult, MaxAllowedWriteTime, m_raceOne);
+    m_parent->ProcessMessage(*(ts_msg*) &rmsg, 0, 0, false);
+
+    emit someBodyRaceSuccess(m_raceOne);
+
+    m_raceTime = 0;
+    m_raceOne = NobodyUID;
+}
+
+
+void CourseWareWidget::sendRace() {
+    TS_RACE_PACKET rmsg;
+    m_rg.generateRaceData(rmsg, RaceRace, MaxAllowedWriteTime, globalUID);
+    m_parent->ProcessMessage(*(ts_msg*) &rmsg, 0, 0, false);
+    qDebug() << "send Race";
+}
+
+
+void CourseWareWidget::raceBegin(TS_UINT64 teacherUID) {
+    if (m_userRole != RoleStudent)
+        return;
+
+    emit racePromptSent();
+}
+
+void CourseWareWidget::recvRace(TS_UINT64 studentUID, TS_UINT64 time) {
+    if (time - m_raceTime < MaxAllowedWriteTime) {
+        m_raceOne = studentUID;
+        raceTimeOut();
+    }
+    qDebug() << studentUID << m_raceTime << time;
 }

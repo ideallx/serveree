@@ -58,6 +58,7 @@ signals:
     void playerEnd();
     void backgroundChanged(QPixmap);
     void playMedia(QMediaPlayer*);
+    void promptSent(QString prompt);
 
 
 protected:

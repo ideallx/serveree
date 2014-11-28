@@ -85,7 +85,6 @@ bool CUserListWidget::changeAuth(int row, bool writeable) {
         emit changeIcon(row, "");
         return false;
     }
-
 }
 
 bool CUserListWidget::changeAuth(TS_UINT64 uid, bool writeable) {
@@ -103,4 +102,11 @@ bool CUserListWidget::isOffline(TS_UINT64 uid) {
 
 void CUserListWidget::setRowIcon(int row, QString file) {
     item(row)->setIcon(QIcon(file));
+}
+
+QString CUserListWidget::getUserName(TS_UINT64 uid) {
+    int row = userList.indexOf(uid);
+    if (-1 == row)
+        return QString();
+    return item(row)->text();
 }

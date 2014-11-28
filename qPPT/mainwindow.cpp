@@ -8,8 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    opened = NULL;
     ui->setupUi(this);
-    ui->axWidget->setControl("D:/xxxx.ppt");
     ppt = ui->axWidget;
 
     //showFullScreen();
@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    if (opened)
+        opened->querySubObject("Close()");
     ppt->deleteLater();
     delete ui;
 }
@@ -34,22 +36,32 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_pushButton_2_clicked()
 {
     auto view = window->querySubObject("View");
-    view->querySubObject("GotoSlide(int)", 3);
+    if (!view) {
+        qDebug() << "view error";
+        return;
+    }
+    view->querySubObject("Previous()");
+    qDebug() << view->querySubObject("GetClick");
 }
 
 int i = 1;
 void MainWindow::on_pushButton_3_clicked()
 {
     auto view = window->querySubObject("View");
-    view->querySubObject("GotoClick(int)", i);
-    i++;
-
-//    view->querySubObject("Next()");
-//    qDebug() << view->querySubObject("GetClick");
+    if (!view) {
+        qDebug() << "view error";
+        return;
+    }
+    view->querySubObject("Next()");
+    qDebug() << view->querySubObject("GetClick");
 }
 
+#include <QFileDialog>
 void MainWindow::on_pushButton_4_clicked()
 {
+    QString filename = "E:/xxxx.ppt"; //= QFileDialog::getOpenFileName();
+    if (filename.isNull())
+        return;
     if (!ppt->setControl("Powerpoint.Application")) {
         ui->txShow->append("power point controler set failed");
         return;
@@ -57,9 +69,8 @@ void MainWindow::on_pushButton_4_clicked()
     ppt->setProperty("Visible", false);
     ui->txShow->append("application success");
     presentation = ppt->querySubObject("Presentations");
-    QString filename("D:/xxxx.ppt");
 
-    opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", filename, 1, 0, 0);
+    opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", filename, 0, 0, 0);
     if (!opened) {
         ui->txShow->append("open error");
         return;
@@ -74,6 +85,7 @@ void MainWindow::on_pushButton_4_clicked()
         return;
     }
     sss->setProperty("ShowType", 1);
+    sss->setProperty("ShowWithAnimation", true);
     sss->querySubObject("Run()");
 
     window = opened->querySubObject("SlideShowWindow");
@@ -90,7 +102,7 @@ void MainWindow::on_pushButton_4_clicked()
     auto slides = window->querySubObject("Presentation");
     slides = slides->querySubObject("Slides(int)", 1);
     if (!slides) {
-        qDebug() << "fuck";
+        ui->txShow->append("slides failed");
         return;
     }
     QString fp = QDir::currentPath() + "/aaa.jpg";

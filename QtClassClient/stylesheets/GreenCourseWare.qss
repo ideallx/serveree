@@ -3,7 +3,7 @@ QGroupBox#gbCourseware {
         border: none;
 }
 
-QToolButton#tbUpload, #tbSync {
+QToolButton#tbUpload, #tbSync, #tbRace {
         border-style: outset;
         border-width: 1px;
         border-color: white;

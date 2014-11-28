@@ -36,11 +36,12 @@
 #include "../../stdafx.h"
 
 using namespace std;
+extern TS_UINT64 globalTimeDiff;
 
 int gettimeofday(struct timeval *tp, void *tzp);
 int getIp(char* ip);
 TS_UINT64 getServerTime();
-TS_UINT64 getClientTime(DWORD bouns);
+TS_UINT64 getClientTime();
 string int2string(TS_UINT64 number);
 
 #endif

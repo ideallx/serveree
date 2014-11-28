@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[66];
-    char stringdata[840];
+    QByteArrayData data[70];
+    char stringdata[902];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -49,52 +49,56 @@ QT_MOC_LITERAL(16, 163, 8),
 QT_MOC_LITERAL(17, 172, 12),
 QT_MOC_LITERAL(18, 185, 12),
 QT_MOC_LITERAL(19, 198, 13),
-QT_MOC_LITERAL(20, 212, 11),
-QT_MOC_LITERAL(21, 224, 9),
-QT_MOC_LITERAL(22, 234, 3),
-QT_MOC_LITERAL(23, 238, 20),
-QT_MOC_LITERAL(24, 259, 8),
-QT_MOC_LITERAL(25, 268, 10),
-QT_MOC_LITERAL(26, 279, 8),
-QT_MOC_LITERAL(27, 288, 8),
-QT_MOC_LITERAL(28, 297, 16),
-QT_MOC_LITERAL(29, 314, 10),
-QT_MOC_LITERAL(30, 325, 16),
-QT_MOC_LITERAL(31, 342, 7),
-QT_MOC_LITERAL(32, 350, 11),
-QT_MOC_LITERAL(33, 362, 4),
-QT_MOC_LITERAL(34, 367, 9),
-QT_MOC_LITERAL(35, 377, 9),
-QT_MOC_LITERAL(36, 387, 10),
-QT_MOC_LITERAL(37, 398, 16),
-QT_MOC_LITERAL(38, 415, 16),
-QT_MOC_LITERAL(39, 432, 6),
-QT_MOC_LITERAL(40, 439, 11),
-QT_MOC_LITERAL(41, 451, 13),
-QT_MOC_LITERAL(42, 465, 6),
-QT_MOC_LITERAL(43, 472, 16),
-QT_MOC_LITERAL(44, 489, 5),
-QT_MOC_LITERAL(45, 495, 16),
-QT_MOC_LITERAL(46, 512, 5),
-QT_MOC_LITERAL(47, 518, 16),
-QT_MOC_LITERAL(48, 535, 9),
-QT_MOC_LITERAL(49, 545, 16),
-QT_MOC_LITERAL(50, 562, 7),
-QT_MOC_LITERAL(51, 570, 11),
-QT_MOC_LITERAL(52, 582, 16),
-QT_MOC_LITERAL(53, 599, 4),
-QT_MOC_LITERAL(54, 604, 21),
-QT_MOC_LITERAL(55, 626, 5),
-QT_MOC_LITERAL(56, 632, 20),
-QT_MOC_LITERAL(57, 653, 22),
-QT_MOC_LITERAL(58, 676, 25),
-QT_MOC_LITERAL(59, 702, 20),
-QT_MOC_LITERAL(60, 723, 12),
-QT_MOC_LITERAL(61, 736, 10),
-QT_MOC_LITERAL(62, 747, 16),
-QT_MOC_LITERAL(63, 764, 23),
-QT_MOC_LITERAL(64, 788, 23),
-QT_MOC_LITERAL(65, 812, 27)
+QT_MOC_LITERAL(20, 212, 14),
+QT_MOC_LITERAL(21, 227, 11),
+QT_MOC_LITERAL(22, 239, 9),
+QT_MOC_LITERAL(23, 249, 3),
+QT_MOC_LITERAL(24, 253, 20),
+QT_MOC_LITERAL(25, 274, 8),
+QT_MOC_LITERAL(26, 283, 10),
+QT_MOC_LITERAL(27, 294, 8),
+QT_MOC_LITERAL(28, 303, 8),
+QT_MOC_LITERAL(29, 312, 16),
+QT_MOC_LITERAL(30, 329, 10),
+QT_MOC_LITERAL(31, 340, 16),
+QT_MOC_LITERAL(32, 357, 7),
+QT_MOC_LITERAL(33, 365, 11),
+QT_MOC_LITERAL(34, 377, 4),
+QT_MOC_LITERAL(35, 382, 9),
+QT_MOC_LITERAL(36, 392, 9),
+QT_MOC_LITERAL(37, 402, 10),
+QT_MOC_LITERAL(38, 413, 16),
+QT_MOC_LITERAL(39, 430, 16),
+QT_MOC_LITERAL(40, 447, 6),
+QT_MOC_LITERAL(41, 454, 11),
+QT_MOC_LITERAL(42, 466, 13),
+QT_MOC_LITERAL(43, 480, 6),
+QT_MOC_LITERAL(44, 487, 16),
+QT_MOC_LITERAL(45, 504, 5),
+QT_MOC_LITERAL(46, 510, 16),
+QT_MOC_LITERAL(47, 527, 5),
+QT_MOC_LITERAL(48, 533, 16),
+QT_MOC_LITERAL(49, 550, 9),
+QT_MOC_LITERAL(50, 560, 16),
+QT_MOC_LITERAL(51, 577, 7),
+QT_MOC_LITERAL(52, 585, 11),
+QT_MOC_LITERAL(53, 597, 16),
+QT_MOC_LITERAL(54, 614, 4),
+QT_MOC_LITERAL(55, 619, 17),
+QT_MOC_LITERAL(56, 637, 21),
+QT_MOC_LITERAL(57, 659, 5),
+QT_MOC_LITERAL(58, 665, 20),
+QT_MOC_LITERAL(59, 686, 22),
+QT_MOC_LITERAL(60, 709, 25),
+QT_MOC_LITERAL(61, 735, 20),
+QT_MOC_LITERAL(62, 756, 12),
+QT_MOC_LITERAL(63, 769, 10),
+QT_MOC_LITERAL(64, 780, 16),
+QT_MOC_LITERAL(65, 797, 15),
+QT_MOC_LITERAL(66, 813, 12),
+QT_MOC_LITERAL(67, 826, 23),
+QT_MOC_LITERAL(68, 850, 23),
+QT_MOC_LITERAL(69, 874, 27)
     },
     "MainWindow\0enOrLeaveClass\0\0entered\0"
     "msgReceived\0addScene\0uidh\0uidl\0"
@@ -102,23 +106,25 @@ QT_MOC_LITERAL(65, 812, 27)
     "result\0stopServerRespTimer\0wareItemRecv\0"
     "filename\0playerPreved\0isRemote\0"
     "playerNexted\0playerStoped\0playerStarted\0"
-    "changeScene\0TS_UINT64\0uid\0"
-    "buildSceneConnection\0isCreate\0enterClass\0"
-    "username\0password\0enterClassResult\0"
-    "leaveClass\0leaveClassResult\0setRole\0"
-    "RoleOfClass\0role\0classIcon\0msgExcute\0"
-    "sendPrompt\0sendResultPrompt\0"
-    "changeBackground\0newPix\0changeMedia\0"
-    "QMediaPlayer*\0player\0setScenePenWidth\0"
-    "width\0setScenePenColor\0color\0"
-    "changeSceneShape\0shapeType\0cleanCentralArea\0"
-    "sceneID\0cleanOption\0setViewPaintMode\0"
-    "mode\0on_listWidget_clicked\0index\0"
-    "on_tbMyClass_clicked\0on_btClassInfo_clicked\0"
-    "on_tbTeacherBoard_clicked\0"
+    "racePromptSent\0changeScene\0TS_UINT64\0"
+    "uid\0buildSceneConnection\0isCreate\0"
+    "enterClass\0username\0password\0"
+    "enterClassResult\0leaveClass\0"
+    "leaveClassResult\0setRole\0RoleOfClass\0"
+    "role\0classIcon\0msgExcute\0sendPrompt\0"
+    "sendResultPrompt\0changeBackground\0"
+    "newPix\0changeMedia\0QMediaPlayer*\0"
+    "player\0setScenePenWidth\0width\0"
+    "setScenePenColor\0color\0changeSceneShape\0"
+    "shapeType\0cleanCentralArea\0sceneID\0"
+    "cleanOption\0setViewPaintMode\0mode\0"
+    "raceSuccessPrompt\0on_listWidget_clicked\0"
+    "index\0on_tbMyClass_clicked\0"
+    "on_btClassInfo_clicked\0on_tbTeacherBoard_clicked\0"
     "on_tbMyBoard_clicked\0addSceneSlot\0"
-    "showPrompt\0showResultPrompt\0"
-    "on_tbCourseWare_clicked\0on_tbBackground_clicked\0"
+    "showPrompt\0showResultPrompt\0buildRaceDialog\0"
+    "studentRaced\0on_tbCourseWare_clicked\0"
+    "on_tbBackground_clicked\0"
     "on_listWidget_doubleClicked"
 };
 #undef QT_MOC_LITERAL
@@ -129,56 +135,60 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      40,   14, // methods
+      44,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      11,       // signalCount
+      12,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  214,    2, 0x06 /* Public */,
-       4,    0,  217,    2, 0x06 /* Public */,
-       5,    2,  218,    2, 0x06 /* Public */,
-       8,    1,  223,    2, 0x06 /* Public */,
-      10,    1,  226,    2, 0x06 /* Public */,
-      12,    0,  229,    2, 0x06 /* Public */,
-      13,    1,  230,    2, 0x06 /* Public */,
-      15,    1,  233,    2, 0x06 /* Public */,
-      17,    1,  236,    2, 0x06 /* Public */,
-      18,    1,  239,    2, 0x06 /* Public */,
-      19,    2,  242,    2, 0x06 /* Public */,
+       1,    1,  234,    2, 0x06 /* Public */,
+       4,    0,  237,    2, 0x06 /* Public */,
+       5,    2,  238,    2, 0x06 /* Public */,
+       8,    1,  243,    2, 0x06 /* Public */,
+      10,    1,  246,    2, 0x06 /* Public */,
+      12,    0,  249,    2, 0x06 /* Public */,
+      13,    1,  250,    2, 0x06 /* Public */,
+      15,    1,  253,    2, 0x06 /* Public */,
+      17,    1,  256,    2, 0x06 /* Public */,
+      18,    1,  259,    2, 0x06 /* Public */,
+      19,    2,  262,    2, 0x06 /* Public */,
+      20,    0,  267,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      20,    1,  247,    2, 0x0a /* Public */,
-      23,    1,  250,    2, 0x0a /* Public */,
-      25,    2,  253,    2, 0x0a /* Public */,
-      28,    1,  258,    2, 0x0a /* Public */,
-      29,    0,  261,    2, 0x0a /* Public */,
-      30,    1,  262,    2, 0x0a /* Public */,
-      31,    1,  265,    2, 0x0a /* Public */,
-      34,    1,  268,    2, 0x0a /* Public */,
-      35,    0,  271,    2, 0x0a /* Public */,
-      36,    1,  272,    2, 0x0a /* Public */,
-      37,    1,  275,    2, 0x0a /* Public */,
-      38,    1,  278,    2, 0x0a /* Public */,
-      40,    1,  281,    2, 0x0a /* Public */,
-      43,    1,  284,    2, 0x0a /* Public */,
-      45,    1,  287,    2, 0x0a /* Public */,
-      47,    1,  290,    2, 0x0a /* Public */,
-      49,    2,  293,    2, 0x0a /* Public */,
-      52,    1,  298,    2, 0x0a /* Public */,
-      54,    1,  301,    2, 0x08 /* Private */,
-      56,    0,  304,    2, 0x08 /* Private */,
-      57,    0,  305,    2, 0x08 /* Private */,
-      58,    0,  306,    2, 0x08 /* Private */,
-      59,    0,  307,    2, 0x08 /* Private */,
-      60,    2,  308,    2, 0x08 /* Private */,
-      61,    1,  313,    2, 0x08 /* Private */,
-      62,    1,  316,    2, 0x08 /* Private */,
-      63,    0,  319,    2, 0x08 /* Private */,
-      64,    0,  320,    2, 0x08 /* Private */,
-      65,    1,  321,    2, 0x08 /* Private */,
+      21,    1,  268,    2, 0x0a /* Public */,
+      24,    1,  271,    2, 0x0a /* Public */,
+      26,    2,  274,    2, 0x0a /* Public */,
+      29,    1,  279,    2, 0x0a /* Public */,
+      30,    0,  282,    2, 0x0a /* Public */,
+      31,    1,  283,    2, 0x0a /* Public */,
+      32,    1,  286,    2, 0x0a /* Public */,
+      35,    1,  289,    2, 0x0a /* Public */,
+      36,    0,  292,    2, 0x0a /* Public */,
+      37,    1,  293,    2, 0x0a /* Public */,
+      38,    1,  296,    2, 0x0a /* Public */,
+      39,    1,  299,    2, 0x0a /* Public */,
+      41,    1,  302,    2, 0x0a /* Public */,
+      44,    1,  305,    2, 0x0a /* Public */,
+      46,    1,  308,    2, 0x0a /* Public */,
+      48,    1,  311,    2, 0x0a /* Public */,
+      50,    2,  314,    2, 0x0a /* Public */,
+      53,    1,  319,    2, 0x0a /* Public */,
+      55,    1,  322,    2, 0x0a /* Public */,
+      56,    1,  325,    2, 0x08 /* Private */,
+      58,    0,  328,    2, 0x08 /* Private */,
+      59,    0,  329,    2, 0x08 /* Private */,
+      60,    0,  330,    2, 0x08 /* Private */,
+      61,    0,  331,    2, 0x08 /* Private */,
+      62,    2,  332,    2, 0x08 /* Private */,
+      63,    1,  337,    2, 0x08 /* Private */,
+      64,    1,  340,    2, 0x08 /* Private */,
+      65,    0,  343,    2, 0x08 /* Private */,
+      66,    0,  344,    2, 0x08 /* Private */,
+      67,    0,  345,    2, 0x08 /* Private */,
+      68,    0,  346,    2, 0x08 /* Private */,
+      69,    1,  347,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Bool,    3,
@@ -192,27 +202,29 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Bool,   16,
     QMetaType::Void, QMetaType::Bool,   16,
     QMetaType::Void, QMetaType::QString, QMetaType::Bool,   14,   16,
+    QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 21,   22,
-    QMetaType::Void, QMetaType::Bool,   24,
-    QMetaType::Void, QMetaType::QString, QMetaType::QString,   26,   27,
+    QMetaType::Void, 0x80000000 | 22,   23,
+    QMetaType::Void, QMetaType::Bool,   25,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString,   27,   28,
     QMetaType::Void, QMetaType::Bool,   11,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,   11,
-    QMetaType::Void, 0x80000000 | 32,   33,
+    QMetaType::Void, 0x80000000 | 33,   34,
     QMetaType::Void, QMetaType::Bool,    3,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,    9,
     QMetaType::Void, QMetaType::Int,   11,
-    QMetaType::Void, QMetaType::QPixmap,   39,
-    QMetaType::Void, 0x80000000 | 41,   42,
-    QMetaType::Void, QMetaType::Int,   44,
-    QMetaType::Void, QMetaType::QColor,   46,
-    QMetaType::Void, QMetaType::Int,   48,
-    QMetaType::Void, 0x80000000 | 21, QMetaType::Int,   50,   51,
-    QMetaType::Void, QMetaType::Int,   53,
-    QMetaType::Void, QMetaType::QModelIndex,   55,
+    QMetaType::Void, QMetaType::QPixmap,   40,
+    QMetaType::Void, 0x80000000 | 42,   43,
+    QMetaType::Void, QMetaType::Int,   45,
+    QMetaType::Void, QMetaType::QColor,   47,
+    QMetaType::Void, QMetaType::Int,   49,
+    QMetaType::Void, 0x80000000 | 22, QMetaType::Int,   51,   52,
+    QMetaType::Void, QMetaType::Int,   54,
+    QMetaType::Void, 0x80000000 | 22,   23,
+    QMetaType::Void, QMetaType::QModelIndex,   57,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -222,7 +234,9 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Int,   11,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QModelIndex,   55,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QModelIndex,   57,
 
        0        // eod
 };
@@ -243,41 +257,45 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 8: _t->playerNexted((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 9: _t->playerStoped((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 10: _t->playerStarted((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
-        case 11: _t->changeScene((*reinterpret_cast< TS_UINT64(*)>(_a[1]))); break;
-        case 12: _t->buildSceneConnection((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 13: _t->enterClass((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        case 14: _t->enterClassResult((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 15: _t->leaveClass(); break;
-        case 16: _t->leaveClassResult((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 17: _t->setRole((*reinterpret_cast< RoleOfClass(*)>(_a[1]))); break;
-        case 18: _t->classIcon((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 19: _t->msgExcute(); break;
-        case 20: _t->sendPrompt((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 21: _t->sendResultPrompt((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 22: _t->changeBackground((*reinterpret_cast< QPixmap(*)>(_a[1]))); break;
-        case 23: _t->changeMedia((*reinterpret_cast< QMediaPlayer*(*)>(_a[1]))); break;
-        case 24: _t->setScenePenWidth((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 25: _t->setScenePenColor((*reinterpret_cast< QColor(*)>(_a[1]))); break;
-        case 26: _t->changeSceneShape((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 27: _t->cleanCentralArea((*reinterpret_cast< TS_UINT64(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 28: _t->setViewPaintMode((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 29: _t->on_listWidget_clicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
-        case 30: _t->on_tbMyClass_clicked(); break;
-        case 31: _t->on_btClassInfo_clicked(); break;
-        case 32: _t->on_tbTeacherBoard_clicked(); break;
-        case 33: _t->on_tbMyBoard_clicked(); break;
-        case 34: _t->addSceneSlot((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 35: _t->showPrompt((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 36: _t->showResultPrompt((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 37: _t->on_tbCourseWare_clicked(); break;
-        case 38: _t->on_tbBackground_clicked(); break;
-        case 39: _t->on_listWidget_doubleClicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
+        case 11: _t->racePromptSent(); break;
+        case 12: _t->changeScene((*reinterpret_cast< TS_UINT64(*)>(_a[1]))); break;
+        case 13: _t->buildSceneConnection((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 14: _t->enterClass((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 15: _t->enterClassResult((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 16: _t->leaveClass(); break;
+        case 17: _t->leaveClassResult((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 18: _t->setRole((*reinterpret_cast< RoleOfClass(*)>(_a[1]))); break;
+        case 19: _t->classIcon((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 20: _t->msgExcute(); break;
+        case 21: _t->sendPrompt((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 22: _t->sendResultPrompt((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 23: _t->changeBackground((*reinterpret_cast< QPixmap(*)>(_a[1]))); break;
+        case 24: _t->changeMedia((*reinterpret_cast< QMediaPlayer*(*)>(_a[1]))); break;
+        case 25: _t->setScenePenWidth((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 26: _t->setScenePenColor((*reinterpret_cast< QColor(*)>(_a[1]))); break;
+        case 27: _t->changeSceneShape((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 28: _t->cleanCentralArea((*reinterpret_cast< TS_UINT64(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 29: _t->setViewPaintMode((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 30: _t->raceSuccessPrompt((*reinterpret_cast< TS_UINT64(*)>(_a[1]))); break;
+        case 31: _t->on_listWidget_clicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
+        case 32: _t->on_tbMyClass_clicked(); break;
+        case 33: _t->on_btClassInfo_clicked(); break;
+        case 34: _t->on_tbTeacherBoard_clicked(); break;
+        case 35: _t->on_tbMyBoard_clicked(); break;
+        case 36: _t->addSceneSlot((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 37: _t->showPrompt((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 38: _t->showResultPrompt((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 39: _t->buildRaceDialog(); break;
+        case 40: _t->studentRaced(); break;
+        case 41: _t->on_tbCourseWare_clicked(); break;
+        case 42: _t->on_tbBackground_clicked(); break;
+        case 43: _t->on_listWidget_doubleClicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 23:
+        case 24:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
@@ -354,6 +372,12 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
                 *result = 10;
             }
         }
+        {
+            typedef void (MainWindow::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MainWindow::racePromptSent)) {
+                *result = 11;
+            }
+        }
     }
 }
 
@@ -384,13 +408,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 40)
+        if (_id < 44)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 40;
+        _id -= 44;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 40)
+        if (_id < 44)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 40;
+        _id -= 44;
     }
     return _id;
 }
@@ -468,5 +492,11 @@ void MainWindow::playerStarted(QString _t1, bool _t2)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
     QMetaObject::activate(this, &staticMetaObject, 10, _a);
+}
+
+// SIGNAL 11
+void MainWindow::racePromptSent()
+{
+    QMetaObject::activate(this, &staticMetaObject, 11, 0);
 }
 QT_END_MOC_NAMESPACE

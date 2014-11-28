@@ -90,6 +90,7 @@ void CLoginButton::login()
 }
 
 void CLoginButton::sendNoResponse() {
+    qDebug() << "send no response from server";
     emit sendResultPrompt(ErrorNoResponseFromServer);
     menu()->setHidden(true);
 }

@@ -2,34 +2,20 @@
 #include <QDir>
 #include "pptplayer.h"
 
-PPTPlayer::PPTPlayer(QString filepath, CMsgObject* parent):
-    AbsPlayer(filepath, parent) {
+PPTPlayer::PPTPlayer(QString filepath, CMsgObject* parent)
+    : AbsPlayer(filepath, parent)
+    , opened(NULL) {
     if (!m_controller->setControl("Powerpoint.Application"))
         return;
     m_controller->setProperty("Visible", false);
-
-    presentation = m_controller->querySubObject("Presentations");
-    opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", filepath, false, false, false);
-    if (!opened) {
-        qDebug() << "open error";
-        return;
-    }
-    opened->setProperty("IsFullScreen", false);
-    opened->setProperty("ShowType", "ppShowTypeWindow");
-
-    sss = opened->querySubObject("SlideShowSettings");
-    if (!sss) {
-        qDebug() << "SlideShowSettings error";
-        return;
-    }
-
     m_transBackground = true;
     m_isLoadSuccess = true;
 }
 	
 
 PPTPlayer::~PPTPlayer() {
-    opened->querySubObject("Close()");
+    if (opened)
+        opened->querySubObject("Close()");
 }
 
 
@@ -41,10 +27,25 @@ bool PPTPlayer::isPostfixRight(QString filename) {
 }
 
 bool PPTPlayer::procRun() {
+    presentation = m_controller->querySubObject("Presentations");
+    opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", m_filepath, 1, 1, 0);
+    if (!opened) {
+        emit promptSent(m_filepath + QString::fromLocal8Bit("PPT ´ò¿ªÊ§°Ü"));
+        return false;
+    }
+    opened->setProperty("IsFullScreen", false);
+
+    sss = opened->querySubObject("SlideShowSettings");
+    if (!sss) {
+        emit promptSent(QString::fromLocal8Bit("PPT ÉèÖÃÊ§°Ü"));
+        return false;
+    }
+    sss->setProperty("ShowWithAnimation", true);
+
     sss->querySubObject("Run()");
     window = opened->querySubObject("SlideShowWindow");
     if (!window) {
-        qDebug() << "ddfsas";
+        emit promptSent(QString::fromLocal8Bit("PPT ²¥·ÅÊ§°Ü"));
         return false;
     }
 
@@ -53,11 +54,11 @@ bool PPTPlayer::procRun() {
     window->setProperty("Width", window->property("Width").toInt() - 180);
     window->setProperty("Height", window->property("Height").toInt() - 40);
 
-    auto slides = window->querySubObject("Presentation");
-    slides = slides->querySubObject("Slides(int)", 1);
-    if (!slides) {
-        return false;
-    }
+//    auto slides = window->querySubObject("Presentation");
+//    slides = slides->querySubObject("Slides(int)", 1);
+//    if (!slides) {
+//        return false;
+//    }
 
 //    QString fp = m_filepath + ".jpg";
 //    qDebug() << fp;
@@ -75,12 +76,13 @@ bool PPTPlayer::procRun() {
 
 bool PPTPlayer::procNext() {
     auto view = window->querySubObject("View");
+	qDebug() << view;
     if (!view) {
         m_filepath = QString::Null();
         emit playerEnd();
         return true;		// TODO return close() for emit
     }
-
+	
     view->querySubObject("Next()");
     view = window->querySubObject("View");
     if (!view) {

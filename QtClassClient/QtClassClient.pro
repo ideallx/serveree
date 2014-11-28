@@ -81,7 +81,9 @@ SOURCES  += main.cpp\
     Reliable/Strategy/CSettings.cpp \
     BeforeClass/logindialog.cpp \
     BeforeClass/totalprocess.cpp \
-    BizLogic/cloadlogic.cpp
+    BizLogic/cloadlogic.cpp \
+    LayerUI/MsgGenerator/cracegenerator.cpp \
+    LayerUI/UserInterface/dialogpixmap.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBaseLogic.h \
@@ -156,7 +158,9 @@ HEADERS  += LayerUI\mainwindow.h \
     Reliable/Strategy/CSettings.h \
     BeforeClass/logindialog.h \
     BeforeClass/totalprocess.h \
-    BizLogic/cloadlogic.h
+    BizLogic/cloadlogic.h \
+    LayerUI/MsgGenerator/cracegenerator.h \
+    LayerUI/UserInterface/dialogpixmap.h
 
 FORMS    += \
     loginwidget.ui \
@@ -165,7 +169,8 @@ FORMS    += \
     widgetwarelistitem.ui \
     coursewarewidget.ui \
     mainwindow.ui \
-    BeforeClass/logindialog.ui
+    BeforeClass/logindialog.ui \
+    LayerUI/UserInterface/dialogpixmap.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += include
@@ -177,6 +182,7 @@ OTHER_FILES += \
     Reliable/Zip/zdll.lib \
     Reliable/Zip/zlib.lib \
     Reliable/Zip/zlib1.dll \
+    ui/back/backRace.png
 
 RESOURCES += \
     ui.qrc

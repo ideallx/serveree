@@ -2,15 +2,18 @@
 #define COURSEWAREWIDGET_H
 
 #include <QWidget>
+#include <QTimer>
 #include <QListWidgetItem>
 #include "../../Message/CMsgObject.h"
 #include "../../player/absplayer.h"
 #include "../MsgGenerator/cfilemsggenerator.h"
 #include "../MsgGenerator/cplayergenerator.h"
+#include "../MsgGenerator/cracegenerator.h"
 
 namespace Ui {
 class CourseWareWidget;
 }
+
 
 QString getFileName(QString filepath);
 
@@ -48,7 +51,14 @@ public:
     void addWareItem(QString filename);
     void deleteFile(QString filename);
 
-    inline void setRole(enum RoleOfClass role) { m_userRole = role; }
+    void raceBegin(TS_UINT64 teacherUID);
+    void raceRun(TS_UINT64 studentUID);
+    void raceResult(TS_UINT64 teacherUID, TS_UINT64 studentUID, WORD writingTime);
+
+    inline void setRole(enum RoleOfClass role) { m_userRole = role; scanLocalCourseware();}
+    void sendRace();
+    void recvRace(TS_UINT64 studentUID, TS_UINT64 time);
+
 
 signals:
     void clearScreen(TS_UINT64 sceneID, int cleanOption);
@@ -57,9 +67,12 @@ signals:
     void promptMsgSent(QString prompt);
     void changeBackground(QPixmap pic);
     void changeMedia(QMediaPlayer* player);
+    void racePromptSent();
+    void changeUserAuth(TS_UINT64 uid, bool set);
+    void someBodyRaceSuccess(TS_UINT64 uid);
 
 private:
-
+    void scanLocalCourseware();
     void syncFile(QString filename);
     void playFileByUser(QString filename);
 
@@ -73,15 +86,23 @@ private slots:
     void on_tbExitWare_clicked();
     void on_lsWare_itemDoubleClicked(QListWidgetItem *item);
 
+    void on_tbRace_clicked();
+
+    void raceTimeOut();
+
 private:
     CMsgObject*             m_parent;
     bool                    m_isPlayerPlaying;
     AbsPlayer*              m_player;
     CPlayerGenerator        m_pg;
     CFileMsgGenerator       m_fmg;
+    CRaceGenerator          m_rg;
     QList<QString>          m_syncedWares;
     enum RoleOfClass        m_userRole;
-    Ui::CourseWareWidget *ui;
+    Ui::CourseWareWidget    *ui;
+    QTimer                  m_raceTimer;
+    TS_UINT64               m_raceTime;
+    TS_UINT64               m_raceOne;
 };
 
 #endif // COURSEWAREWIDGET_H

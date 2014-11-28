@@ -45,8 +45,8 @@ TS_UINT64 getServerTime() {
     return GetTickCount();
 }
 
-TS_UINT64 getClientTime(DWORD bouns) {
-    return GetTickCount() + bouns;
+TS_UINT64 getClientTime() {
+    return GetTickCount() + globalTimeDiff;
 }
 
 string int2string(TS_UINT64 number) {

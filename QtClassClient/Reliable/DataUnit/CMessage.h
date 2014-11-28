@@ -17,6 +17,7 @@ const int MaxUserInfoOneMessage = 10;
 const int VersionNumber = 1;
 
 extern TS_UINT64 globalUID;
+extern TS_UINT64 globalTimeDiff;
 
 enum CleanType {
     CleanSceneOnly      = 0,
@@ -186,6 +187,14 @@ typedef struct {
     unsigned char content[MaxTrans];
 } TS_FILE_PACKET, *LPTS_FILE_PACKET;
 
+typedef struct {
+    TS_MESSAGE_HEAD head;
+    WORD raceType;          // 答题类型，发起抢答/学生抢答/抢答结果
+    WORD writingTime;       // 抢到后的答题时间
+    TS_UINT64 teacherUID;   // 发起抢答的教师UID
+    TS_UINT64 studentUID;   // 抢答的学生UID/抢答到的学生
+} TS_RACE_PACKET, *LPTS_RACE_PACKET;
+
 // 运行结果
 enum MsgResult {
     Success,
@@ -214,6 +223,12 @@ enum RoleOfClass {
     RoleStudent
 };
 
+enum RaceType {
+    RaceInit,
+    RaceRace,
+    RaceResult,
+};
+
 
 // 报文整体 包括TS_MESSAGE_HEAD 和 TS_MESSAGE_BODY
 typedef struct {
@@ -239,6 +254,7 @@ enum PacketType {
     COMMAND,				// 画笔，画刷变更之类
     SETWRITEAUTH,           // 设置学生是否可写
     PLAYERCONTROL,          // 播放器控制
+    RACE,                   // 抢答
 
     PACKETFIX = 40,			// 修正包
     RESEND,					// 重发单个包
@@ -270,6 +286,7 @@ enum ReservedUID_t {
     AgentUID,
     SelfUID,			// 自身
     TeacherUID,
+    NobodyUID,          // 没有人
 
     ReservedUID = 50	// 50之前的UID全部保留
 };

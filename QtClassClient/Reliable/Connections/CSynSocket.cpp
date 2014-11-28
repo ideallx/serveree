@@ -8,12 +8,15 @@ CSynSocket::CSynSocket()
 }
 
 bool CSynSocket::bindPort(unsigned short iPort) {
-	string ipPrefix;
-	FILE* fp = freopen("config.txt", "r", stdin);
+	FILE* fp = fopen("config.txt", "r");
+	char ipPrefix[20];
+	int nLen;
     if (fp != NULL) {
-        cin >> ipPrefix;
+		nLen = fread(ipPrefix, sizeof(char), 20, fp);
+        fclose(fp);
     }
 
+    // TODO client
 #ifdef WIN32
 	struct hostent *localhost;
     char *ip;
@@ -23,10 +26,10 @@ bool CSynSocket::bindPort(unsigned short iPort) {
 	} else {
 		int i = 0;
 		bool find = false;
-		if (ipPrefix.length() < 16 && ipPrefix.length() > 1) {
+		if (nLen < 16 && nLen > 1) {
 			while (localhost->h_addr_list[i] != 0) {	// Ñ°ÕÒ±¾»ú¾ÖÓòÍøIP
 				ip = inet_ntoa(*(struct in_addr *) localhost->h_addr_list[i++]);
-				if (memcmp(ip, ipPrefix.data(), ipPrefix.length()) == 0) {
+				if (memcmp(ip, ipPrefix, nLen) == 0) {
 					find = true;
 					break;
 				}
@@ -88,8 +91,11 @@ bool CSynSocket::createSocket(unsigned short iPort) {
 	}
 }
 
-
+// TODO socket destructed
 int CSynSocket::sendData(const char* buf, ULONG len, const struct sockaddr_in* ToAddr) {
+	if (ToAddr == NULL)
+		return -1;
+
 	int nSend = sendto(m_Socket, buf, len, 0, (sockaddr*) ToAddr, m_LocalAddrSize);
 	if (nSend <= 0)	{
 		cout << "send failed, error no: " << GetLastError() << endl;
