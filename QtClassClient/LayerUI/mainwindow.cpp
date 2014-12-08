@@ -228,7 +228,6 @@ void MainWindow::leaveClassResult(bool result) {
     if (result) {
         emit enOrLeaveClass(false);
         ui->listWidget->init();
-        qDeleteAll(sceneMap);
         qDebug() << "leave class successfully";
     }
 }
@@ -352,6 +351,7 @@ void MainWindow::msgExcute() {
     }
 
     TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg;
+    // qDebug() << head->time << head->sequence;
     switch (head->type) {
     case GRAPHICS:
         {
@@ -662,9 +662,8 @@ void MainWindow::raceRun(TS_UINT64 studentUID, TS_UINT64 time) {
 
 void MainWindow::raceResult(TS_UINT64 teacherUID, TS_UINT64 studentUID, WORD writingTime) {
     qDebug() << "race result";
-    if (m_userRole != RoleStudent || teacherUID == globalUID) {
-        ui->listWidget->changeAuth(studentUID, true);
-        return;
+    if (studentUID == globalUID) {
+        sceneMap[TeacherUID]->setWriteable(true);
     }
 
     ui->listWidget->changeAuth(studentUID, true);

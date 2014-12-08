@@ -7,8 +7,7 @@ CBusinessLogic::CBusinessLogic(CMsgObject* parent)
     , m_FileLogic(new CFileLogic(this))
     , m_AuthLogic(new CAuthLogic(this))
     , m_PlayerLogic(new CPlayerLogic(this))
-	, m_RaceLogic(new CBaseLogic(this))
-    , isUIBuilt(false) {
+    , m_RaceLogic(new CBaseLogic(this)) {
 }
 
 CBusinessLogic::~CBusinessLogic() {

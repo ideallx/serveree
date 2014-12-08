@@ -1,6 +1,5 @@
 #include "prompt.h"
 #include "ui_prompt.h"
-#include <QTextCodec>
 #include <QDebug>
 
 Prompt::Prompt(WORD index, QWidget *parent) :

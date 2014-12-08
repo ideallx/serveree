@@ -67,7 +67,7 @@ public:
 	static bool isZipFileExist(string fileName, int packageNum);
 
 	bool isExist(int pos);
-	inline bool isAvailable(int pos) { return (pos < MaxPackets) && (pos >= 0); }
+	inline bool isAvailable(int pos) { return ((pos < MaxPackets) && (pos >= 0)); }
 	inline bool isFull() { 
 		if (scanHead == MaxPackets) 
 			return missing.size() == 0;

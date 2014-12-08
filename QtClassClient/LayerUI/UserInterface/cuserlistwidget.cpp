@@ -1,5 +1,4 @@
 #include <QDebug>
-#include <QTextCodec>
 #include <QListWidgetItem>
 #include "cuserlistwidget.h"
 

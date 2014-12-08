@@ -117,6 +117,7 @@ bool CPackage::save(string fileName, bool isCreate) {
 			return false;
 	}
 	// cout << isCreate?"1":"0";
+	cout << "save " << packageID << endl;
 	free(content);
 	_isSaved = true;
 	return true;

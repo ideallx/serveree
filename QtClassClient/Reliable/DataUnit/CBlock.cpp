@@ -96,7 +96,6 @@ set<TS_UINT64> CBlock::scanMissingPackets() {
 			iter++;
 		}
 	}
-
 	iop_unlock(&mapLock);
 	return answers;
 }

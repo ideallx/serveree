@@ -36,7 +36,6 @@ public:
 
 protected:
     DWORD subseq;
-    bool isUIBuilt;
     map<TS_UINT64, CSubSeqUnit> userInfo;       // uid -> userInfo
     map<TS_UINT64, ts_msg> cache;               // time -> msg
 
@@ -52,7 +51,4 @@ public:
 
     virtual void procNotRemote(const ts_msg& msg) { Q_UNUSED(msg); }
     virtual void procRecvNotRemote(const ts_msg& msg) { Q_UNUSED(msg); }
-
-    void UIBuilt();
-    virtual void procBuildUI(map<TS_UINT64, ts_msg> *sendMap) { Q_UNUSED(sendMap); }
 };

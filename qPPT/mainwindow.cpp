@@ -59,7 +59,7 @@ void MainWindow::on_pushButton_3_clicked()
 #include <QFileDialog>
 void MainWindow::on_pushButton_4_clicked()
 {
-    QString filename = "E:/xxxx.ppt"; //= QFileDialog::getOpenFileName();
+    QString filename = "E:\\ff ff\\xxxx.ppt"; //= QFileDialog::getOpenFileName();
     if (filename.isNull())
         return;
     if (!ppt->setControl("Powerpoint.Application")) {

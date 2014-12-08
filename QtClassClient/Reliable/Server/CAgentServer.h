@@ -49,7 +49,6 @@ private:
 	iop_lock_t lockWorkServer;
 	iop_lock_t lockPortqueue;
 	iop_lock_t lockOfflineMaps;
-	iop_lock_t lockPeerMap;
 
 	map<TS_UINT64, CWSServer*> map_workserver;	// classid -> CWSServer
 	map<TS_UINT64, UserBase> map_userinfo;		// UID  -> UserBase

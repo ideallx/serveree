@@ -6,17 +6,18 @@ using namespace std;
 TotalProcess::TotalProcess(int argc, char* argv[]) {
     parseParam(argc, argv);
 
-    buildOldStyle();
-//    buildNetwork();
+    // buildOldStyle();
+    buildNetwork();
 
-//    if (ld->exec() != 0) {
-//        exit(0);        // TODO how to do it better?
-//        return;
-//    }
+    if (ld->exec() != 0) {
+        exit(0);        // TODO how to do it better?
+        return;
+    }
 }
 
 TotalProcess::~TotalProcess() {
     delete ui;
+    // delete ld;
     delete bl;
     delete cn;
 }
@@ -111,7 +112,7 @@ void TotalProcess::buildNetwork() {
 
     cn->SetServerAddr(0, serverIp.toLatin1().data(), 2222);
 
-    struct sockaddr_in result;
+    // struct sockaddr_in result;
     // cn->scanServer(result);
 
     connect(ld, &LoginDialog::loginClass,
@@ -123,19 +124,26 @@ void TotalProcess::buildNetwork() {
 
 void TotalProcess::buildBoard(int role) {
     qDebug() << "build board";
-    ld->setPrompt(NormalCourseLoading);
+    ld->showPrompt(NormalCourseLoading);
     bl->removeUpReceiver(ld);
-    Sleep(6000);
-/*
+    iop_usleep(200);
+    int process = 0;
+    while (process < 980) {
+        ld->setLoadProgress(process);
+        process = cn->loadProgress();
+        qDebug() << process;
+        iop_usleep(100);
+    }
     delete ld;
+
 
     CModuleAgent *ma = CModuleAgent::getUniqueAgent();
     ui = new MainWindow;
     ui->setRole(static_cast<RoleOfClass> (role));
-    // bl->buildUI();
     ma->registerModule("UI", ui);
     ui->addDownReceiver(bl);
     bl->addUpReceiver(ui);
+
     // ui->enterClass(username, password);
-    ui->show()*/;
+    ui->show();
 }

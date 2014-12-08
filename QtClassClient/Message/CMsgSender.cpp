@@ -16,6 +16,11 @@ bool CMsgSender::addUpReceiver(CMsgReceiver* recv) {
 		return false;
 
     upReceivers.insert(recv);
+
+    for (auto iter = upCache.begin(); iter != upCache.end(); iter++) {
+        sendToUp(iter->second, 0, 0, true);
+	}
+    upCache.clear();
 	return true;
 }
 
@@ -24,6 +29,11 @@ bool CMsgSender::addDownReceiver(CMsgReceiver* recv) {
         return false;
 
     downReceivers.insert(recv);
+
+    for (auto iter = downCache.begin(); iter != downCache.end(); iter++) {
+        sendToUp(iter->second, 0, 0, true);
+    }
+    downCache.clear();
     return true;
 }
 
@@ -43,13 +53,13 @@ bool CMsgSender::removeDownReceiver(CMsgReceiver* recv) {
     return true;
 }
 
-void CMsgSender::sendToUp(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote) {
+void CMsgSender::sendToUp(const ts_msg& msg, WPARAM wParam, LPARAM lParam, bool isRemote) {
     for (auto iter = upReceivers.begin(); iter != upReceivers.end(); iter++) {
 		(*iter)->ProcessMessage(const_cast<ts_msg&>(msg), wParam, lParam, isRemote);
 	}
 }
 
-void CMsgSender::sendToDown(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote) {
+void CMsgSender::sendToDown(const ts_msg& msg, WPARAM wParam, LPARAM lParam, bool isRemote) {
     for (auto iter = downReceivers.begin(); iter != downReceivers.end(); iter++) {
         (*iter)->ProcessMessage(const_cast<ts_msg&>(msg), wParam, lParam, isRemote);
     }

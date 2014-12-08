@@ -6,7 +6,6 @@
 AbsPlayer::AbsPlayer(QString filepath, CMsgObject *parent) :
     m_controller(NULL),
     m_parent(parent),
-    m_filepath(filepath),
 
     m_isLoadSuccess(false),
     m_transBackground(false),
@@ -16,6 +15,9 @@ AbsPlayer::AbsPlayer(QString filepath, CMsgObject *parent) :
     m_isMediaEnd(false) {
     m_controller = new QAxObject;
     m_fileList.append(filepath);
+
+    filepath.replace(QString("/"), QString("\\"));
+    m_filepath = filepath;
 
     QDesktopWidget *dwsktopwidget = QApplication::desktop();
     m_screenRect = dwsktopwidget->screenGeometry();

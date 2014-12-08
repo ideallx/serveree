@@ -9,6 +9,11 @@
 #include "cplayerlogic.h"
 #include "../BeforeClass/loading.h"
 
+enum LogicStates_t {
+    LogicLoading,
+    LogicNormal,
+};
+
 class CBusinessLogic : public CMsgObject {
 private:
     CUserLogic*			m_UserLogic;
@@ -26,5 +31,6 @@ public:
 	void ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isremote);
 
 private:
-    bool isUIBuilt;
+    LogicStates_t       m_states;
+    map<TS_UINT64, ts_msg>     m_loadingCache;  // time -> msg
 };

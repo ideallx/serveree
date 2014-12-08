@@ -39,7 +39,7 @@ private:
 	int curSize;
 	ElemType *elemArray;
 
-	void doubleSize();
+	bool doubleSize();
 	void increment(int &x);
 	
 public:
@@ -93,7 +93,8 @@ bool Queue<ElemType>::head(ElemType& x) const{
 template <class ElemType>
 bool Queue<ElemType>::enQueue ( const ElemType &x ){
 	if (isFull()) {
-		doubleSize();
+		if (!doubleSize())		// if out of mem, return
+			return false;
 	}
 
 	memcpy(&elemArray[rear], &x, sizeof(ElemType));		//elemArray[rear] = x;
@@ -119,7 +120,7 @@ bool Queue<ElemType>::deQueue(ElemType& x) {
 }
 
 template <class ElemType>
-void Queue <ElemType>::doubleSize() {
+bool Queue <ElemType>::doubleSize() {
 	//int newSize = 2 * curSize;
 	//ElemType *newArray = new ElemType[newSize];
 
@@ -138,12 +139,16 @@ void Queue <ElemType>::doubleSize() {
 	int NewSize = 2 * curSize;
 	ElemType * old = elemArray;
 	elemArray = new ElemType[NewSize];
+	if (elemArray == NULL)
+		return false;
+
 	int j, k;
 	for ( j = 0, k = front; k!= rear; j++, increment(k)) elemArray[j] = old[k];
 	front = 0;
 	rear = j;
 	curSize = NewSize;
 	delete [] old;
+	return true;
 }
 
 template< class ElemType>

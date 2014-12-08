@@ -7,6 +7,7 @@
 
 #include <set>
 
+
 using namespace std;
 
 class CMsgSender {
@@ -16,8 +17,8 @@ protected:
     set<CMsgReceiver*> upReceivers;
     set<CMsgReceiver*> downReceivers;
 
-    TSQueue<ts_msg> upCache;
-    TSQueue<ts_msg> downCache;
+    multimap<TS_UINT64, ts_msg> upCache;
+    multimap<TS_UINT64, ts_msg> downCache;
 
 public:
 	CMsgSender(void);
@@ -39,7 +40,7 @@ public:
 		WPARAM wParam, LPARAM lParam, BOOL isremote = FALSE);
 	
 	// 发送给所有接收者
-    virtual void sendToUp(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote = FALSE);
+    virtual void sendToUp(const ts_msg& msg, WPARAM wParam, LPARAM lParam, bool isRemote);
 
-    virtual void sendToDown(const ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote = FALSE);
+    virtual void sendToDown(const ts_msg& msg, WPARAM wParam, LPARAM lParam, bool isRemote);
 };

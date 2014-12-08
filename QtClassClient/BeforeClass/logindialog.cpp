@@ -102,6 +102,11 @@ void LoginDialog::showPrompt(int result) {
     qDebug() << "show prompt";
 }
 
+void LoginDialog::setLoadProgress(int permillage) {
+    ui->pbDownload->setHidden(false);
+    ui->pbDownload->setValue(permillage / 10);
+}
+
 void LoginDialog::on_leUsername_textChanged(const QString &arg1)
 {
     if (ui->leUsername->text().size() > 1 &&

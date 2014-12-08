@@ -55,7 +55,7 @@ public:
     void raceRun(TS_UINT64 studentUID);
     void raceResult(TS_UINT64 teacherUID, TS_UINT64 studentUID, WORD writingTime);
 
-    inline void setRole(enum RoleOfClass role) { m_userRole = role; scanLocalCourseware();}
+    void setRole(enum RoleOfClass role);
     void sendRace();
     void recvRace(TS_UINT64 studentUID, TS_UINT64 time);
 

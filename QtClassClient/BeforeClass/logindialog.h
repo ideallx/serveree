@@ -22,6 +22,10 @@ public:
     void ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL isRemote);
 
     void setPrompt(int result);
+    void showPrompt(int result);
+
+    void setLoadProgress(int permillage);
+
 
 private slots:
     void on_tbEnterClass_clicked();
@@ -40,8 +44,6 @@ signals:
     void promptChanged(int result);
 
 private:
-    void showPrompt(int result);
-
 private:
     Ui::LoginDialog *ui;
     QTimer serverNoResponse;

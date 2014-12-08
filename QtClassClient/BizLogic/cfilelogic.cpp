@@ -8,6 +8,13 @@ CFileLogic::CFileLogic(CMsgObject* parent):
     m_fileTotalPackets(0) {
 }
 
+QString toTmpFileName(QString filename) {
+    return filename + ".tmp";
+}
+
+QString fromTmpFileName(QString tmpfilename) {
+    return tmpfilename.left(tmpfilename.length() - 4);
+}
 
 void CFileLogic::procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap) {
     for (auto iter = sendMap.begin(); iter != sendMap.end(); iter++) {
@@ -16,7 +23,7 @@ void CFileLogic::procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap) {
         if (m_waitForNewFile) {
             QString filename = QString::fromLocal8Bit((char *) fmsg->content);
             offset += MaxFileName;
-            m_writingFile.setFileName(filename);
+            m_writingFile.setFileName(toTmpFileName(filename));
             m_writingFile.open(QIODevice::WriteOnly);
 
             m_waitForNewFile = false;
@@ -31,11 +38,14 @@ void CFileLogic::procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap) {
 //                        (fmsg->head.subSeq - m_fileBeginSubseq + 1) * 100 / m_fileTotalPackets;
 
             if (fmsg->isEnd) {
-                qDebug() << "succes";
+                // qDebug() << "succes";
                 m_waitForNewFile = true;
                 m_writingFile.close();
-                // TODO
-                memcpy(fmsg->content, m_writingFile.fileName().toLatin1().data(), MaxFileName);
+
+                QString filename = fromTmpFileName(m_writingFile.fileName());
+                QFile::remove(filename);
+                m_writingFile.setFileName(filename);
+                memcpy(fmsg->content, filename.toLatin1().data(), MaxFileName);
                 sendToUp(iter->second, 0, 0, true);
             }
         } else {

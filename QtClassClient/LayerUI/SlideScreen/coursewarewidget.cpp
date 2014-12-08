@@ -73,7 +73,7 @@ void CourseWareWidget::syncFileList() {
 }
 
 void CourseWareWidget::scanLocalCourseware() {
-    qDebug() << QDir::current().entryList();
+    // qDebug() << QDir::current().entryList();
     foreach (QString filename, QDir::current().entryList()) {
         if (PlayerFactory::checkFileFormat(filename)) {
             addWareItem(filename);
@@ -508,4 +508,22 @@ void CourseWareWidget::recvRace(TS_UINT64 studentUID, TS_UINT64 time) {
         raceTimeOut();
     }
     qDebug() << studentUID << m_raceTime << time;
+}
+
+void CourseWareWidget::setRole(enum RoleOfClass role) {
+    m_userRole = role;
+    scanLocalCourseware();
+    if (RoleStudent == role) {
+        ui->tbNext->setHidden(true);
+        ui->tbPrev->setHidden(true);
+        ui->tbStart->setHidden(true);
+        ui->tbUpload->setHidden(true);
+        ui->tbRace->setHidden(true);
+    } else {
+        ui->tbNext->setHidden(false);
+        ui->tbPrev->setHidden(false);
+        ui->tbStart->setHidden(false);
+        ui->tbUpload->setHidden(false);
+        ui->tbRace->setHidden(false);
+    }
 }

@@ -50,7 +50,9 @@ bool CHubConnection::addPeer(const TS_UINT64 uid,
 	allUsers.insert(uid);
 	bool result;
 	CPeerConnection *p = new CPeerConnection(pSocket);
-	if (p->isValidSocket()) {
+	if (p == NULL)
+		result = false;
+	else if (p->isValidSocket()) {
 		p->setPeer(peeraddr);
 		if (peerHub->count(uid) != 0) {
 			DESTROY(peerHub->at(uid));
@@ -73,10 +75,10 @@ bool CHubConnection::removePeer(const TS_UINT64 uid) {
 
 	if (size() > 0) {
 		iop_lock(&mutex_lock);
-		CPeerConnection* temp = (*peerHub)[uid];
-		if (temp) {
-			DESTROY(temp);
-			peerHub->erase(uid);
+		auto iter = peerHub->find(uid);
+		if (iter != peerHub->end()) {
+			DESTROY(iter->second);
+			peerHub->erase(iter);
 		}
 		iop_unlock(&mutex_lock);
 	}
@@ -138,9 +140,14 @@ int CHubConnection::send(const char* buf, ULONG len) {
 	int brc = 0;
 
 	iop_lock(&mutex_lock);
-	for (auto iter = peerHub->begin(); iter != peerHub->end(); iter++) {
+	for (auto iter = peerHub->begin(); iter != peerHub->end();) {
+		if (iter->second == NULL) {
+			peerHub->erase(iter++);
+			continue;
+		}
 		pc = iter->second;
 		brc += pc->send(buf, len) > 0;
+		iter++;
 	}
 	iop_unlock(&mutex_lock);
 	return brc;
@@ -158,6 +165,8 @@ int CHubConnection::sendExcept(const char* buf, ULONG len, TS_UINT64 uid) {
 	iop_lock(&mutex_lock);
 	for (iter = peerHub->begin(); iter != peerHub->end(); iter++) {
 		if (iter->first == uid)			// 除了这个UID的，别人都要发
+			continue;
+		if (iter->second == NULL)
 			continue;
 		pc = iter->second;
 		brc += pc->send(buf, len) > 0;

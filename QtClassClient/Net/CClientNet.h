@@ -14,13 +14,13 @@
 class CClientNet : public CServer, public CMsgObject
 {
 private:
-	CReliableConnection* m_Connect;			// 本地连接,
-	CPeerConnection*	 m_agent;
-	struct sockaddr_in	 m_Addr;
-    TS_UINT64			 m_seq;             // next seq
-    TS_UINT64			 m_uid;
+    CReliableConnection*    m_Connect;			// 本地连接,
+    CPeerConnection*        m_agent;
+    struct sockaddr_in      m_Addr;
+    TS_UINT64               m_seq;              // next seq
+    TS_UINT64               m_uid;
 
-    iop_thread_t         pthread_hb;
+    iop_thread_t            pthread_hb;
 
 
 public:
@@ -61,6 +61,8 @@ public:
     inline void setTimeDiff(TS_UINT64 diff) { globalTimeDiff = diff; }
 
     inline void setBeginSequence(TS_UINT64 seq) { m_seq = seq; }
+
+    inline int loadProgress() { return m_Connect->getLoadingProcess(); }
 
 private:
 

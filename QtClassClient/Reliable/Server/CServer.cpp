@@ -38,6 +38,30 @@ bool CServer::Start(unsigned short port) {
 	if (!pConnect->create(port)) {
 		return false;
 	}
+	
+	for (unsigned int i = 0; i < msgthread_num; i++) {
+        int rc = iop_thread_create(&pthread_msg[i], MsgProc, (void *) this, 0);
+		if( rc == 0 ){
+			iop_usleep(10);
+#ifdef _DEBUG_INFO_
+			cout << "Msg Thread start successfully" << endl;
+#endif
+		} else {
+			isStarted = false;
+		}
+	}
+	
+	for (unsigned int i = 0; i < sendthread_num; i++) {
+        int rc = iop_thread_create(&pthread_send[i], SendProc, (void *) this, 0);
+		if (0 == rc) {
+			iop_usleep(10);
+#ifdef _DEBUG_INFO_
+			cout << "Send Thread start successfully " << endl;
+#endif
+		} else {
+			isStarted = false;
+		}
+	}
 
 	for (unsigned int i = 0; i < recvthread_num; i++) {
         int rc = iop_thread_create(&pthread_recv[i], RecvProc, (void *) this, 0);
@@ -52,29 +76,7 @@ bool CServer::Start(unsigned short port) {
 	}
 
 
-	for (unsigned int i = 0; i < sendthread_num; i++) {
-        int rc = iop_thread_create(&pthread_send[i], SendProc, (void *) this, 0);
-		if (0 == rc) {
-			iop_usleep(10);
-#ifdef _DEBUG_INFO_
-			cout << "Send Thread start successfully " << endl;
-#endif
-		} else {
-			isStarted = false;
-		}
-	}
 
-	for (unsigned int i = 0; i < msgthread_num; i++) {
-        int rc = iop_thread_create(&pthread_msg[i], MsgProc, (void *) this, 0);
-		if( rc == 0 ){
-			iop_usleep(10);
-#ifdef _DEBUG_INFO_
-			cout << "Msg Thread start successfully" << endl;
-#endif
-		} else {
-			isStarted = false;
-		}
-	}
 	return isStarted;
 }
 
@@ -124,7 +126,7 @@ void CServer::sendProc() {
 void CServer::msgProc() {
 	TS_PEER_MESSAGE pmsg;
 	memset(&pmsg, 0, sizeof(TS_PEER_MESSAGE));
-
+	
 	while (isRunning()) {
 		memset(&pmsg, 0, sizeof(TS_PEER_MESSAGE));
 		ReadIn(pmsg);

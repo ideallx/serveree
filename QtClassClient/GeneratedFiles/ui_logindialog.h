@@ -46,8 +46,8 @@ public:
     QSpacerItem *horizontalSpacer;
     QLabel *label_2;
     QToolButton *tbEnterClass;
-    QLabel *lbPrompt;
     QProgressBar *pbDownload;
+    QLabel *lbPrompt;
     QSpacerItem *horizontalSpacer_6;
     QSpacerItem *verticalSpacer;
 
@@ -207,17 +207,19 @@ public:
 
         verticalLayout->addWidget(tbEnterClass);
 
+        pbDownload = new QProgressBar(LoginDialog);
+        pbDownload->setObjectName(QStringLiteral("pbDownload"));
+        pbDownload->setValue(0);
+        pbDownload->setAlignment(Qt::AlignCenter);
+        pbDownload->setTextVisible(true);
+        pbDownload->setInvertedAppearance(false);
+
+        verticalLayout->addWidget(pbDownload);
+
         lbPrompt = new QLabel(LoginDialog);
         lbPrompt->setObjectName(QStringLiteral("lbPrompt"));
 
         verticalLayout->addWidget(lbPrompt);
-
-        pbDownload = new QProgressBar(LoginDialog);
-        pbDownload->setObjectName(QStringLiteral("pbDownload"));
-        pbDownload->setValue(0);
-        pbDownload->setTextVisible(false);
-
-        verticalLayout->addWidget(pbDownload);
 
 
         horizontalLayout_4->addLayout(verticalLayout);

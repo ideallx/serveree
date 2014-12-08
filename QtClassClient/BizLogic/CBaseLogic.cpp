@@ -62,8 +62,7 @@ bool CSubSeqUnit::getOldestMsg(ts_msg& msg) {
 
 CBaseLogic::CBaseLogic(CMsgObject* parent)
     : CMsgObject(parent)
-    , subseq(0)
-    , isUIBuilt(false) {
+    , subseq(0) {
 }
 
 CBaseLogic::~CBaseLogic() {
@@ -126,18 +125,4 @@ void CBaseLogic::procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap) {
         //qDebug() << "send:" << hmsg->UID << hmsg->sequence << hmsg->subSeq;
         sendToUp(i->second, 0, 0, true);
     }
-}
-
-void CBaseLogic::UIBuilt() {
-    map<TS_UINT64, ts_msg> *sendMap = new map<TS_UINT64, ts_msg>();
-    isUIBuilt = true;
-    for (auto iter = userInfo.begin(); iter != userInfo.end(); ++iter) {
-        iter->second.getMsgs(*sendMap);
-        procBuildUI(sendMap);
-        for (auto iterMsg = sendMap->begin(); iterMsg != sendMap->end(); ++iterMsg)
-            sendToUp(iterMsg->second, 0, 0, true);
-
-        sendMap->clear();
-    }
-    delete sendMap;
 }

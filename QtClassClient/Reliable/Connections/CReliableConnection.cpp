@@ -65,13 +65,15 @@ CReliableConnection::CReliableConnection()
 	, totalMiss(0)						// 
 	, totalMsgs(0)						// 防止除0错误
 	, phaseMsgs(0)
+    , totalMsgsOfClass(0)
 	, fileNamePrefix("L")
 	, resendWhenAsk(true)
-	, isRunning(false) {						
+    , isRunning(false) {
     semMsg = CreateSemaphore(NULL, 0, 102400, NULL);
     semSave = CreateSemaphore(NULL, 0, 102400, NULL);
 	needScan = CreateSemaphore(NULL, 0, 10, NULL);		// 最多10个，10次不收到新的msg，scan速度放缓
 	createdBlock.clear();
+
 	iop_lock_init(&ioLock);
 }
 
@@ -84,7 +86,7 @@ CReliableConnection::~CReliableConnection() {
 		iop_thread_cancel(pthread_save);
     }
 
-
+	iop_lock_destroy(&ioLock);
 	CloseHandle(semMsg);
 	CloseHandle(semSave);
 	CloseHandle(needScan);
@@ -165,7 +167,9 @@ void CReliableConnection::receive() {
         case CONNECTION:
             break;
         default:                                // 若是收到重传请求，自己处理
-            bm->record(msg);					// 缓存记录
+            if (bm->record(msg) > 0) {			// 缓存记录
+                totalMsgs++;
+            }
             if (selfUid == ServerUID) {			// Server转发
                 send(msg.Body, packetSize(msg));
             }
@@ -195,8 +199,7 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
     case MAXSEQLIST:
         result = -1;
         break;
-	default:
-		totalMsgs++;
+    default:
 		break;
 	}
 
@@ -259,6 +262,7 @@ void CReliableConnection::scanProcess() {
 void CReliableConnection::saveProcess() {
     while (isRunning) {
         WaitForSingleObject(semSave, 3000);
+		cout << "current users: " << peerHub->size() << endl;
 
         pair<TS_UINT64, CPackage*> file;
         if (!saveQueue.deQueue(file))
@@ -324,6 +328,7 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 		} else {						// client端问客户端要
 			result += (send2Peer(*(ts_msg*) r, ServerUID) > 0);
 		}
+		break;							// 每个用户只发50个请求，多了就不发
 	}
 
 	delete r;
@@ -335,10 +340,16 @@ void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
 
     ts_msg msg;
     RCONNECT* up = (RCONNECT*) &msg;
+    int currentTotal = 0;
+
     for (int i = 0; i < down->count; i++) {
         TS_UINT64 uid = down->unit[i].uid;
         TS_UINT64 maxSeqClient = bm->getMaxSeqOfUID(uid);
         TS_UINT64 maxSeqServer = down->unit[i].maxSeq;
+
+        assert(maxSeqClient >= 0 && maxSeqServer >= 0);
+
+        currentTotal += maxSeqServer;
         cout << maxSeqClient << " " << maxSeqServer << endl;
         if (maxSeqClient < maxSeqServer) {      // if server's seq bigger than client
             up->missingUID = uid;
@@ -358,6 +369,7 @@ void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
             }
         }
     }
+    totalMsgsOfClass = currentTotal;
 }
 
 int CReliableConnection::resend(ts_msg& requestMsg) {
@@ -405,7 +417,9 @@ void CReliableConnection::saveUserBlock(TS_UINT64 uid) {
 
 // 现在就检查一下seq，后续检查全加入这个函数中
 bool CReliableConnection::validityCheck(ts_msg& msg) {
-    (void) msg;
+    int size = packetSize(msg);
+	if (size < sizeof(TS_MESSAGE_HEAD) || size > MESSAGE_SIZE)
+		return false;
 	return true;
 }
 
@@ -477,13 +491,18 @@ void CReliableConnection::sendMaxSeqList() {
     msg.head.UID = ServerUID;
     msg.head.version = VersionNumber;
 	msg.head.sequence = 0;
+	msg.head.time = getServerTime();
     msg.count = 0;
-
+	
+	bool hasUpPackage = false;
+	
+	iop_lock(&mutex_lock);
     for (auto iter = allUsers.begin(); iter != allUsers.end(); iter++) {
         TS_UINT64 maxSeq = bm->getMaxSeqOfUID(*iter);
         if (maxSeq == 0)
             continue;
 
+		hasUpPackage = true;
         msg.unit[msg.count].uid = *iter;
         msg.unit[msg.count].maxSeq = maxSeq;
         msg.count++;
@@ -493,8 +512,9 @@ void CReliableConnection::sendMaxSeqList() {
             msg.count = 0;
         }
     }
-    if (msg.count != 0) {
+    if (msg.count != 0 || !hasUpPackage) {		// 如果一个包都没有，也要发个象征一下
         send(m->Body, msg.head.size);
     }
+	iop_unlock(&mutex_lock);
 }
 

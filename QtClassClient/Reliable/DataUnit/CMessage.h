@@ -8,13 +8,15 @@
 #pragma pack(4)
 
 const int MESSAGE_SIZE = 1024;				// 单个Package最大msgs数
-const int MaxTrans = 700;                   // 单条最大传输
+const int MaxTrans = 700;                   // 单条除HEAD外最大传输
 const int HeartBeatInterval = 5000;			// 心跳包间隔
 const TS_UINT64 SeqBegin = 1;				// seq开始位置，seq从1开始
 const int MaxFileName = 30;
 const int MaxUserInfoOneMessage = 10;
 
 const int VersionNumber = 1;
+
+const int MaxClassInfo = 10;
 
 extern TS_UINT64 globalUID;
 extern TS_UINT64 globalTimeDiff;
@@ -88,6 +90,39 @@ typedef struct {
     unsigned char username[20];		// 用户名
     unsigned char password[20];		// 密码
 } UP_AGENTSERVICE;
+
+
+typedef struct {
+    TS_MESSAGE_HEAD head;
+    unsigned char className[40];    // 课程名
+    TS_UINT64 uid;                  // 开课老师ID
+    unsigned char nickname[20];     // 开课老师昵称~
+    int allowedStudentNum;          // 最大允许学生数
+} UP_CREATECLASS;
+
+typedef struct {
+    TS_MESSAGE_HEAD     head;
+    WORD                failcode;
+    TS_UINT64           classid;
+} DOWN_CREATECLASS;
+
+typedef struct {
+    TS_MESSAGE_HEAD     head;
+    TS_UINT64           classid;
+} UP_DESTROYCLASS;
+
+typedef struct {
+    TS_UINT64 classid;
+    TS_UINT64 teacherid;
+    unsigned char className[40];    // 课程名
+    unsigned char nickname[20];     // 开课老师昵称~
+} CLASS_INFO;
+
+typedef struct {
+    TS_MESSAGE_HEAD     head;
+    WORD                classNum;
+    CLASS_INFO          classes[MaxClassInfo];
+} DOWN_ALLCLASSINFO;
 
 typedef struct {
     TS_MESSAGE_HEAD head;
@@ -207,6 +242,8 @@ enum MsgResult {
     ErrorUsername,
     ErrorPassword,
     ErrorUnknown,
+	ErrorNoclass,
+
     FailedPlay,
 
 
@@ -216,6 +253,7 @@ enum MsgResult {
     ErrorFileExist,
 
     NormalCourseLoading,
+
 };
 
 enum RoleOfClass {
@@ -269,6 +307,11 @@ enum PacketType {
     USERLIST,				// 当前用户信息列表
     ADDUSER,				// 增加用户
     REMOVEUSER,				// 减少用户
+
+    CREATECLASS,            // 创建课堂
+    DESTROYCLASS,           // 销毁课堂
+    ALLCLASSINFO,           // 所有课堂信息
+    CLASSDETAIL,            // 课堂详细信息
 	
 	SCANPORT,				// 端口扫描用
 
