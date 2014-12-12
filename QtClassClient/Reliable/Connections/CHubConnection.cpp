@@ -149,6 +149,9 @@ int CHubConnection::send(const char* buf, ULONG len) {
 		brc += pc->send(buf, len) > 0;
 		iter++;
 	}
+#ifdef _DEBUG_INFO_
+	cout << "resend for " << peerHub->size() << "users" << endl;
+#endif
 	iop_unlock(&mutex_lock);
 	return brc;
 }
@@ -171,6 +174,9 @@ int CHubConnection::sendExcept(const char* buf, ULONG len, TS_UINT64 uid) {
 		pc = iter->second;
 		brc += pc->send(buf, len) > 0;
 	}
+#ifdef _DEBUG_INFO_
+	cout << "resend for " << peerHub->size() - 1 << "users" << endl;
+#endif
 	iop_unlock(&mutex_lock);
 	return brc;
 }

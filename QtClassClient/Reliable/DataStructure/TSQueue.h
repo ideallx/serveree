@@ -36,13 +36,14 @@ private:
 	int InitQueueSize;
 	int front;
 	int rear;
-	int curSize;
 	ElemType *elemArray;
 
 	bool doubleSize();
 	void increment(int &x);
 	
 public:
+	// TODO for test
+	int curSize;
 	Queue();
 	Queue(unsigned int queueSize);	
 	const Queue &operator = (const Queue &R);			
@@ -237,6 +238,11 @@ public:
 		unsigned int rc = m_queue->size();
         iop_unlock(&mutex_lock);
 		return rc;
+	}
+
+	void printDebugInfo(char* name) {
+		//cout << name << ": queue size: " << m_queue->size() 
+		//		<< " queue buffer size: " << m_queue->curSize << endl;
 	}
 };
 #endif //__TSQUEUE

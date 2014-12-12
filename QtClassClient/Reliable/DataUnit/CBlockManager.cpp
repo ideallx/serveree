@@ -33,15 +33,14 @@ int CBlockManager::record(ts_msg& in) {
 	if (uid > 10000)
 		return -1;
 #endif
+	iop_lock(&lockUserBlock);
 	CBlock* b = getBlockByUid(uid);
 	if (b == NULL) {
 		b = new CBlock(uid);
-		b->setFilePrefix(fileNamePrefix);
-		iop_lock(&lockUserBlock);
 		map_userBlock.insert(make_pair(uid, b));
-		iop_unlock(&lockUserBlock);
 	}
-
+	iop_unlock(&lockUserBlock);
+	b->setFilePrefix(fileNamePrefix);
 	int result = b->addMsg(in);
 #ifdef _DEBUG_INFO_
 	if (result <= 0)
@@ -65,9 +64,7 @@ CBlock* CBlockManager::getBlockByUid(TS_UINT64 uid) {
 	return result;
 }
 
-map<TS_UINT64, set<TS_UINT64> > CBlockManager::getLostSeqIDs() {
-	map<TS_UINT64, set<TS_UINT64> > results;
-	
+ void CBlockManager::getLostSeqIDs(map<TS_UINT64, set<TS_UINT64> >& results) {
 	iop_lock(&lockUserBlock);
 	for (auto iter = map_userBlock.begin();
 		iter != map_userBlock.end(); iter++) {
@@ -77,7 +74,6 @@ map<TS_UINT64, set<TS_UINT64> > CBlockManager::getLostSeqIDs() {
 		}
 	}
 	iop_unlock(&lockUserBlock);
-	return results;
 }
 
 int CBlockManager::getSavePackage(set<pair<TS_UINT64, CPackage*> >& out) {

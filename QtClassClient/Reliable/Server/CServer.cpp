@@ -117,7 +117,7 @@ void CServer::sendProc() {
 		peer->send(pmsg.msg.Body, packetSize(pmsg.msg));
 
 #ifdef _DEBUG_INFO_
-		cout << "port:" << pConnect->getPeer()->sin_port << endl;
+		// cout << "port:" << pConnect->getPeer()->sin_port << endl;
 #endif
 	}
 	delete peer;

@@ -170,9 +170,6 @@ void CReliableConnection::receive() {
             if (bm->record(msg) > 0) {			// 缓存记录
                 totalMsgs++;
             }
-            if (selfUid == ServerUID) {			// Server转发
-                send(msg.Body, packetSize(msg));
-            }
             break;
         }
         ReleaseSemaphore(needScan, 1, NULL);	// 收到任意msg，都要重新scan
@@ -185,6 +182,10 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
 		return result;
 
     ts_msg* msg = (ts_msg*) buf;
+
+    if (!validityCheck(*msg))				// 有效性检测
+        return -1;
+
     // TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) msg;
 
     switch (getType(*msg)) {
@@ -195,16 +196,28 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
 #endif
 		if (false == resendWhenAsk)		// 抑制重发请求！，则不重发
             return result;
+        resend(*msg);
         break;
     case MAXSEQLIST:
+         requestForSeriesResend(*msg);
         result = -1;
         break;
+    case CONNECTION:
+        requestForSeriesResend(*msg);
+        break;
     default:
+        if (selfUid == ServerUID) {			// Server转发
+            send(msg->Body, packetSize(*msg));
+        }
+
+        if (bm->record(*msg) > 0) {			// 缓存记录
+            totalMsgs++;
+        }
 		break;
 	}
 
-	msgQueue->enQueue(*msg);			// queue会自己作副本，所以不用担心msg的生命周期
-	ReleaseSemaphore(semMsg, 1, NULL);	// 信号量放开，交给msgIn Proc
+//	msgQueue->enQueue(*msg);			// queue会自己作副本，所以不用担心msg的生命周期
+//	ReleaseSemaphore(semMsg, 1, NULL);	// 信号量放开，交给msgIn Proc
 	return result;
 }
 
@@ -232,7 +245,8 @@ void CReliableConnection::scanProcess() {
         WaitForSingleObject(needScan, maxScanInterval);	// 最多等2秒
         // 扫描丢包，重发
         totalMiss = 0;
-        map<TS_UINT64, set<TS_UINT64> > results = bm->getLostSeqIDs();				// blockManager层找
+        map<TS_UINT64, set<TS_UINT64> > results;
+		bm->getLostSeqIDs(results);						// blockManager层找
         for (auto uidIter = results.begin(); uidIter != results.end(); uidIter++) { // 扫描所有UID
             TS_UINT64 uid = uidIter->first;											// block层
             set<TS_UINT64> pids = uidIter->second;									// package层
@@ -248,9 +262,9 @@ void CReliableConnection::scanProcess() {
             ReleaseSemaphore(semSave, 1, NULL);
         }
 
-#ifdef _DEBUG_INFO_
-        cout << "missing: " << totalMiss;
-#endif
+		if (0 != totalMiss)
+			cout << "missing: " << totalMiss << " first is " << *(results.begin()->second.begin()) << endl;;
+
 		phaseMsgs = totalMsgs;
 
 		if (controlReliableConnect(getMissingRate()))
@@ -262,6 +276,10 @@ void CReliableConnection::scanProcess() {
 void CReliableConnection::saveProcess() {
     while (isRunning) {
         WaitForSingleObject(semSave, 3000);
+		// TODO for test
+		msgQueue->printDebugInfo("msgqueue");
+		saveQueue.printDebugInfo("savequeue");
+
 		cout << "current users: " << peerHub->size() << endl;
 
         pair<TS_UINT64, CPackage*> file;

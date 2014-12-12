@@ -8,8 +8,10 @@ CBlock::CBlock(TS_UINT64 uid) :
     curPackage(NULL),			// 缓存上一次被调用的包
 	_uid(uid),					// 用户id
 	fileNamePrefix("L"),		// 随便给个初始值
-	maxSeq(0) {					
+    maxSeq(0),
+    maxPackageNum(0) {
 	iop_lock_init(&mapLock);
+	iop_lock_init(&packageLock);
 	straDestroy = new CDestroyStrategy();
 	straWrite = new CWriteFileStrategy();
 }
@@ -17,6 +19,7 @@ CBlock::CBlock(TS_UINT64 uid) :
 CBlock::~CBlock() {
 	clear();
 	iop_lock_destroy(&mapLock);
+	iop_lock_destroy(&packageLock);
 }
 
 void CBlock::clear() {
@@ -25,6 +28,20 @@ void CBlock::clear() {
 		iter++;
 	}
 	blockContents.clear();
+}
+
+CPackage* CBlock::createNewPackage(int packageNum) {
+    CPackage* cpa = new CPackage;
+    cpa->setID(packageNum);
+
+    if (packageNum > maxPackageNum)
+        maxPackageNum = packageNum;
+
+    // cout << _uid << " new " << packageNum << endl;
+
+    // blockContents.insert(make_pair(packageNum, curPackage));	// 新package加入map中
+    straDestroy->onMsgAddStrategy(curPackage);					// 新package加入销毁等待。
+	return cpa;
 }
 
 int CBlock::addMsg(const ts_msg& msg) {
@@ -37,30 +54,40 @@ int CBlock::addMsg(const ts_msg& msg) {
 		return -1;
 	}
 
-	if (seq > maxSeq)
-		maxSeq = seq;
 	getArrayNumberAndPos(seq, packageNum, pos);			// 获取package号，msg在package的位置
 
-	iop_lock(&mapLock);
+    if (seq > maxSeq)
+        maxSeq = seq;
+
+    //if (maxPackageNum <= packageNum) {                  // 如果最大包属于package3 那么预先创建package4
+    //    cout << "postion 1" << endl;
+    //    createNewPackage(packageNum + 1);
+    //}
+
 	if (curPackage == NULL || packageNum != curPackage->getID()) {	// 若是使用最近一个包，省去find步骤
-		auto iter = blockContents.find(packageNum);
-		if (iter != blockContents.end()) {				// 在map中找到package
-			curPackage = iter->second;
+		bool isNewPackage = false;
+		iop_lock(&mapLock);								// 怕重复new
+		auto findPackage = blockContents.find(packageNum);
+		if (findPackage == blockContents.end()) {
+			cout << _uid << " new " << packageNum << " " << seq << endl;
+			curPackage = createNewPackage(packageNum);
+			blockContents.insert(make_pair(packageNum, curPackage));
+			isNewPackage = true;
 		} else {
-			for (auto it2 = blockContents.begin(); it2 != blockContents.end(); it2++) {
-				it2->second->needAll();					// 收到一个需要新开Package的情况下，那之前的包应该全部收满
+			curPackage = findPackage->second;
+		}
+		iop_unlock(&mapLock);
+
+		if (isNewPackage) {
+			for (auto exPackage = blockContents.begin(); exPackage != blockContents.end(); exPackage++) {
+				if (exPackage->first < packageNum)			// 收到一个需要新开Package的情况下，那之前的包应该全部收满
+					exPackage->second->needAll();
 			}
-
-            CPackage* cpa = new CPackage;
-			curPackage = cpa;
-			cpa->setID(packageNum);
-			blockContents.insert(make_pair(packageNum, curPackage));	// 新package加入map中
-
-			straDestroy->onMsgAddStrategy(curPackage);						// 新package加入销毁等待。
 		}
 	}
+	iop_lock(&packageLock);
 	pLen = curPackage->insert(msg, pos);			// 若是已有该array，则直接写入
-	iop_unlock(&mapLock);
+	iop_unlock(&packageLock);
 
 #ifdef _DEBUG_INFO_
 	if (pLen <= 0)
@@ -74,7 +101,6 @@ int CBlock::addMsg(const ts_msg& msg) {
 set<TS_UINT64> CBlock::scanMissingPackets() {
 	set<TS_UINT64> answers;			// 将数组号转换成的序列号
 	
-	iop_lock(&mapLock);
 	for (auto iter = blockContents.begin(); iter != blockContents.end();) {		// 搜包
 		set<int> results;														// 获取保存的位置号
 		CPackage* pack = iter->second;
@@ -82,9 +108,18 @@ set<TS_UINT64> CBlock::scanMissingPackets() {
 			straWrite->onMsgScanStrategy(pack);									// 写文件扫描触发
 
 			if (straDestroy->onMsgScanStrategy(pack)) {							// 销毁包扫描触发
+				iop_lock(&packageLock);
+				if (curPackage == iter->second)
+					curPackage = NULL;
 				delete iter->second;											// 若返回true则销毁
+                cout << "delete " << iter->first << endl;
 				iter->second = NULL;
+				iop_unlock(&packageLock);
+
+				iop_lock(&mapLock);
 				blockContents.erase(iter++);
+				iop_unlock(&mapLock);
+
 			} else {
 				iter++;
 			}
@@ -96,7 +131,6 @@ set<TS_UINT64> CBlock::scanMissingPackets() {
 			iter++;
 		}
 	}
-	iop_unlock(&mapLock);
 	return answers;
 }
 
@@ -104,7 +138,6 @@ int CBlock::readMsg(TS_UINT64 seq, ts_msg& pout) {
 	DWORD packageNum, pos;
 	getArrayNumberAndPos(seq, packageNum, pos);
 	
-	iop_lock(&mapLock);
 	if (curPackage == NULL || packageNum != curPackage->getID()) {
 		auto iter = blockContents.find(packageNum);
 		if (iter != blockContents.end()) {							// 若seq在内存范围内，则去内存中找
@@ -116,7 +149,11 @@ int CBlock::readMsg(TS_UINT64 seq, ts_msg& pout) {
 				p->load(zipName, packageNum);
 				p->setID(packageNum);
 				p->setSaved(true);
+
+				iop_lock(&mapLock);
 				blockContents.insert(make_pair(packageNum, p));		// 从文件里挖出来的CPackage
+				iop_unlock(&mapLock);
+
 				curPackage = p;
 				straWrite->onMsgAddStrategy(p);						// 加入销毁策略
 			} else {
@@ -124,8 +161,9 @@ int CBlock::readMsg(TS_UINT64 seq, ts_msg& pout) {
 			}
 		}
 	}
+	iop_lock(&packageLock);
 	int result = curPackage->query(pout, pos);
-	iop_unlock(&mapLock);
+	iop_unlock(&packageLock);
 	return result;
 }
 

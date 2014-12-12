@@ -1411,6 +1411,7 @@ extern int ZEXPORT zipWriteInFileInZip (zipFile file,const void* buf,unsigned in
     if (zi->in_opened_file_inzip == 0)
         return ZIP_PARAMERROR;
 
+	// TODO crash zi is a wild pointer
     zi->ci.crc32 = crc32(zi->ci.crc32,buf,(uInt)len);
 
 #ifdef HAVE_BZIP2

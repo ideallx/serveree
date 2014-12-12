@@ -11,7 +11,7 @@ class CDestroyStrategy : public CAbsStrategy {
 private:
 	map<CPackage*, int> blockHP;
 
-	static const int initialHP = 2000;
+    static const int initialHP = 20;
 
 public:
 	CDestroyStrategy();

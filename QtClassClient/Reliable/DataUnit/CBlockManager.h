@@ -38,7 +38,7 @@ public:
 	int record(ts_msg& in);
 
 	// 获取每个User所有丢失的包的序号
-	map<TS_UINT64, set<TS_UINT64> > getLostSeqIDs();
+	void getLostSeqIDs(map<TS_UINT64, set<TS_UINT64> >& results);
 
 	// 移除Block
 	void removeBlock(TS_UINT64 uid);

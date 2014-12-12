@@ -47,17 +47,19 @@ private:
 	
     CPackage* curPackage;		// 上一次读取或者插入的包，缓存用
 	iop_lock_t mapLock;
+	iop_lock_t packageLock;
 
 	TS_UINT64 _uid;				// block对应的uid
 	string fileNamePrefix;		// 存文件时的前缀
 
-	TS_UINT64 maxSeq;			// 至今为止收到的最大的seq
+    TS_UINT64 maxSeq;			// 至今为止收到的最大的seq
+    WORD      maxPackageNum;     // 最大包序号
 
 	CDestroyStrategy* straDestroy;	// 销毁CPackage策略
 	CWriteFileStrategy* straWrite;	// CPackage存文件策略
 
 public:
-	CBlock(TS_UINT64 uid);
+	explicit CBlock(TS_UINT64 uid);
 	virtual ~CBlock();
 
 	void clear();
@@ -83,6 +85,8 @@ public:
 	inline TS_UINT64 getMaxSeq() { return maxSeq; }
 
     void setMaxSeq(TS_UINT64 seq);
+
+    CPackage* createNewPackage(int packageNum);
 
 private:
 	// 获取seq对应的msg所在的数组以及位置

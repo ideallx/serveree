@@ -56,13 +56,19 @@ void CWSServer::recvProc() {
 	cout << "recv thread exit" << endl;
 }
 
+static int ccc = 0;
 void CWSServer::msgProc() {
 	TS_PEER_MESSAGE *pmsg = new TS_PEER_MESSAGE();
 	memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
 
 	while (isRunning()) {
+		ccc++;
 		memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
 		ReadIn(*pmsg);
+		if (ccc % 100 == 0) {
+			p_InMsgQueue->printDebugInfo("inMsgQueue");
+			p_OutMsgQueue->printDebugInfo("outMsgQueue");
+		}
 		MsgHandler(*pmsg);
 	}
 	delete pmsg;

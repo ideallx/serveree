@@ -19,9 +19,8 @@ CPackage::~CPackage() {
 }
 
 void CPackage::init() {
-	for (int i = 0; i < MaxPackets; i++) {
-		packets[i] = NULL;
-	}
+	memset(packets, 0, MaxPackets * sizeof(void*));
+
 }
 
 void CPackage::unInit() {
@@ -117,7 +116,7 @@ bool CPackage::save(string fileName, bool isCreate) {
 			return false;
 	}
 	// cout << isCreate?"1":"0";
-	cout << "save " << packageID << endl;
+	// cout << "save " << packageID << endl;
 	free(content);
 	_isSaved = true;
 	return true;
