@@ -17,8 +17,8 @@ protected:
     set<CMsgReceiver*> upReceivers;
     set<CMsgReceiver*> downReceivers;
 
-    multimap<TS_UINT64, ts_msg> upCache;
-    multimap<TS_UINT64, ts_msg> downCache;
+    map<TS_UINT64, ts_msg> upCache;
+    map<TS_UINT64, ts_msg> downCache;
 
 public:
 	CMsgSender(void);

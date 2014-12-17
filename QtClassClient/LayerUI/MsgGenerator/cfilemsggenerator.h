@@ -20,6 +20,8 @@ public:
 
 private:
     FILE_CONTENT m_fc;
+
+
 };
 
 #endif // CFILEMSGGENERATER_H

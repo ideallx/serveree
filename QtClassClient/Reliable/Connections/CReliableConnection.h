@@ -146,10 +146,7 @@ public:
 	// 关闭reliable
     inline void stop() { isRunning = false; }
 
-    inline int getLoadingProcess() { if (totalMsgsOfClass == 0)
-                                         return 1000;
-                                     else
-                                         return 1000 * totalMsgs / totalMsgsOfClass; }
+    int getLoadingProcess();
 
 private:
 	// 将需要发送的消息添加至消息队列

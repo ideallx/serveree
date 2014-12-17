@@ -11,7 +11,7 @@ CAbsConnection::CAbsConnection(void)
 }
 
 CAbsConnection::~CAbsConnection(void) {
-	DESTROY(pSocket);
+    DESTROY(pSocket);
 }
 
 void CAbsConnection::setPeer(const struct sockaddr_in& peeraddr) {

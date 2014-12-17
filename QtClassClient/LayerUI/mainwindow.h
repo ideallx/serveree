@@ -18,7 +18,7 @@
 #include "../player/absplayer.h"
 #include "../SlideScreen/couseware.h"
 
-
+class DataSingleton;
 
 namespace Ui {
 class MainWindow;
@@ -58,19 +58,7 @@ public:
 
     void debuginfo(QString str);
 
-private:
-    Ui::MainWindow*             ui;
-    enum RoleOfClass            m_userRole;     // user role of the client, if teacher will be more powerful
-    bool                        isRunning;
-
-    MyScene*                    scene;          // the current shown scene
-    QMap<TS_UINT64, MyScene*>   sceneMap;       // all available scene of this class
-
-    HANDLE                      sem_msg;        // maintain the msgthread, but some problem
-    iop_thread_t                pthread_msg;
-    TSQueue<ts_msg>             msgQueue;
-
-    QDialog*                    m_prompt;
+	void loadComplete();
 
 
 public slots:
@@ -111,7 +99,6 @@ private:
     void raceRun(TS_UINT64 studentUID, TS_UINT64 time);
     void raceResult(TS_UINT64 teacherUID, TS_UINT64 studentUID, WORD writingTime);
 
-
 signals:
     void enOrLeaveClass(bool entered);
     void msgReceived();
@@ -145,6 +132,25 @@ private slots:
     void on_tbBackground_clicked();
     void on_listWidget_doubleClicked(const QModelIndex &index);
     //void itemPlay_clicked(QString filename);
+
+
+private:
+    Ui::MainWindow*             ui;
+    enum RoleOfClass            m_userRole;     // user role of the client, if teacher will be more powerful
+    bool                        isRunning;
+
+    MyScene*                    scene;          // the current shown scene
+    QMap<TS_UINT64, MyScene*>   sceneMap;       // all available scene of this class
+
+    HANDLE                      sem_msg;        // maintain the msgthread, but some problem
+    iop_thread_t                pthread_msg;
+    TSQueue<ts_msg>             msgQueue;
+
+    QDialog*                    m_prompt;
+    DataSingleton               *m_ds;
+
+	bool						isLoading;
+	TSQueue<ts_msg>				loadingbuffer;
 };
 
 #endif // MAINWINDOW_H

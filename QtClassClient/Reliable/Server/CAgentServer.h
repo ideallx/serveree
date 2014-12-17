@@ -35,7 +35,7 @@ using namespace std;
  *		3:	server发送退出班级成功msg给client，client信息从map_userinfo中删除
  *		4:	结束
  *
- *	扫描掉线过程: scanOffline
+ *	扫描掉线过程: scanAgent
  *		1:	每个客户端过段时间往agent发送心跳包，包括了时间
  *		2:	每次心跳包都将最新时间保存进heartBeatTime
  *		3:	每过一段时间扫描这个set
@@ -44,13 +44,29 @@ using namespace std;
  *
  */
 
+enum SpecialClassid {
+    ClassidNotLogin,
+    ClassidNotInclass,
+};
+
+class WorkServerInfo {
+public:
+	~WorkServerInfo() { delete server; }
+public:
+    CWSServer*  server;
+    TS_UINT64   teacherid;
+    unsigned char className[40];
+    unsigned char nickname[20];
+    int allowedStudentNum;
+};
+
 class CAgentServer : public CServer {
 private:
 	iop_lock_t lockWorkServer;
 	iop_lock_t lockPortqueue;
 	iop_lock_t lockOfflineMaps;
 
-	map<TS_UINT64, CWSServer*> map_workserver;	// classid -> CWSServer
+    map<TS_UINT64, WorkServerInfo*> map_workserver;	// classid -> CWSServer
 	map<TS_UINT64, UserBase> map_userinfo;		// UID  -> UserBase
 	map<string, TS_UINT64> map_alluser;			// username -> UID
 
@@ -67,8 +83,10 @@ public:
 
 	void loadUser();
 
+    void enterAgent(TS_PEER_MESSAGE& inputMsg, UserBase user);
 	bool enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user);
 	void leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user);
+    void createClassResult(TS_PEER_MESSAGE& pmsg, CWSServer* server);
 
 	DWORD MsgHandler(TS_PEER_MESSAGE& pmsg);
 
@@ -76,21 +94,28 @@ public:
 	int getOfflineUsers(set<TS_UINT64>& out);
 
 	// 扫描掉线
-	void scanOffline();
+    void scanAgent();
 
 
     CWSServer* getServerByUID(TS_UINT64 uid);
+    CWSServer* getServerByClassid(TS_UINT64 classid);
 
 	bool Start(unsigned short port = 0);
 
     bool isClassExist(TS_UINT64 classid);
+
+    WORD checkUsernamePassword(UserBase &user);
+
+    void sendToQueue(TS_PEER_MESSAGE& pmsg, unsigned char type, WORD size);
+
+    void sendAllClassesInfo(TS_PEER_MESSAGE& pmsg, TS_UINT64 uid);
 
 private:
 	void userLoginNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
     void userLogoutNotify(TS_PEER_MESSAGE& msg, TS_UINT64 uid);
     void sendUserList(TS_PEER_MESSAGE& pmsg, CWSServer *pServer);
 
-	void createClass(TS_UINT64 classid);
+    CWSServer *createClass();
 	void destroyClass(TS_UINT64 classid);
 
     void sendLeaveSuccess(TS_PEER_MESSAGE& pmsg);

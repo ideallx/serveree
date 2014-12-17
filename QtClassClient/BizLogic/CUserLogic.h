@@ -5,12 +5,14 @@
 #include "../Message/CMsgObject.h"
 #include "../Net/CClientNet.h"
 #include "../Reliable/DataUnit/UserBase.h"
+#include "datasingleton.h"
 
 
 class CUserLogic : public CBaseLogic {
 private:
 	bool isLoggedIn;
     UserBase* ub;
+    DataSingleton* ds;
 
 public:
 	CUserLogic(CMsgObject* msgParent);

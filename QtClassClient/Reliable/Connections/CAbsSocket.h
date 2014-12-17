@@ -14,7 +14,7 @@ protected:
 
 protected:
 	int rc;
-	int err;
+    int err;
 
 public:
 	static const int m_LocalAddrSize;

@@ -63,9 +63,9 @@ CReliableConnection::CReliableConnection()
 	, msgQueue(new TSQueue<ts_msg>)		// 消息队列，处理收发
 	, selfUid(ServerUID)				// 默认为服务器UID，client端时需要setUID()
 	, totalMiss(0)						// 
-	, totalMsgs(0)						// 防止除0错误
+    , totalMsgs(0)
 	, phaseMsgs(0)
-    , totalMsgsOfClass(0)
+    , totalMsgsOfClass(-1)              // 用以标记是否收到过最大包列表
 	, fileNamePrefix("L")
 	, resendWhenAsk(true)
     , isRunning(false) {
@@ -90,6 +90,7 @@ CReliableConnection::~CReliableConnection() {
 	CloseHandle(semMsg);
 	CloseHandle(semSave);
 	CloseHandle(needScan);
+    pSocket->closeSocket();
 
 	delete msgQueue;
 	delete bm;
@@ -199,11 +200,10 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
         resend(*msg);
         break;
     case MAXSEQLIST:
-         requestForSeriesResend(*msg);
+        requestForSeriesResend(*msg);
         result = -1;
         break;
     case CONNECTION:
-        requestForSeriesResend(*msg);
         break;
     default:
         if (selfUid == ServerUID) {			// Server转发
@@ -277,9 +277,6 @@ void CReliableConnection::saveProcess() {
     while (isRunning) {
         WaitForSingleObject(semSave, 3000);
 		// TODO for test
-		msgQueue->printDebugInfo("msgqueue");
-		saveQueue.printDebugInfo("savequeue");
-
 		cout << "current users: " << peerHub->size() << endl;
 
         pair<TS_UINT64, CPackage*> file;
@@ -364,11 +361,13 @@ void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
         TS_UINT64 uid = down->unit[i].uid;
         TS_UINT64 maxSeqClient = bm->getMaxSeqOfUID(uid);
         TS_UINT64 maxSeqServer = down->unit[i].maxSeq;
+        if (0 == maxSeqClient)
+            maxSeqClient = 1;           // 1 is begin
 
         assert(maxSeqClient >= 0 && maxSeqServer >= 0);
 
         currentTotal += maxSeqServer;
-        cout << maxSeqClient << " " << maxSeqServer << endl;
+        cout << uid << " client/server max seq: " << maxSeqClient << " " << maxSeqServer << endl;
         if (maxSeqClient < maxSeqServer) {      // if server's seq bigger than client
             up->missingUID = uid;
             up->missingType = MISS_SERIES;
@@ -417,6 +416,7 @@ int CReliableConnection::resend(ts_msg& requestMsg) {
 		cout << "miss series" << endl;
 #endif
         for (int i = 0; i < r->count; i++) {        // 每两个seq为一对
+			cout << "resend series " << r->seq[i*2 + 1] - r->seq[i*2] << " msg" << endl;
             resendPart(uid, r->missingUID, r->seq[i*2], r->seq[i*2 + 1]);
         }
 	} else if (r->missingType == MISS_ALL) {		// 全部重传
@@ -486,8 +486,10 @@ int CReliableConnection::resendPart(TS_UINT64 toUID,
     ts_msg p;
     int count = 0;
     for (TS_UINT64 j = fromSeq; j <= toSeq; j++) {
-        if (bm->readRecord(needUID, j, p) < 0)
+        if (bm->readRecord(needUID, j, p) < 0) {
+			cout << "read " << needUID << " " << j << " failed" << endl;
             continue;
+		}
         if (peer->send(p.Body, packetSize(p)) > 0)
             count++;
 		iop_usleep(1);
@@ -536,3 +538,11 @@ void CReliableConnection::sendMaxSeqList() {
 	iop_unlock(&mutex_lock);
 }
 
+int CReliableConnection::getLoadingProcess() {
+    if (totalMsgsOfClass < 0)
+        return 0;
+    else if (totalMsgsOfClass == 0)
+        return 1000;
+    else
+        return 1000 * totalMsgs / totalMsgsOfClass;
+}

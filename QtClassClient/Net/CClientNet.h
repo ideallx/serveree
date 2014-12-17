@@ -9,6 +9,7 @@
 #include "../Reliable/DataStructure/TSQueue.h"
 #include "../Reliable/DataUnit/UserBase.h"
 #include "../Reliable/Server/CServer.h"
+#include "../BizLogic/datasingleton.h"
 
 // Network Communication Controller
 class CClientNet : public CServer, public CMsgObject
@@ -22,6 +23,8 @@ private:
 
     iop_thread_t            pthread_hb;
 
+    DataSingleton*          m_ds;
+    TS_UINT64               m_timeDiff;
 
 public:
 	CClientNet(void);
@@ -58,13 +61,18 @@ public:
 
     void setUID(TS_UINT64 uid);
 
-    inline void setTimeDiff(TS_UINT64 diff) { globalTimeDiff = diff; }
+    void setTimeDiff(TS_UINT64 diff);
 
     inline void setBeginSequence(TS_UINT64 seq) { m_seq = seq; }
 
     inline int loadProgress() { return m_Connect->getLoadingProcess(); }
 
 private:
+    inline TS_UINT64 toServerTime(TS_UINT64 serverTime) {
+        return serverTime + m_timeDiff;
+    }
+
+    inline TS_UINT64 getClientTime() { return getServerTime() + m_ds->getTimeDiff(); }
 
 	void buildSendMessage(ts_msg& msg);
 

@@ -3,6 +3,8 @@
 
 #include "../../Reliable/DataUnit/CMessage.h"
 
+class DataSingleton;
+
 class CRaceGenerator
 {
 public:
@@ -12,6 +14,9 @@ public:
 
     void generateRaceData(TS_RACE_PACKET &rmsg, WORD type,
                           WORD writeTime, TS_UINT64 stuUID);
+
+private:
+    DataSingleton *ds;
 };
 
 #endif // CRACEGENERATOR_H

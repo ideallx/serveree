@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include "logindialog.h"
+#include "dialogclasschoose.h"
 
 #include "../LayerUI/mainwindow.h"
 #include "../Net/CClientNet.h"
@@ -25,9 +26,11 @@ public:
     void buildOldStyle();
 
 signals:
+    void endLoginDialog();
 
 public slots:
     void setUnPw(QString username, QString password);
+    void buildUI();
 
 private:
     void parseParam(int argc, char* argv[]);
@@ -37,6 +40,7 @@ private:
     LoginDialog *ld;
     CClientNet* cn;
     CBusinessLogic* bl;
+    DialogClassChoose* dcc;
 
 private:
     QString serverIp;

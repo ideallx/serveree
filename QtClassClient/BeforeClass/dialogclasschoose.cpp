@@ -24,7 +24,7 @@ void DialogClassChoose::on_tbCreateClass_clicked()
 }
 
 void DialogClassChoose::addClassItem(QString classname) {
-    ui->listWidget->addItem(classname);
+    // ui->listWidget->addItem(classname);
 }
 
 void DialogClassChoose::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isRemote) {

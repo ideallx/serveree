@@ -15,6 +15,7 @@
 #include "../../Message/CMsgObject.h"
 
 class CShape;
+class DataSingleton;
 
 enum MoveType {
     MovePending,
@@ -110,6 +111,8 @@ private:
 
     DrawingSettingData                      setDraw;
     DrawingSettingData                      setErase;
+
+    DataSingleton                           *ds;
 };
 
 #endif // MYSCENE_H

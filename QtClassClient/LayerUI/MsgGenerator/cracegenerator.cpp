@@ -1,13 +1,14 @@
 #include "cracegenerator.h"
+#include "../../BizLogic/datasingleton.h"
 
 CRaceGenerator::CRaceGenerator()
 {
+    ds = DataSingleton::getInstance();
 }
 
 void CRaceGenerator::buildCommonInfo(TS_RACE_PACKET& rmsg) {
     rmsg.head.size = sizeof(TS_RACE_PACKET);
     rmsg.head.type = RACE;
-    rmsg.head.UID = globalUID;
 }
 
 void CRaceGenerator::generateRaceData(TS_RACE_PACKET &rmsg, WORD type,
@@ -16,14 +17,14 @@ void CRaceGenerator::generateRaceData(TS_RACE_PACKET &rmsg, WORD type,
     rmsg.raceType = type;
     switch (type) {
     case RaceInit:
-        rmsg.teacherUID = globalUID;
+        rmsg.teacherUID = ds->getUID();
         rmsg.writingTime = writeTime;
         break;
     case RaceRace:
-        rmsg.studentUID = globalUID;
+        rmsg.studentUID = ds->getUID();
         break;
     case RaceResult:
-        rmsg.teacherUID = globalUID;
+        rmsg.teacherUID = ds->getUID();
         rmsg.studentUID = stuUID;
         rmsg.writingTime = writeTime;
         break;

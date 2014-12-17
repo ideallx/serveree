@@ -83,7 +83,8 @@ SOURCES  += main.cpp\
     BeforeClass/totalprocess.cpp \
     BizLogic/cloadlogic.cpp \
     LayerUI/MsgGenerator/cracegenerator.cpp \
-    LayerUI/UserInterface/dialogpixmap.cpp
+    LayerUI/UserInterface/dialogpixmap.cpp \
+    BizLogic/datasingleton.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBaseLogic.h \
@@ -160,7 +161,8 @@ HEADERS  += LayerUI\mainwindow.h \
     BeforeClass/totalprocess.h \
     BizLogic/cloadlogic.h \
     LayerUI/MsgGenerator/cracegenerator.h \
-    LayerUI/UserInterface/dialogpixmap.h
+    LayerUI/UserInterface/dialogpixmap.h \
+    BizLogic/datasingleton.h
 
 FORMS    += \
     loginwidget.ui \
@@ -170,7 +172,7 @@ FORMS    += \
     coursewarewidget.ui \
     mainwindow.ui \
     BeforeClass/logindialog.ui \
-    LayerUI/UserInterface/dialogpixmap.ui
+    LayerUI/UserInterface/dialogpixmap.ui \
 
 INCLUDEPATH += .
 INCLUDEPATH += include

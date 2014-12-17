@@ -26,6 +26,7 @@ public:
     void buildPlayer();     // build media player button
 
     QTimer panTimer;        // gesture -> move
+    QTimer zoomTimer;
     bool isLeftClicked;
 
 public slots:

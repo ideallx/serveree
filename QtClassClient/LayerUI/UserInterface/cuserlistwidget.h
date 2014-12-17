@@ -6,6 +6,7 @@
 #include <QMouseEvent>
 #include <QList>
 #include "../../Reliable/DataUnit/CMessage.h"
+#include "../../BizLogic/datasingleton.h"
 
 class CUserListWidget : public QListWidget
 {
@@ -27,8 +28,14 @@ public:
     void init();
     QString getUserName(TS_UINT64 uid);
 
+    void updateUserInfo();
+
 private:
     QList<TS_UINT64> userList;
+    DataSingleton* ds;
+
+
+private:
 
     bool isOffline(TS_UINT64 uid);
 

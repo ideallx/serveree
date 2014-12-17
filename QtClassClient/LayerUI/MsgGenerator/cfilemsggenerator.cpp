@@ -30,7 +30,6 @@ bool CFileMsgGenerator::create(QString filename) {
 }
 
 void CFileMsgGenerator::buildCommonInfo(TS_FILE_PACKET& fmsg) {
-    fmsg.head.UID = globalUID;
     fmsg.head.type = COURSEWARE;
     fmsg.isEnd = 0;
     fmsg.totalPackets = m_fc.totalPackets;

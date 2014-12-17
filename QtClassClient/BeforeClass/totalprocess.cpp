@@ -1,4 +1,5 @@
 #include <iostream>
+#include <QtConcurrent>
 #include "totalprocess.h"
 
 using namespace std;
@@ -9,17 +10,19 @@ TotalProcess::TotalProcess(int argc, char* argv[]) {
     // buildOldStyle();
     buildNetwork();
 
-    if (ld->exec() != 0) {
-        exit(0);        // TODO how to do it better?
-        return;
-    }
+    ld->exec();
+    qDebug() << "ld terminated";
+    //exit(0);        // TODO how to do it better?
+    return;
 }
 
 TotalProcess::~TotalProcess() {
     delete ui;
-    // delete ld;
     delete bl;
     delete cn;
+
+    // delete ld;
+    // delete dcc;
 }
 
 void TotalProcess::setUnPw(QString username, QString password) {
@@ -53,16 +56,6 @@ void TotalProcess::parseParam(int argc, char* argv[]) {
             this->username = username;
             this->password = password;
             fclose(stdin);
-
-            QFile f("aa.txt");
-            f.open(QIODevice::Append);
-            f.write(username);
-            f.write("\r\n");
-            f.write(password);
-            f.write("\r\n");
-            f.write(serverip);
-            f.write("\r\n");
-            f.close();
         }
     }
 
@@ -119,6 +112,8 @@ void TotalProcess::buildNetwork() {
             this, &TotalProcess::setUnPw);
     connect(ld, &LoginDialog::loginSuccess,
             this, &TotalProcess::buildBoard);
+    connect(this, &TotalProcess::endLoginDialog,
+            ld, &LoginDialog::accept);
     ld->setUsernamePassword(username, password);
 }
 
@@ -126,24 +121,52 @@ void TotalProcess::buildBoard(int role) {
     qDebug() << "build board";
     ld->showPrompt(NormalCourseLoading);
     bl->removeUpReceiver(ld);
-    iop_usleep(200);
-    int process = 0;
-    while (process < 980) {
-        ld->setLoadProgress(process);
-        process = cn->loadProgress();
-        qDebug() << process;
+
+    int progress = 0;
+    while (progress < 995) {
+        qDebug() << progress;
+        ld->setLoadProgress(progress);
+        progress = cn->loadProgress();
         iop_usleep(100);
     }
-    delete ld;
+    qDebug() << "load class complete";
+    ld->hide();
 
-
-    CModuleAgent *ma = CModuleAgent::getUniqueAgent();
     ui = new MainWindow;
-    ui->setRole(static_cast<RoleOfClass> (role));
-    ma->registerModule("UI", ui);
     ui->addDownReceiver(bl);
     bl->addUpReceiver(ui);
-
-    // ui->enterClass(username, password);
+    ui->setRole(static_cast<RoleOfClass> (role));
     ui->show();
+    ui->loadComplete();
+
+    // emit endLoginDialog();
+
+//    ui = new MainWindow;
+//    ui->addDownReceiver(bl);
+//    bl->addUpReceiver(ui);
+//    ui->setRole(static_cast<RoleOfClass> (role));
+//    ui->show();
+
+//	ui->loadComplete();
+
+//    CModuleAgent *ma = CModuleAgent::getUniqueAgent();
+//    ui = new MainWindow;
+//    ui->setRole(static_cast<RoleOfClass> (role));
+//    ma->registerModule("UI", ui);
+//    ui->addDownReceiver(bl);
+//    bl->addUpReceiver(ui);
+
+//    // ui->enterClass(username, password);
+//    ui->show();
+}
+
+void TotalProcess::buildUI() {
+    qDebug() << "build";
+    ld->hide();
+    ui = new MainWindow;
+    ui->addDownReceiver(bl);
+    bl->addUpReceiver(ui);
+    // ui->setRole(static_cast<RoleOfClass> (role));
+    ui->show();
+    ui->loadComplete();
 }

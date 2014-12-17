@@ -63,6 +63,7 @@ bool CSubSeqUnit::getOldestMsg(ts_msg& msg) {
 CBaseLogic::CBaseLogic(CMsgObject* parent)
     : CMsgObject(parent)
     , subseq(0) {
+    ds = DataSingleton::getInstance();
 }
 
 CBaseLogic::~CBaseLogic() {
@@ -112,7 +113,7 @@ bool CBaseLogic::procMsg(const ts_msg& msg, bool isRemote) {
 
         map<TS_UINT64, ts_msg> sendMap;
         DWORD maxSubSeq = userInfo[uid].receiveMsg(msg, sendMap);
-        if (hmsg->UID == globalUID)                 // if you offline and online, you'll get your
+        if (hmsg->UID == ds->getUID())              // if you offline and online, you'll get your
             subseq = max(maxSubSeq, subseq);        // package sent before offline, and you'll get
         procRecvIsRemote(sendMap);                  // your last sub seq here
     }
@@ -121,7 +122,7 @@ bool CBaseLogic::procMsg(const ts_msg& msg, bool isRemote) {
 
 void CBaseLogic::procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap) {
     for (auto i = sendMap.begin(); i != sendMap.end(); i++) {
-        TS_MESSAGE_HEAD* hmsg = (TS_MESSAGE_HEAD*) &i->second;
+        // TS_MESSAGE_HEAD* hmsg = (TS_MESSAGE_HEAD*) &i->second;
         //qDebug() << "send:" << hmsg->UID << hmsg->sequence << hmsg->subSeq;
         sendToUp(i->second, 0, 0, true);
     }

@@ -10,6 +10,7 @@
 
 #include "../player/playerfactory.h"
 #include "UserInterface/cpromptframe.h"
+#include "../BizLogic/datasingleton.h"
 
 
 thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {
@@ -30,11 +31,14 @@ MainWindow::MainWindow(QWidget *parent)
     , m_userRole(RoleStudent)
     , ui(new Ui::MainWindow)
     , isRunning(false)
-    , m_prompt(NULL) {
+    , m_prompt(NULL)
+	, isLoading(true) {
     ui->setupUi(this);
     ui->wgtCourse->setHidden(true);
     ui->wgtCourse->setMsgParent(this);
-    // ui->tbLogin->setHidden(true);
+    ui->tbLogin->setHidden(true);
+
+    m_ds = DataSingleton::getInstance();
 
     scene = new MyScene(SelfUID, this, this);
     sceneMap.insert(SelfUID, scene);
@@ -83,6 +87,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::stopServerRespTimer,
             ui->tbLogin, &CLoginButton::stopTimer);
 
+
     connect(ui->wgtCourse, &CourseWareWidget::clearScreen,
             this, &MainWindow::cleanCentralArea);
     connect(ui->wgtCourse, &CourseWareWidget::paintModeChanged,
@@ -108,11 +113,12 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     on_tbBackground_clicked();
+    ui->listWidget->updateUserInfo();
 
-#define _DEBUG_UI_
+//#define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
-    setRole(RoleTeacher);
+//    setRole(RoleTeacher);
 #else
     setWindowFlags(Qt::FramelessWindowHint |
                    Qt::WindowSystemMenuHint |
@@ -124,6 +130,7 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 MainWindow::~MainWindow() {
+    leaveClass();
     delete ui;
     sceneMap.clear();
     qDeleteAll(sceneMap);
@@ -138,8 +145,35 @@ void MainWindow::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL i
     if (!isRemote) {
         sendToDown(msg, 0, 0, false);
     } else {
-        msgQueue.enQueue(msg);
-        ReleaseSemaphore(sem_msg, 1, NULL);
+        // qDebug() << head->time << head->sequence;
+        if (isLoading) {
+            TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg;
+            switch (head->type) {
+            case GRAPHICS:
+                {
+                    TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
+                    if (gmsg->graphicsType == GraphicPacketCls)
+                        loadingbuffer.clean();
+                }
+                break;
+            case PLAYERCONTROL:
+                {
+                    TS_PLAYER_PACKET* pmsg = (TS_PLAYER_PACKET*) &msg;
+                    if (pmsg->pa == ActionStart)
+                        loadingbuffer.clean();
+                }
+                break;
+            case RACE:  // not recv race
+                return;
+            default:
+                break;
+            }
+            loadingbuffer.enQueue(msg);
+            return;
+        } else {
+            msgQueue.enQueue(msg);
+            ReleaseSemaphore(sem_msg, 1, NULL);
+        }
 	}
 }
 
@@ -238,8 +272,9 @@ void MainWindow::classIcon(bool entered) {
 
 void MainWindow::msgProc() {
     while (isRunning) {
-        WaitForSingleObject(sem_msg, 30);
+        WaitForSingleObject(sem_msg, INFINITE);
         emit msgReceived();
+        //qDebug() << "msg recevied";
     }
 }
 
@@ -261,7 +296,7 @@ void MainWindow::on_listWidget_clicked(const QModelIndex &index)
     if (m_userRole != RoleTeacher)
         return;
 
-    if (ui->listWidget->getUIDByRow(index.row()) == globalUID)
+    if (ui->listWidget->getUIDByRow(index.row()) == m_ds->getUID())
         return;
 
     bool writeable = ui->listWidget->changeAuth(index.row());
@@ -302,10 +337,10 @@ void MainWindow::on_listWidget_doubleClicked(const QModelIndex &index)
 void MainWindow::setWriteable(TS_UINT64 toUID, DWORD sceneID, WORD writeable) {
     ui->listWidget->changeAuth(toUID, writeable);
 
-    if (toUID != globalUID)
+    if (toUID != m_ds->getUID())
         return;
 
-    if (sceneID == globalUID) {
+    if (sceneID == m_ds->getUID()) {
         if (!sceneMap[SelfUID])
             return;
         sceneMap[SelfUID]->setWriteable(writeable);
@@ -351,12 +386,11 @@ void MainWindow::msgExcute() {
     }
 
     TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg;
-    // qDebug() << head->time << head->sequence;
     switch (head->type) {
     case GRAPHICS:
         {
             TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
-            MyScene* theScene = sceneMap[gmsg->SceneID];
+            MyScene* theScene = sceneMap[gmsg->SceneID];	// TODO waste time here
             if (theScene == NULL) {
                 theScene = new MyScene(gmsg->SceneID, this, this);
                 sceneMap.insert(gmsg->SceneID, theScene);
@@ -408,28 +442,9 @@ void MainWindow::msgExcute() {
         }
         break;
     case ADDUSER:
-        {
-            SERVER_CLASS_ADD_USER* down = (SERVER_CLASS_ADD_USER*) &msg;
-            addUser(down->enterUser.uid,
-                    QString::fromLocal8Bit((char *) down->enterUser.username),
-                    down->enterUser.isLoggedIn);
-        }
-        break;
     case USERLIST:
-        {
-            SERVER_CLASS_USER_LIST* down = (SERVER_CLASS_USER_LIST*) &msg;
-            for (int i = 0; i < down->userNumberInMessage; i++) {
-                addUser(down->users[i].uid,
-                        QString::fromLocal8Bit((char *) down->users[i].username),
-                        down->users[i].isLoggedIn);
-            }
-        }
-        break;
     case REMOVEUSER:
-        {
-            SERVER_CLASS_REMOVE_USER* down = (SERVER_CLASS_REMOVE_USER*) &msg;
-            removeUser(down->leaveUser);
-        }
+        ui->listWidget->updateUserInfo();
         break;
     case COURSEWARE:
         {
@@ -446,8 +461,9 @@ void MainWindow::msgExcute() {
         break;
 	case SETWRITEAUTH:
 		{
-			SET_USER_WRITE_AUTH* down = (SET_USER_WRITE_AUTH*) &msg;
-			setWriteable(down->toUID, down->sceneID, down->writeable);
+            ui->listWidget->updateUserInfo();
+            SET_USER_WRITE_AUTH* down = (SET_USER_WRITE_AUTH*) &msg;
+            setWriteable(down->toUID, down->sceneID, down->writeable);
 		}
         break;
     case RACE:
@@ -472,8 +488,6 @@ void MainWindow::cleanCentralArea(TS_UINT64 sceneID, int cleanOption) {
         return;
     }
 
-    theScene->cls();
-
     if (CleanShowWare & cleanOption) {
         ui->wgtCourse->setHidden(false);
     }
@@ -485,6 +499,9 @@ void MainWindow::cleanCentralArea(TS_UINT64 sceneID, int cleanOption) {
     }
     if (CleanHideClass & cleanOption) {
         ui->gbUserlist->setHidden(true);
+    }
+    if (CleanScreen & cleanOption) {
+        theScene->cls();
     }
 }
 
@@ -662,7 +679,7 @@ void MainWindow::raceRun(TS_UINT64 studentUID, TS_UINT64 time) {
 
 void MainWindow::raceResult(TS_UINT64 teacherUID, TS_UINT64 studentUID, WORD writingTime) {
     qDebug() << "race result";
-    if (studentUID == globalUID) {
+    if (studentUID == m_ds->getUID()) {
         sceneMap[TeacherUID]->setWriteable(true);
     }
 
@@ -688,14 +705,25 @@ void MainWindow::raceSuccessPrompt(TS_UINT64 uid) {
     QString prompt;
     if (NobodyUID == uid) {
         prompt = QString::fromLocal8Bit("无人抢答。。。");
-    } else if (uid == globalUID) {
+    } else if (uid == m_ds->getUID()) {
         prompt = QString::fromLocal8Bit("您抢答成功！！");
     } else {
-        QString stu = ui->listWidget->getUserName(uid);
+        QString stu = ui->listWidget->getUserName(uid);     // TODO ds
         if (stu.isNull()) {
             stu = QString::fromLocal8Bit("有人");
         }
         prompt = stu + QString::fromLocal8Bit("抢答成功");
     }
     emit promptSent(prompt);
+}
+
+void MainWindow::loadComplete() {
+	isLoading = false;
+	ts_msg msg;
+    qDebug() << "load complete";
+	while (!loadingbuffer.isEmpty()) {
+		if (!loadingbuffer.deQueue(msg))
+			continue;
+		ProcessMessage(msg, 0, 0, true);
+	}
 }

@@ -26,6 +26,7 @@ private:
 	map<TS_UINT64, CBlock*> map_userBlock;		// 所有用户对应的Block
 	string fileNamePrefix;						// 保存的文件名的前缀
 	iop_lock_t	lockUserBlock;
+	CBlock*		lastBlock;
 
 public:
 	CBlockManager();

@@ -33,6 +33,7 @@ void CBlock::clear() {
 CPackage* CBlock::createNewPackage(int packageNum) {
     CPackage* cpa = new CPackage;
     cpa->setID(packageNum);
+	cout << "create package " << packageNum << "for uid: " << _uid << endl;
 
     if (packageNum > maxPackageNum)
         maxPackageNum = packageNum;
@@ -107,11 +108,15 @@ set<TS_UINT64> CBlock::scanMissingPackets() {
 		if (pack->isFull()) {
 			straWrite->onMsgScanStrategy(pack);									// 写文件扫描触发
 
-			if (straDestroy->onMsgScanStrategy(pack)) {							// 销毁包扫描触发
-				iop_lock(&packageLock);
-				if (curPackage == iter->second)
-					curPackage = NULL;
-				delete iter->second;											// 若返回true则销毁
+			if (iter->second->isSaved() && straDestroy->onMsgScanStrategy(pack)) {// 销毁包扫描触发
+                iop_lock(&packageLock);
+                if (curPackage == iter->second) {
+                    delete iter->second;										// 若返回true则销毁
+                    iter->second = curPackage = NULL;
+                } else {
+                    delete iter->second;										// 若返回true则销毁
+                    iter->second = NULL;
+                }
                 cout << "delete " << iter->first << endl;
 				iter->second = NULL;
 				iop_unlock(&packageLock);
@@ -119,7 +124,6 @@ set<TS_UINT64> CBlock::scanMissingPackets() {
 				iop_lock(&mapLock);
 				blockContents.erase(iter++);
 				iop_unlock(&mapLock);
-
 			} else {
 				iter++;
 			}

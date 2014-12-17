@@ -17,13 +17,14 @@ thread_ret_type thread_func_call HBProc(LPVOID lpParam) {
     return 0;
 }
 
-
 CClientNet::CClientNet()
     : m_seq(1)
-    , m_agent(NULL) {
+    , m_agent(NULL)
+    , m_timeDiff(0) {
     QTime time = QTime::currentTime();
     qsrand(time.msec() + time.second() * 1000);
     m_Connect = dynamic_cast<CReliableConnection*> (pConnect);
+    m_ds = DataSingleton::getInstance();
     setUID(qrand());
 }
 
@@ -53,13 +54,18 @@ DWORD CClientNet::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSC
     }
 
     TS_MESSAGE_HEAD *head = (TS_MESSAGE_HEAD*) &inputMsg.msg;
-
-    if (ENTERCLASS == head->type || LEAVECLASS == head->type) {
+	
+	if (ENTERAGENT == head->type) {
+        DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;
+        if (SuccessEnterClass == down->result) {
+            setTimeDiff(down->head.time - getServerTime());
+            setUID(down->uid);
+		}
+	} else if (ENTERCLASS == head->type || LEAVECLASS == head->type) {
         DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;
         if (SuccessEnterClass == down->result) {
             addServerAddr(down->addr);
             setTimeDiff(down->head.time - getServerTime());
-            qDebug() << down->head.time << getServerTime() << globalTimeDiff;
             setUID(down->uid);
             setBeginSequence(down->lastSeq + 1);
             startupHeartBeat();
@@ -130,9 +136,14 @@ void CClientNet::SetServerAddr(DWORD s_code, struct sockaddr_in addr){	// 设定消
 }
 
 void CClientNet::setUID(TS_UINT64 uid) {
-    m_uid = uid;
-    globalUID = uid;
+    m_ds->setUID(uid);
+    m_uid = uid; //TODO
     m_Connect->setUID(m_uid);
+}
+
+void CClientNet::setTimeDiff(TS_UINT64 diff) {
+    m_ds->setTimeDiff(diff);
+    m_timeDiff = diff;
 }
 
 void CClientNet::MakeIPv4Addr(struct sockaddr_in& addr, char* ip, WORD port) {
@@ -253,7 +264,7 @@ bool CClientNet::scanServer(struct sockaddr_in& result) {
     if (!isStarted && !Start(0))
 		return false;
 
-	auto ip = pConnect->getSocket()->getLocalAddr().sin_addr.S_un.S_un_b;
+	// auto ip = pConnect->getSocket()->getLocalAddr().sin_addr.S_un.S_un_b;
 
     int tolen = sizeof(struct sockaddr_in);
     result = pConnect->getSocket()->getLocalAddr();
@@ -264,5 +275,7 @@ bool CClientNet::scanServer(struct sockaddr_in& result) {
 		result.sin_addr.S_un.S_un_b.s_b4 = i;
 		sendto(sock, (const char*) &head, head.size, 0, (const sockaddr*) &result, tolen);
 	}
+	return true;
 }
+
 

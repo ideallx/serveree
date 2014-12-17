@@ -7,19 +7,23 @@ CAbsSocket::CAbsSocket(void)
 	, bInit(false)
 
 	, rc(0)
-	, err(0) {
+    , err(0) {
 }
 
 CAbsSocket::~CAbsSocket() {
-	// closeSocket();
+    // closeSocket();
 }
 
-
+#include <iostream>
+using namespace std;
 bool CAbsSocket::closeSocket(void) {
-	if (0 == iop_close_handle(m_Socket))
+    if (0 == iop_close_handle(m_Socket)) {
 		return true;
-	else
+    } else {
+		int b = GetLastError();
+		cout << "close socket error" << GetLastError();
 		return false;
+	}
 }
 
 bool CAbsSocket::copy(CAbsSocket* s) {

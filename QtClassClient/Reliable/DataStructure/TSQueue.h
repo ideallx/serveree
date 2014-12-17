@@ -226,6 +226,13 @@ public:
 		return rc;
 	}
 
+	void clean(void) {
+        iop_lock(&mutex_lock);
+		m_queue->makeEmpty();
+        iop_unlock(&mutex_lock);
+	}
+
+
 	bool head(T& t){
         iop_lock(&mutex_lock);
 		bool rc = m_queue->head(t);
@@ -238,11 +245,6 @@ public:
 		unsigned int rc = m_queue->size();
         iop_unlock(&mutex_lock);
 		return rc;
-	}
-
-	void printDebugInfo(char* name) {
-		//cout << name << ": queue size: " << m_queue->size() 
-		//		<< " queue buffer size: " << m_queue->curSize << endl;
 	}
 };
 #endif //__TSQUEUE

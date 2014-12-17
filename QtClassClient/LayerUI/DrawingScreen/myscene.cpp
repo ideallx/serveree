@@ -6,6 +6,7 @@
 #include <QTouchEvent>
 
 #include "../../player/absplayer.h"
+#include "../../BizLogic/datasingleton.h"
 #include "cshape.h"
 #include "myscene.h"
 #include "myview.h"
@@ -44,8 +45,10 @@ MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent)
     , mt(MoveDraw)
     , isWriteable(false)
     , media(NULL) {
+    ds = DataSingleton::getInstance();
+
     panFixer.setSingleShot(true);
-    setSceneRect(0, 0, 5000, 5000);
+    setSceneRect(0, 0, 20000, 50000);
     connect(&panFixer, &QTimer::timeout,
             this, &MyScene::sendMoveBegin);
 
@@ -54,7 +57,6 @@ MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent)
 
     setDraw.pen = QPen(Qt::black, 1);
     setDraw.drawingType = SCRIPTS;
-
     //generateTestShape();
 }
 
@@ -168,8 +170,8 @@ CShape *MyScene::createNewItem(TS_UINT64 uid, int shapeType, QPointF curPoint) {
     item->setPen(p);
     item->setBrush(b);
 
-    if (!isEraser)
-        item->getGraphicsItem()->setOpacity(0.9);
+//    if (!isEraser)
+//        item->getGraphicsItem()->setOpacity(0.9);
     return item;
 }
 
@@ -200,7 +202,7 @@ void MyScene::actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg) {
         return;
 
     if (SelfUID == graphicMsg.head.UID)
-        graphicMsg.head.UID = globalUID;
+        graphicMsg.head.UID = ds->getUID();
 
     QGraphicsItem* item = lastItems[uid]->getGraphicsItem();
     item->setData(GraphicUID, graphicMsg.head.UID);

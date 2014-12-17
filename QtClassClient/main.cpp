@@ -19,15 +19,20 @@
 
     //ui.enterClass("teacher1", "11");
 
+int run(int argc, char *argv[]) {
+    QApplication a(argc, argv);
+
+    TotalProcess tp(argc, argv);
+    return a.exec();
+
+}
+
 int main(int argc, char *argv[])
 {
     Q_INIT_RESOURCE(ui);
     SOCK_STARTUP();
 
-    QApplication a(argc, argv);
-
-    TotalProcess tp(argc, argv);
-    int result = a.exec();
+	int result = run(argc, argv);
 
     SOCK_CLEANUP();
 

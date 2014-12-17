@@ -18,10 +18,14 @@ MyView::MyView(QWidget *parent) :
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     panTimer.setSingleShot(true);
+    zoomTimer.setSingleShot(true);
     setAttribute(Qt::WA_AcceptTouchEvents);
     setMouseTracking(true);
 
     setStyleSheet("background-color: rgb(255, 254, 240)");
+
+    grabGesture(Qt::PinchGesture);
+    ungrabGesture(Qt::PanGesture);
 }
 
 MyView::~MyView() {
@@ -37,8 +41,10 @@ bool MyView::viewportEvent(QEvent *event) {
             QPanGesture *pg = static_cast<QPanGesture*> (pan);
             dest.setX(horizontalScrollBar()->value() - pg->delta().toPoint().x());
             dest.setY(verticalScrollBar()->value() - pg->delta().toPoint().y());
-            panTimer.start(100);
+            panTimer.start(500);
             emit screenMoved(dest);
+        } else if (QGesture *pan = ge->gesture(Qt::PinchGesture)) {
+            qDebug() << "pinch";
         }
         return true;
     }
@@ -47,6 +53,23 @@ bool MyView::viewportEvent(QEvent *event) {
     case QEvent::TouchUpdate:
     case QEvent::TouchEnd:
         return true;
+    {
+        QTouchEvent* touch = static_cast<QTouchEvent*> (event);
+        auto points = touch->touchPoints();
+        if (points.size() != 2)
+            return false;
+
+        zoomTimer.start(200);
+        QPointF distanceLast = points[0].lastScreenPos() - points[1].lastScreenPos();
+        QPointF distanceNow = points[0].screenPos() - points[1].screenPos();
+
+        int dl = abs(distanceLast.x()) + abs(distanceNow.y());
+        int dn = abs(distanceNow.x()) + abs(distanceNow.y());
+        if (abs(dn - dl) > 1)
+            qDebug() << dl << dn << dn - dl;
+
+        return true;
+    }
     case QEvent::MouseButtonRelease:
         isLeftClicked = false;
         break;

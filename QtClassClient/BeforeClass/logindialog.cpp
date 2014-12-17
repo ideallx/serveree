@@ -33,10 +33,11 @@ void LoginDialog::on_tbEnterClass_clicked()
 
     ts_msg msg;
     UP_AGENTSERVICE* up = (UP_AGENTSERVICE*) &msg;
-    up->head.type = ENTERCLASS;
+    up->head.type = ENTERAGENT;
     up->head.size = sizeof(UP_AGENTSERVICE);
     up->head.sequence = 0;
     up->head.subSeq = 0;
+    up->classid = 10000;
     memcpy(up->username, ui->leUsername->text().toLocal8Bit().data(), 20);
     memcpy(up->password, ui->lePassword->text().toLocal8Bit().data(), 20);
 
@@ -70,6 +71,7 @@ void LoginDialog::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL 
     switch (head->type) {
     case ENTERCLASS:
     case LEAVECLASS:
+    case ENTERAGENT:
         {
             emit endTimer();
             DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &msg;

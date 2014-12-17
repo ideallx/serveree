@@ -13,6 +13,7 @@ CUserListWidget::CUserListWidget(QWidget *parent) :
 
     connect(this, &CUserListWidget::changeIcon,
             this, &CUserListWidget::setRowIcon);
+    ds = DataSingleton::getInstance();
 }
 
 void CUserListWidget::init() {
@@ -76,6 +77,7 @@ bool CUserListWidget::changeAuth(int row, bool writeable) {
             userList[row] == OfflineList) {
         return true;
     }
+    ds->setWriteable(userList[row], writeable);
 
     if (writeable) {
         emit changeIcon(row, ":/icon/ui/icon/pencil.png");
@@ -88,6 +90,8 @@ bool CUserListWidget::changeAuth(int row, bool writeable) {
 
 bool CUserListWidget::changeAuth(TS_UINT64 uid, bool writeable) {
     int row = userList.indexOf(uid);
+	if (row < 0)
+		return false;
     return changeAuth(row, writeable);
 }
 
@@ -108,4 +112,14 @@ QString CUserListWidget::getUserName(TS_UINT64 uid) {
     if (-1 == row)
         return QString();
     return item(row)->text();
+}
+
+void CUserListWidget::updateUserInfo() {
+    auto allusers = ds->getAllUsers();
+    for (auto iter = allusers.begin(); iter != allusers.end(); iter++) {
+        addUser(iter->second.uid,
+                QString::fromLocal8Bit((char*) iter->second.username),
+                iter->second.isLoggedIn);
+        changeAuth(iter->second.uid, iter->second.isWriteable);
+    }
 }

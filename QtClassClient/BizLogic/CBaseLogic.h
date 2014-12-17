@@ -4,6 +4,7 @@
 #include "../Net/CClientNet.h"
 #include "../Reliable/DataUnit/CMessage.h"
 #include "../Message/CMsgObject.h"
+#include "datasingleton.h"
 
 class CSubSeqUnit {
 public:
@@ -38,6 +39,7 @@ protected:
     DWORD subseq;
     map<TS_UINT64, CSubSeqUnit> userInfo;       // uid -> userInfo
     map<TS_UINT64, ts_msg> cache;               // time -> msg
+    DataSingleton* ds;
 
 public:
     // get oldest msg from waitinglist, return true shows that there still has msgs

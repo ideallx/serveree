@@ -70,7 +70,6 @@ CShape::~CShape() {
 
 CShape::CShape(QGraphicsItem* item) :
     item(item) {
-
 }
 
 void CShape::setBeginPos(QPointF pos) {

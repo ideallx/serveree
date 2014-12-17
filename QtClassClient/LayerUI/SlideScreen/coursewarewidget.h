@@ -10,6 +10,8 @@
 #include "../MsgGenerator/cplayergenerator.h"
 #include "../MsgGenerator/cracegenerator.h"
 
+class DataSingleton;
+
 namespace Ui {
 class CourseWareWidget;
 }
@@ -103,6 +105,7 @@ private:
     QTimer                  m_raceTimer;
     TS_UINT64               m_raceTime;
     TS_UINT64               m_raceOne;
+    DataSingleton           *m_ds;
 };
 
 #endif // COURSEWAREWIDGET_H

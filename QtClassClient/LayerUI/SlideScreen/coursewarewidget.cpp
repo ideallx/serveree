@@ -2,18 +2,23 @@
 #include <QDebug>
 #include "coursewarewidget.h"
 #include "ui_coursewarewidget.h"
+#include "../../BizLogic/datasingleton.h"
 #include "../../player/playerfactory.h"
 #include "../UserInterface/widgetwarelistitem.h"
 
 QString getFileName(QString filepath) {
-    return filepath.split('/').last();
+    qDebug() << filepath;
+    if (filepath.contains('\\')) {
+        qDebug() << filepath.split('\\').last();
+        return filepath.split('\\').last();
+    } else
+        return filepath.split('/').last();
 }
 
 QString getFilePath(QString filename) {
     QString path = QDir::currentPath();
     return path + "/" + filename;
 }
-
 
 CourseWareWidget::CourseWareWidget(QWidget *parent)
     : QWidget(parent)
@@ -29,6 +34,7 @@ CourseWareWidget::CourseWareWidget(QWidget *parent)
     m_raceTimer.setSingleShot(true);
     connect(&m_raceTimer, &QTimer::timeout,
             this, &CourseWareWidget::raceTimeOut);
+    m_ds = DataSingleton::getInstance();
 }
 
 CourseWareWidget::~CourseWareWidget()
@@ -152,7 +158,7 @@ int CourseWareWidget::start(QString filename, bool isRemote) {
         connect(m_player, &AbsPlayer::promptSent,
                 this, &CourseWareWidget::promptMsgSent);
 
-        emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
+        emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass | CleanScreen);
     }
 
     if (!isRemote) {
@@ -172,7 +178,6 @@ int CourseWareWidget::start(QString filename, bool isRemote) {
     else
         emit paintModeChanged(PaintNormal);
 
-    qDebug() << "pic complete";
     return Success;
 }
 
@@ -200,7 +205,7 @@ bool CourseWareWidget::stop(bool isRemote) {
     m_player->close();
     setHidden(true);
     emit paintModeChanged(PaintNormal);
-    emit clearScreen(TeacherUID, CleanHideClass | CleanHideWare);
+    emit clearScreen(TeacherUID, CleanHideClass | CleanHideWare | CleanScreen);
     return true;
 }
 
@@ -231,7 +236,7 @@ bool CourseWareWidget::prev(bool isRemote) {
             }
         }
     }
-    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
+    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass | CleanScreen);
     if (isRemote)
         return true;
 
@@ -272,7 +277,7 @@ bool CourseWareWidget::next(bool isRemote) {
             }
         }
     }
-    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
+    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass | CleanScreen);
     if (isRemote)
         return true;
 
@@ -380,8 +385,9 @@ void CourseWareWidget::on_tbStart_clicked()
 }
 
 void CourseWareWidget::playFileByUser(QString filename) {
-    if (m_isPlayerPlaying && getFileName(m_player->filePath()) == filename)
+    if (m_isPlayerPlaying && !m_player && getFileName(m_player->filePath()) == filename)
 		return;
+    //qDebug() << getFileName(m_player->filePath()) << filename << m_isPlayerPlaying;
 
     if (!playTest(filename)) {
         emit promptSent(FailedPlay);
@@ -462,8 +468,7 @@ void CourseWareWidget::on_tbRace_clicked()
     if (m_raceTimer.isActive())
         return;
 
-    m_raceTime = getClientTime();
-    qDebug() << "m_raceTime" << m_raceTime << globalTimeDiff;
+    m_raceTime = getServerTime() + m_ds->getTimeDiff(); // getClientTime();
     TS_RACE_PACKET rmsg;
     m_rg.generateRaceData(rmsg, RaceInit, MaxAllowedWriteTime, NobodyUID);
     m_parent->ProcessMessage(*(ts_msg*) &rmsg, 0, 0, false);
@@ -489,7 +494,7 @@ void CourseWareWidget::raceTimeOut() {
 
 void CourseWareWidget::sendRace() {
     TS_RACE_PACKET rmsg;
-    m_rg.generateRaceData(rmsg, RaceRace, MaxAllowedWriteTime, globalUID);
+    m_rg.generateRaceData(rmsg, RaceRace, MaxAllowedWriteTime, m_ds->getUID());
     m_parent->ProcessMessage(*(ts_msg*) &rmsg, 0, 0, false);
     qDebug() << "send Race";
 }

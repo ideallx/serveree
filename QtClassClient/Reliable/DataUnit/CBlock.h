@@ -64,6 +64,8 @@ public:
 
 	void clear();
 
+	inline TS_UINT64 uid() { return _uid; }
+
 	// 把新收到的包存进来
 	int addMsg(const ts_msg& _msg);
 

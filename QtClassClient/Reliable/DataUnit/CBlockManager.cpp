@@ -3,8 +3,9 @@
 
 #include "CBlockManager.h"
 
-CBlockManager::CBlockManager() :
-	fileNamePrefix("L") {
+CBlockManager::CBlockManager() 
+	: fileNamePrefix("L")
+	, lastBlock(NULL) {
 	iop_lock_init(&lockUserBlock);
 }
 
@@ -20,7 +21,11 @@ CBlockManager::~CBlockManager() {
 int CBlockManager::readRecord(TS_UINT64 uid, TS_UINT64 seq, ts_msg& p) {
 	if (seq == 0)
 		return -1;
+
+	iop_lock(&lockUserBlock);
 	CBlock* b = getBlockByUid(uid);
+	iop_unlock(&lockUserBlock);
+
 	if (NULL == b)
 		return -1;
 
@@ -38,6 +43,7 @@ int CBlockManager::record(ts_msg& in) {
 	if (b == NULL) {
 		b = new CBlock(uid);
 		map_userBlock.insert(make_pair(uid, b));
+		cout << "create new block for " << uid << endl;
 	}
 	iop_unlock(&lockUserBlock);
 	b->setFilePrefix(fileNamePrefix);
@@ -53,14 +59,18 @@ int CBlockManager::record(ts_msg& in) {
 
 CBlock* CBlockManager::getBlockByUid(TS_UINT64 uid) {
 	CBlock* result;
-	iop_lock(&lockUserBlock);
+
+	if (NULL != lastBlock && lastBlock->uid() == uid)
+		return lastBlock;
+
 	auto iter = map_userBlock.find(uid);
 	if (iter != map_userBlock.end()) {
 		result = iter->second;
 	} else {
 		result =  NULL;
 	}
-	iop_unlock(&lockUserBlock);
+	lastBlock = result;
+
 	return result;
 }
 
@@ -120,6 +130,7 @@ void CBlockManager::setMaxSeqOfUid(TS_UINT64 uid, TS_UINT64 seq) {
 	if (seq == 0) {
 		removeBlock(uid);
 		CBlock* b = new CBlock(uid);
+		cout << "reset block for uid:" << uid << endl;
 		b->setFilePrefix(fileNamePrefix);
 		map_userBlock.insert(make_pair(uid, b));
 	} else {

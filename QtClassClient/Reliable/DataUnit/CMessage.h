@@ -18,15 +18,12 @@ const int VersionNumber = 1;
 
 const int MaxClassInfo = 10;
 
-extern TS_UINT64 globalUID;
-extern TS_UINT64 globalTimeDiff;
-
 enum CleanType {
-    CleanSceneOnly      = 0,
     CleanShowWare       = 1,
     CleanHideWare       = 2,
     CleanShowClass      = 4,
-    CleanHideClass      = 8
+    CleanHideClass      = 8,
+    CleanScreen         = 16,
 };
 
 // 报文头
@@ -100,16 +97,6 @@ typedef struct {
     int allowedStudentNum;          // 最大允许学生数
 } UP_CREATECLASS;
 
-typedef struct {
-    TS_MESSAGE_HEAD     head;
-    WORD                failcode;
-    TS_UINT64           classid;
-} DOWN_CREATECLASS;
-
-typedef struct {
-    TS_MESSAGE_HEAD     head;
-    TS_UINT64           classid;
-} UP_DESTROYCLASS;
 
 typedef struct {
     TS_UINT64 classid;
@@ -117,6 +104,19 @@ typedef struct {
     unsigned char className[40];    // 课程名
     unsigned char nickname[20];     // 开课老师昵称~
 } CLASS_INFO;
+
+
+typedef struct {
+    TS_MESSAGE_HEAD     head;
+    WORD                failcode;
+    CLASS_INFO          info;
+} DOWN_CREATECLASS;
+
+typedef struct {
+    TS_MESSAGE_HEAD     head;
+    TS_UINT64           classid;
+} UP_DESTROYCLASS;
+
 
 typedef struct {
     TS_MESSAGE_HEAD     head;
@@ -141,6 +141,7 @@ typedef struct {
     TS_UINT64 reserved;
     TS_UINT64 classid;
     unsigned char role;
+    unsigned char isWriteable;
 	unsigned char isLoggedIn;
     unsigned char username[20];
 } USER_INFO;
@@ -246,7 +247,6 @@ enum MsgResult {
 
     FailedPlay,
 
-
     ErrorFormat,
     PleaseWaiting,
     ErrorNoResponseFromServer,
@@ -308,6 +308,7 @@ enum PacketType {
     ADDUSER,				// 增加用户
     REMOVEUSER,				// 减少用户
 
+    ENTERAGENT,             // 进入agent服务器
     CREATECLASS,            // 创建课堂
     DESTROYCLASS,           // 销毁课堂
     ALLCLASSINFO,           // 所有课堂信息

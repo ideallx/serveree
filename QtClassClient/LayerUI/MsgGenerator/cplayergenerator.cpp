@@ -53,7 +53,6 @@ bool CPlayerGenerator::generatePlayerData(TS_PLAYER_PACKET& pmsg, WORD action) {
 }
 
 void CPlayerGenerator::buildCommonInfo(TS_PLAYER_PACKET& pmsg) {
-    pmsg.head.UID = globalUID;
     pmsg.head.type = PLAYERCONTROL;
     pmsg.head.size = sizeof(TS_PLAYER_PACKET);
 	memcpy(pmsg.filename, curFileName.toLocal8Bit().data(), MaxFileName);
