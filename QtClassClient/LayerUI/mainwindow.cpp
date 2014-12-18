@@ -115,7 +115,7 @@ MainWindow::MainWindow(QWidget *parent)
     on_tbBackground_clicked();
     ui->listWidget->updateUserInfo();
 
-//#define _DEBUG_UI_
+#define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
 //    setRole(RoleTeacher);
@@ -145,7 +145,6 @@ void MainWindow::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL i
     if (!isRemote) {
         sendToDown(msg, 0, 0, false);
     } else {
-        // qDebug() << head->time << head->sequence;
         if (isLoading) {
             TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg;
             switch (head->type) {
@@ -723,7 +722,7 @@ void MainWindow::loadComplete() {
     qDebug() << "load complete";
 	while (!loadingbuffer.isEmpty()) {
 		if (!loadingbuffer.deQueue(msg))
-			continue;
+            continue;
 		ProcessMessage(msg, 0, 0, true);
-	}
+    }
 }

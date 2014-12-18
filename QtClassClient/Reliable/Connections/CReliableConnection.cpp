@@ -68,7 +68,10 @@ CReliableConnection::CReliableConnection()
     , totalMsgsOfClass(-1)              // 用以标记是否收到过最大包列表
 	, fileNamePrefix("L")
 	, resendWhenAsk(true)
-    , isRunning(false) {
+    , isRunning(false)
+    , requestCount(0)
+	, lastMissing(-1)
+	, lastUserNum(-1) {
     semMsg = CreateSemaphore(NULL, 0, 102400, NULL);
     semSave = CreateSemaphore(NULL, 0, 102400, NULL);
 	needScan = CreateSemaphore(NULL, 0, 10, NULL);		// 最多10个，10次不收到新的msg，scan速度放缓
@@ -262,8 +265,10 @@ void CReliableConnection::scanProcess() {
             ReleaseSemaphore(semSave, 1, NULL);
         }
 
-		if (0 != totalMiss)
-			cout << "missing: " << totalMiss << " first is " << *(results.begin()->second.begin()) << endl;;
+		if (0 != totalMiss && lastMissing != totalMiss) {
+			cout << "missing: " << totalMiss << " first is " << *(results.begin()->second.begin()) << endl;
+		}
+		lastMissing = totalMiss;
 
 		phaseMsgs = totalMsgs;
 
@@ -277,7 +282,10 @@ void CReliableConnection::saveProcess() {
     while (isRunning) {
         WaitForSingleObject(semSave, 3000);
 		// TODO for test
-		cout << "current users: " << peerHub->size() << endl;
+		if (lastUserNum != peerHub->size()) {
+			cout << fileNamePrefix << " current users: " << peerHub->size() << endl;
+		}
+		lastUserNum = peerHub->size();
 
         pair<TS_UINT64, CPackage*> file;
         if (!saveQueue.deQueue(file))
@@ -356,6 +364,13 @@ void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
     ts_msg msg;
     RCONNECT* up = (RCONNECT*) &msg;
     int currentTotal = 0;
+
+    if (requestCount > 0 && totalMsgs > 0) {    // has sent request and has recv anything
+        --requestCount;
+        return;
+    } else {
+        requestCount = 4;               // 4 * scan interval
+    }
 
     for (int i = 0; i < down->count; i++) {
         TS_UINT64 uid = down->unit[i].uid;

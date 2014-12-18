@@ -83,7 +83,12 @@ protected:
 	bool resendWhenAsk;				// 是否一收到重发请求就重发（重发率过高时，设为false抑制重发）
     bool isRunning;					// 是否运行，从create开始运行
 
+    int requestCount;               // 如果连续发 连续重发请求会导致服务器负载爆棚，所以发过一次后再等等
+
     set<pair<TS_UINT64, TS_UINT64> > maxSeqList;
+
+	int lastMissing;				// 上一次的MISS总数
+	int lastUserNum;				// 上一次的用户总数
 
 public:
 	CReliableConnection();

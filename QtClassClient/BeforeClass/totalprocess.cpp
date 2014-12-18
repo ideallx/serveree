@@ -1,5 +1,4 @@
 #include <iostream>
-#include <QtConcurrent>
 #include "totalprocess.h"
 
 using namespace std;
@@ -10,9 +9,10 @@ TotalProcess::TotalProcess(int argc, char* argv[]) {
     // buildOldStyle();
     buildNetwork();
 
-    ld->exec();
+    if (ld->exec() != 0)
+		exit(0);
     qDebug() << "ld terminated";
-    //exit(0);        // TODO how to do it better?
+    // exit(0);        // TODO how to do it better?
     return;
 }
 
@@ -114,6 +114,9 @@ void TotalProcess::buildNetwork() {
             this, &TotalProcess::buildBoard);
     connect(this, &TotalProcess::endLoginDialog,
             ld, &LoginDialog::accept);
+    connect(ld, &LoginDialog::classReview,
+            this, &TotalProcess::reviewClass);
+
     ld->setUsernamePassword(username, password);
 }
 
@@ -130,14 +133,15 @@ void TotalProcess::buildBoard(int role) {
         iop_usleep(100);
     }
     qDebug() << "load class complete";
-    ld->hide();
 
     ui = new MainWindow;
     ui->addDownReceiver(bl);
     bl->addUpReceiver(ui);
     ui->setRole(static_cast<RoleOfClass> (role));
-    ui->show();
+    // ui->show();
     ui->loadComplete();
+    ld->hide();
+    ui->show();
 
     // emit endLoginDialog();
 
@@ -169,4 +173,9 @@ void TotalProcess::buildUI() {
     // ui->setRole(static_cast<RoleOfClass> (role));
     ui->show();
     ui->loadComplete();
+}
+
+void TotalProcess::reviewClass(QString className) {
+
+
 }

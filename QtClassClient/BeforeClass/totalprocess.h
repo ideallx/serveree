@@ -31,6 +31,7 @@ signals:
 public slots:
     void setUnPw(QString username, QString password);
     void buildUI();
+    void reviewClass(QString className);
 
 private:
     void parseParam(int argc, char* argv[]);

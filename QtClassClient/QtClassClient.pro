@@ -183,8 +183,7 @@ INCLUDEPATH += Reliable/OSInedependent/libiop
 OTHER_FILES += \
     Reliable/Zip/zdll.lib \
     Reliable/Zip/zlib.lib \
-    Reliable/Zip/zlib1.dll \
-    ui/back/backRace.png
+    Reliable/Zip/zlib1.dll
 
 RESOURCES += \
     ui.qrc

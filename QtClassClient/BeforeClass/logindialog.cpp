@@ -128,3 +128,10 @@ void LoginDialog::on_lePassword_textChanged(const QString &arg1)
         ui->tbEnterClass->setEnabled(false);
     }
 }
+
+void LoginDialog::on_toolButton_clicked()
+{
+    QString className("10000_6419721");
+    emit classReview(className);
+    // show choose class dialog
+}

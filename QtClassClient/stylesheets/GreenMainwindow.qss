@@ -32,18 +32,18 @@ QListWidget:item {
 
 QScrollBar:vertical {
         border-radius: 5px;
-    background: rgb(69, 77, 80);
+    background: rgb(208, 219, 225);
     width: 12px;
     margin: 22px 0 22px 0;
 }
 QScrollBar::handle:vertical {
         border-radius: 5px;
-    background: rgb(26, 29, 34);
+    background: rgb(121, 131, 130);
     min-height: 20px;
 }
 QScrollBar::add-line:vertical {
         border-radius: 5px;
-    background: rgb(45, 55, 64);
+    background: rgb(121, 131, 130);
     height: 20px;
     subcontrol-position: bottom;
     subcontrol-origin: margin;
@@ -51,7 +51,7 @@ QScrollBar::add-line:vertical {
 
 QScrollBar::sub-line:vertical {
         border-radius: 5px;
-    background: rgb(45, 55, 64);
+    background: rgb(121, 131, 130);
     height: 20px;
     subcontrol-position: top;
     subcontrol-origin: margin;

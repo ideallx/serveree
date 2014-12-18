@@ -6,9 +6,9 @@
 CWSServer::CWSServer(TS_UINT64 classid, TS_UINT64 reserved) :
 	_classid(classid),
 	_reserved(reserved) {
-	TS_UINT64 clientTime = getServerTime();
+    TS_UINT64 servertime = getServerTime();
     conn = dynamic_cast<CReliableConnection*> (pConnect);
-	conn->setFilePrefix(int2string(classid) + "_" + int2string(clientTime));
+    conn->setFilePrefix(int2string(classid) + "_" + int2string(servertime));
 }
 
 CWSServer::~CWSServer() {

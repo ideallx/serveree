@@ -40,7 +40,7 @@ bool CSynSocket::bindPort(unsigned short iPort) {
             ip = inet_ntoa(*(struct in_addr *) localhost->h_addr_list[0]);
 		}
 	}
-	cout << "server ip is " << ip << " port is 2222" << endl; 
+    cout << "server ip is " << ip << " port is " << iPort << endl;
 	ipAddress = ip;
     m_LocalAddr.sin_family = AF_INET;
     m_LocalAddr.sin_addr.s_addr = inet_addr(ip);

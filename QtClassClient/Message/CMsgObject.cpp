@@ -48,8 +48,10 @@ void CMsgObject::changeParent(CMsgObject* newParent) {
 	setAgent(newParent->p_agent);
 }
 
+#include <QDebug>
 TS_UINT64 getKey(const ts_msg& msg) {
     TS_UINT64 key = (getTime(msg) << 20) + getSeq(msg);
+    // qDebug() << getUid(msg) << getTime(msg) << getSeq(msg) << key;
     return key;
 }
 

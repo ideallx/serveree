@@ -37,11 +37,14 @@ private slots:
 
     void on_lePassword_textChanged(const QString &arg1);
 
+    void on_toolButton_clicked();
+
 signals:
     void loginClass(QString username, QString password);
     void loginSuccess(int role);
     void endTimer();
     void promptChanged(int result);
+    void classReview(QString className);
 
 private:
 private:

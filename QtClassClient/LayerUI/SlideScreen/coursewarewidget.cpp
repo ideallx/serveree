@@ -199,14 +199,18 @@ bool CourseWareWidget::stop(bool isRemote) {
 
     ui->tbStart->setIcon(QIcon(":/icon/ui/icon/run.png"));
 
-    if (m_player->isMedia() && !m_player->isMediaEnd()) {
-        return true;
-    }
-    m_player->close();
-    setHidden(true);
-    emit paintModeChanged(PaintNormal);
-    emit clearScreen(TeacherUID, CleanHideClass | CleanHideWare | CleanScreen);
-    return true;
+	if (m_player) {
+		if (m_player->isMedia() && !m_player->isMediaEnd()) {
+			return true;
+		}
+		m_player->close();
+		setHidden(true);
+		emit paintModeChanged(PaintNormal);
+		emit clearScreen(TeacherUID, CleanHideClass | CleanHideWare | CleanScreen);
+		return true;
+	} else {
+		return false;
+	}
 }
 
 bool CourseWareWidget::prev(bool isRemote) {

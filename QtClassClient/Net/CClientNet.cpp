@@ -70,6 +70,7 @@ DWORD CClientNet::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSC
             setBeginSequence(down->lastSeq + 1);
             startupHeartBeat();
             sendConnectionMsg();
+            m_Connect->setFilePrefix(int2string(ntohs(down->addr.sin_port)) + "_" + int2string(getClientTime()));
         } else if (SuccessLeaveClass == down->result) {
             endHeartBeat();
         }

@@ -334,7 +334,7 @@ void CAgentServer::leaveClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	iop_lock(&lockWorkServer);
 	sendLeaveSuccess(inputMsg);
 	userLogoutNotify(inputMsg, user._uid);
-    pServer->removeUser(user._uid);
+    pServer->removePeer(user._uid);
 	heartBeatTime.erase(user._uid);
 	iop_unlock(&lockWorkServer);
 
@@ -525,9 +525,13 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
 		{
 			UP_AGENTSERVICE* in = (UP_AGENTSERVICE*) &inputMsg.msg;		// 收到进入/退出班级的请求
 			UserBase user;
-			user._classid = in->classid;
-            user._reserved = in->head.reserved;
+
 			user._uid = in->head.UID;
+			if (map_userinfo.count(user._uid) == 0)
+				break;
+
+			user._classid = map_userinfo[user._uid]._classid;
+            user._reserved = in->head.reserved;
 
 			memcpy(user._username, in->username, 20);
 			memcpy(user._password, in->password, 20);
