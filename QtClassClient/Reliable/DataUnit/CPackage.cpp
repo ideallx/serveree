@@ -90,7 +90,7 @@ bool CPackage::save(string fileName, bool isCreate) {
 	if (isZipFileExist(fileName, packageID))			// 若文件已经存在，不用重复保存
 		return true;
 
-	char *content = (char *) malloc(MESSAGE_SIZE * MaxPackets);
+    char *content = (char *) malloc(MESSAGE_SIZE * MaxPackets);
 	for (int i = 0; i < scanHead; i++) {
 		ts_msg* msg = packets[i];
 		if (NULL == msg)

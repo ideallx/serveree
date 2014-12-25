@@ -119,7 +119,7 @@ void TotalProcess::buildNetwork() {
     connect(ld, &LoginDialog::loginClass,
             this, &TotalProcess::setUnPw);
     connect(ld, &LoginDialog::loginSuccess,
-            this, &TotalProcess::buildBoard);
+            this, &TotalProcess::buildUI);
     connect(this, &TotalProcess::endLoginDialog,
             ld, &LoginDialog::accept);
     connect(ld, &LoginDialog::classReview,

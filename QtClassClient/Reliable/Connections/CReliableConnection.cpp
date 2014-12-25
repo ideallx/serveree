@@ -78,6 +78,8 @@ CReliableConnection::CReliableConnection()
 	createdBlock.clear();
 
 	iop_lock_init(&ioLock);
+
+    setFilePrefix(getCurTime());
 }
 
 CReliableConnection::~CReliableConnection() {

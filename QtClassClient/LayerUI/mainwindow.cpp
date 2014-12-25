@@ -115,7 +115,7 @@ MainWindow::MainWindow(QWidget *parent)
     on_tbBackground_clicked();
     ui->listWidget->updateUserInfo();
 
-#define _DEBUG_UI_
+//#define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
     setRole(RoleTeacher);
@@ -385,6 +385,7 @@ void MainWindow::msgExcute() {
     }
 
     TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg;
+    qDebug() << "message type is:" << head->type << "seq is:" << head->sequence;
     switch (head->type) {
     case GRAPHICS:
         {
