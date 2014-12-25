@@ -32,7 +32,11 @@ public:
 	CBlockManager();
 	virtual ~CBlockManager();
 
+    // 用于 replay 每次只load一个Package
     set<TS_UINT64> loadExistFile(string prefix);
+
+    // 将上一次进入此课堂的进度全部装载进去，连接上
+    void loadLastClassProgress(string prefix);
 
     void setBlock(TS_UINT64 uid, string blockfilename);
     TS_UINT64 loadPackage(TS_UINT64 uid, int packageNum, CPackage& package);

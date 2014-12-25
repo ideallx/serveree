@@ -74,7 +74,7 @@ DWORD CClientNet::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSC
             startupHeartBeat();
             sendConnectionMsg();
             m_Connect->setFilePrefix(string(reinterpret_cast<char*> (down->className)));
-            m_Connect->loadFile(string(reinterpret_cast<char*> (down->className)));
+            // m_Connect->loadFile(string(reinterpret_cast<char*> (down->className)));
         } else if (SuccessLeaveClass == down->result) {
             endHeartBeat();
         }

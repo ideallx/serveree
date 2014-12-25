@@ -1313,7 +1313,7 @@ debug\moc_cloginbutton.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QTimer \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qtimer.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qbasictimer.h \
-		ui_loginwidget.h \
+		..\QtClassClient\ui_loginwidget.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVariant \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QAction \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qaction.h \
@@ -1574,7 +1574,7 @@ debug\moc_csettingsbutton.cpp: F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidge
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfiledevice.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qvector2d.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qtouchdevice.h \
-		ui_settingwidget.h \
+		..\QtClassClient\ui_settingwidget.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVariant \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QAction \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qaction.h \
@@ -3387,7 +3387,7 @@ ui_mainwindow.h: ..\QtClassClient\mainwindow.ui \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QTimer \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qtimer.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qbasictimer.h \
-		ui_loginwidget.h \
+		..\QtClassClient\ui_loginwidget.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVariant \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QAction \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qaction.h \
@@ -3539,7 +3539,7 @@ ui_mainwindow.h: ..\QtClassClient\mainwindow.ui \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfiledevice.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qvector2d.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qtouchdevice.h \
-		ui_settingwidget.h \
+		..\QtClassClient\ui_settingwidget.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVariant \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QAction \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qaction.h \
@@ -4770,7 +4770,7 @@ debug\mainwindow.obj: ..\QtClassClient\LayerUI\mainwindow.cpp F:\Qt\Qt5.3.2\5.3\
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\ActiveQt\qaxobject.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\ActiveQt\qaxbase.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\QPixmap \
-		ui_mainwindow.h \
+		..\QtClassClient\ui_mainwindow.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QAction \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qaction.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qactiongroup.h \
@@ -4793,7 +4793,7 @@ debug\mainwindow.obj: ..\QtClassClient\LayerUI\mainwindow.cpp F:\Qt\Qt5.3.2\5.3\
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QVBoxLayout \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QWidget \
 		..\QtClassClient\LayerUI\UserInterface\cloginbutton.h \
-		ui_loginwidget.h \
+		..\QtClassClient\ui_loginwidget.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QFrame \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QGridLayout \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QLineEdit \
@@ -4805,7 +4805,7 @@ debug\mainwindow.obj: ..\QtClassClient\LayerUI\mainwindow.cpp F:\Qt\Qt5.3.2\5.3\
 		..\QtClassClient\LayerUI\SlideScreen\coursewarewidget.h \
 		..\QtClassClient\LayerUI\MsgGenerator\cracegenerator.h \
 		..\QtClassClient\LayerUI\UserInterface\csettingsbutton.h \
-		ui_settingwidget.h \
+		..\QtClassClient\ui_settingwidget.h \
 		..\QtClassClient\LayerUI\UserInterface\cshapechooser.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QMenu \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qmenu.h \
@@ -5434,19 +5434,20 @@ debug\CBlock.obj: ..\QtClassClient\Reliable\DataUnit\CBlock.cpp ..\QtClassClient
 
 debug\CBlockManager.obj: ..\QtClassClient\Reliable\DataUnit\CBlockManager.cpp ..\QtClassClient\Reliable\OSInedependent\libiop\iop_util.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_config.h \
-		..\QtClassClient\Reliable\DataUnit\CBlockManager.h \
-		..\QtClassClient\Reliable\DataUnit\CBlock.h \
+		..\QtClassClient\Reliable\Zip\myzip.h \
 		..\QtClassClient\Reliable\DataUnit\CMessage.h \
 		..\QtClassClient\Reliable\OSInedependent\others.h \
 		..\QtClassClient\stdafx.h \
-		..\QtClassClient\Reliable\DataUnit\CPackage.h \
-		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
-		..\QtClassClient\Stdafx.h \
 		..\QtClassClient\Reliable\Zip\zip.h \
 		..\QtClassClient\Reliable\Zip\zlib.h \
 		..\QtClassClient\Reliable\Zip\zconf.h \
 		..\QtClassClient\Reliable\Zip\ioapi.h \
 		..\QtClassClient\Reliable\Zip\unzip.h \
+		..\QtClassClient\Reliable\DataUnit\CBlockManager.h \
+		..\QtClassClient\Reliable\DataUnit\CBlock.h \
+		..\QtClassClient\Reliable\DataUnit\CPackage.h \
+		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
+		..\QtClassClient\Stdafx.h \
 		..\QtClassClient\Reliable\Strategy\CDestroyStrategy.h \
 		..\QtClassClient\Reliable\Strategy\CAbsStrategy.h \
 		..\QtClassClient\Reliable\Strategy\CWriteFileStrategy.h
@@ -8272,7 +8273,7 @@ debug\cloginbutton.obj: ..\QtClassClient\LayerUI\UserInterface\cloginbutton.cpp 
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QToolButton \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qtoolbutton.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qabstractbutton.h \
-		ui_loginwidget.h \
+		..\QtClassClient\ui_loginwidget.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVariant \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QAction \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QApplication \
@@ -8666,7 +8667,7 @@ debug\csettingsbutton.obj: ..\QtClassClient\LayerUI\UserInterface\csettingsbutto
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QToolButton \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qtoolbutton.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qabstractbutton.h \
-		ui_settingwidget.h \
+		..\QtClassClient\ui_settingwidget.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVariant \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QAction \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QApplication \
@@ -9057,7 +9058,7 @@ debug\prompt.obj: ..\QtClassClient\LayerUI\UserInterface\prompt.cpp ..\QtClassCl
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfiledevice.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qvector2d.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qtouchdevice.h \
-		ui_prompt.h \
+		..\QtClassClient\ui_prompt.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVariant \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QAction \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qaction.h \
@@ -9206,7 +9207,7 @@ debug\widgetwarelistitem.obj: ..\QtClassClient\LayerUI\UserInterface\widgetwarel
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfiledevice.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qvector2d.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qtouchdevice.h \
-		ui_widgetwarelistitem.h \
+		..\QtClassClient\ui_widgetwarelistitem.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVariant \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QAction \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qaction.h \
@@ -9729,7 +9730,7 @@ debug\coursewarewidget.obj: ..\QtClassClient\LayerUI\SlideScreen\coursewarewidge
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QFile \
 		..\QtClassClient\LayerUI\MsgGenerator\cplayergenerator.h \
 		..\QtClassClient\LayerUI\MsgGenerator\cracegenerator.h \
-		ui_coursewarewidget.h \
+		..\QtClassClient\ui_coursewarewidget.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QAction \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qaction.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qactiongroup.h \
@@ -9888,7 +9889,7 @@ debug\logindialog.obj: ..\QtClassClient\BeforeClass\logindialog.cpp F:\Qt\Qt5.3.
 		..\QtClassClient\Reliable\DataStructure\TSQueue.h \
 		..\QtClassClient\Reliable\OSInedependent\libiop\iop_thread.h \
 		..\QtClassClient\Message\CModuleAgent.h \
-		ui_logindialog.h \
+		..\QtClassClient\ui_logindialog.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVariant \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QAction \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qaction.h \
@@ -10582,7 +10583,7 @@ debug\dialogpixmap.obj: ..\QtClassClient\LayerUI\UserInterface\dialogpixmap.cpp 
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\qfiledevice.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qvector2d.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qtouchdevice.h \
-		ui_dialogpixmap.h \
+		..\QtClassClient\ui_dialogpixmap.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVariant \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QAction \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qaction.h \
@@ -10824,7 +10825,7 @@ debug\dialogchoosereplay.obj: ..\QtClassClient\BeforeClass\dialogchoosereplay.cp
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qtoolbutton.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qabstractbutton.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtGui\qicon.h \
-		ui_dialogchoosereplay.h \
+		..\QtClassClient\ui_dialogchoosereplay.h \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtCore\QVariant \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\QAction \
 		F:\Qt\Qt5.3.2\5.3\msvc2010_opengl\include\QtWidgets\qaction.h \

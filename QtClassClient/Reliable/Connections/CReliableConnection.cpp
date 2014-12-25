@@ -361,6 +361,7 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 	return result;
 }
 
+#include <QDebug>
 void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
     DOWN_MAXSEQ_LIST *down = (DOWN_MAXSEQ_LIST*) &requestMsg;
 
@@ -384,7 +385,6 @@ void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
 
         assert(maxSeqClient >= 0 && maxSeqServer >= 0);
 
-        currentTotal += maxSeqServer;
         cout << uid << " client/server max seq: " << maxSeqClient << " " << maxSeqServer << endl;
         if (maxSeqClient < maxSeqServer) {      // if server's seq bigger than client
             up->missingUID = uid;
@@ -396,7 +396,9 @@ void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
             up->head.size = sizeof(RCONNECT);
             up->head.sequence = 0;
             up->head.UID = selfUid;
+            qDebug() << "ask for series resend" << maxSeqClient << maxSeqServer;
             send(msg.Body, up->head.size);
+            currentTotal += maxSeqServer - maxSeqClient;
         } else if (uid == selfUid) {            // if server lost client's latest msg
             if (maxSeqClient > maxSeqServer) {
                 // only resend 1 max message for not block the network
@@ -565,5 +567,5 @@ int CReliableConnection::getLoadingProcess() {
 }
 
 void CReliableConnection::loadFile(string classname) {
-
+    bm->loadLastClassProgress(classname);
 }

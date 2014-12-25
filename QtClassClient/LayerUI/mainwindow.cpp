@@ -115,7 +115,7 @@ MainWindow::MainWindow(QWidget *parent)
     on_tbBackground_clicked();
     ui->listWidget->updateUserInfo();
 
-//#define _DEBUG_UI_
+#define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
     setRole(RoleTeacher);
@@ -158,7 +158,7 @@ void MainWindow::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL i
             case PLAYERCONTROL:
                 {
                     TS_PLAYER_PACKET* pmsg = (TS_PLAYER_PACKET*) &msg;
-                    if (pmsg->pa == ActionStart)
+                    if (pmsg->pa == ActionStart || pmsg->pa == ActionStop)
                         loadingbuffer.clean();
                 }
                 break;

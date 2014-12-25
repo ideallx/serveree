@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <iop_util.h>
+#include "../Zip/myzip.h"
 
 #include "CBlockManager.h"
 
@@ -44,8 +45,10 @@ set<TS_UINT64> CBlockManager::loadExistFile(string prefix) {
         result.insert(uid);
     }
 
-    while (!_findnext(handle, &fileinfo)) {
+    // return 0 if find success
+    while (_findnext(handle, &fileinfo) == 0) {
         TS_UINT64 uid = getUidFromFileName(string(fileinfo.name));
+        cout << "find uid " << uid << endl;
         if (uid > 0) {
             setBlock(uid, fileinfo.name);
             result.insert(uid);
@@ -53,6 +56,49 @@ set<TS_UINT64> CBlockManager::loadExistFile(string prefix) {
     }
 
     return result;
+}
+
+void CBlockManager::loadLastClassProgress(string prefix) {
+    struct _finddata_t fileinfo;
+    long handle;
+    string stringpattern = prefix + "*.zip";
+    handle = _findfirst(stringpattern.c_str(), &fileinfo);
+    if (handle < 0)
+        return;
+
+    int packageNum = 0;
+
+    TS_UINT64 uid = getUidFromFileName(string(fileinfo.name));
+    if (uid > 0) {
+        setBlock(uid, fileinfo.name);
+
+        while (true) {
+            int length = CZip::getOriginalSize(fileinfo.name, int2string(packageNum).c_str());
+            if (length > 0) {
+                packageNum++;
+            } else {
+                setMaxSeqOfUid(uid, (packageNum - 1) * 1024 + 1);
+                break;
+            }
+        }
+    }
+
+    // return 0 if find success
+    while (_findnext(handle, &fileinfo) == 0) {
+        TS_UINT64 uid = getUidFromFileName(string(fileinfo.name));
+        if (uid > 0) {
+            setBlock(uid, fileinfo.name);
+            while (true) {
+                int length = CZip::getOriginalSize(fileinfo.name, int2string(packageNum).c_str());
+                if (length > 0) {
+                    packageNum++;
+                } else {
+                    setMaxSeqOfUid(uid, (packageNum - 1) * 1024 + 1);
+                    break;
+                }
+            }
+        }
+    }
 }
 
 void CBlockManager::setBlock(TS_UINT64 uid, string blockfilename) {
@@ -200,6 +246,7 @@ void CBlockManager::setMaxSeqOfUid(TS_UINT64 uid, TS_UINT64 seq) {
 		map_userBlock.insert(make_pair(uid, b));
 	} else {
 		map_userBlock[uid]->setMaxSeq(seq);
+        cout << "uid: " << uid << "'s max seq is changed to " << seq;
 	}
 	iop_unlock(&lockUserBlock);
 }

@@ -57,6 +57,7 @@ MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent)
 
     setDraw.pen = QPen(Qt::black, 1);
     setDraw.drawingType = SCRIPTS;
+
     //generateTestShape();
 }
 
