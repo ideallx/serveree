@@ -61,7 +61,7 @@ bool Replays::getNextMsg(ts_msg& msg, int& sleepTime) {
     }
 
 	if (records.empty())
-        return false;
+        return true;
 
     TS_UINT64 nextTime = getTime(records.begin()->second);
 

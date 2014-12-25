@@ -48,7 +48,9 @@ bool MyView::viewportEvent(QEvent *event) {
         }
         return true;
     }
-
+    case QEvent::Leave:
+        isLeftClicked = false;
+        break;
     case QEvent::TouchBegin:
     case QEvent::TouchUpdate:
     case QEvent::TouchEnd:
