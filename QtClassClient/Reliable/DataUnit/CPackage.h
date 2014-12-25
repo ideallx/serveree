@@ -2,19 +2,16 @@
 #define _DATAUNIT_CPACKETARRAY_H_
 
 #include <set>
-
 #include <iop_thread.h>
 
-#include "../../Stdafx.h"
 #include "CMessage.h"
-
+#include "../../Stdafx.h"
 #include "../Zip/zip.h"
 #include "../Zip/unzip.h"
 #include "../Zip/zlib.h"
 
 using namespace std;
 
-const int MaxPackets = 1024;
 
 /*
  *	每1024个msgs作为一个数组
@@ -41,13 +38,13 @@ private:
 	int packageID;		// 包id
 	set<int> missing;	// 已丢失的包
 	bool _isSaved;		// 是否已经保存过
+    TS_UINT64 m_lastKey;  // 最大key值
 
 public:
 	explicit CPackage(int beginPos = 0);
-	virtual ~CPackage();
-	void init();
-	void unInit();	
+    virtual ~CPackage();
 
+	inline int lastSubSeq() { return scanHead; }
 	void clearPackets();
 	
 	int insert(const ts_msg& pin, int pos);
@@ -70,7 +67,7 @@ public:
 	inline bool isAvailable(int pos) { return ((pos < MaxPackets) && (pos >= 0)); }
 	inline bool isFull() { 
 		if (scanHead >= MaxPackets) 
-			return missing.size() == 0;
+			return missing.empty();
 		else
 			return false;
 	}
@@ -82,6 +79,12 @@ public:
 	void needAll();
 
 	int scanMissingPackets(set<int>& out);
+
+    const ts_msg* operator[] (const size_t index) {
+        if (!isAvailable(index))
+            return NULL;
+        return packets[index];
+    }
 };
 
 #endif

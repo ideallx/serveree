@@ -72,7 +72,7 @@ protected:
 	int totalMsgs;					// 总共收到的包数
 	int totalMiss;					// 总共丢掉的包数
 	int phaseMsgs;					// 之前一段时间的收包数	totalMsgs - phaseMsgs 为这段时间的收包数
-    int totalMsgsOfClass;           // 课堂总共的包数
+    TS_UINT64 totalMsgsOfClass;           // 课堂总共的包数
 
 	iop_lock_t ioLock;
 
@@ -153,6 +153,8 @@ public:
 
     int getLoadingProcess();
 
+    void loadFile(string classname);
+
 private:
 	// 将需要发送的消息添加至消息队列
 	int send2Peer(ts_msg& msg);
@@ -174,6 +176,7 @@ private:
 
     // 收到数据后的处理以及转发等过程
     void receive();
+
 	
 private:
 	// 定时扫描失踪包裹。

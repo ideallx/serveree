@@ -39,7 +39,7 @@ sockaddr_in* CAbsServer::getServerAddr(void) {
 
 thread_ret_type thread_func_call SendProc(LPVOID lpParam) {
     iop_thread_detach_self();
-    CAbsServer* pServer = (CAbsServer*) lpParam;
+    CAbsServer* pServer = reinterpret_cast<CAbsServer*> (lpParam);
 	if (!pServer) {
         iop_thread_exit(0);
 		return 0;
@@ -54,7 +54,7 @@ thread_ret_type thread_func_call SendProc(LPVOID lpParam) {
 
 thread_ret_type thread_func_call RecvProc(LPVOID lpParam) {
     iop_thread_detach_self();
-    CAbsServer* pServer = (CAbsServer*) lpParam;
+    CAbsServer* pServer = reinterpret_cast<CAbsServer*> (lpParam);
 	if (!pServer) {
         iop_thread_exit(0);
 		return 0;
@@ -69,7 +69,7 @@ thread_ret_type thread_func_call RecvProc(LPVOID lpParam) {
 
 thread_ret_type thread_func_call MsgProc(LPVOID lpParam) {
     iop_thread_detach_self();
-	CAbsServer* pServer = (CAbsServer*) lpParam;
+    CAbsServer* pServer = reinterpret_cast<CAbsServer*> (lpParam);
 	if (NULL == pServer) {
         iop_thread_exit(0);
 		return 0;

@@ -128,8 +128,8 @@ QIcon ColorCombox::createColorIcon(QColor color)
 
 void ColorCombox::OnColorChanged()
 {
-    QAction *pFillColorAction = new QAction(this);
-    pFillColorAction = qobject_cast<QAction *>(sender());
+    // QAction *pFillColorAction = new QAction(this);
+	QAction *pFillColorAction = qobject_cast<QAction *>(sender());
     QColor color = qvariant_cast<QColor>(pFillColorAction->data());
 
     this->menu()->close();

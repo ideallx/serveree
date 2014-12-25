@@ -15,7 +15,7 @@
 
 thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {
     iop_thread_detach_self();
-    MainWindow* m = (MainWindow*) lpParam;
+    MainWindow* m = reinterpret_cast<MainWindow*> (lpParam);
     if (NULL == m) {
         iop_thread_exit(0);
         return 0;
@@ -115,10 +115,10 @@ MainWindow::MainWindow(QWidget *parent)
     on_tbBackground_clicked();
     ui->listWidget->updateUserInfo();
 
-#define _DEBUG_UI_
+//#define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
-//    setRole(RoleTeacher);
+    setRole(RoleTeacher);
 #else
     setWindowFlags(Qt::FramelessWindowHint |
                    Qt::WindowSystemMenuHint |
@@ -448,14 +448,15 @@ void MainWindow::msgExcute() {
     case COURSEWARE:
         {
             TS_FILE_PACKET* fmsg = (TS_FILE_PACKET*) &msg;
-            addWareList(QString((char*) fmsg->content));
+            addWareList(QString(reinterpret_cast<char*> (fmsg->content)));
             sendResultPrompt(SuccessDownload);
         }
 		break;
 	case PLAYERCONTROL:
 		{
             TS_PLAYER_PACKET* pmsg = (TS_PLAYER_PACKET*) &msg;
-            signalPlayerMove(QString::fromLocal8Bit((char*) pmsg->filename), pmsg->pa);
+            signalPlayerMove(QString::fromLocal8Bit(reinterpret_cast<char*> (pmsg->filename)),
+                             pmsg->pa);
 		}
         break;
 	case SETWRITEAUTH:
@@ -598,6 +599,8 @@ void MainWindow::setRole(enum RoleOfClass role) {
     ui->wgtCourse->setRole(role);
     if (role == RoleTeacher) {
         sceneMap[TeacherUID]->setWriteable(true);
+    } else {
+        sceneMap[TeacherUID]->setWriteable(false);
     }
 }
 
@@ -725,4 +728,5 @@ void MainWindow::loadComplete() {
             continue;
 		ProcessMessage(msg, 0, 0, true);
     }
+    setRole(static_cast<enum RoleOfClass> (m_ds->getRole()));
 }

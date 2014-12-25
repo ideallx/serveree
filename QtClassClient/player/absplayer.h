@@ -66,13 +66,14 @@ protected:
     CMsgObject* m_parent;
     QString     m_filepath;
     bool        m_isLoadSuccess;
-    QList<QString> m_fileList;
     QRect       m_screenRect;
-    bool        m_transBackground;
-    bool        m_isInnerPvNx;
-	bool		m_isWaiting;
+    bool        m_transBackground;      // does media need a transparent background
+    bool        m_isInnerPvNx;          // inner previos and next like ppt and media others like png 
+	bool		m_isWaiting;            // unused
     bool        m_isMedia;              // media: pause start
     bool        m_isMediaEnd;
+
+    QList<QString> m_fileList;
 };
 
 

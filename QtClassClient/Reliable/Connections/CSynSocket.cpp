@@ -10,7 +10,7 @@ CSynSocket::CSynSocket()
 bool CSynSocket::bindPort(unsigned short iPort) {
 	FILE* fp = fopen("config.txt", "r");
 	char ipPrefix[20];
-	int nLen;
+	int nLen = 0;
     if (fp != NULL) {
 		nLen = fread(ipPrefix, sizeof(char), 20, fp);
         fclose(fp);
@@ -47,8 +47,8 @@ bool CSynSocket::bindPort(unsigned short iPort) {
     m_LocalAddr.sin_port = htons(iPort);
 
 	if (iPort != 0) {
-		rc = bind(m_Socket, (struct sockaddr *) &m_LocalAddr, m_LocalAddrSize);
-		if (rc == SOCKET_ERROR) {
+		int result = bind(m_Socket, (struct sockaddr *) &m_LocalAddr, m_LocalAddrSize);
+        if (result == SOCKET_ERROR) {
 			err = WSAGetLastError();
 			return false;
 		}

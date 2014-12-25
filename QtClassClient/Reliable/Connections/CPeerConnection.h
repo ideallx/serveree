@@ -7,7 +7,7 @@
 class  CPeerConnection : public CConnection {
 public:
 	CPeerConnection(void) {}
-	CPeerConnection(CAbsSocket* ps) { pSocket->copy(ps); }
+    CPeerConnection(CAbsSocket* ps) { setSocket(*ps); }
 	virtual ~CPeerConnection(void) {}
 };
 

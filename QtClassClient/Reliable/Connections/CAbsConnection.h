@@ -9,12 +9,11 @@
 
 class CAbsConnection {
 protected:
-	CAbsSocket* pSocket;
-	bool isCloned;
-	struct sockaddr_in m_ToAddr;
-	struct sockaddr_in m_FromAddr;
-
-    TS_UINT64 latestTime;
+	CAbsSocket*         pSocket;
+	bool                isCloned;
+	struct sockaddr_in  m_ToAddr;
+	struct sockaddr_in  m_FromAddr;
+    TS_UINT64           latestTime;
 
 public:
 	CAbsConnection(void);
@@ -22,7 +21,7 @@ public:
 
 public:
 	inline CAbsSocket* getSocket(void) const { return pSocket; }
-	inline bool setSocket(CAbsSocket* ps) { return pSocket->copy(ps); }
+	inline void setSocket(const CAbsSocket& ps) { pSocket->operator=(ps); }
 
 	inline bool isValidSocket() { if (!pSocket) return false; return pSocket->isValidSocket(); }
 

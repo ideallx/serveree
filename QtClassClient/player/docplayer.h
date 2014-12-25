@@ -21,10 +21,10 @@ public:
     virtual ~DocPlayer();
 
 protected:
-    QAxObject* doc;
+    //QAxObject* doc;
 
-    int totalSlide;
-    int curSlide;
+    //int totalSlide;
+    //int curSlide;
 };
 
 

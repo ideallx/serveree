@@ -3,20 +3,28 @@
 
 using namespace std;
 
+static bool isProgramRunning;
+
 TotalProcess::TotalProcess(int argc, char* argv[]) {
+    isProgramRunning = true;
     parseParam(argc, argv);
 
     // buildOldStyle();
     buildNetwork();
 
-    if (ld->exec() != 0)
+    int answer = ld->exec();
+	if (answer != 0) {
 		exit(0);
+	}
     qDebug() << "ld terminated";
     // exit(0);        // TODO how to do it better?
+
     return;
 }
 
 TotalProcess::~TotalProcess() {
+    isProgramRunning = false;
+    iop_usleep(100);
     delete ui;
     delete bl;
     delete cn;
@@ -55,7 +63,7 @@ void TotalProcess::parseParam(int argc, char* argv[]) {
             this->serverIp = serverip;
             this->username = username;
             this->password = password;
-            fclose(stdin);
+            fclose(fp);
         }
     }
 
@@ -120,62 +128,71 @@ void TotalProcess::buildNetwork() {
     ld->setUsernamePassword(username, password);
 }
 
-void TotalProcess::buildBoard(int role) {
-    qDebug() << "build board";
-    ld->showPrompt(NormalCourseLoading);
-    bl->removeUpReceiver(ld);
-
+void loadCourse(LoginDialog* ld, CClientNet* cn) {
     int progress = 0;
-    while (progress < 995) {
+    while (progress < 995 && isProgramRunning) {
         qDebug() << progress;
-        ld->setLoadProgress(progress);
+        emit ld->progressChanged(progress);
+        // ld->setLoadProgress(progress);
         progress = cn->loadProgress();
         iop_usleep(100);
     }
     qDebug() << "load class complete";
+}
 
-    ui = new MainWindow;
-    ui->addDownReceiver(bl);
-    bl->addUpReceiver(ui);
-    ui->setRole(static_cast<RoleOfClass> (role));
-    // ui->show();
-    ui->loadComplete();
-    ld->hide();
-    ui->show();
+void TotalProcess::buildBoard() {
+    qDebug() << "build board";
+    ld->showPrompt(NormalCourseLoading);
+    bl->removeUpReceiver(ld);
 
-    // emit endLoginDialog();
-
-//    ui = new MainWindow;
-//    ui->addDownReceiver(bl);
-//    bl->addUpReceiver(ui);
-//    ui->setRole(static_cast<RoleOfClass> (role));
-//    ui->show();
-
-//	ui->loadComplete();
-
-//    CModuleAgent *ma = CModuleAgent::getUniqueAgent();
-//    ui = new MainWindow;
-//    ui->setRole(static_cast<RoleOfClass> (role));
-//    ma->registerModule("UI", ui);
-//    ui->addDownReceiver(bl);
-//    bl->addUpReceiver(ui);
-
-//    // ui->enterClass(username, password);
-//    ui->show();
+    threadLoad.setFuture(QtConcurrent::run(loadCourse, ld, cn));
+    connect(&threadLoad, SIGNAL(finished()),
+            this, SLOT(buildUI()));
 }
 
 void TotalProcess::buildUI() {
     qDebug() << "build";
-    ld->hide();
     ui = new MainWindow;
     ui->addDownReceiver(bl);
     bl->addUpReceiver(ui);
     // ui->setRole(static_cast<RoleOfClass> (role));
-    ui->show();
     ui->loadComplete();
+    ld->hide();
+    ui->show();
+}
+
+void msgThread(CClientNet* cn, QString classname, MainWindow* ui) {
+    if (cn->replayInit(classname) != Success)
+        return;                 // TODO error checking
+    int sleepTime;
+    bool result = true;
+    while (isProgramRunning && result) {
+        result = cn->replays(sleepTime);
+        iop_usleep(sleepTime);
+        //iop_usleep(5);
+    }
+    if (!result) {              // if the replay is ended normally
+        ui->sendPrompt(QString::fromLocal8Bit("Â¼Ïñ²¥·ÅÍê±Ï"));
+    }
+    qDebug() << "replays end";
 }
 
 void TotalProcess::reviewClass(QString className) {
+	ld->done(0);
 
+    bl->removeUpReceiver(ld);
 
+    ui = new MainWindow;
+	ui->loadComplete();
+
+    bl->addUpReceiver(ui);
+	bl->setReviewMode();
+    ui->addDownReceiver(bl);
+
+    ui->setRole(RoleRepeat);
+    ui->show();
+
+    // iop_thread_create(&pthread_input, MsgInProc, (void *) this, 0);
+    threadRev = QtConcurrent::run(msgThread, cn, className, ui);
+	iop_usleep(100);
 }

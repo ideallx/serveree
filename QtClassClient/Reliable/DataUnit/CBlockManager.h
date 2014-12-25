@@ -32,6 +32,11 @@ public:
 	CBlockManager();
 	virtual ~CBlockManager();
 
+    set<TS_UINT64> loadExistFile(string prefix);
+
+    void setBlock(TS_UINT64 uid, string blockfilename);
+    TS_UINT64 loadPackage(TS_UINT64 uid, int packageNum, CPackage& package);
+
 	// 找某个用户的某条记录
 	int readRecord(TS_UINT64 uid, TS_UINT64 seq, ts_msg& p);
 
@@ -45,7 +50,9 @@ public:
 	void removeBlock(TS_UINT64 uid);
 
 	// 保存Block
-	void saveBlock(TS_UINT64 uid);
+    void saveBlock(TS_UINT64 uid);
+
+    void saveAllBlocks();
 
 	// 获取需要保存的CPackage
 	int getSavePackage(set<pair<TS_UINT64, CPackage*> >& out);

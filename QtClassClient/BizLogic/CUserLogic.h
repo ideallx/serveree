@@ -12,7 +12,6 @@ class CUserLogic : public CBaseLogic {
 private:
 	bool isLoggedIn;
     UserBase* ub;
-    DataSingleton* ds;
 
 public:
 	CUserLogic(CMsgObject* msgParent);

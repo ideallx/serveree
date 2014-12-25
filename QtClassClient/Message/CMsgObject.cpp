@@ -48,19 +48,19 @@ void CMsgObject::changeParent(CMsgObject* newParent) {
 	setAgent(newParent->p_agent);
 }
 
-#include <QDebug>
-TS_UINT64 getKey(const ts_msg& msg) {
-    TS_UINT64 key = (getTime(msg) << 20) + getSeq(msg);
-    // qDebug() << getUid(msg) << getTime(msg) << getSeq(msg) << key;
-    return key;
-}
+//#include <QDebug>
+//TS_UINT64 getKey(const ts_msg& msg) {
+//    TS_UINT64 key = (getTime(msg) << 20) + getSeq(msg);
+//    // qDebug() << getUid(msg) << getTime(msg) << getSeq(msg) << key;
+//    return key;
+//}
 
 void CMsgObject::sendToUp(const ts_msg& msg, WPARAM wParam, LPARAM lParam, bool isRemote) {
 	CMsgObject* sender = this;
 	while (sender->p_Parent) {
 		sender = sender->p_Parent;
 	}
-    if (sender->upReceivers.size() == 0) {
+	if (sender->upReceivers.empty()) {
         sender->upCache.insert(make_pair(getKey(msg), msg));
         return;
     }
@@ -75,7 +75,7 @@ void CMsgObject::sendToDown(const ts_msg& msg, WPARAM wParam, LPARAM lParam, boo
 	while (sender->p_Parent) {
 		sender = sender->p_Parent;
 	}
-    if (sender->downReceivers.size() == 0) {
+	if (sender->downReceivers.empty()) {
         sender->downCache.insert(make_pair(getTime(msg), msg));
         return;
     }

@@ -7,24 +7,16 @@
 #include "../DataUnit/CMessage.h"
 #include "../Zip/myzip.h"
 
-CPackage::CPackage(int beginPos) :
-	scanHead(beginPos),
-	packageID(0),
-	_isSaved(false) {
-	init();
+CPackage::CPackage(int beginPos)
+    : scanHead(beginPos)
+    , packageID(0)
+    , _isSaved(false)
+    , m_lastKey(0) {
+    memset(packets, 0, MaxPackets * sizeof(void*));
 }
 
 CPackage::~CPackage() {
-	unInit();
-}
-
-void CPackage::init() {
-	memset(packets, 0, MaxPackets * sizeof(void*));
-
-}
-
-void CPackage::unInit() {
-	clearPackets();
+    clearPackets();
 }
 
 void CPackage::clearPackets() {
@@ -56,6 +48,7 @@ int CPackage::insert(const ts_msg& p, int pos) {
 		for (int i = scanHead; i < pos; i++)
 			missing.insert(i);				// 缺失的包加到set中
 		scanHead = pos + 1;
+        m_lastKey = getKey(p);
 	} else if (pos < scanHead) {
 		missing.erase(pos);					// 获得的包从set中取出
 	}
@@ -77,7 +70,7 @@ int CPackage::query(ts_msg& pout, int pos) {
 }
 
 int CPackage::scanMissingPackets(set<int>& out) {
-	if (missing.size() == 0)
+	if (missing.empty())
 		return 0;
 
 	out.insert(missing.begin(), missing.end());
@@ -153,7 +146,7 @@ bool CPackage::load(string fileName, int packageNum) {
 		if ((size > MESSAGE_SIZE) || (size < sizeof(TS_MESSAGE_HEAD)))	// 尺寸错误
 			continue;
 
-		ts_msg* msg = (ts_msg*) malloc(size);	// 自己创建内存
+        ts_msg* msg = (ts_msg*)malloc(MESSAGE_SIZE);	// 自己创建内存
 		if (NULL == msg) {						// 内存不足
 			clearPackets();						// 放弃创建
 			break;

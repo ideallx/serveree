@@ -185,9 +185,17 @@ TS_UINT64 CBlock::getSequence(int packageNum, int pos) {
 
 void CBlock::saveAll() {
 	iop_lock(&mapLock);
+	if (blockContents.empty())
+		return;
+    bool isSaved = blockContents.begin()->second->isSaved();
 	for (auto iter = blockContents.begin(); iter != blockContents.end(); ) {
-		straWrite->onMsgAddStrategy(iter->second);
-		iter++;
+        // straWrite->onMsgAddStrategy(iter->second);
+        CPackage* p = iter->second;
+        if (!p->isSaved()) {
+            p->save(fileNamePrefix + "_" + int2string(_uid) + ".zip", !isSaved);
+        }
+        isSaved = true;
+        iter++;
 	}
 	iop_unlock(&mapLock);
 }
@@ -195,4 +203,23 @@ void CBlock::saveAll() {
 void CBlock::setMaxSeq(TS_UINT64 seq) {
     maxSeq = seq;
 	// TODO
+}
+
+int CBlock::loadFromFile(int packageNum, CPackage& package) {
+    string zipName = fileNamePrefix + "_" + int2string(_uid) + ".zip";
+    if (!CPackage::isZipFileExist(zipName, packageNum))
+        return 0;
+
+    if (curPackage) {
+        delete curPackage;
+        curPackage = NULL;
+    }
+
+    curPackage = new CPackage;
+    curPackage->load(zipName, packageNum);
+    curPackage->setID(packageNum);
+    curPackage->setSaved(true);
+    package = *curPackage;
+
+	return curPackage->lastSubSeq();
 }

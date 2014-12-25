@@ -1,9 +1,8 @@
-#ifndef _CONNECTIONS_SYNSOCKET_H_
-#define _CONNECTIONS_SYNSOCKET_H_
+#ifndef _SOCKET_SYNSOCKET_H_
+#define _SOCKET_SYNSOCKET_H_
 
 #include <string>
 
-#include "../DataUnit/CMessage.h"
 #include "CAbsSocket.h"
 
 using namespace std;

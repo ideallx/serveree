@@ -66,14 +66,14 @@ bool CHubConnection::addPeer(const TS_UINT64 uid,
 	}
 	iop_unlock(&mutex_lock);
 
-	return true;
+    return result;
 }
 
 bool CHubConnection::removePeer(const TS_UINT64 uid) {
 	if (isCloned)
 		return false;
 
-	if (size() > 0) {
+    if (!peerHub->empty()) {
 		iop_lock(&mutex_lock);
 		auto iter = peerHub->find(uid);
 		if (iter != peerHub->end()) {
@@ -111,7 +111,7 @@ bool CHubConnection::create(unsigned short localport) {
 void CHubConnection::display() {
 	iop_lock(&mutex_lock);
 	map<TS_UINT64, CPeerConnection*>::iterator iter;
-	for (iter = peerHub->begin(); iter != peerHub->end(); iter++) {
+	for (iter = peerHub->begin(); iter != peerHub->end(); ++iter) {
 		cout << inet_ntoa((*iter).second->getPeer()->sin_addr) << " " 
 			<< htons((*iter).second->getPeer()->sin_port) << endl;
 	}
@@ -141,13 +141,15 @@ int CHubConnection::send(const char* buf, ULONG len) {
 
 	iop_lock(&mutex_lock);
 	for (auto iter = peerHub->begin(); iter != peerHub->end();) {
-		if (iter->second == NULL) {
+        if (NULL == iter->second) {
 			peerHub->erase(iter++);
+            cout << "warning: detected null socket in CHubConnection::send" << endl;
+            ++iter;
 			continue;
 		}
 		pc = iter->second;
 		brc += pc->send(buf, len) > 0;
-		iter++;
+		++iter;
 	}
 #ifdef _DEBUG_INFO_
 	cout << "resend for " << peerHub->size() << "users" << endl;
@@ -166,13 +168,21 @@ int CHubConnection::sendExcept(const char* buf, ULONG len, TS_UINT64 uid) {
 	map<TS_UINT64, CPeerConnection*>::iterator iter;
 
 	iop_lock(&mutex_lock);
-	for (iter = peerHub->begin(); iter != peerHub->end(); iter++) {
-		if (iter->first == uid)			// 除了这个UID的，别人都要发
-			continue;
-		if (iter->second == NULL)
-			continue;
-		pc = iter->second;
+    for (iter = peerHub->begin(); iter != peerHub->end();) {
+        if (iter->first == uid) {			// 除了这个UID的，别人都要发 {
+            ++iter;
+            continue;
+        }
+
+        pc = iter->second;
+        if (NULL == pc) {
+            peerHub->erase(iter++);
+            cout << "warning: detected null socket in CHubConnection::sendexcept" << endl;
+            ++iter;
+            continue;
+        }
 		brc += pc->send(buf, len) > 0;
+        ++iter;
 	}
 #ifdef _DEBUG_INFO_
 	cout << "resend for " << peerHub->size() - 1 << "users" << endl;
@@ -186,8 +196,12 @@ int CHubConnection::recv(char* buf, ULONG& len) {
 		return -1;
 
     int result = pSocket->recvData(buf, len, &m_FromAddr);
-	if (result > 0)
-		latestTime = getTime(*(ts_msg*) buf);
+    if (result > 0) {
+        TS_UINT64 time = getTime(*(ts_msg*)buf);
+        if (time > latestTime) {
+            latestTime = time;
+        }
+    }
     return result;
 }
 
@@ -210,17 +224,17 @@ bool CHubConnection::copy(CAbsConnection* pConn) {
 		return false;
 
 	assert(ps->getSocket() > 0);
-	if (pSocket->copy(ps)) {
-		memcpy(&m_ToAddr, pConn->getPeer(), CAbsSocket::m_LocalAddrSize);
 
-		CHubConnection* pHubConnection = (CHubConnection*) pConn;
-		if (NULL != peerHub) {
-			clearMap();
-		}
-		peerHub = pHubConnection->getPeerHub();
+    pSocket->operator=(*ps);
 
-		isCloned = true;
-		return true;
-	} else
-		return false;
+	memcpy(&m_ToAddr, pConn->getPeer(), CAbsSocket::m_LocalAddrSize);
+
+	CHubConnection* pHubConnection = reinterpret_cast<CHubConnection*> (pConn);
+	if (NULL != peerHub) {
+		clearMap();
+	}
+	peerHub = pHubConnection->getPeerHub();
+
+	isCloned = true;
+	return true;
 }

@@ -11,6 +11,8 @@
 #include "../Reliable/Server/CServer.h"
 #include "../BizLogic/datasingleton.h"
 
+#include "replays.h"
+
 // Network Communication Controller
 class CClientNet : public CServer, public CMsgObject
 {
@@ -25,6 +27,7 @@ private:
 
     DataSingleton*          m_ds;
     TS_UINT64               m_timeDiff;
+    Replays*                m_replay;
 
 public:
 	CClientNet(void);
@@ -53,6 +56,9 @@ public:
     void endHeartBeat();
 
 	void addServerAddr(sockaddr_in in);
+
+    int replayInit(QString className);
+    bool replays(int& sleepTime);
 
 public:			
 	void ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isremote);

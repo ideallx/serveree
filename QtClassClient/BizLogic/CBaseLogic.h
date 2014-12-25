@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../LayerUI/mainwindow.h"
-#include "../Net/CClientNet.h"
 #include "../Reliable/DataUnit/CMessage.h"
 #include "../Message/CMsgObject.h"
 #include "datasingleton.h"
@@ -19,7 +18,7 @@ public:
 
     bool getOldestMsg(ts_msg& msg);
 
-    inline bool hasNext() { return waitingList.size() != 0; }
+    inline bool hasNext() { return !waitingList.empty(); }
 
 private:
     DWORD wantedSeq;

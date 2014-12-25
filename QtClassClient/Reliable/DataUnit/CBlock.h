@@ -43,7 +43,7 @@ using namespace std;
 
 class CBlock {
 private:
-	map<int, CPackage*> blockContents;
+	map<DWORD, CPackage*> blockContents;
 	
     CPackage* curPackage;		// 上一次读取或者插入的包，缓存用
 	iop_lock_t mapLock;
@@ -89,6 +89,8 @@ public:
     void setMaxSeq(TS_UINT64 seq);
 
     CPackage* createNewPackage(int packageNum);
+
+    int loadFromFile(int packageNum, CPackage& package);
 
 private:
 	// 获取seq对应的msg所在的数组以及位置

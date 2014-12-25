@@ -14,6 +14,8 @@ const TS_UINT64 SeqBegin = 1;				// seq开始位置，seq从1开始
 const int MaxFileName = 30;
 const int MaxUserInfoOneMessage = 10;
 
+const int MaxPackets = 1024;                // 单个PACKAGE 最大包数
+
 const int VersionNumber = 1;
 
 const int MaxClassInfo = 10;
@@ -258,7 +260,8 @@ enum MsgResult {
 
 enum RoleOfClass {
     RoleTeacher,
-    RoleStudent
+    RoleStudent,
+    RoleRepeat,
 };
 
 enum RaceType {
@@ -324,6 +327,7 @@ TS_UINT64 getSeq(const ts_msg& p);
 TS_UINT64 getUid(const ts_msg& p);
 enum PacketType getType(const ts_msg& p);
 TS_UINT64 getTime(const ts_msg& p);
+TS_UINT64 getKey(const ts_msg& p);
 
 enum ReservedUID_t {
     ServerUID,
@@ -362,6 +366,7 @@ typedef struct {
     enum RoleOfClass role;			// 用户角色
     TS_UINT64 uid;					// 给予客户端的UID
     sockaddr_in addr;				// 服务器端地址
+    unsigned char className[40];	// 课程名
     TS_UINT64 lastSeq;              // 上一次最后的序列号，断线重连！
 } DOWN_AGENTSERVICE;
 

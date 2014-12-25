@@ -4,7 +4,7 @@
 
 
 thread_ret_type thread_func_call HBProc(LPVOID lpParam) {
-    CClientNet* c = (CClientNet*) lpParam;
+    CClientNet* c = reinterpret_cast<CClientNet*> (lpParam);
     if (!c) {
         iop_thread_exit(0);
         return 0;
@@ -20,7 +20,8 @@ thread_ret_type thread_func_call HBProc(LPVOID lpParam) {
 CClientNet::CClientNet()
     : m_seq(1)
     , m_agent(NULL)
-    , m_timeDiff(0) {
+    , m_timeDiff(0)
+    , m_replay(NULL) {
     QTime time = QTime::currentTime();
     qsrand(time.msec() + time.second() * 1000);
     m_Connect = dynamic_cast<CReliableConnection*> (pConnect);
@@ -31,6 +32,8 @@ CClientNet::CClientNet()
 CClientNet::~CClientNet() {
     iop_thread_cancel(pthread_hb);
 	DESTROY(m_agent);
+    if (m_replay)
+        delete m_replay;
 }
 
 bool CClientNet::Start(unsigned short port) {
@@ -70,7 +73,8 @@ DWORD CClientNet::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSC
             setBeginSequence(down->lastSeq + 1);
             startupHeartBeat();
             sendConnectionMsg();
-            m_Connect->setFilePrefix(int2string(ntohs(down->addr.sin_port)) + "_" + int2string(getClientTime()));
+            m_Connect->setFilePrefix(string(reinterpret_cast<char*> (down->className)));
+            m_Connect->loadFile(string(reinterpret_cast<char*> (down->className)));
         } else if (SuccessLeaveClass == down->result) {
             endHeartBeat();
         }
@@ -176,14 +180,13 @@ void CClientNet::sendProc() {
 	memset(pmsg, 0, sizeof(TS_PEER_MESSAGE));
 
     iop_usleep(10);
-	int result;
 	
 	while (isRunning()) {
         ReadOut(*pmsg);
 		if (getType(pmsg->msg) > PACKETCONTROL)
-			result = m_agent->send(pmsg->msg.Body, packetSize(pmsg->msg));
+			m_agent->send(pmsg->msg.Body, packetSize(pmsg->msg));
 		else
-            result = m_Connect->send(pmsg->msg.Body, packetSize(pmsg->msg));
+            m_Connect->send(pmsg->msg.Body, packetSize(pmsg->msg));
 	}
 	delete pmsg;
 #ifdef _DEBUG_INFO_
@@ -279,4 +282,20 @@ bool CClientNet::scanServer(struct sockaddr_in& result) {
 	return true;
 }
 
+int CClientNet::replayInit(QString className) {
+    if (m_replay)
+        delete m_replay;
+    m_replay = new Replays(className.toStdString());
+    return m_replay->test();
+}
 
+bool CClientNet::replays(int &sleepTime) {
+    ts_msg msg;
+    if (m_replay->getNextMsg(msg, sleepTime)) {
+        qDebug() << "uid:" << getUid(msg) << " seq:" << getSeq(msg);
+        sendToUp(msg, 0, 0, true);
+        return true;
+    } else {
+        return false;
+    }
+}

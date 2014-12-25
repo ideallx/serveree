@@ -118,7 +118,7 @@ void CUserListWidget::updateUserInfo() {
     auto allusers = ds->getAllUsers();
     for (auto iter = allusers.begin(); iter != allusers.end(); iter++) {
         addUser(iter->second.uid,
-                QString::fromLocal8Bit((char*) iter->second.username),
+                QString::fromLocal8Bit(reinterpret_cast<char*> (iter->second.username)),
                 iter->second.isLoggedIn);
         changeAuth(iter->second.uid, iter->second.isWriteable);
     }

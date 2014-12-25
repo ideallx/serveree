@@ -19,3 +19,9 @@ enum PacketType getType(const ts_msg& p) {
 TS_UINT64 getTime(const ts_msg& p) {
     return ((TS_MESSAGE_HEAD*) &p)->time;
 }
+
+// for sort
+TS_UINT64 getKey(const ts_msg& p) {
+    TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &p;
+    return (head->time << 20) + head->sequence;
+}

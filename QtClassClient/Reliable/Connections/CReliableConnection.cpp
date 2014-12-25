@@ -12,7 +12,7 @@ const int maxScanInterval = 1000;
 
 thread_ret_type thread_func_call ScanProc(LPVOID lpParam) {
     iop_thread_detach_self();
-    CReliableConnection* conn = (CReliableConnection*) lpParam;
+    CReliableConnection* conn = reinterpret_cast<CReliableConnection*> (lpParam);
     if (!conn) {
         iop_thread_exit(0);
         return 0;
@@ -28,7 +28,7 @@ thread_ret_type thread_func_call ScanProc(LPVOID lpParam) {
 
 thread_ret_type thread_func_call MsgInProc(LPVOID lpParam) {
     iop_thread_detach_self();
-    CReliableConnection* conn = (CReliableConnection*) lpParam;
+    CReliableConnection* conn = reinterpret_cast<CReliableConnection*> (lpParam);
     if (!conn) {
         iop_thread_exit(0);
         return 0;
@@ -44,7 +44,7 @@ thread_ret_type thread_func_call MsgInProc(LPVOID lpParam) {
 
 thread_ret_type thread_func_call SaveProc(LPVOID lpParam) {
     iop_thread_detach_self();
-    CReliableConnection* conn = (CReliableConnection*) lpParam;
+    CReliableConnection* conn = reinterpret_cast<CReliableConnection*> (lpParam);
     if (!conn) {
         iop_thread_exit(0);
         return 0;
@@ -81,6 +81,7 @@ CReliableConnection::CReliableConnection()
 }
 
 CReliableConnection::~CReliableConnection() {
+	delete bm;
     if (isRunning) {
         isRunning = false;
         iop_usleep(200);
@@ -96,7 +97,6 @@ CReliableConnection::~CReliableConnection() {
     pSocket->closeSocket();
 
 	delete msgQueue;
-	delete bm;
 }
 
 // 除了基本的开端口之外，还要增加一个扫描线程，一个消息处理线程
@@ -190,9 +190,12 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
     if (!validityCheck(*msg))				// 有效性检测
         return -1;
 
-    // TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) msg;
+    TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) msg;
 
-    switch (getType(*msg)) {
+  //  if ((selfUid == ServerUID) && (peerHub->count(head->UID) == 0))		// make sure the message was sent by logged in user
+		//return -1;
+
+	switch (head->type) {
     case RESEND:
         result = -1;
 #ifdef _DEBUG_INFO_
@@ -316,7 +319,7 @@ int CReliableConnection::send2Peer(ts_msg& msg, TS_UINT64 uid) {
 }
 
 int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
-	if (pids.size() == 0)
+	if (pids.empty())
 		return 0;
 #ifdef _DEBUG_INFO_
     cout << "ask for resend size is: " << pids.size() << endl;
@@ -363,7 +366,7 @@ void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
 
     ts_msg msg;
     RCONNECT* up = (RCONNECT*) &msg;
-    int currentTotal = 0;
+    TS_UINT64 currentTotal = 0;
 
     if (requestCount > 0 && totalMsgs > 0) {    // has sent request and has recv anything
         --requestCount;
@@ -417,14 +420,13 @@ int CReliableConnection::resend(ts_msg& requestMsg) {
 
 	if (r->missingType == MISS_SINGLE) {			// 单个MISS重传
         CPeerConnection *peer = findPeer(uid);		// 请求方的地址
-        if (NULL == peer)
-            return -1;
-
-		for (int i = 0; i < r->count; i++) {
-			if (bm->readRecord(missingUID, r->seq[i], *p) < 0)	// 读到几条请求，发多少条
-                continue;
-			if (peer->send(p->Body, packetSize(*p)) > 0)
-				count++;
+		if (NULL != peer) {
+			for (int i = 0; i < r->count; i++) {
+				if (bm->readRecord(missingUID, r->seq[i], *p) < 0)	// 读到几条请求，发多少条
+					continue;
+				if (peer->send(p->Body, packetSize(*p)) > 0)
+					count++;
+			}
 		}
     } else if (r->missingType == MISS_SERIES) {		// 批量MISS重传
 #ifdef _DEBUG_INFO_
@@ -560,4 +562,8 @@ int CReliableConnection::getLoadingProcess() {
         return 1000;
     else
         return 1000 * totalMsgs / totalMsgsOfClass;
+}
+
+void CReliableConnection::loadFile(string classname) {
+
 }

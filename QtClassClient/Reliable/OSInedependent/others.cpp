@@ -14,9 +14,34 @@ int gettimeofday(struct timeval *tp, void *tzp)
     tm.tm_sec      = wtm.wSecond;
     tm.tm_isdst    = -1;
     clock = mktime(&tm);
-    tp->tv_sec = clock;
+    tp->tv_sec = static_cast<long> (clock);
     tp->tv_usec = wtm.wMilliseconds * 1000;
     return 0;
+}
+
+string leftPadding(int value, int size, char c) {
+    string rawString = int2string(value);
+    string result;
+    int sizeDiff = size - rawString.size();
+    if (sizeDiff > 0) {
+        result = string(sizeDiff, c) + rawString;
+        return result;
+    } else {
+        return rawString;
+    }
+}
+
+string getCurTime() {
+    SYSTEMTIME wtm;
+    GetLocalTime(&wtm);
+    string result = leftPadding(wtm.wYear, 4, '0') + '_' + \
+        leftPadding(wtm.wMonth, 2, '0') + \
+        leftPadding(wtm.wDay, 2, '0') + '_' + \
+        leftPadding(wtm.wHour, 2, '0') + \
+        leftPadding(wtm.wMinute, 2, '0') + '_' + \
+        leftPadding(wtm.wSecond, 2, '0');
+
+    return result;
 }
 
 int getIp(char* ip) {

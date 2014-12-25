@@ -48,7 +48,7 @@ MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent)
     ds = DataSingleton::getInstance();
 
     panFixer.setSingleShot(true);
-    setSceneRect(0, 0, 20000, 50000);
+    setSceneRect(0, 0, 20000, 1000);
     connect(&panFixer, &QTimer::timeout,
             this, &MyScene::sendMoveBegin);
 
@@ -178,11 +178,11 @@ CShape *MyScene::createNewItem(TS_UINT64 uid, int shapeType, QPointF curPoint) {
 static int updateCounter = 0;
 void MyScene::actMove(TS_GRAPHIC_PACKET &graphicMsg) {
     QPointF scenePos = QPointF(graphicMsg.data.PointX, graphicMsg.data.PointY);
-    QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
+    // QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
     CShape* lastItem = lastItems[graphicMsg.head.UID];
 	if (NULL == lastItem)
 		return;
-    lastItem->setCurPos(p2);
+    lastItem->setCurPos(scenePos);
 
     updateCounter++;
     if (updateCounter % 10)
@@ -191,13 +191,13 @@ void MyScene::actMove(TS_GRAPHIC_PACKET &graphicMsg) {
 
 void MyScene::actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg) {
     QPointF scenePos = QPointF(graphicMsg.data.BeginPx, graphicMsg.data.BeginPy);
-    QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
+    // QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
     TS_UINT64 uid = graphicMsg.head.UID;
     if (!lastItems.contains(uid)) {
         lastItems.insert(uid, NULL);
     }
 
-    lastItems[uid] = createNewItem(uid, graphicMsg.data.ShapeType, p2);
+    lastItems[uid] = createNewItem(uid, graphicMsg.data.ShapeType, scenePos);
     if (NULL == lastItems[uid])
         return;
 
@@ -218,8 +218,8 @@ void MyScene::actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg) {
 void MyScene::actErase(TS_GRAPHIC_PACKET& graphicMsg) {
     qDebug() << "erase" << graphicMsg.eraser.targetUID << graphicMsg.eraser.shapeID;
     QPointF scenePos = QPointF(graphicMsg.eraser.PointX, graphicMsg.eraser.PointY);
-    QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
-    QGraphicsItem* chosenItem = itemAt(p2, QTransform());
+    // QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
+    QGraphicsItem* chosenItem = itemAt(scenePos, QTransform());
     // first find by position
     if ((chosenItem->data(GraphicUID).toLongLong() == graphicMsg.eraser.targetUID) &&
             (chosenItem->data(GraphicShapeID).toInt() == graphicMsg.eraser.shapeID)) {

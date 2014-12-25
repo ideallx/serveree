@@ -1,5 +1,5 @@
-#ifndef _CONNECTIONS_ABSSOCKET_H_
-#define _CONNECTIONS_ABSSOCKET_H_
+#ifndef _SOCKET_ABSSOCKET_H_
+#define _SOCKET_ABSSOCKET_H_
 
 #include <iop_config.h>
 #include <iop_util.h>
@@ -8,21 +8,22 @@
 
 class  CAbsSocket {
 protected:
-	io_handle_t m_Socket;
-	struct sockaddr_in m_LocalAddr;
-	bool bInit;
+	io_handle_t         m_Socket;
+	struct sockaddr_in  m_LocalAddr;
+	bool                bInit;
 
 protected:
-	int rc;
-    int err;
+	int*				rc;
+    int                 err;
 
 public:
 	static const int m_LocalAddrSize;
 
 	CAbsSocket(void);
 	CAbsSocket(const CAbsSocket& that);
-	virtual ~CAbsSocket(void);
-	bool copy(CAbsSocket* s);
+    CAbsSocket& operator=(const CAbsSocket& rhs);
+
+    virtual ~CAbsSocket(void);
 
 public:
 	virtual bool createSocket(unsigned short iPort = 0) = 0;
@@ -48,9 +49,13 @@ public:
 		return setsockopt(m_Socket, level, optname, optval, optlen);
 	}
 	
-    inline int getSockOpt(int level, int optname, char *optval, iop_socklen_t* optlen) {
+    inline int getSockOpt(int level, int optname, char *optval, iop_socklen_t* optlen) const {
 		return getsockopt(m_Socket, level, optname, optval, optlen);
 	}
+
+
+protected:
+    void copy(const CAbsSocket& that);
 };
 
 

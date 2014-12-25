@@ -9,6 +9,7 @@ VideoPlayer::VideoPlayer(QString filepath, CMsgObject* parent):
     m_isLoadSuccess = true;
     m_isInnerPvNx = true;
     m_isMedia = true;
+    step = 5000;
     return;
 }
 
@@ -49,7 +50,7 @@ void VideoPlayer::checkStatus(QMediaPlayer::State status) {
 }
 
 bool VideoPlayer::procNext() {
-    mediaPlayer.setPosition(mediaPlayer.position() + 5000);
+    mediaPlayer.setPosition(mediaPlayer.position() + step);
     if (mediaPlayer.position() >= mediaPlayer.duration()) {
         m_isMediaEnd = true;
         emit playerEnd();
@@ -58,7 +59,7 @@ bool VideoPlayer::procNext() {
 }
 
 bool VideoPlayer::procPrev() {
-    qint64 pos = mediaPlayer.position() - 5000;
+    qint64 pos = mediaPlayer.position() - step;
     if (pos < 0) pos = 1;
     mediaPlayer.setPosition(pos);
     return true;

@@ -185,6 +185,9 @@
     <ClCompile Include="BizLogic\datasingleton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BeforeClass\dialogchoosereplay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="LayerUI\UserInterface\dialogpixmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -237,6 +240,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LayerUI\UserInterface\prompt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Net\replays.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BeforeClass\totalprocess.cpp">
@@ -409,6 +415,9 @@
     <ClInclude Include="BizLogic\datasingleton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="BeforeClass\dialogchoosereplay.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="LayerUI\UserInterface\dialogpixmap.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -463,6 +472,9 @@
     <CustomBuild Include="LayerUI\UserInterface\prompt.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <ClInclude Include="Net\replays.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -531,6 +543,12 @@
     <ClCompile Include="release\moc_cuserlistwidget.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="debug\moc_dialogchoosereplay.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_dialogchoosereplay.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include="debug\moc_dialogpixmap.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -594,6 +612,9 @@
     <ClInclude Include="ui_coursewarewidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="ui_dialogchoosereplay.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
     <ClInclude Include="ui_dialogpixmap.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
@@ -618,6 +639,9 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="coursewarewidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BeforeClass\dialogchoosereplay.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="LayerUI\UserInterface\dialogpixmap.ui">

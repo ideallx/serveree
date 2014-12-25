@@ -7,7 +7,8 @@ CBusinessLogic::CBusinessLogic(CMsgObject* parent)
     , m_FileLogic(new CFileLogic(this))
     , m_AuthLogic(new CAuthLogic(this))
     , m_PlayerLogic(new CPlayerLogic(this))
-    , m_RaceLogic(new CBaseLogic(this)) {
+    , m_RaceLogic(new CBaseLogic(this)) 
+	, m_isReview(false) {
 }
 
 CBusinessLogic::~CBusinessLogic() {
@@ -29,7 +30,7 @@ void CBusinessLogic::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, B
 //            qDebug() << "recv:" << head->UID << head->type
 //                     << head->sequence << head->subSeq;
 
-        if (!m_UserLogic->isServerAvailable())
+        if (!m_UserLogic->isServerAvailable() && !m_isReview)
             return;
 
         switch (head->type) {

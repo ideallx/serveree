@@ -6,9 +6,13 @@
 CWSServer::CWSServer(TS_UINT64 classid, TS_UINT64 reserved) :
 	_classid(classid),
 	_reserved(reserved) {
+
+
     TS_UINT64 servertime = getServerTime();
     conn = dynamic_cast<CReliableConnection*> (pConnect);
-    conn->setFilePrefix(int2string(classid) + "_" + int2string(servertime));
+    m_className = getCurTime();
+    cout << m_className << endl;
+    conn->setFilePrefix(m_className);
 }
 
 CWSServer::~CWSServer() {
@@ -17,7 +21,7 @@ CWSServer::~CWSServer() {
 
 void CWSServer::displayPeer(){
 	cout << "Now in the hub : ----------------------------" << endl;
-	((CReliableConnection*) pConnect)->display();
+    conn->display();
 	cout << "---------------------------------------------" << endl;
 }
 

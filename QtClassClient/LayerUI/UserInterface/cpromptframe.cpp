@@ -5,7 +5,7 @@
 
 static Prompt* promDialog = NULL;
 
-#define _TEST_PROMPT_POS_
+//#define _TEST_PROMPT_POS_
 
 CPromptFrame::CPromptFrame()
 {

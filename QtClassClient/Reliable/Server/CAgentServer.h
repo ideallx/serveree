@@ -9,7 +9,7 @@
 #include "CServer.h"
 
 struct UserBase;
-class CWSServer;
+#include "CWSServer.h"
 
 using namespace std;
 
@@ -51,7 +51,9 @@ enum SpecialClassid {
 
 class WorkServerInfo {
 public:
-	~WorkServerInfo() { delete server; }
+    WorkServerInfo() : server(NULL), teacherid(0) {}
+
+	virtual ~WorkServerInfo() { delete server; }
 public:
     CWSServer*  server;
     TS_UINT64   teacherid;

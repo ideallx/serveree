@@ -17,8 +17,9 @@ bool CConnection::create(unsigned short localport) {
 
 	if (!pSocket->createSocket(localport)) {
 		return false;
-	} else
-		return true;
+    } else {
+        return true;
+    }
 }
 
 bool CConnection::clear(void) {
@@ -43,11 +44,11 @@ int CConnection::send(const char* buf, ULONG len) {
 
 #ifdef _DEBUG_INFO_
     TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) buf;
- //   cout << "single send" << " "
- //        << head->UID << "  "
- //        << head->sequence << "  "
- //        << head->subSeq << endl;
-	//cout << "0";
+    cout << "single send" << " "
+         << head->UID << "  "
+         << head->sequence << "  "
+         << head->subSeq << endl;
+	cout << "0";
 #endif
 
 	return pSocket->sendData(buf, len, &m_ToAddr);
@@ -57,6 +58,5 @@ int CConnection::recv(char* buf, ULONG& len) {
 	if (!pSocket)
 		return -1;
 	
-	//cout << "1";
 	return pSocket->recvData(buf, len, &m_FromAddr);
 }

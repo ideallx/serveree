@@ -15,4 +15,5 @@ bool CLoadLogic::procMsg(const ts_msg& msg, bool isRemote) {
         CSubSeqUnit sub;
         userInfo.insert(make_pair(uid, sub));
     }
+    return true;
 }

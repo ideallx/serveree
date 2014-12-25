@@ -9,10 +9,10 @@
 #include "../../player/playerfactory.h"
 
 
-MyView::MyView(QWidget *parent) :
-    QGraphicsView(parent),
-    pm(PaintNormal),
-    isLeftClicked(false) {
+MyView::MyView(QWidget *parent)
+	: QGraphicsView(parent)
+	, pm(PaintNormal)
+	, isLeftClicked(false) {
     //setRenderHint(QPainter::Antialiasing);
     viewport()->setAttribute(Qt::WA_AcceptTouchEvents);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -41,7 +41,7 @@ bool MyView::viewportEvent(QEvent *event) {
             QPanGesture *pg = static_cast<QPanGesture*> (pan);
             dest.setX(horizontalScrollBar()->value() - pg->delta().toPoint().x());
             dest.setY(verticalScrollBar()->value() - pg->delta().toPoint().y());
-            panTimer.start(500);
+            panTimer.start(200);
             emit screenMoved(dest);
         } else if (QGesture *pan = ge->gesture(Qt::PinchGesture)) {
             qDebug() << "pinch";

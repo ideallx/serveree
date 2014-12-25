@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui axcontainer multimedia multimediawidgets
+QT       += core gui axcontainer multimedia multimediawidgets concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -84,7 +84,9 @@ SOURCES  += main.cpp\
     BizLogic/cloadlogic.cpp \
     LayerUI/MsgGenerator/cracegenerator.cpp \
     LayerUI/UserInterface/dialogpixmap.cpp \
-    BizLogic/datasingleton.cpp
+    BizLogic/datasingleton.cpp \
+    Net/replays.cpp \
+    BeforeClass/dialogchoosereplay.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBaseLogic.h \
@@ -162,7 +164,9 @@ HEADERS  += LayerUI\mainwindow.h \
     BizLogic/cloadlogic.h \
     LayerUI/MsgGenerator/cracegenerator.h \
     LayerUI/UserInterface/dialogpixmap.h \
-    BizLogic/datasingleton.h
+    BizLogic/datasingleton.h \
+    Net/replays.h \
+    BeforeClass/dialogchoosereplay.h
 
 FORMS    += \
     loginwidget.ui \
@@ -173,6 +177,7 @@ FORMS    += \
     mainwindow.ui \
     BeforeClass/logindialog.ui \
     LayerUI/UserInterface/dialogpixmap.ui \
+    BeforeClass/dialogchoosereplay.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += include

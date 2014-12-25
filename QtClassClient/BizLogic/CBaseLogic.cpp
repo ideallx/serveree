@@ -55,7 +55,7 @@ bool CSubSeqUnit::getOldestMsg(ts_msg& msg) {
     msg = waitingList.begin()->second;
     waitingList.erase(waitingList.begin());
 
-    if (waitingList.size() == 0)
+	if (waitingList.empty())
         return false;
     return true;
 }
@@ -91,7 +91,7 @@ bool CBaseLogic::getOldestMsg(ts_msg& msg) {
         cache.insert(make_pair(getTime(newMsg), newMsg));
     }
 
-    return cache.size() != 0;
+    return !cache.empty();
 }
 
 bool CBaseLogic::procMsg(const ts_msg& msg, bool isRemote) {

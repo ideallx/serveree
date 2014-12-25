@@ -5,7 +5,6 @@ CUserLogic::CUserLogic(CMsgObject* msgParent) :
 	CBaseLogic(msgParent),
 	isLoggedIn(false),
     ub(NULL) {
-    ds = DataSingleton::getInstance();
 }
 
 CUserLogic::~CUserLogic() {

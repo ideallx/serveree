@@ -7,7 +7,7 @@ using namespace std;
 
 thread_ret_type thread_func_call scanOfflineProc(LPVOID lpParam) {
     iop_thread_detach_self();
-    CAgentServer* object = (CAgentServer*) lpParam;
+    CAgentServer* object = reinterpret_cast<CAgentServer*> (lpParam);
     if (!object) {
         iop_thread_exit(0);
         return 0;
@@ -73,9 +73,10 @@ void CAgentServer::loadUser() {
 
 		user._role -= '0';
 		map_userinfo.insert(make_pair(user._uid, user));
-		map_alluser.insert(make_pair(string((char*) user._username), user._uid));
+        map_alluser.insert(make_pair(string(reinterpret_cast<char*> (user._username)),
+                                     user._uid));
 	}
-	fclose(stdin);
+	fclose(fp);
 }
 
 CWSServer* CAgentServer::createClass() {
@@ -88,7 +89,7 @@ CWSServer* CAgentServer::createClass() {
     CWSServer* pWorker = new CWSServer(port, 1);		// 创建一个新的WorkServer
     if (!pWorker->Start(port)) {
         delete pWorker;
-        return NULL;
+        pWorker = NULL;
     }
 #ifdef _DEBUG_INFO_
 	cout << "Worker Server Start successfully on Port " << port << "." << endl;
@@ -125,7 +126,7 @@ void CAgentServer::scanAgent() {
 
         TS_UINT64 currentTime = getServerTime();
 
-        if (heartBeatTime.size() == 0)
+        if (heartBeatTime.empty())
             continue;
 
         iop_lock(&lockOfflineMaps);
@@ -156,14 +157,16 @@ void CAgentServer::scanAgent() {
 
 		iop_lock(&lockWorkServer);
 		for (auto iter2 = map_workserver.begin(); iter2 != map_workserver.end(); ) {
-			if (iter2->second == NULL) {				// 不知道为什么会出这个问题，但是好歹是解决了 = =
+			if (iter2->second == NULL) {			// 不知道为什么会出这个问题，但是好歹是解决了 = =  出这个问题的原因是 map_workerserver[0] = NULL 下标赋值
 				map_workserver.erase(iter2++);		// map莫名其妙多了一项 （0， 0） 问题出在sendMaxSeqList()中，目测可能是send的问题
 				continue;
 			}
 			
             auto server = iter2->second->server;
-            if (NULL == server)
+            if (NULL == server) {
+                map_workserver.erase(iter2++);
                 continue;
+            }
 
             TS_PEER_MESSAGE pmsg;
 			if (server->getPort() == ClassidNotInclass) {
@@ -180,7 +183,7 @@ void CAgentServer::scanAgent() {
 }
 
 void CAgentServer::sendToQueue(TS_PEER_MESSAGE& pmsg, unsigned char type, WORD size) {
-    TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &pmsg.msg;
+    TS_MESSAGE_HEAD* head = reinterpret_cast<TS_MESSAGE_HEAD*> (&pmsg.msg);
     head->UID = ServerUID;
     head->type = type;
     head->size = size;
@@ -193,11 +196,11 @@ void CAgentServer::sendToQueue(TS_PEER_MESSAGE& pmsg, unsigned char type, WORD s
 WORD CAgentServer::checkUsernamePassword(UserBase& user) {
     enum MsgResult result = ErrorUnknown;
     // find user in usermap by username, then check password
-    auto findUser = map_alluser.find(string((char*) user._username));
+    auto findUser = map_alluser.find(string(reinterpret_cast<char*> (user._username)));
     if (findUser == map_alluser.end()) {
         result = ErrorUsername;
-    } else if (strcmp((char*) map_userinfo[findUser->second]._password,
-                      (char*) user._password) != 0) {
+    } else if (strcmp(reinterpret_cast<char*> (map_userinfo[findUser->second]._password),
+                      reinterpret_cast<char*> (user._password)) != 0) {
         result = ErrorPassword;
     } else {
         user._uid = findUser->second;
@@ -215,10 +218,10 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	map_userinfo[user._uid]._classid = user._classid;				// classid 可变
 	iop_unlock(&lockWorkServer);
 	
-	DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;	// 进入班级成功，把服务器信息告诉客户端
+    DOWN_AGENTSERVICE* down = reinterpret_cast<DOWN_AGENTSERVICE*> (&inputMsg.msg);	// 进入班级成功，把服务器信息告诉客户端
 	down->result = result;
 	down->uid = user._uid;
-    down->role = (enum RoleOfClass) user._role;
+    down->role = static_cast<enum RoleOfClass> (user._role);
 	
 	iop_lock(&lockWorkServer);
     if (NULL == pServer) {
@@ -232,9 +235,11 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 		pServer = wsi->server = createClass();
 		map_userinfo[user._uid]._classid = pServer->getPort();
 		if (NULL != wsi->server) {
-			if (NULL == pServer)
-				return false;	// TODO create class failed
-			int port = wsi->server->getPort();
+            if (NULL == pServer) {
+                iop_unlock(&lockWorkServer);
+                return false;	// TODO create class failed
+            }
+			// int port = wsi->server->getPort();
 			map_workserver[wsi->server->getPort()] = wsi;
 		}
 
@@ -243,6 +248,7 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 
 	down->lastSeq = pServer->getMaxSeqOfUID(down->uid);
     down->addr = *pServer->getServerAddr();							// server的地址加入到报文中
+	memcpy(reinterpret_cast<char*> (down->className), pServer->className(), 40);
 	sendToQueue(inputMsg, ENTERCLASS, sizeof(DOWN_AGENTSERVICE));
 
 	auto loginUsers = pServer->getPeers();
@@ -278,7 +284,7 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 }
 
 void CAgentServer::sendLeaveSuccess(TS_PEER_MESSAGE& pmsg) {
-	DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &pmsg.msg;	// 退出班级成功，把服务器信息告诉客户端
+    DOWN_AGENTSERVICE* down = reinterpret_cast<DOWN_AGENTSERVICE*> (&pmsg.msg);	// 退出班级成功，把服务器信息告诉客户端
 	down->result = SuccessLeaveClass;
     down->addr = pmsg.peeraddr;
 
@@ -286,7 +292,7 @@ void CAgentServer::sendLeaveSuccess(TS_PEER_MESSAGE& pmsg) {
 }
 
 void CAgentServer::createClassResult(TS_PEER_MESSAGE& pmsg, CWSServer* server) {
-    DOWN_CREATECLASS* down =(DOWN_CREATECLASS*) &pmsg.msg;
+    DOWN_CREATECLASS* down = reinterpret_cast<DOWN_CREATECLASS*> (&pmsg.msg);
     if (NULL == server) {
         down->failcode = ErrorUnknown;
     } else {
@@ -308,7 +314,7 @@ void CAgentServer::createClassResult(TS_PEER_MESSAGE& pmsg, CWSServer* server) {
 void CAgentServer::enterAgent(TS_PEER_MESSAGE& inputMsg, UserBase user) {
     enum MsgResult result = static_cast<enum MsgResult> (checkUsernamePassword(user));
 
-    DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;
+    DOWN_AGENTSERVICE* down = reinterpret_cast<DOWN_AGENTSERVICE*> (&inputMsg.msg);
     down->result = result;
     down->uid = user._uid;
     down->role = (enum RoleOfClass) user._role;
@@ -362,7 +368,7 @@ void CAgentServer::userLoginNotify(TS_PEER_MESSAGE& pmsg, TS_UINT64 uid) {
 	map<TS_UINT64, CPeerConnection*>* loginUser = pServer->getPeers();
 	for (auto iter = loginUser->begin(); iter != loginUser->end(); iter++) {
 		if (iter->first != uid && iter->first != ServerUID) {		// 所有人收到新增用户信息
-			SERVER_CLASS_ADD_USER *down = (SERVER_CLASS_ADD_USER*) &pmsg.msg;
+            SERVER_CLASS_ADD_USER *down = reinterpret_cast<SERVER_CLASS_ADD_USER*> (&pmsg.msg);
 			UserBase us = map_userinfo[uid];
 			down->enterUser.uid = uid;
 			down->enterUser.reserved = us._reserved;
@@ -384,7 +390,7 @@ void CAgentServer::sendUserList(TS_PEER_MESSAGE& pmsg, CWSServer* pServer) {
     }
 
     map<TS_UINT64, CPeerConnection*>* loginUser = pServer->getPeers();
-    SERVER_CLASS_USER_LIST *down = (SERVER_CLASS_USER_LIST*) &pmsg.msg;
+    SERVER_CLASS_USER_LIST *down = reinterpret_cast<SERVER_CLASS_USER_LIST*> (&pmsg.msg);
 
     int calc = 0;
     for (auto iter2 = map_alluser.begin(); iter2 != map_alluser.end(); iter2++) {
@@ -446,7 +452,7 @@ void CAgentServer::userLogoutNotify(TS_PEER_MESSAGE& pmsg, TS_UINT64 uid) {
 	map<TS_UINT64, CPeerConnection*>* allUsers = pServer->getPeers();
 	for (auto iter = allUsers->begin(); iter != allUsers->end(); iter++) {
 		if (iter->first != uid && iter->first != ServerUID) {
-			SERVER_CLASS_REMOVE_USER *down = (SERVER_CLASS_REMOVE_USER*) &pmsg.msg;
+            SERVER_CLASS_REMOVE_USER *down = reinterpret_cast<SERVER_CLASS_REMOVE_USER*> (&pmsg.msg);
 			down->leaveUser = uid;
 			down->head.type = REMOVEUSER;
 			down->head.UID = ServerUID;
@@ -477,7 +483,7 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
 		//break;
 	case ENTERCLASS:
 		{
-			UP_AGENTSERVICE* in = (UP_AGENTSERVICE*) &inputMsg.msg;		// 收到进入/退出班级的请求
+            UP_AGENTSERVICE* in = reinterpret_cast<UP_AGENTSERVICE*> (&inputMsg.msg);		// 收到进入/退出班级的请求
 			UserBase user;
 			user._classid = in->classid;
             user._reserved = in->head.reserved;
@@ -491,7 +497,7 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
         break;
 	case CREATECLASS:
         {
-            UP_CREATECLASS* in = (UP_CREATECLASS*) &inputMsg.msg;
+            UP_CREATECLASS* in = reinterpret_cast<UP_CREATECLASS*> (&inputMsg.msg);
             WorkServerInfo* wsi = new WorkServerInfo;
             wsi->server = createClass();
             if (NULL != wsi->server) {
@@ -508,7 +514,7 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
 		break;
 	case DESTROYCLASS:
 		{
-            UP_DESTROYCLASS* in = (UP_DESTROYCLASS*) &inputMsg.msg;
+            UP_DESTROYCLASS* in = reinterpret_cast<UP_DESTROYCLASS*> (&inputMsg.msg);
             WorkServerInfo* wsi = map_workserver[in->classid];
             if (NULL != wsi) {
                 if (wsi->server)
@@ -516,14 +522,14 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
                 map_workserver.erase(in->classid);
             }
 
-            DOWN_CREATECLASS* down = (DOWN_CREATECLASS*) &inputMsg.msg;
+            DOWN_CREATECLASS* down = reinterpret_cast<DOWN_CREATECLASS*> (&inputMsg.msg);
             down->failcode = Success;
             sendToQueue(inputMsg, DESTROYCLASS, sizeof(DOWN_CREATECLASS));  // create 和 destroy用同一个回复
 		}
 		break;
 	case LEAVECLASS:
 		{
-			UP_AGENTSERVICE* in = (UP_AGENTSERVICE*) &inputMsg.msg;		// 收到进入/退出班级的请求
+            UP_AGENTSERVICE* in = reinterpret_cast<UP_AGENTSERVICE*> (&inputMsg.msg);		// 收到进入/退出班级的请求
 			UserBase user;
 
 			user._uid = in->head.UID;
@@ -541,7 +547,7 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
         break;
 	case HEARTBEAT:
 		{
-			UP_HEARTBEAT* in = (UP_HEARTBEAT*) &inputMsg.msg;
+            UP_HEARTBEAT* in = reinterpret_cast<UP_HEARTBEAT*> (&inputMsg.msg);
 			TS_UINT64 uid = in->head.UID;
 
 			if (map_userinfo.find(uid) == map_userinfo.end())
@@ -567,7 +573,7 @@ DWORD CAgentServer::MsgHandler(TS_PEER_MESSAGE& inputMsg) {		// 接收控制类请求，
         break;
 	case SCANPORT:
 		{
-			TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &inputMsg.msg;
+            TS_MESSAGE_HEAD* head = reinterpret_cast<TS_MESSAGE_HEAD*> (&inputMsg.msg);
 			head->UID = 0;
 			head->sequence = 0;
 			head->subSeq = 0;
@@ -629,6 +635,6 @@ CWSServer* CAgentServer::getServerByClassid(TS_UINT64 classid) {
 }
 
 void CAgentServer::sendAllClassesInfo(TS_PEER_MESSAGE& pmsg, TS_UINT64 uid) {
-
-
+    pmsg = pmsg;
+    uid = uid;
 }

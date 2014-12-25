@@ -19,9 +19,10 @@
 
 class CWSServer : public CServer {
 private:
-	TS_UINT64 _classid;
-	TS_UINT64 _reserved;
-	CReliableConnection* conn;					// 方便调用
+	TS_UINT64				_classid;
+	TS_UINT64				_reserved;
+	CReliableConnection*	conn;					// 方便调用
+	string					m_className;
 
 public:
 	CWSServer(TS_UINT64 classid, TS_UINT64 reserved);
@@ -54,8 +55,9 @@ public:
 
     TS_UINT64 getMaxSeqOfUID(TS_UINT64 uid);
 
-	void sendMaxSeqList();
+	inline const char* className() { return m_className.c_str(); }
 
+	void sendMaxSeqList();
 };
 
 #endif /* CWSSERVER_H_ */

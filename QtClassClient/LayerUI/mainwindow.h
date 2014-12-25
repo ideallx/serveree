@@ -16,7 +16,6 @@
 #include <QVector>
 #include <iop_thread.h>
 #include "../player/absplayer.h"
-#include "../SlideScreen/couseware.h"
 
 class DataSingleton;
 

@@ -2,6 +2,7 @@
 #define TOTALPROCESS_H
 
 #include <QObject>
+#include <QtConcurrent>
 
 #include "logindialog.h"
 #include "dialogclasschoose.h"
@@ -20,7 +21,7 @@ public:
     explicit TotalProcess(int argc, char* argv[]);
     virtual ~TotalProcess();
 
-    void buildBoard(int role);
+    void buildBoard();
     void buildNetwork();
 
     void buildOldStyle();
@@ -42,6 +43,8 @@ private:
     CClientNet* cn;
     CBusinessLogic* bl;
     DialogClassChoose* dcc;
+    QFuture<void> threadRev;
+    QFutureWatcher<void> threadLoad;
 
 private:
     QString serverIp;

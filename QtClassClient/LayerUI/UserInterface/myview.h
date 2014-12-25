@@ -43,8 +43,6 @@ private:
     enum PaintMode pm;
 
     QList<QToolButton*> ctrllist;
-
-    bool        isWareStarted;
 };
 
 #endif // MYVIEW_H

@@ -7,12 +7,6 @@
 #include "cfilelogic.h"
 #include "cauthlogic.h"
 #include "cplayerlogic.h"
-#include "../BeforeClass/loading.h"
-
-enum LogicStates_t {
-    LogicLoading,
-    LogicNormal,
-};
 
 class CBusinessLogic : public CMsgObject {
 private:
@@ -30,7 +24,9 @@ public:
 	// 接收外部模块的信号
 	void ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isremote);
 
+	void setReviewMode() { m_isReview = true; }
+
 private:
-    LogicStates_t       m_states;
-    map<TS_UINT64, ts_msg>     m_loadingCache;  // time -> msg
+    map<TS_UINT64, ts_msg>		m_loadingCache;  // time -> msg
+	bool						m_isReview;
 };

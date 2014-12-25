@@ -4,6 +4,7 @@
 #include "logindialog.h"
 #include "ui_logindialog.h"
 #include "../LayerUI/UserInterface/prompt.h"
+#include "dialogchoosereplay.h"
 
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
@@ -20,6 +21,11 @@ LoginDialog::LoginDialog(QWidget *parent) :
             &serverNoResponse, &QTimer::stop);
     connect(this, &LoginDialog::promptChanged,
             this, &LoginDialog::showPrompt);
+
+    connect(this, &LoginDialog::progressChanged,
+            this, &LoginDialog::setLoadProgress);
+
+    //ui->tbReplay->setHidden(true);
 }
 
 LoginDialog::~LoginDialog()
@@ -74,11 +80,11 @@ void LoginDialog::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL 
     case ENTERAGENT:
         {
             emit endTimer();
-            DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &msg;
+            DOWN_AGENTSERVICE* down = reinterpret_cast<DOWN_AGENTSERVICE*> (&msg);
             qDebug() << "login result:" << down->result;
             ui->lbPrompt->setText(Prompt::getPrompt(down->result));
             if (down->result == SuccessEnterClass)
-                emit loginSuccess(down->role);
+                emit loginSuccess();
 //            sendResultPrompt(down->result);
 //            recvClassInfo();
 //            switch (down->result) {
@@ -129,9 +135,13 @@ void LoginDialog::on_lePassword_textChanged(const QString &arg1)
     }
 }
 
-void LoginDialog::on_toolButton_clicked()
+void LoginDialog::on_tbReplay_clicked()
 {
-    QString className("10000_6419721");
-    emit classReview(className);
-    // show choose class dialog
+    DialogChooseReplay dcr;
+    hide();
+    connect(&dcr, &DialogChooseReplay::classChosen,
+            this, &LoginDialog::classReview);
+    connect(&dcr, &DialogChooseReplay::goBack,
+            this, &LoginDialog::show);
+    dcr.exec();
 }

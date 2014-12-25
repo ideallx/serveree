@@ -221,7 +221,7 @@ bool CourseWareWidget::prev(bool isRemote) {
         if (!m_player->prev())
             return false;
     } else {
-        if (ui->lsWare->selectedItems().size() == 0)
+		if (ui->lsWare->selectedItems().empty())
             return false;
         int curRow = ui->lsWare->row(ui->lsWare->selectedItems()[0]);
 		if (ui->lsWare->count() < 2)
@@ -240,7 +240,7 @@ bool CourseWareWidget::prev(bool isRemote) {
             }
         }
     }
-    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass | CleanScreen);
+    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
     if (isRemote)
         return true;
 
@@ -262,7 +262,7 @@ bool CourseWareWidget::next(bool isRemote) {
         if (!m_player->next())
             return false;
     } else {
-        if (ui->lsWare->selectedItems().size() == 0)
+		if (ui->lsWare->selectedItems().empty())
             return false;
         int curRow = ui->lsWare->row(ui->lsWare->selectedItems()[0]);
 		if (ui->lsWare->count() < 2)
@@ -281,7 +281,7 @@ bool CourseWareWidget::next(bool isRemote) {
             }
         }
     }
-    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass | CleanScreen);
+    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
     if (isRemote)
         return true;
 
@@ -382,7 +382,7 @@ void CourseWareWidget::on_tbStart_clicked()
         stop(false);
         ui->tbStart->setIcon(QIcon(":/icon/ui/icon/run.png"));
     } else {
-        if (ui->lsWare->selectedItems().size() == 0)
+		if (ui->lsWare->selectedItems().empty())
             return;
         on_lsWare_itemDoubleClicked(ui->lsWare->selectedItems()[0]);
     }

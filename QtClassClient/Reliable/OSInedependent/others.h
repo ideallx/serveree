@@ -39,6 +39,7 @@ using namespace std;
 extern TS_UINT64 globalTimeDiff;
 
 int gettimeofday(struct timeval *tp, void *tzp);
+string getCurTime();
 int getIp(char* ip);
 TS_UINT64 getServerTime();
 string int2string(TS_UINT64 number);
