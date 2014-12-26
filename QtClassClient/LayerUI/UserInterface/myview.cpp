@@ -77,7 +77,7 @@ bool MyView::viewportEvent(QEvent *event) {
 }
 
 void MyView::moveScreen(QPoint p) {
-    verticalScrollBar()->setValue(p.y());
+    // verticalScrollBar()->setValue(p.y());
     horizontalScrollBar()->setValue(p.x());
 }
 
