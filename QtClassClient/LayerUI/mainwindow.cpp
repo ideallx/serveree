@@ -40,10 +40,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_ds = DataSingleton::getInstance();
 
-    scene = new MyScene(SelfUID, this, this);
+    scene = new MyScene(SelfUID, ui->graphicsView, this, this);
     sceneMap.insert(SelfUID, scene);
     scene->setWriteable(true);
-    scene = new MyScene(TeacherUID, this, this);
+    scene = new MyScene(TeacherUID, ui->graphicsView, this, this);
     sceneMap.insert(TeacherUID, scene);
 
     ui->graphicsView->setScene(scene);
@@ -115,7 +115,11 @@ MainWindow::MainWindow(QWidget *parent)
     on_tbBackground_clicked();
     ui->listWidget->updateUserInfo();
 
-//#define _DEBUG_UI_
+    l_naviButtons.append(ui->tbCourseWare);
+    l_naviButtons.append(ui->tbMyBoard);
+    l_naviButtons.append(ui->tbTeacherBoard);
+
+#define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
     setRole(RoleTeacher);
@@ -131,10 +135,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow() {
     leaveClass();
+    isRunning = false;
     delete ui;
     sceneMap.clear();
     qDeleteAll(sceneMap);
-    isRunning = false;
     iop_thread_cancel(pthread_msg);
     CloseHandle(sem_msg);
 }
@@ -170,6 +174,7 @@ void MainWindow::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL i
             loadingbuffer.enQueue(msg);
             return;
         } else {
+            // TODO access after destroyed
             msgQueue.enQueue(msg);
             ReleaseSemaphore(sem_msg, 1, NULL);
         }
@@ -373,7 +378,7 @@ void MainWindow::addSceneSlot(int uidh, int uidl) {
     // TODO
     TS_UINT64 uid = uidl;
 	if (sceneMap.find(uid) == sceneMap.end()) {
-		MyScene *s = new MyScene(uid, this, this);
+        MyScene *s = new MyScene(uid, ui->graphicsView, this, this);
 		sceneMap.insert(uid, s);
 	}
 }
@@ -391,7 +396,7 @@ void MainWindow::msgExcute() {
             TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
             MyScene* theScene = sceneMap[gmsg->SceneID];	// TODO waste time here
             if (theScene == NULL) {
-                theScene = new MyScene(gmsg->SceneID, this, this);
+                theScene = new MyScene(gmsg->SceneID, ui->graphicsView, this, this);
                 sceneMap.insert(gmsg->SceneID, theScene);
             }
 
@@ -414,9 +419,10 @@ void MainWindow::msgExcute() {
                 break;
             case GraphicPacketMoveScreen:
             {
-                int x = gmsg->data.PointX;
-                int y = gmsg->data.PointY;
-                ui->graphicsView->moveScreen(QPoint(x, y));
+                theScene->actMoveScreen(*gmsg);
+//                int x = gmsg->data.PointX;
+//                int y = gmsg->data.PointY;
+//                ui->graphicsView->moveScreen(QPoint(x, y));
                 break;
             }
             default:
@@ -552,11 +558,15 @@ void MainWindow::addWareList(QString filename) {
 
 void MainWindow::on_tbCourseWare_clicked()
 {
+    foreach (QToolButton* tb, l_naviButtons) {
+        tb->setChecked(false);
+    }
+    ui->tbCourseWare->setChecked(true);
+    ui->wgtCourse->setHidden(false);
     if (ui->wgtCourse->isPlayerPlaying())
         return;
 
-    if (m_userRole == RoleTeacher)
-        ui->wgtCourse->setHidden(!ui->wgtCourse->isHidden());
+    // if (m_userRole == RoleTeacher)
 }
 
 
@@ -613,11 +623,21 @@ void MainWindow::paintEvent(QPaintEvent *e) {
 
 void MainWindow::on_tbTeacherBoard_clicked()
 {
+    foreach(QToolButton* tb, l_naviButtons) {
+        tb->setChecked(false);
+    }
+    ui->tbTeacherBoard->setChecked(true);
+    ui->wgtCourse->setHidden(true);
     changeScene(TeacherUID);
 }
 
 void MainWindow::on_tbMyBoard_clicked()
 {
+    foreach(QToolButton* tb, l_naviButtons) {
+        tb->setChecked(false);
+    }
+    ui->tbMyBoard->setChecked(true);
+    ui->wgtCourse->setHidden(true);
     changeScene(SelfUID);
 }
 
@@ -660,7 +680,6 @@ void MainWindow::on_tbBackground_clicked()
         qss3.close();
     }
 }
-
 // 6 others
 
 // 7 race

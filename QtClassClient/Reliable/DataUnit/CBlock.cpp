@@ -17,6 +17,8 @@ CBlock::CBlock(TS_UINT64 uid) :
 }
 
 CBlock::~CBlock() {
+    delete straDestroy;
+    delete straWrite;
 	clear();
 	iop_lock_destroy(&mapLock);
 	iop_lock_destroy(&packageLock);
@@ -41,7 +43,7 @@ CPackage* CBlock::createNewPackage(int packageNum) {
     // cout << _uid << " new " << packageNum << endl;
 
     // blockContents.insert(make_pair(packageNum, curPackage));	// 新package加入map中
-    straDestroy->onMsgAddStrategy(curPackage);					// 新package加入销毁等待。
+    straDestroy->onMsgAddStrategy(cpa);					        // 新package加入销毁等待。
 	return cpa;
 }
 
@@ -70,7 +72,6 @@ int CBlock::addMsg(const ts_msg& msg) {
 		iop_lock(&mapLock);								// 怕重复new
 		auto findPackage = blockContents.find(packageNum);
 		if (findPackage == blockContents.end()) {
-			cout << _uid << " new " << packageNum << " " << seq << endl;
 			curPackage = createNewPackage(packageNum);
 			blockContents.insert(make_pair(packageNum, curPackage));
 			isNewPackage = true;

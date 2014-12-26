@@ -12,13 +12,15 @@ CBlockManager::CBlockManager()
 }
 
 CBlockManager::~CBlockManager() {
+    iop_lock(&lockUserBlock);
     saveAllBlocks();
-	iop_lock_destroy(&lockUserBlock);
 	for (auto iter = map_userBlock.begin(); 
 		iter != map_userBlock.end(); ++iter) {
 		DESTROY(iter->second);
 	}
-	map_userBlock.clear();
+    map_userBlock.clear();
+    iop_unlock(&lockUserBlock);
+	iop_lock_destroy(&lockUserBlock);
 }
 
 int getUidFromFileName(string filename) {

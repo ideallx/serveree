@@ -145,9 +145,9 @@ void TotalProcess::buildBoard() {
     ld->showPrompt(NormalCourseLoading);
     bl->removeUpReceiver(ld);
 
-    threadLoad.setFuture(QtConcurrent::run(loadCourse, ld, cn));
     connect(&threadLoad, SIGNAL(finished()),
             this, SLOT(buildUI()));
+    threadLoad.setFuture(QtConcurrent::run(loadCourse, ld, cn));
 }
 
 void TotalProcess::buildUI() {

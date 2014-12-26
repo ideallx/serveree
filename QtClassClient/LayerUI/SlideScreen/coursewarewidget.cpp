@@ -412,15 +412,13 @@ bool CourseWareWidget::playerStop() {
 //    if (!stop(false))
 //        return false;
     stop(false);
-
-
     return true;
 }
 
 
 void CourseWareWidget::playmodeEnd() {
     // TODO client not end
-    playerStop();
+    stop(true);
 }
 
 

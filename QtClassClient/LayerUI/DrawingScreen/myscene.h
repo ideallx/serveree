@@ -35,7 +35,7 @@ class MyScene : public QGraphicsScene
     Q_OBJECT
 
 public:
-    explicit MyScene(DWORD sceneID, QObject *parent = 0, CMsgObject* msgParent = 0);
+    MyScene(DWORD sceneID, QGraphicsView* view, QObject *parent = 0, CMsgObject* msgParent = 0);
 
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
@@ -53,11 +53,15 @@ public:
 
     void actErase(TS_GRAPHIC_PACKET& graphicMsg);
 
+    void actMoveScreen(TS_GRAPHIC_PACKET& graphicMsg);
+
     void setBackground(QPixmap pix);
 
     inline void setWriteable(bool set) { isWriteable = set; }
 
     void playMedia(QMediaPlayer* player);
+
+    inline void setView(QGraphicsView* view) { m_view = view; }
 
 public slots:
 
@@ -113,6 +117,7 @@ private:
     DrawingSettingData                      setErase;
 
     DataSingleton                           *ds;
+    QGraphicsView*                          m_view;
 };
 
 #endif // MYSCENE_H

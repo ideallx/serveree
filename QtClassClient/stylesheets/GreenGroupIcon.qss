@@ -15,8 +15,9 @@ QToolButton#tbBackground, #tbBrush, #tbCourseWare,
 QToolButton:!checked {
 	color: rgb(255, 255, 255);
 }
+
 QToolButton:checked, QToolButton:pressed {
-	background-color: rgb(83, 83, 83);
+        background-color: rgb(231, 33, 76);
 }
 
 QToolButton#tbCourseWare {

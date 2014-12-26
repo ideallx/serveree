@@ -81,14 +81,14 @@ CReliableConnection::CReliableConnection()
 }
 
 CReliableConnection::~CReliableConnection() {
-	delete bm;
     if (isRunning) {
         isRunning = false;
         iop_usleep(200);
-		iop_thread_cancel(pthread_input);
+		// iop_thread_cancel(pthread_input);
 		iop_thread_cancel(pthread_scan);
 		iop_thread_cancel(pthread_save);
     }
+    DESTROY(bm);
 
 	iop_lock_destroy(&ioLock);
 	CloseHandle(semMsg);
@@ -118,19 +118,19 @@ bool CReliableConnection::create(unsigned short localport) {
 		isRunning = false;
 		return false;
 	}
-
-    rc = iop_thread_create(&pthread_input, MsgInProc, (void *) this, 0);
-	if (0 == rc) {
-		iop_usleep(10);
-#ifdef _DEBUG_INFO_
-		cout << "MsgIn Thread start successfully" << endl;
-#endif
-	} else {
-		iop_thread_cancel(pthread_scan);
-		cout << "MsgIn Thread start failed " << endl;
-		isRunning = false;
-		return false;
-	}
+//
+//    rc = iop_thread_create(&pthread_input, MsgInProc, (void *) this, 0);
+//	if (0 == rc) {
+//		iop_usleep(10);
+//#ifdef _DEBUG_INFO_
+//		cout << "MsgIn Thread start successfully" << endl;
+//#endif
+//	} else {
+//		iop_thread_cancel(pthread_scan);
+//		cout << "MsgIn Thread start failed " << endl;
+//		isRunning = false;
+//		return false;
+//	}
 
     rc = iop_thread_create(&pthread_save, SaveProc, (void *) this, 0);
 	if (0 == rc) {
@@ -141,7 +141,7 @@ bool CReliableConnection::create(unsigned short localport) {
 		return true;
 	} else {
 		iop_thread_cancel(pthread_scan);
-		iop_thread_cancel(pthread_input);
+		// iop_thread_cancel(pthread_input);
 		cout << "MsgSave Thread start failed " << endl;
 		isRunning = false;
 		return false;
@@ -248,7 +248,6 @@ int CReliableConnection::send(const char* buf, ULONG len, TS_UINT64 uid) {
 
 void CReliableConnection::scanProcess() {
     while (isRunning) {
-        WaitForSingleObject(needScan, maxScanInterval);	// 最多等2秒
         // 扫描丢包，重发
         totalMiss = 0;
         map<TS_UINT64, set<TS_UINT64> > results;
@@ -278,6 +277,7 @@ void CReliableConnection::scanProcess() {
 		if (controlReliableConnect(getMissingRate()))
 			resendWhenAsk = false;
         iop_usleep(minScanInterval);			// 时间间隔
+        WaitForSingleObject(needScan, maxScanInterval);	// 最多等2秒
     }
 }
 
@@ -509,9 +509,9 @@ int CReliableConnection::resendPart(TS_UINT64 toUID,
 		}
         if (peer->send(p.Body, packetSize(p)) > 0)
             count++;
-		iop_usleep(1);
+        iop_usleep(1);
 		//if (j % 30 == 0)						// 不知道为什么，如果不加 他就78条一发 不知道为什么。
-		//	iop_usleep(30);
+		//	iop_usleep(6);
     }
     return count;
 }

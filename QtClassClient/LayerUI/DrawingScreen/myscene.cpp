@@ -37,35 +37,45 @@ QRect widgetAvaiableSize() {
 
 const int percentage = 1920;
 QPointF screenToViewPercent(QPointF p, QGraphicsView* view) {
+    if (NULL == view)
+        return QPointF();
+    QRect sz = screenSize();
     QPointF p2 = view->mapFromScene(p);
     QPointF result = QPointF(p2.x() * percentage / view->width(),
                              p2.y() * percentage / view->height());
 
-    QRect sz = screenSize();
-    if (result.x() < 0)
+    if (result.x() < 0) {
         result.setX(0);
+    } else if (result.x() > percentage) {
+        result.setX(percentage);
+    }
 
-    if (result.y() < 0)
+    if (result.y() < 0) {
         result.setY(0);
+    } else if (result.y() > percentage) {
+        result.setY(percentage);
+    }
 
-    if (result.x() > sz.width())
-        result.setX(sz.width());
+    qDebug() << result;
+
+//    if (result.x() > sz.width()) TODO
+//        result.setX(sz.width());
 
     return result;
-    return p;
 }
 
 
 // TODO may be < 0 error
 QPointF viewToScreenPercent(QPointF p, QGraphicsView *view) {
-    QPointF p2 = QPointF(p.x() * view->width() / percentage,
-                             p.y() * view->height() / percentage);
+    if (NULL == view)
+        return QPointF();
+    QPointF p2 = QPointF(p.x() * view->width()  / percentage,
+                         p.y() * view->height() / percentage);
     QPointF result = view->mapToScene(p2.toPoint());
     return result;
-    return p;
 }
 
-MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent)
+MyScene::MyScene(DWORD sceneID, QGraphicsView* view, QObject *parent, CMsgObject *msgParent)
     : QGraphicsScene(parent)
     , sceneID(sceneID)
     , gmc(new CGraphicMsgCreator(sceneID))
@@ -74,11 +84,13 @@ MyScene::MyScene(DWORD sceneID, QObject *parent, CMsgObject *msgParent)
     , isEraser(false)
     , mt(MoveDraw)
     , isWriteable(false)
-    , media(NULL) {
+    , media(NULL)
+    , m_view(view) {
     ds = DataSingleton::getInstance();
 
     panFixer.setSingleShot(true);
-    setSceneRect(0, 0, 20000, 1000);
+    QRect scr = screenSize();
+    setSceneRect(0, 0, scr.width() * 20 + 200, scr.height() + 10);
     connect(&panFixer, &QTimer::timeout,
             this, &MyScene::sendMoveBegin);
 
@@ -105,10 +117,10 @@ void MyScene::generateTestShape() {
 void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     if (!isWriteable)
         return;
+    lastPos = screenToViewPercent(event->scenePos(), m_view);
 
-    lastPos = screenToViewPercent(event->scenePos(), views()[0]);
     TS_GRAPHIC_PACKET gmsg;
-    MyView* mv = static_cast<MyView*> (this->views()[0]);
+    MyView* mv = static_cast<MyView*> (m_view);
     if (mv->panTimer.isActive()) {
         panFixer.stop();
         mt = MoveScreen;
@@ -131,7 +143,8 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
     mt = MovePending;
     panFixer.start(40);
-    cachedPos = screenToViewPercent(event->scenePos(), views()[0]);
+
+    cachedPos = screenToViewPercent(event->scenePos(), m_view);
 }
 
 void MyScene::sendMoveBegin() {
@@ -160,8 +173,10 @@ void MyScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 
     if (panFixer.isActive() || mt != MoveDraw)
         return;
+    QPointF tranferredP = screenToViewPercent(event->scenePos(), m_view);
+
     TS_GRAPHIC_PACKET gmsg;
-    gmc->generateGraphicsData(gmsg, screenToViewPercent(event->scenePos(), views()[0]), false);
+    gmc->generateGraphicsData(gmsg, tranferredP, false);
     actMove(gmsg);
     msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
 }
@@ -201,7 +216,7 @@ CShape *MyScene::createNewItem(TS_UINT64 uid, int shapeType, QPointF curPoint) {
 static int updateCounter = 0;
 void MyScene::actMove(TS_GRAPHIC_PACKET &graphicMsg) {
     QPointF scenePos = QPointF(graphicMsg.data.PointX, graphicMsg.data.PointY);
-    QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
+    QPointF p2 = viewToScreenPercent(scenePos, m_view);
     CShape* lastItem = lastItems[graphicMsg.head.UID];
 	if (NULL == lastItem)
 		return;
@@ -214,7 +229,7 @@ void MyScene::actMove(TS_GRAPHIC_PACKET &graphicMsg) {
 
 void MyScene::actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg) {
     QPointF scenePos = QPointF(graphicMsg.data.BeginPx, graphicMsg.data.BeginPy);
-    QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
+    QPointF p2 = viewToScreenPercent(scenePos, m_view);
     TS_UINT64 uid = graphicMsg.head.UID;
     if (!lastItems.contains(uid)) {
         lastItems.insert(uid, NULL);
@@ -241,7 +256,7 @@ void MyScene::actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg) {
 void MyScene::actErase(TS_GRAPHIC_PACKET& graphicMsg) {
     qDebug() << "erase" << graphicMsg.eraser.targetUID << graphicMsg.eraser.shapeID;
     QPointF scenePos = QPointF(graphicMsg.eraser.PointX, graphicMsg.eraser.PointY);
-    QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
+    QPointF p2 = viewToScreenPercent(scenePos, m_view);
     QGraphicsItem* chosenItem = itemAt(p2, QTransform());
     // first find by position
     if ((chosenItem->data(GraphicUID).toLongLong() == graphicMsg.eraser.targetUID) &&
@@ -261,6 +276,15 @@ void MyScene::actErase(TS_GRAPHIC_PACKET& graphicMsg) {
     eraseList.insert(make_pair(graphicMsg.eraser.targetUID,
                                graphicMsg.eraser.shapeID));
 }
+
+// negative number!!!
+void MyScene::actMoveScreen(TS_GRAPHIC_PACKET& graphicMsg) {
+    QPointF scenePos = QPointF((int) graphicMsg.data.PointX,                                  (int) graphicMsg.data.PointY);
+    QPointF p2 = viewToScreenPercent(scenePos, m_view);
+    MyView* mv = static_cast<MyView*> (m_view);
+    mv->moveScreen(p2.toPoint());
+}
+
 
 void MyScene::setOthersPenBrush(TS_GRAPHIC_PACKET& graphicMsg) {
     TS_UINT64 uid = graphicMsg.head.UID;
@@ -308,11 +332,13 @@ void MyScene::moveScreen(QPoint p) {
         mt = MoveScreen;
         return;
     }
+    QPointF p2 = screenToViewPercent(p, m_view);
 
-    MyView* mv = static_cast<MyView*> (this->views()[0]);
-    mv->moveScreen(p);
     TS_GRAPHIC_PACKET gmsg;
-    gmc->generateScreenMove(gmsg, p);
+    gmc->generateScreenMove(gmsg, p2.toPoint());
+
+    actMoveScreen(gmsg);
+
     msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
 }
 
@@ -335,7 +361,7 @@ void MyScene::setBackground(QPixmap pix) {
     const QPointF p = sceneBeginPoint;
 
     m_backpixmap = addPixmap(pix);
-	m_backpixmap->setPos(views()[0]->mapToScene(p.x(), p.y()));
+    m_backpixmap->setPos(m_view->mapToScene(p.x(), p.y()));
     m_backpixmap->setVisible(true);
     m_backpixmap->setZValue(-100);
 }
@@ -346,7 +372,7 @@ void MyScene::playMedia(QMediaPlayer *player) {
     media->setVisible(false);
 
     player->setVideoOutput(media);
-    media->setPos(views()[0]->mapToScene(0, 0));
+    media->setPos(m_view->mapToScene(0, 0));
     QRect r = widgetAvaiableSize();
     media->setSize(QSize(r.width(), r.height()));
     media->setZValue(-100);

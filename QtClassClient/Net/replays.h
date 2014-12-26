@@ -29,8 +29,6 @@ public:
      */
     bool getNextMsg(ts_msg& msg, int &sleepTime);
 
-    bool getNextMsg2(ts_msg& msg, int &sleepTime);
-
 private:
     void addPackage(CPackage* package);
 

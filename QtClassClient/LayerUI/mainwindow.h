@@ -5,6 +5,9 @@
 #include <QPushButton>
 #include <QListWidgetItem>
 #include <QPaintEvent>
+#include <QVector>
+#include <iop_thread.h>
+#include <QToolButton>
 
 #include "../Message/CMsgObject.h"
 #include "../Reliable/DataStructure/TSQueue.h"
@@ -13,8 +16,6 @@
 #include "DrawingScreen/myscene.h"
 #include "MsgGenerator/cfilemsggenerator.h"
 #include "MsgGenerator/cplayergenerator.h"
-#include <QVector>
-#include <iop_thread.h>
 #include "../player/absplayer.h"
 
 class DataSingleton;
@@ -132,7 +133,6 @@ private slots:
     void on_listWidget_doubleClicked(const QModelIndex &index);
     //void itemPlay_clicked(QString filename);
 
-
 private:
     Ui::MainWindow*             ui;
     enum RoleOfClass            m_userRole;     // user role of the client, if teacher will be more powerful
@@ -150,6 +150,7 @@ private:
 
 	bool						isLoading;
 	TSQueue<ts_msg>				loadingbuffer;
+    QList<QToolButton*>         l_naviButtons;
 };
 
 #endif // MAINWINDOW_H

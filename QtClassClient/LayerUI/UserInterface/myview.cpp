@@ -23,8 +23,8 @@ MyView::MyView(QWidget *parent)
 
     setStyleSheet("background-color: rgb(255, 254, 240)");
 
-    grabGesture(Qt::PinchGesture);
-    ungrabGesture(Qt::PanGesture);
+//    grabGesture(Qt::PinchGesture);
+//    ungrabGesture(Qt::PanGesture);
 }
 
 MyView::~MyView() {
@@ -39,7 +39,7 @@ bool MyView::viewportEvent(QEvent *event) {
             QPoint dest;
             QPanGesture *pg = static_cast<QPanGesture*> (pan);
             dest.setX(horizontalScrollBar()->value() - pg->delta().toPoint().x());
-            // dest.setY(verticalScrollBar()->value() - pg->delta().toPoint().y());
+            dest.setY(verticalScrollBar()->value() - pg->delta().toPoint().y());
             panTimer.start(200);
             emit screenMoved(dest);
         } else if (QGesture *pan = ge->gesture(Qt::PinchGesture)) {

@@ -54,12 +54,12 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>".";"include";"LayerUI\UserInterface";"LayerUI\SlideScreen";"Reliable\OSInedependent\libiop";"$(QTDIR)\include";"$(QTDIR)\include\QtMultimediaWidgets";"$(QTDIR)\include\QtMultimedia";"$(QTDIR)\include\ActiveQt";"$(QTDIR)\include\QtWidgets";"$(QTDIR)\include\QtConcurrent";"$(QTDIR)\include\QtNetwork";"$(QTDIR)\include\QtGui";"$(QTDIR)\include\QtCore";"release";".";$(QTDIR)\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;include;LayerUI\UserInterface;LayerUI\SlideScreen;Reliable\OSInedependent\libiop;$(QTDIR)\include;$(QTDIR)\include\QtMultimediaWidgets;$(QTDIR)\include\QtMultimedia;$(QTDIR)\include\ActiveQt;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtConcurrent;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtCore;release;.;$(QTDIR)\mkspecs\win32-msvc2010;.\GeneratedFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zm200 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <ObjectFileName>release\</ObjectFileName>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
       <Optimization>MaxSpeed</Optimization>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;NOMINMAX;WIN32;QT_NO_DEBUG;QT_MULTIMEDIAWIDGETS_LIB;QT_AXCONTAINER_LIB;QT_MULTIMEDIA_LIB;QT_AXBASE_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB;QT_NETWORK_LIB;QT_GUI_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
@@ -68,6 +68,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level3</WarningLevel>
+      <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QTDIR)\lib\qtmain.lib;$(QTDIR)\lib\Qt5MultimediaWidgets.lib;$(QTDIR)\lib\Qt5AxContainer.lib;$(QTDIR)\lib\Qt5AxBase.lib;$(QTDIR)\lib\Qt5Widgets.lib;$(QTDIR)\lib\Qt5Multimedia.lib;$(QTDIR)\lib\Qt5AxBase.lib;glu32.lib;opengl32.lib;$(QTDIR)\lib\Qt5Gui.lib;$(QTDIR)\lib\Qt5Core.lib;ole32.lib;oleaut32.lib;user32.lib;gdi32.lib;advapi32.lib;$(QTDIR)\lib\Qt5Widgets.lib;$(QTDIR)\lib\Qt5Concurrent.lib;$(QTDIR)\lib\Qt5Network.lib;$(QTDIR)\lib\Qt5Gui.lib;$(QTDIR)\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -93,13 +94,13 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>".";"include";"LayerUI\UserInterface";"LayerUI\SlideScreen";"Reliable\OSInedependent\libiop";"$(QTDIR)\include";"$(QTDIR)\include\QtMultimediaWidgets";"$(QTDIR)\include\QtMultimedia";"$(QTDIR)\include\ActiveQt";"$(QTDIR)\include\QtWidgets";"$(QTDIR)\include\QtConcurrent";"$(QTDIR)\include\QtNetwork";"$(QTDIR)\include\QtGui";"$(QTDIR)\include\QtCore";"debug";".";$(QTDIR)\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;include;LayerUI\UserInterface;LayerUI\SlideScreen;Reliable\OSInedependent\libiop;$(QTDIR)\include;$(QTDIR)\include\QtMultimediaWidgets;$(QTDIR)\include\QtMultimedia;$(QTDIR)\include\ActiveQt;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtConcurrent;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtCore;debug;.;$(QTDIR)\mkspecs\win32-msvc2010;.\GeneratedFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zm200 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <ObjectFileName>debug\</ObjectFileName>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;NOMINMAX;WIN32;QT_MULTIMEDIAWIDGETS_LIB;QT_AXCONTAINER_LIB;QT_MULTIMEDIA_LIB;QT_AXBASE_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB;QT_NETWORK_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
@@ -108,6 +109,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level3</WarningLevel>
+      <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QTDIR)\lib\qtmaind.lib;$(QTDIR)\lib\Qt5MultimediaWidgetsd.lib;$(QTDIR)\lib\Qt5AxContainerd.lib;$(QTDIR)\lib\Qt5AxBased.lib;$(QTDIR)\lib\Qt5Widgetsd.lib;$(QTDIR)\lib\Qt5Multimediad.lib;$(QTDIR)\lib\Qt5AxBased.lib;glu32.lib;opengl32.lib;$(QTDIR)\lib\Qt5Guid.lib;$(QTDIR)\lib\Qt5Cored.lib;ole32.lib;oleaut32.lib;user32.lib;gdi32.lib;advapi32.lib;$(QTDIR)\lib\Qt5Widgetsd.lib;$(QTDIR)\lib\Qt5Concurrentd.lib;$(QTDIR)\lib\Qt5Networkd.lib;$(QTDIR)\lib\Qt5Guid.lib;$(QTDIR)\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -131,6 +133,114 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Debug\moc_absplayer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_cloginbutton.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_colorcombox.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_coursewarewidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_csettingsbutton.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_cshapechooser.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_cuserlistwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_dialogchoosereplay.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_dialogpixmap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_linewidthcombox.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_logindialog.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_mainwindow.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_myscene.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_myview.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_prompt.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_totalprocess.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_widgetwarelistitem.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_ui.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Release\moc_absplayer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_cloginbutton.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_colorcombox.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_coursewarewidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_csettingsbutton.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_cshapechooser.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_cuserlistwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_dialogchoosereplay.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_dialogpixmap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_linewidthcombox.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_logindialog.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_mainwindow.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_myscene.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_myview.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_prompt.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_totalprocess.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_widgetwarelistitem.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Reliable\Connections\CAbsConnection.cpp" />
     <ClCompile Include="Reliable\Server\CAbsServer.cpp" />
     <ClCompile Include="Reliable\Connections\CAbsSocket.cpp" />
@@ -204,6 +314,15 @@
     <ClCompile Include="Reliable\Zip\zip.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_coursewarewidget.h" />
+    <ClInclude Include="GeneratedFiles\ui_dialogchoosereplay.h" />
+    <ClInclude Include="GeneratedFiles\ui_dialogpixmap.h" />
+    <ClInclude Include="GeneratedFiles\ui_logindialog.h" />
+    <ClInclude Include="GeneratedFiles\ui_loginwidget.h" />
+    <ClInclude Include="GeneratedFiles\ui_mainwindow.h" />
+    <ClInclude Include="GeneratedFiles\ui_prompt.h" />
+    <ClInclude Include="GeneratedFiles\ui_settingwidget.h" />
+    <ClInclude Include="GeneratedFiles\ui_widgetwarelistitem.h" />
     <ClInclude Include="Reliable\Connections\CAbsConnection.h" />
     <ClInclude Include="Reliable\Server\CAbsServer.h" />
     <ClInclude Include="Reliable\Connections\CAbsSocket.h" />
@@ -237,14 +356,14 @@
     <ClInclude Include="Reliable\DataStructure\TSQueue.h" />
     <ClInclude Include="Reliable\DataUnit\UserBase.h" />
     <CustomBuild Include="player\absplayer.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">player\absplayer.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore player\absplayer.h -o release\moc_absplayer.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC player\absplayer.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_absplayer.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">player\absplayer.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore player\absplayer.h -o debug\moc_absplayer.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC player\absplayer.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_absplayer.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing absplayer.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing absplayer.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="BizLogic\cauthlogic.h" />
     <ClInclude Include="BizLogic\cfilelogic.h" />
@@ -252,34 +371,34 @@
     <ClInclude Include="LayerUI\MsgGenerator\cgraphicmsgcreator.h" />
     <ClInclude Include="BizLogic\cloadlogic.h" />
     <CustomBuild Include="LayerUI\UserInterface\cloginbutton.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">LayerUI\UserInterface\cloginbutton.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\cloginbutton.h -o release\moc_cloginbutton.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC LayerUI\UserInterface\cloginbutton.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_cloginbutton.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LayerUI\UserInterface\cloginbutton.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\cloginbutton.h -o debug\moc_cloginbutton.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC LayerUI\UserInterface\cloginbutton.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_cloginbutton.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing cloginbutton.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing cloginbutton.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="LayerUI\UserInterface\colorcombox.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">LayerUI\UserInterface\colorcombox.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\colorcombox.h -o release\moc_colorcombox.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC LayerUI\UserInterface\colorcombox.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_colorcombox.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LayerUI\UserInterface\colorcombox.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\colorcombox.h -o debug\moc_colorcombox.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC LayerUI\UserInterface\colorcombox.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_colorcombox.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing colorcombox.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing colorcombox.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="LayerUI\SlideScreen\coursewarewidget.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">LayerUI\SlideScreen\coursewarewidget.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\SlideScreen\coursewarewidget.h -o release\moc_coursewarewidget.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC LayerUI\SlideScreen\coursewarewidget.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_coursewarewidget.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LayerUI\SlideScreen\coursewarewidget.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\SlideScreen\coursewarewidget.h -o debug\moc_coursewarewidget.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC LayerUI\SlideScreen\coursewarewidget.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_coursewarewidget.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing coursewarewidget.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing coursewarewidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="LayerUI\MsgGenerator\cplayergenerator.h" />
     <ClInclude Include="BizLogic\cplayerlogic.h" />
@@ -287,56 +406,56 @@
     <ClInclude Include="LayerUI\MsgGenerator\cracegenerator.h" />
     <ClInclude Include="Reliable\Zip\crypt.h" />
     <CustomBuild Include="LayerUI\UserInterface\csettingsbutton.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">LayerUI\UserInterface\csettingsbutton.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\csettingsbutton.h -o release\moc_csettingsbutton.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC LayerUI\UserInterface\csettingsbutton.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_csettingsbutton.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LayerUI\UserInterface\csettingsbutton.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\csettingsbutton.h -o debug\moc_csettingsbutton.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC LayerUI\UserInterface\csettingsbutton.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_csettingsbutton.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing csettingsbutton.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing csettingsbutton.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="LayerUI\DrawingScreen\cshape.h" />
     <CustomBuild Include="LayerUI\UserInterface\cshapechooser.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">LayerUI\UserInterface\cshapechooser.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\cshapechooser.h -o release\moc_cshapechooser.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC LayerUI\UserInterface\cshapechooser.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_cshapechooser.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LayerUI\UserInterface\cshapechooser.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\cshapechooser.h -o debug\moc_cshapechooser.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC LayerUI\UserInterface\cshapechooser.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_cshapechooser.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing cshapechooser.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing cshapechooser.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="LayerUI\UserInterface\cuserlistwidget.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">LayerUI\UserInterface\cuserlistwidget.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\cuserlistwidget.h -o release\moc_cuserlistwidget.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC LayerUI\UserInterface\cuserlistwidget.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_cuserlistwidget.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LayerUI\UserInterface\cuserlistwidget.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\cuserlistwidget.h -o debug\moc_cuserlistwidget.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC LayerUI\UserInterface\cuserlistwidget.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_cuserlistwidget.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing cuserlistwidget.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing cuserlistwidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="BizLogic\datasingleton.h" />
     <CustomBuild Include="BeforeClass\dialogchoosereplay.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">BeforeClass\dialogchoosereplay.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore BeforeClass\dialogchoosereplay.h -o release\moc_dialogchoosereplay.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC BeforeClass\dialogchoosereplay.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_dialogchoosereplay.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BeforeClass\dialogchoosereplay.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore BeforeClass\dialogchoosereplay.h -o debug\moc_dialogchoosereplay.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC BeforeClass\dialogchoosereplay.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_dialogchoosereplay.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing dialogchoosereplay.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing dialogchoosereplay.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="LayerUI\UserInterface\dialogpixmap.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">LayerUI\UserInterface\dialogpixmap.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\dialogpixmap.h -o release\moc_dialogpixmap.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC LayerUI\UserInterface\dialogpixmap.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_dialogpixmap.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LayerUI\UserInterface\dialogpixmap.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\dialogpixmap.h -o debug\moc_dialogpixmap.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC LayerUI\UserInterface\dialogpixmap.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_dialogpixmap.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing dialogpixmap.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing dialogpixmap.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="player\docplayer.h" />
     <ClInclude Include="Reliable\Zip\ioapi.h" />
@@ -346,404 +465,504 @@
     <ClInclude Include="Reliable\Zip\iowin32.h" />
     <ClInclude Include="player\jpgplayer.h" />
     <CustomBuild Include="LayerUI\UserInterface\linewidthcombox.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">LayerUI\UserInterface\linewidthcombox.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\linewidthcombox.h -o release\moc_linewidthcombox.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC LayerUI\UserInterface\linewidthcombox.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_linewidthcombox.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LayerUI\UserInterface\linewidthcombox.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\linewidthcombox.h -o debug\moc_linewidthcombox.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC LayerUI\UserInterface\linewidthcombox.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_linewidthcombox.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing linewidthcombox.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing linewidthcombox.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="BeforeClass\logindialog.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">BeforeClass\logindialog.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore BeforeClass\logindialog.h -o release\moc_logindialog.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC BeforeClass\logindialog.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_logindialog.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BeforeClass\logindialog.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore BeforeClass\logindialog.h -o debug\moc_logindialog.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC BeforeClass\logindialog.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_logindialog.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing logindialog.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing logindialog.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="LayerUI\mainwindow.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">LayerUI\mainwindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\mainwindow.h -o release\moc_mainwindow.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC LayerUI\mainwindow.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_mainwindow.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LayerUI\mainwindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\mainwindow.h -o debug\moc_mainwindow.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC LayerUI\mainwindow.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_mainwindow.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing mainwindow.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing mainwindow.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="LayerUI\DrawingScreen\myscene.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">LayerUI\DrawingScreen\myscene.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\DrawingScreen\myscene.h -o release\moc_myscene.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC LayerUI\DrawingScreen\myscene.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_myscene.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LayerUI\DrawingScreen\myscene.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\DrawingScreen\myscene.h -o debug\moc_myscene.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC LayerUI\DrawingScreen\myscene.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_myscene.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing myscene.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing myscene.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="LayerUI\UserInterface\myview.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">LayerUI\UserInterface\myview.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\myview.h -o release\moc_myview.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC LayerUI\UserInterface\myview.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_myview.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LayerUI\UserInterface\myview.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\myview.h -o debug\moc_myview.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC LayerUI\UserInterface\myview.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_myview.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing myview.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing myview.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="Reliable\Zip\myzip.h" />
     <ClInclude Include="Reliable\OSInedependent\others.h" />
     <ClInclude Include="player\playerfactory.h" />
     <ClInclude Include="player\pptplayer.h" />
     <CustomBuild Include="LayerUI\UserInterface\prompt.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">LayerUI\UserInterface\prompt.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\prompt.h -o release\moc_prompt.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC LayerUI\UserInterface\prompt.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_prompt.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LayerUI\UserInterface\prompt.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\prompt.h -o debug\moc_prompt.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC LayerUI\UserInterface\prompt.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_prompt.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing prompt.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing prompt.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="Net\replays.h" />
     <ClInclude Include="stdafx.h" />
     <CustomBuild Include="BeforeClass\totalprocess.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">BeforeClass\totalprocess.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore BeforeClass\totalprocess.h -o release\moc_totalprocess.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC BeforeClass\totalprocess.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_totalprocess.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BeforeClass\totalprocess.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore BeforeClass\totalprocess.h -o debug\moc_totalprocess.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC BeforeClass\totalprocess.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_totalprocess.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing totalprocess.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing totalprocess.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="Reliable\Zip\unzip.h" />
     <ClInclude Include="player\videoplayer.h" />
     <CustomBuild Include="LayerUI\UserInterface\widgetwarelistitem.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">LayerUI\UserInterface\widgetwarelistitem.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\widgetwarelistitem.h -o release\moc_widgetwarelistitem.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC LayerUI\UserInterface\widgetwarelistitem.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_widgetwarelistitem.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LayerUI\UserInterface\widgetwarelistitem.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DNOMINMAX -DWIN32 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/mkspecs/win32-msvc2010 -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/include -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/UserInterface -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/LayerUI/SlideScreen -IC:/Users/Fulaan/Documents/GitHub/server/QtClassClient/Reliable/OSInedependent/libiop -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimediaWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtMultimedia -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/ActiveQt -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtWidgets -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtConcurrent -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtNetwork -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtGui -IF:/qt/qt5.3.2/5.3/msvc2010_opengl/include/QtCore LayerUI\UserInterface\widgetwarelistitem.h -o debug\moc_widgetwarelistitem.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC LayerUI\UserInterface\widgetwarelistitem.h</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_widgetwarelistitem.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing widgetwarelistitem.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing widgetwarelistitem.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="Reliable\Zip\zconf.h" />
     <ClInclude Include="Reliable\Zip\zip.h" />
     <ClInclude Include="Reliable\Zip\zlib.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="debug\moc_absplayer.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_absplayer.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\moc_cloginbutton.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_cloginbutton.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\moc_colorcombox.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_colorcombox.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\moc_coursewarewidget.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_coursewarewidget.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\moc_csettingsbutton.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_csettingsbutton.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\moc_cshapechooser.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_cshapechooser.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\moc_cuserlistwidget.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_cuserlistwidget.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\moc_dialogchoosereplay.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_dialogchoosereplay.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\moc_dialogpixmap.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_dialogpixmap.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\moc_linewidthcombox.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_linewidthcombox.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\moc_logindialog.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_logindialog.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\moc_mainwindow.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_mainwindow.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\moc_myscene.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_myscene.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\moc_myview.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_myview.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\moc_prompt.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_prompt.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\moc_totalprocess.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_totalprocess.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\moc_widgetwarelistitem.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_widgetwarelistitem.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="debug\qrc_ui.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\qrc_ui.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClInclude Include="ui_coursewarewidget.h" />
-    <ClInclude Include="ui_dialogchoosereplay.h" />
-    <ClInclude Include="ui_dialogpixmap.h" />
-    <ClInclude Include="ui_logindialog.h" />
-    <ClInclude Include="ui_loginwidget.h" />
-    <ClInclude Include="ui_mainwindow.h" />
-    <ClInclude Include="ui_prompt.h" />
-    <ClInclude Include="ui_settingwidget.h" />
-    <ClInclude Include="ui_widgetwarelistitem.h" />
-  </ItemGroup>
-  <ItemGroup>
     <CustomBuild Include="coursewarewidget.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">coursewarewidget.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe coursewarewidget.ui -o ui_coursewarewidget.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC coursewarewidget.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui_coursewarewidget.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">coursewarewidget.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe coursewarewidget.ui -o ui_coursewarewidget.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC coursewarewidget.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ui_coursewarewidget.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="BeforeClass\dialogchoosereplay.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">BeforeClass\dialogchoosereplay.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe BeforeClass\dialogchoosereplay.ui -o ui_dialogchoosereplay.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC BeforeClass\dialogchoosereplay.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui_dialogchoosereplay.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BeforeClass\dialogchoosereplay.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe BeforeClass\dialogchoosereplay.ui -o ui_dialogchoosereplay.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC BeforeClass\dialogchoosereplay.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ui_dialogchoosereplay.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="LayerUI\UserInterface\dialogpixmap.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">LayerUI\UserInterface\dialogpixmap.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe LayerUI\UserInterface\dialogpixmap.ui -o ui_dialogpixmap.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC LayerUI\UserInterface\dialogpixmap.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui_dialogpixmap.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">LayerUI\UserInterface\dialogpixmap.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe LayerUI\UserInterface\dialogpixmap.ui -o ui_dialogpixmap.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC LayerUI\UserInterface\dialogpixmap.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ui_dialogpixmap.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="BeforeClass\logindialog.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">BeforeClass\logindialog.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe BeforeClass\logindialog.ui -o ui_logindialog.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC BeforeClass\logindialog.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui_logindialog.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BeforeClass\logindialog.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe BeforeClass\logindialog.ui -o ui_logindialog.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC BeforeClass\logindialog.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ui_logindialog.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="loginwidget.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">loginwidget.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe loginwidget.ui -o ui_loginwidget.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC loginwidget.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui_loginwidget.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">loginwidget.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe loginwidget.ui -o ui_loginwidget.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC loginwidget.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ui_loginwidget.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="mainwindow.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">mainwindow.ui;linewidthcombox.h;cloginbutton.h;csettingsbutton.h;myview.h;cuserlistwidget.h;cshapechooser.h;colorcombox.h;coursewarewidget.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe mainwindow.ui -o ui_mainwindow.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC mainwindow.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui_mainwindow.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">mainwindow.ui;linewidthcombox.h;cloginbutton.h;csettingsbutton.h;myview.h;cuserlistwidget.h;cshapechooser.h;colorcombox.h;coursewarewidget.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe mainwindow.ui -o ui_mainwindow.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC mainwindow.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ui_mainwindow.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="prompt.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">prompt.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe prompt.ui -o ui_prompt.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC prompt.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui_prompt.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">prompt.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe prompt.ui -o ui_prompt.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC prompt.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ui_prompt.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="settingwidget.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">settingwidget.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe settingwidget.ui -o ui_settingwidget.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC settingwidget.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui_settingwidget.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">settingwidget.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe settingwidget.ui -o ui_settingwidget.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC settingwidget.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ui_settingwidget.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="widgetwarelistitem.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">widgetwarelistitem.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe widgetwarelistitem.ui -o ui_widgetwarelistitem.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC widgetwarelistitem.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui_widgetwarelistitem.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">widgetwarelistitem.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe widgetwarelistitem.ui -o ui_widgetwarelistitem.h</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC widgetwarelistitem.ui</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ui_widgetwarelistitem.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="(2).png" />
-    <None Include="ui\icon\16x16.png" />
-    <None Include="ui\icon\32x32.png" />
-    <None Include="ui\icon\64x64.png" />
-    <None Include="stylesheets\GreenCourseWare.qss" />
-    <None Include="stylesheets\GreenGroupIcon.qss" />
-    <None Include="stylesheets\GreenMainwindow.qss" />
-    <None Include="stylesheets\OrangeCourseWare.qss" />
-    <None Include="stylesheets\OrangeGroupIcon.qss" />
-    <None Include="stylesheets\OrangeMainwindow.qss" />
-    <None Include="ui\back\backRace.png" />
-    <None Include="ui\back\background.jpg" />
-    <None Include="ui\back\background.png" />
+    <None Include="ui\icon\16x16.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\32x32.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\64x64.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="stylesheets\GreenCourseWare.qss">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="stylesheets\GreenGroupIcon.qss">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="stylesheets\GreenMainwindow.qss">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="stylesheets\OrangeCourseWare.qss">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="stylesheets\OrangeGroupIcon.qss">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="stylesheets\OrangeMainwindow.qss">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\back\backRace.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\back\background.jpg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\back\background.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
     <None Include="ui\icon\back" />
-    <None Include="ui\back\blue.png" />
+    <None Include="ui\back\blue.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
     <None Include="board.png" />
-    <None Include="ui\icon\brush.png" />
+    <None Include="ui\icon\back ground.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\brush.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
     <None Include="class.png" />
-    <None Include="ui\icon\close1.png" />
-    <None Include="ui\icon\close2.png" />
-    <None Include="ui\back\combox.png" />
-    <None Include="ui\back\combox2.png" />
-    <None Include="ui\icon\courseware.png" />
-    <None Include="ui\word\enterclass.png" />
-    <None Include="ui\icon\eraser.png" />
-    <None Include="ui\icon\eraser1.png" />
-    <None Include="ui\icon\eraser2.png" />
-    <None Include="ui\icon\eraser3.png" />
-    <None Include="ui\icon\exit.png" />
-    <None Include="ui\icon\fulann_logo.png" />
-    <None Include="ui\back\grey.png" />
+    <None Include="ui\icon\close1.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\close2.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\back\combox.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\back\combox2.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\courseware.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\logo icon.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\my board.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\my class.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\password (2).png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\teacher board.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\word\enterclass.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\eraser.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\eraser1.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\eraser2.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\eraser3.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\exit.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\fulann_logo.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\back\grey.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
     <None Include="ground.png" />
     <None Include="icon.png" />
-    <None Include="ui\icon\l.png" />
-    <None Include="ui\word\leaveclass.png" />
-    <None Include="ui\back\line.png" />
-    <None Include="ui\icon\llpassword.png" />
-    <None Include="ui\icon\llusername.png" />
-    <None Include="ui\icon\logo.png" />
-    <None Include="ui\icon\logo1.jpg" />
-    <None Include="ui\icon\logo1.png" />
-    <None Include="ui\icon\logo2.png" />
-    <None Include="ui\icon\logo3.png" />
+    <None Include="ui\icon\l.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\word\leaveclass.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\back\line.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\llpassword.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\llusername.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\logo.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\logo1.jpg">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\logo1.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\logo2.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\logo3.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
     <None Include="ui\icon\logo" />
-    <None Include="ui\icon\manage.png" />
+    <None Include="ui\icon\manage.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
     <None Include="ui\icon\my" />
-    <None Include="ui\icon\next.png" />
-    <None Include="ui\icon\numeber.png" />
-    <None Include="ui\back\orange1.png" />
-    <None Include="ui\back\orange2.png" />
-    <None Include="ui\icon\password.png" />
+    <None Include="ui\icon\next.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\numeber.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\back\orange1.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\back\orange2.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\password.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
     <None Include="ui\icon\password" />
-    <None Include="ui\icon\pencil.png" />
-    <None Include="ui\back\pink.png" />
-    <None Include="ui\icon\platte.png" />
-    <None Include="ui\icon\prev.png" />
-    <None Include="ui\icon\r.png" />
-    <None Include="ui\icon\raceDown.png" />
-    <None Include="ui\icon\raceUp.png" />
-    <None Include="ui\icon\remove.png" />
-    <None Include="ui\icon\run.png" />
-    <None Include="ui\icon\s.png" />
-    <None Include="ui\icon\shape.png" />
-    <None Include="ui\icon\shapeEllipse.png" />
-    <None Include="ui\icon\shapeHexagon.png" />
-    <None Include="ui\icon\shapeLine.png" />
-    <None Include="ui\icon\shapeRectangle.png" />
-    <None Include="ui\icon\shapeRoundRectangle.png" />
-    <None Include="ui\icon\shapeScript.png" />
-    <None Include="ui\icon\start.png" />
-    <None Include="ui\icon\stop.png" />
+    <None Include="ui\icon\pencil.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\back\pink.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\platte.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\prev.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\r.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\raceDown.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\raceUp.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\remove.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\run.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\s.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\shape.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\shapeEllipse.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\shapeHexagon.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\shapeLine.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\shapeRectangle.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\shapeRoundRectangle.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\shapeScript.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\start.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\stop.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
     <None Include="ui\icon\teacher" />
     <CustomBuild Include="ui.qrc">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui.qrc;ui\word\enterclass.png;ui\word\leaveclass.png;ui\icon\start.png;ui\icon\exit.png;ui\icon\my class.png;ui\icon\logo.png;ui\icon\l.png;ui\icon\shapeLine.png;ui\icon\logo icon.png;ui\icon\back ground.png;ui\icon\next.png;ui\icon\run.png;ui\icon\username.png;ui\icon\raceUp.png;ui\icon\password.png;ui\icon\my board.png;ui\icon\shapeRectangle.png;ui\icon\logo3.png;ui\icon\s.png;ui\icon\remove.png;ui\icon\teacher board.png;ui\icon\32x32.png;ui\icon\logo1.jpg;ui\icon\raceDown.png;ui\icon\platte.png;ui\icon\fulann_logo.png;ui\icon\shapeScript.png;ui\icon\eraser3.png;ui\icon\logo2.png;ui\icon\r.png;ui\icon\llusername.png;ui\icon\llpassword.png;ui\icon\eraser2.png;ui\icon\logo1.png;ui\icon\close2.png;ui\icon\courseware.png;ui\icon\eraser.png;ui\icon\user.png;ui\icon\eraser1.png;ui\icon\close1.png;ui\icon\shapeHexagon.png;ui\icon\manage.png;ui\icon\64x64.png;ui\icon\brush.png;ui\icon\16x16.png;ui\icon\shapeRoundRectangle.png;ui\icon\prev.png;ui\icon\password (2).png;ui\icon\shapeEllipse.png;ui\icon\pencil.png;ui\icon\shape.png;ui\icon\numeber.png;ui\icon\stop.png;ui\back\combox2.png;ui\back\pink.png;ui\back\orange2.png;ui\back\blue.png;ui\back\yellow.png;ui\back\background.png;ui\back\grey.png;ui\back\line.png;ui\back\orange1.png;ui\back\combox.png;ui\back\backRace.png;ui\back\background.jpg;stylesheets\OrangeGroupIcon.qss;stylesheets\GreenMainwindow.qss;stylesheets\OrangeMainwindow.qss;stylesheets\GreenCourseWare.qss;stylesheets\OrangeCourseWare.qss;stylesheets\GreenGroupIcon.qss;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\rcc.exe -name ui ui.qrc -o release\qrc_ui.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RCC ui.qrc</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\qrc_ui.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ui.qrc;ui\word\enterclass.png;ui\word\leaveclass.png;ui\icon\start.png;ui\icon\exit.png;ui\icon\my class.png;ui\icon\logo.png;ui\icon\l.png;ui\icon\shapeLine.png;ui\icon\logo icon.png;ui\icon\back ground.png;ui\icon\next.png;ui\icon\run.png;ui\icon\username.png;ui\icon\raceUp.png;ui\icon\password.png;ui\icon\my board.png;ui\icon\shapeRectangle.png;ui\icon\logo3.png;ui\icon\s.png;ui\icon\remove.png;ui\icon\teacher board.png;ui\icon\32x32.png;ui\icon\logo1.jpg;ui\icon\raceDown.png;ui\icon\platte.png;ui\icon\fulann_logo.png;ui\icon\shapeScript.png;ui\icon\eraser3.png;ui\icon\logo2.png;ui\icon\r.png;ui\icon\llusername.png;ui\icon\llpassword.png;ui\icon\eraser2.png;ui\icon\logo1.png;ui\icon\close2.png;ui\icon\courseware.png;ui\icon\eraser.png;ui\icon\user.png;ui\icon\eraser1.png;ui\icon\close1.png;ui\icon\shapeHexagon.png;ui\icon\manage.png;ui\icon\64x64.png;ui\icon\brush.png;ui\icon\16x16.png;ui\icon\shapeRoundRectangle.png;ui\icon\prev.png;ui\icon\password (2).png;ui\icon\shapeEllipse.png;ui\icon\pencil.png;ui\icon\shape.png;ui\icon\numeber.png;ui\icon\stop.png;ui\back\combox2.png;ui\back\pink.png;ui\back\orange2.png;ui\back\blue.png;ui\back\yellow.png;ui\back\background.png;ui\back\grey.png;ui\back\line.png;ui\back\orange1.png;ui\back\combox.png;ui\back\backRace.png;ui\back\background.jpg;stylesheets\OrangeGroupIcon.qss;stylesheets\GreenMainwindow.qss;stylesheets\OrangeMainwindow.qss;stylesheets\GreenCourseWare.qss;stylesheets\OrangeCourseWare.qss;stylesheets\GreenGroupIcon.qss;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\rcc.exe -name ui ui.qrc -o debug\qrc_ui.cpp</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">RCC ui.qrc</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\qrc_ui.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FullPath);.\ui\back\blue.png;.\ui\back\combox.png;.\ui\back\combox2.png;.\ui\back\grey.png;.\ui\back\line.png;.\ui\back\orange1.png;.\ui\back\orange2.png;.\ui\back\pink.png;.\ui\back\yellow.png;.\ui\back\background.png;.\ui\back\background.jpg;.\ui\back\backRace.png;.\ui\icon\back ground.png;.\ui\icon\brush.png;.\ui\icon\courseware.png;.\ui\icon\eraser.png;.\ui\icon\exit.png;.\ui\icon\logo.png;.\ui\icon\manage.png;.\ui\icon\my board.png;.\ui\icon\my class.png;.\ui\icon\password.png;.\ui\icon\platte.png;.\ui\icon\shape.png;.\ui\icon\teacher board.png;.\ui\icon\user.png;.\ui\icon\username.png;.\ui\icon\shapeEllipse.png;.\ui\icon\shapeHexagon.png;.\ui\icon\shapeLine.png;.\ui\icon\shapeRectangle.png;.\ui\icon\shapeRoundRectangle.png;.\ui\icon\shapeScript.png;.\ui\icon\16x16.png;.\ui\icon\32x32.png;.\ui\icon\64x64.png;.\ui\icon\next.png;.\ui\icon\prev.png;.\ui\icon\start.png;.\ui\icon\stop.png;.\ui\icon\pencil.png;.\ui\icon\fulann_logo.png;.\ui\icon\remove.png;.\ui\icon\run.png;.\ui\icon\close1.png;.\ui\icon\close2.png;.\ui\icon\eraser1.png;.\ui\icon\eraser2.png;.\ui\icon\eraser3.png;.\ui\icon\logo1.jpg;.\ui\icon\logo1.png;.\ui\icon\logo2.png;.\ui\icon\numeber.png;.\ui\icon\password (2).png;.\ui\icon\logo3.png;.\ui\icon\llpassword.png;.\ui\icon\llusername.png;.\ui\icon\l.png;.\ui\icon\logo icon.png;.\ui\icon\r.png;.\ui\icon\s.png;.\ui\icon\raceDown.png;.\ui\icon\raceUp.png;.\ui\word\enterclass.png;.\ui\word\leaveclass.png;.\stylesheets\GreenGroupIcon.qss;.\stylesheets\GreenMainwindow.qss;.\stylesheets\OrangeGroupIcon.qss;.\stylesheets\OrangeMainwindow.qss;.\stylesheets\GreenCourseWare.qss;.\stylesheets\OrangeCourseWare.qss;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FullPath);.\ui\back\blue.png;.\ui\back\combox.png;.\ui\back\combox2.png;.\ui\back\grey.png;.\ui\back\line.png;.\ui\back\orange1.png;.\ui\back\orange2.png;.\ui\back\pink.png;.\ui\back\yellow.png;.\ui\back\background.png;.\ui\back\background.jpg;.\ui\back\backRace.png;.\ui\icon\back ground.png;.\ui\icon\brush.png;.\ui\icon\courseware.png;.\ui\icon\eraser.png;.\ui\icon\exit.png;.\ui\icon\logo.png;.\ui\icon\manage.png;.\ui\icon\my board.png;.\ui\icon\my class.png;.\ui\icon\password.png;.\ui\icon\platte.png;.\ui\icon\shape.png;.\ui\icon\teacher board.png;.\ui\icon\user.png;.\ui\icon\username.png;.\ui\icon\shapeEllipse.png;.\ui\icon\shapeHexagon.png;.\ui\icon\shapeLine.png;.\ui\icon\shapeRectangle.png;.\ui\icon\shapeRoundRectangle.png;.\ui\icon\shapeScript.png;.\ui\icon\16x16.png;.\ui\icon\32x32.png;.\ui\icon\64x64.png;.\ui\icon\next.png;.\ui\icon\prev.png;.\ui\icon\start.png;.\ui\icon\stop.png;.\ui\icon\pencil.png;.\ui\icon\fulann_logo.png;.\ui\icon\remove.png;.\ui\icon\run.png;.\ui\icon\close1.png;.\ui\icon\close2.png;.\ui\icon\eraser1.png;.\ui\icon\eraser2.png;.\ui\icon\eraser3.png;.\ui\icon\logo1.jpg;.\ui\icon\logo1.png;.\ui\icon\logo2.png;.\ui\icon\numeber.png;.\ui\icon\password (2).png;.\ui\icon\logo3.png;.\ui\icon\llpassword.png;.\ui\icon\llusername.png;.\ui\icon\l.png;.\ui\icon\logo icon.png;.\ui\icon\r.png;.\ui\icon\s.png;.\ui\icon\raceDown.png;.\ui\icon\raceUp.png;.\ui\word\enterclass.png;.\ui\word\leaveclass.png;.\stylesheets\GreenGroupIcon.qss;.\stylesheets\GreenMainwindow.qss;.\stylesheets\OrangeGroupIcon.qss;.\stylesheets\OrangeMainwindow.qss;.\stylesheets\GreenCourseWare.qss;.\stylesheets\OrangeCourseWare.qss;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
     </CustomBuild>
-    <None Include="ui\icon\user.png" />
-    <None Include="ui\icon\username.png" />
-    <None Include="ui\back\yellow.png" />
+    <None Include="ui\icon\user.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\icon\username.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ui\back\yellow.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="C:\Users\Fulaan\Documents\GitHub\server\QtClassClient\TouchPad_resource.rc" />
@@ -752,7 +971,7 @@
   <ImportGroup Label="ExtensionTargets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Qt5Version_x0020_Win32="msvc2010_opengl" />
+      <UserProperties UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" Qt5Version_x0020_Win32="msvc2010_opengl" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

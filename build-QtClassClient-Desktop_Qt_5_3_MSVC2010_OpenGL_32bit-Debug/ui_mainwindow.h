@@ -312,6 +312,9 @@ public:
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
         graphicsView->viewport()->setProperty("cursor", QVariant(QCursor(Qt::CrossCursor)));
         graphicsView->setStyleSheet(QStringLiteral(""));
+        graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        graphicsView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustIgnored);
 
         horizontalLayout_2->addWidget(graphicsView);
 
