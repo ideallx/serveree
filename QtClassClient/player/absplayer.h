@@ -37,8 +37,6 @@ public:
 
     virtual bool isPostfixRight(QString filename) { return false; }
 
-    static QRect screenSize();
-
     bool run();
     bool next();
     bool prev();

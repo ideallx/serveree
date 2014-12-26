@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>400</height>
+    <height>405</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -32,7 +32,7 @@ QLabel#lbPrompt {
 QToolButton#tbEnterClass {
 	background-color: rgb(0, 130, 54);
 	color: white;
-	font: 16px;
+	font: 16px &quot;微软雅黑&quot;;;
 }
 
 QToolButton#tbEnterClass:!enabled {
@@ -41,7 +41,7 @@ QToolButton#tbEnterClass:!enabled {
 QToolButton#tbReplay {
 	background-color: rgb(202, 220, 196);
 	color: green;
-	font: 14px;
+	font: 14px &quot;微软雅黑&quot;;;
 }
 
 QToolButton#tbExit {
@@ -54,7 +54,7 @@ QToolButton#tbExit:hover {
 }
 
 QLineEdit {
-	font: 16px;
+	font: 16px &quot;微软雅黑&quot;;;
 	padding-left: 40px;
 }
 
@@ -380,9 +380,6 @@ QLineEdit#lePassword {
     </spacer>
    </item>
   </layout>
-  <zorder>horizontalSpacer_6</zorder>
-  <zorder>verticalSpacer_2</zorder>
-  <zorder>tbReplay</zorder>
  </widget>
  <resources>
   <include location="../ui.qrc"/>

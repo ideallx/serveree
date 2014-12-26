@@ -58,7 +58,7 @@ public:
     {
         if (LoginDialog->objectName().isEmpty())
             LoginDialog->setObjectName(QStringLiteral("LoginDialog"));
-        LoginDialog->resize(600, 400);
+        LoginDialog->resize(600, 405);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -79,7 +79,7 @@ public:
 "QToolButton#tbEnterClass {\n"
 "	background-color: rgb(0, 130, 54);\n"
 "	color: white;\n"
-"	font: 16px;\n"
+"	font: 16px \"\345\276\256\350\275\257\351\233\205\351\273\221\";;\n"
 "}\n"
 "\n"
 "QToolButton#tbEnterClass:!enabled {\n"
@@ -88,7 +88,7 @@ public:
 "QToolButton#tbReplay {\n"
 "	background-color: rgb(202, 220, 196);\n"
 "	color: green;\n"
-"	font: 14px;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";;\n"
 "}\n"
 "\n"
 "QToolButton#tbExit {\n"
@@ -101,7 +101,7 @@ public:
 "}\n"
 "\n"
 "QLineEdit {\n"
-"	font: 16px;\n"
+"	font: 16px \"\345\276\256\350\275\257\351\233\205\351\273\221\";;\n"
 "	padding-left: 40px;\n"
 "}\n"
 "\n"
@@ -109,7 +109,8 @@ public:
 "	background-image: url(:/icon/ui/icon/llusername.png);\n"
 "}\n"
 "\n"
-"QLineEdit#lePassword {\n"
+"QLineE"
+                        "dit#lePassword {\n"
 "	background-image: url(:/icon/ui/icon/llpassword.png);\n"
 "}"));
         verticalLayout_3 = new QVBoxLayout(LoginDialog);
@@ -262,7 +263,6 @@ public:
 
         verticalLayout_3->addItem(verticalSpacer);
 
-        tbReplay->raise();
 
         retranslateUi(LoginDialog);
 

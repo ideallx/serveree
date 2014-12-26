@@ -25,13 +25,6 @@ AbsPlayer::AbsPlayer(QString filepath, CMsgObject *parent) :
     m_screenRect.setWidth(m_screenRect.width() - 300);
 }
 
-QRect AbsPlayer::screenSize() {
-    QDesktopWidget *dwsktopwidget = QApplication::desktop();
-    QRect result = dwsktopwidget->screenGeometry();
-    result.setHeight(result.height() - 80);
-    result.setWidth(result.width() - 300);
-    return result;
-}
 
 AbsPlayer::~AbsPlayer() {
     if (m_controller)

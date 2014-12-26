@@ -20,7 +20,9 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QDialog {
+   <string notr="true">
+
+QDialog {
 	background-image: url(:/back/ui/back/background.jpg);
 }
 
@@ -36,7 +38,7 @@ QToolButton:hover {
 
 QToolButton#tbBack, #tbExit {
 	color: white;
-	font: 12pt &quot;微软雅黑&quot;;
+	font: 12pt;
 	background-color: transparent
 }
 

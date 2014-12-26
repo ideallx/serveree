@@ -115,7 +115,7 @@ MainWindow::MainWindow(QWidget *parent)
     on_tbBackground_clicked();
     ui->listWidget->updateUserInfo();
 
-#define _DEBUG_UI_
+//#define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
     setRole(RoleTeacher);

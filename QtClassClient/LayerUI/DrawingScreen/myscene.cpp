@@ -4,6 +4,8 @@
 #include <QPainter>
 #include <QMessageBox>
 #include <QTouchEvent>
+#include <QDesktopWidget>
+#include <QApplication>
 
 #include "../../player/absplayer.h"
 #include "../../BizLogic/datasingleton.h"
@@ -16,22 +18,50 @@ enum GRAPHICITEM_KEY_t {
     GraphicShapeID
 };
 
+
+static QRect staticSZ = QRect(0, 0, 0, 0);
+QRect screenSize() {
+    if (staticSZ.width() == 0) {
+        QDesktopWidget *dwsktopwidget = QApplication::desktop();
+        staticSZ = dwsktopwidget->screenGeometry();
+    }
+    return staticSZ;
+}
+
+QRect widgetAvaiableSize() {
+    QRect result = screenSize();
+    result.setHeight(result.height() - 80);
+    result.setWidth(result.width() - 300);
+    return result;
+}
+
 const int percentage = 1920;
 QPointF screenToViewPercent(QPointF p, QGraphicsView* view) {
-//    QPointF p2 = view->mapFromScene(p);
-//    QPointF result = QPointF(p2.x() * percentage / view->width(),
-//                             p2.y() * percentage / view->height());
-//    return result;
+    QPointF p2 = view->mapFromScene(p);
+    QPointF result = QPointF(p2.x() * percentage / view->width(),
+                             p2.y() * percentage / view->height());
+
+    QRect sz = screenSize();
+    if (result.x() < 0)
+        result.setX(0);
+
+    if (result.y() < 0)
+        result.setY(0);
+
+    if (result.x() > sz.width())
+        result.setX(sz.width());
+
+    return result;
     return p;
 }
 
 
 // TODO may be < 0 error
 QPointF viewToScreenPercent(QPointF p, QGraphicsView *view) {
-//    QPointF p2 = QPointF(p.x() * view->width() / percentage,
-//                             p.y() * view->height() / percentage);
-//    QPointF result = view->mapToScene(p2.toPoint());
-//    return result;
+    QPointF p2 = QPointF(p.x() * view->width() / percentage,
+                             p.y() * view->height() / percentage);
+    QPointF result = view->mapToScene(p2.toPoint());
+    return result;
     return p;
 }
 
@@ -76,12 +106,6 @@ void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     if (!isWriteable)
         return;
 
-//    qDebug() << event->screenPos() << event->scenePos();
-//    QPointF ff = screenToViewPercent(event->scenePos().toPoint(), views()[0]);
-//    viewToScreenPercent(ff, views()[0]);
-//    qDebug();
-
-    //lastPos = event->scenePos();
     lastPos = screenToViewPercent(event->scenePos(), views()[0]);
     TS_GRAPHIC_PACKET gmsg;
     MyView* mv = static_cast<MyView*> (this->views()[0]);
@@ -171,19 +195,17 @@ CShape *MyScene::createNewItem(TS_UINT64 uid, int shapeType, QPointF curPoint) {
     item->setPen(p);
     item->setBrush(b);
 
-//    if (!isEraser)
-//        item->getGraphicsItem()->setOpacity(0.9);
     return item;
 }
 
 static int updateCounter = 0;
 void MyScene::actMove(TS_GRAPHIC_PACKET &graphicMsg) {
     QPointF scenePos = QPointF(graphicMsg.data.PointX, graphicMsg.data.PointY);
-    // QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
+    QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
     CShape* lastItem = lastItems[graphicMsg.head.UID];
 	if (NULL == lastItem)
 		return;
-    lastItem->setCurPos(scenePos);
+    lastItem->setCurPos(p2);
 
     updateCounter++;
     if (updateCounter % 10)
@@ -192,13 +214,13 @@ void MyScene::actMove(TS_GRAPHIC_PACKET &graphicMsg) {
 
 void MyScene::actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg) {
     QPointF scenePos = QPointF(graphicMsg.data.BeginPx, graphicMsg.data.BeginPy);
-    // QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
+    QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
     TS_UINT64 uid = graphicMsg.head.UID;
     if (!lastItems.contains(uid)) {
         lastItems.insert(uid, NULL);
     }
 
-    lastItems[uid] = createNewItem(uid, graphicMsg.data.ShapeType, scenePos);
+    lastItems[uid] = createNewItem(uid, graphicMsg.data.ShapeType, p2);
     if (NULL == lastItems[uid])
         return;
 
@@ -219,8 +241,8 @@ void MyScene::actMoveBegin(TS_GRAPHIC_PACKET& graphicMsg) {
 void MyScene::actErase(TS_GRAPHIC_PACKET& graphicMsg) {
     qDebug() << "erase" << graphicMsg.eraser.targetUID << graphicMsg.eraser.shapeID;
     QPointF scenePos = QPointF(graphicMsg.eraser.PointX, graphicMsg.eraser.PointY);
-    // QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
-    QGraphicsItem* chosenItem = itemAt(scenePos, QTransform());
+    QPointF p2 = viewToScreenPercent(scenePos, views()[0]);
+    QGraphicsItem* chosenItem = itemAt(p2, QTransform());
     // first find by position
     if ((chosenItem->data(GraphicUID).toLongLong() == graphicMsg.eraser.targetUID) &&
             (chosenItem->data(GraphicShapeID).toInt() == graphicMsg.eraser.shapeID)) {
@@ -301,7 +323,7 @@ void MyScene::setBackground(QPixmap pix) {
     if (items().contains(m_backpixmap))
         removeItem(m_backpixmap);
 
-    QRect size = AbsPlayer::screenSize();
+    QRect size = widgetAvaiableSize();
     QPointF sceneBeginPoint;
 
     if (size.height() > pix.height())
@@ -325,7 +347,7 @@ void MyScene::playMedia(QMediaPlayer *player) {
 
     player->setVideoOutput(media);
     media->setPos(views()[0]->mapToScene(0, 0));
-    QRect r = AbsPlayer::screenSize();
+    QRect r = widgetAvaiableSize();
     media->setSize(QSize(r.width(), r.height()));
     media->setZValue(-100);
     media->setVisible(true);

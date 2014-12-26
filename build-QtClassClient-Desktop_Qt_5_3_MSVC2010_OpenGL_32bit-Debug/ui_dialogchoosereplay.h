@@ -65,7 +65,9 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(DialogChooseReplay->sizePolicy().hasHeightForWidth());
         DialogChooseReplay->setSizePolicy(sizePolicy);
-        DialogChooseReplay->setStyleSheet(QString::fromUtf8("QDialog {\n"
+        DialogChooseReplay->setStyleSheet(QLatin1String("\n"
+"\n"
+"QDialog {\n"
 "	background-image: url(:/back/ui/back/background.jpg);\n"
 "}\n"
 "\n"
@@ -81,7 +83,7 @@ public:
 "\n"
 "QToolButton#tbBack, #tbExit {\n"
 "	color: white;\n"
-"	font: 12pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"	font: 12pt;\n"
 "	background-color: transparent\n"
 "}\n"
 "\n"
