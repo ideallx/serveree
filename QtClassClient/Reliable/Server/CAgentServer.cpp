@@ -129,6 +129,7 @@ void CAgentServer::scanAgent() {
         if (heartBeatTime.empty())
             continue;
 
+        /* do not make offline now TODO
         iop_lock(&lockOfflineMaps);
         int maxAllowedInterval = HeartBeatInterval * 3;
         for (auto iter = heartBeatTime.begin(); iter != heartBeatTime.end(); ) {
@@ -154,6 +155,7 @@ void CAgentServer::scanAgent() {
             }
         }
         iop_unlock(&lockOfflineMaps);
+        */
 
 		iop_lock(&lockWorkServer);
 		for (auto iter2 = map_workserver.begin(); iter2 != map_workserver.end(); ) {
