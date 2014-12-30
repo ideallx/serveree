@@ -29,7 +29,7 @@ CourseWareWidget::CourseWareWidget(QWidget *parent)
     , m_raceTime(0)
     , m_raceOne(NobodyUID) {
     ui->setupUi(this);
-    ui->tbSync->setHidden(true);
+    // ui->tbSync->setHidden(true);
 
     m_raceTimer.setSingleShot(true);
     connect(&m_raceTimer, &QTimer::timeout,

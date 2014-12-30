@@ -18,6 +18,5 @@ bool CWriteFileStrategy::onMsgScanStrategy(CPackage* pack) {
 	if (pack->isSaved())
 		return false;
 	resultList.insert(pack);
-	pack->setSaved(true);
 	return true;
 }

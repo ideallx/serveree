@@ -29,12 +29,20 @@ void CPackage::clearPackets() {
 }
 
 int CPackage::insert(const ts_msg& p, int pos) {
-	if (!isAvailable(pos) || isExist(pos)) {	// 若是该seq异常，或者已经收到过，返回false
+//	if (!isAvailable(pos) || isExist(pos)) {	// 若是该seq异常，或者已经收到过，返回false
+////#ifdef _DEBUG_INFO_
+//		cout << "P: add fail " << "pos is: " << pos 
+//             << "seq is: " << getSeq(p) << " " ;
+////#endif
+//		return -1;
+//	}
+    if (isExist(pos)) {
 #ifdef _DEBUG_INFO_
-		cout << "P: add fail " << getSeq(p) << " " ;
+		cout << "P: add fail " << "pos is: " << pos 
+             << "seq is: " << getSeq(p) << " " ;
 #endif
-		return -1;
-	}
+        return -1;
+    }
 	
 	int size = packetSize(p);
 
@@ -163,8 +171,8 @@ bool CPackage::load(string fileName, int packageNum) {
 }
 
 bool CPackage::isExist(int pos) {
-	if (!isAvailable(pos)) {
-		return false;
-	}
+	//if (!isAvailable(pos)) {
+	//	return false;
+	//}
 	return packets[pos] != NULL;
 }

@@ -86,7 +86,8 @@ SOURCES  += main.cpp\
     LayerUI/UserInterface/dialogpixmap.cpp \
     BizLogic/datasingleton.cpp \
     Net/replays.cpp \
-    BeforeClass/dialogchoosereplay.cpp
+    BeforeClass/dialogchoosereplay.cpp \
+    LayerUI/UserInterface/dialogchooseshape.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBaseLogic.h \
@@ -166,7 +167,8 @@ HEADERS  += LayerUI\mainwindow.h \
     LayerUI/UserInterface/dialogpixmap.h \
     BizLogic/datasingleton.h \
     Net/replays.h \
-    BeforeClass/dialogchoosereplay.h
+    BeforeClass/dialogchoosereplay.h \
+    LayerUI/UserInterface/dialogchooseshape.h
 
 FORMS    += \
     loginwidget.ui \
@@ -177,7 +179,8 @@ FORMS    += \
     mainwindow.ui \
     BeforeClass/logindialog.ui \
     LayerUI/UserInterface/dialogpixmap.ui \
-    BeforeClass/dialogchoosereplay.ui
+    BeforeClass/dialogchoosereplay.ui \
+    LayerUI/UserInterface/dialogchooseshape.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += include

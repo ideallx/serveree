@@ -109,7 +109,7 @@ set<TS_UINT64> CBlock::scanMissingPackets() {
 		if (pack->isFull()) {
 			straWrite->onMsgScanStrategy(pack);									// 写文件扫描触发
 
-			if (iter->second->isSaved() && straDestroy->onMsgScanStrategy(pack)) {// 销毁包扫描触发
+            if (pack->isSaved() && straDestroy->onMsgScanStrategy(pack)) {      // 销毁包扫描触发
                 iop_lock(&packageLock);
                 if (curPackage == iter->second) {
                     delete iter->second;										// 若返回true则销毁

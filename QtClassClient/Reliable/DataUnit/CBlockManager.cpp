@@ -141,10 +141,6 @@ int CBlockManager::readRecord(TS_UINT64 uid, TS_UINT64 seq, ts_msg& p) {
 
 int CBlockManager::record(ts_msg& in) {
 	TS_UINT64 uid = getUid(in);
-#ifdef _IDEAL_ENV_
-	if (uid > 10000)
-		return -1;
-#endif
 	iop_lock(&lockUserBlock);
 	CBlock* b = getBlockByUid(uid);
 	if (b == NULL) {
@@ -161,6 +157,13 @@ int CBlockManager::record(ts_msg& in) {
 	else
 		cout << "bm: add OKOK " << endl;
 #endif
+    if (result < 0) {
+        TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &in;
+        cout << "bm record error uid is: " << head->UID
+             << "size is: " << head->size 
+             << "seq is: " << head->sequence 
+             << "subseq is: " << head->subSeq << endl;
+    }
 	return result;
 }
 

@@ -17,7 +17,7 @@ QToolButton:!checked {
 }
 
 QToolButton:checked, QToolButton:pressed {
-        background-color: rgb(231, 33, 76);
+        background: rgb(247, 185, 174);
 }
 
 QToolButton#tbCourseWare {
