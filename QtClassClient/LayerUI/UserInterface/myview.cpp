@@ -40,7 +40,8 @@ bool MyView::viewportEvent(QEvent *event) {
             QPanGesture *pg = static_cast<QPanGesture*> (pan);
             dest.setX(horizontalScrollBar()->value() - pg->delta().toPoint().x());
             dest.setY(verticalScrollBar()->value() - pg->delta().toPoint().y());
-            panTimer.start(200);
+            panTimer.start(100);
+            qDebug() << "dest is" << dest;
             emit screenMoved(dest);
         } else if (QGesture *pan = ge->gesture(Qt::PinchGesture)) {
             qDebug() << "pinch";

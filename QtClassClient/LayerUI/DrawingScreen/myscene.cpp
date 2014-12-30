@@ -35,7 +35,7 @@ QRect widgetAvaiableSize() {
     return result;
 }
 
-const int percentage = 1920;
+const int percentage = 60000;
 QPointF screenToViewPercent(QPointF p, QGraphicsView* view) {
     if (NULL == view)
         return QPointF();
@@ -62,6 +62,16 @@ QPointF screenToViewPercent(QPointF p, QGraphicsView* view) {
     return result;
 }
 
+QPointF rawScreenToViewPercent(QPointF p, QGraphicsView* view) {
+    if (NULL == view)
+        return QPointF();
+    QRect sz = screenSize();
+    QPointF p2 = view->mapFromScene(p);
+    QPointF result = QPointF(p2.x() * percentage / view->width(),
+                             p2.y() * percentage / view->height());
+
+    return result;
+}
 
 // TODO may be < 0 error
 QPointF viewToScreenPercent(QPointF p, QGraphicsView *view) {
@@ -332,7 +342,7 @@ void MyScene::moveScreen(QPoint p) {
         mt = MoveScreen;
         return;
     }
-    QPointF p2 = screenToViewPercent(p, m_view);
+    QPointF p2 = rawScreenToViewPercent(p, m_view);
     qDebug() << "move screen" << p << p2;
 
     TS_GRAPHIC_PACKET gmsg;
