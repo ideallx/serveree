@@ -201,6 +201,10 @@ int CHubConnection::recv(char* buf, ULONG& len) {
         if (time > latestTime) {
             latestTime = time;
         }
+    } else {
+        if (GetLastError() == 10054) {
+            peerHub->erase(getUid(*(ts_msg*) buf));
+        }
     }
     return result;
 }
