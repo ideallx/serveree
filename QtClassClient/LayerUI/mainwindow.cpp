@@ -454,7 +454,7 @@ void MainWindow::msgExcute() {
     case COURSEWARE:
         {
             TS_FILE_PACKET* fmsg = (TS_FILE_PACKET*) &msg;
-            addWareList(QString(reinterpret_cast<char*> (fmsg->content)));
+            addWareList(QString::fromLocal8Bit(reinterpret_cast<char*> (fmsg->content)));
             sendResultPrompt(SuccessDownload);
         }
 		break;

@@ -1,5 +1,6 @@
 #include <QFileDialog>
 #include <QDebug>
+#include <iop_util.h>
 #include "coursewarewidget.h"
 #include "ui_coursewarewidget.h"
 #include "../../BizLogic/datasingleton.h"
@@ -69,6 +70,7 @@ int CourseWareWidget::addFileToList(QString filename) {
 
 
 void CourseWareWidget::syncFileList() {
+    emit promptMsgSent(QString::fromLocal8Bit("点击确定开始同步所有文件"));
     for (int i = 0; i < ui->lsWare->count(); i++) {
         QString filename = ui->lsWare->item(i)->text();
         if (m_syncedWares.contains(filename))
@@ -76,6 +78,7 @@ void CourseWareWidget::syncFileList() {
         syncFile(filename);
         m_syncedWares.append(filename);
     }
+    emit promptMsgSent(QString::fromLocal8Bit("上传完成"));
 }
 
 void CourseWareWidget::scanLocalCourseware() {
@@ -91,13 +94,12 @@ void CourseWareWidget::syncFile(QString filename) {
     if (!m_fmg.create(filename))
         return;
 
-    emit promptMsgSent(QString::fromLocal8Bit("正在同步文件：") + filename);
-
     ts_msg msg;
     TS_FILE_PACKET* fmsg = (TS_FILE_PACKET*) &msg;
     while (true) {
         bool finish = m_fmg.generateFileData(*fmsg);
         m_parent->ProcessMessage(msg, 0, 0, false);
+        iop_usleep(1);
         if (finish)
             return;
     }

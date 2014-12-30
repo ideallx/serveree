@@ -45,7 +45,7 @@ void CFileLogic::procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap) {
                 QString filename = fromTmpFileName(m_writingFile.fileName());
                 QFile::remove(filename);
                 m_writingFile.rename(filename);
-                memcpy(fmsg->content, filename.toLatin1().data(), MaxFileName);
+                memcpy(fmsg->content, filename.toLocal8Bit().data(), MaxFileName);
                 sendToUp(iter->second, 0, 0, true);
             }
         } else {

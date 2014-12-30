@@ -56,8 +56,6 @@ QPointF screenToViewPercent(QPointF p, QGraphicsView* view) {
         result.setY(percentage);
     }
 
-    qDebug() << result;
-
 //    if (result.x() > sz.width()) TODO
 //        result.setX(sz.width());
 
@@ -279,7 +277,9 @@ void MyScene::actErase(TS_GRAPHIC_PACKET& graphicMsg) {
 
 // negative number!!!
 void MyScene::actMoveScreen(TS_GRAPHIC_PACKET& graphicMsg) {
-    QPointF scenePos = QPointF((int) graphicMsg.data.PointX,                                  (int) graphicMsg.data.PointY);
+    QPointF scenePos = QPointF(static_cast<int> (graphicMsg.data.PointX),
+                               static_cast<int> (graphicMsg.data.PointY));
+    qDebug() << "act move:" << scenePos;
     QPointF p2 = viewToScreenPercent(scenePos, m_view);
     MyView* mv = static_cast<MyView*> (m_view);
     mv->moveScreen(p2.toPoint());
@@ -333,6 +333,7 @@ void MyScene::moveScreen(QPoint p) {
         return;
     }
     QPointF p2 = screenToViewPercent(p, m_view);
+    qDebug() << "move screen" << p << p2;
 
     TS_GRAPHIC_PACKET gmsg;
     gmc->generateScreenMove(gmsg, p2.toPoint());
