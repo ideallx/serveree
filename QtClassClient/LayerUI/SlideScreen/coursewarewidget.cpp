@@ -7,19 +7,6 @@
 #include "../../player/playerfactory.h"
 #include "../UserInterface/widgetwarelistitem.h"
 
-QString getFileName(QString filepath) {
-    qDebug() << filepath;
-    if (filepath.contains('\\')) {
-        qDebug() << filepath.split('\\').last();
-        return filepath.split('\\').last();
-    } else
-        return filepath.split('/').last();
-}
-
-QString getFilePath(QString filename) {
-    QString path = QDir::currentPath();
-    return path + "/" + filename;
-}
 
 CourseWareWidget::CourseWareWidget(QWidget *parent)
     : QWidget(parent)

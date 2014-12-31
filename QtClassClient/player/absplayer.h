@@ -5,8 +5,13 @@
 #include <QString>
 #include <QPixmap>
 #include <QMediaPlayer>
+#include <qdir.h>
 #include "../Reliable/DataUnit/CMessage.h"
 #include "../Message/CMsgObject.h"
+
+QString getFileName(QString filepath);
+QString getFilePath(QString filename);
+
 
 class AbsPlayer : public QObject {
     Q_OBJECT

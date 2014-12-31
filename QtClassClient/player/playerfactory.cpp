@@ -12,7 +12,7 @@ AbsPlayer* PlayerFactory::createPlayer(QString filepath, CMsgObject *parent) {
 
     if (postfix == "ppt") {
         return new PPTPlayer(filepath, parent);
-    } else if (postfix == "doc") {
+    } else if (postfix == "doc" || postfix == "docx") {
         return new DocPlayer(filepath, parent);
     } else if (postfix == "jpg" || postfix == "jpeg" || \
                postfix == "png" || postfix == "bmp") {
@@ -26,7 +26,7 @@ AbsPlayer* PlayerFactory::createPlayer(QString filepath, CMsgObject *parent) {
     return NULL;
 }
 
-QString allowedList[] = {"ppt", "doc", "jpg", "jpeg", "png", "bmp",
+QString allowedList[] = {"ppt", "doc", "docx", "jpg", "jpeg", "png", "bmp",
                         "avi", "rmvb", "rm", "mp4", "wmv"};
 
 bool PlayerFactory::checkFileFormat(QString filename) {

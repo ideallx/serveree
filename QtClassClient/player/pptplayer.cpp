@@ -30,7 +30,7 @@ bool PPTPlayer::procRun() {
     presentation = m_controller->querySubObject("Presentations");
     opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", m_filepath, 1, 1, 0);
     if (!opened) {
-        emit promptSent(m_filepath + QString::fromLocal8Bit("PPT 打开失败"));
+        emit promptSent(getFileName(m_filepath) + QString::fromLocal8Bit("PPT 打开失败"));
         return false;
     }
     opened->setProperty("IsFullScreen", false);

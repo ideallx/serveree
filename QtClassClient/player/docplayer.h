@@ -21,7 +21,7 @@ public:
     virtual ~DocPlayer();
 
 protected:
-    //QAxObject* doc;
+    QAxObject* opened;
 
     //int totalSlide;
     //int curSlide;
