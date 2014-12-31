@@ -119,7 +119,10 @@ MainWindow::MainWindow(QWidget *parent)
     l_naviButtons.append(ui->tbMyBoard);
     l_naviButtons.append(ui->tbTeacherBoard);
 
-#define _DEBUG_UI_
+    blankScreen = new QProcess();
+    blankScreen->start("\"F:\\server\\trunk\\EClass\\exe\\eclass client\\BlankScreen.exe\"");
+
+//#define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
     setRole(RoleTeacher);
@@ -134,6 +137,8 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 MainWindow::~MainWindow() {
+    blankScreen->close();
+    delete blankScreen;
     leaveClass();
     isRunning = false;
     delete ui;

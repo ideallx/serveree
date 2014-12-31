@@ -8,6 +8,7 @@
 #include <QVector>
 #include <iop_thread.h>
 #include <QToolButton>
+#include <qprocess.h>
 
 #include "../Message/CMsgObject.h"
 #include "../Reliable/DataStructure/TSQueue.h"
@@ -151,6 +152,7 @@ private:
 	bool						isLoading;
 	TSQueue<ts_msg>				loadingbuffer;
     QList<QToolButton*>         l_naviButtons;
+    QProcess*                   blankScreen;
 };
 
 #endif // MAINWINDOW_H

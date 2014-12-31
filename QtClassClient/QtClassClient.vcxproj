@@ -133,6 +133,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BizLogic\CQuestionLogic.cpp" />
     <ClCompile Include="Debug\moc_absplayer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -314,6 +315,7 @@
     <ClCompile Include="Reliable\Zip\zip.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BizLogic\CQuestionLogic.h" />
     <ClInclude Include="GeneratedFiles\ui_coursewarewidget.h" />
     <ClInclude Include="GeneratedFiles\ui_dialogchoosereplay.h" />
     <ClInclude Include="GeneratedFiles\ui_dialogpixmap.h" />

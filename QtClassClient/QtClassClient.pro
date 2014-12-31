@@ -87,7 +87,8 @@ SOURCES  += main.cpp\
     BizLogic/datasingleton.cpp \
     Net/replays.cpp \
     BeforeClass/dialogchoosereplay.cpp \
-    LayerUI/UserInterface/dialogchooseshape.cpp
+    LayerUI/UserInterface/dialogchooseshape.cpp \
+    BizLogic/CQuestionLogic.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBaseLogic.h \
@@ -168,7 +169,8 @@ HEADERS  += LayerUI\mainwindow.h \
     BizLogic/datasingleton.h \
     Net/replays.h \
     BeforeClass/dialogchoosereplay.h \
-    LayerUI/UserInterface/dialogchooseshape.h
+    LayerUI/UserInterface/dialogchooseshape.h \
+    BizLogic/CQuestionLogic.h
 
 FORMS    += \
     loginwidget.ui \

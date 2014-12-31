@@ -270,6 +270,9 @@
     <ClCompile Include="Reliable\Zip\zip.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BizLogic\CQuestionLogic.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include="Debug\moc_absplayer.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -613,6 +616,9 @@
     </ClInclude>
     <ClInclude Include="Reliable\Zip\zlib.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BizLogic\CQuestionLogic.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_coursewarewidget.h">
       <Filter>Generated Files</Filter>
