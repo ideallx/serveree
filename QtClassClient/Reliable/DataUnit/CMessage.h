@@ -54,11 +54,11 @@ typedef struct {
 
 // 结构
 enum CleanType {
-    CleanShowWare = 1,
-    CleanHideWare = 2,
-    CleanShowClass = 4,
-    CleanHideClass = 8,
-    CleanScreen = 16,
+    CleanShowWare =     1,
+    CleanHideWare =     2,
+    CleanShowClass =    4,
+    CleanHideClass =    8,
+    CleanScreen =       16,
 };
 
 enum MissingType {
@@ -135,6 +135,7 @@ enum ShapeType {
     IMAGE,
 };
 
+
 enum PaintMode {
     PaintNormal,    // as usual
     PaintPPT        // transparent background and covering the ppt
@@ -154,13 +155,13 @@ enum PacketType {
     SETWRITEAUTH,           // 设置学生是否可写
     PLAYERCONTROL,          // 播放器控制
     RACE,                   // 抢答
-    QUESTION,               // 回答问题
+    QUESTION,               // 发起问题
 
     PACKETFIX = 40,			// 修正包
     RESEND,					// 重发单个包
     MAXSEQLIST,             // 最大包列表
 
-    CONNECTION = 49,       // 建立连接用废指令
+    CONNECTION = 49,        // 建立连接用废指令
 
     PACKETCONTROL = 50,		// 控制包
     ENTERCLASS,				// 进入班级
@@ -192,12 +193,40 @@ enum PlayerAction {
     ActionGoto,
 };
 
-enum QuestionType {
+enum QuestionFormat {
     QuestionChoice,         // 选择
     QuestionBool,           // 是非
     QuestionFillBlank,      // 填空
     QuestionSubjective,     // 主观
 };
+
+enum QuestionType {
+    QuestionInit,           // 发起答题
+    QuestionAnswer,         // 回答问题
+    QuestionResult,         // 问题结果
+    QuestionStatistics,     // 答题统计
+};
+
+enum ScoreTableData {
+    ScoreCorrect,
+    ScoreUncorrect,
+    ScoreBlank,
+};
+
+enum ChoiceAnswer {
+    ChoiceA         = 1,
+    ChoiceB         = 2,
+    ChoiceC         = 4,
+    ChoiceD         = 8,
+
+    ChoiceBoolWall  = 16,
+    ChoiceTrue      = 16,
+    ChoiceFalse     = 32,
+
+    ChoiceStatistics = 64,
+};
+
+
 
 typedef struct {
     TS_UINT64 uid;
@@ -420,16 +449,14 @@ typedef struct {
 // 答题发起
 typedef struct {
     TS_MESSAGE_HEAD head;
+    WORD questionID;                // 题号
     WORD qType;                     // 答题类型
+    WORD qFormat;                   // 答题型式
     WORD time;                      // 答题时间
+    WORD answer;                    // 发起答题时为正确答案，回答时为学生答案
 } TS_QUESTION_PACKET;
 
-// 答题
-typedef struct {
-    TS_MESSAGE_HEAD head;
-    WORD qType;
-    WORD answer;                    // 答案 0:false 1:true / 0:A 1:B 2:C 3:D
-} TS_ANSWER_PACKET;
+
 // 转发信息
 
 // 功能函数，获取一些信息

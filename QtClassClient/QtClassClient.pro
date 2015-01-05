@@ -88,7 +88,10 @@ SOURCES  += main.cpp\
     Net/replays.cpp \
     BeforeClass/dialogchoosereplay.cpp \
     LayerUI/UserInterface/dialogchooseshape.cpp \
-    BizLogic/CQuestionLogic.cpp
+    BizLogic/CQuestionLogic.cpp \
+    LayerUI/UserInterface/dialogbuildquestion.cpp \
+    LayerUI/UserInterface/dialoganswerquestion.cpp \
+    LayerUI/UserInterface/dialogbuildstatistics.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBaseLogic.h \
@@ -170,7 +173,10 @@ HEADERS  += LayerUI\mainwindow.h \
     Net/replays.h \
     BeforeClass/dialogchoosereplay.h \
     LayerUI/UserInterface/dialogchooseshape.h \
-    BizLogic/CQuestionLogic.h
+    BizLogic/CQuestionLogic.h \
+    LayerUI/UserInterface/dialogbuildquestion.h \
+    LayerUI/UserInterface/dialoganswerquestion.h \
+    LayerUI/UserInterface/dialogbuildstatistics.h
 
 FORMS    += \
     loginwidget.ui \
@@ -182,7 +188,10 @@ FORMS    += \
     BeforeClass/logindialog.ui \
     LayerUI/UserInterface/dialogpixmap.ui \
     BeforeClass/dialogchoosereplay.ui \
-    LayerUI/UserInterface/dialogchooseshape.ui
+    LayerUI/UserInterface/dialogchooseshape.ui \
+    LayerUI/UserInterface/dialogbuildquestion.ui \
+    LayerUI/UserInterface/dialoganswerquestion.ui \
+    LayerUI/UserInterface/dialogbuildstatistics.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += include

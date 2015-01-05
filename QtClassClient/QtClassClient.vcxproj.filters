@@ -273,6 +273,12 @@
     <ClCompile Include="BizLogic\CQuestionLogic.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="Debug\moc_CQuestionLogic.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_CQuestionLogic.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
     <ClCompile Include="Debug\moc_absplayer.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -377,6 +383,24 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_ui.cpp">
       <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerUI\UserInterface\dialoganswerquestion.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_dialoganswerquestion.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_dialoganswerquestion.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerUI\UserInterface\dialogbuildquestion.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_dialogbuildquestion.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_dialogbuildquestion.cpp">
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -617,9 +641,6 @@
     <ClInclude Include="Reliable\Zip\zlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BizLogic\CQuestionLogic.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_coursewarewidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
@@ -645,6 +666,12 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_widgetwarelistitem.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_dialoganswerquestion.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_dialogbuildquestion.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -674,6 +701,21 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="widgetwarelistitem.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="BizLogic\CQuestionLogic.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialoganswerquestion.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialoganswerquestion.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialogbuildquestion.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialogbuildquestion.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -924,6 +966,7 @@
     <None Include="ui\icon\logo icon.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="C:\Users\Fulaan\Documents\GitHub\server\QtClassClient\TouchPad_resource.rc" />

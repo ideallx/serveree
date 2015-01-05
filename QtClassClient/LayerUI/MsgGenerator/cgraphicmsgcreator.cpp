@@ -18,7 +18,6 @@ void CGraphicMsgCreator::buildCommonInfo(TS_GRAPHIC_PACKET& msg) {
     msg.head.size = sizeof(TS_GRAPHIC_PACKET);
     msg.head.UID = SelfUID;
     msg.head.type = GRAPHICS;
-
 }
 
 void CGraphicMsgCreator::generateGraphicsData(TS_GRAPHIC_PACKET& msg, QPointF p, bool isBegin) {

@@ -17,7 +17,7 @@ QString fromTmpFileName(QString tmpfilename) {
 }
 
 void CFileLogic::procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap) {
-    for (auto iter = sendMap.begin(); iter != sendMap.end(); iter++) {
+    for (auto iter = sendMap.begin(); iter != sendMap.end(); ++iter) {
         TS_FILE_PACKET* fmsg = (TS_FILE_PACKET*) &(iter->second);
         int offset = 0;
         if (m_waitForNewFile) {

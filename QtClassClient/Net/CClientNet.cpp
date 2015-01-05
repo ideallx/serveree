@@ -243,7 +243,6 @@ void CClientNet::sendHeartBeat() {
         upcmd->maxSeq = m_seq - 1;
 
 		m_agent->send(msg.Body, upcmd->head.size);
-        qDebug() << "heart beat time" << upcmd->head.time;
 #ifdef _DEBUG_INFO_
         cout << m_uid << "send heart beat at " << upcmd->head.time << endl;
 #endif

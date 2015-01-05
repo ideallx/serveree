@@ -18,12 +18,15 @@
 #include "MsgGenerator/cfilemsggenerator.h"
 #include "MsgGenerator/cplayergenerator.h"
 #include "../player/absplayer.h"
+#include "../BizLogic/CQuestionLogic.h"
 
 class DataSingleton;
+class CourseWareWidget;
 
 namespace Ui {
 class MainWindow;
-}
+};
+
 
 class MainWindow : public QMainWindow, public CMsgObject
 {
@@ -95,6 +98,13 @@ public slots:
 
     void raceSuccessPrompt(TS_UINT64 uid);
 
+    void showPrompt(QString prompt);
+    void showResultPrompt(int result);
+
+    // question
+    void buildQuestion(WORD format);
+    void buildQuestionStatistics(ScoreTable st);
+
 private:
     void raceBegin(TS_UINT64 teacherUID);
     void raceRun(TS_UINT64 studentUID, TS_UINT64 time);
@@ -123,8 +133,6 @@ private slots:
     void on_tbMyBoard_clicked();
 
     void addSceneSlot(int uidh, int uidl);
-    void showPrompt(QString prompt);
-    void showResultPrompt(int result);
     void buildRaceDialog();
     void studentRaced();
 
@@ -132,7 +140,9 @@ private slots:
     void on_tbCourseWare_clicked();
     void on_tbBackground_clicked();
     void on_listWidget_doubleClicked(const QModelIndex &index);
-    //void itemPlay_clicked(QString filename);
+    
+
+    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow*             ui;
@@ -153,6 +163,15 @@ private:
 	TSQueue<ts_msg>				loadingbuffer;
     QList<QToolButton*>         l_naviButtons;
     QProcess*                   blankScreen;
+    CQuestionGenerator          questionGenerator;
+    CQuestionModule             questionModule;
+};
+
+
+class Bridge {
+public:
+    static void connect(MainWindow* mw, CQuestionModule* qm);
+    static void connect(MainWindow* mw, CourseWareWidget* cww);
 };
 
 #endif // MAINWINDOW_H

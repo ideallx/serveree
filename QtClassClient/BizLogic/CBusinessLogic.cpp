@@ -8,6 +8,7 @@ CBusinessLogic::CBusinessLogic(CMsgObject* parent)
     , m_AuthLogic(new CAuthLogic(this))
     , m_PlayerLogic(new CPlayerLogic(this))
     , m_RaceLogic(new CBaseLogic(this)) 
+    , m_QuestionLogic(new CBaseLogic(this))
 	, m_isReview(false) {
 }
 
@@ -17,6 +18,8 @@ CBusinessLogic::~CBusinessLogic() {
     delete m_FileLogic;
     delete m_AuthLogic;
     delete m_PlayerLogic;
+    delete m_RaceLogic;
+    delete m_QuestionLogic;
 }
 
 void CBusinessLogic::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, BOOL isremote) {
@@ -49,6 +52,8 @@ void CBusinessLogic::ProcessMessage(ts_msg& msg, WPARAM wParam, LPARAM lParam, B
         case RACE:
             m_RaceLogic->procMsg(msg, isremote);
             break;
+        case QUESTION:
+            m_QuestionLogic->procMsg(msg, isremote);
         default:
             break;
         }

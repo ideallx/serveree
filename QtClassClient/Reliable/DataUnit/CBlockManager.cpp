@@ -141,6 +141,9 @@ int CBlockManager::readRecord(TS_UINT64 uid, TS_UINT64 seq, ts_msg& p) {
 
 int CBlockManager::record(ts_msg& in) {
 	TS_UINT64 uid = getUid(in);
+    if (0 == uid)
+        return 0;
+
 	iop_lock(&lockUserBlock);
 	CBlock* b = getBlockByUid(uid);
 	if (b == NULL) {

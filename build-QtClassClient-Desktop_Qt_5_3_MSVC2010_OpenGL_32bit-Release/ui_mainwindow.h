@@ -18,6 +18,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
@@ -41,6 +42,7 @@ public:
     QGroupBox *gbCommandbar;
     QHBoxLayout *horizontalLayout;
     QLabel *lbLogo;
+    QPushButton *pushButton;
     QToolButton *tbCourseWare;
     QToolButton *tbTeacherBoard;
     QToolButton *tbMyBoard;
@@ -117,6 +119,11 @@ public:
         lbLogo->setAlignment(Qt::AlignCenter);
 
         horizontalLayout->addWidget(lbLogo);
+
+        pushButton = new QPushButton(gbCommandbar);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+
+        horizontalLayout->addWidget(pushButton);
 
         tbCourseWare = new QToolButton(gbCommandbar);
         tbCourseWare->setObjectName(QStringLiteral("tbCourseWare"));
@@ -402,6 +409,7 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "\344\272\222\345\212\250\350\257\276\345\240\202", 0));
         gbCommandbar->setTitle(QString());
         lbLogo->setText(QString());
+        pushButton->setText(QApplication::translate("MainWindow", "statistics", 0));
         tbCourseWare->setText(QApplication::translate("MainWindow", "\346\225\231\345\270\210\350\257\276\344\273\266", 0));
         tbTeacherBoard->setText(QApplication::translate("MainWindow", "\346\225\231\345\270\210\347\231\275\346\235\277", 0));
         tbMyBoard->setText(QApplication::translate("MainWindow", "\346\210\221\347\232\204\347\231\275\346\235\277", 0));

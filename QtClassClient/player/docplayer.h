@@ -22,6 +22,7 @@ public:
 
 protected:
     QAxObject* opened;
+    QAxObject* window;
 
     //int totalSlide;
     //int curSlide;

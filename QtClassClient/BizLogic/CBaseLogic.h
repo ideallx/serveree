@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../LayerUI/mainwindow.h"
 #include "../Reliable/DataUnit/CMessage.h"
 #include "../Message/CMsgObject.h"
 #include "datasingleton.h"

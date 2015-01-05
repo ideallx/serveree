@@ -45,7 +45,7 @@ public:
     void setWriteable(TS_UINT64 uid, bool writeable);
     inline map<TS_UINT64, USER_INFO> getAllUsers() const { return allusers; }
 
-    inline int getRole() { return allusers[selfUID].role; }
+    inline int getSelfRole() { return allusers[selfUID].role; }
 
 };
 

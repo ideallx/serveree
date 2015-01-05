@@ -11,6 +11,9 @@
 #include "../player/playerfactory.h"
 #include "UserInterface/cpromptframe.h"
 #include "../BizLogic/datasingleton.h"
+#include "../UserInterface/dialogbuildquestion.h"
+#include "../UserInterface/dialoganswerquestion.h"
+#include "../UserInterface/dialogbuildstatistics.h"
 
 
 thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {
@@ -48,6 +51,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->graphicsView->setScene(scene);
 
+    Bridge::connect(this, &questionModule);
+    Bridge::connect(this, ui->wgtCourse);
+
     buildSceneConnection(true);
 
 
@@ -67,14 +73,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::wareItemRecv,
             ui->wgtCourse, &CourseWareWidget::addWareItem);
 
-    connect(this, &MainWindow::playerPreved,
-            ui->wgtCourse, &CourseWareWidget::prev);
-    connect(this, &MainWindow::playerStoped,
-            ui->wgtCourse, &CourseWareWidget::stop);
-    connect(this, &MainWindow::playerNexted,
-            ui->wgtCourse, &CourseWareWidget::next);
-    connect(this, &MainWindow::playerStarted,
-            ui->wgtCourse, &CourseWareWidget::start);
 
     ui->gbUserlist->setHidden(true);
 
@@ -88,20 +86,6 @@ MainWindow::MainWindow(QWidget *parent)
             ui->tbLogin, &CLoginButton::stopTimer);
 
 
-    connect(ui->wgtCourse, &CourseWareWidget::clearScreen,
-            this, &MainWindow::cleanCentralArea);
-    connect(ui->wgtCourse, &CourseWareWidget::paintModeChanged,
-            this, &MainWindow::setViewPaintMode);
-    connect(ui->wgtCourse, &CourseWareWidget::promptSent,
-            this, &MainWindow::showResultPrompt);
-	connect(ui->wgtCourse, &CourseWareWidget::changeBackground, 
-			this, &MainWindow::changeBackground);
-	connect(ui->wgtCourse, &CourseWareWidget::changeMedia, 
-            this, &MainWindow::changeMedia);
-    connect(ui->wgtCourse, &CourseWareWidget::promptMsgSent,
-            this, &MainWindow::showPrompt);
-    connect(ui->wgtCourse, &CourseWareWidget::someBodyRaceSuccess,
-            this, &MainWindow::raceSuccessPrompt);
     sem_msg = CreateSemaphore(NULL, 0, 102400, NULL);
 
     isRunning = true;
@@ -120,7 +104,6 @@ MainWindow::MainWindow(QWidget *parent)
     l_naviButtons.append(ui->tbTeacherBoard);
 
     blankScreen = new QProcess();
-    blankScreen->start("\"F:\\server\\trunk\\EClass\\exe\\eclass client\\BlankScreen.exe\"");
 
 //#define _DEBUG_UI_
 
@@ -133,6 +116,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     setAttribute(Qt::WA_TranslucentBackground, true);
     showFullScreen();
+    blankScreen->start("\"F:\\server\\trunk\\EClass\\exe\\eclass client\\BlankScreen.exe\"");
 #endif
 }
 
@@ -171,7 +155,8 @@ void MainWindow::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL i
                         loadingbuffer.clean();
                 }
                 break;
-            case RACE:  // not recv race
+            case RACE:      // not recv race
+            case QUESTION:  // same as race
                 return;
             default:
                 break;
@@ -488,6 +473,9 @@ void MainWindow::msgExcute() {
                 raceResult(rmsg->teacherUID, rmsg->studentUID, rmsg->writingTime);
         }
         break;
+    case QUESTION:
+        questionModule.process(*reinterpret_cast<TS_QUESTION_PACKET*> (&msg));
+        break;
     default:
         break;
     }
@@ -742,6 +730,25 @@ void MainWindow::raceSuccessPrompt(TS_UINT64 uid) {
     }
     emit promptSent(prompt);
 }
+// 7 race
+
+// 8 question
+void MainWindow::buildQuestion(WORD format) {
+    int answer = 0;
+    if (format == QuestionChoice) {
+        DialogAnswerQuestion daq(this);
+        answer = daq.exec();
+    }
+    TS_QUESTION_PACKET qmsg;
+    questionGenerator.generateQuestionData(qmsg, QuestionAnswer,
+                                           format, answer);
+    ProcessMessage(*reinterpret_cast<ts_msg*> (&qmsg), 0, 0, false);
+    questionModule.process(qmsg);
+}
+
+void MainWindow::buildQuestionStatistics(ScoreTable st) {
+    return;
+}
 
 void MainWindow::loadComplete() {
 	isLoading = false;
@@ -752,5 +759,72 @@ void MainWindow::loadComplete() {
             continue;
 		ProcessMessage(msg, 0, 0, true);
     }
-    setRole(static_cast<enum RoleOfClass> (m_ds->getRole()));
+    setRole(static_cast<enum RoleOfClass> (m_ds->getSelfRole()));
+}
+
+
+void Bridge::connect(MainWindow* mw, CQuestionModule* qm) {
+    QObject::connect(qm, &CQuestionModule::questionSented,
+                     mw, &MainWindow::buildQuestion);
+
+    QObject::connect(qm, &CQuestionModule::questionStatictics,
+                     mw, &MainWindow::buildQuestionStatistics);
+}
+
+void Bridge::connect(MainWindow* mw, CourseWareWidget* cww) {
+    QObject::connect(mw, &MainWindow::playerPreved,
+                     cww, &CourseWareWidget::prev);
+    QObject::connect(mw, &MainWindow::playerStoped,
+                     cww, &CourseWareWidget::stop);
+    QObject::connect(mw, &MainWindow::playerNexted,
+                     cww, &CourseWareWidget::next);
+    QObject::connect(mw, &MainWindow::playerStarted,
+                     cww, &CourseWareWidget::start);
+
+    QObject::connect(cww, &CourseWareWidget::clearScreen,
+                     mw, &MainWindow::cleanCentralArea);
+    QObject::connect(cww, &CourseWareWidget::paintModeChanged,
+                     mw, &MainWindow::setViewPaintMode);
+    QObject::connect(cww, &CourseWareWidget::promptSent,
+                     mw, &MainWindow::showResultPrompt);
+    QObject::connect(cww, &CourseWareWidget::changeBackground,
+                     mw, &MainWindow::changeBackground);
+    QObject::connect(cww, &CourseWareWidget::changeMedia,
+                     mw, &MainWindow::changeMedia);
+    QObject::connect(cww, &CourseWareWidget::promptMsgSent,
+                     mw, &MainWindow::showPrompt);
+    QObject::connect(cww, &CourseWareWidget::someBodyRaceSuccess,
+                     mw, &MainWindow::raceSuccessPrompt);
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    DialogBuildQuestion b(this);
+    int answer = b.exec();
+    qDebug() << "answer:" << answer;
+    int format = -1;
+    if (answer == ChoiceStatistics) {
+        format = ChoiceStatistics;
+    } else if (answer > ChoiceBoolWall) {
+        format = QuestionBool;
+    } else if (answer > 0) {
+        format = QuestionChoice;
+    }
+
+    qDebug() << "pushbutton format:" << format;
+    if (-1 == format) {
+        return;
+    } else if (format == ChoiceStatistics) {             // build statistics
+        qDebug() << "build statistics ########";
+        ScoreTable st = questionGenerator.getScoreTable();
+        DialogBuildStatistics b(this);
+        b.setTotalNumberAndScoreTable(questionModule.totalQuestion(), st);
+        b.exec();
+    } else {
+        TS_QUESTION_PACKET qmsg;
+        questionGenerator.init();
+        questionGenerator.generateQuestionData(qmsg, QuestionInit, format, answer);
+        ProcessMessage(*reinterpret_cast<ts_msg*> (&qmsg), 0, 0, false);
+        questionModule.process(qmsg);
+    }
 }
