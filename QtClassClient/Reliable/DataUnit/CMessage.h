@@ -214,12 +214,13 @@ enum ScoreTableData {
 };
 
 enum ChoiceAnswer {
+    ChoiceUnset     = 0,
     ChoiceA         = 1,
     ChoiceB         = 2,
     ChoiceC         = 4,
     ChoiceD         = 8,
 
-    ChoiceBoolWall  = 16,
+    ChoiceBoolWall  = 15,
     ChoiceTrue      = 16,
     ChoiceFalse     = 32,
 

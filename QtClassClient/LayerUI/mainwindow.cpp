@@ -105,7 +105,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     blankScreen = new QProcess();
 
-//#define _DEBUG_UI_
+#define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
     setRole(RoleTeacher);
@@ -733,15 +733,13 @@ void MainWindow::raceSuccessPrompt(TS_UINT64 uid) {
 // 7 race
 
 // 8 question
-void MainWindow::buildQuestion(WORD format) {
-    int answer = 0;
-    if (format == QuestionChoice) {
-        DialogAnswerQuestion daq(this);
-        answer = daq.exec();
-    }
+void MainWindow::buildQuestion(WORD format, WORD corrAnswer) {
+    DialogAnswerQuestion daq(format, this);
+    daq.setCorrectAnswer(corrAnswer);
+    int userAnswer = daq.exec();
     TS_QUESTION_PACKET qmsg;
     questionGenerator.generateQuestionData(qmsg, QuestionAnswer,
-                                           format, answer);
+                                           format, userAnswer);
     ProcessMessage(*reinterpret_cast<ts_msg*> (&qmsg), 0, 0, false);
     questionModule.process(qmsg);
 }
@@ -799,9 +797,13 @@ void Bridge::connect(MainWindow* mw, CourseWareWidget* cww) {
 
 void MainWindow::on_pushButton_clicked()
 {
+
+}
+
+void MainWindow::on_tbQuestion_clicked()
+{
     DialogBuildQuestion b(this);
     int answer = b.exec();
-    qDebug() << "answer:" << answer;
     int format = -1;
     if (answer == ChoiceStatistics) {
         format = ChoiceStatistics;
@@ -811,14 +813,20 @@ void MainWindow::on_pushButton_clicked()
         format = QuestionChoice;
     }
 
-    qDebug() << "pushbutton format:" << format;
     if (-1 == format) {
         return;
     } else if (format == ChoiceStatistics) {             // build statistics
-        qDebug() << "build statistics ########";
-        ScoreTable st = questionGenerator.getScoreTable();
+        ScoreTable st = questionModule.getScoreTable();
+        int total = questionModule.totalQuestion();
+        ////////////////  TEST  ////////////////
+        vector<WORD> ff;
+        ff.push_back(16);
+        ff.push_back(3);
+        total = 20;
+        st.insert(make_pair(1248, ff));
+        ////////////////  TEST  ////////////////
         DialogBuildStatistics b(this);
-        b.setTotalNumberAndScoreTable(questionModule.totalQuestion(), st);
+        b.setTotalNumberAndScoreTable(total, st);
         b.exec();
     } else {
         TS_QUESTION_PACKET qmsg;

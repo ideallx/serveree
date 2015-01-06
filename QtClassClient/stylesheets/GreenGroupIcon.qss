@@ -3,7 +3,7 @@ QGroupBox {
 	border:none;
 }
 
-QToolButton#tbBackground, #tbBrush, #tbCourseWare,
+QToolButton#tbBackground, #tbBrush, #tbCourseWare, #tbQuestion, 
 	#tbEraser, #tbLogin, #tbMyBoard, #tbMyClass,
 	#tbPalette, #tbSettings, #tbShape, #tbTeacherBoard {
 	border-style: outset;
@@ -58,4 +58,8 @@ QToolButton#tbLogin {
 
 QToolButton#tbShape {
 	border-top-color: rgb(208, 238, 139);
+}
+
+QToolButton#tbQuestion {
+        border-top-color: rgb(212, 212, 212);
 }

@@ -22,10 +22,11 @@ public:
     CQuestionModule();
     void process(TS_QUESTION_PACKET &qmsg);
 
-    inline int totalQuestion() { return correctAnswers.size(); }
+    int totalQuestion();
+    ScoreTable getScoreTable();
 
 signals:
-    void questionSented(WORD format);
+    void questionSented(WORD format, WORD answer);
     void questionStatictics(ScoreTable scores);
 
 private:
@@ -44,7 +45,6 @@ public:
     void generateQuestionData(TS_QUESTION_PACKET &qmsg, WORD type, WORD format,
                               WORD answer, WORD time = 60);
 
-    inline ScoreTable getScoreTable() { return scores; }
 private:
     void buildCommonInfo(TS_QUESTION_PACKET& qmsg);
 };

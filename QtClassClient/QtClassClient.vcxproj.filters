@@ -279,6 +279,39 @@
     <ClCompile Include="Release\moc_CQuestionLogic.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="LayerUI\UserInterface\dialoganswerquestion.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_dialoganswerquestion.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_dialoganswerquestion.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerUI\UserInterface\dialogbuildquestion.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_dialogbuildquestion.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_dialogbuildquestion.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerUI\UserInterface\dialogbuildstatistics.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_dialogbuildstatistics.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_dialogbuildstatistics.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_widgetansweraccountitem.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_widgetansweraccountitem.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
     <ClCompile Include="Debug\moc_absplayer.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -384,23 +417,8 @@
     <ClCompile Include="GeneratedFiles\qrc_ui.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\UserInterface\dialoganswerquestion.cpp">
+    <ClCompile Include="LayerUI\UserInterface\widgetansweraccountitem.cpp">
       <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_dialoganswerquestion.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_dialoganswerquestion.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="LayerUI\UserInterface\dialogbuildquestion.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_dialogbuildquestion.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_dialogbuildquestion.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -674,6 +692,12 @@
     <ClInclude Include="GeneratedFiles\ui_dialogbuildquestion.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_dialogbuildstatistics.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_widgetansweraccountitem.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="coursewarewidget.ui">
@@ -716,6 +740,18 @@
       <Filter>Generated Files</Filter>
     </CustomBuild>
     <CustomBuild Include="LayerUI\UserInterface\dialogbuildquestion.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialogbuildstatistics.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialogbuildstatistics.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\widgetansweraccountitem.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\widgetansweraccountitem.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -967,6 +1003,15 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ClassDiagram.cd" />
+    <None Include="ui\icon\blockblank.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\blockcorrect.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\blockwrong.png">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="C:\Users\Fulaan\Documents\GitHub\server\QtClassClient\TouchPad_resource.rc" />

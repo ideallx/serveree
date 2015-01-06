@@ -71,6 +71,13 @@ void DataSingleton::setWriteable(TS_UINT64 uid, bool writeable) {
     iop_unlock(&lockUsers);
 }
 
+WORD DataSingleton::getRole(TS_UINT64 uid) {
+    if (allusers.find(uid) == allusers.end()) {
+        return -1;
+    }
+    return allusers[uid].role;
+}
+
 //void DataSingleton::setUID(TS_UINT64 uid) {
 //    iop_lock(&lockSingle);
 //    selfUID = uid;

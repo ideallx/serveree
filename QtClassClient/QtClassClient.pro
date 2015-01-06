@@ -91,7 +91,8 @@ SOURCES  += main.cpp\
     BizLogic/CQuestionLogic.cpp \
     LayerUI/UserInterface/dialogbuildquestion.cpp \
     LayerUI/UserInterface/dialoganswerquestion.cpp \
-    LayerUI/UserInterface/dialogbuildstatistics.cpp
+    LayerUI/UserInterface/dialogbuildstatistics.cpp \
+    LayerUI/UserInterface/widgetansweraccountitem.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBaseLogic.h \
@@ -176,7 +177,8 @@ HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CQuestionLogic.h \
     LayerUI/UserInterface/dialogbuildquestion.h \
     LayerUI/UserInterface/dialoganswerquestion.h \
-    LayerUI/UserInterface/dialogbuildstatistics.h
+    LayerUI/UserInterface/dialogbuildstatistics.h \
+    LayerUI/UserInterface/widgetansweraccountitem.h
 
 FORMS    += \
     loginwidget.ui \
@@ -191,7 +193,8 @@ FORMS    += \
     LayerUI/UserInterface/dialogchooseshape.ui \
     LayerUI/UserInterface/dialogbuildquestion.ui \
     LayerUI/UserInterface/dialoganswerquestion.ui \
-    LayerUI/UserInterface/dialogbuildstatistics.ui
+    LayerUI/UserInterface/dialogbuildstatistics.ui \
+    LayerUI/UserInterface/widgetansweraccountitem.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += include

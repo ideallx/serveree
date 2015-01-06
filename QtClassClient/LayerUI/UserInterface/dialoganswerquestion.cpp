@@ -1,12 +1,47 @@
 #include "dialoganswerquestion.h"
 #include "ui_dialoganswerquestion.h"
+#include "cpromptframe.h"
 
-DialogAnswerQuestion::DialogAnswerQuestion(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::DialogAnswerQuestion)
-{
+DialogAnswerQuestion::DialogAnswerQuestion(WORD format, QWidget *parent)
+    : QDialog(parent)
+    , ui(new Ui::DialogAnswerQuestion)
+    , format(format)
+    , correctAnswer(ChoiceUnset) {
     setWindowFlags(Qt::FramelessWindowHint);
     ui->setupUi(this);
+    if (format == QuestionBool) {
+        ui->tbChoiceA->setText("T");
+        ui->tbChoiceC->setText("F");
+        ui->tbChoiceB->setVisible(false);
+        ui->tbChoiceD->setVisible(false);
+    } else {
+        ui->tbChoiceA->setText("A");
+        ui->tbChoiceC->setText("C");
+        ui->tbChoiceB->setVisible(true);
+        ui->tbChoiceD->setVisible(true);
+    }
+
+#ifdef _TEST_PROMPT_POS_
+    setGeometry(0, 0, geometry().width(), geometry().height());
+#endif
+}
+
+bool DialogAnswerQuestion::answerCheck(WORD stuAnswer) {
+    if (stuAnswer == correctAnswer) {
+        CPromptFrame::prompt(QString::fromLocal8Bit("恭喜你，回答正确"))->show();
+        return true;
+    } else {
+        CPromptFrame::prompt(QString::fromLocal8Bit("很可惜，回答错误"))->show();
+        return false;
+    }
+}
+
+void DialogAnswerQuestion::returnAnswer(WORD stuAnswer) {
+    if (ChoiceUnset != correctAnswer) {
+        answerCheck(stuAnswer);
+    }
+    done(stuAnswer);
+
 }
 
 DialogAnswerQuestion::~DialogAnswerQuestion()
@@ -16,20 +51,28 @@ DialogAnswerQuestion::~DialogAnswerQuestion()
 
 void DialogAnswerQuestion::on_tbChoiceA_clicked()
 {
-    done(ChoiceA);
+    if (format == QuestionBool) {
+        returnAnswer(ChoiceTrue);
+    } else {
+        returnAnswer(ChoiceA);
+    }
 }
 
 void DialogAnswerQuestion::on_tbChoiceC_clicked()
 {
-    done(ChoiceC);
+    if (format == QuestionBool) {
+        returnAnswer(ChoiceFalse);
+    } else {
+        returnAnswer(ChoiceC);
+    }
 }
 
 void DialogAnswerQuestion::on_tbChoiceB_clicked()
 {
-    done(ChoiceB);
+    returnAnswer(ChoiceB);
 }
 
 void DialogAnswerQuestion::on_tbChoiceD_clicked()
 {
-    done(ChoiceD);
+    returnAnswer(ChoiceD);
 }

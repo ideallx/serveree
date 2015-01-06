@@ -6,6 +6,7 @@
 #include <QObject>
 #include "../../Reliable/DataUnit/CMessage.h"
 
+#define _TEST_PROMPT_POS_
 
 class CPromptFrame
 {

@@ -1,6 +1,7 @@
 #include "dialogbuildquestion.h"
 #include "ui_dialogbuildquestion.h"
 #include "../../Reliable/DataUnit/CMessage.h"
+#include "cpromptframe.h"
 
 int transAnswerToInt(WORD type, WORD answer) {
     return type + (answer << 8);
@@ -11,7 +12,10 @@ DialogBuildQuestion::DialogBuildQuestion(QWidget *parent) :
     ui(new Ui::DialogBuildQuestion)
 {
     setWindowFlags(Qt::FramelessWindowHint);
-    ui->setupUi(this);
+    ui->setupUi(this); 
+#ifdef _TEST_PROMPT_POS_
+        setGeometry(0, 0, geometry().width(), geometry().height());
+#endif
 }
 
 DialogBuildQuestion::~DialogBuildQuestion()

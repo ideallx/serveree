@@ -13,7 +13,7 @@ void CQuestionModule::process(TS_QUESTION_PACKET& qmsg) {
     case QuestionInit:
         correctAnswers.insert(make_pair(qmsg.questionID, qmsg.answer));
         if (ds->getSelfRole() == RoleStudent)
-            emit questionSented(qmsg.qFormat);
+            emit questionSented(qmsg.qFormat, qmsg.answer);
         qDebug() << "add correct" << qmsg.questionID << qmsg.answer;
         break;
     case QuestionAnswer:
@@ -25,6 +25,14 @@ void CQuestionModule::process(TS_QUESTION_PACKET& qmsg) {
     default:
         break;
     }
+}
+
+int CQuestionModule::totalQuestion() {
+    return correctAnswers.size();
+}
+
+ScoreTable CQuestionModule::getScoreTable() {
+    return scores;
 }
 
 void CQuestionModule::addData(TS_UINT64 uid, WORD questionID, WORD format, WORD answer) {

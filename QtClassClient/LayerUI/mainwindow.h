@@ -102,7 +102,7 @@ public slots:
     void showResultPrompt(int result);
 
     // question
-    void buildQuestion(WORD format);
+    void buildQuestion(WORD format, WORD corrAnswer);
     void buildQuestionStatistics(ScoreTable st);
 
 private:
@@ -143,6 +143,8 @@ private slots:
     
 
     void on_pushButton_clicked();
+
+    void on_tbQuestion_clicked();
 
 private:
     Ui::MainWindow*             ui;

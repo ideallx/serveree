@@ -66,6 +66,9 @@ void CMsgObject::sendToUp(const ts_msg& msg, WPARAM wParam, LPARAM lParam, bool 
     }
 
     for (auto iter = sender->upReceivers.begin(); iter != sender->upReceivers.end(); iter++) {
+        if (NULL == *iter) {
+            continue;
+        }
         (*iter)->ProcessMessage(const_cast<ts_msg&>(msg), wParam, lParam, isRemote);
     }
 }
