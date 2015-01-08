@@ -62,7 +62,7 @@ signals:
     void backgroundChanged(QPixmap);
     void playMedia(QMediaPlayer*);
     void promptSent(QString prompt);
-
+    void slideChanged(QString slideInfo);   // slide info was concat by filename and slideNum as xxx.ppt_1 
 
 protected:
     QAxObject*  m_controller;

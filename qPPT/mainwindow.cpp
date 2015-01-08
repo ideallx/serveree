@@ -18,7 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     if (opened)
-        opened->querySubObject("Close()");
+        opened->dynamicCall("Close()");
+    ppt->dynamicCall("Quit()");
     ppt->deleteLater();
     delete ui;
 }
@@ -40,8 +41,13 @@ void MainWindow::on_pushButton_2_clicked()
         qDebug() << "view error";
         return;
     }
-    view->querySubObject("Previous()");
-    qDebug() << view->querySubObject("GetClick");
+    view->dynamicCall("Previous()");
+    auto slide = view->querySubObject("Slide");
+    if (NULL == slide) {
+        return;
+    }
+
+    qDebug() << "slide index is" << slide->dynamicCall("SlideIndex").toInt();
 }
 
 int i = 1;
@@ -52,8 +58,13 @@ void MainWindow::on_pushButton_3_clicked()
         qDebug() << "view error";
         return;
     }
-    view->querySubObject("Next()");
-    qDebug() << view->querySubObject("GetClick");
+    view->dynamicCall("Next()");
+
+    auto slide = view->querySubObject("Slide");
+    if (NULL == slide) {
+        return;
+    }
+    qDebug() << "slide index is" << slide->dynamicCall("SlideIndex").toInt();
 }
 
 #include <QFileDialog>
@@ -66,17 +77,15 @@ void MainWindow::on_pushButton_4_clicked()
         ui->txShow->append("power point controler set failed");
         return;
     }
-    ppt->setProperty("Visible", false);
     ui->txShow->append("application success");
     presentation = ppt->querySubObject("Presentations");
 
-    opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", filename, 0, 0, 0);
+    opened = presentation->querySubObject("Open(QString, QVariant, QVariant, QVariant)", filename, 1, 1, 0);
     if (!opened) {
         ui->txShow->append("open error");
         return;
     }
     opened->setProperty("IsFullScreen", false);
-    opened->setProperty("ShowType", "ppShowTypeWindow");
 
 
     sss = opened->querySubObject("SlideShowSettings");
@@ -84,8 +93,6 @@ void MainWindow::on_pushButton_4_clicked()
         qDebug() << "SlideShowSettings error";
         return;
     }
-    sss->setProperty("ShowType", 1);
-    sss->setProperty("ShowWithAnimation", true);
     sss->querySubObject("Run()");
 
     window = opened->querySubObject("SlideShowWindow");
@@ -100,18 +107,22 @@ void MainWindow::on_pushButton_4_clicked()
 
 
     auto slides = window->querySubObject("Presentation");
-    slides = slides->querySubObject("Slides(int)", 1);
+    slides = slides->querySubObject("Slides");
     if (!slides) {
         ui->txShow->append("slides failed");
         return;
     }
-    QString fp = QDir::currentPath() + "/aaa.jpg";
-    qDebug() << fp;
-    slides->querySubObject("Export(QString, QString, int, int)", fp, "jpg", 1920, 1080);
-    if (!slides) {
-        qDebug() << "fuck";
-        return;
-    }
+    int slideNum = slides->dynamicCall("Count").toInt();
+    qDebug() << "slideNum:" << slideNum;
+
+
+//    QString fp = QDir::currentPath() + "/aaa.jpg";
+//    qDebug() << fp;
+//    slides->querySubObject("Export(QString, QString, int, int)", fp, "jpg", 1920, 1080);
+//    if (!slides) {
+//        qDebug() << "fuck";
+//        return;
+//    }
 
 //    QWidget* w = QWidget::find((WId) handle);
 //    if (handle.isNull()) {

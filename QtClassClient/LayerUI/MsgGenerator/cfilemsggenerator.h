@@ -13,10 +13,14 @@ public:
 
     bool create(QString filename);
 
+    QString filename();
+
     // return true, trans end;
     bool generateFileData(TS_FILE_PACKET& fmsg);
 
     void buildCommonInfo(TS_FILE_PACKET& fmsg);
+
+    int getProgress();
 
 private:
     FILE_CONTENT m_fc;

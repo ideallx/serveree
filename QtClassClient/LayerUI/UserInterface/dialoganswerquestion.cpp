@@ -28,10 +28,12 @@ DialogAnswerQuestion::DialogAnswerQuestion(WORD format, QWidget *parent)
 
 bool DialogAnswerQuestion::answerCheck(WORD stuAnswer) {
     if (stuAnswer == correctAnswer) {
-        CPromptFrame::prompt(QString::fromLocal8Bit("恭喜你，回答正确"))->show();
+        CPromptFrame::prompt(QString::fromLocal8Bit("恭喜你，回答正确"), PromptControllerConfirm,
+                             dynamic_cast<QWidget*> (parent()))->show();
         return true;
     } else {
-        CPromptFrame::prompt(QString::fromLocal8Bit("很可惜，回答错误"))->show();
+        CPromptFrame::prompt(QString::fromLocal8Bit("很可惜，回答错误"), PromptControllerConfirm,
+                             dynamic_cast<QWidget*> (parent()))->show();
         return false;
     }
 }

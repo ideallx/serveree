@@ -34,7 +34,6 @@ MainWindow::MainWindow(QWidget *parent)
     , m_userRole(RoleStudent)
     , ui(new Ui::MainWindow)
     , isRunning(false)
-    , m_prompt(NULL)
 	, isLoading(true) {
     ui->setupUi(this);
     ui->wgtCourse->setHidden(true);
@@ -46,6 +45,11 @@ MainWindow::MainWindow(QWidget *parent)
     scene = new MyScene(SelfUID, ui->graphicsView, this, this);
     sceneMap.insert(SelfUID, scene);
     scene->setWriteable(true);
+
+    scene = new MyScene(CoursewareUID, ui->graphicsView, this, this);
+    sceneMap.insert(CoursewareUID, scene);
+    scene->setWriteable(true);
+
     scene = new MyScene(TeacherUID, ui->graphicsView, this, this);
     sceneMap.insert(TeacherUID, scene);
 
@@ -85,6 +89,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::stopServerRespTimer,
             ui->tbLogin, &CLoginButton::stopTimer);
 
+    connect(ui->wgtCourse, &CourseWareWidget::changeSide,
+            ui->graphicsView, &MyView::moveToSlide);
+
 
     sem_msg = CreateSemaphore(NULL, 0, 102400, NULL);
 
@@ -97,6 +104,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     on_tbBackground_clicked();
+    on_tbTeacherBoard_clicked();
     ui->listWidget->updateUserInfo();
 
     l_naviButtons.append(ui->tbCourseWare);
@@ -105,7 +113,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     blankScreen = new QProcess();
 
-#define _DEBUG_UI_
+// #define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
     setRole(RoleTeacher);
@@ -116,11 +124,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     setAttribute(Qt::WA_TranslucentBackground, true);
     showFullScreen();
-    blankScreen->start("\"F:\\server\\trunk\\EClass\\exe\\eclass client\\BlankScreen.exe\"");
+    blankScreen->start("BlankScreen.exe");
 #endif
 }
 
 MainWindow::~MainWindow() {
+    CloseHandle(sem_msg);
     blankScreen->close();
     delete blankScreen;
     leaveClass();
@@ -129,7 +138,6 @@ MainWindow::~MainWindow() {
     sceneMap.clear();
     qDeleteAll(sceneMap);
     iop_thread_cancel(pthread_msg);
-    CloseHandle(sem_msg);
 }
 
 void MainWindow::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL isRemote) {
@@ -156,7 +164,7 @@ void MainWindow::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL i
                 }
                 break;
             case RACE:      // not recv race
-            case QUESTION:  // same as race
+            case QUESTION:  // same as race but now i cant accont all the answer in loading >.<
                 return;
             default:
                 break;
@@ -183,6 +191,8 @@ void MainWindow::buildSceneConnection(bool isCreate) {
                 scene, &MyScene::revocation);
         connect(ui->graphicsView, &MyView::screenMoved,
                 scene, &MyScene::moveScreen);
+        connect(scene, &MyScene::changeSide,
+                ui->graphicsView, &MyView::moveToSlide);
     } else {
         disconnect(ui->tbBrush, &LineWidthCombox::signalWidthChanged,
                    this, &MainWindow::setScenePenWidth);
@@ -197,22 +207,28 @@ void MainWindow::buildSceneConnection(bool isCreate) {
     }
 }
 
-void MainWindow::changeScene(TS_UINT64 uid) {
-    if (sceneMap[uid] == 0)
+void MainWindow::changeScene(TS_UINT64 sceneID) {
+    if (sceneMap[sceneID] == 0)
         return;
 
-    if (scene == sceneMap[uid])
+    if (scene == sceneMap[sceneID])
         return;
 
     buildSceneConnection(false);
 
-    scene = sceneMap[uid];
+    scene = sceneMap[sceneID];
 
     scene->setEraser(false);
     ui->tbEraser->setChecked(false);
     ui->graphicsView->setScene(scene);
+    ui->graphicsView->initViewBySceneID(sceneID);
 
     buildSceneConnection(true);
+}
+
+void MainWindow::changeSlide(QString slideInfo) {
+    on_tbCourseWare_clicked();
+    ui->graphicsView->setNewSlideName(slideInfo);
 }
 
 // 1 msg trans
@@ -347,6 +363,17 @@ void MainWindow::setWriteable(TS_UINT64 toUID, DWORD sceneID, WORD writeable) {
 // 2 my class
 
 // 3 my scene
+void MainWindow::changeModule(TS_UINT64 sceneid) {
+    if (CoursewareUID == sceneid) {
+        on_tbCourseWare_clicked();
+    } else if (TeacherUID == sceneid) {
+        on_tbTeacherBoard_clicked();
+    } else if (SelfUID == sceneid) {
+        on_tbMyBoard_clicked();
+    }
+
+}
+
 void MainWindow::setScenePenWidth(int width) {
     scene->setPenWidth(width);
     ui->tbEraser->setChecked(false);
@@ -453,6 +480,7 @@ void MainWindow::msgExcute() {
             TS_PLAYER_PACKET* pmsg = (TS_PLAYER_PACKET*) &msg;
             signalPlayerMove(QString::fromLocal8Bit(reinterpret_cast<char*> (pmsg->filename)),
                              pmsg->pa);
+            on_tbCourseWare_clicked();
 		}
         break;
 	case SETWRITEAUTH:
@@ -488,7 +516,8 @@ void MainWindow::cleanCentralArea(TS_UINT64 sceneID, int cleanOption) {
     }
 
     if (CleanShowWare & cleanOption) {
-        ui->wgtCourse->setHidden(false);
+        if (RoleTeacher == m_userRole)
+            ui->wgtCourse->setHidden(false);
     }
     if (CleanHideWare & cleanOption) {
         ui->wgtCourse->setHidden(true);
@@ -501,6 +530,11 @@ void MainWindow::cleanCentralArea(TS_UINT64 sceneID, int cleanOption) {
     }
     if (CleanScreen & cleanOption) {
         theScene->cls();
+    }
+    if (CleanCourse & cleanOption) {
+        if (sceneID == CoursewareUID) {
+            scene->cleanFirstPage();
+        }
     }
 }
 
@@ -520,30 +554,21 @@ void MainWindow::sendPrompt(QString prompt) {
 }
 
 void MainWindow::showResultPrompt(int result) {
-    if (m_prompt) {
-        delete m_prompt;
-    }
-    m_prompt = CPromptFrame::prompt(result, this);
-    m_prompt->exec();
+    auto pDialog = CPromptFrame::prompt(result, PromptControllerConfirm, this);
+    pDialog->exec();
 }
 
 void MainWindow::showPrompt(QString prompt) {
-    if (m_prompt) {
-        delete m_prompt;
-    }
-    m_prompt = CPromptFrame::prompt(prompt, this);
-    m_prompt->exec();
+    auto pDialog = CPromptFrame::prompt(prompt, PromptControllerConfirm, this);
+    pDialog->exec();
 }
 
 void MainWindow::recvClassInfo() {
     emit stopServerRespTimer();
 }
-
 // 4 prompt
 
 // 5 teacher ware
-
-
 void MainWindow::addWareList(QString filename) {
     emit wareItemRecv(filename);
 }
@@ -551,13 +576,23 @@ void MainWindow::addWareList(QString filename) {
 
 void MainWindow::on_tbCourseWare_clicked()
 {
+    ui->tbCourseWare->setChecked(true);
     foreach (QToolButton* tb, l_naviButtons) {
         tb->setChecked(false);
     }
+
+    if (RoleTeacher != m_userRole)
+        return;
+
+    if (scene->id() == CoursewareUID)
+        return;
+
+
+    changeScene(CoursewareUID);
     ui->tbCourseWare->setChecked(true);
     ui->wgtCourse->setHidden(false);
-    if (ui->wgtCourse->isPlayerPlaying())
-        return;
+    //if (ui->wgtCourse->isPlayerPlaying())
+    //    return;
 
     // if (m_userRole == RoleTeacher)
 }
@@ -602,8 +637,12 @@ void MainWindow::setRole(enum RoleOfClass role) {
     ui->wgtCourse->setRole(role);
     if (role == RoleTeacher) {
         sceneMap[TeacherUID]->setWriteable(true);
+        ui->tbCourseWare->setVisible(true);
+        ui->tbQuestion->setVisible(true);
     } else {
         sceneMap[TeacherUID]->setWriteable(false);
+        ui->tbCourseWare->setVisible(false);
+        ui->tbQuestion->setVisible(false);
     }
 }
 
@@ -677,6 +716,7 @@ void MainWindow::on_tbBackground_clicked()
 
 // 7 race
 void MainWindow::raceBegin(TS_UINT64 teacherUID) {
+    teacherUID = 0;     // unused ><
     if (m_userRole != RoleStudent)
         return;
 
@@ -692,6 +732,8 @@ void MainWindow::raceRun(TS_UINT64 studentUID, TS_UINT64 time) {
 }
 
 void MainWindow::raceResult(TS_UINT64 teacherUID, TS_UINT64 studentUID, WORD writingTime) {
+    writingTime = 0;    // unused
+    teacherUID = 0;     // unused
     qDebug() << "race result";
     if (studentUID == m_ds->getUID()) {
         sceneMap[TeacherUID]->setWriteable(true);
@@ -702,13 +744,10 @@ void MainWindow::raceResult(TS_UINT64 teacherUID, TS_UINT64 studentUID, WORD wri
 }
 
 void MainWindow::buildRaceDialog() {
-    if (m_prompt) {
-        delete m_prompt;
-    }
-    m_prompt = CPromptFrame::racePrompt(this);
-    connect(m_prompt, &QDialog::accepted,
+    auto pDialog = CPromptFrame::racePrompt(this);
+    connect(pDialog, &QDialog::accepted,
             this, &MainWindow::studentRaced);
-    m_prompt->exec();
+    pDialog->exec();
 }
 
 void MainWindow::studentRaced() {
@@ -793,6 +832,10 @@ void Bridge::connect(MainWindow* mw, CourseWareWidget* cww) {
                      mw, &MainWindow::showPrompt);
     QObject::connect(cww, &CourseWareWidget::someBodyRaceSuccess,
                      mw, &MainWindow::raceSuccessPrompt);
+    QObject::connect(cww, &CourseWareWidget::askChangeScene,
+                     mw, &MainWindow::changeScene);
+    QObject::connect(cww, &CourseWareWidget::slideChanged,
+                     mw, &MainWindow::changeSlide);
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -802,15 +845,20 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_tbQuestion_clicked()
 {
+    if (RoleTeacher != m_userRole)
+        return;
+
     DialogBuildQuestion b(this);
     int answer = b.exec();
     int format = -1;
-    if (answer == ChoiceStatistics) {
+    if (answer == ChoiceStatistics) {       // choose statistics
         format = ChoiceStatistics;
-    } else if (answer > ChoiceBoolWall) {
+    } else if (answer > ChoiceBoolWall) {   // choose bool question
         format = QuestionBool;
-    } else if (answer > 0) {
+    } else if (answer > 0) {                // choose choice question
         format = QuestionChoice;
+    } else if (answer == ChoiceUnset) {     // choose exit
+        return;
     }
 
     if (-1 == format) {
@@ -818,13 +866,6 @@ void MainWindow::on_tbQuestion_clicked()
     } else if (format == ChoiceStatistics) {             // build statistics
         ScoreTable st = questionModule.getScoreTable();
         int total = questionModule.totalQuestion();
-        ////////////////  TEST  ////////////////
-        vector<WORD> ff;
-        ff.push_back(16);
-        ff.push_back(3);
-        total = 20;
-        st.insert(make_pair(1248, ff));
-        ////////////////  TEST  ////////////////
         DialogBuildStatistics b(this);
         b.setTotalNumberAndScoreTable(total, st);
         b.exec();
@@ -835,4 +876,10 @@ void MainWindow::on_tbQuestion_clicked()
         ProcessMessage(*reinterpret_cast<ts_msg*> (&qmsg), 0, 0, false);
         questionModule.process(qmsg);
     }
+}
+
+#include <qscrollbar.h>
+void MainWindow::show() {
+    QMainWindow::show();
+    ui->graphicsView->horizontalScrollBar()->setValue(0);
 }

@@ -131,7 +131,7 @@ void TotalProcess::buildNetwork() {
 void loadCourse(LoginDialog* ld, CClientNet* cn) {
     int progress = 0;
     while (progress < 995 && isProgramRunning) {
-        qDebug() << progress;
+        qDebug() << "progress is " << progress;
         emit ld->progressChanged(progress);
         // ld->setLoadProgress(progress);
         progress = cn->loadProgress();
@@ -189,7 +189,7 @@ void TotalProcess::reviewClass(QString className) {
 	bl->setReviewMode();
     ui->addDownReceiver(bl);
 
-    ui->setRole(RoleRepeat);
+    ui->setRole(RoleReplay);
     ui->show();
 
     // iop_thread_create(&pthread_input, MsgInProc, (void *) this, 0);

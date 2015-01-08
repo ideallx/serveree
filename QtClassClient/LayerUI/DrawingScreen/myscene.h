@@ -17,6 +17,11 @@
 class CShape;
 class DataSingleton;
 
+
+QRect screenSize();
+QRect widgetAvaiableSize();
+
+
 enum MoveType {
     MovePending,
     MoveScreen,
@@ -57,11 +62,15 @@ public:
 
     void setBackground(QPixmap pix);
 
+    TS_UINT64 id() { return sceneID; }
+
     inline void setWriteable(bool set) { isWriteable = set; }
 
     void playMedia(QMediaPlayer* player);
 
     inline void setView(QGraphicsView* view) { m_view = view; }
+
+    void cleanFirstPage();
 
 public slots:
 
@@ -84,6 +93,9 @@ public slots:
     void setEraser(bool set) { isEraser = set; }
 
     void moveScreen(QPoint p);
+
+signals:
+    void changeSide(bool isCoursewareSlide);
 
 
 private:

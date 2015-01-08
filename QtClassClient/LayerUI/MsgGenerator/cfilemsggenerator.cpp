@@ -74,3 +74,11 @@ bool CFileMsgGenerator::generateFileData(TS_FILE_PACKET& fmsg) {
         return false;
     }
 }
+
+int CFileMsgGenerator::getProgress() {
+    return m_fc.progress * 100 / m_fc.fileLen;
+}
+
+QString CFileMsgGenerator::filename() {
+    return QString::fromLocal8Bit(reinterpret_cast<char*> (m_fc.filename));
+}

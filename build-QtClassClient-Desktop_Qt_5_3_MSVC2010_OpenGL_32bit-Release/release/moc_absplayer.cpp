@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_AbsPlayer_t {
-    QByteArrayData data[8];
-    char stringdata[81];
+    QByteArrayData data[10];
+    char stringdata[104];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,11 +36,13 @@ QT_MOC_LITERAL(3, 21, 17),
 QT_MOC_LITERAL(4, 39, 9),
 QT_MOC_LITERAL(5, 49, 13),
 QT_MOC_LITERAL(6, 63, 10),
-QT_MOC_LITERAL(7, 74, 6)
+QT_MOC_LITERAL(7, 74, 6),
+QT_MOC_LITERAL(8, 81, 12),
+QT_MOC_LITERAL(9, 94, 9)
     },
     "AbsPlayer\0playerEnd\0\0backgroundChanged\0"
     "playMedia\0QMediaPlayer*\0promptSent\0"
-    "prompt"
+    "prompt\0slideChanged\0slideInfo"
 };
 #undef QT_MOC_LITERAL
 
@@ -50,24 +52,26 @@ static const uint qt_meta_data_AbsPlayer[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       4,       // signalCount
+       5,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   34,    2, 0x06 /* Public */,
-       3,    1,   35,    2, 0x06 /* Public */,
-       4,    1,   38,    2, 0x06 /* Public */,
-       6,    1,   41,    2, 0x06 /* Public */,
+       1,    0,   39,    2, 0x06 /* Public */,
+       3,    1,   40,    2, 0x06 /* Public */,
+       4,    1,   43,    2, 0x06 /* Public */,
+       6,    1,   46,    2, 0x06 /* Public */,
+       8,    1,   49,    2, 0x06 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
     QMetaType::Void, QMetaType::QPixmap,    2,
     QMetaType::Void, 0x80000000 | 5,    2,
     QMetaType::Void, QMetaType::QString,    7,
+    QMetaType::Void, QMetaType::QString,    9,
 
        0        // eod
 };
@@ -81,6 +85,7 @@ void AbsPlayer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 1: _t->backgroundChanged((*reinterpret_cast< QPixmap(*)>(_a[1]))); break;
         case 2: _t->playMedia((*reinterpret_cast< QMediaPlayer*(*)>(_a[1]))); break;
         case 3: _t->promptSent((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 4: _t->slideChanged((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -121,6 +126,12 @@ void AbsPlayer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
                 *result = 3;
             }
         }
+        {
+            typedef void (AbsPlayer::*_t)(QString );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&AbsPlayer::slideChanged)) {
+                *result = 4;
+            }
+        }
     }
 }
 
@@ -149,13 +160,13 @@ int AbsPlayer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 5;
     }
     return _id;
 }
@@ -185,5 +196,12 @@ void AbsPlayer::promptSent(QString _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 3, _a);
+}
+
+// SIGNAL 4
+void AbsPlayer::slideChanged(QString _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 4, _a);
 }
 QT_END_MOC_NAMESPACE

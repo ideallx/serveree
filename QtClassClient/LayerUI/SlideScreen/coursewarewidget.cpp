@@ -17,11 +17,13 @@ CourseWareWidget::CourseWareWidget(QWidget *parent)
     , m_raceTime(0)
     , m_raceOne(NobodyUID) {
     ui->setupUi(this);
-    // ui->tbSync->setHidden(true);
+    ui->tbSync->setHidden(true);
 
     m_raceTimer.setSingleShot(true);
     connect(&m_raceTimer, &QTimer::timeout,
             this, &CourseWareWidget::raceTimeOut);
+    connect(this, &CourseWareWidget::syncFileComplete,
+            this, &CourseWareWidget::syncComplete);
     m_ds = DataSingleton::getInstance();
 }
 
@@ -55,41 +57,95 @@ int CourseWareWidget::addFileToList(QString filename) {
     return ui->lsWare->count();
 }
 
+QDialog* CourseWareWidget::getDialog(QString prompt, WORD controller) {
+    QDialog *d = CPromptFrame::prompt(prompt, controller,
+                                      dynamic_cast<QWidget*> (parent()));
+    return d;
+
+}
 
 void CourseWareWidget::syncFileList() {
-    emit promptMsgSent(QString::fromLocal8Bit("点击确定开始同步所有文件"));
+    QDialog *d = getDialog(QString::fromLocal8Bit("点击确定推送所有文件"),
+                           PromptControllerConfirm | PromptControllerCancel);
+    int result = d->exec();
+    if (result = QDialog::Rejected)
+        return;
+
     for (int i = 0; i < ui->lsWare->count(); i++) {
         QString filename = ui->lsWare->item(i)->text();
-        if (m_syncedWares.contains(filename))
-            continue;
         syncFile(filename);
-        m_syncedWares.append(filename);
     }
     emit promptMsgSent(QString::fromLocal8Bit("上传完成"));
 }
 
 void CourseWareWidget::scanLocalCourseware() {
-    // qDebug() << QDir::current().entryList();
     foreach (QString filename, QDir::current().entryList()) {
         if (PlayerFactory::checkFileFormat(filename)) {
             addWareItem(filename);
+            // m_syncedWares.append(filename);     // all local file was defined as synced ones on default
         }
     }
 }
 
-void CourseWareWidget::syncFile(QString filename) {
-    if (!m_fmg.create(filename))
-        return;
+void CourseWareWidget::syncComplete(QString filename) {
+    QDialog *d = getDialog(QString::fromLocal8Bit("文件：") + filename + QString::fromLocal8Bit("推送完成"),
+                           PromptControllerConfirm | PromptControllerCancel);
+    d->exec();
+}
 
+void syncThread(CourseWareWidget* cww, Prompt* p) {
     ts_msg msg;
     TS_FILE_PACKET* fmsg = (TS_FILE_PACKET*) &msg;
+    int count = 0;
     while (true) {
-        bool finish = m_fmg.generateFileData(*fmsg);
-        m_parent->ProcessMessage(msg, 0, 0, false);
-        iop_usleep(1);
-        if (finish)
+        bool finish = cww->m_fmg.generateFileData(*fmsg);
+        cww->m_parent->ProcessMessage(msg, 0, 0, false);
+        if (p != NULL) {
+            p->setProgress(cww->m_fmg.getProgress());
+        } else {
+            qDebug() << "p is null";
+            return;
+        }
+
+        count++;
+        if (count % 10 == 0)
+            iop_usleep(10);
+
+        if (finish) {
+            iop_usleep(1000);        // resting~
+            emit cww->syncFileComplete(cww->m_fmg.filename());
+            return;
+        }
+    }
+
+}
+
+void CourseWareWidget::syncFile(QString filename, bool hasPrompt) {
+    if (!m_fmg.create(filename))                // begin build file segment
+        return;
+    if (m_syncedWares.contains(filename))       // if already synced, then passby
+        return;
+
+    m_syncedWares.append(filename);
+
+    if (hasPrompt) {
+        QDialog * d = getDialog(QString::fromLocal8Bit("点击确定推送文件：") + filename,
+                               PromptControllerConfirm | PromptControllerCancel);
+        int result = d->exec();
+        if (result == QDialog::Rejected)
             return;
     }
+
+    QDialog *d = getDialog(QString::fromLocal8Bit("正在推送") + filename,
+                           PromptControllerProgressBar);
+    d->show();
+    if (threadSync.isRunning()) {
+        emit promptMsgSent(QString::fromLocal8Bit("请等待上一个文件推送完毕"));
+    }
+    connect(&threadSync, SIGNAL(finished()),
+            this, SLOT(syncComplete()));
+    threadSync.setFuture(QtConcurrent::run(syncThread, this,
+                                           dynamic_cast<Prompt*> (d)));
 }
 
 bool CourseWareWidget::playTest(QString filename) const {
@@ -146,8 +202,10 @@ int CourseWareWidget::start(QString filename, bool isRemote) {
                 this, &CourseWareWidget::changeMedia);
         connect(m_player, &AbsPlayer::promptSent,
                 this, &CourseWareWidget::promptMsgSent);
+        connect(m_player, &AbsPlayer::slideChanged,
+                this, &CourseWareWidget::slideChanged);
 
-        emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass | CleanScreen);
+        emit clearScreen(CoursewareUID, CleanShowWare | CleanHideClass | CleanCourse);
     }
 
     if (!isRemote) {
@@ -156,7 +214,7 @@ int CourseWareWidget::start(QString filename, bool isRemote) {
         m_parent->ProcessMessage(*(ts_msg*) &pmsg, 0, 0, false);
     }
 
-
+    emit askChangeScene(CoursewareUID);
     if (!m_player || !m_player->run()) {
         return FailedPlay;
     }
@@ -166,6 +224,7 @@ int CourseWareWidget::start(QString filename, bool isRemote) {
         emit paintModeChanged(PaintPPT);
     else
         emit paintModeChanged(PaintNormal);
+    emit changeSide(true);
 
     return Success;
 }
@@ -195,7 +254,7 @@ bool CourseWareWidget::stop(bool isRemote) {
 		m_player->close();
 		setHidden(true);
 		emit paintModeChanged(PaintNormal);
-		emit clearScreen(TeacherUID, CleanHideClass | CleanHideWare | CleanScreen);
+        emit changeSide(true);
 		return true;
 	} else {
 		return false;
@@ -229,7 +288,8 @@ bool CourseWareWidget::prev(bool isRemote) {
             }
         }
     }
-    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
+    emit clearScreen(CoursewareUID, CleanShowWare | CleanHideClass | CleanCourse);
+    emit changeSide(true);
     if (isRemote)
         return true;
 
@@ -270,7 +330,8 @@ bool CourseWareWidget::next(bool isRemote) {
             }
         }
     }
-    emit clearScreen(TeacherUID, CleanShowWare | CleanHideClass);
+    emit clearScreen(CoursewareUID, CleanShowWare | CleanHideClass | CleanCourse);
+    emit changeSide(true);
     if (isRemote)
         return true;
 
@@ -326,6 +387,7 @@ void CourseWareWidget::on_tbSync_clicked()
 void CourseWareWidget::on_lsWare_itemDoubleClicked(QListWidgetItem *item) {
     if (m_userRole != RoleTeacher)
         return;
+    syncFile(item->text(), true);
     playFileByUser(item->text());
 }
 
@@ -334,14 +396,15 @@ void CourseWareWidget::on_tbExitWare_clicked()
     if (m_userRole != RoleTeacher)
         return;
 
-    if (m_isPlayerPlaying) {
-        stop(false);
-    }
+    //if (m_isPlayerPlaying) {
+    //    stop(false);
+    //}
+    //ui->tbStart->setIcon(QIcon(":/icon/ui/icon/run.png"));
 
     setHidden(true);
-    ui->tbStart->setIcon(QIcon(":/icon/ui/icon/run.png"));
     emit paintModeChanged(PaintNormal);
-    emit clearScreen(TeacherUID, CleanHideClass | CleanHideWare);
+    emit clearScreen(CoursewareUID, CleanHideClass | CleanHideWare);
+    emit changeSide(true);
     return;
 }
 
@@ -380,7 +443,7 @@ void CourseWareWidget::on_tbStart_clicked()
 void CourseWareWidget::playFileByUser(QString filename) {
     if (m_isPlayerPlaying && !m_player && getFileName(m_player->filePath()) == filename)
 		return;
-    //qDebug() << getFileName(m_player->filePath()) << filename << m_isPlayerPlaying;
+    //qDebug() << "play file" << getFileName(m_player->filePath()) << filename << m_isPlayerPlaying;
 
     if (!playTest(filename)) {
         emit promptSent(FailedPlay);
@@ -406,7 +469,7 @@ bool CourseWareWidget::playerStop() {
 
 
 void CourseWareWidget::playmodeEnd() {
-    // TODO client not end
+    qDebug() << "play end";
     stop(true);
 }
 
@@ -425,7 +488,7 @@ void CourseWareWidget::deleteFile(QString filename) {
     ui->lsWare->removeItemWidget(list[0]);
     delete list[0];
 
-    qDebug() << filename;
+    qDebug() << "delete file" << filename;
     QFile::remove(filename);
     ui->lbWareCount->setText(QString::number(ui->lsWare->count()));
 }
@@ -492,6 +555,7 @@ void CourseWareWidget::sendRace() {
 
 
 void CourseWareWidget::raceBegin(TS_UINT64 teacherUID) {
+    teacherUID = 0;     // used
     if (m_userRole != RoleStudent)
         return;
 
@@ -503,7 +567,7 @@ void CourseWareWidget::recvRace(TS_UINT64 studentUID, TS_UINT64 time) {
         m_raceOne = studentUID;
         raceTimeOut();
     }
-    qDebug() << studentUID << m_raceTime << time;
+    qDebug() << "race recv" << studentUID << m_raceTime << time;
 }
 
 void CourseWareWidget::setRole(enum RoleOfClass role) {

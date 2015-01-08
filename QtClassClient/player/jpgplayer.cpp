@@ -25,6 +25,7 @@ bool JpgPlayer::isPostfixRight(QString filename) {
 }
 
 bool JpgPlayer::procRun() {
+    emit slideChanged(getFileName(m_filepath));
     emit backgroundChanged(pixmapCut(*m_background));
     return true;
 }
@@ -34,16 +35,16 @@ bool JpgPlayer::procNext() {
 }
 
 bool JpgPlayer::procPrev() {
-
     return true;
 }
 
 bool JpgPlayer::procClose() {
-
+    emit backgroundChanged(QPixmap());
     return true;
 }
 
 bool JpgPlayer::procStop() {
+    emit backgroundChanged(QPixmap());
     delete m_background;
     return true;
 }

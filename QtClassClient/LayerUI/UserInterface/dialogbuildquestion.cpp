@@ -58,3 +58,8 @@ void DialogBuildQuestion::on_pbAccount_clicked()
 {
     return done(ChoiceStatistics);
 }
+
+void DialogBuildQuestion::on_tbDialogExit_clicked()
+{
+    return done(ChoiceUnset);
+}

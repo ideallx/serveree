@@ -48,6 +48,12 @@ QScrollBar::vertical {
 
 QScrollBar:handle:vertical {
 
+}
+
+QToolButton#tbDialogExit {
+	color: rgb(0, 157, 65);
+	font: 11pt &quot;微软雅黑&quot;;
+	background-color: white;
 }</string>
   </property>
   <widget class="QListWidget" name="lwScores">
@@ -58,19 +64,6 @@ QScrollBar:handle:vertical {
      <width>691</width>
      <height>421</height>
     </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>50</y>
-     <width>75</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>exit</string>
    </property>
   </widget>
   <widget class="QWidget" name="layoutWidget">
@@ -179,6 +172,22 @@ QScrollBar:handle:vertical {
    </property>
    <property name="text">
     <string>共0题</string>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="tbDialogExit">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>40</y>
+     <width>51</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>关闭</string>
+   </property>
+   <property name="autoRaise">
+    <bool>true</bool>
    </property>
   </widget>
  </widget>

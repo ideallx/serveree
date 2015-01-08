@@ -2,8 +2,6 @@
 
 #include "../Reliable/DataUnit/CMessage.h"
 #include "CBaseLogic.h"
-#include "../Message/CMsgObject.h"
-#include "../Net/CClientNet.h"
 #include "../Reliable/DataUnit/UserBase.h"
 #include "datasingleton.h"
 

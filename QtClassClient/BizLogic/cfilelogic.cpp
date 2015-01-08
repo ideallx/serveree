@@ -1,5 +1,5 @@
 #include "cfilelogic.h"
-#include "../LayerUI/mainwindow.h"
+#include <QDebug>
 
 CFileLogic::CFileLogic(CMsgObject* parent):
     CBaseLogic(parent),

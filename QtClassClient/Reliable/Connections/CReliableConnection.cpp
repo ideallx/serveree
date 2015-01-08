@@ -337,6 +337,9 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 	r->missingType = MISS_SINGLE;		// 掉单一的包
 	int total = pids.size();			// 总共需要发的条数
 
+    const int MaxRequestPackets = 10;   // 最多10个包，即500条重发请求
+    int requestPackets = 0;
+
 	while (total > 0) {
 		if (total < MaxSeqsInOnePacket)	// 每条报文最多50个请求
 			r->count = total;
@@ -354,7 +357,9 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 		} else {						// client端问客户端要
 			result += (send2Peer(*(ts_msg*) r, ServerUID) > 0);
 		}
-		break;							// 每个用户只发50个请求，多了就不发
+        requestPackets++;
+        if (requestPackets == MaxRequestPackets)
+		    break;						// 每个用户只发500个请求，多了就不发
 	}
 
 	delete r;
@@ -372,7 +377,7 @@ void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
         --requestCount;
         return;
     } else {
-        requestCount = 4;               // 4 * scan interval
+        requestCount = 2;               // 4 * scan interval
     }
 
     for (int i = 0; i < down->count; i++) {

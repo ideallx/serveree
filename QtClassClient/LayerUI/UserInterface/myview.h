@@ -11,6 +11,16 @@
 #include "../../Reliable/DataUnit/CMessage.h"
 #include "../MsgGenerator/cplayergenerator.h"
 
+
+class CourseSceneInfo {
+public:
+    int                 backgroundMode;
+    int                 newSlideNo;        // for 1 to N
+    QMap<QString, int>  allSlides;
+    bool                isCoursewareSide;
+};
+
+
 class MyView : public QGraphicsView
 {
     Q_OBJECT
@@ -23,13 +33,22 @@ public:
 
     void moveScreen(QPoint p);
 
-    void buildPlayer();     // build media player button
+    // if courseware scene: use csi.backgroundMode
+    // else normalMode;
+    void initViewBySceneID(TS_UINT64 sceneid);
 
     QTimer panTimer;        // gesture -> move
     QTimer zoomTimer;
     bool isLeftClicked;
 
+    // set slide name means you have a new slide, but you dont really summon a new board so 
+    // when you really summon a board, i'll create or use a former one by setSlide
+    void setNewSlideName(QString slideInfo);
+
+    void moveToSlide(bool isLeftSlide);
+
 public slots:
+    // set the lastPaintMode addtional to rawSetPaintMode
     void setPaintMode(int in);
 
 signals:
@@ -39,8 +58,13 @@ signals:
 private:
     void hideButtons(bool hide = true);
 
+    // only set the paint mode
+    void rawSetPaintMode(int mode);
+
 private:
+    QString newSlideName;
     enum PaintMode pm;
+    CourseSceneInfo csi;
 };
 
 #endif // MYVIEW_H

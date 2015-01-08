@@ -4,11 +4,13 @@
 #include <QWidget>
 #include <QTimer>
 #include <QListWidgetItem>
+#include <QtConcurrent>
 #include "../../Message/CMsgObject.h"
 #include "../../player/absplayer.h"
 #include "../MsgGenerator/cfilemsggenerator.h"
 #include "../MsgGenerator/cplayergenerator.h"
 #include "../MsgGenerator/cracegenerator.h"
+#include "cpromptframe.h"
 
 class DataSingleton;
 
@@ -72,11 +74,18 @@ signals:
     void racePromptSent();
     void changeUserAuth(TS_UINT64 uid, bool set);
     void someBodyRaceSuccess(TS_UINT64 uid);
+    void askChangeScene(TS_UINT64 sceneid);
+    void slideChanged(QString slideInfo);
+    void changeSide(bool isCoursewareSlide);
+    void syncFileComplete(QString filename);
 
 private:
     void scanLocalCourseware();
-    void syncFile(QString filename);
+    void syncFile(QString filename, bool hasPrompt = false);
     void playFileByUser(QString filename);
+
+    QDialog* getDialog(QString prompt, WORD controller);
+
 
 private slots:
     void on_tbStart_clicked();
@@ -91,6 +100,7 @@ private slots:
     void on_tbRace_clicked();
 
     void raceTimeOut();
+    void syncComplete(QString filename);
 
 private:
     CMsgObject*             m_parent;
@@ -106,6 +116,9 @@ private:
     TS_UINT64               m_raceTime;
     TS_UINT64               m_raceOne;
     DataSingleton           *m_ds;
+    QFutureWatcher<void>    threadSync;
+
+friend void syncThread(CourseWareWidget* cww, Prompt* p);
 };
 
 #endif // COURSEWAREWIDGET_H

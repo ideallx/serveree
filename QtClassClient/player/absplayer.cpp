@@ -5,9 +5,9 @@
 
 
 QString getFileName(QString filepath) {
-    qDebug() << filepath;
+    //qDebug() << filepath;
     if (filepath.contains('\\')) {
-        qDebug() << filepath.split('\\').last();
+        //qDebug() << filepath.split('\\').last();
         return filepath.split('\\').last();
     } else
         return filepath.split('/').last();

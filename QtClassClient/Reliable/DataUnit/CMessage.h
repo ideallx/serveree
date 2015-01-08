@@ -59,6 +59,7 @@ enum CleanType {
     CleanShowClass =    4,
     CleanHideClass =    8,
     CleanScreen =       16,
+    CleanCourse =       32,
 };
 
 enum MissingType {
@@ -104,7 +105,7 @@ enum MsgResult {
 enum RoleOfClass {
     RoleTeacher,
     RoleStudent,
-    RoleRepeat,
+    RoleReplay,
 };
 
 enum RaceType {
@@ -119,6 +120,7 @@ enum ReservedUID_t {
     SelfUID,			// 自身
     TeacherUID,
     NobodyUID,          // 没有人
+    CoursewareUID,
 
     ReservedUID = 50	// 50之前的UID全部保留
 };

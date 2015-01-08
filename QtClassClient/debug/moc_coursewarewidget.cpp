@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_CourseWareWidget_t {
-    QByteArrayData data[36];
-    char stringdata[474];
+    QByteArrayData data[45];
+    char stringdata[588];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -51,20 +51,29 @@ QT_MOC_LITERAL(18, 190, 14),
 QT_MOC_LITERAL(19, 205, 3),
 QT_MOC_LITERAL(20, 209, 3),
 QT_MOC_LITERAL(21, 213, 19),
-QT_MOC_LITERAL(22, 233, 18),
-QT_MOC_LITERAL(23, 252, 17),
-QT_MOC_LITERAL(24, 270, 17),
-QT_MOC_LITERAL(25, 288, 19),
-QT_MOC_LITERAL(26, 308, 17),
-QT_MOC_LITERAL(27, 326, 28),
-QT_MOC_LITERAL(28, 355, 16),
-QT_MOC_LITERAL(29, 372, 7),
-QT_MOC_LITERAL(30, 380, 8),
-QT_MOC_LITERAL(31, 389, 21),
-QT_MOC_LITERAL(32, 411, 27),
-QT_MOC_LITERAL(33, 439, 4),
-QT_MOC_LITERAL(34, 444, 17),
-QT_MOC_LITERAL(35, 462, 11)
+QT_MOC_LITERAL(22, 233, 14),
+QT_MOC_LITERAL(23, 248, 7),
+QT_MOC_LITERAL(24, 256, 12),
+QT_MOC_LITERAL(25, 269, 9),
+QT_MOC_LITERAL(26, 279, 10),
+QT_MOC_LITERAL(27, 290, 17),
+QT_MOC_LITERAL(28, 308, 16),
+QT_MOC_LITERAL(29, 325, 8),
+QT_MOC_LITERAL(30, 334, 18),
+QT_MOC_LITERAL(31, 353, 17),
+QT_MOC_LITERAL(32, 371, 17),
+QT_MOC_LITERAL(33, 389, 19),
+QT_MOC_LITERAL(34, 409, 17),
+QT_MOC_LITERAL(35, 427, 28),
+QT_MOC_LITERAL(36, 456, 16),
+QT_MOC_LITERAL(37, 473, 7),
+QT_MOC_LITERAL(38, 481, 8),
+QT_MOC_LITERAL(39, 490, 21),
+QT_MOC_LITERAL(40, 512, 27),
+QT_MOC_LITERAL(41, 540, 4),
+QT_MOC_LITERAL(42, 545, 17),
+QT_MOC_LITERAL(43, 563, 11),
+QT_MOC_LITERAL(44, 575, 12)
     },
     "CourseWareWidget\0clearScreen\0\0TS_UINT64\0"
     "sceneID\0cleanOption\0paintModeChanged\0"
@@ -72,12 +81,16 @@ QT_MOC_LITERAL(35, 462, 11)
     "prompt\0changeBackground\0pic\0changeMedia\0"
     "QMediaPlayer*\0player\0racePromptSent\0"
     "changeUserAuth\0uid\0set\0someBodyRaceSuccess\0"
-    "on_tbStart_clicked\0on_tbPrev_clicked\0"
-    "on_tbNext_clicked\0on_tbUpload_clicked\0"
-    "on_tbSync_clicked\0on_lsWare_currentItemChanged\0"
+    "askChangeScene\0sceneid\0slideChanged\0"
+    "slideInfo\0changeSide\0isCoursewareSlide\0"
+    "syncFileComplete\0filename\0on_tbStart_clicked\0"
+    "on_tbPrev_clicked\0on_tbNext_clicked\0"
+    "on_tbUpload_clicked\0on_tbSync_clicked\0"
+    "on_lsWare_currentItemChanged\0"
     "QListWidgetItem*\0current\0previous\0"
     "on_tbExitWare_clicked\0on_lsWare_itemDoubleClicked\0"
-    "item\0on_tbRace_clicked\0raceTimeOut"
+    "item\0on_tbRace_clicked\0raceTimeOut\0"
+    "syncComplete"
 };
 #undef QT_MOC_LITERAL
 
@@ -87,35 +100,40 @@ static const uint qt_meta_data_CourseWareWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      19,   14, // methods
+      24,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       9,       // signalCount
+      13,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,  109,    2, 0x06 /* Public */,
-       6,    1,  114,    2, 0x06 /* Public */,
-       8,    1,  117,    2, 0x06 /* Public */,
-      10,    1,  120,    2, 0x06 /* Public */,
-      12,    1,  123,    2, 0x06 /* Public */,
-      14,    1,  126,    2, 0x06 /* Public */,
-      17,    0,  129,    2, 0x06 /* Public */,
-      18,    2,  130,    2, 0x06 /* Public */,
-      21,    1,  135,    2, 0x06 /* Public */,
+       1,    2,  134,    2, 0x06 /* Public */,
+       6,    1,  139,    2, 0x06 /* Public */,
+       8,    1,  142,    2, 0x06 /* Public */,
+      10,    1,  145,    2, 0x06 /* Public */,
+      12,    1,  148,    2, 0x06 /* Public */,
+      14,    1,  151,    2, 0x06 /* Public */,
+      17,    0,  154,    2, 0x06 /* Public */,
+      18,    2,  155,    2, 0x06 /* Public */,
+      21,    1,  160,    2, 0x06 /* Public */,
+      22,    1,  163,    2, 0x06 /* Public */,
+      24,    1,  166,    2, 0x06 /* Public */,
+      26,    1,  169,    2, 0x06 /* Public */,
+      28,    1,  172,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      22,    0,  138,    2, 0x08 /* Private */,
-      23,    0,  139,    2, 0x08 /* Private */,
-      24,    0,  140,    2, 0x08 /* Private */,
-      25,    0,  141,    2, 0x08 /* Private */,
-      26,    0,  142,    2, 0x08 /* Private */,
-      27,    2,  143,    2, 0x08 /* Private */,
-      31,    0,  148,    2, 0x08 /* Private */,
-      32,    1,  149,    2, 0x08 /* Private */,
-      34,    0,  152,    2, 0x08 /* Private */,
-      35,    0,  153,    2, 0x08 /* Private */,
+      30,    0,  175,    2, 0x08 /* Private */,
+      31,    0,  176,    2, 0x08 /* Private */,
+      32,    0,  177,    2, 0x08 /* Private */,
+      33,    0,  178,    2, 0x08 /* Private */,
+      34,    0,  179,    2, 0x08 /* Private */,
+      35,    2,  180,    2, 0x08 /* Private */,
+      39,    0,  185,    2, 0x08 /* Private */,
+      40,    1,  186,    2, 0x08 /* Private */,
+      42,    0,  189,    2, 0x08 /* Private */,
+      43,    0,  190,    2, 0x08 /* Private */,
+      44,    1,  191,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3, QMetaType::Int,    4,    5,
@@ -127,6 +145,10 @@ static const uint qt_meta_data_CourseWareWidget[] = {
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 3, QMetaType::Bool,   19,   20,
     QMetaType::Void, 0x80000000 | 3,   19,
+    QMetaType::Void, 0x80000000 | 3,   23,
+    QMetaType::Void, QMetaType::QString,   25,
+    QMetaType::Void, QMetaType::Bool,   27,
+    QMetaType::Void, QMetaType::QString,   29,
 
  // slots: parameters
     QMetaType::Void,
@@ -134,11 +156,12 @@ static const uint qt_meta_data_CourseWareWidget[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 28, 0x80000000 | 28,   29,   30,
+    QMetaType::Void, 0x80000000 | 36, 0x80000000 | 36,   37,   38,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 28,   33,
+    QMetaType::Void, 0x80000000 | 36,   41,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,   29,
 
        0        // eod
 };
@@ -157,16 +180,21 @@ void CourseWareWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         case 6: _t->racePromptSent(); break;
         case 7: _t->changeUserAuth((*reinterpret_cast< TS_UINT64(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
         case 8: _t->someBodyRaceSuccess((*reinterpret_cast< TS_UINT64(*)>(_a[1]))); break;
-        case 9: _t->on_tbStart_clicked(); break;
-        case 10: _t->on_tbPrev_clicked(); break;
-        case 11: _t->on_tbNext_clicked(); break;
-        case 12: _t->on_tbUpload_clicked(); break;
-        case 13: _t->on_tbSync_clicked(); break;
-        case 14: _t->on_lsWare_currentItemChanged((*reinterpret_cast< QListWidgetItem*(*)>(_a[1])),(*reinterpret_cast< QListWidgetItem*(*)>(_a[2]))); break;
-        case 15: _t->on_tbExitWare_clicked(); break;
-        case 16: _t->on_lsWare_itemDoubleClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 17: _t->on_tbRace_clicked(); break;
-        case 18: _t->raceTimeOut(); break;
+        case 9: _t->askChangeScene((*reinterpret_cast< TS_UINT64(*)>(_a[1]))); break;
+        case 10: _t->slideChanged((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 11: _t->changeSide((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 12: _t->syncFileComplete((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 13: _t->on_tbStart_clicked(); break;
+        case 14: _t->on_tbPrev_clicked(); break;
+        case 15: _t->on_tbNext_clicked(); break;
+        case 16: _t->on_tbUpload_clicked(); break;
+        case 17: _t->on_tbSync_clicked(); break;
+        case 18: _t->on_lsWare_currentItemChanged((*reinterpret_cast< QListWidgetItem*(*)>(_a[1])),(*reinterpret_cast< QListWidgetItem*(*)>(_a[2]))); break;
+        case 19: _t->on_tbExitWare_clicked(); break;
+        case 20: _t->on_lsWare_itemDoubleClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 21: _t->on_tbRace_clicked(); break;
+        case 22: _t->raceTimeOut(); break;
+        case 23: _t->syncComplete((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -237,6 +265,30 @@ void CourseWareWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
                 *result = 8;
             }
         }
+        {
+            typedef void (CourseWareWidget::*_t)(TS_UINT64 );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CourseWareWidget::askChangeScene)) {
+                *result = 9;
+            }
+        }
+        {
+            typedef void (CourseWareWidget::*_t)(QString );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CourseWareWidget::slideChanged)) {
+                *result = 10;
+            }
+        }
+        {
+            typedef void (CourseWareWidget::*_t)(bool );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CourseWareWidget::changeSide)) {
+                *result = 11;
+            }
+        }
+        {
+            typedef void (CourseWareWidget::*_t)(QString );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CourseWareWidget::syncFileComplete)) {
+                *result = 12;
+            }
+        }
     }
 }
 
@@ -265,13 +317,13 @@ int CourseWareWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 19)
+        if (_id < 24)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 19;
+        _id -= 24;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 19)
+        if (_id < 24)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 19;
+        _id -= 24;
     }
     return _id;
 }
@@ -336,5 +388,33 @@ void CourseWareWidget::someBodyRaceSuccess(TS_UINT64 _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 8, _a);
+}
+
+// SIGNAL 9
+void CourseWareWidget::askChangeScene(TS_UINT64 _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 9, _a);
+}
+
+// SIGNAL 10
+void CourseWareWidget::slideChanged(QString _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 10, _a);
+}
+
+// SIGNAL 11
+void CourseWareWidget::changeSide(bool _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 11, _a);
+}
+
+// SIGNAL 12
+void CourseWareWidget::syncFileComplete(QString _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 12, _a);
 }
 QT_END_MOC_NAMESPACE

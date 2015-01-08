@@ -1,6 +1,5 @@
 #include <QDebug>
 #include "CGraphicLogic.h"
-#include "../LayerUI/mainwindow.h"
 #include "../Net/CClientNet.h"
 
 

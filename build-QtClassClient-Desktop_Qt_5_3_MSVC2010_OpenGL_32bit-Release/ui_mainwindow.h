@@ -18,7 +18,6 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
@@ -42,9 +41,8 @@ public:
     QGroupBox *gbCommandbar;
     QHBoxLayout *horizontalLayout;
     QLabel *lbLogo;
-    QPushButton *pushButton;
-    QToolButton *tbCourseWare;
     QToolButton *tbQuestion;
+    QToolButton *tbCourseWare;
     QToolButton *tbTeacherBoard;
     QToolButton *tbMyBoard;
     QToolButton *tbMyClass;
@@ -121,46 +119,41 @@ public:
 
         horizontalLayout->addWidget(lbLogo);
 
-        pushButton = new QPushButton(gbCommandbar);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-
-        horizontalLayout->addWidget(pushButton);
-
-        tbCourseWare = new QToolButton(gbCommandbar);
-        tbCourseWare->setObjectName(QStringLiteral("tbCourseWare"));
+        tbQuestion = new QToolButton(gbCommandbar);
+        tbQuestion->setObjectName(QStringLiteral("tbQuestion"));
         QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(tbQuestion->sizePolicy().hasHeightForWidth());
+        tbQuestion->setSizePolicy(sizePolicy2);
+        tbQuestion->setMinimumSize(QSize(75, 75));
+        tbQuestion->setMaximumSize(QSize(120, 16777215));
+        tbQuestion->setStyleSheet(QStringLiteral(""));
+        QIcon icon1;
+        icon1.addFile(QStringLiteral(":/icon/ui/icon/question.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbQuestion->setIcon(icon1);
+        tbQuestion->setIconSize(QSize(32, 32));
+        tbQuestion->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        tbQuestion->setAutoRaise(true);
+
+        horizontalLayout->addWidget(tbQuestion);
+
+        tbCourseWare = new QToolButton(gbCommandbar);
+        tbCourseWare->setObjectName(QStringLiteral("tbCourseWare"));
         sizePolicy2.setHeightForWidth(tbCourseWare->sizePolicy().hasHeightForWidth());
         tbCourseWare->setSizePolicy(sizePolicy2);
         tbCourseWare->setMinimumSize(QSize(75, 75));
         tbCourseWare->setMaximumSize(QSize(120, 16777215));
         tbCourseWare->setStyleSheet(QStringLiteral(""));
-        QIcon icon1;
-        icon1.addFile(QStringLiteral(":/icon/ui/icon/courseware.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbCourseWare->setIcon(icon1);
+        QIcon icon2;
+        icon2.addFile(QStringLiteral(":/icon/ui/icon/courseware.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbCourseWare->setIcon(icon2);
         tbCourseWare->setIconSize(QSize(32, 32));
         tbCourseWare->setCheckable(true);
         tbCourseWare->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         tbCourseWare->setAutoRaise(true);
 
         horizontalLayout->addWidget(tbCourseWare);
-
-        tbQuestion = new QToolButton(gbCommandbar);
-        tbQuestion->setObjectName(QStringLiteral("tbQuestion"));
-        sizePolicy2.setHeightForWidth(tbQuestion->sizePolicy().hasHeightForWidth());
-        tbQuestion->setSizePolicy(sizePolicy2);
-        tbQuestion->setMinimumSize(QSize(75, 75));
-        tbQuestion->setMaximumSize(QSize(120, 16777215));
-        tbQuestion->setStyleSheet(QStringLiteral(""));
-        QIcon icon2;
-        icon2.addFile(QStringLiteral(":/icon/ui/icon/question.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbQuestion->setIcon(icon2);
-        tbQuestion->setIconSize(QSize(32, 32));
-        tbQuestion->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-        tbQuestion->setAutoRaise(true);
-
-        horizontalLayout->addWidget(tbQuestion);
 
         tbTeacherBoard = new QToolButton(gbCommandbar);
         tbTeacherBoard->setObjectName(QStringLiteral("tbTeacherBoard"));
@@ -426,9 +419,8 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "\344\272\222\345\212\250\350\257\276\345\240\202", 0));
         gbCommandbar->setTitle(QString());
         lbLogo->setText(QString());
-        pushButton->setText(QApplication::translate("MainWindow", "test", 0));
-        tbCourseWare->setText(QApplication::translate("MainWindow", "\346\225\231\345\270\210\350\257\276\344\273\266", 0));
         tbQuestion->setText(QApplication::translate("MainWindow", "\350\257\276\345\240\202\347\255\224\351\242\230", 0));
+        tbCourseWare->setText(QApplication::translate("MainWindow", "\346\225\231\345\270\210\350\257\276\344\273\266", 0));
         tbTeacherBoard->setText(QApplication::translate("MainWindow", "\346\225\231\345\270\210\347\231\275\346\235\277", 0));
         tbMyBoard->setText(QApplication::translate("MainWindow", "\346\210\221\347\232\204\347\231\275\346\235\277", 0));
         tbMyClass->setText(QApplication::translate("MainWindow", "\346\210\221\347\232\204\347\217\255\347\272\247", 0));

@@ -20,11 +20,15 @@ public:
 
     virtual ~PPTPlayer();
 
+    void slideNumberCheck(QAxObject* view);     // if slide number was changed, emit the signal slideChanged()
+
 protected:
     QAxObject* presentation;
     QAxObject* opened;
     QAxObject* sss;
     QAxObject* window;
+
+    int lastSlideNum;
 };
 
 

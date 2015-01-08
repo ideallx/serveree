@@ -17,6 +17,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
@@ -36,7 +37,12 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer_3;
     QPushButton *pbConfirm;
+    QPushButton *pbCancel;
     QSpacerItem *horizontalSpacer_4;
+    QHBoxLayout *horizontalLayout_3;
+    QSpacerItem *horizontalSpacer_5;
+    QProgressBar *progressBar;
+    QSpacerItem *horizontalSpacer_6;
     QSpacerItem *verticalSpacer_3;
 
     void setupUi(QDialog *Prompt)
@@ -59,6 +65,10 @@ public:
 "\n"
 "QLabel {\n"
 "	color: black;\n"
+"}\n"
+"\n"
+"QPushButton#pbCancel {\n"
+"	background-color: rgb(135, 126, 112);\n"
 "}"));
         verticalLayout = new QVBoxLayout(Prompt);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -107,12 +117,40 @@ public:
 
         horizontalLayout_2->addWidget(pbConfirm);
 
+        pbCancel = new QPushButton(Prompt);
+        pbCancel->setObjectName(QStringLiteral("pbCancel"));
+        pbCancel->setMinimumSize(QSize(100, 0));
+
+        horizontalLayout_2->addWidget(pbCancel);
+
         horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_2->addItem(horizontalSpacer_4);
 
 
         verticalLayout->addLayout(horizontalLayout_2);
+
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_5);
+
+        progressBar = new QProgressBar(Prompt);
+        progressBar->setObjectName(QStringLiteral("progressBar"));
+        progressBar->setMinimumSize(QSize(200, 0));
+        progressBar->setMaximumSize(QSize(400, 16777215));
+        progressBar->setValue(24);
+        progressBar->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_3->addWidget(progressBar);
+
+        horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_6);
+
+
+        verticalLayout->addLayout(horizontalLayout_3);
 
         verticalSpacer_3 = new QSpacerItem(20, 21, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
@@ -129,6 +167,7 @@ public:
         Prompt->setWindowTitle(QApplication::translate("Prompt", "Dialog", 0));
         lbPrompt->setText(QApplication::translate("Prompt", "TextLabel", 0));
         pbConfirm->setText(QApplication::translate("Prompt", "\347\241\256  \345\256\232", 0));
+        pbCancel->setText(QApplication::translate("Prompt", "\345\217\226\346\266\210", 0));
     } // retranslateUi
 
 };

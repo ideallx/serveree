@@ -18,6 +18,7 @@ enum GRAPHICITEM_KEY_t {
     GraphicShapeID
 };
 
+const int percentage = 60000;
 
 static QRect staticSZ = QRect(0, 0, 0, 0);
 QRect screenSize() {
@@ -35,7 +36,6 @@ QRect widgetAvaiableSize() {
     return result;
 }
 
-const int percentage = 60000;
 QPointF screenToViewPercent(QPointF p, QGraphicsView* view) {
     if (NULL == view)
         return QPointF();
@@ -55,9 +55,6 @@ QPointF screenToViewPercent(QPointF p, QGraphicsView* view) {
     } else if (result.y() > percentage) {
         result.setY(percentage);
     }
-
-//    if (result.x() > sz.width()) TODO
-//        result.setX(sz.width());
 
     return result;
 }
@@ -98,7 +95,11 @@ MyScene::MyScene(DWORD sceneID, QGraphicsView* view, QObject *parent, CMsgObject
 
     panFixer.setSingleShot(true);
     QRect scr = screenSize();
-    setSceneRect(0, 0, scr.width() * 20 + 200, scr.height() + 10);
+    if (sceneID == CoursewareUID) {
+        setSceneRect(0, 0, scr.width() * 200 + 200, scr.height() + 10);
+    } else {
+        setSceneRect(0, 0, scr.width() * 20 + 200, scr.height() + 10);
+    }
     connect(&panFixer, &QTimer::timeout,
             this, &MyScene::sendMoveBegin);
 
@@ -286,13 +287,40 @@ void MyScene::actErase(TS_GRAPHIC_PACKET& graphicMsg) {
 }
 
 // negative number!!!
+// in normal screen: move screen means the canvas was moved
+// in courseware screen: move screen means change a specific canvas
 void MyScene::actMoveScreen(TS_GRAPHIC_PACKET& graphicMsg) {
     QPointF scenePos = QPointF(static_cast<int> (graphicMsg.data.PointX),
                                static_cast<int> (graphicMsg.data.PointY));
-    qDebug() << "act move:" << scenePos;
     QPointF p2 = viewToScreenPercent(scenePos, m_view);
-    MyView* mv = static_cast<MyView*> (m_view);
-    mv->moveScreen(p2.toPoint());
+
+    // calc the total offset in ten moves
+    const int TimeN = 30;
+    static int times = 0;  // 
+    static bool isCoursewareSlide = true;
+    static QPointF total = QPointF(0, 0);
+
+    if (sceneID == CoursewareUID) {
+        if (times <= TimeN) {
+            total += scenePos;
+            times++;
+        } else {
+            times = 0;
+            total = scenePos;
+        }
+        if (total.x() > 0 && total.x() > (percentage / 8)) {
+            times = 0;
+            total = QPointF(0, 0);
+            emit changeSide(false);
+        } else if (total.x() < 0 && total.x() < (-percentage / 8)) {
+            times = 0;
+            total = QPointF(0, 0);
+            emit changeSide(true);
+        }
+    } else {
+        MyView* mv = static_cast<MyView*> (m_view);
+        mv->moveScreen(p2.toPoint());
+    }
 }
 
 
@@ -329,6 +357,7 @@ void MyScene::changeShapeByUI(int shape) {
     isEraser = false;
 }
 
+// contains two types of move such as Draw and Move Screen
 void MyScene::moveScreen(QPoint p) {
     if (!isWriteable)
         return;
@@ -341,16 +370,14 @@ void MyScene::moveScreen(QPoint p) {
 
         mt = MoveScreen;
         return;
+    } else {
+        QPointF p2 = rawScreenToViewPercent(p, m_view);
+
+        TS_GRAPHIC_PACKET gmsg;
+        gmc->generateScreenMove(gmsg, p2.toPoint());
+        actMoveScreen(gmsg);
+        msgParent->ProcessMessage(*(ts_msg*)&gmsg, 0, 0, false);
     }
-    QPointF p2 = rawScreenToViewPercent(p, m_view);
-    qDebug() << "move screen" << p << p2;
-
-    TS_GRAPHIC_PACKET gmsg;
-    gmc->generateScreenMove(gmsg, p2.toPoint());
-
-    actMoveScreen(gmsg);
-
-    msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
 }
 
 void MyScene::setBackground(QPixmap pix) {
@@ -370,6 +397,7 @@ void MyScene::setBackground(QPixmap pix) {
         sceneBeginPoint.setX((size.height() - pix.height()) / 2);
 
     const QPointF p = sceneBeginPoint;
+    qDebug() << "scene position" << m_view->mapFromScene(p);
 
     m_backpixmap = addPixmap(pix);
     m_backpixmap->setPos(m_view->mapToScene(p.x(), p.y()));
@@ -390,7 +418,14 @@ void MyScene::playMedia(QMediaPlayer *player) {
     media->setVisible(true);
     addItem(media);
 
-    qDebug() << player->position();
     player->play();
     qDebug() << "media play" << player->isVideoAvailable();
+}
+
+void MyScene::cleanFirstPage() {
+    auto needToDelete = items(widgetAvaiableSize());
+    foreach(auto item, needToDelete) {
+        // if (item->zValue() < 0)
+            removeItem(item);
+    }
 }

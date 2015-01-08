@@ -9,6 +9,13 @@ class Prompt;
 }
 
 
+enum PromptController {
+    PromptControllerConfirm         = 1,
+    PromptControllerCancel          = 2,
+    PromptControllerProgressBar     = 4,
+};
+
+
 const QByteArray AllPrompts[] = {
     "成功",
     "登录成功",
@@ -36,18 +43,30 @@ class Prompt : public QDialog
     Q_OBJECT
 
 public:
-    explicit Prompt(WORD index, QWidget *parent = 0);
-    explicit Prompt(QString prompt, QWidget *parent = 0);
+    explicit Prompt(WORD index, WORD controller, QWidget *parent = 0);
+    explicit Prompt(QString prompt, WORD controller, QWidget *parent = 0);
 
     void setPrompt(int result);
     void setPrompt(QString prompt);
 
     static QString getPrompt(int index);
 
+    void setProgress(int);
+
+
     ~Prompt();
+
+signals:
+    void progressChanged(int value);
 
 private slots:
     void on_pbConfirm_clicked();
+
+    void on_pbCancel_clicked();
+
+
+private:
+    void changeLayout(WORD controller);
 
 private:
     static bool isExist;

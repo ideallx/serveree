@@ -30,6 +30,8 @@ private slots:
 
     void on_pbAccount_clicked();
 
+    void on_tbDialogExit_clicked();
+
 private:
     Ui::DialogBuildQuestion *ui;
 };

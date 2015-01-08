@@ -46,8 +46,6 @@ public:
 
     void paintEvent(QPaintEvent *e);
 
-    void syncFile(QString filename);
-
     void setWriteable(TS_UINT64 toUID, DWORD sceneID, WORD writeable);
 
     void recvClassInfo();
@@ -64,9 +62,14 @@ public:
 
 	void loadComplete();
 
+    void changeScene(TS_UINT64 sceneID);
+
+    // maybe we can find a better way to make the scrollbar at lefthand instead of at middle
+    void show();
+
 
 public slots:
-    void changeScene(TS_UINT64 uid);
+    void changeModule(TS_UINT64 uid);
 
     // connect or disconnect the signal/slot between scene and mainwindow
     void buildSceneConnection(bool isCreate);
@@ -104,6 +107,8 @@ public slots:
     // question
     void buildQuestion(WORD format, WORD corrAnswer);
     void buildQuestionStatistics(ScoreTable st);
+
+    void changeSlide(QString slideInfo);
 
 private:
     void raceBegin(TS_UINT64 teacherUID);
@@ -158,7 +163,6 @@ private:
     iop_thread_t                pthread_msg;
     TSQueue<ts_msg>             msgQueue;
 
-    QDialog*                    m_prompt;
     DataSingleton               *m_ds;
 
 	bool						isLoading;
