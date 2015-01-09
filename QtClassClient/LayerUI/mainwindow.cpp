@@ -71,7 +71,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::racePromptSent,
             this, &MainWindow::buildRaceDialog);
     connect(this, &MainWindow::wareItemRecv,
-            ui->wgtCourse, &CourseWareWidget::addWareItem);
+            ui->wgtCourse, &CourseWareWidget::recvNewItem);
 
 
     ui->gbUserlist->setHidden(true);
@@ -109,7 +109,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     blankScreen = new QProcess();
 
-#define _DEBUG_UI_
+// #define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
     setRole(RoleTeacher);
@@ -139,6 +139,8 @@ MainWindow::~MainWindow() {
 void MainWindow::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL isRemote) {
     Q_UNUSED(event);
     Q_UNUSED(lParam);
+    if (!isRunning)
+        return;
     if (!isRemote) {
         sendToDown(msg, 0, 0, false);
     } else {

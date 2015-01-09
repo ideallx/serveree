@@ -148,7 +148,7 @@ bool Queue <ElemType>::doubleSize() {
 	front = 0;
 	rear = j;
 	curSize = NewSize;
-	delete [] old;
+	delete[] old;
 	return true;
 }
 

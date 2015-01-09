@@ -63,6 +63,9 @@ public:
     void sendRace();
     void recvRace(TS_UINT64 studentUID, TS_UINT64 time);
 
+    // recvied new item shoule be added to synced file list
+    void recvNewItem(QString filename);
+
 
 signals:
     void clearScreen(TS_UINT64 sceneID, int cleanOption);
@@ -109,7 +112,7 @@ private:
     CPlayerGenerator        m_pg;
     CFileMsgGenerator       m_fmg;
     CRaceGenerator          m_rg;
-    QList<QString>          m_syncedWares;
+    QSet<QString>           m_syncedWares;
     enum RoleOfClass        m_userRole;
     Ui::CourseWareWidget    *ui;
     QTimer                  m_raceTimer;

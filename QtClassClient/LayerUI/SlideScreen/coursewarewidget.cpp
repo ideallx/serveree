@@ -96,7 +96,6 @@ void CourseWareWidget::syncComplete(QString filename) {
 void syncThread(CourseWareWidget* cww, Prompt* p) {
     ts_msg msg;
     TS_FILE_PACKET* fmsg = (TS_FILE_PACKET*) &msg;
-    int count = 0;
     while (true) {
         bool finish = cww->m_fmg.generateFileData(*fmsg);
         cww->m_parent->ProcessMessage(msg, 0, 0, false);
@@ -107,9 +106,7 @@ void syncThread(CourseWareWidget* cww, Prompt* p) {
             return;
         }
 
-        count++;
-        if (count % 10 == 0)
-            iop_usleep(10);
+        iop_usleep(3);
 
         if (finish) {
             iop_usleep(1000);        // resting~
@@ -126,7 +123,7 @@ void CourseWareWidget::syncFile(QString filename, bool hasPrompt) {
     if (m_syncedWares.contains(filename))       // if already synced, then passby
         return;
 
-    m_syncedWares.append(filename);
+    m_syncedWares.insert(filename);
 
     if (hasPrompt) {
         QDialog * d = getDialog(QString::fromLocal8Bit("点击确定推送文件：") + filename,
@@ -473,6 +470,10 @@ void CourseWareWidget::playmodeEnd() {
     stop(true);
 }
 
+void CourseWareWidget::recvNewItem(QString filename) {
+    m_syncedWares.insert(filename);
+    addWareItem(filename);
+}
 
 void CourseWareWidget::addWareItem(QString filename) {
     if (Success != checkUploadFile(filename))
