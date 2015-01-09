@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[81];
-    char stringdata[1044];
+    char stringdata[1047];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -90,26 +90,26 @@ QT_MOC_LITERAL(57, 649, 16),
 QT_MOC_LITERAL(58, 666, 13),
 QT_MOC_LITERAL(59, 680, 4),
 QT_MOC_LITERAL(60, 685, 6),
-QT_MOC_LITERAL(61, 692, 10),
-QT_MOC_LITERAL(62, 703, 23),
-QT_MOC_LITERAL(63, 727, 10),
-QT_MOC_LITERAL(64, 738, 2),
-QT_MOC_LITERAL(65, 741, 11),
-QT_MOC_LITERAL(66, 753, 9),
-QT_MOC_LITERAL(67, 763, 21),
-QT_MOC_LITERAL(68, 785, 5),
-QT_MOC_LITERAL(69, 791, 20),
-QT_MOC_LITERAL(70, 812, 22),
-QT_MOC_LITERAL(71, 835, 25),
-QT_MOC_LITERAL(72, 861, 20),
-QT_MOC_LITERAL(73, 882, 12),
-QT_MOC_LITERAL(74, 895, 15),
-QT_MOC_LITERAL(75, 911, 12),
-QT_MOC_LITERAL(76, 924, 23),
-QT_MOC_LITERAL(77, 948, 23),
-QT_MOC_LITERAL(78, 972, 27),
-QT_MOC_LITERAL(79, 1000, 21),
-QT_MOC_LITERAL(80, 1022, 21)
+QT_MOC_LITERAL(61, 692, 13),
+QT_MOC_LITERAL(62, 706, 23),
+QT_MOC_LITERAL(63, 730, 10),
+QT_MOC_LITERAL(64, 741, 2),
+QT_MOC_LITERAL(65, 744, 11),
+QT_MOC_LITERAL(66, 756, 9),
+QT_MOC_LITERAL(67, 766, 21),
+QT_MOC_LITERAL(68, 788, 5),
+QT_MOC_LITERAL(69, 794, 20),
+QT_MOC_LITERAL(70, 815, 22),
+QT_MOC_LITERAL(71, 838, 25),
+QT_MOC_LITERAL(72, 864, 20),
+QT_MOC_LITERAL(73, 885, 12),
+QT_MOC_LITERAL(74, 898, 15),
+QT_MOC_LITERAL(75, 914, 12),
+QT_MOC_LITERAL(76, 927, 23),
+QT_MOC_LITERAL(77, 951, 23),
+QT_MOC_LITERAL(78, 975, 27),
+QT_MOC_LITERAL(79, 1003, 21),
+QT_MOC_LITERAL(80, 1025, 21)
     },
     "MainWindow\0enOrLeaveClass\0\0entered\0"
     "msgReceived\0addScene\0uidh\0uidl\0"
@@ -131,7 +131,7 @@ QT_MOC_LITERAL(80, 1022, 21)
     "cleanOption\0setViewPaintMode\0mode\0"
     "raceSuccessPrompt\0showPrompt\0"
     "showResultPrompt\0buildQuestion\0WORD\0"
-    "format\0corrAnswer\0buildQuestionStatistics\0"
+    "format\0correctAnswer\0buildQuestionStatistics\0"
     "ScoreTable\0st\0changeSlide\0slideInfo\0"
     "on_listWidget_clicked\0index\0"
     "on_tbMyClass_clicked\0on_btClassInfo_clicked\0"

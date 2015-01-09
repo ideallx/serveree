@@ -105,7 +105,7 @@ public slots:
     void showResultPrompt(int result);
 
     // question
-    void buildQuestion(WORD format, WORD corrAnswer);
+    void buildQuestion(WORD format, WORD correctAnswer);
     void buildQuestionStatistics(ScoreTable st);
 
     void changeSlide(QString slideInfo);

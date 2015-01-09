@@ -11,10 +11,6 @@
 #include "../player/playerfactory.h"
 #include "UserInterface/cpromptframe.h"
 #include "../BizLogic/datasingleton.h"
-#include "../UserInterface/dialogbuildquestion.h"
-#include "../UserInterface/dialoganswerquestion.h"
-#include "../UserInterface/dialogbuildstatistics.h"
-
 
 thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {
     iop_thread_detach_self();
@@ -113,7 +109,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     blankScreen = new QProcess();
 
-// #define _DEBUG_UI_
+#define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
     setRole(RoleTeacher);
@@ -637,11 +633,9 @@ void MainWindow::setRole(enum RoleOfClass role) {
     ui->wgtCourse->setRole(role);
     if (role == RoleTeacher) {
         sceneMap[TeacherUID]->setWriteable(true);
-        ui->tbCourseWare->setVisible(true);
         ui->tbQuestion->setVisible(true);
     } else {
         sceneMap[TeacherUID]->setWriteable(false);
-        ui->tbCourseWare->setVisible(false);
         ui->tbQuestion->setVisible(false);
     }
 }
@@ -772,10 +766,9 @@ void MainWindow::raceSuccessPrompt(TS_UINT64 uid) {
 // 7 race
 
 // 8 question
-void MainWindow::buildQuestion(WORD format, WORD corrAnswer) {
-    DialogAnswerQuestion daq(format, this);
-    daq.setCorrectAnswer(corrAnswer);
-    int userAnswer = daq.exec();
+void MainWindow::buildQuestion(WORD format, WORD correctAnswer) {
+    QDialog* d = CPromptFrame::answerDialog(format, correctAnswer, this);
+    int userAnswer = d->exec();
     TS_QUESTION_PACKET qmsg;
     questionGenerator.generateQuestionData(qmsg, QuestionAnswer,
                                            format, userAnswer);
@@ -848,8 +841,8 @@ void MainWindow::on_tbQuestion_clicked()
     if (RoleTeacher != m_userRole)
         return;
 
-    DialogBuildQuestion b(this);
-    int answer = b.exec();
+    QDialog* d = CPromptFrame::questionDialog(this);
+    int answer = d->exec();
     int format = -1;
     if (answer == ChoiceStatistics) {       // choose statistics
         format = ChoiceStatistics;
@@ -866,9 +859,8 @@ void MainWindow::on_tbQuestion_clicked()
     } else if (format == ChoiceStatistics) {             // build statistics
         ScoreTable st = questionModule.getScoreTable();
         int total = questionModule.totalQuestion();
-        DialogBuildStatistics b(this);
-        b.setTotalNumberAndScoreTable(total, st);
-        b.exec();
+        QDialog* d = CPromptFrame::statisticsDialog(total, st, this);
+        d->exec();
     } else {
         TS_QUESTION_PACKET qmsg;
         questionGenerator.init();

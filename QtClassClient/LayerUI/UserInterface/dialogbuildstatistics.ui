@@ -51,6 +51,8 @@ QScrollBar:handle:vertical {
 }
 
 QToolButton#tbDialogExit {
+	width: 70;
+	height: 40;
 	color: rgb(0, 157, 65);
 	font: 11pt &quot;微软雅黑&quot;;
 	background-color: white;
@@ -177,10 +179,10 @@ QToolButton#tbDialogExit {
   <widget class="QToolButton" name="tbDialogExit">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>40</y>
-     <width>51</width>
-     <height>31</height>
+     <x>40</x>
+     <y>30</y>
+     <width>70</width>
+     <height>40</height>
     </rect>
    </property>
    <property name="text">

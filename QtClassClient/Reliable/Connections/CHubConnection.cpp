@@ -202,9 +202,10 @@ int CHubConnection::recv(char* buf, ULONG& len) {
             latestTime = time;
         }
     } else {
-        if (GetLastError() == 10054) {
-            peerHub->erase(getUid(*(ts_msg*) buf));
-        }
+        // TODO when 10054 how can i get correct buf?..
+        //if (GetLastError() == 10054) {
+        //    peerHub->erase(getUid(*(ts_msg*) buf));
+        //}
     }
     return result;
 }

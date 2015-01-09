@@ -371,8 +371,10 @@ void MyScene::moveScreen(QPoint p) {
         mt = MoveScreen;
         return;
     } else {
-        QPointF p2 = rawScreenToViewPercent(p, m_view);
+        if (ds->getSelfRole() == RoleStudent)   // student is now not allowed to move the screen
+            return;
 
+        QPointF p2 = rawScreenToViewPercent(p, m_view);
         TS_GRAPHIC_PACKET gmsg;
         gmc->generateScreenMove(gmsg, p2.toPoint());
         actMoveScreen(gmsg);

@@ -579,13 +579,11 @@ void CourseWareWidget::setRole(enum RoleOfClass role) {
         ui->tbStart->setHidden(true);
         ui->tbUpload->setHidden(true);
         ui->tbRace->setHidden(true);
-        ui->tbSync->setHidden(true);
     } else {
         ui->tbNext->setHidden(false);
         ui->tbPrev->setHidden(false);
         ui->tbStart->setHidden(false);
         ui->tbUpload->setHidden(false);
         ui->tbRace->setHidden(false);
-        ui->tbSync->setHidden(false);
     }
 }

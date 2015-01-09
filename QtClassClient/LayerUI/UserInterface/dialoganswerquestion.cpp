@@ -43,7 +43,6 @@ void DialogAnswerQuestion::returnAnswer(WORD stuAnswer) {
         answerCheck(stuAnswer);
     }
     done(stuAnswer);
-
 }
 
 DialogAnswerQuestion::~DialogAnswerQuestion()
