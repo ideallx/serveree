@@ -8,7 +8,7 @@
 #include "prompt.h"
 #include "dialogbuildstatistics.h"
 
-// #define _TEST_PROMPT_POS_
+#define _TEST_PROMPT_POS_
 
 class CPromptFrame
 {

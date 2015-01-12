@@ -58,7 +58,7 @@ QToolButton#tbDialogExit {
 	background-color: white;
 }</string>
   </property>
-  <widget class="QListWidget" name="lwScores">
+  <widget class="KineticListWidget" name="lwScores">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -193,6 +193,13 @@ QToolButton#tbDialogExit {
    </property>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KineticListWidget</class>
+   <extends>QListWidget</extends>
+   <header>kineticlistwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../../ui.qrc"/>
  </resources>

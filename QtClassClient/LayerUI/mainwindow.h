@@ -145,9 +145,6 @@ private slots:
     void on_tbCourseWare_clicked();
     void on_tbBackground_clicked();
     void on_listWidget_doubleClicked(const QModelIndex &index);
-    
-
-    void on_pushButton_clicked();
 
     void on_tbQuestion_clicked();
 

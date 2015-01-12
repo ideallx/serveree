@@ -92,7 +92,8 @@ SOURCES  += main.cpp\
     LayerUI/UserInterface/dialogbuildquestion.cpp \
     LayerUI/UserInterface/dialoganswerquestion.cpp \
     LayerUI/UserInterface/dialogbuildstatistics.cpp \
-    LayerUI/UserInterface/widgetansweraccountitem.cpp
+    LayerUI/UserInterface/widgetansweraccountitem.cpp \
+    ../../QtControl/KineticListWidget/kineticlistwidget.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBaseLogic.h \
@@ -178,7 +179,8 @@ HEADERS  += LayerUI\mainwindow.h \
     LayerUI/UserInterface/dialogbuildquestion.h \
     LayerUI/UserInterface/dialoganswerquestion.h \
     LayerUI/UserInterface/dialogbuildstatistics.h \
-    LayerUI/UserInterface/widgetansweraccountitem.h
+    LayerUI/UserInterface/widgetansweraccountitem.h \
+    ../../QtControl/KineticListWidget/kineticlistwidget.h
 
 FORMS    += \
     loginwidget.ui \
@@ -201,6 +203,7 @@ INCLUDEPATH += include
 INCLUDEPATH += LayerUI/UserInterface
 INCLUDEPATH += LayerUI/SlideScreen
 INCLUDEPATH += Reliable/OSInedependent/libiop
+INCLUDEPATH += ../../QtControl/KineticListWidget
 
 OTHER_FILES += \
     Reliable/Zip/zdll.lib \

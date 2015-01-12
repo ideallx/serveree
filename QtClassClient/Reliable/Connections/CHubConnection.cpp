@@ -202,10 +202,18 @@ int CHubConnection::recv(char* buf, ULONG& len) {
             latestTime = time;
         }
     } else {
-        // TODO when 10054 how can i get correct buf?..
-        //if (GetLastError() == 10054) {
-        //    peerHub->erase(getUid(*(ts_msg*) buf));
-        //}
+        // delete the client which is unexpecedly ended
+        if (GetLastError() == 10054) {
+            // find all the peer for which one has the same address as the ended client
+            for (auto iter = peerHub->begin(); iter != peerHub->end(); ++iter) {
+                // then delete it!
+                if (memcmp(iter->second->getPeer(), &m_FromAddr, CAbsSocket::m_LocalAddrSize) == 0) {
+                    peerHub->erase(iter);
+                    break;
+                }
+            }
+            peerHub->erase(getUid(*(ts_msg*) buf));
+        }
     }
     return result;
 }

@@ -12,9 +12,9 @@ AbsPlayer* PlayerFactory::createPlayer(QString filepath, CMsgObject *parent) {
 
     if (postfix == "ppt") {
         return new PPTPlayer(filepath, parent);
-    } else if (postfix == "doc" || postfix == "docx") {
+    } /*else if (postfix == "doc" || postfix == "docx") {
         return new DocPlayer(filepath, parent);
-    } else if (postfix == "jpg" || postfix == "jpeg" || \
+    }*/ else if (postfix == "jpg" || postfix == "jpeg" || \
                postfix == "png" || postfix == "bmp") {
         return new JpgPlayer(filepath, parent);
     } else if (postfix == "mp4" || postfix == "rmvb" || \
@@ -26,12 +26,12 @@ AbsPlayer* PlayerFactory::createPlayer(QString filepath, CMsgObject *parent) {
     return NULL;
 }
 
-QString allowedList[] = {"ppt", "doc", "docx", "jpg", "jpeg", "png", "bmp",
+QString allowedList[] = {"ppt", /*"doc", "docx",*/ "jpg", "jpeg", "png", "bmp",
                         "avi", "rmvb", "rm", "mp4", "wmv"};
 
 bool PlayerFactory::checkFileFormat(QString filename) {
     QString postfix = filename.split('.').last();
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < 9; i++) {
         if (allowedList[i] == postfix)
             return true;
     }

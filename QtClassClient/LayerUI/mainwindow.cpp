@@ -109,7 +109,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     blankScreen = new QProcess();
 
-// #define _DEBUG_UI_
+#define _DEBUG_UI_
 
 #ifdef _DEBUG_UI_
     setRole(RoleTeacher);
@@ -574,20 +574,15 @@ void MainWindow::addWareList(QString filename) {
 
 void MainWindow::on_tbCourseWare_clicked()
 {
-    ui->tbCourseWare->setChecked(true);
     foreach (QToolButton* tb, l_naviButtons) {
         tb->setChecked(false);
     }
+    ui->tbCourseWare->setChecked(true);
 
     if (RoleTeacher != m_userRole)
         return;
 
-    if (scene->id() == CoursewareUID)
-        return;
-
-
     changeScene(CoursewareUID);
-    ui->tbCourseWare->setChecked(true);
     ui->wgtCourse->setHidden(false);
     //if (ui->wgtCourse->isPlayerPlaying())
     //    return;
@@ -655,6 +650,8 @@ void MainWindow::on_tbTeacherBoard_clicked()
         tb->setChecked(false);
     }
     ui->tbTeacherBoard->setChecked(true);
+
+    ui->listWidget->setHidden(true);
     ui->wgtCourse->setHidden(true);
     changeScene(TeacherUID);
 }
@@ -665,6 +662,8 @@ void MainWindow::on_tbMyBoard_clicked()
         tb->setChecked(false);
     }
     ui->tbMyBoard->setChecked(true);
+
+    ui->listWidget->setHidden(true);
     ui->wgtCourse->setHidden(true);
     changeScene(SelfUID);
 }
@@ -831,11 +830,6 @@ void Bridge::connect(MainWindow* mw, CourseWareWidget* cww) {
                      mw, &MainWindow::changeScene);
     QObject::connect(cww, &CourseWareWidget::slideChanged,
                      mw, &MainWindow::changeSlide);
-}
-
-void MainWindow::on_pushButton_clicked()
-{
-
 }
 
 void MainWindow::on_tbQuestion_clicked()
