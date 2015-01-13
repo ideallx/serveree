@@ -337,7 +337,7 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 	r->missingType = MISS_SINGLE;		// 掉单一的包
 	int total = pids.size();			// 总共需要发的条数
 
-    const int MaxRequestPackets = 10;   // 最多10个包，即500条重发请求
+    const int MaxRequestPackets = 2;    // 最多2个包，即100条重发请求
     int requestPackets = 0;
 
 	while (total > 0) {
@@ -516,7 +516,7 @@ int CReliableConnection::resendPart(TS_UINT64 toUID,
         if (peer->send(p.Body, packetSize(p)) > 0)
             count++;
         iop_usleep(1);
-		//if (j % 30 == 0)						// 不知道为什么，如果不加 他就78条一发 不知道为什么。
+		//if (j % 30 == 0)						// 不知道为什么，如果不加 他就78条一发。
 		//	iop_usleep(6);
     }
     return count;

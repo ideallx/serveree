@@ -19,8 +19,9 @@ enum GRAPHICITEM_KEY_t {
 };
 
 const int percentage = 60000;
-
+static const QPointF PointNull = QPointF(-1, -1);
 static QRect staticSZ = QRect(0, 0, 0, 0);
+
 QRect screenSize() {
     if (staticSZ.width() == 0) {
         QDesktopWidget *dwsktopwidget = QApplication::desktop();
@@ -90,7 +91,9 @@ MyScene::MyScene(DWORD sceneID, QGraphicsView* view, QObject *parent, CMsgObject
     , mt(MoveDraw)
     , isWriteable(false)
     , media(NULL)
-    , m_view(view) {
+    , m_view(view)
+    , lastPos(PointNull)
+    , cachedPos(PointNull) {
     ds = DataSingleton::getInstance();
 
     panFixer.setSingleShot(true);
@@ -170,6 +173,8 @@ void MyScene::sendMoveBegin() {
         msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
         toolChanged = false;
     }
+    if (cachedPos == PointNull)
+        return;
     gmc->create(s->drawingType, cachedPos);
     gmc->generateGraphicsData(gmsg, cachedPos, true);
     actMoveBegin(gmsg);
@@ -188,6 +193,9 @@ void MyScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     gmc->generateGraphicsData(gmsg, tranferredP, false);
     actMove(gmsg);
     msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
+
+    // prevent long line
+    cachedPos = PointNull;
 }
 
 void MyScene::revocation() {
@@ -367,7 +375,6 @@ void MyScene::moveScreen(QPoint p) {
         gmc->generateGraphicsData(gmsg, lastPos, false);
         actMove(gmsg);
         msgParent->ProcessMessage(*(ts_msg*) &gmsg, 0, 0, false);
-
         mt = MoveScreen;
         return;
     } else {

@@ -208,7 +208,9 @@ int CHubConnection::recv(char* buf, ULONG& len) {
             for (auto iter = peerHub->begin(); iter != peerHub->end(); ++iter) {
                 // then delete it!
                 if (memcmp(iter->second->getPeer(), &m_FromAddr, CAbsSocket::m_LocalAddrSize) == 0) {
+                    iop_lock(&mutex_lock);
                     peerHub->erase(iter);
+                    iop_unlock(&mutex_lock);
                     break;
                 }
             }

@@ -420,7 +420,7 @@ public:
         gbCommandbar->setTitle(QString());
         lbLogo->setText(QString());
         tbQuestion->setText(QApplication::translate("MainWindow", "\350\257\276\345\240\202\347\255\224\351\242\230", 0));
-        tbCourseWare->setText(QApplication::translate("MainWindow", "\350\257\276\344\273\266\347\231\275\346\235\277", 0));
+        tbCourseWare->setText(QApplication::translate("MainWindow", "\346\225\231\345\270\210\350\257\276\344\273\266", 0));
         tbTeacherBoard->setText(QApplication::translate("MainWindow", "\346\225\231\345\270\210\347\231\275\346\235\277", 0));
         tbMyBoard->setText(QApplication::translate("MainWindow", "\346\210\221\347\232\204\347\231\275\346\235\277", 0));
         tbMyClass->setText(QApplication::translate("MainWindow", "\346\210\221\347\232\204\347\217\255\347\272\247", 0));

@@ -47,7 +47,10 @@ void LoginDialog::on_tbEnterClass_clicked()
     memcpy(up->username, ui->leUsername->text().toLocal8Bit().data(), 20);
     memcpy(up->password, ui->lePassword->text().toLocal8Bit().data(), 20);
 
-    sendToDown(*(ts_msg*) &msg, 0, 0, false);
+    // make sure the login msg sent and recved
+    for (int i = 0; i < 3; i++) {
+        sendToDown(*(ts_msg*) &msg, 0, 0, false);
+    }
     serverNoResponse.start(1000);
 }
 
@@ -117,6 +120,7 @@ void LoginDialog::setLoadProgress(int permillage) {
 
 void LoginDialog::on_leUsername_textChanged(const QString &arg1)
 {
+    Q_UNUSED(arg1);
     if (ui->leUsername->text().size() > 1 &&
             ui->lePassword->text().size() > 1) {
         ui->tbEnterClass->setEnabled(true);
@@ -127,6 +131,7 @@ void LoginDialog::on_leUsername_textChanged(const QString &arg1)
 
 void LoginDialog::on_lePassword_textChanged(const QString &arg1)
 {
+    Q_UNUSED(arg1);
     if (ui->leUsername->text().size() > 1 &&
             ui->lePassword->text().size() > 1) {
         ui->tbEnterClass->setEnabled(true);

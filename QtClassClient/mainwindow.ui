@@ -203,7 +203,7 @@
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>课件白板</string>
+          <string>教师课件</string>
          </property>
          <property name="icon">
           <iconset resource="ui.qrc">

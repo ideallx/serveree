@@ -23,6 +23,8 @@ void CFileLogic::procRecvIsRemote(map<TS_UINT64, ts_msg> sendMap) {
         if (m_waitForNewFile) {
             QString filename = QString::fromLocal8Bit((char *) fmsg->content);
             offset += MaxFileName;
+            // delete preExist file
+            QFile::remove(toTmpFileName(filename));
             m_writingFile.setFileName(toTmpFileName(filename));
             m_writingFile.open(QIODevice::WriteOnly);
 

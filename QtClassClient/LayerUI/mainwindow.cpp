@@ -44,7 +44,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     scene = new MyScene(CoursewareUID, ui->graphicsView, this, this);
     sceneMap.insert(CoursewareUID, scene);
-    scene->setWriteable(true);
 
     scene = new MyScene(TeacherUID, ui->graphicsView, this, this);
     sceneMap.insert(TeacherUID, scene);
@@ -143,6 +142,10 @@ void MainWindow::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL i
         return;
     if (!isRemote) {
         sendToDown(msg, 0, 0, false);
+        if (getType(msg) == GRAPHICS) {
+            // hide the userlist to keep resolution
+            ui->gbUserlist->setHidden(true);
+        }
     } else {
         if (isLoading) {
             TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) &msg;
@@ -320,15 +323,19 @@ void MainWindow::on_listWidget_clicked(const QModelIndex &index)
     bool writeable = ui->listWidget->changeAuth(index.row());
 
     ts_msg msg;
+    // subseq is not needed
     SET_USER_WRITE_AUTH* up = (SET_USER_WRITE_AUTH*) &msg;
     up->head.type = SETWRITEAUTH;
-    up->head.size = sizeof(SET_USER_WRITE_AUTH);
-    up->head.sequence = 0;
+    up->head.size = sizeof(SET_USER_WRITE_AUTH);\
 
     up->toUID = ui->listWidget->getUIDByRow(index.row());
     up->sceneID = TeacherUID;
     up->writeable = writeable;
+    setWriteable(up->toUID, up->sceneID, up->writeable);
+    sendToDown(*(ts_msg*) &msg, 0, 0, false);
 
+    // change teacher and courseware rights
+    up->sceneID = CoursewareUID;
     setWriteable(up->toUID, up->sceneID, up->writeable);
 
     sendToDown(*(ts_msg*) &msg, 0, 0, false);
@@ -418,6 +425,8 @@ void MainWindow::msgExcute() {
     switch (head->type) {
     case GRAPHICS:
         {
+            // hide the userlist to keep resolution
+            ui->gbUserlist->setHidden(true);
             TS_GRAPHIC_PACKET* gmsg = (TS_GRAPHIC_PACKET*) &msg;
             MyScene* theScene = sceneMap[gmsg->SceneID];	// TODO waste time here
             if (theScene == NULL) {
@@ -645,9 +654,11 @@ void MainWindow::setRole(enum RoleOfClass role) {
     ui->wgtCourse->setRole(role);
     if (role == RoleTeacher) {
         sceneMap[TeacherUID]->setWriteable(true);
+        sceneMap[CoursewareUID]->setWriteable(true);
         ui->tbQuestion->setVisible(true);
     } else {
         sceneMap[TeacherUID]->setWriteable(false);
+        sceneMap[CoursewareUID]->setWriteable(false);
         ui->tbQuestion->setVisible(false);
     }
 }
@@ -747,6 +758,7 @@ void MainWindow::raceResult(TS_UINT64 teacherUID, TS_UINT64 studentUID, WORD wri
     qDebug() << "race result";
     if (studentUID == m_ds->getUID()) {
         sceneMap[TeacherUID]->setWriteable(true);
+        sceneMap[CoursewareUID]->setWriteable(true);
     }
 
     ui->listWidget->changeAuth(studentUID, true);
