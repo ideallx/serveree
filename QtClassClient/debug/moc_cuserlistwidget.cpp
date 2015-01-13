@@ -91,7 +91,7 @@ void CUserListWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
 }
 
 const QMetaObject CUserListWidget::staticMetaObject = {
-    { &QListWidget::staticMetaObject, qt_meta_stringdata_CUserListWidget.data,
+    { &KineticListWidget::staticMetaObject, qt_meta_stringdata_CUserListWidget.data,
       qt_meta_data_CUserListWidget,  qt_static_metacall, 0, 0}
 };
 
@@ -106,12 +106,12 @@ void *CUserListWidget::qt_metacast(const char *_clname)
     if (!_clname) return 0;
     if (!strcmp(_clname, qt_meta_stringdata_CUserListWidget.stringdata))
         return static_cast<void*>(const_cast< CUserListWidget*>(this));
-    return QListWidget::qt_metacast(_clname);
+    return KineticListWidget::qt_metacast(_clname);
 }
 
 int CUserListWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QListWidget::qt_metacall(_c, _id, _a);
+    _id = KineticListWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {

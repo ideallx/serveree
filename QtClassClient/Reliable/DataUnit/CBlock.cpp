@@ -4,6 +4,17 @@
 #include "CBlock.h"
 #include "../OSInedependent/others.h"
 
+string getRelativePath(string dir, string filename) {
+    return dir + "\\" + filename;
+}
+
+string getFilename(string relativePath) {
+    int pos = relativePath.find_last_of('\\');
+    if (pos < 0)
+        return string();
+    return relativePath.substr(pos + 1, relativePath.length() - pos);
+}
+
 CBlock::CBlock(TS_UINT64 uid) :
     curPackage(NULL),			// 缓存上一次被调用的包
 	_uid(uid),					// 用户id

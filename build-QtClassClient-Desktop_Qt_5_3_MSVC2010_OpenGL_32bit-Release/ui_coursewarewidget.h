@@ -17,11 +17,11 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListWidget>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <kineticlistwidget.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -38,7 +38,7 @@ public:
     QLabel *label_3;
     QSpacerItem *horizontalSpacer;
     QToolButton *tbExitWare;
-    QListWidget *lsWare;
+    KineticListWidget *lsWare;
     QGroupBox *gbTools;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_2;
@@ -130,7 +130,7 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_5);
 
-        lsWare = new QListWidget(gbCourseware);
+        lsWare = new KineticListWidget(gbCourseware);
         lsWare->setObjectName(QStringLiteral("lsWare"));
         QFont font2;
         font2.setPointSize(9);

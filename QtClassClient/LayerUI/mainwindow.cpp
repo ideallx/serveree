@@ -205,6 +205,16 @@ void MainWindow::buildSceneConnection(bool isCreate) {
     }
 }
 
+void MainWindow::changeBoard(TS_UINT64 sceneID) {
+    if (sceneMap[sceneID] == 0 || scene == sceneMap[sceneID])
+        return;
+
+    if (sceneID == CoursewareUID)
+        on_tbCourseWare_clicked();
+    else if (sceneID == TeacherUID)
+        on_tbTeacherBoard_clicked();
+}
+
 void MainWindow::changeScene(TS_UINT64 sceneID) {
     if (sceneMap[sceneID] == 0)
         return;
@@ -415,6 +425,12 @@ void MainWindow::msgExcute() {
                 sceneMap.insert(gmsg->SceneID, theScene);
             }
 
+            if (m_ds->getSelfRole() == RoleStudent) {
+                if (gmsg->SceneID == TeacherUID || gmsg->SceneID == CoursewareUID) {
+                    changeBoard(gmsg->SceneID);
+                }
+            }
+
             switch (gmsg->graphicsType) {
             case GraphicPacketBeginMove:
                 theScene->actMoveBegin(*gmsg);
@@ -469,8 +485,10 @@ void MainWindow::msgExcute() {
     case COURSEWARE:
         {
             TS_FILE_PACKET* fmsg = (TS_FILE_PACKET*) &msg;
-            addWareList(QString::fromLocal8Bit(reinterpret_cast<char*> (fmsg->content)));
-            sendResultPrompt(SuccessDownload);
+            QString filename = QString::fromLocal8Bit(reinterpret_cast<char*> (fmsg->content));
+            addWareList(filename);
+            sendPrompt(QString::fromLocal8Bit("课件:") + filename + QString::fromLocal8Bit("下载成功"));
+            changeBoard(CoursewareUID);
         }
 		break;
 	case PLAYERCONTROL:
@@ -579,9 +597,6 @@ void MainWindow::on_tbCourseWare_clicked()
     }
     ui->tbCourseWare->setChecked(true);
 
-    if (RoleTeacher != m_userRole)
-        return;
-
     changeScene(CoursewareUID);
     ui->wgtCourse->setHidden(false);
     //if (ui->wgtCourse->isPlayerPlaying())
@@ -651,7 +666,7 @@ void MainWindow::on_tbTeacherBoard_clicked()
     }
     ui->tbTeacherBoard->setChecked(true);
 
-    ui->listWidget->setHidden(true);
+    ui->gbUserlist->setHidden(true);
     ui->wgtCourse->setHidden(true);
     changeScene(TeacherUID);
 }
@@ -663,7 +678,7 @@ void MainWindow::on_tbMyBoard_clicked()
     }
     ui->tbMyBoard->setChecked(true);
 
-    ui->listWidget->setHidden(true);
+    ui->gbUserlist->setHidden(true);
     ui->wgtCourse->setHidden(true);
     changeScene(SelfUID);
 }
@@ -827,7 +842,7 @@ void Bridge::connect(MainWindow* mw, CourseWareWidget* cww) {
     QObject::connect(cww, &CourseWareWidget::someBodyRaceSuccess,
                      mw, &MainWindow::raceSuccessPrompt);
     QObject::connect(cww, &CourseWareWidget::askChangeScene,
-                     mw, &MainWindow::changeScene);
+                     mw, &MainWindow::changeBoard);
     QObject::connect(cww, &CourseWareWidget::slideChanged,
                      mw, &MainWindow::changeSlide);
 }

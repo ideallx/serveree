@@ -8,7 +8,9 @@
 #include "../../Reliable/DataUnit/CMessage.h"
 #include "../../BizLogic/datasingleton.h"
 
-class CUserListWidget : public QListWidget
+#include "kineticlistwidget.h"
+
+class CUserListWidget : public KineticListWidget
 {
     Q_OBJECT
 public:
@@ -36,7 +38,6 @@ private:
 
 
 private:
-
     bool isOffline(TS_UINT64 uid);
 
 public slots:

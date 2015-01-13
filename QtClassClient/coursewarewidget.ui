@@ -186,7 +186,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QListWidget" name="lsWare">
+       <widget class="KineticListWidget" name="lsWare">
         <property name="font">
          <font>
           <pointsize>9</pointsize>
@@ -447,6 +447,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KineticListWidget</class>
+   <extends>QListWidget</extends>
+   <header location="global">kineticlistwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="ui.qrc"/>
  </resources>

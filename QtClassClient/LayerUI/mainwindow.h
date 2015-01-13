@@ -62,7 +62,7 @@ public:
 
 	void loadComplete();
 
-    void changeScene(TS_UINT64 sceneID);
+    void changeBoard(TS_UINT64 sceneID);
 
     // maybe we can find a better way to make the scrollbar at lefthand instead of at middle
     void show();
@@ -114,6 +114,9 @@ private:
     void raceBegin(TS_UINT64 teacherUID);
     void raceRun(TS_UINT64 studentUID, TS_UINT64 time);
     void raceResult(TS_UINT64 teacherUID, TS_UINT64 studentUID, WORD writingTime);
+
+
+    void changeScene(TS_UINT64 sceneID);
 
 signals:
     void enOrLeaveClass(bool entered);

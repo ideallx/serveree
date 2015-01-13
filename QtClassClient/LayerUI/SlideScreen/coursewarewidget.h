@@ -84,7 +84,11 @@ signals:
 
 private:
     void scanLocalCourseware();
-    void syncFile(QString filename, bool hasPrompt = false);
+
+    // return isAllowed to play
+    // when first synced not allowed
+    // when synced or dont sync allowed
+    bool syncFile(QString filename, bool hasPrompt = false);
     void playFileByUser(QString filename);
 
     QDialog* getDialog(QString prompt, WORD controller);
@@ -103,6 +107,8 @@ private slots:
     void on_tbRace_clicked();
 
     void raceTimeOut();
+
+public slots:
     void syncComplete(QString filename);
 
 private:

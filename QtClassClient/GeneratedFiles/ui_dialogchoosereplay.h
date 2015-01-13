@@ -304,7 +304,7 @@ public:
         toolButton13->setText(QString());
         toolButton15->setText(QString());
         toolButton16->setText(QString());
-        toolButton->setText(QApplication::translate("DialogChooseReplay", "\344\270\276\344\270\252\346\240\227\345\255\220", 0));
+        toolButton->setText(QString());
         toolButton3->setText(QString());
         toolButton2->setText(QString());
         toolButton6->setText(QString());

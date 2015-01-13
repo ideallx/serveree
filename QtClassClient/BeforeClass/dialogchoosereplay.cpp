@@ -36,7 +36,7 @@ DialogChooseReplay::DialogChooseReplay(QWidget *parent)
     foreach (QString filename, QDir::current().entryList()) {
         if (buttonid > 19)
             break;
-        if (filename.endsWith(".zip")) {
+        if (filename.endsWith(".zip") && !filename.startsWith('L')) {
             int fn = filename.lastIndexOf('_');
             filename = filename.left(fn);
             if (addedList.contains(filename))

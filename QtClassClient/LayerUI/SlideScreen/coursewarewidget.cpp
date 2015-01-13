@@ -88,8 +88,10 @@ void CourseWareWidget::scanLocalCourseware() {
 }
 
 void CourseWareWidget::syncComplete(QString filename) {
-    QDialog *d = getDialog(QString::fromLocal8Bit("文件：") + filename + QString::fromLocal8Bit("推送完成"),
-                           PromptControllerConfirm | PromptControllerCancel);
+    QDialog *d = getDialog(QString::fromLocal8Bit("课件：") + filename + QString::fromLocal8Bit("推送完成"),
+                           PromptControllerConfirm);
+
+    m_syncedWares.insert(filename);
     d->exec();
 }
 
@@ -106,7 +108,7 @@ void syncThread(CourseWareWidget* cww, Prompt* p) {
             return;
         }
 
-        iop_usleep(3);
+        iop_usleep(2);
 
         if (finish) {
             iop_usleep(1000);        // resting~
@@ -117,20 +119,19 @@ void syncThread(CourseWareWidget* cww, Prompt* p) {
 
 }
 
-void CourseWareWidget::syncFile(QString filename, bool hasPrompt) {
-    if (!m_fmg.create(filename))                // begin build file segment
-        return;
+bool CourseWareWidget::syncFile(QString filename, bool hasPrompt) {
     if (m_syncedWares.contains(filename))       // if already synced, then passby
-        return;
+        return true;
 
-    m_syncedWares.insert(filename);
+    if (!m_fmg.create(filename))                // begin build file segment
+        return false;
 
     if (hasPrompt) {
         QDialog * d = getDialog(QString::fromLocal8Bit("点击确定推送文件：") + filename,
                                PromptControllerConfirm | PromptControllerCancel);
         int result = d->exec();
         if (result == QDialog::Rejected)
-            return;
+            return true;
     }
 
     QDialog *d = getDialog(QString::fromLocal8Bit("正在推送") + filename,
@@ -143,6 +144,7 @@ void CourseWareWidget::syncFile(QString filename, bool hasPrompt) {
             this, SLOT(syncComplete()));
     threadSync.setFuture(QtConcurrent::run(syncThread, this,
                                            dynamic_cast<Prompt*> (d)));
+    return false;
 }
 
 bool CourseWareWidget::playTest(QString filename) const {
@@ -384,7 +386,6 @@ void CourseWareWidget::on_tbSync_clicked()
 void CourseWareWidget::on_lsWare_itemDoubleClicked(QListWidgetItem *item) {
     if (m_userRole != RoleTeacher)
         return;
-    syncFile(item->text(), true);
     playFileByUser(item->text());
 }
 
@@ -438,6 +439,9 @@ void CourseWareWidget::on_tbStart_clicked()
 }
 
 void CourseWareWidget::playFileByUser(QString filename) {
+    if (!syncFile(filename, true))
+        return;
+
     if (m_isPlayerPlaying && !m_player && getFileName(m_player->filePath()) == filename)
 		return;
     //qDebug() << "play file" << getFileName(m_player->filePath()) << filename << m_isPlayerPlaying;
@@ -490,7 +494,7 @@ void CourseWareWidget::deleteFile(QString filename) {
     delete list[0];
 
     qDebug() << "delete file" << filename;
-    QFile::remove(filename);
+    //QFile::remove(filename);
     ui->lbWareCount->setText(QString::number(ui->lsWare->count()));
 }
 

@@ -6,7 +6,7 @@ const int OnlineList = 4;
 const int OfflineList = 5;
 
 CUserListWidget::CUserListWidget(QWidget *parent) :
-    QListWidget(parent) {
+    KineticListWidget(parent) {
     init();
 
     setIconSize(QSize(36, 36));

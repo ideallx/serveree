@@ -5,7 +5,12 @@ using namespace std;
 
 static bool isProgramRunning;
 
-TotalProcess::TotalProcess(int argc, char* argv[]) {
+TotalProcess::TotalProcess(int argc, char* argv[])
+    : ui(NULL)
+    , ld(NULL)
+    , cn(NULL)
+    , bl(NULL)
+    , dcc(NULL) {
     isProgramRunning = true;
     parseParam(argc, argv);
 
@@ -25,9 +30,9 @@ TotalProcess::TotalProcess(int argc, char* argv[]) {
 TotalProcess::~TotalProcess() {
     isProgramRunning = false;
     iop_usleep(100);
-    delete ui;
-    delete bl;
-    delete cn;
+    DESTROY(ui);
+    DESTROY(bl);
+    DESTROY(cn);
 
     // delete ld;
     // delete dcc;

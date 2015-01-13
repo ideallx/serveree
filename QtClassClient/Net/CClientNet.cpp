@@ -115,7 +115,7 @@ void CClientNet::buildSendMessage(ts_msg& msg) {
     head->UID = m_uid;
     head->version = VersionNumber;
 	
-    if (getType(msg) > PACKETCONTROL) {
+    if (getType(msg) >= PACKETFIX) {
         head->sequence = 0;
 		m_agent->send(msg.Body, packetSize(msg));
 		return;

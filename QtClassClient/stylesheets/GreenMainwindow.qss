@@ -31,41 +31,8 @@ QListWidget:item {
 }
 
 QScrollBar:vertical {
-        border-radius: 5px;
-    background: rgb(208, 219, 225);
-    width: 12px;
-    margin: 22px 0 22px 0;
-}
-QScrollBar::handle:vertical {
-        border-radius: 5px;
-    background: rgb(121, 131, 130);
-    min-height: 20px;
-}
-QScrollBar::add-line:vertical {
-        border-radius: 5px;
-    background: rgb(121, 131, 130);
-    height: 20px;
-    subcontrol-position: bottom;
-    subcontrol-origin: margin;
-}
-
-QScrollBar::sub-line:vertical {
-        border-radius: 5px;
-    background: rgb(121, 131, 130);
-    height: 20px;
-    subcontrol-position: top;
-    subcontrol-origin: margin;
-}
-QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
-        border-radius: 5px;
+    background: rgb(166, 166, 166);
     width: 3px;
-    height: 3px;
-    background: white;
-}
-
-QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-        border-radius: 5px;
-    background: none;
 }
 
 QGroupBox#gbUserlist {

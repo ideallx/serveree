@@ -46,12 +46,12 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{28051c07-ac3d-4a72-975e-53baafba3325}</UniqueIdentifier>
+      <UniqueIdentifier>{89386c40-e925-4229-83b0-dbb2de526be3}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{495de5ca-a22f-4089-9438-986c4e5cd305}</UniqueIdentifier>
+      <UniqueIdentifier>{dfa3ddca-e5f4-4bf9-95d9-8822ae62a460}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -118,6 +118,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Reliable\Connections\CPeerConnection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BizLogic\CQuestionLogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Reliable\Connections\CReliableConnection.cpp">
@@ -195,7 +198,19 @@
     <ClCompile Include="BizLogic\datasingleton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LayerUI\UserInterface\dialoganswerquestion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerUI\UserInterface\dialogbuildquestion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerUI\UserInterface\dialogbuildstatistics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="BeforeClass\dialogchoosereplay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerUI\UserInterface\dialogchooseshape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LayerUI\UserInterface\dialogpixmap.cpp">
@@ -217,6 +232,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="player\jpgplayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\QtControl\KineticListWidget\kineticlistwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LayerUI\UserInterface\linewidthcombox.cpp">
@@ -264,52 +282,19 @@
     <ClCompile Include="player\videoplayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LayerUI\UserInterface\widgetansweraccountitem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="LayerUI\UserInterface\widgetwarelistitem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Reliable\Zip\zip.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BizLogic\CQuestionLogic.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="Debug\moc_CQuestionLogic.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_CQuestionLogic.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="LayerUI\UserInterface\dialoganswerquestion.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_dialoganswerquestion.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_dialoganswerquestion.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="LayerUI\UserInterface\dialogbuildquestion.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_dialogbuildquestion.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_dialogbuildquestion.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="LayerUI\UserInterface\dialogbuildstatistics.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_dialogbuildstatistics.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_dialogbuildstatistics.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_widgetansweraccountitem.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_widgetansweraccountitem.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_absplayer.cpp">
@@ -354,10 +339,34 @@
     <ClCompile Include="Release\moc_cuserlistwidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Debug\moc_dialoganswerquestion.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_dialoganswerquestion.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_dialogbuildquestion.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_dialogbuildquestion.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_dialogbuildstatistics.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_dialogbuildstatistics.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
     <ClCompile Include="Debug\moc_dialogchoosereplay.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_dialogchoosereplay.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_dialogchooseshape.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_dialogchooseshape.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_dialogpixmap.cpp">
@@ -408,6 +417,12 @@
     <ClCompile Include="Release\moc_totalprocess.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Debug\moc_widgetansweraccountitem.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_widgetansweraccountitem.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
     <ClCompile Include="Debug\moc_widgetwarelistitem.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -415,9 +430,6 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_ui.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LayerUI\UserInterface\widgetansweraccountitem.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -488,6 +500,9 @@
     <ClInclude Include="Reliable\DataUnit\CPeerPacket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="BizLogic\CQuestionLogic.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="Reliable\Connections\CReliableConnection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -575,7 +590,19 @@
     <ClInclude Include="BizLogic\datasingleton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="LayerUI\UserInterface\dialoganswerquestion.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialogbuildquestion.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialogbuildstatistics.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="BeforeClass\dialogchoosereplay.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialogchooseshape.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="LayerUI\UserInterface\dialogpixmap.h">
@@ -600,6 +627,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="player\jpgplayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QtControl\KineticListWidget\kineticlistwidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <CustomBuild Include="LayerUI\UserInterface\linewidthcombox.h">
@@ -647,6 +677,9 @@
     <ClInclude Include="player\videoplayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="LayerUI\UserInterface\widgetansweraccountitem.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="LayerUI\UserInterface\widgetwarelistitem.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -662,7 +695,19 @@
     <ClInclude Include="GeneratedFiles\ui_coursewarewidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_dialoganswerquestion.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_dialogbuildquestion.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_dialogbuildstatistics.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_dialogchoosereplay.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_dialogchooseshape.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_dialogpixmap.h">
@@ -683,19 +728,10 @@
     <ClInclude Include="GeneratedFiles\ui_settingwidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_widgetwarelistitem.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_dialoganswerquestion.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_dialogbuildquestion.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_dialogbuildstatistics.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_widgetansweraccountitem.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_widgetwarelistitem.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -703,7 +739,19 @@
     <CustomBuild Include="coursewarewidget.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialoganswerquestion.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialogbuildquestion.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialogbuildstatistics.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="BeforeClass\dialogchoosereplay.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialogchooseshape.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="LayerUI\UserInterface\dialogpixmap.ui">
@@ -724,34 +772,10 @@
     <CustomBuild Include="settingwidget.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="widgetwarelistitem.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="BizLogic\CQuestionLogic.h">
-      <Filter>Generated Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialoganswerquestion.h">
-      <Filter>Generated Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialoganswerquestion.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogbuildquestion.h">
-      <Filter>Generated Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogbuildquestion.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogbuildstatistics.h">
-      <Filter>Generated Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogbuildstatistics.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\widgetansweraccountitem.h">
-      <Filter>Generated Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="LayerUI\UserInterface\widgetansweraccountitem.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="widgetwarelistitem.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -796,6 +820,15 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\icon\back">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\blockblank.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\blockcorrect.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\blockwrong.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\back\blue.png">
@@ -924,6 +957,9 @@
     <None Include="ui\icon\prev.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="ui\icon\question.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="ui\icon\r.png">
       <Filter>Resource Files</Filter>
     </None>
@@ -1000,16 +1036,6 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\icon\logo icon.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="ClassDiagram.cd" />
-    <None Include="ui\icon\blockblank.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="ui\icon\blockcorrect.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="ui\icon\blockwrong.png">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
