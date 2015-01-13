@@ -36,7 +36,7 @@ set<TS_UINT64> CBlockManager::loadExistFile(string prefix) {
     set<TS_UINT64> result;
     struct _finddata_t fileinfo;
     long handle;
-    string stringpattern = prefix + "*.zip";
+    string stringpattern = getFilePartten(prefix);
     handle = _findfirst(stringpattern.c_str(), &fileinfo);
 	if (handle < 0)
         return result;
@@ -63,7 +63,7 @@ set<TS_UINT64> CBlockManager::loadExistFile(string prefix) {
 void CBlockManager::loadLastClassProgress(string prefix) {
     struct _finddata_t fileinfo;
     long handle;
-    string stringpattern = prefix + "*.zip";
+    string stringpattern = getFilePartten(prefix);
     handle = _findfirst(stringpattern.c_str(), &fileinfo);
     if (handle < 0)
         return;

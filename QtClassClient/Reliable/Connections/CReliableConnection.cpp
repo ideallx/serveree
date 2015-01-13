@@ -300,7 +300,7 @@ void CReliableConnection::saveProcess() {
             isFirst = true;
         }
 
-        file.second->save(fileNamePrefix + "_" + int2string(file.first) + ".zip", isFirst);
+        file.second->save(getRelativePath(fileNamePrefix, file.first), isFirst);
     }
 }
 
@@ -466,6 +466,7 @@ bool CReliableConnection::validityCheck(ts_msg& msg) {
 void CReliableConnection::setFilePrefix(string fprefix) { 
 	fileNamePrefix = fprefix; 
 	bm->setFilePrefix(fprefix);
+    createDir(fprefix);
 }
 
 int CReliableConnection::resendAll(TS_UINT64 uid) {

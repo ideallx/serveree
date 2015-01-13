@@ -61,7 +61,7 @@ public:
 	// 获取需要保存的CPackage
 	int getSavePackage(set<pair<TS_UINT64, CPackage*> >& out);
 
-	// 设置文件名前缀 fprefix_uid.zip/packageNum
+	// 设置文件名前缀 fprefix/uid.zip/packageNum
 	void setFilePrefix(string fprefix) { fileNamePrefix = fprefix; }
 
     // 设置某个UID当前应该收到的最大的SEQ

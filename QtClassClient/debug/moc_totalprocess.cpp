@@ -40,7 +40,7 @@ QT_MOC_LITERAL(7, 63, 11),
 QT_MOC_LITERAL(8, 75, 9)
     },
     "TotalProcess\0endLoginDialog\0\0setUnPw\0"
-    "username\0password\0buildUI\0reviewClass\0"
+    "username\0password\0buildUI\0replayClass\0"
     "className"
 };
 #undef QT_MOC_LITERAL
@@ -85,7 +85,7 @@ void TotalProcess::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 0: _t->endLoginDialog(); break;
         case 1: _t->setUnPw((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         case 2: _t->buildUI(); break;
-        case 3: _t->reviewClass((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 3: _t->replayClass((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

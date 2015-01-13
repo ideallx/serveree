@@ -3,6 +3,7 @@
 #include "dialogchoosereplay.h"
 #include "ui_dialogchoosereplay.h"
 
+#include <QDebug>
 DialogChooseReplay::DialogChooseReplay(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::DialogChooseReplay)
@@ -33,19 +34,18 @@ DialogChooseReplay::DialogChooseReplay(QWidget *parent)
     allButton[19] = ui->toolButton20;
 
     int buttonid = 0;
-    foreach (QString filename, QDir::current().entryList()) {
+    QStringList nameFilter;
+    nameFilter << "20??_????_????_??";
+    foreach (QString filename, QDir::current().entryList(nameFilter, QDir::Dirs)) {
+        qDebug() << "filtered filename" << filename;
         if (buttonid > 19)
             break;
-        if (filename.endsWith(".zip") && !filename.startsWith('L')) {
-            int fn = filename.lastIndexOf('_');
-            filename = filename.left(fn);
-            if (addedList.contains(filename))
-                continue;
-            allButton[buttonid]->setText(filename);
-            //ui->listWidget->addItem(filename);
-            addedList.append(filename);
-            buttonid++;
-        }
+        if (addedList.contains(filename))
+            continue;
+        allButton[buttonid]->setText(filename);
+        //ui->listWidget->addItem(filename);
+        addedList.append(filename);
+        buttonid++;
     }
 
     for (int i = 0; i < buttonid; i++) {

@@ -4,8 +4,8 @@
 #include "CBlock.h"
 #include "../OSInedependent/others.h"
 
-string getRelativePath(string dir, string filename) {
-    return dir + "\\" + filename;
+string getRelativePath(string prefix, int packageID) {
+    return prefix + "\\" + int2string(packageID) + ".zip";
 }
 
 string getFilename(string relativePath) {
@@ -13,6 +13,16 @@ string getFilename(string relativePath) {
     if (pos < 0)
         return string();
     return relativePath.substr(pos + 1, relativePath.length() - pos);
+}
+
+string getFilePartten(string prefix) {
+    return prefix + "\\" + "*.zip";
+}
+
+void createDir(string dirname) {
+    if (dirname.length() <= 0)
+        return;
+    _mkdir(dirname.c_str());
 }
 
 CBlock::CBlock(TS_UINT64 uid) :
@@ -159,7 +169,7 @@ int CBlock::readMsg(TS_UINT64 seq, ts_msg& pout) {
 		if (iter != blockContents.end()) {							// 若seq在内存范围内，则去内存中找
 			curPackage = iter->second;
 		} else {													// 不行只能找文件去了
-			string zipName = fileNamePrefix + "_" + int2string(_uid) + ".zip";
+            string zipName = getRelativePath(fileNamePrefix, _uid);
 			if (CPackage::isZipFileExist(zipName, packageNum)) {	// 先尝试找文件是否存在
 				CPackage *p = new CPackage;
 				p->load(zipName, packageNum);
@@ -204,7 +214,7 @@ void CBlock::saveAll() {
         // straWrite->onMsgAddStrategy(iter->second);
         CPackage* p = iter->second;
         if (!p->isSaved()) {
-            p->save(fileNamePrefix + "_" + int2string(_uid) + ".zip", !isSaved);
+            p->save(getRelativePath(fileNamePrefix, _uid), !isSaved);
         }
         isSaved = true;
         iter++;
@@ -218,7 +228,7 @@ void CBlock::setMaxSeq(TS_UINT64 seq) {
 }
 
 int CBlock::loadFromFile(int packageNum, CPackage& package) {
-    string zipName = fileNamePrefix + "_" + int2string(_uid) + ".zip";
+    string zipName = getRelativePath(fileNamePrefix, _uid);
     if (!CPackage::isZipFileExist(zipName, packageNum))
         return 0;
 

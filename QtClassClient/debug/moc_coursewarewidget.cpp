@@ -133,7 +133,7 @@ static const uint qt_meta_data_CourseWareWidget[] = {
       40,    1,  186,    2, 0x08 /* Private */,
       42,    0,  189,    2, 0x08 /* Private */,
       43,    0,  190,    2, 0x08 /* Private */,
-      44,    1,  191,    2, 0x08 /* Private */,
+      44,    1,  191,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3, QMetaType::Int,    4,    5,

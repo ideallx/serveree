@@ -41,6 +41,14 @@ using namespace std;
  *		3:	每个package扣血，扣完的销毁
  */
 
+string getRelativePath(string prefix, int packageID);
+string getFilename(string relativePath);
+
+// for regular expressions
+string getFilePartten(string prefix);
+
+void createDir(string dirname);
+
 class CBlock {
 private:
 	map<DWORD, CPackage*> blockContents;

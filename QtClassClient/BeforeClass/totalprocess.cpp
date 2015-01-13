@@ -128,14 +128,14 @@ void TotalProcess::buildNetwork() {
     connect(this, &TotalProcess::endLoginDialog,
             ld, &LoginDialog::accept);
     connect(ld, &LoginDialog::classReview,
-            this, &TotalProcess::reviewClass);
+            this, &TotalProcess::replayClass);
 
     ld->setUsernamePassword(username, password);
 }
 
 void loadCourse(LoginDialog* ld, CClientNet* cn) {
     int progress = 0;
-    while (progress < 995 && isProgramRunning) {
+    while (progress < 980 && isProgramRunning) {
         qDebug() << "progress is " << progress;
         emit ld->progressChanged(progress);
         // ld->setLoadProgress(progress);
@@ -171,6 +171,7 @@ void msgThread(CClientNet* cn, QString classname, MainWindow* ui) {
         return;                 // TODO error checking
     int sleepTime;
     bool result = true;
+    iop_usleep(1000);           // wait 1 second to start
     while (isProgramRunning && result) {
         result = cn->replays(sleepTime);
         iop_usleep(sleepTime);
@@ -182,7 +183,7 @@ void msgThread(CClientNet* cn, QString classname, MainWindow* ui) {
     qDebug() << "replays end";
 }
 
-void TotalProcess::reviewClass(QString className) {
+void TotalProcess::replayClass(QString className) {
 	ld->done(0);
 
     bl->removeUpReceiver(ld);

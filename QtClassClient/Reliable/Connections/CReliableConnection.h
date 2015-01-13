@@ -120,7 +120,7 @@ public:
 	// 用UID来区分Server还是Client端，另外重传请求时需要提供自己的UID
 	void setUID(TS_UINT64 in) { selfUid = in; }
 
-	// 设置文件名前缀 fprefix_uid.zip/packageNum
+	// 设置文件名前缀 fprefix/uid.zip/packageNum
 	void setFilePrefix(string fprefix);
 
 	// 获取丢包率（千分比 超过1000则可能是反复丢包）
