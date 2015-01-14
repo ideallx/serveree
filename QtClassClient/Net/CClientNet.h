@@ -73,6 +73,8 @@ public:
 
     inline int loadProgress() { return m_Connect->getLoadingProcess(); }
 
+    void sendReliableBM();
+
 private:
     inline TS_UINT64 toServerTime(TS_UINT64 serverTime) {
         return serverTime + m_timeDiff;

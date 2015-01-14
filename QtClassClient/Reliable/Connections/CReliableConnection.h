@@ -155,6 +155,14 @@ public:
 
     void loadFile(string classname);
 
+    // 收到数据后的处理以及转发等过程
+    int receive(ts_msg& msg);
+
+    void loadBM(string fileprefix);
+
+    // return true if still msg
+    bool sentEveryBMData(ts_msg& msg);
+
 private:
 	// 将需要发送的消息添加至消息队列
 	int send2Peer(ts_msg& msg);
@@ -174,16 +182,11 @@ private:
 	// 数据报文有效性检查
     bool validityCheck(ts_msg& msg);
 
-    // 收到数据后的处理以及转发等过程
-    void receive();
 
 	
 private:
 	// 定时扫描失踪包裹。
     friend thread_ret_type thread_func_call ScanProc(LPVOID lpParam);
-
-	// 消息到达的处理过程
-    friend thread_ret_type thread_func_call MsgInProc(LPVOID lpParam);
 
 	// 消息到达的处理过程
     friend thread_ret_type thread_func_call SaveProc(LPVOID lpParam);

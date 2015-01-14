@@ -26,22 +26,6 @@ thread_ret_type thread_func_call ScanProc(LPVOID lpParam) {
     return 0;
 }
 
-thread_ret_type thread_func_call MsgInProc(LPVOID lpParam) {
-    iop_thread_detach_self();
-    CReliableConnection* conn = reinterpret_cast<CReliableConnection*> (lpParam);
-    if (!conn) {
-        iop_thread_exit(0);
-        return 0;
-    }
-
-    conn->receive();
-#ifdef _DEBUG_INFO_
-    cout << "MsgInProc exit" << endl;
-#endif
-    iop_thread_exit(0);
-    return 0;
-}
-
 thread_ret_type thread_func_call SaveProc(LPVOID lpParam) {
     iop_thread_detach_self();
     CReliableConnection* conn = reinterpret_cast<CReliableConnection*> (lpParam);
@@ -118,19 +102,6 @@ bool CReliableConnection::create(unsigned short localport) {
 		isRunning = false;
 		return false;
 	}
-//
-//    rc = iop_thread_create(&pthread_input, MsgInProc, (void *) this, 0);
-//	if (0 == rc) {
-//		iop_usleep(10);
-//#ifdef _DEBUG_INFO_
-//		cout << "MsgIn Thread start successfully" << endl;
-//#endif
-//	} else {
-//		iop_thread_cancel(pthread_scan);
-//		cout << "MsgIn Thread start failed " << endl;
-//		isRunning = false;
-//		return false;
-//	}
 
     rc = iop_thread_create(&pthread_save, SaveProc, (void *) this, 0);
 	if (0 == rc) {
@@ -149,35 +120,45 @@ bool CReliableConnection::create(unsigned short localport) {
 }
 
 
-void CReliableConnection::receive() {
-    ts_msg msg;
-    while (isRunning) {
-        WaitForSingleObject(semMsg, INFINITE);
+int CReliableConnection::receive(ts_msg& msg) {
+    if (!validityCheck(msg))				// 有效性检测
+        return -1;
 
-        if (!msgQueue->deQueue(msg))
-            continue;
+    TS_MESSAGE_HEAD* head = reinterpret_cast<TS_MESSAGE_HEAD*> (&msg);
+    int result = head->size;
 
-        if (!validityCheck(msg))				// 有效性检测
-            continue;
+    //  if ((selfUid == ServerUID) && (peerHub->count(head->UID) == 0))		// make sure the message was sent by logged in user
+    //return -1;
 
-        unsigned char type = getType(msg);
-        switch (type) {
-        case RESEND:                            // 若是收到重传请求，自己处理
-            resend(msg);
-            break;
-        case MAXSEQLIST:
-            requestForSeriesResend(msg);
-            break;
-        case CONNECTION:
-            break;
-        default:                                // 若是收到重传请求，自己处理
-            if (bm->record(msg) > 0) {			// 缓存记录
-                totalMsgs++;
-            }
-            break;
+    switch (head->type) {
+    case RESEND:
+        result = -1;
+#ifdef _DEBUG_INFO_
+        cout << "resend" << endl;
+#endif
+        if (false == resendWhenAsk)		// 抑制重发请求！，则不重发
+            return result;
+        resend(msg);
+        break;
+    case MAXSEQLIST:
+        requestForSeriesResend(msg);
+        result = -1;
+        break;
+    case CONNECTION:
+        break;
+    default:
+        if (selfUid == ServerUID) {			// Server转发
+            send(msg.Body, packetSize(msg));
         }
-        ReleaseSemaphore(needScan, 1, NULL);	// 收到任意msg，都要重新scan
+
+        if (bm->record(msg) > 0) {			// 缓存记录
+            totalMsgs++;
+        }
+        break;
     }
+
+    return result;
+
 }
 
 int CReliableConnection::recv(char* buf, ULONG& len) {
@@ -185,46 +166,8 @@ int CReliableConnection::recv(char* buf, ULONG& len) {
 	if (result <= 0)
 		return result;
 
-    ts_msg* msg = (ts_msg*) buf;
-
-    if (!validityCheck(*msg))				// 有效性检测
-        return -1;
-
-    TS_MESSAGE_HEAD* head = (TS_MESSAGE_HEAD*) msg;
-
-  //  if ((selfUid == ServerUID) && (peerHub->count(head->UID) == 0))		// make sure the message was sent by logged in user
-		//return -1;
-
-	switch (head->type) {
-    case RESEND:
-        result = -1;
-#ifdef _DEBUG_INFO_
-		cout << "resend" << endl;
-#endif
-		if (false == resendWhenAsk)		// 抑制重发请求！，则不重发
-            return result;
-        resend(*msg);
-        break;
-    case MAXSEQLIST:
-        requestForSeriesResend(*msg);
-        result = -1;
-        break;
-    case CONNECTION:
-        break;
-    default:
-        if (selfUid == ServerUID) {			// Server转发
-            send(msg->Body, packetSize(*msg));
-        }
-
-        if (bm->record(*msg) > 0) {			// 缓存记录
-            totalMsgs++;
-        }
-		break;
-	}
-
-//	msgQueue->enQueue(*msg);			// queue会自己作副本，所以不用担心msg的生命周期
-//	ReleaseSemaphore(semMsg, 1, NULL);	// 信号量放开，交给msgIn Proc
-	return result;
+    ts_msg msg = *reinterpret_cast<ts_msg*> (buf);
+    return receive(msg);
 }
 
 int CReliableConnection::send(const char* buf, ULONG len, TS_UINT64 uid) {
@@ -367,6 +310,9 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 }
 
 void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
+    // if not received filenameprefix, then wait
+    if (fileNamePrefix == "L")
+        return;
     DOWN_MAXSEQ_LIST *down = (DOWN_MAXSEQ_LIST*) &requestMsg;
 
     ts_msg msg;
@@ -380,6 +326,7 @@ void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
         requestCount = 2;               // 4 * scan interval
     }
 
+    cout << "request for series resend" << endl;
     for (int i = 0; i < down->count; i++) {
         TS_UINT64 uid = down->unit[i].uid;
         TS_UINT64 maxSeqClient = bm->getMaxSeqOfUID(uid);
@@ -402,6 +349,7 @@ void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
             up->head.UID = selfUid;
             send(msg.Body, up->head.size);
             currentTotal += maxSeqServer - maxSeqClient;
+            cout << "ask for series resend from " << maxSeqClient << " to " << maxSeqServer << endl;
         } else if (uid == selfUid) {            // if server lost client's latest msg
             if (maxSeqClient > maxSeqServer) {
                 // only resend 1 max message for not block the network
@@ -464,7 +412,8 @@ bool CReliableConnection::validityCheck(ts_msg& msg) {
 }
 
 void CReliableConnection::setFilePrefix(string fprefix) { 
-	fileNamePrefix = fprefix; 
+    fileNamePrefix = fprefix;
+    // the dir name will be changed after loaded
 	bm->setFilePrefix(fprefix);
     createDir(fprefix);
 }
@@ -572,4 +521,15 @@ int CReliableConnection::getLoadingProcess() {
 
 void CReliableConnection::loadFile(string classname) {
     bm->loadLastClassProgress(classname);
+}
+
+void CReliableConnection::loadBM(string fileprefix) {
+    bm->loadDirContent(fileprefix, msgQueue);
+}
+
+bool CReliableConnection::sentEveryBMData(ts_msg& msg) {
+    if (msgQueue->deQueue(msg))
+        return true;
+    else
+        return false;
 }

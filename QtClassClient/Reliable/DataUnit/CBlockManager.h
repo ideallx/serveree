@@ -7,6 +7,8 @@
 #include "CBlock.h"
 #include "CMessage.h"
 
+#include "../DataStructure/TSQueue.h"
+
 /*
  * 保存文件管理单元，所有用户都由他控制，包含：
  *		1:	Block表map_userBlock，每个Block对应一个用户 
@@ -38,8 +40,8 @@ public:
     // 将上一次进入此课堂的进度全部装载进去，连接上
     void loadLastClassProgress(string prefix);
 
-    void setBlock(TS_UINT64 uid, string blockfilename);
-    TS_UINT64 loadPackage(TS_UINT64 uid, int packageNum, CPackage& package);
+    void setBlock(TS_UINT64 uid, string prefix, string blockfilename);
+    int loadPackage(TS_UINT64 uid, int packageNum, CPackage& package);
 
 	// 找某个用户的某条记录
 	int readRecord(TS_UINT64 uid, TS_UINT64 seq, ts_msg& p);
@@ -63,6 +65,9 @@ public:
 
 	// 设置文件名前缀 fprefix/uid.zip/packageNum
 	void setFilePrefix(string fprefix) { fileNamePrefix = fprefix; }
+
+    // load all the zip into memory to reduce reconnect alloc
+    void loadDirContent(string prefix, TSQueue<ts_msg>* queue);
 
     // 设置某个UID当前应该收到的最大的SEQ
     void setMaxSeqOfUid(TS_UINT64 uid, TS_UINT64 seq);

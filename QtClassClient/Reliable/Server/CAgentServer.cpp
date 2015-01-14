@@ -281,7 +281,7 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 
         map_userinfo[user._uid]._classid = user._classid;
 	}
-	pServer->sendMaxSeqList();
+	// pServer->sendMaxSeqList();
 	return true;
 }
 

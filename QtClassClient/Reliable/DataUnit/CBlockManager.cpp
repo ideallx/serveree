@@ -43,7 +43,7 @@ set<TS_UINT64> CBlockManager::loadExistFile(string prefix) {
 
     TS_UINT64 uid = getUidFromFileName(string(fileinfo.name));
     if (uid > 0) {
-        setBlock(uid, fileinfo.name);
+        setBlock(uid, prefix, fileinfo.name);
         result.insert(uid);
     }
 
@@ -52,7 +52,7 @@ set<TS_UINT64> CBlockManager::loadExistFile(string prefix) {
         TS_UINT64 uid = getUidFromFileName(string(fileinfo.name));
         cout << "find uid " << uid << endl;
         if (uid > 0) {
-            setBlock(uid, fileinfo.name);
+            setBlock(uid, prefix, fileinfo.name);
             result.insert(uid);
         }
     }
@@ -72,7 +72,7 @@ void CBlockManager::loadLastClassProgress(string prefix) {
 
     TS_UINT64 uid = getUidFromFileName(string(fileinfo.name));
     if (uid > 0) {
-        setBlock(uid, fileinfo.name);
+        setBlock(uid, prefix, fileinfo.name);
 
         while (true) {
             int length = CZip::getOriginalSize(fileinfo.name, int2string(packageNum).c_str());
@@ -89,7 +89,7 @@ void CBlockManager::loadLastClassProgress(string prefix) {
     while (_findnext(handle, &fileinfo) == 0) {
         TS_UINT64 uid = getUidFromFileName(string(fileinfo.name));
         if (uid > 0) {
-            setBlock(uid, fileinfo.name);
+            setBlock(uid, prefix, fileinfo.name);
             while (true) {
                 int length = CZip::getOriginalSize(fileinfo.name, int2string(packageNum).c_str());
                 if (length > 0) {
@@ -103,12 +103,13 @@ void CBlockManager::loadLastClassProgress(string prefix) {
     }
 }
 
-void CBlockManager::setBlock(TS_UINT64 uid, string blockfilename) {
+void CBlockManager::setBlock(TS_UINT64 uid, string prefix, string blockfilename) {
     iop_lock(&lockUserBlock);
     CBlock* b = getBlockByUid(uid);
     if (b == NULL) {
         b = new CBlock(uid);
         map_userBlock.insert(make_pair(uid, b));
+        b->setFilePrefix(prefix);
         cout << "create new block for " << uid << endl;
     }
     iop_unlock(&lockUserBlock);
@@ -116,13 +117,13 @@ void CBlockManager::setBlock(TS_UINT64 uid, string blockfilename) {
     cout << uid << endl;
 }
 
-TS_UINT64 CBlockManager::loadPackage(TS_UINT64 uid, int packageNum, CPackage& package) {
+int CBlockManager::loadPackage(TS_UINT64 uid, int packageNum, CPackage& package) {
     iop_lock(&lockUserBlock);
     CBlock* b = getBlockByUid(uid);
     iop_unlock(&lockUserBlock);
     b->setFilePrefix(fileNamePrefix);
 
-    return b->loadFromFile(packageNum, package);
+    return b->loadFromFile(fileNamePrefix, packageNum, package);
 }
 
 int CBlockManager::readRecord(TS_UINT64 uid, TS_UINT64 seq, ts_msg& p) {
@@ -269,4 +270,30 @@ TS_UINT64 CBlockManager::getMaxSeqOfUID(TS_UINT64 uid) {
 	iop_unlock(&lockUserBlock);
 
 	return result;
+}
+
+void CBlockManager::loadDirContent(string prefix, TSQueue<ts_msg>* queue) {
+    cout << "load dir content" << endl;
+    loadExistFile(prefix);
+    ts_msg msg;
+    int len = 0;
+    for (auto iter = map_userBlock.begin(); iter != map_userBlock.end(); ++iter) {
+        CPackage p;
+        int total = 0;
+        int current = 0;
+        CBlock* block = iter->second;
+        // just forget about the remaining package, it's at most 1024 msgs every one
+        for (int packageNum = 0; packageNum < 100; packageNum++) {
+            current = block->loadFromFile(prefix, packageNum, p);
+            if (current <= 0)
+                break;
+            total += current;
+        }
+        block->setMaxSeq(total);
+        for (int i = 1; i < total + 1; i++) {
+            len = block->readMsg(i, msg);
+            if (len > 0)
+                queue->enQueue(msg);
+        }
+    }
 }

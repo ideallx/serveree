@@ -138,7 +138,6 @@ void loadCourse(LoginDialog* ld, CClientNet* cn) {
     while (progress < 980 && isProgramRunning) {
         qDebug() << "progress is " << progress;
         emit ld->progressChanged(progress);
-        // ld->setLoadProgress(progress);
         progress = cn->loadProgress();
         iop_usleep(100);
     }
@@ -149,7 +148,7 @@ void TotalProcess::buildBoard() {
     qDebug() << "build board";
     ld->showPrompt(NormalCourseLoading);
     bl->removeUpReceiver(ld);
-
+    cn->sendReliableBM();
     connect(&threadLoad, SIGNAL(finished()),
             this, SLOT(buildUI()));
     threadLoad.setFuture(QtConcurrent::run(loadCourse, ld, cn));
@@ -160,7 +159,6 @@ void TotalProcess::buildUI() {
     ui = new MainWindow;
     ui->addDownReceiver(bl);
     bl->addUpReceiver(ui);
-    // ui->setRole(static_cast<RoleOfClass> (role));
     ui->loadComplete();
     ld->hide();
     ui->show();
@@ -179,6 +177,8 @@ void msgThread(CClientNet* cn, QString classname, MainWindow* ui) {
     }
     if (!result) {              // if the replay is ended normally
         ui->sendPrompt(QString::fromLocal8Bit("录像播放完毕"));
+    } else {
+        ui->sendPrompt(QString::fromLocal8Bit("录像已经被终结"));
     }
     qDebug() << "replays end";
 }
@@ -198,7 +198,6 @@ void TotalProcess::replayClass(QString className) {
     ui->setRole(RoleReplay);
     ui->show();
 
-    // iop_thread_create(&pthread_input, MsgInProc, (void *) this, 0);
     threadRev = QtConcurrent::run(msgThread, cn, className, ui);
 	iop_usleep(100);
 }

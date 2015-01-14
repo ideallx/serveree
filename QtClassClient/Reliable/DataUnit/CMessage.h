@@ -17,7 +17,7 @@ const int MaxPackets = 1024;                // 单个PACKAGE 最大包数
 const int MaxClassInfo = 10;
 
 const int VersionNumber = 1;
-const int HeartBeatInterval = 5000;			// 心跳包间隔
+const int HeartBeatInterval = 3000;			// 心跳包间隔
 const TS_UINT64 SeqBegin = 1;				// seq开始位置，seq从1开始
 
 
@@ -159,6 +159,7 @@ enum PacketType {
     RACE,                   // 抢答
     QUESTION,               // 发起问题
 
+    // packetfix以上，序号自动修正
     PACKETFIX = 40,			// 修正包
     RESEND,					// 重发单个包
     MAXSEQLIST,             // 最大包列表

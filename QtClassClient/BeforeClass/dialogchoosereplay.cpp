@@ -37,7 +37,6 @@ DialogChooseReplay::DialogChooseReplay(QWidget *parent)
     QStringList nameFilter;
     nameFilter << "20??_????_????_??";
     foreach (QString filename, QDir::current().entryList(nameFilter, QDir::Dirs)) {
-        qDebug() << "filtered filename" << filename;
         if (buttonid > 19)
             break;
         if (addedList.contains(filename))

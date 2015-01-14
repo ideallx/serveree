@@ -12,6 +12,8 @@
 
 using namespace std;
 
+const int RemaningID = 2000;
+
 
 /*
  *	每1024个msgs作为一个数组
@@ -52,6 +54,8 @@ public:
 	
 	// 将这个类中所有的msg写进文件
 	bool save(string fileName, bool isCreate);
+
+    bool forceSave(string fileName, bool isCreate);
 	// 将文件中的内容全部复制到类中
 	bool load(string fileName, int packageNum);
 

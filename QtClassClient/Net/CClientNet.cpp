@@ -67,6 +67,11 @@ DWORD CClientNet::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSC
 	} else if (ENTERCLASS == head->type || LEAVECLASS == head->type) {
         DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &inputMsg.msg;
         if (SuccessEnterClass == down->result) {
+            if (m_ds->isLoggedIn())
+                return 0;
+            m_ds->setLoggedIn(true);
+
+            m_Connect->loadBM(string(reinterpret_cast<char*> (down->className)));
             addServerAddr(down->addr);
             setTimeDiff(down->head.time - getServerTime());
             setUID(down->uid);
@@ -76,6 +81,9 @@ DWORD CClientNet::MsgHandler(TS_PEER_MESSAGE& inputMsg) {			// 创建新的客户端WSC
             m_Connect->setFilePrefix(string(reinterpret_cast<char*> (down->className)));
             // m_Connect->loadFile(string(reinterpret_cast<char*> (down->className)));
         } else if (SuccessLeaveClass == down->result) {
+            if (!m_ds->isLoggedIn())
+                return 0;
+            m_ds->setLoggedIn(false);
             endHeartBeat();
         }
 	} else if (SCANPORT == head->type) {
@@ -230,7 +238,6 @@ void CClientNet::sendConnectionMsg() {
 void CClientNet::sendHeartBeat() {
    ts_msg msg;
     while (isRunning()) {
-        iop_usleep(HeartBeatInterval);
         UP_HEARTBEAT* upcmd = (UP_HEARTBEAT*) &msg;
 
         upcmd->head.type = HEARTBEAT;
@@ -242,10 +249,12 @@ void CClientNet::sendHeartBeat() {
         upcmd->head.subSeq = 0;
         upcmd->maxSeq = m_seq - 1;
 
-		m_agent->send(msg.Body, upcmd->head.size);
+        if (m_agent)
+		    m_agent->send(msg.Body, upcmd->head.size);
 #ifdef _DEBUG_INFO_
         cout << m_uid << "send heart beat at " << upcmd->head.time << endl;
 #endif
+        iop_usleep(HeartBeatInterval);
     }
 }
 
@@ -296,5 +305,14 @@ bool CClientNet::replays(int &sleepTime) {
         return true;
     } else {
         return false;
+    }
+}
+
+void CClientNet::sendReliableBM() {
+    ts_msg msg;
+    bool result = m_Connect->sentEveryBMData(msg);
+    while (result) {
+        sendToUp(msg, 0, 0, true);
+        result = m_Connect->sentEveryBMData(msg);
     }
 }

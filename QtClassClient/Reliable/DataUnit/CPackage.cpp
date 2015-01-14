@@ -7,6 +7,7 @@
 #include "../DataUnit/CMessage.h"
 #include "../Zip/myzip.h"
 
+
 CPackage::CPackage(int beginPos)
     : scanHead(beginPos)
     , packageID(0)
@@ -94,33 +95,49 @@ void CPackage::needAll() {
 	scanHead = MaxPackets;
 }
 
+bool CPackage::forceSave(string fileName, bool isCreate) {
+    char *content = (char *)malloc(MESSAGE_SIZE * MaxPackets);
+    for (int i = 0; i < scanHead; i++) {
+        ts_msg* msg = packets[i];
+        if (NULL == msg)
+            continue;
+        int size = packetSize(*msg);
+        if ((size > MESSAGE_SIZE) || size < sizeof(TS_MESSAGE_HEAD))
+            continue;
+
+        memcpy(content + i * MESSAGE_SIZE, msg, size);
+    }
+    // if the package is not full ,save id as 2000
+    // when 2000 is exist then 2001
+    // the reason is I cant delete file in zip
+    // so I dont want a unFull packet to corrupt the whole file system
+    int saveID = packageID;
+    if (!isFull()) {
+        saveID = RemaningID;
+        while (isZipFileExist(fileName, saveID)) {
+            saveID++;
+        }
+    }
+
+    if (!CZip::saveToZip(fileName.c_str(), int2string(saveID).c_str(),
+        content, (scanHead)* MESSAGE_SIZE, isCreate)) {
+#ifdef _DEBUG_INFO_
+        cout << "Save File Error" << endl;
+#endif
+        return false;
+    }
+    // cout << isCreate?"1":"0";
+    // cout << "save " << packageID << endl;
+    free(content);
+    _isSaved = true;
+    return true;
+}
+
 bool CPackage::save(string fileName, bool isCreate) {
 	if (isZipFileExist(fileName, packageID))			// 若文件已经存在，不用重复保存
 		return true;
 
-	char *content = (char *) malloc(MESSAGE_SIZE * MaxPackets);
-	for (int i = 0; i < scanHead; i++) {
-		ts_msg* msg = packets[i];
-		if (NULL == msg)
-			continue;
-		int size = packetSize(*msg);
-		if ((size > MESSAGE_SIZE) || size < sizeof(TS_MESSAGE_HEAD))
-			continue;
-
-		memcpy(content + i * MESSAGE_SIZE, msg, size);
-	}
-	if (!CZip::saveToZip(fileName.c_str(), int2string(packageID).c_str(), 
-		content, (scanHead) * MESSAGE_SIZE, isCreate)) {
-#ifdef _DEBUG_INFO_
-			cout << "Save File Error" << endl;
-#endif
-			return false;
-	}
-	// cout << isCreate?"1":"0";
-	// cout << "save " << packageID << endl;
-	free(content);
-	_isSaved = true;
-	return true;
+    return forceSave(fileName, isCreate);
 }
 
 bool CPackage::isZipFileExist(string fileName, int packageNum) {
@@ -166,7 +183,10 @@ bool CPackage::load(string fileName, int packageNum) {
 	}
 
 	free(content);
-	_isSaved = true;
+    if (MaxPackets == length)
+        _isSaved = true;
+    else
+        _isSaved = false;
 	return true;
 }
 

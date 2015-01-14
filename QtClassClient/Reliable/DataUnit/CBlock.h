@@ -41,7 +41,7 @@ using namespace std;
  *		3:	每个package扣血，扣完的销毁
  */
 
-string getRelativePath(string prefix, int packageID);
+string getRelativePath(string prefix, int userid);
 string getFilename(string relativePath);
 
 // for regular expressions
@@ -98,7 +98,7 @@ public:
 
     CPackage* createNewPackage(int packageNum);
 
-    int loadFromFile(int packageNum, CPackage& package);
+    int loadFromFile(string filePrefix, int packageNum, CPackage& package);
 
 private:
 	// 获取seq对应的msg所在的数组以及位置

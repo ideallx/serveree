@@ -4,8 +4,19 @@
 #include "CBlock.h"
 #include "../OSInedependent/others.h"
 
-string getRelativePath(string prefix, int packageID) {
-    return prefix + "\\" + int2string(packageID) + ".zip";
+#include <fstream>
+using namespace std;
+
+bool isFileExist(string filename) {
+    fstream _file;
+    _file.open(filename, ios::in);
+    if (_file)
+        return true;
+    return false;
+}
+
+string getRelativePath(string prefix, int userid) {
+    return prefix + "\\" + int2string(userid) + ".zip";
 }
 
 string getFilename(string relativePath) {
@@ -174,7 +185,6 @@ int CBlock::readMsg(TS_UINT64 seq, ts_msg& pout) {
 				CPackage *p = new CPackage;
 				p->load(zipName, packageNum);
 				p->setID(packageNum);
-				p->setSaved(true);
 
 				iop_lock(&mapLock);
 				blockContents.insert(make_pair(packageNum, p));		// 从文件里挖出来的CPackage
@@ -209,15 +219,15 @@ void CBlock::saveAll() {
 	iop_lock(&mapLock);
 	if (blockContents.empty())
 		return;
-    bool isSaved = blockContents.begin()->second->isSaved();
-	for (auto iter = blockContents.begin(); iter != blockContents.end(); ) {
+
+    bool isSaved = isFileExist(getRelativePath(fileNamePrefix, _uid));
+	for (auto iter = blockContents.begin(); iter != blockContents.end(); ++iter) {
         // straWrite->onMsgAddStrategy(iter->second);
         CPackage* p = iter->second;
         if (!p->isSaved()) {
             p->save(getRelativePath(fileNamePrefix, _uid), !isSaved);
         }
         isSaved = true;
-        iter++;
 	}
 	iop_unlock(&mapLock);
 }
@@ -227,8 +237,8 @@ void CBlock::setMaxSeq(TS_UINT64 seq) {
 	// TODO
 }
 
-int CBlock::loadFromFile(int packageNum, CPackage& package) {
-    string zipName = getRelativePath(fileNamePrefix, _uid);
+int CBlock::loadFromFile(string filePrefix, int packageNum, CPackage& package) {
+    string zipName = getRelativePath(filePrefix, _uid);
     if (!CPackage::isZipFileExist(zipName, packageNum))
         return 0;
 

@@ -28,6 +28,8 @@ private:
     iop_lock_t lockUsers;
     iop_lock_t lockSingle;
 
+    bool m_isLoggedIn;
+
 public:
     // 这里还是不锁了
     inline void setUID(TS_UINT64 uid) { selfUID = uid; }
@@ -44,6 +46,9 @@ public:
     void setLoggedInState(TS_UINT64 uid, bool in);
     void setWriteable(TS_UINT64 uid, bool writeable);
     inline map<TS_UINT64, USER_INFO> getAllUsers() const { return allusers; }
+
+    inline bool isLoggedIn() { return m_isLoggedIn; }
+    inline void setLoggedIn(bool isLoggedIn) { m_isLoggedIn = isLoggedIn; }
 
     inline WORD getSelfRole() { return allusers[selfUID].role; }
     WORD getRole(TS_UINT64 uid);

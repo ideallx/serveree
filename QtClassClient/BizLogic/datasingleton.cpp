@@ -2,7 +2,8 @@
 
 DataSingleton* DataSingleton::pUniqueData = NULL;
 
-DataSingleton::DataSingleton() {
+DataSingleton::DataSingleton()
+    : m_isLoggedIn(false) {
     iop_lock_init(&lockClasses);
     iop_lock_init(&lockUsers);
     iop_lock_init(&lockSingle);

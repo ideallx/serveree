@@ -1,8 +1,8 @@
 #include "CUserLogic.h"
 
+
 CUserLogic::CUserLogic(CMsgObject* msgParent) :
 	CBaseLogic(msgParent),
-	isLoggedIn(false),
     ub(NULL) {
 }
 
@@ -18,20 +18,10 @@ bool CUserLogic::procMsg(const ts_msg& msg, bool isRemote) {
         case ENTERCLASS:
         case LEAVECLASS:
             {
-                DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &msg;
-                if (SuccessEnterClass == down->result)
-                    isLoggedIn = true;
-                else if (SuccessLeaveClass == down->result)
-                    isLoggedIn = false;
             }
 			break;
         case ENTERAGENT:
             {
-                DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &msg;
-                if (SuccessEnterClass == down->result)
-                    isLoggedIn = true;
-                else if (SuccessLeaveClass == down->result)
-                    isLoggedIn = false;
             }
             break;
         case USERLIST:

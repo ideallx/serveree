@@ -2,9 +2,9 @@
 
 Replays::Replays(string className)
     : fakebm(new CBlockManager)
-    , isInited(false) {
+    , isInited(false)
+    , className(className) {
     fakebm->setFilePrefix(className);
-
     blocks = fakebm->loadExistFile(className);
 }
 
@@ -21,19 +21,44 @@ int Replays::test() {
     return Success;
 }
 
+int Replays::findRemaining(TS_UINT64 uid, CPackage& p) {
+    int i = 0;
+    while (i < 1000) {
+        if (!CPackage::isZipFileExist(getRelativePath(className, uid), RemaningID + i))
+            break;
+        i++;
+    }
+    if (i == 1000)
+        return 0;
+    return fakebm->loadPackage(uid, RemaningID + i - 1, p);
+}
+
 #include <qdebug.h>
 bool Replays::getNextMsg(ts_msg& msg, int& sleepTime) {
 	const ts_msg* tempMsg;
 	TS_UINT64 key;
+    int largestSeq;
+
+    sleepTime = 50;     // initial value
     if (!isInited) {
         for (auto iter = blocks.begin(); iter != blocks.end(); ++iter) {
-            TS_UINT64 largestSeq = fakebm->loadPackage(*iter, 0, temp);
+            largestSeq = fakebm->loadPackage(*iter, 0, temp);
             for (int i = 0; i < largestSeq; i++) {
 				tempMsg = temp[i];
                 if (NULL == tempMsg)
                     continue;
                 key = getKey(*tempMsg);
                 records.insert(make_pair(key, *tempMsg));
+            }
+            if (largestSeq == 0) {
+                largestSeq = findRemaining(*iter, temp);
+                for (int i = 0; i < largestSeq; i++) {
+                    tempMsg = temp[i];
+                    if (NULL == tempMsg)
+                        continue;
+                    key = getKey(*tempMsg);
+                    records.insert(make_pair(key, *tempMsg));
+                }
             }
         }
         isInited = true;
@@ -59,6 +84,16 @@ bool Replays::getNextMsg(ts_msg& msg, int& sleepTime) {
                 records.insert(make_pair(key, *tempMsg));
 			}
 		}
+        if (largestSeq == 0) {
+            largestSeq = findRemaining(head->UID, temp);
+            for (int i = 0; i < largestSeq; i++) {
+                tempMsg = temp[i];
+                if (NULL == tempMsg)
+                    continue;
+                key = getKey(*tempMsg);
+                records.insert(make_pair(key, *tempMsg));
+            }
+        }
     }
 
 	if (records.empty())

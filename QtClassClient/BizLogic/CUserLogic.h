@@ -6,16 +6,16 @@
 #include "datasingleton.h"
 
 
+// bool isLoggedIn should be deprecated for it is recorded in DataSingleton now
 class CUserLogic : public CBaseLogic {
 private:
-	bool isLoggedIn;
     UserBase* ub;
 
 public:
 	CUserLogic(CMsgObject* msgParent);
 	virtual ~CUserLogic();
 
-    inline bool isServerAvailable() { return isLoggedIn; }
+    inline bool isServerAvailable() { return ds->isLoggedIn(); }
 
 public:
     virtual bool procMsg(const ts_msg& msg, bool isRemote);

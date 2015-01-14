@@ -29,8 +29,13 @@ public:
      */
     bool getNextMsg(ts_msg& msg, int &sleepTime);
 
+    inline CBlockManager* getBM() { return fakebm; }
+
+    int findRemaining(TS_UINT64 uid, CPackage& p);
+
 private:
     void addPackage(CPackage* package);
+
 
 private:
     CBlockManager* fakebm;
@@ -41,6 +46,7 @@ private:
     QMap<TS_UINT64, ts_msg> recs;
 
     bool isInited;
+    string className;
 };
 
 #endif // REPLAYS_H
