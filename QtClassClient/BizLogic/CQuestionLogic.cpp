@@ -11,7 +11,7 @@ void CQuestionModule::process(TS_QUESTION_PACKET& qmsg) {
     questionid = qmsg.questionID;
     switch (qmsg.qType) {
     case QuestionInit:
-        correctAnswers.insert(make_pair(qmsg.questionID, qmsg.answer));
+        scores.correctAnswers.insert(make_pair(qmsg.questionID, qmsg.answer));
         if (ds->getSelfRole() == RoleStudent)
             emit questionSented(qmsg.qFormat, qmsg.answer);
         qDebug() << "add correct" << qmsg.questionID << qmsg.answer;
@@ -20,7 +20,6 @@ void CQuestionModule::process(TS_QUESTION_PACKET& qmsg) {
         addData(qmsg.head.UID, qmsg.questionID, qmsg.qFormat, qmsg.answer);
         break;
     case QuestionStatistics:
-        emit questionStatictics(scores);
         break;
     default:
         break;
@@ -28,7 +27,7 @@ void CQuestionModule::process(TS_QUESTION_PACKET& qmsg) {
 }
 
 int CQuestionModule::totalQuestion() {
-    return correctAnswers.size();
+    return scores.correctAnswers.size();
 }
 
 ScoreTable CQuestionModule::getScoreTable() {
@@ -37,7 +36,7 @@ ScoreTable CQuestionModule::getScoreTable() {
 
 void CQuestionModule::addData(TS_UINT64 uid, WORD questionID, WORD format, WORD answer) {
     qDebug() << "check correct" << questionID << answer;
-    if (correctAnswers.find(questionID) == correctAnswers.end()) {  // not find the answer
+    if (scores.correctAnswers.find(questionID) == scores.correctAnswers.end()) {  // not find the answer
         return;
     }
 
@@ -45,19 +44,18 @@ void CQuestionModule::addData(TS_UINT64 uid, WORD questionID, WORD format, WORD 
              << "question id: " << questionID
              << "question format:" << format
              << "question answer:" << answer;
-    auto iter = scores.find(uid);
-    if (iter == scores.end()) {
-        vector<WORD> table;
-        table.push_back(0);
-        table.push_back(0);
-        scores.insert(make_pair(uid, table));
+    auto iter = scores.studentAnswers.find(uid);
+    if (iter == scores.studentAnswers.end()) {
+        AnswerList table;
+        scores.studentAnswers.insert(make_pair(uid, table));
     }
 
-    if (correctAnswers[questionID] == answer) {
-        scores[uid][ScoreCorrect]++;
-    } else {
-        scores[uid][ScoreUncorrect]++;
-    }
+    scores.studentAnswers[uid].insert(make_pair(questionID, answer));
+//    if (correctAnswers[questionID] == answer) {
+//        scores[uid][ScoreCorrect]++;
+//    } else {
+//        scores[uid][ScoreUncorrect]++;
+//    }
 }
 
 

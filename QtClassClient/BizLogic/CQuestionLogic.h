@@ -8,11 +8,39 @@
 #include <vector>
 
 using namespace std;
-typedef map<TS_UINT64, vector<WORD>> ScoreTable;  // uid, correctNum, errNum
 
+// uid q1 Ans, q2 Ans, q3 Ans ......
+typedef map<WORD, WORD> AnswerList;
+
+class ScoreTable {
+public:
+    map<TS_UINT64, AnswerList> studentAnswers;
+    AnswerList correctAnswers;
+
+    vector<WORD> numRightWrong(TS_UINT64 uid) {
+        vector<WORD> result;
+        result.push_back(0);
+        result.push_back(0);
+        if (studentAnswers.find(uid) == studentAnswers.end()) {
+            return result;
+        }
+        AnswerList al = studentAnswers[uid];
+        for (auto iter = al.begin(); iter != al.end(); ++iter) {
+            WORD qid = iter->first;
+            WORD ans = iter->second;
+            if (correctAnswers.find(qid) != correctAnswers.end()) {
+                if (correctAnswers[qid] == ans) {
+                    result[ScoreCorrect]++;
+                } else {
+                    result[ScoreUncorrect]++;
+                }
+            }
+        }
+        return result;
+    }
+};
 
 static ScoreTable scores;
-static map<int, WORD> correctAnswers;
 static WORD questionid;
 
 class CQuestionModule : public QObject {
@@ -27,7 +55,6 @@ public:
 
 signals:
     void questionSented(WORD format, WORD answer);
-    void questionStatictics(ScoreTable scores);
 
 private:
     void addData(TS_UINT64 uid, WORD questionID, WORD format, WORD answer);

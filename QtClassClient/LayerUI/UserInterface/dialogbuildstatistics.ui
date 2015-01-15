@@ -20,7 +20,7 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QLabel#lbTotal, #lbQuestions, #lbNumber {
+   <string notr="true">QLabel#lbDialogTitle {
 	font: 26pt &quot;微软雅黑&quot;;
 }
 
@@ -34,6 +34,10 @@ QDialog {
 }
 
 QListWidget {
+	border: none;
+}
+
+QTableWidget {
 	border: none;
 }
 
@@ -56,6 +60,10 @@ QToolButton#tbDialogExit {
 	color: rgb(0, 157, 65);
 	font: 11pt &quot;微软雅黑&quot;;
 	background-color: white;
+}
+
+QGroupBox {
+	border: none;
 }</string>
   </property>
   <widget class="KineticListWidget" name="lwScores">
@@ -64,7 +72,7 @@ QToolButton#tbDialogExit {
      <x>30</x>
      <y>90</y>
      <width>691</width>
-     <height>421</height>
+     <height>381</height>
     </rect>
    </property>
   </widget>
@@ -157,7 +165,7 @@ QToolButton#tbDialogExit {
     </item>
    </layout>
   </widget>
-  <widget class="QLabel" name="lbNumber">
+  <widget class="QLabel" name="lbDialogTitle">
    <property name="geometry">
     <rect>
      <x>310</x>
@@ -191,6 +199,48 @@ QToolButton#tbDialogExit {
    <property name="autoRaise">
     <bool>true</bool>
    </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>480</y>
+     <width>211</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string/>
+   </property>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>186</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QRadioButton" name="rbSortStudent">
+       <property name="text">
+        <string>按学生排列</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="rbSortQuestion">
+       <property name="text">
+        <string>按题目排列</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
  </widget>
  <customwidgets>

@@ -14,9 +14,11 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QWidget>
@@ -40,6 +42,11 @@ public:
     QLabel *lbBlank;
     QLabel *lbNumber;
     QToolButton *tbDialogExit;
+    QGroupBox *groupBox;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout;
+    QRadioButton *rbSortStudent;
+    QRadioButton *rbSortQuestion;
 
     void setupUi(QDialog *DialogBuildStatistics)
     {
@@ -87,10 +94,14 @@ public:
 "	color: rgb(0, 157, 65);\n"
 "	font: 11pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "	background-color: white;\n"
+"}\n"
+"\n"
+"QGroupBox {\n"
+"	border: none;\n"
 "}"));
         lwScores = new KineticListWidget(DialogBuildStatistics);
         lwScores->setObjectName(QStringLiteral("lwScores"));
-        lwScores->setGeometry(QRect(30, 90, 691, 421));
+        lwScores->setGeometry(QRect(30, 90, 691, 381));
         layoutWidget = new QWidget(DialogBuildStatistics);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
         layoutWidget->setGeometry(QRect(500, 40, 197, 41));
@@ -150,6 +161,26 @@ public:
         tbDialogExit->setObjectName(QStringLiteral("tbDialogExit"));
         tbDialogExit->setGeometry(QRect(40, 30, 70, 40));
         tbDialogExit->setAutoRaise(true);
+        groupBox = new QGroupBox(DialogBuildStatistics);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        groupBox->setGeometry(QRect(510, 480, 211, 41));
+        widget = new QWidget(groupBox);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(10, 20, 186, 18));
+        horizontalLayout = new QHBoxLayout(widget);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        rbSortStudent = new QRadioButton(widget);
+        rbSortStudent->setObjectName(QStringLiteral("rbSortStudent"));
+        rbSortStudent->setChecked(true);
+
+        horizontalLayout->addWidget(rbSortStudent);
+
+        rbSortQuestion = new QRadioButton(widget);
+        rbSortQuestion->setObjectName(QStringLiteral("rbSortQuestion"));
+
+        horizontalLayout->addWidget(rbSortQuestion);
+
 
         retranslateUi(DialogBuildStatistics);
 
@@ -167,6 +198,9 @@ public:
         lbBlank->setText(QApplication::translate("DialogBuildStatistics", "\346\234\252\347\255\224", 0));
         lbNumber->setText(QApplication::translate("DialogBuildStatistics", "\345\205\2610\351\242\230", 0));
         tbDialogExit->setText(QApplication::translate("DialogBuildStatistics", "\345\205\263\351\227\255", 0));
+        groupBox->setTitle(QString());
+        rbSortStudent->setText(QApplication::translate("DialogBuildStatistics", "\346\214\211\345\255\246\347\224\237\346\216\222\345\210\227", 0));
+        rbSortQuestion->setText(QApplication::translate("DialogBuildStatistics", "\346\214\211\351\242\230\347\233\256\346\216\222\345\210\227", 0));
     } // retranslateUi
 
 };

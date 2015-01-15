@@ -41,7 +41,7 @@ using namespace std;
  *		3:	每个package扣血，扣完的销毁
  */
 
-string getRelativePath(string prefix, int userid);
+string getRelativePath(string prefix, TS_UINT64 userid);
 string getFilename(string relativePath);
 
 // for regular expressions

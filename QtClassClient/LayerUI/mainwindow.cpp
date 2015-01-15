@@ -165,7 +165,7 @@ void MainWindow::ProcessMessage(ts_msg& msg, WPARAM event, LPARAM lParam, BOOL i
                 }
                 break;
             case RACE:      // not recv race
-            case QUESTION:  // same as race but now i cant accont all the answer in loading >.<
+            // case QUESTION:  // same as race but now i cant accont all the answer in loading >.<
                 return;
             default:
                 break;
@@ -824,9 +824,6 @@ void MainWindow::loadComplete() {
 void Bridge::connect(MainWindow* mw, CQuestionModule* qm) {
     QObject::connect(qm, &CQuestionModule::questionSented,
                      mw, &MainWindow::buildQuestion);
-
-    QObject::connect(qm, &CQuestionModule::questionStatictics,
-                     mw, &MainWindow::buildQuestionStatistics);
 }
 
 void Bridge::connect(MainWindow* mw, CourseWareWidget* cww) {
@@ -881,8 +878,7 @@ void MainWindow::on_tbQuestion_clicked()
         return;
     } else if (format == ChoiceStatistics) {             // build statistics
         ScoreTable st = questionModule.getScoreTable();
-        int total = questionModule.totalQuestion();
-        QDialog* d = CPromptFrame::statisticsDialog(total, st, this);
+        QDialog* d = CPromptFrame::statisticsDialog(st, this);
         d->exec();
     } else {
         TS_QUESTION_PACKET qmsg;

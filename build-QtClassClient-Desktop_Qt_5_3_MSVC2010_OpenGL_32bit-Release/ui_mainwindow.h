@@ -45,12 +45,12 @@ public:
     QToolButton *tbCourseWare;
     QToolButton *tbTeacherBoard;
     QToolButton *tbMyBoard;
-    QToolButton *tbMyClass;
     LineWidthCombox *tbBrush;
     ColorCombox *tbPalette;
     CShapeChooser *tbShape;
     QToolButton *tbEraser;
     QToolButton *tbBackground;
+    QToolButton *tbMyClass;
     CLoginButton *tbLogin;
     CSettingsButton *tbSettings;
     QHBoxLayout *horizontalLayout_2;
@@ -189,22 +189,6 @@ public:
 
         horizontalLayout->addWidget(tbMyBoard);
 
-        tbMyClass = new QToolButton(gbCommandbar);
-        tbMyClass->setObjectName(QStringLiteral("tbMyClass"));
-        sizePolicy2.setHeightForWidth(tbMyClass->sizePolicy().hasHeightForWidth());
-        tbMyClass->setSizePolicy(sizePolicy2);
-        tbMyClass->setMinimumSize(QSize(75, 75));
-        tbMyClass->setMaximumSize(QSize(120, 16777215));
-        tbMyClass->setStyleSheet(QStringLiteral(""));
-        QIcon icon5;
-        icon5.addFile(QStringLiteral(":/icon/ui/icon/my class.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbMyClass->setIcon(icon5);
-        tbMyClass->setIconSize(QSize(32, 32));
-        tbMyClass->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-        tbMyClass->setAutoRaise(true);
-
-        horizontalLayout->addWidget(tbMyClass);
-
         tbBrush = new LineWidthCombox(gbCommandbar);
         tbBrush->setObjectName(QStringLiteral("tbBrush"));
         sizePolicy2.setHeightForWidth(tbBrush->sizePolicy().hasHeightForWidth());
@@ -212,9 +196,9 @@ public:
         tbBrush->setMinimumSize(QSize(75, 75));
         tbBrush->setMaximumSize(QSize(120, 16777215));
         tbBrush->setStyleSheet(QStringLiteral(""));
-        QIcon icon6;
-        icon6.addFile(QStringLiteral(":/icon/ui/icon/brush.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbBrush->setIcon(icon6);
+        QIcon icon5;
+        icon5.addFile(QStringLiteral(":/icon/ui/icon/brush.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbBrush->setIcon(icon5);
         tbBrush->setIconSize(QSize(32, 32));
         tbBrush->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         tbBrush->setAutoRaise(true);
@@ -228,9 +212,9 @@ public:
         tbPalette->setMinimumSize(QSize(75, 75));
         tbPalette->setMaximumSize(QSize(120, 16777215));
         tbPalette->setStyleSheet(QStringLiteral(""));
-        QIcon icon7;
-        icon7.addFile(QStringLiteral(":/icon/ui/icon/platte.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbPalette->setIcon(icon7);
+        QIcon icon6;
+        icon6.addFile(QStringLiteral(":/icon/ui/icon/platte.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbPalette->setIcon(icon6);
         tbPalette->setIconSize(QSize(32, 32));
         tbPalette->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         tbPalette->setAutoRaise(true);
@@ -244,9 +228,9 @@ public:
         tbShape->setMinimumSize(QSize(75, 75));
         tbShape->setMaximumSize(QSize(120, 16777215));
         tbShape->setStyleSheet(QStringLiteral(""));
-        QIcon icon8;
-        icon8.addFile(QStringLiteral(":/icon/ui/icon/shape.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbShape->setIcon(icon8);
+        QIcon icon7;
+        icon7.addFile(QStringLiteral(":/icon/ui/icon/shape.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbShape->setIcon(icon7);
         tbShape->setIconSize(QSize(32, 32));
         tbShape->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         tbShape->setAutoRaise(true);
@@ -260,9 +244,9 @@ public:
         tbEraser->setMinimumSize(QSize(75, 75));
         tbEraser->setMaximumSize(QSize(120, 16777215));
         tbEraser->setStyleSheet(QStringLiteral(""));
-        QIcon icon9;
-        icon9.addFile(QStringLiteral(":/icon/ui/icon/eraser.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbEraser->setIcon(icon9);
+        QIcon icon8;
+        icon8.addFile(QStringLiteral(":/icon/ui/icon/eraser.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbEraser->setIcon(icon8);
         tbEraser->setIconSize(QSize(32, 32));
         tbEraser->setCheckable(true);
         tbEraser->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -278,14 +262,30 @@ public:
         tbBackground->setMinimumSize(QSize(75, 75));
         tbBackground->setMaximumSize(QSize(120, 16777215));
         tbBackground->setStyleSheet(QStringLiteral(""));
-        QIcon icon10;
-        icon10.addFile(QStringLiteral(":/icon/ui/icon/back ground.png"), QSize(), QIcon::Normal, QIcon::Off);
-        tbBackground->setIcon(icon10);
+        QIcon icon9;
+        icon9.addFile(QStringLiteral(":/icon/ui/icon/back ground.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbBackground->setIcon(icon9);
         tbBackground->setIconSize(QSize(32, 32));
         tbBackground->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         tbBackground->setAutoRaise(true);
 
         horizontalLayout->addWidget(tbBackground);
+
+        tbMyClass = new QToolButton(gbCommandbar);
+        tbMyClass->setObjectName(QStringLiteral("tbMyClass"));
+        sizePolicy2.setHeightForWidth(tbMyClass->sizePolicy().hasHeightForWidth());
+        tbMyClass->setSizePolicy(sizePolicy2);
+        tbMyClass->setMinimumSize(QSize(75, 75));
+        tbMyClass->setMaximumSize(QSize(120, 16777215));
+        tbMyClass->setStyleSheet(QStringLiteral(""));
+        QIcon icon10;
+        icon10.addFile(QStringLiteral(":/icon/ui/icon/my class.png"), QSize(), QIcon::Normal, QIcon::Off);
+        tbMyClass->setIcon(icon10);
+        tbMyClass->setIconSize(QSize(32, 32));
+        tbMyClass->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        tbMyClass->setAutoRaise(true);
+
+        horizontalLayout->addWidget(tbMyClass);
 
         tbLogin = new CLoginButton(gbCommandbar);
         tbLogin->setObjectName(QStringLiteral("tbLogin"));
@@ -423,12 +423,12 @@ public:
         tbCourseWare->setText(QApplication::translate("MainWindow", "\346\225\231\345\270\210\350\257\276\344\273\266", 0));
         tbTeacherBoard->setText(QApplication::translate("MainWindow", "\346\225\231\345\270\210\347\231\275\346\235\277", 0));
         tbMyBoard->setText(QApplication::translate("MainWindow", "\346\210\221\347\232\204\347\231\275\346\235\277", 0));
-        tbMyClass->setText(QApplication::translate("MainWindow", "\346\210\221\347\232\204\347\217\255\347\272\247", 0));
         tbBrush->setText(QApplication::translate("MainWindow", "\347\224\273\347\254\224", 0));
         tbPalette->setText(QApplication::translate("MainWindow", "\350\260\203\350\211\262\346\235\277", 0));
         tbShape->setText(QApplication::translate("MainWindow", "\345\233\276\345\275\242", 0));
         tbEraser->setText(QApplication::translate("MainWindow", "\346\251\241\347\232\256\346\223\246", 0));
         tbBackground->setText(QApplication::translate("MainWindow", "\350\203\214\346\231\257\347\261\273\345\236\213", 0));
+        tbMyClass->setText(QApplication::translate("MainWindow", "\346\210\221\347\232\204\347\217\255\347\272\247", 0));
         tbLogin->setText(QApplication::translate("MainWindow", "\347\231\273\345\275\225", 0));
         tbSettings->setText(QString());
         gbUserlist->setTitle(QString());

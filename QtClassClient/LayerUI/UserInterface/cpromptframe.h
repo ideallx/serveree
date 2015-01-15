@@ -8,7 +8,7 @@
 #include "prompt.h"
 #include "dialogbuildstatistics.h"
 
-//#define _TEST_PROMPT_POS_
+#define _TEST_PROMPT_POS_
 
 class CPromptFrame
 {
@@ -34,7 +34,7 @@ public:
 
     static QDialog* questionDialog(QWidget* parent = 0);
 
-    static QDialog* statisticsDialog(WORD total, ScoreTable scores, QWidget* parent = 0);
+    static QDialog* statisticsDialog(ScoreTable scores, QWidget* parent = 0);
 };
 
 #endif // CPROMPTFRAME_H

@@ -33,6 +33,7 @@ int Replays::findRemaining(TS_UINT64 uid, CPackage& p) {
     return fakebm->loadPackage(uid, RemaningID + i - 1, p);
 }
 
+// load all packed file and the last remaining file
 #include <qdebug.h>
 bool Replays::getNextMsg(ts_msg& msg, int& sleepTime) {
 	const ts_msg* tempMsg;

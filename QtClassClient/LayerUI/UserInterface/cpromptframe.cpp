@@ -69,9 +69,9 @@ QDialog* CPromptFrame::questionDialog(QWidget* parent) {
     return d;
 }
 
-QDialog* CPromptFrame::statisticsDialog(WORD total, ScoreTable scores, QWidget* parent) {
+QDialog* CPromptFrame::statisticsDialog(ScoreTable scores, QWidget* parent) {
     DialogBuildStatistics* d = new DialogBuildStatistics(parent);
-    d->setTotalNumberAndScoreTable(total, scores);
+    d->setScoreTable(scores);
     changeComplexDialog(d);
     return d;
 }

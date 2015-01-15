@@ -93,7 +93,8 @@ SOURCES  += main.cpp\
     LayerUI/UserInterface/dialoganswerquestion.cpp \
     LayerUI/UserInterface/dialogbuildstatistics.cpp \
     LayerUI/UserInterface/widgetansweraccountitem.cpp \
-    ../../QtControl/KineticListWidget/kineticlistwidget.cpp
+    ../../QtControl/KineticListWidget/kineticlistwidget.cpp \
+    LayerUI/UserInterface/dialogstatisticdetail.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBaseLogic.h \
@@ -180,7 +181,8 @@ HEADERS  += LayerUI\mainwindow.h \
     LayerUI/UserInterface/dialoganswerquestion.h \
     LayerUI/UserInterface/dialogbuildstatistics.h \
     LayerUI/UserInterface/widgetansweraccountitem.h \
-    ../../QtControl/KineticListWidget/kineticlistwidget.h
+    ../../QtControl/KineticListWidget/kineticlistwidget.h \
+    LayerUI/UserInterface/dialogstatisticdetail.h
 
 FORMS    += \
     loginwidget.ui \
@@ -196,7 +198,8 @@ FORMS    += \
     LayerUI/UserInterface/dialogbuildquestion.ui \
     LayerUI/UserInterface/dialoganswerquestion.ui \
     LayerUI/UserInterface/dialogbuildstatistics.ui \
-    LayerUI/UserInterface/widgetansweraccountitem.ui
+    LayerUI/UserInterface/widgetansweraccountitem.ui \
+    LayerUI/UserInterface/dialogstatisticdetail.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += include

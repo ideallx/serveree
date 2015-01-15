@@ -15,7 +15,7 @@ bool isFileExist(string filename) {
     return false;
 }
 
-string getRelativePath(string prefix, int userid) {
+string getRelativePath(string prefix, TS_UINT64 userid) {
     return prefix + "\\" + int2string(userid) + ".zip";
 }
 
