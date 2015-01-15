@@ -46,12 +46,12 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{89386c40-e925-4229-83b0-dbb2de526be3}</UniqueIdentifier>
+      <UniqueIdentifier>{96653a32-0624-4641-84c0-4fafe017e7f2}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{dfa3ddca-e5f4-4bf9-95d9-8822ae62a460}</UniqueIdentifier>
+      <UniqueIdentifier>{d2f8fc3f-0d08-47bd-be1c-50036ce0111c}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -216,6 +216,9 @@
     <ClCompile Include="LayerUI\UserInterface\dialogpixmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LayerUI\UserInterface\dialogstatisticdetail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="player\docplayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -373,6 +376,12 @@
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_dialogpixmap.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_dialogstatisticdetail.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_dialogstatisticdetail.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_linewidthcombox.cpp">
@@ -608,6 +617,9 @@
     <CustomBuild Include="LayerUI\UserInterface\dialogpixmap.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialogstatisticdetail.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="player\docplayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -713,6 +725,9 @@
     <ClInclude Include="GeneratedFiles\ui_dialogpixmap.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_dialogstatisticdetail.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_logindialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
@@ -755,6 +770,9 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="LayerUI\UserInterface\dialogpixmap.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LayerUI\UserInterface\dialogstatisticdetail.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="BeforeClass\logindialog.ui">

@@ -40,7 +40,7 @@ public:
     QSpacerItem *horizontalSpacer_2;
     QLabel *label_3;
     QLabel *lbBlank;
-    QLabel *lbNumber;
+    QLabel *lbDialogTitle;
     QToolButton *tbDialogExit;
     QGroupBox *groupBox;
     QWidget *widget;
@@ -58,7 +58,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(DialogBuildStatistics->sizePolicy().hasHeightForWidth());
         DialogBuildStatistics->setSizePolicy(sizePolicy);
-        DialogBuildStatistics->setStyleSheet(QString::fromUtf8("QLabel#lbTotal, #lbQuestions, #lbNumber {\n"
+        DialogBuildStatistics->setStyleSheet(QString::fromUtf8("QLabel#lbDialogTitle {\n"
 "	font: 26pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "}\n"
 "\n"
@@ -72,6 +72,10 @@ public:
 "}\n"
 "\n"
 "QListWidget {\n"
+"	border: none;\n"
+"}\n"
+"\n"
+"QTableWidget {\n"
 "	border: none;\n"
 "}\n"
 "\n"
@@ -149,14 +153,14 @@ public:
 
         horizontalLayout_2->addWidget(lbBlank);
 
-        lbNumber = new QLabel(DialogBuildStatistics);
-        lbNumber->setObjectName(QStringLiteral("lbNumber"));
-        lbNumber->setGeometry(QRect(310, 20, 151, 46));
+        lbDialogTitle = new QLabel(DialogBuildStatistics);
+        lbDialogTitle->setObjectName(QStringLiteral("lbDialogTitle"));
+        lbDialogTitle->setGeometry(QRect(310, 20, 151, 46));
         QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Minimum);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(lbNumber->sizePolicy().hasHeightForWidth());
-        lbNumber->setSizePolicy(sizePolicy1);
+        sizePolicy1.setHeightForWidth(lbDialogTitle->sizePolicy().hasHeightForWidth());
+        lbDialogTitle->setSizePolicy(sizePolicy1);
         tbDialogExit = new QToolButton(DialogBuildStatistics);
         tbDialogExit->setObjectName(QStringLiteral("tbDialogExit"));
         tbDialogExit->setGeometry(QRect(40, 30, 70, 40));
@@ -196,7 +200,7 @@ public:
         lbWrong->setText(QApplication::translate("DialogBuildStatistics", "\351\224\231\350\257\257", 0));
         label_3->setText(QString());
         lbBlank->setText(QApplication::translate("DialogBuildStatistics", "\346\234\252\347\255\224", 0));
-        lbNumber->setText(QApplication::translate("DialogBuildStatistics", "\345\205\2610\351\242\230", 0));
+        lbDialogTitle->setText(QApplication::translate("DialogBuildStatistics", "\345\205\2610\351\242\230", 0));
         tbDialogExit->setText(QApplication::translate("DialogBuildStatistics", "\345\205\263\351\227\255", 0));
         groupBox->setTitle(QString());
         rbSortStudent->setText(QApplication::translate("DialogBuildStatistics", "\346\214\211\345\255\246\347\224\237\346\216\222\345\210\227", 0));

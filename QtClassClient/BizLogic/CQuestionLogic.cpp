@@ -12,9 +12,13 @@ void CQuestionModule::process(TS_QUESTION_PACKET& qmsg) {
     switch (qmsg.qType) {
     case QuestionInit:
         scores.correctAnswers.insert(make_pair(qmsg.questionID, qmsg.answer));
-        if (ds->getSelfRole() == RoleStudent)
-            emit questionSented(qmsg.qFormat, qmsg.answer);
         qDebug() << "add correct" << qmsg.questionID << qmsg.answer;
+        if (ds->getSelfRole() == RoleStudent) {
+            // if the question is too long ago(5 min = 5 * 60 * 1000 = 300000 ms), then ignore
+            if (getServerTime() + ds->getTimeDiff() - qmsg.time < 300000) {
+                emit questionSented(qmsg.qFormat, qmsg.answer);
+            }
+        }
         break;
     case QuestionAnswer:
         addData(qmsg.head.UID, qmsg.questionID, qmsg.qFormat, qmsg.answer);
