@@ -9,9 +9,7 @@
 
 using namespace std;
 
-// uid q1 Ans, q2 Ans, q3 Ans ......
 typedef map<WORD, WORD> AnswerList;
-
 class ScoreTable {
 public:
     map<TS_UINT64, AnswerList> studentAnswers;
@@ -39,6 +37,7 @@ public:
         return result;
     }
 };
+
 
 static ScoreTable scores;
 static WORD questionid;
@@ -78,3 +77,4 @@ private:
 
 
 #endif // _BIZLOGIC_CQUESTIONLOGIC_H
+

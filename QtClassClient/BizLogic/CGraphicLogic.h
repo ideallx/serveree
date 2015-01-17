@@ -14,8 +14,6 @@ class CGraphicLogic : public CBaseLogic
 public:
     CGraphicLogic(CMsgObject* parent = NULL);
     virtual ~CGraphicLogic() {}
-
-    void procIsRemote(const ts_msg& msg);
 };
 
 #endif // CGRAPHICLOGIC_H

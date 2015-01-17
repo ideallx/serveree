@@ -52,10 +52,8 @@ SOURCES  += main.cpp\
     Message/CMsgSender.cpp \
     Message/CModuleAgent.cpp \
     BizLogic/CBusinessLogic.cpp \
-    BizLogic/CGraphicLogic.cpp \
     BizLogic/cfilelogic.cpp \
     BizLogic/cauthlogic.cpp \
-    BizLogic/cplayerlogic.cpp \
     player/pptplayer.cpp \
     player/absplayer.cpp \
     player/playerfactory.cpp \
@@ -82,7 +80,6 @@ SOURCES  += main.cpp\
     BeforeClass/logindialog.cpp \
     BeforeClass/totalprocess.cpp \
     BizLogic/cloadlogic.cpp \
-    LayerUI/UserInterface/dialogpixmap.cpp \
     BizLogic/datasingleton.cpp \
     Net/replays.cpp \
     BeforeClass/dialogchoosereplay.cpp \
@@ -94,8 +91,11 @@ SOURCES  += main.cpp\
     LayerUI/UserInterface/widgetansweraccountitem.cpp \
     ../../QtControl/KineticListWidget/kineticlistwidget.cpp \
     LayerUI/UserInterface/dialogstatisticdetail.cpp \
-    BizLogic/abstractcommonlogicmodule.cpp \
-    BizLogic/cracelogicmodule.cpp
+    FunctionLogic/abstractcommonlogicmodule.cpp \
+    FunctionLogic/Race/cracelogicmodule.cpp \
+    FunctionLogic/Race/dialogpixmap.cpp \
+    FunctionLogic/FileTransfer/cfilelogicmodule.cpp \
+    FunctionLogic/Question/cquestionlogicmodule.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBaseLogic.h \
@@ -141,10 +141,8 @@ HEADERS  += LayerUI\mainwindow.h \
     Message/CModuleAgent.h \
     stdafx.h \
     BizLogic/CBusinessLogic.h \
-    BizLogic/CGraphicLogic.h \
     BizLogic/cfilelogic.h \
     BizLogic/cauthlogic.h \
-    BizLogic/cplayerlogic.h \
     player/pptplayer.h \
     player/absplayer.h \
     player/playerfactory.h \
@@ -171,7 +169,6 @@ HEADERS  += LayerUI\mainwindow.h \
     BeforeClass/logindialog.h \
     BeforeClass/totalprocess.h \
     BizLogic/cloadlogic.h \
-    LayerUI/UserInterface/dialogpixmap.h \
     BizLogic/datasingleton.h \
     Net/replays.h \
     BeforeClass/dialogchoosereplay.h \
@@ -183,8 +180,11 @@ HEADERS  += LayerUI\mainwindow.h \
     LayerUI/UserInterface/widgetansweraccountitem.h \
     ../../QtControl/KineticListWidget/kineticlistwidget.h \
     LayerUI/UserInterface/dialogstatisticdetail.h \
-    BizLogic/abstractcommonlogicmodule.h \
-    BizLogic/cracelogicmodule.h
+    FunctionLogic/abstractcommonlogicmodule.h \
+    FunctionLogic/Race/cracelogicmodule.h \
+    FunctionLogic/Race/dialogpixmap.h \
+    FunctionLogic/FileTransfer/cfilelogicmodule.h \
+    FunctionLogic/Question/cquestionlogicmodule.h
 
 FORMS    += \
     loginwidget.ui \
@@ -194,14 +194,14 @@ FORMS    += \
     coursewarewidget.ui \
     mainwindow.ui \
     BeforeClass/logindialog.ui \
-    LayerUI/UserInterface/dialogpixmap.ui \
     BeforeClass/dialogchoosereplay.ui \
     LayerUI/UserInterface/dialogchooseshape.ui \
     LayerUI/UserInterface/dialogbuildquestion.ui \
     LayerUI/UserInterface/dialoganswerquestion.ui \
     LayerUI/UserInterface/dialogbuildstatistics.ui \
     LayerUI/UserInterface/widgetansweraccountitem.ui \
-    LayerUI/UserInterface/dialogstatisticdetail.ui
+    LayerUI/UserInterface/dialogstatisticdetail.ui \
+    FunctionLogic/Race/dialogpixmap.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += include

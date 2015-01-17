@@ -12,7 +12,7 @@
 #include "UserInterface/cpromptframe.h"
 #include "../BizLogic/datasingleton.h"
 
-#include "../BizLogic/cracelogicmodule.h"
+#include "../FunctionLogic/Race/cracelogicmodule.h"
 
 thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {
     iop_thread_detach_self();
@@ -532,13 +532,6 @@ void MainWindow::msgExcute() {
     case RACE:
         {
             raceModule->recv(msg, 0, 0, true);
-//            TS_RACE_PACKET* rmsg = (TS_RACE_PACKET*) &msg;
-//            if (RaceInit == rmsg->raceType)
-//                raceBegin(rmsg->teacherUID);
-//            else if (RaceRace == rmsg->raceType)
-//                raceRun(rmsg->studentUID, rmsg->head.time);
-//            else if (RaceResult == rmsg->raceType)
-//                raceResult(rmsg->teacherUID, rmsg->studentUID, rmsg->writingTime);
         }
         break;
     case QUESTION:

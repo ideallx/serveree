@@ -216,7 +216,7 @@ CShape *MyScene::createNewItem(TS_UINT64 uid, int shapeType, QPointF curPoint) {
 
     DrawingSettingData *s = isEraser ? &setErase : &setDraw;
 
-    if (uid == SelfUID) {
+    if (uid == ds->getUID()) {
         p = s->pen;
         b = s->brush;
     } else if (toolsMap.contains(uid)) {

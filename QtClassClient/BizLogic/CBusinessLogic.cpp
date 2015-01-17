@@ -3,10 +3,10 @@
 CBusinessLogic::CBusinessLogic(CMsgObject* parent)
     : CMsgObject(parent)
     , m_UserLogic(new CUserLogic(this))
-    , m_GraphicLogic(new CGraphicLogic(this))
+    , m_GraphicLogic(new CBaseLogic(this))
     , m_FileLogic(new CFileLogic(this))
     , m_AuthLogic(new CAuthLogic(this))
-    , m_PlayerLogic(new CPlayerLogic(this))
+    , m_PlayerLogic(new CBaseLogic(this))
     , m_RaceLogic(new CBaseLogic(this)) 
     , m_QuestionLogic(new CBaseLogic(this))
 	, m_isReview(false) {

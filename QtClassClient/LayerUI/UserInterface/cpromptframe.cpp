@@ -1,6 +1,6 @@
 #include "cpromptframe.h"
 #include <QMessageBox>
-#include "dialogpixmap.h"
+#include "../../FunctionLogic/Race/dialogpixmap.h"
 #include "dialoganswerquestion.h"
 #include "dialogbuildquestion.h"
 

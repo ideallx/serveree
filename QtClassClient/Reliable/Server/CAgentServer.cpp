@@ -123,9 +123,6 @@ void CAgentServer::destroyClass(TS_UINT64 classid) {
 void CAgentServer::scanAgent() {
     while (isRunning()) {
         iop_usleep(HeartBeatInterval);
-
-        TS_UINT64 currentTime = getServerTime();
-
         if (heartBeatTime.empty())
             continue;
 

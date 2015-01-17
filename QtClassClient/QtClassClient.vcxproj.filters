@@ -46,12 +46,12 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{a05bff8d-f921-4a7a-9943-bdb916481317}</UniqueIdentifier>
+      <UniqueIdentifier>{d5a43811-6ffb-4a42-a655-48ed6e9c4a40}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{8ff1da1c-444e-492c-88b2-c9e1b5b31145}</UniqueIdentifier>
+      <UniqueIdentifier>{e5ea81f2-3044-4969-bdfc-9e39eb920a88}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -91,9 +91,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Reliable\Strategy\CDestroyStrategy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BizLogic\CGraphicLogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Reliable\Connections\CHubConnection.cpp">
@@ -147,7 +144,7 @@
     <ClCompile Include="player\absplayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BizLogic\abstractcommonlogicmodule.cpp">
+    <ClCompile Include="FunctionLogic\abstractcommonlogicmodule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BizLogic\cauthlogic.cpp">
@@ -177,16 +174,10 @@
     <ClCompile Include="LayerUI\MsgGenerator\cplayergenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BizLogic\cplayerlogic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LayerUI\UserInterface\cpromptframe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\MsgGenerator\cracegenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BizLogic\cracelogicmodule.cpp">
+    <ClCompile Include="FunctionLogic\Race\cracelogicmodule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LayerUI\UserInterface\csettingsbutton.cpp">
@@ -219,7 +210,7 @@
     <ClCompile Include="LayerUI\UserInterface\dialogchooseshape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\UserInterface\dialogpixmap.cpp">
+    <ClCompile Include="FunctionLogic\Race\dialogpixmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LayerUI\UserInterface\dialogstatisticdetail.cpp">
@@ -310,6 +301,12 @@
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_absplayer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_abstractcommonlogicmodule.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_abstractcommonlogicmodule.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_cloginbutton.cpp">
@@ -491,9 +488,6 @@
     <ClInclude Include="Reliable\Strategy\CDestroyStrategy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BizLogic\CGraphicLogic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Reliable\Connections\CHubConnection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -557,9 +551,9 @@
     <CustomBuild Include="player\absplayer.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="BizLogic\abstractcommonlogicmodule.h">
+    <CustomBuild Include="FunctionLogic\abstractcommonlogicmodule.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </CustomBuild>
     <ClInclude Include="BizLogic\cauthlogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -587,16 +581,10 @@
     <ClInclude Include="LayerUI\MsgGenerator\cplayergenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BizLogic\cplayerlogic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LayerUI\UserInterface\cpromptframe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LayerUI\MsgGenerator\cracegenerator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <CustomBuild Include="BizLogic\cracelogicmodule.h">
+    <CustomBuild Include="FunctionLogic\Race\cracelogicmodule.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <ClInclude Include="Reliable\Zip\crypt.h">
@@ -632,7 +620,7 @@
     <CustomBuild Include="LayerUI\UserInterface\dialogchooseshape.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogpixmap.h">
+    <CustomBuild Include="FunctionLogic\Race\dialogpixmap.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="LayerUI\UserInterface\dialogstatisticdetail.h">
@@ -787,7 +775,7 @@
     <CustomBuild Include="LayerUI\UserInterface\dialogchooseshape.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogpixmap.ui">
+    <CustomBuild Include="FunctionLogic\Race\dialogpixmap.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="LayerUI\UserInterface\dialogstatisticdetail.ui">
