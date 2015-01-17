@@ -258,7 +258,7 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 		sockaddr_in backup = inputMsg.peeraddr;
 		inputMsg.peeraddr = *loginUsers->at(user._uid)->getPeer();
 		if (memcmp(&backup, &inputMsg.peeraddr, sizeof(sockaddr_in))) {		// 同一客户端重复登录则不管
-			sendLeaveSuccess(inputMsg);
+			sendLeaveSuccess(inputMsg, WarnKickedOut);
 			inputMsg.peeraddr = backup;
 		}
 	}
@@ -285,9 +285,9 @@ bool CAgentServer::enterClass(TS_PEER_MESSAGE& inputMsg, UserBase user) {
 	return true;
 }
 
-void CAgentServer::sendLeaveSuccess(TS_PEER_MESSAGE& pmsg) {
+void CAgentServer::sendLeaveSuccess(TS_PEER_MESSAGE& pmsg, MsgResult result) {
     DOWN_AGENTSERVICE* down = reinterpret_cast<DOWN_AGENTSERVICE*> (&pmsg.msg);	// 退出班级成功，把服务器信息告诉客户端
-	down->result = SuccessLeaveClass;
+    down->result = result;
     down->addr = pmsg.peeraddr;
 
     sendToQueue(pmsg, LEAVECLASS, sizeof(DOWN_AGENTSERVICE));

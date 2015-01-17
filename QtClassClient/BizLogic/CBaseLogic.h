@@ -4,6 +4,7 @@
 #include "../Message/CMsgObject.h"
 #include "datasingleton.h"
 
+
 class CSubSeqUnit {
 public:
     CSubSeqUnit();

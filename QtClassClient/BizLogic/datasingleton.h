@@ -46,6 +46,8 @@ public:
     void setLoggedInState(TS_UINT64 uid, bool in);
     void setWriteable(TS_UINT64 uid, bool writeable);
     inline map<TS_UINT64, USER_INFO> getAllUsers() const { return allusers; }
+    inline bool isExistUser(TS_UINT64 uid) { return allusers.count(uid) != 0; }
+    inline USER_INFO getUserInfo(TS_UINT64 uid) const { return allusers.at(uid); }
 
     inline bool isLoggedIn() { return m_isLoggedIn; }
     inline void setLoggedIn(bool isLoggedIn) { m_isLoggedIn = isLoggedIn; }

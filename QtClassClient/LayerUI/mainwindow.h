@@ -23,6 +23,8 @@
 class DataSingleton;
 class CourseWareWidget;
 
+class CRaceLogicModule;
+
 namespace Ui {
 class MainWindow;
 };
@@ -67,6 +69,10 @@ public:
     // maybe we can find a better way to make the scrollbar at lefthand instead of at middle
     void show();
 
+    void changeStyle();
+
+    void changeWriteAuth(TS_UINT64 uid);
+
 
 public slots:
     void changeModule(TS_UINT64 uid);
@@ -99,7 +105,6 @@ public slots:
     void cleanCentralArea(TS_UINT64 sceneID, int cleanOption);
     void setViewPaintMode(int mode);
 
-    void raceSuccessPrompt(TS_UINT64 uid);
 
     void showPrompt(QString prompt);
     void showResultPrompt(int result);
@@ -111,10 +116,6 @@ public slots:
     void changeSlide(QString slideInfo);
 
 private:
-    void raceBegin(TS_UINT64 teacherUID);
-    void raceRun(TS_UINT64 studentUID, TS_UINT64 time);
-    void raceResult(TS_UINT64 teacherUID, TS_UINT64 studentUID, WORD writingTime);
-
 
     void changeScene(TS_UINT64 sceneID);
 
@@ -131,7 +132,6 @@ signals:
     void playerNexted(bool isRemote);
     void playerStoped(bool isRemote);
     void playerStarted(QString filename, bool isRemote);
-    void racePromptSent();
 
 private slots:
     void on_listWidget_clicked(const QModelIndex &index);
@@ -141,8 +141,6 @@ private slots:
     void on_tbMyBoard_clicked();
 
     void addSceneSlot(int uidh, int uidl);
-    void buildRaceDialog();
-    void studentRaced();
 
     friend thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam);
     void on_tbCourseWare_clicked();
@@ -150,6 +148,8 @@ private slots:
     void on_listWidget_doubleClicked(const QModelIndex &index);
 
     void on_tbQuestion_clicked();
+
+    void on_tbRace_clicked();
 
 private:
     Ui::MainWindow*             ui;
@@ -171,6 +171,8 @@ private:
     QProcess*                   blankScreen;
     CQuestionGenerator          questionGenerator;
     CQuestionModule             questionModule;
+
+    CRaceLogicModule*           raceModule;
 };
 
 

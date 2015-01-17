@@ -7,21 +7,17 @@
 #include "../../player/playerfactory.h"
 #include "../UserInterface/widgetwarelistitem.h"
 
+const int MaxAllowedWriteTime = 10000;
 
 CourseWareWidget::CourseWareWidget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::CourseWareWidget)
     , m_isPlayerPlaying(false)
     , m_player(NULL)
-    , m_userRole(RoleStudent)
-    , m_raceTime(0)
-    , m_raceOne(NobodyUID) {
+    , m_userRole(RoleStudent){
     ui->setupUi(this);
     ui->tbSync->setHidden(true);
 
-    m_raceTimer.setSingleShot(true);
-    connect(&m_raceTimer, &QTimer::timeout,
-            this, &CourseWareWidget::raceTimeOut);
     connect(this, &CourseWareWidget::syncFileComplete,
             this, &CourseWareWidget::syncComplete);
     m_ds = DataSingleton::getInstance();
@@ -58,8 +54,8 @@ int CourseWareWidget::addFileToList(QString filename) {
 }
 
 QDialog* CourseWareWidget::getDialog(QString prompt, WORD controller) {
-    QDialog *d = CPromptFrame::prompt(prompt, controller,
-                                      dynamic_cast<QWidget*> (parent()));
+    QDialog *d = CPromptFrame::prompt(prompt, dynamic_cast<QWidget*> (parent()), 
+                                      controller);
     return d;
 
 }
@@ -517,64 +513,6 @@ void CourseWareWidget::on_lsWare_currentItemChanged(QListWidgetItem *current, QL
         ui->lsWare->removeItemWidget(previous);
 }
 
-
-const int MaxAllowedWriteTime = 10000;
-void CourseWareWidget::on_tbRace_clicked()
-{
-    if (m_userRole != RoleTeacher)
-        return;
-
-    if (m_raceTimer.isActive())
-        return;
-
-    m_raceTime = getServerTime() + m_ds->getTimeDiff(); // getClientTime();
-    TS_RACE_PACKET rmsg;
-    m_rg.generateRaceData(rmsg, RaceInit, MaxAllowedWriteTime, NobodyUID);
-    m_parent->ProcessMessage(*(ts_msg*) &rmsg, 0, 0, false);
-
-    m_raceTimer.start(5000);
-    emit promptMsgSent(QString::fromLocal8Bit("ÒÑ·¢ÆðÇÀ´ð!"));
-
-}
-
-void CourseWareWidget::raceTimeOut() {
-    m_raceTimer.stop();
-
-    TS_RACE_PACKET rmsg;
-    m_rg.generateRaceData(rmsg, RaceResult, MaxAllowedWriteTime, m_raceOne);
-    m_parent->ProcessMessage(*(ts_msg*) &rmsg, 0, 0, false);
-
-    emit someBodyRaceSuccess(m_raceOne);
-
-    m_raceTime = 0;
-    m_raceOne = NobodyUID;
-}
-
-
-void CourseWareWidget::sendRace() {
-    TS_RACE_PACKET rmsg;
-    m_rg.generateRaceData(rmsg, RaceRace, MaxAllowedWriteTime, m_ds->getUID());
-    m_parent->ProcessMessage(*(ts_msg*) &rmsg, 0, 0, false);
-    qDebug() << "send Race";
-}
-
-
-void CourseWareWidget::raceBegin(TS_UINT64 teacherUID) {
-    teacherUID = 0;     // used
-    if (m_userRole != RoleStudent)
-        return;
-
-    emit racePromptSent();
-}
-
-void CourseWareWidget::recvRace(TS_UINT64 studentUID, TS_UINT64 time) {
-    if (time - m_raceTime < MaxAllowedWriteTime) {
-        m_raceOne = studentUID;
-        raceTimeOut();
-    }
-    qDebug() << "race recv" << studentUID << m_raceTime << time;
-}
-
 void CourseWareWidget::setRole(enum RoleOfClass role) {
     m_userRole = role;
     scanLocalCourseware();
@@ -583,12 +521,10 @@ void CourseWareWidget::setRole(enum RoleOfClass role) {
         ui->tbPrev->setHidden(true);
         ui->tbStart->setHidden(true);
         ui->tbUpload->setHidden(true);
-        ui->tbRace->setHidden(true);
     } else {
         ui->tbNext->setHidden(false);
         ui->tbPrev->setHidden(false);
         ui->tbStart->setHidden(false);
         ui->tbUpload->setHidden(false);
-        ui->tbRace->setHidden(false);
     }
 }

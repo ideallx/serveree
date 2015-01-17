@@ -13,7 +13,6 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
@@ -25,7 +24,7 @@ class Ui_settingWidget
 {
 public:
     QVBoxLayout *verticalLayout;
-    QHBoxLayout *horizontalLayout;
+    QToolButton *tbChangeStyle;
     QToolButton *exitButton;
 
     void setupUi(QWidget *settingWidget)
@@ -37,17 +36,23 @@ public:
         verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setSpacing(0);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalLayout->setContentsMargins(-1, 0, -1, -1);
+        tbChangeStyle = new QToolButton(settingWidget);
+        tbChangeStyle->setObjectName(QStringLiteral("tbChangeStyle"));
+        tbChangeStyle->setMinimumSize(QSize(115, 42));
+        tbChangeStyle->setMaximumSize(QSize(115, 42));
+        QFont font;
+        font.setFamily(QStringLiteral("Agency FB"));
+        font.setPointSize(11);
+        tbChangeStyle->setFont(font);
+        tbChangeStyle->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+        tbChangeStyle->setAutoRaise(true);
+
+        verticalLayout->addWidget(tbChangeStyle);
+
         exitButton = new QToolButton(settingWidget);
         exitButton->setObjectName(QStringLiteral("exitButton"));
         exitButton->setMinimumSize(QSize(115, 42));
         exitButton->setMaximumSize(QSize(115, 42));
-        QFont font;
-        font.setFamily(QStringLiteral("Agency FB"));
-        font.setPointSize(11);
         exitButton->setFont(font);
         QIcon icon;
         icon.addFile(QStringLiteral(":/icon/ui/icon/exit.png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -55,10 +60,7 @@ public:
         exitButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
         exitButton->setAutoRaise(true);
 
-        horizontalLayout->addWidget(exitButton);
-
-
-        verticalLayout->addLayout(horizontalLayout);
+        verticalLayout->addWidget(exitButton);
 
 
         retranslateUi(settingWidget);
@@ -69,6 +71,7 @@ public:
     void retranslateUi(QWidget *settingWidget)
     {
         settingWidget->setWindowTitle(QApplication::translate("settingWidget", "Form", 0));
+        tbChangeStyle->setText(QApplication::translate("settingWidget", "\350\203\214\346\231\257\345\210\207\346\215\242", 0));
         exitButton->setText(QApplication::translate("settingWidget", "\351\200\200\345\207\272\350\275\257\344\273\266", 0));
     } // retranslateUi
 

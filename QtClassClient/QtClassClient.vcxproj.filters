@@ -46,12 +46,12 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{96653a32-0624-4641-84c0-4fafe017e7f2}</UniqueIdentifier>
+      <UniqueIdentifier>{a05bff8d-f921-4a7a-9943-bdb916481317}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{d2f8fc3f-0d08-47bd-be1c-50036ce0111c}</UniqueIdentifier>
+      <UniqueIdentifier>{8ff1da1c-444e-492c-88b2-c9e1b5b31145}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -147,6 +147,9 @@
     <ClCompile Include="player\absplayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BizLogic\abstractcommonlogicmodule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="BizLogic\cauthlogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -181,6 +184,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LayerUI\MsgGenerator\cracegenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BizLogic\cracelogicmodule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LayerUI\UserInterface\csettingsbutton.cpp">
@@ -322,6 +328,12 @@
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_coursewarewidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_cracelogicmodule.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_cracelogicmodule.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_csettingsbutton.cpp">
@@ -545,6 +557,9 @@
     <CustomBuild Include="player\absplayer.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <ClInclude Include="BizLogic\abstractcommonlogicmodule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="BizLogic\cauthlogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -581,6 +596,9 @@
     <ClInclude Include="LayerUI\MsgGenerator\cracegenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="BizLogic\cracelogicmodule.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="Reliable\Zip\crypt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -979,6 +997,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\icon\r.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ui\icon\race.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ui\icon\raceDown.png">

@@ -69,6 +69,7 @@
         <file>ui/icon/blockcorrect.png</file>
         <file>ui/icon/blockwrong.png</file>
         <file>ui/icon/question.png</file>
+        <file>ui/icon/race.png</file>
     </qresource>
     <qresource prefix="/word">
         <file>ui/word/enterclass.png</file>

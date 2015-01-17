@@ -18,8 +18,7 @@ private:
     Ui::settingWidget *ui;
 
 signals:
-
-public slots:
+    void changeStyleClicked();
 };
 
 #endif // CSETTINGSBUTTON_H

@@ -120,7 +120,7 @@ private:
     CWSServer *createClass();
 	void destroyClass(TS_UINT64 classid);
 
-    void sendLeaveSuccess(TS_PEER_MESSAGE& pmsg);
+    void sendLeaveSuccess(TS_PEER_MESSAGE& pmsg, MsgResult result = SuccessLeaveClass);
 
     friend thread_ret_type thread_func_call scanOfflineProc(LPVOID lpParam);
 };

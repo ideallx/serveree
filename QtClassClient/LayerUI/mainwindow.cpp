@@ -12,6 +12,8 @@
 #include "UserInterface/cpromptframe.h"
 #include "../BizLogic/datasingleton.h"
 
+#include "../BizLogic/cracelogicmodule.h"
+
 thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {
     iop_thread_detach_self();
     MainWindow* m = reinterpret_cast<MainWindow*> (lpParam);
@@ -55,6 +57,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     buildSceneConnection(true);
 
+    raceModule = new CRaceLogicModule(this, this);
+    connect(raceModule, &CRaceLogicModule::raceResultGet,
+            this, &MainWindow::changeWriteAuth);
+
 
     // move to UI thread
     connect(this, &MainWindow::enOrLeaveClass,
@@ -67,13 +73,15 @@ MainWindow::MainWindow(QWidget *parent)
             this, &MainWindow::showResultPrompt);
     connect(this, &MainWindow::promptSent,
             this, &MainWindow::showPrompt);
-    connect(this, &MainWindow::racePromptSent,
-            this, &MainWindow::buildRaceDialog);
     connect(this, &MainWindow::wareItemRecv,
             ui->wgtCourse, &CourseWareWidget::recvNewItem);
 
+    connect(ui->tbSettings, &CSettingsButton::changeStyleClicked,
+            this, &MainWindow::changeStyle);
+
 
     ui->gbUserlist->setHidden(true);
+    ui->tbBackground->setHidden(true);
 
     connect(ui->tbLogin, &CLoginButton::loginClicked,
             this, &MainWindow::enterClass);
@@ -98,7 +106,7 @@ MainWindow::MainWindow(QWidget *parent)
         isRunning = false;
     }
 
-    on_tbBackground_clicked();
+    changeStyle();
     on_tbTeacherBoard_clicked();
     ui->listWidget->updateUserInfo();
 
@@ -284,6 +292,7 @@ void MainWindow::leaveClassResult(bool result) {
         emit enOrLeaveClass(false);
         ui->listWidget->init();
         qDebug() << "leave class successfully";
+        qApp->exit();
     }
 }
 
@@ -473,17 +482,22 @@ void MainWindow::msgExcute() {
     case ENTERCLASS:
     case LEAVECLASS:
         {
-            DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*) &msg;
+            DOWN_AGENTSERVICE* down = (DOWN_AGENTSERVICE*)&msg;
             switch (down->result) {
             case SuccessEnterClass:
                 enterClassResult(true);
                 setRole(down->role);
+                emit promptResultSent(down->result);
                 break;
             case SuccessLeaveClass:
+            case WarnKickedOut:
+                emit promptResultSent(down->result);
                 leaveClassResult(true);
+                break;
+            default:
+                break;
             }
             recvClassInfo();
-            emit promptResultSent(down->result);
         }
         break;
     case ADDUSER:
@@ -517,13 +531,14 @@ void MainWindow::msgExcute() {
         break;
     case RACE:
         {
-            TS_RACE_PACKET* rmsg = (TS_RACE_PACKET*) &msg;
-            if (RaceInit == rmsg->raceType)
-                raceBegin(rmsg->teacherUID);
-            else if (RaceRace == rmsg->raceType)
-                raceRun(rmsg->studentUID, rmsg->head.time);
-            else if (RaceResult == rmsg->raceType)
-                raceResult(rmsg->teacherUID, rmsg->studentUID, rmsg->writingTime);
+            raceModule->recv(msg, 0, 0, true);
+//            TS_RACE_PACKET* rmsg = (TS_RACE_PACKET*) &msg;
+//            if (RaceInit == rmsg->raceType)
+//                raceBegin(rmsg->teacherUID);
+//            else if (RaceRace == rmsg->raceType)
+//                raceRun(rmsg->studentUID, rmsg->head.time);
+//            else if (RaceResult == rmsg->raceType)
+//                raceResult(rmsg->teacherUID, rmsg->studentUID, rmsg->writingTime);
         }
         break;
     case QUESTION:
@@ -579,12 +594,12 @@ void MainWindow::sendPrompt(QString prompt) {
 }
 
 void MainWindow::showResultPrompt(int result) {
-    auto pDialog = CPromptFrame::prompt(result, PromptControllerConfirm, this);
+    auto pDialog = CPromptFrame::prompt(result, this);
     pDialog->exec();
 }
 
 void MainWindow::showPrompt(QString prompt) {
-    auto pDialog = CPromptFrame::prompt(prompt, PromptControllerConfirm, this);
+    auto pDialog = CPromptFrame::prompt(prompt, this);
     pDialog->exec();
 }
 
@@ -656,10 +671,12 @@ void MainWindow::setRole(enum RoleOfClass role) {
         sceneMap[TeacherUID]->setWriteable(true);
         sceneMap[CoursewareUID]->setWriteable(true);
         ui->tbQuestion->setVisible(true);
+        ui->tbRace->setVisible(true);
     } else {
         sceneMap[TeacherUID]->setWriteable(false);
         sceneMap[CoursewareUID]->setWriteable(false);
         ui->tbQuestion->setVisible(false);
+        ui->tbRace->setVisible(false);
     }
 }
 
@@ -694,9 +711,13 @@ void MainWindow::on_tbMyBoard_clicked()
     changeScene(SelfUID);
 }
 
-static int backStyle = 1;
 void MainWindow::on_tbBackground_clicked()
 {
+    changeStyle();
+}
+
+void MainWindow::changeStyle() {
+    static int backStyle = 1;
     backStyle++;
     if (backStyle == 2)
         backStyle = 0;
@@ -733,64 +754,18 @@ void MainWindow::on_tbBackground_clicked()
         qss3.close();
     }
 }
+
 // 6 others
 
-// 7 race
-void MainWindow::raceBegin(TS_UINT64 teacherUID) {
-    teacherUID = 0;     // unused ><
-    if (m_userRole != RoleStudent)
-        return;
-
-    emit racePromptSent();
-}
-
-void MainWindow::raceRun(TS_UINT64 studentUID, TS_UINT64 time) {
-    if (m_userRole != RoleTeacher)
-        return;
-
-    ui->wgtCourse->recvRace(studentUID, time);
-    qDebug() << "race student uid is" << studentUID;
-}
-
-void MainWindow::raceResult(TS_UINT64 teacherUID, TS_UINT64 studentUID, WORD writingTime) {
-    writingTime = 0;    // unused
-    teacherUID = 0;     // unused
-    qDebug() << "race result";
-    if (studentUID == m_ds->getUID()) {
+void MainWindow::changeWriteAuth(TS_UINT64 uid) {
+    if (uid == m_ds->getUID()) {
         sceneMap[TeacherUID]->setWriteable(true);
         sceneMap[CoursewareUID]->setWriteable(true);
     }
 
-    ui->listWidget->changeAuth(studentUID, true);
-    raceSuccessPrompt(studentUID);
+    ui->listWidget->changeAuth(uid, true);
 }
 
-void MainWindow::buildRaceDialog() {
-    auto pDialog = CPromptFrame::racePrompt(this);
-    connect(pDialog, &QDialog::accepted,
-            this, &MainWindow::studentRaced);
-    pDialog->exec();
-}
-
-void MainWindow::studentRaced() {
-    ui->wgtCourse->sendRace();
-}
-
-void MainWindow::raceSuccessPrompt(TS_UINT64 uid) {
-    QString prompt;
-    if (NobodyUID == uid) {
-        prompt = QString::fromLocal8Bit("无人抢答。。。");
-    } else if (uid == m_ds->getUID()) {
-        prompt = QString::fromLocal8Bit("您抢答成功！！");
-    } else {
-        QString stu = ui->listWidget->getUserName(uid);     // TODO ds
-        if (stu.isNull()) {
-            stu = QString::fromLocal8Bit("有人");
-        }
-        prompt = stu + QString::fromLocal8Bit("抢答成功");
-    }
-    emit promptSent(prompt);
-}
 // 7 race
 
 // 8 question
@@ -848,8 +823,6 @@ void Bridge::connect(MainWindow* mw, CourseWareWidget* cww) {
                      mw, &MainWindow::changeMedia);
     QObject::connect(cww, &CourseWareWidget::promptMsgSent,
                      mw, &MainWindow::showPrompt);
-    QObject::connect(cww, &CourseWareWidget::someBodyRaceSuccess,
-                     mw, &MainWindow::raceSuccessPrompt);
     QObject::connect(cww, &CourseWareWidget::askChangeScene,
                      mw, &MainWindow::changeBoard);
     QObject::connect(cww, &CourseWareWidget::slideChanged,
@@ -893,4 +866,9 @@ void MainWindow::on_tbQuestion_clicked()
 void MainWindow::show() {
     QMainWindow::show();
     ui->graphicsView->horizontalScrollBar()->setValue(0);
+}
+
+void MainWindow::on_tbRace_clicked()
+{
+    raceModule->sendBegin();
 }

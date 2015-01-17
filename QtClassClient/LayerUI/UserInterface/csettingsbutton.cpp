@@ -11,6 +11,9 @@ CSettingsButton::CSettingsButton(QWidget *parent) :
 
     connect(ui->exitButton, &QToolButton::clicked,
             qApp, &QApplication::quit);     // TODO signal slot in mainwindow
+
+    connect(ui->tbChangeStyle, &QToolButton::clicked,
+            this, &CSettingsButton::changeStyleClicked);
 }
 
 
@@ -25,9 +28,7 @@ void CSettingsButton::menuCreate() {
     vlayout->addWidget(w);
     menu->setLayout(vlayout);
 
-    QPixmap pixmap(":/back/ui/back/combox2.png");
-    menu->setMask(pixmap.mask());
-    menu->setStyleSheet("background-color: rgb(85, 92, 120);");
+    menu->setStyleSheet("background-color: rgb(83, 83, 83);");
     setMenu(menu);
     menu->installEventFilter(this);
 }

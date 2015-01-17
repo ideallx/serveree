@@ -309,6 +309,7 @@ int CReliableConnection::requestForResend(TS_UINT64 uid, set<TS_UINT64> pids) {
 	return result;
 }
 
+
 void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
     // if not received filenameprefix, then wait
     if (fileNamePrefix == "L")
@@ -326,7 +327,6 @@ void CReliableConnection::requestForSeriesResend(ts_msg& requestMsg) {
         requestCount = 2;               // 4 * scan interval
     }
 
-    cout << "request for series resend" << endl;
     for (int i = 0; i < down->count; i++) {
         TS_UINT64 uid = down->unit[i].uid;
         TS_UINT64 maxSeqClient = bm->getMaxSeqOfUID(uid);
@@ -472,6 +472,12 @@ int CReliableConnection::resendPart(TS_UINT64 toUID,
 }
 
 // only available on server mode
+
+// the formula of network state is:
+// current missing rate * totaluser 
+// if missing rate is  5% totaluser is 20
+// then the network state is 100 
+
 void CReliableConnection::sendMaxSeqList() {
     if (selfUid != ServerUID) {
         return;
@@ -485,6 +491,11 @@ void CReliableConnection::sendMaxSeqList() {
 	msg.head.sequence = 0;
 	msg.head.time = getServerTime();
     msg.count = 0;
+
+    msg.networkState = peerHub->size() * getMissingRate() / 10;
+
+    if (msg.networkState != 0)
+        cout << "network state value is: " << msg.networkState << endl;
 	
 	bool hasUpPackage = false;
 	

@@ -204,17 +204,18 @@ int CHubConnection::recv(char* buf, ULONG& len) {
     } else {
         // delete the client which is unexpecedly ended
         if (GetLastError() == 10054) {
+            // TODO dont know how to handle this, cant find which client was closed
             // find all the peer for which one has the same address as the ended client
-            for (auto iter = peerHub->begin(); iter != peerHub->end(); ++iter) {
-                // then delete it!
-                if (memcmp(iter->second->getPeer(), &m_FromAddr, CAbsSocket::m_LocalAddrSize) == 0) {
-                    iop_lock(&mutex_lock);
-                    peerHub->erase(iter);
-                    iop_unlock(&mutex_lock);
-                    break;
-                }
-            }
-            peerHub->erase(getUid(*(ts_msg*) buf));
+            //for (auto iter = peerHub->begin(); iter != peerHub->end(); ++iter) {
+            //    // then delete it!
+            //    if (memcmp(iter->second->getPeer(), &m_FromAddr, CAbsSocket::m_LocalAddrSize) == 0) {
+            //        iop_lock(&mutex_lock);
+            //        peerHub->erase(iter);
+            //        iop_unlock(&mutex_lock);
+            //        break;
+            //    }
+            //}
+            //peerHub->erase(getUid(*(ts_msg*) buf));
         }
     }
     return result;

@@ -4,7 +4,7 @@ QGroupBox {
 }
 
 QToolButton#tbBackground, #tbBrush, #tbCourseWare, #tbQuestion, 
-        #tbEraser, #tbLogin, #tbMyBoard, #tbMyClass,
+        #tbEraser, #tbLogin, #tbMyBoard, #tbMyClass, #tbRace,
         #tbPalette, #tbSettings, #tbShape, #tbTeacherBoard {
         border-style: outset;
         border-top-width: 4px;
@@ -17,7 +17,7 @@ QToolButton:!checked {
 }
 
 QToolButton:checked, QToolButton:pressed {
-        background-color: rgb(83, 83, 83);
+        background: rgb(83, 83, 83);
 }
 
 QToolButton#tbCourseWare {
@@ -48,7 +48,7 @@ QToolButton#tbPalette {
         border-top-color: rgb(242, 69, 109);
 }
 
-QToolButton#tbBackground {
+QToolButton#tbBackground, #tbRace {
         border-top-color: rgb(3, 155, 239);
 }
 

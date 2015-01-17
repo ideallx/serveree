@@ -38,13 +38,13 @@ void CPromptFrame::changeComplexDialog(QDialog *dialog) {
 
 
 
-QDialog* CPromptFrame::prompt(int result, WORD pc, QWidget *parent) {
+QDialog* CPromptFrame::prompt(int result, QWidget *parent, WORD pc) {
     QDialog* d = new Prompt(result, pc, parent);
     changeDialog(d);
     return d;
 }
 
-QDialog* CPromptFrame::prompt(QString prompt, WORD pc, QWidget* parent) {
+QDialog* CPromptFrame::prompt(QString prompt, QWidget* parent, WORD pc) {
     QDialog* d = new Prompt(prompt, pc, parent);
     changeDialog(d);
     return d;

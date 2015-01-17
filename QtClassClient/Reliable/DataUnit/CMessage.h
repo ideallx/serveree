@@ -85,6 +85,7 @@ enum MsgResult {
     SuccessDownload,
 
     WarnAlreadyIn,
+    WarnKickedOut,
 
     ErrorUsername,
     ErrorPassword,
@@ -320,7 +321,8 @@ typedef struct {
 // 用户最大包号列表
 typedef struct {
     TS_MESSAGE_HEAD head;
-    unsigned short count;		// 后续单元数
+    WORD networkState;  // 0 is no burden, 100 is really hard burdened
+    WORD count;		    // 后续单元数
     MAXSEQ_UNIT unit[MaxSeqsInOnePacket / 2];
 } DOWN_MAXSEQ_LIST;
 

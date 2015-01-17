@@ -21,11 +21,11 @@ private:
     static void changeComplexDialog(QDialog* dialog);
 
 public:
-    static QDialog* prompt(int result, WORD pc = PromptControllerConfirm,
-                           QWidget* parent = 0);
+    static QDialog* prompt(int result, QWidget* parent = 0, 
+                           WORD pc = PromptControllerConfirm);
 
-    static QDialog* prompt(QString prompt, WORD pc = PromptControllerConfirm,
-                           QWidget* parent = 0);
+    static QDialog* prompt(QString prompt, QWidget* parent = 0,
+                           WORD pc = PromptControllerConfirm);
 
     static QDialog* racePrompt(QWidget* parent = 0);
 

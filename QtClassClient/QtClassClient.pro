@@ -82,7 +82,6 @@ SOURCES  += main.cpp\
     BeforeClass/logindialog.cpp \
     BeforeClass/totalprocess.cpp \
     BizLogic/cloadlogic.cpp \
-    LayerUI/MsgGenerator/cracegenerator.cpp \
     LayerUI/UserInterface/dialogpixmap.cpp \
     BizLogic/datasingleton.cpp \
     Net/replays.cpp \
@@ -94,7 +93,9 @@ SOURCES  += main.cpp\
     LayerUI/UserInterface/dialogbuildstatistics.cpp \
     LayerUI/UserInterface/widgetansweraccountitem.cpp \
     ../../QtControl/KineticListWidget/kineticlistwidget.cpp \
-    LayerUI/UserInterface/dialogstatisticdetail.cpp
+    LayerUI/UserInterface/dialogstatisticdetail.cpp \
+    BizLogic/abstractcommonlogicmodule.cpp \
+    BizLogic/cracelogicmodule.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBaseLogic.h \
@@ -170,7 +171,6 @@ HEADERS  += LayerUI\mainwindow.h \
     BeforeClass/logindialog.h \
     BeforeClass/totalprocess.h \
     BizLogic/cloadlogic.h \
-    LayerUI/MsgGenerator/cracegenerator.h \
     LayerUI/UserInterface/dialogpixmap.h \
     BizLogic/datasingleton.h \
     Net/replays.h \
@@ -182,7 +182,9 @@ HEADERS  += LayerUI\mainwindow.h \
     LayerUI/UserInterface/dialogbuildstatistics.h \
     LayerUI/UserInterface/widgetansweraccountitem.h \
     ../../QtControl/KineticListWidget/kineticlistwidget.h \
-    LayerUI/UserInterface/dialogstatisticdetail.h
+    LayerUI/UserInterface/dialogstatisticdetail.h \
+    BizLogic/abstractcommonlogicmodule.h \
+    BizLogic/cracelogicmodule.h
 
 FORMS    += \
     loginwidget.ui \

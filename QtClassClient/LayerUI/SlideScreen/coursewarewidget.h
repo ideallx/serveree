@@ -9,7 +9,6 @@
 #include "../../player/absplayer.h"
 #include "../MsgGenerator/cfilemsggenerator.h"
 #include "../MsgGenerator/cplayergenerator.h"
-#include "../MsgGenerator/cracegenerator.h"
 #include "cpromptframe.h"
 
 class DataSingleton;
@@ -55,13 +54,7 @@ public:
     void addWareItem(QString filename);
     void deleteFile(QString filename);
 
-    void raceBegin(TS_UINT64 teacherUID);
-    void raceRun(TS_UINT64 studentUID);
-    void raceResult(TS_UINT64 teacherUID, TS_UINT64 studentUID, WORD writingTime);
-
     void setRole(enum RoleOfClass role);
-    void sendRace();
-    void recvRace(TS_UINT64 studentUID, TS_UINT64 time);
 
     // recvied new item shoule be added to synced file list
     void recvNewItem(QString filename);
@@ -74,9 +67,7 @@ signals:
     void promptMsgSent(QString prompt);
     void changeBackground(QPixmap pic);
     void changeMedia(QMediaPlayer* player);
-    void racePromptSent();
     void changeUserAuth(TS_UINT64 uid, bool set);
-    void someBodyRaceSuccess(TS_UINT64 uid);
     void askChangeScene(TS_UINT64 sceneid);
     void slideChanged(QString slideInfo);
     void changeSide(bool isCoursewareSlide);
@@ -104,9 +95,6 @@ private slots:
     void on_tbExitWare_clicked();
     void on_lsWare_itemDoubleClicked(QListWidgetItem *item);
 
-    void on_tbRace_clicked();
-
-    void raceTimeOut();
 
 public slots:
     void syncComplete(QString filename);
@@ -117,13 +105,9 @@ private:
     AbsPlayer*              m_player;
     CPlayerGenerator        m_pg;
     CFileMsgGenerator       m_fmg;
-    CRaceGenerator          m_rg;
     QSet<QString>           m_syncedWares;
     enum RoleOfClass        m_userRole;
     Ui::CourseWareWidget    *ui;
-    QTimer                  m_raceTimer;
-    TS_UINT64               m_raceTime;
-    TS_UINT64               m_raceOne;
     DataSingleton           *m_ds;
     QFutureWatcher<void>    threadSync;
 

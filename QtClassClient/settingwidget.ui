@@ -30,49 +30,70 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <property name="spacing">
-      <number>0</number>
+    <widget class="QToolButton" name="tbChangeStyle">
+     <property name="minimumSize">
+      <size>
+       <width>115</width>
+       <height>42</height>
+      </size>
      </property>
-     <property name="topMargin">
-      <number>0</number>
+     <property name="maximumSize">
+      <size>
+       <width>115</width>
+       <height>42</height>
+      </size>
      </property>
-     <item>
-      <widget class="QToolButton" name="exitButton">
-       <property name="minimumSize">
-        <size>
-         <width>115</width>
-         <height>42</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>115</width>
-         <height>42</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Agency FB</family>
-         <pointsize>11</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>退出软件</string>
-       </property>
-       <property name="icon">
-        <iconset resource="ui.qrc">
-         <normaloff>:/icon/ui/icon/exit.png</normaloff>:/icon/ui/icon/exit.png</iconset>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextBesideIcon</enum>
-       </property>
-       <property name="autoRaise">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
+     <property name="font">
+      <font>
+       <family>Agency FB</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>背景切换</string>
+     </property>
+     <property name="toolButtonStyle">
+      <enum>Qt::ToolButtonTextBesideIcon</enum>
+     </property>
+     <property name="autoRaise">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QToolButton" name="exitButton">
+     <property name="minimumSize">
+      <size>
+       <width>115</width>
+       <height>42</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>115</width>
+       <height>42</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Agency FB</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>退出软件</string>
+     </property>
+     <property name="icon">
+      <iconset resource="ui.qrc">
+       <normaloff>:/icon/ui/icon/exit.png</normaloff>:/icon/ui/icon/exit.png</iconset>
+     </property>
+     <property name="toolButtonStyle">
+      <enum>Qt::ToolButtonTextBesideIcon</enum>
+     </property>
+     <property name="autoRaise">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
