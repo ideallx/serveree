@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[77];
-    char stringdata[981];
+    QByteArrayData data[70];
+    char stringdata[903];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -85,27 +85,20 @@ QT_MOC_LITERAL(52, 583, 16),
 QT_MOC_LITERAL(53, 600, 4),
 QT_MOC_LITERAL(54, 605, 10),
 QT_MOC_LITERAL(55, 616, 16),
-QT_MOC_LITERAL(56, 633, 13),
-QT_MOC_LITERAL(57, 647, 4),
-QT_MOC_LITERAL(58, 652, 6),
-QT_MOC_LITERAL(59, 659, 13),
-QT_MOC_LITERAL(60, 673, 23),
-QT_MOC_LITERAL(61, 697, 10),
-QT_MOC_LITERAL(62, 708, 2),
-QT_MOC_LITERAL(63, 711, 11),
-QT_MOC_LITERAL(64, 723, 9),
-QT_MOC_LITERAL(65, 733, 21),
-QT_MOC_LITERAL(66, 755, 5),
-QT_MOC_LITERAL(67, 761, 20),
-QT_MOC_LITERAL(68, 782, 22),
-QT_MOC_LITERAL(69, 805, 25),
-QT_MOC_LITERAL(70, 831, 20),
-QT_MOC_LITERAL(71, 852, 12),
-QT_MOC_LITERAL(72, 865, 23),
-QT_MOC_LITERAL(73, 889, 23),
-QT_MOC_LITERAL(74, 913, 27),
-QT_MOC_LITERAL(75, 941, 21),
-QT_MOC_LITERAL(76, 963, 17)
+QT_MOC_LITERAL(56, 633, 11),
+QT_MOC_LITERAL(57, 645, 9),
+QT_MOC_LITERAL(58, 655, 21),
+QT_MOC_LITERAL(59, 677, 5),
+QT_MOC_LITERAL(60, 683, 20),
+QT_MOC_LITERAL(61, 704, 22),
+QT_MOC_LITERAL(62, 727, 25),
+QT_MOC_LITERAL(63, 753, 20),
+QT_MOC_LITERAL(64, 774, 12),
+QT_MOC_LITERAL(65, 787, 23),
+QT_MOC_LITERAL(66, 811, 23),
+QT_MOC_LITERAL(67, 835, 27),
+QT_MOC_LITERAL(68, 863, 21),
+QT_MOC_LITERAL(69, 885, 17)
     },
     "MainWindow\0enOrLeaveClass\0\0entered\0"
     "msgReceived\0addScene\0uidh\0uidl\0"
@@ -125,9 +118,7 @@ QT_MOC_LITERAL(76, 963, 17)
     "changeSceneShape\0shapeType\0cleanCentralArea\0"
     "sceneID\0cleanOption\0setViewPaintMode\0"
     "mode\0showPrompt\0showResultPrompt\0"
-    "buildQuestion\0WORD\0format\0correctAnswer\0"
-    "buildQuestionStatistics\0ScoreTable\0"
-    "st\0changeSlide\0slideInfo\0on_listWidget_clicked\0"
+    "changeSlide\0slideInfo\0on_listWidget_clicked\0"
     "index\0on_tbMyClass_clicked\0"
     "on_btClassInfo_clicked\0on_tbTeacherBoard_clicked\0"
     "on_tbMyBoard_clicked\0addSceneSlot\0"
@@ -143,7 +134,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      45,   14, // methods
+      43,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -151,53 +142,51 @@ static const uint qt_meta_data_MainWindow[] = {
       11,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  239,    2, 0x06 /* Public */,
-       4,    0,  242,    2, 0x06 /* Public */,
-       5,    2,  243,    2, 0x06 /* Public */,
-       8,    1,  248,    2, 0x06 /* Public */,
-      10,    1,  251,    2, 0x06 /* Public */,
-      12,    0,  254,    2, 0x06 /* Public */,
-      13,    1,  255,    2, 0x06 /* Public */,
-      15,    1,  258,    2, 0x06 /* Public */,
-      17,    1,  261,    2, 0x06 /* Public */,
-      18,    1,  264,    2, 0x06 /* Public */,
-      19,    2,  267,    2, 0x06 /* Public */,
+       1,    1,  229,    2, 0x06 /* Public */,
+       4,    0,  232,    2, 0x06 /* Public */,
+       5,    2,  233,    2, 0x06 /* Public */,
+       8,    1,  238,    2, 0x06 /* Public */,
+      10,    1,  241,    2, 0x06 /* Public */,
+      12,    0,  244,    2, 0x06 /* Public */,
+      13,    1,  245,    2, 0x06 /* Public */,
+      15,    1,  248,    2, 0x06 /* Public */,
+      17,    1,  251,    2, 0x06 /* Public */,
+      18,    1,  254,    2, 0x06 /* Public */,
+      19,    2,  257,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      20,    1,  272,    2, 0x0a /* Public */,
-      23,    1,  275,    2, 0x0a /* Public */,
-      25,    2,  278,    2, 0x0a /* Public */,
-      28,    1,  283,    2, 0x0a /* Public */,
-      29,    0,  286,    2, 0x0a /* Public */,
-      30,    1,  287,    2, 0x0a /* Public */,
-      31,    1,  290,    2, 0x0a /* Public */,
-      34,    1,  293,    2, 0x0a /* Public */,
-      35,    0,  296,    2, 0x0a /* Public */,
-      36,    1,  297,    2, 0x0a /* Public */,
-      37,    1,  300,    2, 0x0a /* Public */,
-      38,    1,  303,    2, 0x0a /* Public */,
-      40,    1,  306,    2, 0x0a /* Public */,
-      43,    1,  309,    2, 0x0a /* Public */,
-      45,    1,  312,    2, 0x0a /* Public */,
-      47,    1,  315,    2, 0x0a /* Public */,
-      49,    2,  318,    2, 0x0a /* Public */,
-      52,    1,  323,    2, 0x0a /* Public */,
-      54,    1,  326,    2, 0x0a /* Public */,
-      55,    1,  329,    2, 0x0a /* Public */,
-      56,    2,  332,    2, 0x0a /* Public */,
-      60,    1,  337,    2, 0x0a /* Public */,
-      63,    1,  340,    2, 0x0a /* Public */,
-      65,    1,  343,    2, 0x08 /* Private */,
-      67,    0,  346,    2, 0x08 /* Private */,
-      68,    0,  347,    2, 0x08 /* Private */,
-      69,    0,  348,    2, 0x08 /* Private */,
-      70,    0,  349,    2, 0x08 /* Private */,
-      71,    2,  350,    2, 0x08 /* Private */,
-      72,    0,  355,    2, 0x08 /* Private */,
-      73,    0,  356,    2, 0x08 /* Private */,
-      74,    1,  357,    2, 0x08 /* Private */,
-      75,    0,  360,    2, 0x08 /* Private */,
-      76,    0,  361,    2, 0x08 /* Private */,
+      20,    1,  262,    2, 0x0a /* Public */,
+      23,    1,  265,    2, 0x0a /* Public */,
+      25,    2,  268,    2, 0x0a /* Public */,
+      28,    1,  273,    2, 0x0a /* Public */,
+      29,    0,  276,    2, 0x0a /* Public */,
+      30,    1,  277,    2, 0x0a /* Public */,
+      31,    1,  280,    2, 0x0a /* Public */,
+      34,    1,  283,    2, 0x0a /* Public */,
+      35,    0,  286,    2, 0x0a /* Public */,
+      36,    1,  287,    2, 0x0a /* Public */,
+      37,    1,  290,    2, 0x0a /* Public */,
+      38,    1,  293,    2, 0x0a /* Public */,
+      40,    1,  296,    2, 0x0a /* Public */,
+      43,    1,  299,    2, 0x0a /* Public */,
+      45,    1,  302,    2, 0x0a /* Public */,
+      47,    1,  305,    2, 0x0a /* Public */,
+      49,    2,  308,    2, 0x0a /* Public */,
+      52,    1,  313,    2, 0x0a /* Public */,
+      54,    1,  316,    2, 0x0a /* Public */,
+      55,    1,  319,    2, 0x0a /* Public */,
+      56,    1,  322,    2, 0x0a /* Public */,
+      58,    1,  325,    2, 0x08 /* Private */,
+      60,    0,  328,    2, 0x08 /* Private */,
+      61,    0,  329,    2, 0x08 /* Private */,
+      62,    0,  330,    2, 0x08 /* Private */,
+      63,    0,  331,    2, 0x08 /* Private */,
+      64,    2,  332,    2, 0x08 /* Private */,
+      65,    0,  337,    2, 0x08 /* Private */,
+      66,    0,  338,    2, 0x08 /* Private */,
+      67,    1,  339,    2, 0x08 /* Private */,
+      68,    0,  342,    2, 0x08 /* Private */,
+      69,    0,  343,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Bool,    3,
@@ -233,10 +222,8 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Int,   53,
     QMetaType::Void, QMetaType::QString,    9,
     QMetaType::Void, QMetaType::Int,   11,
-    QMetaType::Void, 0x80000000 | 57, 0x80000000 | 57,   58,   59,
-    QMetaType::Void, 0x80000000 | 61,   62,
-    QMetaType::Void, QMetaType::QString,   64,
-    QMetaType::Void, QMetaType::QModelIndex,   66,
+    QMetaType::Void, QMetaType::QString,   57,
+    QMetaType::Void, QMetaType::QModelIndex,   59,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -244,7 +231,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    6,    7,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QModelIndex,   66,
+    QMetaType::Void, QMetaType::QModelIndex,   59,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -287,20 +274,18 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 28: _t->setViewPaintMode((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 29: _t->showPrompt((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 30: _t->showResultPrompt((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 31: _t->buildQuestion((*reinterpret_cast< WORD(*)>(_a[1])),(*reinterpret_cast< WORD(*)>(_a[2]))); break;
-        case 32: _t->buildQuestionStatistics((*reinterpret_cast< ScoreTable(*)>(_a[1]))); break;
-        case 33: _t->changeSlide((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 34: _t->on_listWidget_clicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
-        case 35: _t->on_tbMyClass_clicked(); break;
-        case 36: _t->on_btClassInfo_clicked(); break;
-        case 37: _t->on_tbTeacherBoard_clicked(); break;
-        case 38: _t->on_tbMyBoard_clicked(); break;
-        case 39: _t->addSceneSlot((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 40: _t->on_tbCourseWare_clicked(); break;
-        case 41: _t->on_tbBackground_clicked(); break;
-        case 42: _t->on_listWidget_doubleClicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
-        case 43: _t->on_tbQuestion_clicked(); break;
-        case 44: _t->on_tbRace_clicked(); break;
+        case 31: _t->changeSlide((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 32: _t->on_listWidget_clicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
+        case 33: _t->on_tbMyClass_clicked(); break;
+        case 34: _t->on_btClassInfo_clicked(); break;
+        case 35: _t->on_tbTeacherBoard_clicked(); break;
+        case 36: _t->on_tbMyBoard_clicked(); break;
+        case 37: _t->addSceneSlot((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 38: _t->on_tbCourseWare_clicked(); break;
+        case 39: _t->on_tbBackground_clicked(); break;
+        case 40: _t->on_listWidget_doubleClicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
+        case 41: _t->on_tbQuestion_clicked(); break;
+        case 42: _t->on_tbRace_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -413,13 +398,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 45)
+        if (_id < 43)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 45;
+        _id -= 43;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 45)
+        if (_id < 43)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 45;
+        _id -= 43;
     }
     return _id;
 }

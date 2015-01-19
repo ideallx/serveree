@@ -5,7 +5,7 @@
 #include <QListWidgetItem>
 
 #include "../../BizLogic/datasingleton.h"
-#include "../../BizLogic/CQuestionLogic.h"
+#include "cquestionlogicmodule.h"
 
 namespace Ui {
 class DialogBuildStatistics;

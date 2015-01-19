@@ -1,6 +1,7 @@
 #include "dialoganswerquestion.h"
 #include "ui_dialoganswerquestion.h"
-#include "cpromptframe.h"
+#include "../../LayerUI/UserInterface/cpromptframe.h"
+#include "cquestionlogicmodule.h"
 
 DialogAnswerQuestion::DialogAnswerQuestion(WORD format, QWidget *parent)
     : QDialog(parent)

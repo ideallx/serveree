@@ -6,9 +6,11 @@
 #include <QObject>
 #include "../../Reliable/DataUnit/CMessage.h"
 #include "prompt.h"
-#include "dialogbuildstatistics.h"
+#include "../../FunctionLogic/Question/dialoganswerquestion.h"
 
 #define _TEST_PROMPT_POS_
+
+class ScoreTable;   // TODO better way
 
 class CPromptFrame
 {
@@ -29,12 +31,12 @@ public:
 
     static QDialog* racePrompt(QWidget* parent = 0);
 
-    static QDialog* answerDialog(WORD format, WORD correctAnswer = ChoiceUnset,
+    static QDialog* answerDialog(WORD format, WORD correctAnswer = QDialog::Rejected,
                                  QWidget* parent = 0);
 
     static QDialog* questionDialog(QWidget* parent = 0);
 
-    static QDialog* statisticsDialog(ScoreTable scores, QWidget* parent = 0);
+    static QDialog* statisticsDialog(ScoreTable* scores, QWidget* parent = 0);
 };
 
 #endif // CPROMPTFRAME_H

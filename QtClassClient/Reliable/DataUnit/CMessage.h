@@ -109,12 +109,6 @@ enum RoleOfClass {
     RoleReplay,
 };
 
-enum RaceType {
-    RaceInit,
-    RaceRace,
-    RaceResult,
-};
-
 enum ReservedUID_t {
     ServerUID,
     AgentUID,
@@ -195,40 +189,6 @@ enum PlayerAction {
     ActionSubNext,
     ActionSubPrev,
     ActionGoto,
-};
-
-enum QuestionFormat {
-    QuestionChoice,         // 选择
-    QuestionBool,           // 是非
-    QuestionFillBlank,      // 填空
-    QuestionSubjective,     // 主观
-};
-
-enum QuestionType {
-    QuestionInit,           // 发起答题
-    QuestionAnswer,         // 回答问题
-    QuestionResult,         // 问题结果
-    QuestionStatistics,     // 答题统计
-};
-
-enum ScoreTableData {
-    ScoreCorrect,
-    ScoreUncorrect,
-    ScoreBlank,
-};
-
-enum ChoiceAnswer {
-    ChoiceUnset     = 0,
-    ChoiceA         = 1,
-    ChoiceB         = 2,
-    ChoiceC         = 4,
-    ChoiceD         = 8,
-
-    ChoiceBoolWall  = 15,
-    ChoiceTrue      = 16,
-    ChoiceFalse     = 32,
-
-    ChoiceStatistics = 64,
 };
 
 

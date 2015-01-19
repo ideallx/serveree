@@ -84,18 +84,17 @@ SOURCES  += main.cpp\
     Net/replays.cpp \
     BeforeClass/dialogchoosereplay.cpp \
     LayerUI/UserInterface/dialogchooseshape.cpp \
-    BizLogic/CQuestionLogic.cpp \
-    LayerUI/UserInterface/dialogbuildquestion.cpp \
-    LayerUI/UserInterface/dialoganswerquestion.cpp \
-    LayerUI/UserInterface/dialogbuildstatistics.cpp \
     LayerUI/UserInterface/widgetansweraccountitem.cpp \
     ../../QtControl/KineticListWidget/kineticlistwidget.cpp \
-    LayerUI/UserInterface/dialogstatisticdetail.cpp \
     FunctionLogic/abstractcommonlogicmodule.cpp \
     FunctionLogic/Race/cracelogicmodule.cpp \
     FunctionLogic/Race/dialogpixmap.cpp \
     FunctionLogic/FileTransfer/cfilelogicmodule.cpp \
-    FunctionLogic/Question/cquestionlogicmodule.cpp
+    FunctionLogic/Question/cquestionlogicmodule.cpp \
+    FunctionLogic/Question/dialoganswerquestion.cpp \
+    FunctionLogic/Question/dialogbuildstatistics.cpp \
+    FunctionLogic/Question/dialogstatisticdetail.cpp \
+    FunctionLogic/Question/dialogbuildquestion.cpp
 
 HEADERS  += LayerUI\mainwindow.h \
     BizLogic/CBaseLogic.h \
@@ -173,18 +172,17 @@ HEADERS  += LayerUI\mainwindow.h \
     Net/replays.h \
     BeforeClass/dialogchoosereplay.h \
     LayerUI/UserInterface/dialogchooseshape.h \
-    BizLogic/CQuestionLogic.h \
-    LayerUI/UserInterface/dialogbuildquestion.h \
-    LayerUI/UserInterface/dialoganswerquestion.h \
-    LayerUI/UserInterface/dialogbuildstatistics.h \
     LayerUI/UserInterface/widgetansweraccountitem.h \
     ../../QtControl/KineticListWidget/kineticlistwidget.h \
-    LayerUI/UserInterface/dialogstatisticdetail.h \
     FunctionLogic/abstractcommonlogicmodule.h \
     FunctionLogic/Race/cracelogicmodule.h \
     FunctionLogic/Race/dialogpixmap.h \
     FunctionLogic/FileTransfer/cfilelogicmodule.h \
-    FunctionLogic/Question/cquestionlogicmodule.h
+    FunctionLogic/Question/cquestionlogicmodule.h \
+    FunctionLogic/Question/dialoganswerquestion.h \
+    FunctionLogic/Question/dialogbuildstatistics.h \
+    FunctionLogic/Question/dialogstatisticdetail.h \
+    FunctionLogic/Question/dialogbuildquestion.h
 
 FORMS    += \
     loginwidget.ui \
@@ -196,12 +194,12 @@ FORMS    += \
     BeforeClass/logindialog.ui \
     BeforeClass/dialogchoosereplay.ui \
     LayerUI/UserInterface/dialogchooseshape.ui \
-    LayerUI/UserInterface/dialogbuildquestion.ui \
-    LayerUI/UserInterface/dialoganswerquestion.ui \
-    LayerUI/UserInterface/dialogbuildstatistics.ui \
     LayerUI/UserInterface/widgetansweraccountitem.ui \
-    LayerUI/UserInterface/dialogstatisticdetail.ui \
-    FunctionLogic/Race/dialogpixmap.ui
+    FunctionLogic/Race/dialogpixmap.ui \
+    FunctionLogic/Question/dialoganswerquestion.ui \
+    FunctionLogic/Question/dialogbuildstatistics.ui \
+    FunctionLogic/Question/dialogstatisticdetail.ui \
+    FunctionLogic/Question/dialogbuildquestion.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += include

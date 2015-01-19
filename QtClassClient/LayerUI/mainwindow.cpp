@@ -12,6 +12,7 @@
 #include "UserInterface/cpromptframe.h"
 #include "../BizLogic/datasingleton.h"
 
+#include "../FunctionLogic/Question/cquestionlogicmodule.h"
 #include "../FunctionLogic/Race/cracelogicmodule.h"
 
 thread_ret_type thread_func_call UIMsgProc(LPVOID lpParam) {
@@ -52,11 +53,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->graphicsView->setScene(scene);
 
-    Bridge::connect(this, &questionModule);
     Bridge::connect(this, ui->wgtCourse);
 
     buildSceneConnection(true);
 
+    questionModule = new CQuestionLogicModule(this, this);
     raceModule = new CRaceLogicModule(this, this);
     connect(raceModule, &CRaceLogicModule::raceResultGet,
             this, &MainWindow::changeWriteAuth);
@@ -530,12 +531,10 @@ void MainWindow::msgExcute() {
 		}
         break;
     case RACE:
-        {
-            raceModule->recv(msg, 0, 0, true);
-        }
+        raceModule->recv(msg, 0, 0, true);
         break;
     case QUESTION:
-        questionModule.process(*reinterpret_cast<TS_QUESTION_PACKET*> (&msg));
+        questionModule->recv(msg, 0, 0, true);
         break;
     default:
         break;
@@ -761,20 +760,6 @@ void MainWindow::changeWriteAuth(TS_UINT64 uid) {
 
 // 7 race
 
-// 8 question
-void MainWindow::buildQuestion(WORD format, WORD correctAnswer) {
-    QDialog* d = CPromptFrame::answerDialog(format, correctAnswer, this);
-    int userAnswer = d->exec();
-    TS_QUESTION_PACKET qmsg;
-    questionGenerator.generateQuestionData(qmsg, QuestionAnswer,
-                                           format, userAnswer);
-    ProcessMessage(*reinterpret_cast<ts_msg*> (&qmsg), 0, 0, false);
-    questionModule.process(qmsg);
-}
-
-void MainWindow::buildQuestionStatistics(ScoreTable st) {
-    return;
-}
 
 void MainWindow::loadComplete() {
 	isLoading = false;
@@ -786,12 +771,6 @@ void MainWindow::loadComplete() {
 		ProcessMessage(msg, 0, 0, true);
     }
     setRole(static_cast<enum RoleOfClass> (m_ds->getSelfRole()));
-}
-
-
-void Bridge::connect(MainWindow* mw, CQuestionModule* qm) {
-    QObject::connect(qm, &CQuestionModule::questionSented,
-                     mw, &MainWindow::buildQuestion);
 }
 
 void Bridge::connect(MainWindow* mw, CourseWareWidget* cww) {
@@ -826,33 +805,7 @@ void MainWindow::on_tbQuestion_clicked()
 {
     if (RoleTeacher != m_userRole)
         return;
-
-    QDialog* d = CPromptFrame::questionDialog(this);
-    int answer = d->exec();
-    int format = -1;
-    if (answer == ChoiceStatistics) {       // choose statistics
-        format = ChoiceStatistics;
-    } else if (answer > ChoiceBoolWall) {   // choose bool question
-        format = QuestionBool;
-    } else if (answer > 0) {                // choose choice question
-        format = QuestionChoice;
-    } else if (answer == ChoiceUnset) {     // choose exit
-        return;
-    }
-
-    if (-1 == format) {
-        return;
-    } else if (format == ChoiceStatistics) {             // build statistics
-        ScoreTable st = questionModule.getScoreTable();
-        QDialog* d = CPromptFrame::statisticsDialog(st, this);
-        d->exec();
-    } else {
-        TS_QUESTION_PACKET qmsg;
-        questionGenerator.init();
-        questionGenerator.generateQuestionData(qmsg, QuestionInit, format, answer);
-        ProcessMessage(*reinterpret_cast<ts_msg*> (&qmsg), 0, 0, false);
-        questionModule.process(qmsg);
-    }
+    questionModule->sendBegin();
 }
 
 #include <qscrollbar.h>

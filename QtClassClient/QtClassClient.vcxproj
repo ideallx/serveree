@@ -148,7 +148,7 @@
     <ClCompile Include="Debug\moc_coursewarewidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Debug\moc_CQuestionLogic.cpp">
+    <ClCompile Include="Debug\moc_cquestionlogicmodule.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Debug\moc_cracelogicmodule.cpp">
@@ -232,7 +232,7 @@
     <ClCompile Include="Release\moc_coursewarewidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Release\moc_CQuestionLogic.cpp">
+    <ClCompile Include="Release\moc_cquestionlogicmodule.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Release\moc_cracelogicmodule.cpp">
@@ -315,7 +315,6 @@
     <ClCompile Include="Message\CMsgSender.cpp" />
     <ClCompile Include="Reliable\DataUnit\CPackage.cpp" />
     <ClCompile Include="Reliable\Connections\CPeerConnection.cpp" />
-    <ClCompile Include="BizLogic\CQuestionLogic.cpp" />
     <ClCompile Include="Reliable\Connections\CReliableConnection.cpp" />
     <ClCompile Include="Reliable\Server\CServer.cpp" />
     <ClCompile Include="Reliable\Strategy\CSettings.cpp" />
@@ -327,6 +326,7 @@
     <ClCompile Include="FunctionLogic\abstractcommonlogicmodule.cpp" />
     <ClCompile Include="BizLogic\cauthlogic.cpp" />
     <ClCompile Include="BizLogic\cfilelogic.cpp" />
+    <ClCompile Include="FunctionLogic\FileTransfer\cfilelogicmodule.cpp" />
     <ClCompile Include="LayerUI\MsgGenerator\cfilemsggenerator.cpp" />
     <ClCompile Include="LayerUI\MsgGenerator\cgraphicmsgcreator.cpp" />
     <ClCompile Include="BizLogic\cloadlogic.cpp" />
@@ -335,19 +335,20 @@
     <ClCompile Include="LayerUI\SlideScreen\coursewarewidget.cpp" />
     <ClCompile Include="LayerUI\MsgGenerator\cplayergenerator.cpp" />
     <ClCompile Include="LayerUI\UserInterface\cpromptframe.cpp" />
+    <ClCompile Include="FunctionLogic\Question\cquestionlogicmodule.cpp" />
     <ClCompile Include="FunctionLogic\Race\cracelogicmodule.cpp" />
     <ClCompile Include="LayerUI\UserInterface\csettingsbutton.cpp" />
     <ClCompile Include="LayerUI\DrawingScreen\cshape.cpp" />
     <ClCompile Include="LayerUI\UserInterface\cshapechooser.cpp" />
     <ClCompile Include="LayerUI\UserInterface\cuserlistwidget.cpp" />
     <ClCompile Include="BizLogic\datasingleton.cpp" />
-    <ClCompile Include="LayerUI\UserInterface\dialoganswerquestion.cpp" />
-    <ClCompile Include="LayerUI\UserInterface\dialogbuildquestion.cpp" />
-    <ClCompile Include="LayerUI\UserInterface\dialogbuildstatistics.cpp" />
+    <ClCompile Include="FunctionLogic\Question\dialoganswerquestion.cpp" />
+    <ClCompile Include="FunctionLogic\Question\dialogbuildquestion.cpp" />
+    <ClCompile Include="FunctionLogic\Question\dialogbuildstatistics.cpp" />
     <ClCompile Include="BeforeClass\dialogchoosereplay.cpp" />
     <ClCompile Include="LayerUI\UserInterface\dialogchooseshape.cpp" />
     <ClCompile Include="FunctionLogic\Race\dialogpixmap.cpp" />
-    <ClCompile Include="LayerUI\UserInterface\dialogstatisticdetail.cpp" />
+    <ClCompile Include="FunctionLogic\Question\dialogstatisticdetail.cpp" />
     <ClCompile Include="player\docplayer.cpp" />
     <ClCompile Include="Reliable\Zip\ioapi.c" />
     <ClCompile Include="Reliable\OSInedependent\libiop\iop_thread.c" />
@@ -411,16 +412,6 @@
     <ClInclude Include="Reliable\DataUnit\CPackage.h" />
     <ClInclude Include="Reliable\Connections\CPeerConnection.h" />
     <ClInclude Include="Reliable\DataUnit\CPeerPacket.h" />
-    <CustomBuild Include="BizLogic\CQuestionLogic.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I.\..\..\QtControl\KineticListWidget" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing CQuestionLogic.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I.\..\..\QtControl\KineticListWidget" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing CQuestionLogic.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-    </CustomBuild>
     <ClInclude Include="Reliable\Connections\CReliableConnection.h" />
     <ClInclude Include="Reliable\Server\CServer.h" />
     <ClInclude Include="Reliable\Strategy\CSettings.h" />
@@ -453,6 +444,7 @@
     </CustomBuild>
     <ClInclude Include="BizLogic\cauthlogic.h" />
     <ClInclude Include="BizLogic\cfilelogic.h" />
+    <ClInclude Include="FunctionLogic\FileTransfer\cfilelogicmodule.h" />
     <ClInclude Include="LayerUI\MsgGenerator\cfilemsggenerator.h" />
     <ClInclude Include="LayerUI\MsgGenerator\cgraphicmsgcreator.h" />
     <ClInclude Include="BizLogic\cloadlogic.h" />
@@ -488,6 +480,16 @@
     </CustomBuild>
     <ClInclude Include="LayerUI\MsgGenerator\cplayergenerator.h" />
     <ClInclude Include="LayerUI\UserInterface\cpromptframe.h" />
+    <CustomBuild Include="FunctionLogic\Question\cquestionlogicmodule.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I.\..\..\QtControl\KineticListWidget" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing cquestionlogicmodule.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I.\..\..\QtControl\KineticListWidget" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing cquestionlogicmodule.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
     <CustomBuild Include="FunctionLogic\Race\cracelogicmodule.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I.\..\..\QtControl\KineticListWidget" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing cracelogicmodule.h...</Message>
@@ -531,7 +533,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="BizLogic\datasingleton.h" />
-    <CustomBuild Include="LayerUI\UserInterface\dialoganswerquestion.h">
+    <CustomBuild Include="FunctionLogic\Question\dialoganswerquestion.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I.\..\..\QtControl\KineticListWidget" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing dialoganswerquestion.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I.\..\..\QtControl\KineticListWidget" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
@@ -541,7 +543,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogbuildquestion.h">
+    <CustomBuild Include="FunctionLogic\Question\dialogbuildquestion.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I.\..\..\QtControl\KineticListWidget" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing dialogbuildquestion.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I.\..\..\QtControl\KineticListWidget" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
@@ -551,7 +553,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogbuildstatistics.h">
+    <CustomBuild Include="FunctionLogic\Question\dialogbuildstatistics.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I.\..\..\QtControl\KineticListWidget" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing dialogbuildstatistics.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I.\..\..\QtControl\KineticListWidget" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
@@ -591,7 +593,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogstatisticdetail.h">
+    <CustomBuild Include="FunctionLogic\Question\dialogstatisticdetail.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_NO_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I.\..\..\QtControl\KineticListWidget" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing dialogstatisticdetail.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DNOMINMAX -DQT_MULTIMEDIAWIDGETS_LIB -DQT_AXCONTAINER_LIB -DQT_MULTIMEDIA_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\include" "-I.\LayerUI\UserInterface" "-I.\LayerUI\SlideScreen" "-I.\Reliable\OSInedependent\libiop" "-I.\..\..\QtControl\KineticListWidget" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtConcurrent" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2010"</Command>
@@ -723,7 +725,7 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialoganswerquestion.ui">
+    <CustomBuild Include="FunctionLogic\Question\dialoganswerquestion.ui">
       <FileType>Document</FileType>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
@@ -734,7 +736,7 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogbuildquestion.ui">
+    <CustomBuild Include="FunctionLogic\Question\dialogbuildquestion.ui">
       <FileType>Document</FileType>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
@@ -745,7 +747,7 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogbuildstatistics.ui">
+    <CustomBuild Include="FunctionLogic\Question\dialogbuildstatistics.ui">
       <FileType>Document</FileType>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
@@ -789,7 +791,7 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogstatisticdetail.ui">
+    <CustomBuild Include="FunctionLogic\Question\dialogstatisticdetail.ui">
       <FileType>Document</FileType>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>

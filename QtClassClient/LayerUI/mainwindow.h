@@ -18,12 +18,12 @@
 #include "MsgGenerator/cfilemsggenerator.h"
 #include "MsgGenerator/cplayergenerator.h"
 #include "../player/absplayer.h"
-#include "../BizLogic/CQuestionLogic.h"
 
 class DataSingleton;
 class CourseWareWidget;
 
 class CRaceLogicModule;
+class CQuestionLogicModule;
 
 namespace Ui {
 class MainWindow;
@@ -109,10 +109,6 @@ public slots:
     void showPrompt(QString prompt);
     void showResultPrompt(int result);
 
-    // question
-    void buildQuestion(WORD format, WORD correctAnswer);
-    void buildQuestionStatistics(ScoreTable st);
-
     void changeSlide(QString slideInfo);
 
 private:
@@ -169,16 +165,14 @@ private:
 	TSQueue<ts_msg>				loadingbuffer;
     QList<QToolButton*>         l_naviButtons;
     QProcess*                   blankScreen;
-    CQuestionGenerator          questionGenerator;
-    CQuestionModule             questionModule;
 
+    CQuestionLogicModule*       questionModule;
     CRaceLogicModule*           raceModule;
 };
 
 
 class Bridge {
 public:
-    static void connect(MainWindow* mw, CQuestionModule* qm);
     static void connect(MainWindow* mw, CourseWareWidget* cww);
 };
 

@@ -1,8 +1,8 @@
 #include "cpromptframe.h"
 #include <QMessageBox>
 #include "../../FunctionLogic/Race/dialogpixmap.h"
-#include "dialoganswerquestion.h"
-#include "dialogbuildquestion.h"
+#include "../../FunctionLogic/Question/dialogbuildstatistics.h"
+#include "../../FunctionLogic/Question/dialogbuildquestion.h"
 
 static QDialog* preDialog = NULL;
 static QDialog* preComplexDialog = NULL;
@@ -69,9 +69,9 @@ QDialog* CPromptFrame::questionDialog(QWidget* parent) {
     return d;
 }
 
-QDialog* CPromptFrame::statisticsDialog(ScoreTable scores, QWidget* parent) {
+QDialog* CPromptFrame::statisticsDialog(ScoreTable *scores, QWidget* parent) {
     DialogBuildStatistics* d = new DialogBuildStatistics(parent);
-    d->setScoreTable(scores);
+    d->setScoreTable(*scores);
     changeComplexDialog(d);
     return d;
 }

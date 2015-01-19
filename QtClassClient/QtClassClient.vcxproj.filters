@@ -46,12 +46,12 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{d5a43811-6ffb-4a42-a655-48ed6e9c4a40}</UniqueIdentifier>
+      <UniqueIdentifier>{913513c9-f075-4428-85b2-d5da117d7ace}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{e5ea81f2-3044-4969-bdfc-9e39eb920a88}</UniqueIdentifier>
+      <UniqueIdentifier>{970284bd-c347-412a-8c8a-36c2aeda7618}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -117,9 +117,6 @@
     <ClCompile Include="Reliable\Connections\CPeerConnection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BizLogic\CQuestionLogic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Reliable\Connections\CReliableConnection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -153,6 +150,9 @@
     <ClCompile Include="BizLogic\cfilelogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FunctionLogic\FileTransfer\cfilelogicmodule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="LayerUI\MsgGenerator\cfilemsggenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -177,6 +177,9 @@
     <ClCompile Include="LayerUI\UserInterface\cpromptframe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FunctionLogic\Question\cquestionlogicmodule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="FunctionLogic\Race\cracelogicmodule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -195,13 +198,13 @@
     <ClCompile Include="BizLogic\datasingleton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\UserInterface\dialoganswerquestion.cpp">
+    <ClCompile Include="FunctionLogic\Question\dialoganswerquestion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\UserInterface\dialogbuildquestion.cpp">
+    <ClCompile Include="FunctionLogic\Question\dialogbuildquestion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\UserInterface\dialogbuildstatistics.cpp">
+    <ClCompile Include="FunctionLogic\Question\dialogbuildstatistics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BeforeClass\dialogchoosereplay.cpp">
@@ -213,7 +216,7 @@
     <ClCompile Include="FunctionLogic\Race\dialogpixmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayerUI\UserInterface\dialogstatisticdetail.cpp">
+    <ClCompile Include="FunctionLogic\Question\dialogstatisticdetail.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="player\docplayer.cpp">
@@ -291,12 +294,6 @@
     <ClCompile Include="Reliable\Zip\zip.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_CQuestionLogic.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_CQuestionLogic.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Debug\moc_absplayer.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -325,6 +322,12 @@
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_coursewarewidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_cquestionlogicmodule.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_cquestionlogicmodule.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_cracelogicmodule.cpp">
@@ -515,9 +518,6 @@
     <ClInclude Include="Reliable\DataUnit\CPeerPacket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="BizLogic\CQuestionLogic.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <ClInclude Include="Reliable\Connections\CReliableConnection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -560,6 +560,9 @@
     <ClInclude Include="BizLogic\cfilelogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FunctionLogic\FileTransfer\cfilelogicmodule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="LayerUI\MsgGenerator\cfilemsggenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -584,6 +587,9 @@
     <ClInclude Include="LayerUI\UserInterface\cpromptframe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="FunctionLogic\Question\cquestionlogicmodule.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="FunctionLogic\Race\cracelogicmodule.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -605,13 +611,13 @@
     <ClInclude Include="BizLogic\datasingleton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="LayerUI\UserInterface\dialoganswerquestion.h">
+    <CustomBuild Include="FunctionLogic\Question\dialoganswerquestion.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogbuildquestion.h">
+    <CustomBuild Include="FunctionLogic\Question\dialogbuildquestion.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogbuildstatistics.h">
+    <CustomBuild Include="FunctionLogic\Question\dialogbuildstatistics.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="BeforeClass\dialogchoosereplay.h">
@@ -623,7 +629,7 @@
     <CustomBuild Include="FunctionLogic\Race\dialogpixmap.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogstatisticdetail.h">
+    <CustomBuild Include="FunctionLogic\Question\dialogstatisticdetail.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <ClInclude Include="player\docplayer.h">
@@ -760,13 +766,13 @@
     <CustomBuild Include="coursewarewidget.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialoganswerquestion.ui">
+    <CustomBuild Include="FunctionLogic\Question\dialoganswerquestion.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogbuildquestion.ui">
+    <CustomBuild Include="FunctionLogic\Question\dialogbuildquestion.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogbuildstatistics.ui">
+    <CustomBuild Include="FunctionLogic\Question\dialogbuildstatistics.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="BeforeClass\dialogchoosereplay.ui">
@@ -778,7 +784,7 @@
     <CustomBuild Include="FunctionLogic\Race\dialogpixmap.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="LayerUI\UserInterface\dialogstatisticdetail.ui">
+    <CustomBuild Include="FunctionLogic\Question\dialogstatisticdetail.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="BeforeClass\logindialog.ui">

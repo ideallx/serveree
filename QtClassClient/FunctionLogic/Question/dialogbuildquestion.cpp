@@ -1,7 +1,8 @@
 #include "dialogbuildquestion.h"
 #include "ui_dialogbuildquestion.h"
 #include "../../Reliable/DataUnit/CMessage.h"
-#include "cpromptframe.h"
+#include "../../LayerUI/UserInterface/cpromptframe.h"
+#include "cquestionlogicmodule.h"
 
 int transAnswerToInt(WORD type, WORD answer) {
     return type + (answer << 8);

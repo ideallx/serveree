@@ -1,6 +1,8 @@
 #include "dialogstatisticdetail.h"
 #include "ui_dialogstatisticdetail.h"
 
+#include "cquestionlogicmodule.h"
+
 const int MaxColumn = 3;
 
 DialogStatisticDetail::DialogStatisticDetail(QWidget *parent) :
